@@ -29,6 +29,6 @@ class Student(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.first_name + self.last_name
+        return self.first_name + ' ' + self.last_name
     class Meta:
         db_table = 'student'
