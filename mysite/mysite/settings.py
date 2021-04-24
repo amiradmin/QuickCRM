@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'pclients',
     'training',
     'import_export',
+    'accounting',
 ]
 
 MIDDLEWARE = [

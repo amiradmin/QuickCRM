@@ -1,5 +1,5 @@
 from django.contrib import admin
-from training.models import CandidateProfile,Product,Country,Location,Event
+from training.models import CandidateProfile,Product,Country,Location,Event,Lecturer
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
@@ -11,11 +11,19 @@ class CandidateProfileAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
 admin.site.register(CandidateProfile,CandidateProfileAdmin)
 
+class LecturerAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+
+
+    list_display = ['id','user','passport_id','email','photo','document_1','document_2','contact_number','city','country','contact_number','birth_date','avatar','created_at','updated_at']
+    list_filter = ['id','user','passport_id','email','city','country','contact_number','birth_date','avatar','created_at','updated_at']
+
+admin.site.register(Lecturer,LecturerAdmin)
+
 
 class ProductAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
-    list_display = ['id','name','code','type','created_at','updated_at']
-    list_filter =['id','name','code','type','created_at','updated_at']
+    list_display = ['id','name','code','price','type','created_at','updated_at']
+    list_filter =['id','name','code','price','type','created_at','updated_at']
 
 admin.site.register(Product,ProductAdmin)
 

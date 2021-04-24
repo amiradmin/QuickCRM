@@ -7,9 +7,10 @@ from django.dispatch import receiver
 
 
 class Product(models.Model):
-    TYPE_CHOICES = (('V', 'Virtual Access'), ('C', 'Class Rooom Based'),('O', 'Online Zoom'))
+    TYPE_CHOICES = (('V', 'Virtual Accademy'), ('C', 'Class Rooom Based'),('O', 'Online Zoom'))
     name = models.CharField(max_length=30, null=True, blank=True )
     code = models.CharField(max_length=30, null=True, blank=True )
+    price = models.CharField(max_length=30, null=True, blank=True )
     type = models.CharField(max_length=1, choices=TYPE_CHOICES)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -83,11 +84,37 @@ class CandidateProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # def __str__(self):
-    #     return self.first_name + ' ' + self.last_name
+    def __str__(self):
+        return self.user.first_name + ' '+ self.user.last_name
 @receiver(post_save, sender=User)
 
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         CandidateProfile.objects.create(user=instance)
     instance.candidateprofile.save()
+
+
+
+class Lecturer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    passport_id = models.CharField(max_length=30, null=True, blank=True )
+    email = models.EmailField( null=True, blank=True )
+    city = models.CharField(max_length=30,  null=True, blank=True  )
+    country = models.CharField(max_length=30,  null=True, blank=True  )
+    contact_number = models.CharField(max_length=30,  null=True, blank=True  )
+    birth_date = models.DateField(null=True, blank=True)
+    events = models.ManyToManyField('Event')
+    photo = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_1 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_2 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_3 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_4 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_5 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_6 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_7 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_8 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_9 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    avatar = models.FileField(upload_to='avatar',null=True,blank=True)
+    note = models.TextField(max_length=2000,null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
