@@ -5,7 +5,7 @@ from import_export.admin import ImportExportModelAdmin
 class InvoiceAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
 
-    list_display = ['id','candidate','scanned_doc','receipt','amount','status','created_at','updated_at']
-    list_filter = ['id','candidate','scanned_doc','receipt','amount','status','created_at','updated_at']
+    list_display = ['id','candidate','scanned_doc','receipt','balance','status','created_at','updated_at']
+    list_filter = ['id','candidate','scanned_doc','receipt','balance','status','created_at','updated_at']
 
 admin.site.register(Invoice,InvoiceAdmin)

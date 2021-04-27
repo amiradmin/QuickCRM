@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'training',
     'import_export',
     'accounting',
+    'exam_certification',
 ]
 
 MIDDLEWARE = [
