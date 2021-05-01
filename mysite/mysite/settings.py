@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'accounting',
     'exam_certification',
     'home',
+    'adminpanel',
 ]
 
 MIDDLEWARE = [
