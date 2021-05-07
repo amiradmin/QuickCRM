@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
+from training.models import Event
 # Create your views here.
 
 class CandidateProfileView(TemplateView):
@@ -17,6 +18,19 @@ class TrainingPanelView(TemplateView):
 
     def get_context_data(self):
         context = super(TrainingPanelView, self).get_context_data()
-        # form = MedicineForm()
-        # context['form'] = form
+        event_list = Event.objects.all()
+        context['event_list'] = event_list
         return context
+
+
+    def post(self, request, *args, **kwargs):
+
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'POST':
+            if 'new_can' in request.POST:
+                print('OK')
+
+
+
+        # return render(request, 'medicine/medicine_panel.html', {'data': response.json()})
+            return redirect('training:trainpanel_')

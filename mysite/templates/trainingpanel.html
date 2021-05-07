@@ -45,32 +45,8 @@
     <section id="teachers-singel" class="pt-70 pb-120 gray-bg">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-8">
-                    <div class="teachers-left mt-50">
-                        <div class="hero">
-                            <img src="images/teachers/t-1.jpg" alt="Teachers">
-                        </div>
-                        <div class="name">
-                            <h6>{% if user.is_authenticated %}
-                              <p> Welcome '{{ user.first_name  }} {{ user.last_name  }}'</p></h6>
-                            <span>Vice chencelor</span>
 
-                            {% endif %}
-                        </div>
-                        <div class="social">
-                            <ul>
-                                <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter-square"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus-square"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin-square"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="description">
-                            <p>Gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate..</p>
-                        </div>
-                    </div> <!-- teachers left -->
-                </div>
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="teachers-right mt-50">
                         <ul class="nav nav-justified" id="myTab" role="tablist">
                             <li class="nav-item">
@@ -99,8 +75,40 @@
                             <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                 <div class="dashboard-cont">
                                     <div class="singel-dashboard pt-40">
-                                        <h5>About</h5>
-                                        <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
+                                        <h5>Incoming Event</h5>
+                                        <div class="container">
+
+      <div class="row">
+          <div class="panel panel-primary filterable">
+
+              <table class="table">
+                  <thead>
+                      <tr class="filters">
+                          <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                          <th><input type="text" class="form-control" placeholder="Title" disabled></th>
+                          <th><input type="text" class="form-control" placeholder="Product" disabled></th>
+                          <th><input type="text" class="form-control" placeholder="Country" disabled></th>
+                          <th><input type="text" class="form-control" placeholder="Start Data" disabled></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+
+                        {% for item in event_list %}
+                        <tr>
+                          <td>{{item.id}}</td>
+                          <td>{{item.name}}</td>
+                          <td>{{item.product}}</td>
+                          <td>{{item.country}}</td>
+                          <td>{{item.start_date}}</td>
+</tr>
+                          {% endfor %}
+
+
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
                                     </div> <!-- singel dashboard -->
                                     <div class="singel-dashboard pt-40">
                                         <h5>Acchivments</h5>
@@ -115,80 +123,78 @@
                             <div class="tab-pane fade" id="courses" role="tabpanel" aria-labelledby="courses-tab">
                                 <div class="courses-cont pt-20">
                                     <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="singel-course mt-30">
-                                                <div class="thum">
-                                                    <div class="image">
-                                                        <img src="images/course/cu-2.jpg" alt="Course">
-                                                    </div>
-                                                    <div class="price">
-                                                        <span>$10</span>
-                                                    </div>
-                                                </div>
-                                                <div class="cont border">
-                                                    <ul>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(20 Reviws)</span>
-                                                    <a href="#"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                                                    <div class="course-teacher">
-                                                        <div class="thum">
-                                                            <a href="#"><img src="images/course/teacher/t-2.jpg" alt="teacher"></a>
-                                                        </div>
-                                                        <div class="name">
-                                                            <a href="#"><h6>Mark anthem</h6></a>
-                                                        </div>
-                                                        <div class="admin">
-                                                            <ul>
-                                                                <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                                                <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> <!-- singel course -->
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="singel-course mt-30">
-                                                <div class="thum">
-                                                    <div class="image">
-                                                        <img src="images/course/cu-3.jpg" alt="Course">
-                                                    </div>
-                                                    <div class="price">
-                                                        <span>$30</span>
-                                                    </div>
-                                                </div>
-                                                <div class="cont border">
-                                                    <ul>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    </ul>
-                                                    <span>(20 Reviws)</span>
-                                                    <a href="#"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                                                    <div class="course-teacher">
-                                                        <div class="thum">
-                                                            <a href="#"><img src="images/course/teacher/t-2.jpg" alt="teacher"></a>
-                                                        </div>
-                                                        <div class="name">
-                                                            <a href="#"><h6>Mark anthem</h6></a>
-                                                        </div>
-                                                        <div class="admin">
-                                                            <ul>
-                                                                <li><a href="#"><i class="fa fa-user"></i><span>31</span></a></li>
-                                                                <li><a href="#"><i class="fa fa-heart"></i><span>10</span></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> <!-- singel course -->
-                                        </div>
+                                      <div class="container">
+                                          <h2 class="well">Registration Form</h2>
+                                          <br>
+                                      	<div class="col-lg-12 well">
+                                      	<div class="row">
+                                      				<form method="POST" >
+                                                {% csrf_token %}
+                                      					<div class="col-sm-12">
+                                                  <div class="form-group">
+                                                    <label>Username</label>
+                                                    <input name='username' type="text" placeholder="Enter Phone Number Here.." class="form-control">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label>Password</label>
+                                                    <input name='password' type="text" placeholder="Enter Phone Number Here.." class="form-control">
+                                                  </div>
+                                                  <div class="form-group">
+                                                    <label>Re Type Password</label>
+                                                    <input name='re-password' type="text" placeholder="Enter Phone Number Here.." class="form-control">
+                                                  </div>
+                                      						<div class="row">
+                                      							<div class="col-sm-6 form-group">
+                                      								<label>First Name</label>
+                                      								<input type="text" placeholder="Enter First Name Here.." class="form-control">
+                                      							</div>
+                                      							<div class="col-sm-6 form-group">
+                                      								<label>Last Name</label>
+                                      								<input type="text" placeholder="Enter Last Name Here.." class="form-control">
+                                      							</div>
+                                      						</div>
+                                      						<div class="form-group">
+                                      							<label>Address</label>
+                                      							<textarea placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
+                                      						</div>
+                                      						<div class="row">
+                                      							<div class="col-sm-4 form-group">
+                                      								<label>City</label>
+                                      								<input type="text" placeholder="Enter City Name Here.." class="form-control">
+                                      							</div>
+                                      							<div class="col-sm-4 form-group">
+                                      								<label>Country</label>
+                                      								<input type="text" placeholder="Enter State Name Here.." class="form-control">
+                                      							</div>
+
+                                      						</div>
+                                      						<div class="row">
+                                      							<div class="col-sm-6 form-group">
+                                      								<label>Title</label>
+                                      								<input type="text" placeholder="Enter Designation Here.." class="form-control">
+                                      							</div>
+                                      							<div class="col-sm-6 form-group">
+                                      								<label>Company</label>
+                                      								<input type="text" placeholder="Enter Company Name Here.." class="form-control">
+                                      							</div>
+                                      						</div>
+                                      					<div class="form-group">
+                                      						<label>Phone Number</label>
+                                      						<input type="text" placeholder="Enter Phone Number Here.." class="form-control">
+                                      					</div>
+
+                                      					<div class="form-group">
+                                      						<label>Email Address</label>
+                                      						<input type="text" placeholder="Enter Email Address Here.." class="form-control">
+                                      					</div>
+                                                <br>
+                                      					<button type="submit" name="new_can" class="btn btn-lg btn-info">Submit</button>
+                                      					</div>
+                                      				</form>
+                                      				</div>
+                                      	</div>
+                                      	</div>
+
                                     </div> <!-- row -->
                                 </div> <!-- courses cont -->
                             </div>
