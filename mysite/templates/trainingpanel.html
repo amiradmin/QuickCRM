@@ -56,7 +56,7 @@
                                 <a id="courses-tab" data-toggle="tab" href="#courses" role="tab" aria-controls="courses" aria-selected="false">Candidate profiles</a>
                             </li>
                             <li class="nav-item">
-                                <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Countrys</a>
+                                <a id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Product</a>
                             </li>
                             <li class="nav-item">
                                 <a id="training_events" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Training Events</a>
@@ -65,10 +65,10 @@
                                 <a id="lecturers-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Lecturers</a>
                             </li>
                             <li class="nav-item">
-                                <a id="location-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Locations</a>
+                                <a id="countries-tab" data-toggle="tab" href="#countries" role="tab" aria-controls="countries" aria-selected="false">Countries</a>
                             </li>
                             <li class="nav-item">
-                                <a id="product-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Products</a>
+                                <a id="location-tab" data-toggle="tab" href="#location" role="tab" aria-controls="reviews" aria-selected="false">Locations</a>
                             </li>
                         </ul> <!-- nav -->
                         <div class="tab-content" id="myTabContent">
@@ -76,43 +76,53 @@
                                 <div class="dashboard-cont">
                                     <div class="singel-dashboard pt-40">
                                         <h5>Incoming Event</h5>
-                                        <div class="container">
+                                        <div class="panel panel-primary filterable">
 
-      <div class="row">
-          <div class="panel panel-primary filterable">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr class="filters">
+                                                        <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Title" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Product" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Country" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Start Data" disabled></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
 
-              <table class="table">
-                  <thead>
-                      <tr class="filters">
-                          <th><input type="text" class="form-control" placeholder="#" disabled></th>
-                          <th><input type="text" class="form-control" placeholder="Title" disabled></th>
-                          <th><input type="text" class="form-control" placeholder="Product" disabled></th>
-                          <th><input type="text" class="form-control" placeholder="Country" disabled></th>
-                          <th><input type="text" class="form-control" placeholder="Start Data" disabled></th>
-                      </tr>
-                  </thead>
-                  <tbody>
-
-                        {% for item in event_list %}
-                        <tr>
-                          <td>{{item.id}}</td>
-                          <td>{{item.name}}</td>
-                          <td>{{item.product}}</td>
-                          <td>{{item.country}}</td>
-                          <td>{{item.start_date}}</td>
-</tr>
-                          {% endfor %}
+                                                      {% for item in event_list %}
+                                                      <tr>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.name}}</td>
+                                                        <td>{{item.product}}</td>
+                                                        <td>{{item.country}}</td>
+                                                        <td>{{item.start_date}}</td>
+                                    </tr>
+                                                        {% endfor %}
 
 
-                  </tbody>
-              </table>
-          </div>
-      </div>
-  </div>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div> <!-- singel dashboard -->
                                     <div class="singel-dashboard pt-40">
-                                        <h5>Acchivments</h5>
-                                        <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
+                                        <h5>Summary</h5>
+
+                                      </div><!--/row-->
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                            <div id="area-example" style="height: 300px;"></div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div id="line-example" style="height: 300px;"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="donut-example" style="height: 250px;"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="bar-example" style="height: 250px;"></div>
+                                        </div>
                                     </div> <!-- singel dashboard -->
                                     <div class="singel-dashboard pt-40">
                                         <h5>My Objective</h5>
@@ -137,20 +147,20 @@
                                                   </div>
                                                   <div class="form-group">
                                                     <label>Password</label>
-                                                    <input name='password' type="text" placeholder="Enter Phone Number Here.." class="form-control">
+                                                    <input name='password' type="password" placeholder="Enter Phone Number Here.." class="form-control">
                                                   </div>
                                                   <div class="form-group">
                                                     <label>Re Type Password</label>
-                                                    <input name='re-password' type="text" placeholder="Enter Phone Number Here.." class="form-control">
+                                                    <input name='re-password' type="password" placeholder="Enter Phone Number Here.." class="form-control">
                                                   </div>
                                       						<div class="row">
                                       							<div class="col-sm-6 form-group">
                                       								<label>First Name</label>
-                                      								<input type="text" placeholder="Enter First Name Here.." class="form-control">
+                                      								<input name="first_name" type="text" placeholder="Enter First Name Here.." class="form-control">
                                       							</div>
                                       							<div class="col-sm-6 form-group">
                                       								<label>Last Name</label>
-                                      								<input type="text" placeholder="Enter Last Name Here.." class="form-control">
+                                      								<input name='last_name' type="text" placeholder="Enter Last Name Here.." class="form-control">
                                       							</div>
                                       						</div>
                                       						<div class="form-group">
@@ -159,8 +169,8 @@
                                       						</div>
                                       						<div class="row">
                                       							<div class="col-sm-4 form-group">
-                                      								<label>City</label>
-                                      								<input type="text" placeholder="Enter City Name Here.." class="form-control">
+                                      								<label>TWI Candidate ID</label>
+                                      								<input name="twi_candidate_id" type="text" placeholder="Enter City Name Here.." class="form-control">
                                       							</div>
                                       							<div class="col-sm-4 form-group">
                                       								<label>Country</label>
@@ -185,7 +195,7 @@
 
                                       					<div class="form-group">
                                       						<label>Email Address</label>
-                                      						<input type="text" placeholder="Enter Email Address Here.." class="form-control">
+                                      						<input name='email' type="text" placeholder="Enter Email Address Here.." class="form-control">
                                       					</div>
                                                 <br>
                                       					<button type="submit" name="new_can" class="btn btn-lg btn-info">Submit</button>
@@ -198,6 +208,131 @@
                                     </div> <!-- row -->
                                 </div> <!-- courses cont -->
                             </div>
+                             <div class="tab-pane fade" id="countries" role="tabpanel" aria-labelledby="countries-tab">
+                                <div class="courses-cont pt-20">
+                                    <div class="row">
+                                      <div class="container">
+                                          <h2 class="well">Countries </h2>
+                                          <br>
+                                      	<div class="col-lg-12 well">
+                                      	<div class="row">
+
+                                        <div class="panel panel-primary filterable">
+
+                                            <table class="table">
+                                                <thead>
+                                                    <tr class="filters">
+                                                        <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Country" disabled></th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                      {% for item in country_list %}
+                                                      <tr>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.name}}</td>
+
+                                    </tr>
+                                                        {% endfor %}
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        </div>
+                                            <br>
+                                      				<form method="POST" >
+                                                {% csrf_token %}
+                                      					<div class="col-sm-12">
+                                                  <div class="form-group">
+                                                    <label>Username</label>
+                                                    <input name='name' type="text" placeholder="country name" class="form-control">
+                                                  </div>
+
+
+                                                <br>
+                                      					<button type="submit" name="cont_btn" class="btn btn-lg btn-info">save</button>
+                                      					</div>
+                                      				</form>
+                                      				</div>
+                                      	</div>
+                                      	</div>
+
+                                    </div> <!-- row -->
+                                </div> <!-- countries cont -->
+
+                                    <div class="tab-pane fade" id="location" role="tabpanel" aria-labelledby="location-tab">
+                                <div class="courses-cont pt-20">
+                                    <div class="row">
+                                      <div class="container">
+                                          <h2 class="well">Location </h2>
+                                          <br>
+                                      	<div class="col-lg-12 well">
+                                      	<div class="row">
+
+                                        <div class="panel panel-primary filterable">
+
+                                            <table class="table">
+                                                <thead>
+                                                    <tr class="filters">
+                                                        <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Location" disabled></th>
+                                                        <th><input type="text" class="form-control" placeholder="Country" disabled></th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                      {% for item in location_list %}
+                                                      <tr>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.name}}</td>
+                                                        <td>{{item.country}}</td>
+
+                                    </tr>
+                                                        {% endfor %}
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        </div>
+                                            <br>
+                                      				<form method="POST" >
+                                                {% csrf_token %}
+        <div class="col-sm-12">
+<select name="cars" >
+     {% for item in country_list %}
+  <option value="{{item.name}}">{{item.name}}</option>
+  {% endfor %}
+
+</select>
+
+</div>
+
+                                                        <br>
+
+                                      					<div class="col-sm-12">
+                                                  <div class="form-group">
+                                                    <label>Location</label>
+                                                    <input name='name' type="text" placeholder="location name" class="form-control">
+                                                  </div>
+
+
+                                                <br>
+                                      					<button type="submit" name="loc_btn" class="btn btn-lg btn-info">save</button>
+                                      					</div>
+                                      				</form>
+                                      				</div>
+                                      	</div>
+                                      	</div>
+
+                                    </div> <!-- row -->
+                                </div> <!-- location cont -->
                             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                                 <div class="reviews-cont">
                                     <div class="title">

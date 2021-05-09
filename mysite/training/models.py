@@ -89,6 +89,8 @@ class Event(models.Model):
 class CandidateProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     customer_id = models.CharField(max_length=30, null=True, blank=True )
+    first_name = models.CharField(max_length=30, null=True, blank=True )
+    last_name = models.CharField(max_length=30, null=True, blank=True )
     passport_id = models.CharField(max_length=30, null=True, blank=True )
     twi_candidate_id = models.CharField(max_length=30, null=True, blank=True )
     sponsor_company = models.CharField(max_length=30, null=True, blank=True )
@@ -115,9 +117,10 @@ class CandidateProfile(models.Model):
 
     def __str__(self):
         return self.user.first_name + ' '+ self.user.last_name
+        
 @receiver(post_save, sender=User)
 
-def update_user_profile(sender, instance, created, **kwargs):
+def update_user_candidateprofile(sender, instance, created, **kwargs):
     if created:
         CandidateProfile.objects.create(user=instance)
     instance.candidateprofile.save()

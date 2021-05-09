@@ -12,5 +12,5 @@ class HomeView(TemplateView):
         context = super(HomeView, self).get_context_data()
 
         # form = MedicineForm()
-        context['event_list'] = event_list
+        # context['event_list'] = event_list
         return context
