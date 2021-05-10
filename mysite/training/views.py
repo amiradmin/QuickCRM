@@ -52,5 +52,14 @@ class TrainingPanelView(TemplateView):
                 obj = Country()
                 obj.name = request.POST['name']
                 obj.save()
+
+            elif 'loc_btn' in request.POST:
+                print('location')
+                print(request.POST['country'])
+                country = Country.objects.get(id = request.POST['country'])
+                obj = Location()
+                obj.name = request.POST['name']
+                obj.country = country
+                obj.save()
             # return render(request, 'medicine/medicine_panel.html', {'data': response.json()})
             return redirect('training:trainpanel_')
