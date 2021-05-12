@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
-from training.models import Event,CandidateProfile,Country,Location
+from training.models import Event,CandidateProfile,Country,Location,Product
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -22,9 +22,11 @@ class TrainingPanelView(TemplateView):
         event_list = Event.objects.all()
         country_list = Country.objects.all()
         location_list = Location.objects.all()
+        product_list = Product.objects.all()
         context['event_list'] = event_list
         context['country_list'] = country_list
         context['location_list'] = location_list
+        context['product_list'] = product_list
         return context
 
 
@@ -51,6 +53,14 @@ class TrainingPanelView(TemplateView):
                 print('OK')
                 obj = Country()
                 obj.name = request.POST['name']
+                obj.save()
+
+            elif 'pro_btn' in request.POST:
+                print('pro_btn')
+                obj = Product()
+                obj.name = request.POST['name']
+                obj.code = request.POST['code']
+                obj.price = request.POST['price']
                 obj.save()
 
             elif 'loc_btn' in request.POST:
