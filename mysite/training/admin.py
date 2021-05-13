@@ -6,7 +6,7 @@ from import_export.admin import ImportExportModelAdmin
 class CandidateProfileAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
 
-    list_display = ['id','user','first_name','customer_id','passport_id','twi_candidate_id','email','document_1','document_2','sponsor_company','contact_number','city','country','contact_number','birth_date','avatar','created_at','updated_at']
+    list_display = ['id','user','first_name','customer_id','passport_id','twi_candidate_id','email','photo','document_1','document_2','sponsor_company','contact_number','city','country','contact_number','birth_date','avatar','created_at','updated_at']
     list_filter = ['id','user','first_name','customer_id','passport_id','twi_candidate_id','email','city','country','contact_number','birth_date','avatar','created_at','updated_at']
 
 admin.site.register(CandidateProfile,CandidateProfileAdmin)

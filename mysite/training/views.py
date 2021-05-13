@@ -38,15 +38,42 @@ class TrainingPanelView(TemplateView):
                 print('OK')
                 user = User()
                 user.username = request.POST['username']
-                print(request.POST['username'])
+                user.last_name = request.POST['last_name']
                 user.password = request.POST['password']
-
-
 
                 user.save()
                 user.candidateprofile.first_name = request.POST['first_name']
                 user.candidateprofile.last_name = request.POST['last_name']
                 user.candidateprofile.twi_candidate_id = request.POST['twi_candidate_id']
+                user.candidateprofile.customer_id = request.POST['customer_id']
+                user.candidateprofile.address = request.POST['address']
+                user.candidateprofile.passport_id = request.POST['passport_id']
+                user.candidateprofile.sponsor_company = request.POST['sponsor_company']
+                user.candidateprofile.email = request.POST['email']
+                user.candidateprofile.city = request.POST['city']
+                user.candidateprofile.country = request.POST['country']
+                user.candidateprofile.contact_number = request.POST['contact_number']
+                user.candidateprofile.note = request.POST['note']
+                if request.FILES.get('photo', False):
+                    user.candidateprofile.photo = request.FILES['photo']
+                if request.FILES.get('document_1', False):
+                    user.candidateprofile.document_1 = request.FILES['document_1']
+                if request.FILES.get('document_2', False):
+                    user.candidateprofile.document_2 = request.FILES['document_2']
+                if request.FILES.get('document_3', False):
+                    user.candidateprofile.document_3 = request.FILES['document_3']
+                if request.FILES.get('document_4', False):
+                    user.candidateprofile.document_4 = request.FILES['document_4']
+                if request.FILES.get('document_5', False):
+                    user.candidateprofile.document_5 = request.FILES['document_5']
+                if request.FILES.get('document_6', False):
+                    user.candidateprofile.document_6 = request.FILES['document_6']
+                if request.FILES.get('document_7', False):
+                    user.candidateprofile.document_7 = request.FILES['document_7']
+                if request.FILES.get('document_8', False):
+                    user.candidateprofile.document_8 = request.FILES['document_8']
+                if request.FILES.get('document_9', False):
+                    user.candidateprofile.document_9 = request.FILES['document_9']
                 user.save()
 
             elif 'cont_btn' in request.POST:

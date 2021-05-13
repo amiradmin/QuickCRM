@@ -46,6 +46,7 @@ class Lecturer(models.Model):
     city = models.CharField(max_length=30,  null=True, blank=True  )
     country = models.CharField(max_length=30,  null=True, blank=True  )
     contact_number = models.CharField(max_length=30,  null=True, blank=True  )
+    address = models.CharField(max_length=1024,  null=True, blank=True  )
     birth_date = models.DateField(null=True, blank=True)
     events = models.ManyToManyField('Event')
     photo = models.FileField(upload_to='lecturer_document',null=True,blank=True)
@@ -117,7 +118,7 @@ class CandidateProfile(models.Model):
 
     def __str__(self):
         return self.user.first_name + ' '+ self.user.last_name
-        
+
 @receiver(post_save, sender=User)
 
 def update_user_candidateprofile(sender, instance, created, **kwargs):
