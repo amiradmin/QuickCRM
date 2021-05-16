@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 class CandidateProfileView(TemplateView):
     template_name = "teachers-singel.html"
 
-    def get_context_data(self):
+
+def get_context_data(self):
         context = super(CandidateProfileView, self).get_context_data()
         # form = MedicineForm()
         # context['form'] = form
