@@ -24,10 +24,12 @@ class TrainingPanelView(TemplateView):
         country_list = Country.objects.all()
         location_list = Location.objects.all()
         product_list = Product.objects.all()
+        candidate_list = CandidateProfile.objects.all()
         context['event_list'] = event_list
         context['country_list'] = country_list
         context['location_list'] = location_list
         context['product_list'] = product_list
+        context['candidate_list'] = candidate_list
         return context
 
 
