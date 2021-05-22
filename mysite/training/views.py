@@ -4,36 +4,86 @@ from training.models import Event,CandidateProfile,Country,Location,Product,Lect
 from django.contrib.auth.models import User
 # Create your views here.
 
-class CandidateProfileView(TemplateView):
-    template_name = "teachers-singel.html"
 
 
-def get_context_data(self):
-        context = super(CandidateProfileView, self).get_context_data()
-        # form = MedicineForm()
-        # context['form'] = form
+class CandidatelView(TemplateView):
+    template_name = "training/candidate.html"
+
+    def get_context_data(self):
+        context = super(CandidatelView, self).get_context_data()
+        can_list = CandidateProfile.objects.all()
+        context['can_list'] = can_list
+
         return context
 
 
+class ProductView(TemplateView):
+    template_name = "training/product.html"
+
+    def get_context_data(self):
+        context = super(ProductView, self).get_context_data()
+        product_list = Product.objects.all()
+        context['product_list'] = product_list
+
+        return context
+    
+class EventView(TemplateView):
+    template_name = "training/event.html"
+
+    def get_context_data(self):
+        context = super(EventView, self).get_context_data()
+        event_list = Event.objects.all()
+        context['event_list'] = event_list
+
+        return context
+class LecturerView(TemplateView):
+    template_name = "training/lecturer.html"
+
+    def get_context_data(self):
+        context = super(LecturerView, self).get_context_data()
+        lecturer_list = Lecturer.objects.all()
+        context['lecturer_list'] = lecturer_list
+
+        return context
+
+
+class CountryView(TemplateView):
+    template_name = "training/country.html"
+
+    def get_context_data(self):
+        context = super(CountryView, self).get_context_data()
+        country_list = Country.objects.all()
+        context['country_list'] = country_list
+
+        return context
+
+
+class LocationView(TemplateView):
+    template_name = "training/location.html"
+
+    def get_context_data(self):
+        context = super(LocationView, self).get_context_data()
+        location_list = Location.objects.all()
+        country_list = Country.objects.all()
+        context['country_list'] = country_list
+        context['location_list'] = location_list
+
+        return context
+
+
+
+
+
+
 class TrainingPanelView(TemplateView):
-    template_name = "trainingpanel.html"
+    template_name = "training/trainingdashboard.html"
 
     def get_context_data(self):
         context = super(TrainingPanelView, self).get_context_data()
         event_list = Event.objects.all()
-        country_list = Country.objects.all()
-        location_list = Location.objects.all()
-        product_list = Product.objects.all()
-        candidate_list = CandidateProfile.objects.all()
-        event_list = Event.objects.all()
-        lecturer_list = Lecturer.objects.all()
+      
         context['event_list'] = event_list
-        context['country_list'] = country_list
-        context['location_list'] = location_list
-        context['product_list'] = product_list
-        context['candidate_list'] = candidate_list
-        context['event_list'] = event_list
-        context['lecturer_list'] = lecturer_list
+
         return context
 
 

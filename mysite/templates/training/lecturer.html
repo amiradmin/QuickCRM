@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <!--====== SEARCH BOX PART START ======-->
+
+    <div class="search-box">
+        <div class="serach-form">
+            <div class="closebtn">
+                <span></span>
+                <span></span>
+            </div>
+            <form action="#">
+                <input type="text" placeholder="Search by keyword">
+                <button><i class="fa fa-search"></i></button>
+            </form>
+        </div> <!-- serach form -->
+    </div>
+
+    <!--====== SEARCH BOX PART ENDS ======-->
+
+    <!--====== PAGE BANNER PART START ======-->
+
+    <section id="page-banner" class="pt-50 pb-50 bg_cover" data-overlay="8" style="background-image: url(images/page-banner-3.jpg)">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-banner-cont">
+                        <h2>Training Panel</h2>
+
+                    </div> <!-- page banner cont -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== PAGE BANNER PART ENDS ======-->
+
+    <!--====== TEACHERS PART START ======-->
+
+    <section id="teachers-singel" class="pt-70 pb-120 gray-bg">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-12">
+                    <div class="teachers-right mt-50">
+                     
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                                <div class="dashboard-cont">
+                                    <div class="singel-dashboard pt-40">
+                                    
+                                
+            <div class="panel panel-primary filterable col-sm-12">
+
+                <table class="table">
+                    <thead>
+                        <tr class="filters">
+                            <th><input type="text" class="form-control" placeholder="#" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Name" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Email" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Phone" disabled></th>
+                            <th><input type="text" class="form-control" placeholder="Birth Date" disabled></th>
+                        
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                          {% for item in lecturer_list %}
+                          <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{item.user.first_name}}</td>
+                            <td>{{item.email}}</td>
+                            <td>{{item.contact_number}}</td>
+                            <td>{{item.birth_date}}</td>
+              
+
+        </tr>
+                            {% endfor %}
+
+
+                    </tbody>
+                </table>
+            </div>
+            </div>
+                <br>
+                  <form method="POST" >
+                    {% csrf_token %}
+                    <div class="col-sm-12">
+
+                      <div class="form-group">
+                        <label>First Name:</label>
+                        <input name='first_name' type="text" placeholder="first name" class="form-control">
+                      </div>
+                      <br>
+                      <div class="form-group">
+                        <label>Last Name:</label>
+                        <input name='last_name' type="text" placeholder="last name" class="form-control">
+                      </div>  
+                      <br>
+                                                                        <div class="form-group">
+                        <label>Email:</label>
+                        <input name='email' type="text" placeholder="email" class="form-control">
+                      </div> 
+                      <br> 
+                        <label>Mobile</label>
+                        <input name='mobile' type="text" placeholder="mobile" class="form-control">
+                      </div>
+                      <br>
+                        <label>Country:</label>
+                        <input name='country' type="text" placeholder="country" class="form-control">
+                      </div>
+<br>
+</div>                                      					<div class="form-group">
+    <label>Photo</label>
+    <input name='photo' type="file" placeholder="" class="form-control">
+      <br>			<label>Document 1</label>
+    <input name='document_1' type="file" placeholder="" class="form-control">
+
+<br>    <label>Document 2</label>
+    <input name='document_2' type="file" placeholder="" class="form-control">
+
+<br>					      <label>Document 3</label>
+    <input name='document_3' type="file" placeholder="" class="form-control">
+
+<br>    <label>Document 4</label>
+    <input name='document_4' type="file" placeholder="" class="form-control">
+
+<br>  					    <label>Document 5</label>
+    <input name='document_5' type="file" placeholder="" class="form-control">
+
+
+  <br>				    <label>Document 6</label>
+    <input name='document_6' type="file" placeholder="" class="form-control">
+
+
+  <br>				    <label>Document 7</label>
+    <input name='document_7' type="file" placeholder="" class="form-control">
+
+
+  <br>				    <label>Document 8</label>
+    <input name='document_8' type="file" placeholder="" class="form-control">
+
+
+          <br>		    <label>Document 9</label>
+    <input name='document_9' type="file" placeholder="" class="form-control">
+
+
+
+
+                    <br>
+                    <button type="submit" name="cont_btn" class="btn btn-lg btn-info">save</button>
+                    </div>
+                  </form>
+                  </div>
+            </div>
+                               
+                                   
+                                  </div> 
+                              </div>
+                            
+                            </div>
+                        </div> <!-- tab content -->
+                    </div> <!-- teachers right -->
+                </div>
+            </div> <!-- row -->
+        </div> <!-- container -->
+    </section>
+
+    <!--====== EVENTS PART ENDS ======-->
+
+  {% endblock %}
