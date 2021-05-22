@@ -47,14 +47,14 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                 <div class="dashboard-cont">
-                                    <div class="singel-dashboard pt-40">
+                                    <div class="singel-dashboard pt-40 ">
                                     
                          
                                         <div class="container">
                                             <h2 class="well">Training Event </h2>
                                             <br>
                                           <div class="col-lg-12 well">
-                                          <div class="row">
+                                          <div class="row ">
   
                                           <div class="panel panel-primary filterable col-sm-12">
   
@@ -96,28 +96,48 @@
                                                 <form method="POST" >
                                                   {% csrf_token %}
                                                   <div class="col-sm-12">
-
+                                                    <div class="form-group">
+                                                    <label>Name:</label>
+                                                    <input name='name' type="text" placeholder="name" class="form-control">
+                                                  </div>
+                                           
+                                                  <br>
                                                     <div class="form-group">
                                                       <label>Country:</label>
-                                                      <input name='name' type="text" placeholder="country name" class="form-control">
+                                                      <select name="country" class="col-sm-12">
+                                                        {% for item in country_list %}
+                                                     <option value="{{item.id}}">{{item.name}}</option>
+                                                     {% endfor %}
+                                                   </select>
                                                     </div>
                                                     <br>
                                                     <div class="form-group">
                                                       <label>Product:</label>
-                                                      <input name='name' type="text" placeholder="Product" class="form-control">
+                                                      <select name="product" class="col-sm-12">
+                                                        {% for item in product_list %}
+                                                     <option value="{{item.id}}">{{item.name}}</option>
+                                                     {% endfor %}
+                                                   </select>
                                                     </div>  
+                                                    <br>
                                                     <br>
                                                                                                       <div class="form-group">
                                                       <label>Lecturers:</label>
-                                                      <input name='name' type="text" placeholder="lecturers" class="form-control">
+                                                      <select name="lecturer" class="col-sm-12">
+                                                        {% for item in lecturers_list %}
+                                                     <option value="{{item.id}}">{{item.first_name}}</option>
+                                                     {% endfor %}
+                                                   </select>
                                                     </div> 
                                                     <br> 
+                                                    <br> 
                                                       <label>Start Date:</label>
-                                                      <input name='name' type="text" placeholder="Start Date" class="form-control">
+                                                      <input name='start_date' type="text" placeholder="Start Date" class="form-control">
                                                     </div>
                                                     <br>
+                                                    <br>
                                                       <label>Announcement Type:</label>
-                                                      <input name='name' type="text" placeholder="Announcement Type" class="form-control">
+                                                      <input name='anno' type="text" placeholder="Announcement Type" class="form-control">
                                                     </div>
 <br>
 

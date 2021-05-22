@@ -16,6 +16,50 @@ class CandidatelView(TemplateView):
 
         return context
 
+    def post(self, request, *args, **kwargs):
+    
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'POST':
+            print('OK')
+            user = User()
+            user.username = request.POST['username']
+            user.last_name = request.POST['last_name']
+            user.password = request.POST['password']
+            user.save()
+            user.candidateprofile.first_name = request.POST['first_name']
+            user.candidateprofile.last_name = request.POST['last_name']
+            user.candidateprofile.twi_candidate_id = request.POST['twi_candidate_id']
+            user.candidateprofile.customer_id = request.POST['customer_id']
+            user.candidateprofile.address = request.POST['address']
+            user.candidateprofile.passport_id = request.POST['passport_id']
+            user.candidateprofile.sponsor_company = request.POST['sponsor_company']
+            user.candidateprofile.email = request.POST['email']
+            user.candidateprofile.city = request.POST['city']
+            user.candidateprofile.country = request.POST['country']
+            user.candidateprofile.contact_number = request.POST['contact_number']
+            user.candidateprofile.note = request.POST['note']
+            if request.FILES.get('photo', False):
+                user.candidateprofile.photo = request.FILES['photo']
+            if request.FILES.get('document_1', False):
+                user.candidateprofile.document_1 = request.FILES['document_1']
+            if request.FILES.get('document_2', False):
+                user.candidateprofile.document_2 = request.FILES['document_2']
+            if request.FILES.get('document_3', False):
+                user.candidateprofile.document_3 = request.FILES['document_3']
+            if request.FILES.get('document_4', False):
+                user.candidateprofile.document_4 = request.FILES['document_4']
+            if request.FILES.get('document_5', False):
+                user.candidateprofile.document_5 = request.FILES['document_5']
+            if request.FILES.get('document_6', False):
+                user.candidateprofile.document_6 = request.FILES['document_6']
+            if request.FILES.get('document_7', False):
+                user.candidateprofile.document_7 = request.FILES['document_7']
+            if request.FILES.get('document_8', False):
+                user.candidateprofile.document_8 = request.FILES['document_8']
+            if request.FILES.get('document_9', False):
+                user.candidateprofile.document_9 = request.FILES['document_9']
+            user.save() 
+        return redirect('training:canprofile_')
 
 class ProductView(TemplateView):
     template_name = "training/product.html"
@@ -26,6 +70,17 @@ class ProductView(TemplateView):
         context['product_list'] = product_list
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        
+        if request.method == 'POST':
+            obj = Product()
+            obj.name = request.POST['name']
+            obj.code = request.POST['code']
+            obj.price = request.POST['price']
+            obj.save()
+        return redirect('training:product_')
+    
     
 class EventView(TemplateView):
     template_name = "training/event.html"
@@ -33,9 +88,30 @@ class EventView(TemplateView):
     def get_context_data(self):
         context = super(EventView, self).get_context_data()
         event_list = Event.objects.all()
+        product_list = Product.objects.all()
+        lecturers_list = Lecturer.objects.all()
+        country_list = Country.objects.all()
         context['event_list'] = event_list
+        context['product_list'] = product_list
+        context['lecturers_list'] = lecturers_list
+        context['country_list'] = country_list
 
         return context
+    
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            country = Country.objects.get(id = request.POST['country'])
+            product = Product.objects.get(id = request.POST['product'])
+            lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
+            obj = Event()
+            obj.name = request.POST['name']
+            obj.country = country
+            obj.product = product
+            obj.lecturers = lecturers
+            obj.save()     
+
+        return redirect('training:event_')
+    
 class LecturerView(TemplateView):
     template_name = "training/lecturer.html"
 
@@ -45,7 +121,40 @@ class LecturerView(TemplateView):
         context['lecturer_list'] = lecturer_list
 
         return context
+    
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            # country = Country.objects.get(id = request.POST['country'])
+            obj = Lecturer()
+            obj.first_name = request.POST['first_name']
+            obj.last_name = request.POST['last_name']
+            obj.email = request.POST['email']
+            obj.mobile = request.POST['mobile']
+            obj.country = request.POST['country']
+            obj.city = request.POST['city']
+            if request.FILES.get('photo', False):
+                obj.candidateprofile.photo = request.FILES['photo']
+            if request.FILES.get('document_1', False):
+                obj.candidateprofile.document_1 = request.FILES['document_1']
+            if request.FILES.get('document_2', False):
+                obj.candidateprofile.document_2 = request.FILES['document_2']
+            if request.FILES.get('document_3', False):
+                obj.candidateprofile.document_3 = request.FILES['document_3']
+            if request.FILES.get('document_4', False):
+                user.candidateprofile.document_4 = request.FILES['document_4']
+            if request.FILES.get('document_5', False):
+                obj.candidateprofile.document_5 = request.FILES['document_5']
+            if request.FILES.get('document_6', False):
+                obj.candidateprofile.document_6 = request.FILES['document_6']
+            if request.FILES.get('document_7', False):
+                obj.candidateprofile.document_7 = request.FILES['document_7']
+            if request.FILES.get('document_8', False):
+                obj.candidateprofile.document_8 = request.FILES['document_8']
+            if request.FILES.get('document_9', False):
+                obj.candidateprofile.document_9 = request.FILES['document_9']
+            obj.save()     
 
+        return redirect('training:lecturer_')
 
 class CountryView(TemplateView):
     template_name = "training/country.html"
@@ -57,6 +166,13 @@ class CountryView(TemplateView):
 
         return context
 
+    def post(self, request, *args, **kwargs):
+        
+        if request.method == 'POST':
+            obj = Country()
+            obj.name = request.POST['name']
+            obj.save()
+        return redirect('training:country_')
 
 class LocationView(TemplateView):
     template_name = "training/location.html"
@@ -70,6 +186,15 @@ class LocationView(TemplateView):
 
         return context
 
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            country = Country.objects.get(id = request.POST['country'])
+            obj = Location()
+            obj.name = request.POST['name']
+            obj.country = country
+            obj.save()     
+
+        return redirect('training:location_')
 
 
 
