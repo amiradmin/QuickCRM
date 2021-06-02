@@ -90,7 +90,7 @@ class Event(models.Model):
 
 
 class CandidateProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
     customer_id = models.CharField(max_length=30, null=True, blank=True )
     first_name = models.CharField(max_length=30, null=True, blank=True )
     last_name = models.CharField(max_length=30, null=True, blank=True )
@@ -118,12 +118,12 @@ class CandidateProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.user.first_name + ' '+ self.user.last_name
+    # def __str__(self):
+    #     return self.user.first_name + ' '+ self.user.last_name
 
-@receiver(post_save, sender=User)
+# @receiver(post_save, sender=User)
 
-def update_user_candidateprofile(sender, instance, created, **kwargs):
-    if created:
-        CandidateProfile.objects.create(user=instance)
-    instance.candidateprofile.save()
+# def update_user_candidateprofile(sender, instance, created, **kwargs):
+#     if created:
+#         CandidateProfile.objects.create(user=instance)
+#     instance.candidateprofile.save()

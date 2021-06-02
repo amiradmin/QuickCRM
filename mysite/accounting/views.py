@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User, Group
+from django.http import HttpResponseRedirect
+from django.conf import settings
 # Create your views here.
 
 class LoginView(TemplateView):

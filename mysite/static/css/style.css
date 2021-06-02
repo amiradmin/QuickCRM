@@ -57,6 +57,8 @@
 	font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: #07294d;
+
 }
 
 img {
@@ -126,12 +128,12 @@ p {
 	margin: 0px;
 }
 
-.bg_cover{
+.carousel-inner{
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
-    height: 100%;
+    height: 400px;
 }
 
 /*===== All Button Style =====*/
@@ -397,12 +399,14 @@ p {
 
 
 
+
 /*=====================================================
     2. HEADER css 
 ======================================================*/
 
 
 /*===== Header top =====*/
+
 
 .header-top{
     background-color: #07294d;
@@ -438,6 +442,9 @@ p {
 
 .header-logo-support{
     border-bottom: 1px solid #cecece;
+    background-color: #07294d;
+
+
 }
 
 .support-button{}
@@ -483,7 +490,7 @@ p {
 	top: 0;
 	left: 0;
 	width: 100%;
-	background: #fff;
+	background: #07294d;
 	z-index: 999;
     border-bottom: 1px solid #cecece;
     -webkit-box-shadow: 0px 0px 191px 0px rgba(0,0,0,0.06);
@@ -515,7 +522,7 @@ p {
 }
 
 .navigation .navbar{
-    padding: 0;
+   
 }
 
 .navigation .navbar .navbar-nav{}
@@ -525,13 +532,13 @@ p {
 }
 .navigation .navbar .navbar-nav li:last-child{
     margin-right: 0;
-}
+ }
 
 .navigation .navbar .navbar-nav li a{
     font-size: 14px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    color: #07294d;
+    color: #ffffff;
     text-transform: uppercase;
     -webkit-transition: all 0.4s linear;
     transition: all 0.4s linear;
@@ -587,6 +594,7 @@ p {
 .navbar .navbar-toggler {
 	padding: 3px 8px;
 	margin: 18px 0;
+	background-color: #ffffff;
      -webkit-transform: all 0.4s linear;
     transform: all 0.4s linear;
 }
@@ -628,7 +636,7 @@ p {
 
 .right-icon ul li a{
     font-size: 18px;
-    color: #07294d;
+    color: #ffc600;
     position: relative;
     padding-right: 7px;
 }
@@ -1806,7 +1814,7 @@ p {
     background-color: #021d3a;
 }
 .footer-copyright .copyright p{
-    color: #fff;
+    color: #07294d;
 }
 .footer-copyright .copyright p span{
     font-weight: 600;
@@ -2295,7 +2303,7 @@ p {
 ======================================================*/
 
 .page-banner-cont{
-    position: relative;
+    position: all;
     z-index: 5;
 }
 .page-banner-cont h2{
@@ -3139,7 +3147,7 @@ p {
 }
 
 .teachers-right {
-    border-radius: 5px;
+    border-radius: 30px;
     overflow: hidden;
 }
 .teachers-right .nav{}
@@ -3714,6 +3722,7 @@ p {
 
 .form-group{
     margin: 0;
+    
 }
 .list-unstyled li {
 	font-size: 13px;
