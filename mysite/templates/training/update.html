@@ -1,0 +1,695 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+
+	<!--====== Required meta tags ======-->
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+	<!--====== Title ======-->
+	<title>TES Canada Inc.</title>
+
+	<!--====== Favicon Icon ======-->
+	<link rel="shortcut icon" href="{% static 'images/favicon.png" type="image/png">
+
+	<!--====== Slick css ======-->
+	<link rel="stylesheet" href="{% static 'css/slick.css' %}">
+
+	<!--====== Animate css ======-->
+	<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+
+	<!--====== Nice Select css ======-->
+	<link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+
+	<!--====== Nice Number css ======-->
+	<link rel="stylesheet" href="{% static 'css/jquery.nice-number.min.css' %}">
+
+	<!--====== Magnific Popup css ======-->
+	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+	<!--====== Bootstrap css ======-->
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+	<!--====== Fontawesome css ======-->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+
+	<!--====== Default css ======-->
+	<link rel="stylesheet" href="{% static 'css/default.css' %}">
+
+	<!--====== Style css ======-->
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+	<!--====== Responsive css ======-->
+	<link rel="stylesheet" href="css/responsive.css">
+	<link href="maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+	<script src="code.jquery.com/jquery-1.11.1.min.js"></script>
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+	<!--====== PRELOADER PART START ======-->
+
+	<div class="preloader">
+		<div class="loader rubix-cube">
+			<div class="layer layer-1"></div>
+			<div class="layer layer-2"></div>
+			<div class="layer layer-3 color-1"></div>
+			<div class="layer layer-4"></div>
+			<div class="layer layer-5"></div>
+			<div class="layer layer-6"></div>
+			<div class="layer layer-7"></div>
+			<div class="layer layer-8"></div>
+		</div>
+	</div>
+
+	<!--====== PRELOADER PART START ======-->
+
+	<!--====== HEADER PART START ======-->
+
+	<header id="header-part">
+		<div class="header-logo-support pt-10 pb-10">
+				<div class="navigation">
+								<div class="container">
+									<div class="row" >
+
+										<div class="logo">
+											<a href="index-2.html">
+											<img  style="width:60%" src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="Logo" >
+											</a>
+										</div>
+
+										<nav class="navbar navbar-expand-lg">
+											<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+												<span class="icon-bar"></span>
+											</button>
+
+											<div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+												<ul class="navbar-nav mr-auto">
+													<li class="nav-item">
+														<a class="active" href="{% url 'training:trainpanel_' %}">Dashboard</a>
+
+													</li>
+													<li class="nav-item">
+														<a href="{% url 'training:canprofile_' %}">Candidate Profile</a>
+													</li>
+													<li class="nav-item">
+														<a href="{% url 'training:product_' %}">Product</a>
+
+													</li>
+													<li class="nav-item">
+														<a href="{% url 'training:event_' %}">Events</a>
+
+													</li>
+													<li class="nav-item">
+														<a href="{% url 'training:lecturer_' %}">Lecturer</a>
+
+													</li>
+													<li class="nav-item">
+														<a href="{% url 'training:country_' %}">Country</a>
+
+													</li>
+													<li class="nav-item">
+														<a href="{% url 'training:location_' %}">Location</a>
+
+													</li>
+
+												</ul>
+											</div>
+										</nav> <!-- nav -->
+
+									</div>
+								</div>
+				</div>
+		</div> <!-- header logo support -->
+	</header>
+
+	<!--====== SEARCH BOX PART START ======-->
+
+	<div class="search-box">
+		<div class="serach-form">
+			<div class="closebtn">
+				<span></span>
+				<span></span>
+			</div>
+			<form action="#">
+				<input type="text" placeholder="Search by keyword">
+				<button><i class="fa fa-search"></i></button>
+			</form>
+		</div> <!-- serach form -->
+	</div>
+
+	<!--====== SEARCH BOX PART ENDS ======-->
+
+	<!--====== TEACHERS PART START ======-->
+
+	<section id="teachers-singel" class="pt-70 pb-120 gray-bg">
+		<div class="container">
+			<div class="row justify-content-center">
+
+				<div class="col-lg-12">
+					<div class="teachers-right mt-50">
+
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+								<div class="dashboard-cont">
+									<div class="singel-dashboard pt-40">
+
+
+
+										<div class="container">
+											<div class="header_wrap">
+												<div class="num_rows">
+												<div class="col-sm-3">
+													
+
+
+												</div> <!-- 		End of Container -->
+
+
+
+												<!--  Developed By Yasser Mas -->
+												<!-- partial -->
+												<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+												<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+
+											</div>
+
+											<!-- End table -->
+
+
+
+
+											<br>
+											<h2 class="well">Update</h2>
+											<br>
+											<div class="col-lg-12 well">
+												<div class="row justify-content-center">
+													<form method="POST" enctype="multipart/form-data">
+														{% csrf_token %}
+														<div class="col-sm-12">
+															<div class="form-group" style="width:100%;">
+																<label>Username</label>
+																<input name='username' type="text" placeholder="Enter first name Here.."  class="form-control">
+															</div>
+															<br>
+															<div class="form-group">
+																<label>Password</label>
+																<input name='password' type="password" placeholder="Enter last name Here.." class="form-control">
+															</div>
+															<br>
+															<div class="form-group">
+																<label>Re Type Password</label>
+																<input name='re-password' type="password" placeholder="Enter Password Here.." class="form-control">
+															</div>
+															<br>
+															<div class="row">
+																<div class="col-sm-6 form-group">
+																	<label>First Name</label>
+																	<input name="first_name" type="text" value='{{can.first_name}}' placeholder="Enter First Name Here.." class="form-control">
+																</div>
+																<div class="col-sm-6 form-group">
+																	<label>Last Name</label>
+																	<input name='last_name' type="text" value='{{can.last_name}}' placeholder="Enter Last Name Here.." class="form-control">
+																</div>
+															</div>
+															<br>
+															<div class="form-group">
+																<label>Address</label>
+																<textarea name="address" value='{{can.address}}' placeholder="Enter Address Here.." rows="3" class="form-control"></textarea>
+															</div>
+															<br>
+															<div class="row">
+																<div class="col-sm-6 form-group">
+																	<label>TWI Candidate ID</label>
+																	<input name="twi_candidate_id"  value='{{can.tes_candidate_id}}' type="text" placeholder=""" class="form-control">
+																</div>
+																<div class="col-sm-6 form-group">
+																	<label>Postal Code</label>
+																	<input name="postal_code" type="text" value='{{can.postal_code}}'  placeholder=""" class="form-control">
+																</div>
+																<br>
+																<div class="col-sm-6 form-group">
+																	<label>Sponsor Company</label>
+																	<input name="sponsor_company" type="text" value='{{can.sponsor_company}}' placeholder="" class="form-control">
+																</div>
+																<div class="col-sm-6 form-group">
+																	<label>Customer ID</label>
+																	<input name="customer_id" type="text" value='{{can.customer_id}}'  placeholder="" class="form-control">
+																</div>
+																<br>
+															</div>
+															<div class="row">
+																<div class="col-sm-6 form-group">
+																	<label>City</label>
+																	<input name="city" type="text"value='{{can.city}}'  placeholder="" class="form-control">
+																</div>
+																<div class="col-sm-6 form-group">
+																	<label>Country</label>
+																	<input name="country" type="text" value='{{can.country}}' placeholder="" class="form-control">
+																</div>
+															</div>
+															<br>
+															<div class="form-group">
+																<label>Phone Number</label>
+																<input name="phone" type="text" value='{{can.contact_number}}' placeholder="" class="form-control">
+															</div>
+															<br>
+															<div class="form-group">
+																<label>Email Address</label>
+																<input name='email' type="text" placeholder="" value='{{can.email}}'  class="form-control">
+															</div>
+
+															<br>                                      					</div>                                      					<div class="form-group">
+																<label>Photo</label>
+																<input name='photo' type="file" placeholder="" class="form-control">
+																<br>			<label>Document 1</label>
+																<input name='document_1' type="file" placeholder="" class="form-control">
+
+																<br>    <label>Document 2</label>
+																<input name='document_2' type="file" placeholder="" class="form-control">
+
+																<br>					      <label>Document 3</label>
+																<input name='document_3' type="file" placeholder="" class="form-control">
+
+																<br>    <label>Document 4</label>
+																<input name='document_4' type="file" placeholder="" class="form-control">
+
+																<br>  					    <label>Document 5</label>
+																<input name='document_5' type="file" placeholder="" class="form-control">
+
+
+																<br>				    <label>Document 6</label>
+																<input name='document_6' type="file" placeholder="" class="form-control">
+
+
+																<br>				    <label>Document 7</label>
+																<input name='document_7' type="file" placeholder="" class="form-control">
+
+
+																<br>				    <label>Document 8</label>
+																<input name='document_8' type="file" placeholder="" class="form-control">
+
+
+																<br>		    <label>Document 9</label>
+																<input name='document_9' type="file" placeholder="" class="form-control">
+
+
+
+
+															</div>   <br>                                   					<div class="form-group">
+																<label>Note</label>
+																<textarea name='note' type="text" placeholder="" class="form-control"></textarea>
+															</div>
+															<br>
+															<br>
+															<div class="form-group" style="text-align:center">
+																<button type="submit" name="new_can" class="btn btn-lg btn-info">Submit</button>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+
+
+
+										</div> 
+									</div>
+
+								</div>
+							</div> <!-- tab content -->
+						</div> <!-- teachers right -->
+					</div>
+				</div> <!-- row -->
+			</div> <!-- container -->
+		</section>
+
+		<!--====== EVENTS PART ENDS ======-->
+
+		<!--====== FOOTER PART START ======-->
+
+		<footer id="footer-part">
+			<div class="footer-top pt-10 pb-30">
+				<div class="container">
+					<div class="row">                                 
+						<div class="col-lg-3 col-md-6">
+							<div class="footer-address mt-40">
+								<div class="footer-title pb-25">
+									<h6>Contact Us</h6>
+								</div>
+								<ul>
+									<li>
+										<div class="icon">
+											<i class="fa fa-home"></i>
+										</div>
+										<div class="cont">
+											<p>Office Address: #36, 4620 Manilla Road SE, Calgary, AB, Canada, T2G 4B7
+												Mailing Address: #1520, 240-70 Shawville Blvd SE, Calgary, AB, Canada, T2Y 2Z3
+											</p>
+										</div>
+									</li>
+									<li>
+										<div class="icon">
+											<i class="fa fa-phone"></i>
+										</div>
+										<div class="cont">
+											<p>+1 587 436 1352 </p>
+										</div>
+									</li>
+									<li>
+										<div class="icon">
+											<i class="fa fa-envelope-o"></i>
+										</div>
+										<div class="cont">
+											<p>info@tescan.ca</p>
+										</div>
+									</li>
+								</ul>
+								<div class="footer-about mt-40">
+									<ul class="mt-20">
+										<li><a href="https://www.facebook.com/TESCanadaInc"><i class="fa fa-facebook-f"></i></a></li>
+										<li><a href="https://www.linkedin.com/company/tes-canada-inc"><i class="fa fa-linkedin"></i></a></li>
+										<li><a href="https://www.instagram.com/tescanadainc/"><i class="fa fa-instagram"></i></a></li>
+									</ul>
+								</div> <!-- footer about -->
+
+
+
+							</div> <!-- footer address -->
+
+
+
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-6">
+
+						</div>
+						<div class="col-lg-2 col-md-6 col-sm-6">
+							<div class="footer-link support mt-40">
+								<div class="footer-title pb-25">
+									<h6>Link</h6>
+								</div>
+								<ul>
+									<li><a href="https://www.twi-global.com/"><i class="fa fa-angle-right"></i>TWI Global</a></li>
+									<li><a href="https://www.twitraining.com/"><i class="fa fa-angle-right"></i>TWI Training</a></li>
+								</ul>
+							</div> <!-- support -->
+						</div>
+					</div> <!-- row -->
+				</div> <!-- container -->
+			</div> <!-- footer top -->
+
+			<div class="footer-copyright ">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8">
+							<div class="copyright text-md-left text-center pt-15">
+								
+									
+                        				<div class="right-icon text-md-left" >
+                           					 <ul>
+                               					 <li><a href="#"><i class="fa fa-shopping-bag"></i><span>0</span></a></li>
+                            				</ul>
+                        				</div> <!-- right icon -->
+                    				
+
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="copyright text-md-right text-center pt-15">
+
+							</div>
+						</div>
+					</div> <!-- row -->
+				</div> <!-- container -->
+			</div> <!-- footer copyright -->
+		</footer>
+
+		<!--====== FOOTER PART ENDS ======-->
+
+		<!--====== BACK TO TP PART START ======-->
+
+		<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
+		<!--====== BACK TO TP PART ENDS ======-->
+
+
+
+
+
+
+
+
+		<!--====== jquery js ======-->
+		<script src="{% static 'js/vendor/modernizr-3.6.0.min.js"></script>
+		<script src="{% static 'js/vendor/jquery-1.12.4.min.js"></script>
+
+		<!--====== Bootstrap js ======-->
+		<script src="{% static 'js/bootstrap.min.js"></script>
+
+		<!--====== Slick js ======-->
+		<script src="{% static 'js/slick.min.js"></script>
+
+		<!--====== Magnific Popup js ======-->
+		<script src="{% static 'js/jquery.magnific-popup.min.js"></script>
+
+		<!--====== Counter Up js ======-->
+		<script src="{% static 'js/waypoints.min.js"></script>
+		<script src="{% static 'js/jquery.counterup.min.js"></script>
+
+		<!--====== Nice Select js ======-->
+		<script src="{% static 'js/jquery.nice-select.min.js'%}"></script>
+
+		<!--====== Nice Number js ======-->
+		<script src="{% static 'js/jquery.nice-number.min.js'%}"></script>
+
+		<!--====== Count Down js ======-->
+		<script src="{% static 'js/jquery.countdown.min.js'%}"></script>
+
+		<!--====== Validator js ======-->
+		<script src="{% static 'js/validator.min.js'%}"></script>
+
+		<!--====== Ajax Contact js ======-->
+		<script src="{% static 'js/ajax-contact.js'%}"></script>
+
+		<!--====== Main js ======-->
+		<script src="{% static 'js/main.js'%}"></script>
+
+		<!--====== Map js ======-->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
+		<script src="{% static 'js/map-script.js' %}"></script>
+		<script type="text/javascript">
+//Morris charts snippet - js
+
+$.getScript('http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js',function(){
+	$.getScript('http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.0/morris.min.js',function(){
+
+		Morris.Area({
+			element: 'area-example',
+			data: [
+			{ y: '1.1.', a: 100, b: 90 },
+			{ y: '2.1.', a: 75,  b: 65 },
+			{ y: '3.1.', a: 50,  b: 40 },
+			{ y: '4.1.', a: 75,  b: 65 },
+			{ y: '5.1.', a: 50,  b: 40 },
+			{ y: '6.1.', a: 75,  b: 65 },
+			{ y: '7.1.', a: 100, b: 90 }
+			],
+			xkey: 'y',
+			ykeys: ['a', 'b'],
+			labels: ['Series A', 'Series B']
+		});
+
+		Morris.Line({
+			element: 'line-example',
+			data: [
+			{year: '2010', value: 20},
+			{year: '2011', value: 10},
+			{year: '2012', value: 5},
+			{year: '2013', value: 2},
+			{year: '2014', value: 20}
+			],
+			xkey: 'year',
+			ykeys: ['value'],
+			labels: ['Value']
+		});
+
+		Morris.Donut({
+			element: 'donut-example',
+			data: [
+			{label: "Android", value: 12},
+			{label: "CSWIP", value: 30},
+			{label: "Other", value: 20}
+			]
+		});
+
+		Morris.Bar({
+			element: 'bar-example',
+			data: [
+			{y: 'Jan 2014', a: 100},
+			{y: 'Feb 2014', a: 75},
+			{y: 'Mar 2014', a: 50},
+			{y: 'Apr 2014', a: 75},
+			{y: 'May 2014', a: 50},
+			{y: 'Jun 2014', a: 75}
+			],
+			xkey: 'y',
+			ykeys: ['a'],
+			labels: ['Visitors', 'Conversions']
+		});
+
+	});
+});
+</script>
+<script >
+	getPagination('#table-id');
+	$('#maxRows').trigger('change');
+	function getPagination (table){
+
+		$('#maxRows').on('change',function(){
+              $('.pagination').html('');						// reset pagination div
+              var trnum = 0 ;									// reset tr counter 
+              var maxRows = parseInt($(this).val());			// get Max Rows from select option
+
+              var totalRows = $(table+' tbody tr').length;		// numbers of rows 
+             $(table+' tr:gt(0)').each(function(){			// each TR in  table and not the header
+                 trnum++;									// Start Counter 
+                 if (trnum > maxRows ){						// if tr number gt maxRows
+
+                     $(this).hide();							// fade it out 
+                 }if (trnum <= maxRows ){$(this).show();}// else fade in Important in case if it ..
+             });											//  was fade out to fade it in 
+             if (totalRows > maxRows){						// if tr total rows gt max rows option
+                 var pagenum = Math.ceil(totalRows/maxRows);	// ceil total(rows/maxrows) to get ..  
+                                                             //	numbers of pages 
+                 for (var i = 1; i <= pagenum ;){			// for each page append pagination li 
+                 	$('.pagination').append('<li data-page="'+i+'">\
+                 		<span>'+ i++ +'<span class="sr-only">(current)</span></span>\
+                 		</li>').show();
+                 }											// end for i 
+
+
+            } 												// end if row count > max rows
+            $('.pagination li:first-child').addClass('active'); // add active class to the first li 
+
+
+        //SHOWING ROWS NUMBER OUT OF TOTAL DEFAULT
+        showig_rows_count(maxRows, 1, totalRows);
+        //SHOWING ROWS NUMBER OUT OF TOTAL DEFAULT
+
+        $('.pagination li').on('click',function(e){		// on click each page
+        	e.preventDefault();
+                var pageNum = $(this).attr('data-page');	// get it's number
+                var trIndex = 0 ;							// reset tr counter
+                $('.pagination li').removeClass('active');	// remove active class from all li 
+                $(this).addClass('active');					// add active class to the clicked 
+
+
+        //SHOWING ROWS NUMBER OUT OF TOTAL
+        showig_rows_count(maxRows, pageNum, totalRows);
+        //SHOWING ROWS NUMBER OUT OF TOTAL
+        
+        
+        
+                 $(table+' tr:gt(0)').each(function(){		// each tr in table not the header
+                     trIndex++;								// tr index counter 
+                     // if tr index gt maxRows*pageNum or lt maxRows*pageNum-maxRows fade if out
+                     if (trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
+                     	$(this).hide();		
+                     }else {$(this).show();} 				//else fade in 
+                 }); 										// end of for each tr in table
+                    });										// end of on click pagination list
+    });
+                                            // end of on select change 
+
+                                // END OF PAGINATION 
+
+                            }	
+
+
+
+
+// SI SETTING
+$(function(){
+    // Just to append id number for each row  
+    default_index();
+
+});
+
+//ROWS SHOWING FUNCTION
+function showig_rows_count(maxRows, pageNum, totalRows) {
+   //Default rows showing
+   var end_index = maxRows*pageNum;
+   var start_index = ((maxRows*pageNum)- maxRows) + parseFloat(1);
+   var string = 'Showing '+ start_index + ' to ' + end_index +' of ' + totalRows + ' entries';               
+   $('.rows_count').html(string);
+}
+
+// CREATING INDEX
+function default_index() {
+	$('table tr:eq(0)').prepend('<th> ID </th>')
+
+	var id = 0;
+
+	$('table tr:gt(0)').each(function(){	
+		id++
+		$(this).prepend('<td>'+id+'</td>');
+	});
+}
+
+// All Table search script
+function FilterkeyWord_all_table() {
+
+// Count td if you want to search on all table instead of specific column
+
+var count = $('.table').children('tbody').children('tr:first-child').children('td').length; 
+
+        // Declare variables
+        var input, filter, table, tr, td, i;
+        input = document.getElementById("search_input_all");
+        var input_value =     document.getElementById("search_input_all").value;
+        filter = input.value.toLowerCase();
+        if(input_value !=''){
+        	table = document.getElementById("table-id");
+        	tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 1; i < tr.length; i++) {
+
+        	var flag = 0;
+
+        	for(j = 0; j < count; j++){
+        		td = tr[i].getElementsByTagName("td")[j];
+        		if (td) {
+
+        			var td_text = td.innerHTML;  
+        			if (td.innerHTML.toLowerCase().indexOf(filter) > -1) {
+                //var td_text = td.innerHTML;  
+                //td.innerHTML = 'shaban';
+                flag = 1;
+            } else {
+                  //DO NOTHING
+              }
+          }
+      }
+      if(flag==1){
+      	tr[i].style.display = "";
+      }else {
+      	tr[i].style.display = "none";
+      }
+  }
+}else {
+      //RESET TABLE
+      $('#maxRows').trigger('change');
+  }
+}
+</script>
+</body>
+</html>

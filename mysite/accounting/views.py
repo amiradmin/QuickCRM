@@ -29,7 +29,7 @@ class LoginView(TemplateView):
                 if group_name == 'super_admin' :
                     
                     return redirect('adminpanel:adpanel_')
-                elif group_name == 'Training_admin':
+                elif group_name == 'training_admin':
                     return redirect('training:trainpanel_')
                 elif group_name == 'candidates':
 

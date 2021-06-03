@@ -213,13 +213,13 @@
 													{% for item in can_list %}
 													<tr>
 														<td>{{item.tes_candidate_id}}</td>
-														<td>{{item.first_name}} {{item.first_name}}</td>
+														<td>{{item.first_name}} {{item.last_name}}</td>
 														<td>{{item.email}}</td>
 														<td>{{item.contact_number}}</td>
 														<td>{{item.country}}</td>
 														<td>{{item.city}}</td>
 														<td>{{item.sponsor_company}}</td>
-														<td><a href=''><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+														<td><a href="{% url 'training:updatecan_' id=item.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
 														<td><a href=''><i style="color:red" class="fa fa-times" aria-hidden="true"></i></a></td>
 
 													</tr>
