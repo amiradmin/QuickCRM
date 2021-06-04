@@ -9,7 +9,7 @@ app_name ="accounting"
 urlpatterns = [
 
 
-    path('login', views.LoginView.as_view(), name='login_'),
+    path('', views.LoginView.as_view(), name='login_'),
 
 
 ]
