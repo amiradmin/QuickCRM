@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
+                                        <li class="breadcrumb-item active">Data Tables</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Lecturer List</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title"> </h4>
+        
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+                                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Firstname</th>
+                                                        <th>Lastname</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+                                                        <th>Country</th>
+                                                        <th>City</th>
+                                                      
+                                          
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                            
+                                            
+                                                <tbody>
+                                                    {% for item in lecturer_list %}
+                                                    <tr>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.first_name}}</td>
+                                                        <td>{{item.last_name}}</td>
+                                                        <td>{{item.email}}</td>
+                                                        <td>{{item.contact_number}}</td>
+                                                        <td>{{item.country}}</td>
+                                                        
+                                                      
+                                                        <td><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+														<td><a href=''><i style="color:#660a0a" class="fa fa-times" aria-hidden="true"></i></a></td>
+                                                        
+                                                        
+                                                       
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>                                           
+                                        </div> <!-- end preview-->
+                                        <br>
+                                        <br>
+ 
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <h4 class="header-title mb-3"> New Lecturer</h4>
+
+                                        <form>
+                                            <div id="basicwizard">
+
+                                                <ul class="nav nav-pills nav-justified form-wizard-header mb-4">
+                                                    <li class="nav-item">
+                                                        <a href="#basictab1" data-bs-toggle="tab" data-toggle="tab"  class="nav-link rounded-0 pt-2 pb-2"> 
+                                                            <i class="mdi mdi-account-circle me-1"></i>
+                                                            <span class="d-none d-sm-inline">Personal Info</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="#basictab2" data-bs-toggle="tab" data-toggle="tab"  class="nav-link rounded-0 pt-2 pb-2">
+                                                            <i class="mdi mdi-face-profile me-1"></i>
+                                                            <span class="d-none d-sm-inline">Profile</span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="nav-item">
+                                                        <a href="#basictab3" data-bs-toggle="tab" data-toggle="tab"  class="nav-link rounded-0 pt-2 pb-2">
+                                                            <i class="mdi mdi-checkbox-marked-circle-outline me-1"></i>
+                                                            <span class="d-none d-sm-inline">Finish</span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+
+                                                <div class="tab-content b-0 mb-0">
+                                                    <div class="tab-pane" id="basictab1">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-3">
+                                                                    <label class="col-md-3 col-form-label" for="userName">Firstname</label>
+                                                                    <div class="col-md-9">
+                                                                        <input type="text" class="form-control" id="userName" name="userName" >
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <label class="col-md-3 col-form-label" for="lastname"> Lastname</label>
+                                                                    <div class="col-md-9">
+                                                                        <input type="text" id="lastame" name="lastname" class="form-control" >
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                <div class="row mb-3">
+                                                                    <label class="col-md-3 col-form-label" for="email">Email</label>
+                                                                    <div class="col-md-9">
+                                                                        <input type="text" id="email" name="email" class="form-control" >
+                                                                    </div>
+                                                                </div>                                                                
+                                                                <div class="row mb-3">
+                                                                    <label class="col-md-3 col-form-label" for="phone">Contact Number</label>
+                                                                    <div class="col-md-9">
+                                                                        <input type="text" id="phone" name="phone" class="form-control" >
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- end col -->
+                                                        </div> <!-- end row -->
+                                                    </div>
+
+                                                    <div class="tab-pane" id="basictab2">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="row mb-3">
+                                                                    <label class="col-md-3 col-form-label" for="name"> Country</label>
+                                                                    <div class="col-md-9">
+                                                                        <input type="text" id="name" name="name" class="form-control" >
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <label class="col-md-3 col-form-label" for="surname">City</label>
+                                                                    <div class="col-md-9">
+                                                                        <input type="text" id="surname" name="surname" class="form-control" >
+                                                                    </div>
+                                                                </div>
+                                        
+                                                                <div class="row mb-3">
+                                                                    <label class="col-md-3 col-form-label" for="email">Address</label>
+                                                                    <div class="col-md-9">
+                                                                        <textarea type="email" id="email" name="email" class="form-control" ></textarea>
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- end col -->
+                                                        </div> <!-- end row -->
+                                                    </div>
+
+                                                    <div class="tab-pane" id="basictab3">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="text-center">
+                                                                    <h2 class="mt-0"><i class="mdi mdi-check-all"></i></h2>
+                                                                    <h3 class="mt-0">Thank you !</h3>
+
+                                                                    <p class="w-75 mb-2 mx-auto">Quisque nec turpis at urna dictum luctus. Suspendisse convallis dignissim eros at volutpat. In egestas mattis dui. Aliquam
+                                                                        mattis dictum aliquet.</p>
+
+                                                                    <div class="mb-3">
+                                                                        <div class="form-check d-inline-block">
+                                                                            <input type="checkbox" class="form-check-input" id="customCheck1">
+                                                                            <label class="form-check-label" for="customCheck1">I agree with the Terms and Conditions</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div> <!-- end col -->
+                                                        </div> <!-- end row -->
+                                                    </div>
+
+                                                    <ul class="list-inline wizard mb-0">
+                                                        <li class="previous list-inline-item">
+                                                            <a href="#" class="btn btn-info">Previous</a>
+                                                        </li>
+                                                        <li class="next list-inline-item float-end">
+                                                            <a href="#" class="btn btn-info">Next</a>
+                                                        </li>
+                                                    </ul>
+
+                                                </div> <!-- tab-content -->
+                                            </div> <!-- end #basicwizard-->
+                                        </form>
+
+                                    </div> <!-- end card-body -->
+                                </div> <!-- end card-->
+                            </div> <!-- end col -->
+                            </div> <!-- end col -->
+
+                        <!-- end row -->
+
+                                
+                                        
+                                    
+
+                            
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+
+                {% endblock %}

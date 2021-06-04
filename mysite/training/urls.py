@@ -9,7 +9,7 @@ app_name ="training"
 urlpatterns = [
 
 
-    path('canprofile', views.CandidatelView.as_view(), name='canprofile_'),
+    path('newcandidate', views.NewCandidatelView.as_view(), name='newcandidate_'),
     path('canlist', views.CandidatelListView.as_view(), name='canlist_'),
     path('trainpanel', views.TrainingPanelView.as_view(), name='trainpanel_'),
     path('product', views.ProductView.as_view(), name='product_'),

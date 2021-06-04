@@ -14,15 +14,10 @@ class CandidatelListView(TemplateView):
         context['can_list'] = can_list
         return context
     
-class CandidatelView(TemplateView):
-    template_name = "training/candidate.html"
+class NewCandidatelView(TemplateView):
+    template_name = "training/new_candidate.html"
 
-    def get_context_data(self):
-        context = super(CandidatelView, self).get_context_data()
-        can_list = CandidateProfile.objects.all()
-        context['can_list'] = can_list
 
-        return context
 
     def post(self, request, *args, **kwargs):
     
@@ -30,10 +25,6 @@ class CandidatelView(TemplateView):
         if request.method == 'POST':
             print('OK')
             user = User()
-            user.username = request.POST['username']
-            user.last_name = request.POST['last_name']
-            user.password = request.POST['password']
-            user.save()
             user.candidateprofile.first_name = request.POST['first_name']
             user.candidateprofile.last_name = request.POST['last_name']
             user.candidateprofile.twi_candidate_id = request.POST['twi_candidate_id']
@@ -167,7 +158,7 @@ class ProductView(TemplateView):
     
     
 class EventView(TemplateView):
-    template_name = "training/event.html"
+    template_name = "training/event_list.html"
 
     def get_context_data(self):
         context = super(EventView, self).get_context_data()
@@ -197,7 +188,7 @@ class EventView(TemplateView):
         return redirect('training:event_')
     
 class LecturerView(TemplateView):
-    template_name = "training/lecturer.html"
+    template_name = "training/lecturer_list.html"
 
     def get_context_data(self):
         context = super(LecturerView, self).get_context_data()
@@ -241,7 +232,7 @@ class LecturerView(TemplateView):
         return redirect('training:lecturer_')
 
 class CountryView(TemplateView):
-    template_name = "training/country.html"
+    template_name = "training/country_list.html"
 
     def get_context_data(self):
         context = super(CountryView, self).get_context_data()
@@ -259,7 +250,7 @@ class CountryView(TemplateView):
         return redirect('training:country_')
 
 class LocationView(TemplateView):
-    template_name = "training/location.html"
+    template_name = "training/location_list.html"
 
     def get_context_data(self):
         context = super(LocationView, self).get_context_data()

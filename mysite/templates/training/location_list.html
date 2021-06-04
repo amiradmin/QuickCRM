@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
+                                        <li class="breadcrumb-item active">Data Tables</li>
+                                    </ol>
+                                </div>
+                                <h4 class="page-title">Location List</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title"> </h4>
+        
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+                                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Country</th>
+                                          
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                            
+                                            
+                                                <tbody>
+                                                    {% for item in location_list %}
+                                                    <tr>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.name}}</td>
+                                                        <td>{{item.country}}</td>
+                                                      
+                                                        <td><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+														<td><a href=''><i style="color:#660a0a" class="fa fa-times" aria-hidden="true"></i></a></td>
+                                                        
+                                                        
+                                                       
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>                                           
+                                        </div> <!-- end preview-->
+                                        <br>
+                                        <br>
+                                        
+                                        <form   method="POST" >
+                                            {% csrf_token %}
+                 
+                                                        
+                   
+                                                        
+                                            <div class="row g-2">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="inputCity" class="form-label">New Location</label>
+                                                    <input type="text" name="name" class="form-control" id="inputCity">
+                                                </div>
+                                                <div class="mb-3 col-md-4">
+                                                    <label for="inputState" class="form-label">Country</label>
+                                                    <select name="country" id="inputState" class="form-select">
+                                                        <option>Choose</option>
+                                                        {% for item in country_list %}
+                                                        <option value="{{item.id}}" >{{item.name}}</option>
+                                                        {%endfor%}
+                                                    </select>
+                                                </div>
+                          
+                                            </div>
+                                        
+
+                                                        
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                                           
+                                        </form>
+
+                                    
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                                            <p>Please include following css file at <code>head</code> element</p>
+
+                                            <pre>
+                                                <span class="html escape">
+                                                    &lt;!-- Datatables css --&gt;
+                                                    &lt;link href=&quot;{% static 'assets/css/vendor/dataTables.bootstrap4.css'%} &quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+                                                    &lt;link href=&quot;{% static 'assets/css/vendor/responsive.bootstrap4.css'%}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+
+                                            <p>Make sure to include following js files at end of <code>body</code> element</p>
+
+                                            <pre class="mb-0">
+                                                <span class="html escape">
+                                                    &lt;!-- Datatables js --&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/jquery.dataTables.min.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.bootstrap4.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.responsive.min.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/responsive.bootstrap4.min.js'%}&quot;&gt;&lt;/script&gt;
+
+                                                    &lt;!-- Datatable Init js --&gt;
+                                                    &lt;script src=&quot;assets/js/pages/demo.datatable-init.js&quot;&gt;&lt;/script&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+
+                                            <pre class="mb-0">
+                                                <span class="html escape">
+                                                    &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;
+                                                        &lt;thead&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;th&gt;Name&lt;/th&gt;
+                                                                &lt;th&gt;Position&lt;/th&gt;
+                                                                &lt;th&gt;Office&lt;/th&gt;
+                                                                &lt;th&gt;Age&lt;/th&gt;
+                                                                &lt;th&gt;Start date&lt;/th&gt;
+                                                                &lt;th&gt;Salary&lt;/th&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/thead&gt;
+                                                    
+                                                    
+                                                        &lt;tbody&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;td&gt;Tiger Nixon&lt;/td&gt;
+                                                                &lt;td&gt;System Architect&lt;/td&gt;
+                                                                &lt;td&gt;Edinburgh&lt;/td&gt;
+                                                                &lt;td&gt;61&lt;/td&gt;
+                                                                &lt;td&gt;2011/04/25&lt;/td&gt;
+                                                                &lt;td&gt;$320,800&lt;/td&gt;
+                                                            &lt;/tr&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;td&gt;Garrett Winters&lt;/td&gt;
+                                                                &lt;td&gt;Accountant&lt;/td&gt;
+                                                                &lt;td&gt;Tokyo&lt;/td&gt;
+                                                                &lt;td&gt;63&lt;/td&gt;
+                                                                &lt;td&gt;2011/07/25&lt;/td&gt;
+                                                                &lt;td&gt;$170,750&lt;/td&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/tbody&gt;
+                                                    &lt;/table&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+                                        </div> <!-- end preview code-->
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+
+                {% endblock %}

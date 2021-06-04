@@ -1,0 +1,184 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+                    
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
+                                            <li class="breadcrumb-item"><a href="javascript: void(0);">Forms</a></li>
+                                            <li class="breadcrumb-item active"></li>
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">New Candidate</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+                        
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title"></h4>
+                 
+
+                                        <div class="tab-content">
+                                            <div class="tab-pane show active" id="custom-styles-preview">
+                                                <form class="needs-validation" novalidate>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom01">First name</label>
+                                                        <input type="text" class="form-control" id="validationCustom01" placeholder="First name"  required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom02">Last name</label>
+                                                        <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustomUsername">Email</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                            <input type="text" class="form-control" id="validationCustomUsername" placeholder="Email"
+                                                                aria-describedby="inputGroupPrepend" required>
+                                                            <div class="invalid-feedback">
+                                                                Please choose a email.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom03">City</label>
+                                                        <input type="text" class="form-control" id="validationCustom03" placeholder="City" >
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid city.
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom04">Country</label>
+                                                        <input type="text" class="form-control" id="validationCustom04" placeholder="country" >
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Country.
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom05">Tes Candidate ID</label>
+                                                        <input type="text" class="form-control" id="validationCustom05" placeholder="Tes Candidate ID" >
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Tes Candidate ID.
+                                                        </div>
+                                                    </div> 
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom05">Sponsor Company</label>
+                                                        <input type="text" name= "sponsor_company" class="form-control" id="validationCustom06" placeholder="Sponsor Company" >
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Sponsor Company.
+                                                        </div>
+                                                    </div>           
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom05">Address</label>
+                                                   
+                                                        <div class="form-floating">
+                                                            <textarea  name= "address" class="form-control" placeholder=" Address here" id="floatingTextarea" style="height: 100px;"></textarea>
+                                                            
+                                                        </div>
+                                                    </div>
+                                          
+                                                    <br>
+                                                
+                                                    <div class="mb-3 col-md-12">
+                                                        <label class="form-label">Photo</label>
+                                                        <input class="form-control" name="photo" type="file" id="inputGroupFile04">
+                                                    </div>
+                                               
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 1</label>
+                                                            <input class="form-control" name="photo" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 2</label>
+                                                            <input class="form-control" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>   
+                                                                                                
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 3</label>
+                                                            <input class="form-control" name="photo" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 4</label>
+                                                            <input class="form-control" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>     
+                                                    
+                                                    
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 5</label>
+                                                            <input class="form-control" name="photo" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 6</label>
+                                                            <input class="form-control" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>                                                    
+                                                    
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 7</label>
+                                                            <input class="form-control" name="photo" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 8</label>
+                                                            <input class="form-control" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 9</label>
+                                                            <input class="form-control" name="photo" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 10</label>
+                                                            <input class="form-control" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>                                                   
+                                                   
+
+                                                    <br>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" type="submit">Submit form</button>
+                                                    </div> 
+                                                </form>
+                                            </div> <!-- end preview-->
+                                        
+
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+                            </div> <!-- end col-->
+
+
+                   
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+                {% endblock %}
