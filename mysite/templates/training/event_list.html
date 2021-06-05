@@ -88,7 +88,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Product</label>
                                                     <select name="product" id="inputState" class="form-select" required >
-                                                        <option>Choose</option>
+                                                        <option value="" >Choose</option>
                                                         {% for item in product_list %}
                                                         <option value="{{item.id}}" >{{item.name}}</option>
                                                         {%endfor%}
@@ -100,8 +100,8 @@
                                              
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Country</label>
-                                                    <select name="country" id="inputState" class="form-select">
-                                                        <option>Choose</option>
+                                                    <select name="country" id="inputState" class="form-select" required>
+                                                        <option value="" >Choose</option>
                                                         {% for item in country_list %}
                                                         <option value="{{item.id}}" >{{item.name}}</option>
                                                         {%endfor%}
@@ -109,8 +109,8 @@
                                                 </div>                                                
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Location</label>
-                                                    <select name="location" id="inputState" class="form-select">
-                                                        <option>Choose</option>
+                                                    <select name="location" id="inputState" class="form-select" required>
+                                                        <option value="" >Choose</option>
                                                         {% for item in location_list %}
                                                         <option value="{{item.id}}" >{{item.name}}</option>
                                                         {%endfor%}
@@ -122,8 +122,8 @@
                                              
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Lecturer</label>
-                                                    <select name="lecturer" id="inputState" class="form-select">
-                                                        <option>Choose</option>
+                                                    <select name="lecturer" id="inputState" class="form-select" required>
+                                                        <option value="">Choose</option>
                                                         {% for item in lecturers_list %}
                                                         <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
                                                         {%endfor%}
@@ -133,7 +133,7 @@
                                               
                                                 <div class="mb-3 position-relative" id="datepicker4">
                                                     <label class="form-label">Start Date</label>
-                                                    <input type="text" name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4">
+                                                    <input type="text" name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
                                                 </div>
                                                 </div>
                           

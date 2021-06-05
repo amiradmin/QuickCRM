@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'exam_certification',
     'home',
     'adminpanel',
+    'tescalendar',
 ]
 
 MIDDLEWARE = [

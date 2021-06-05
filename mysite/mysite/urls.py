@@ -23,6 +23,7 @@ urlpatterns = [
     # path('', include("home.urls",namespace="home_")),
     path('training/', include("training.urls",namespace="training_")),
     path('adminpanel/', include("adminpanel.urls",namespace="adminpanel")),
+    path('calender/', include("tescalendar.urls",namespace="calendar_")),
     path('', include("accounting.urls",namespace="accounting")),
 ]
 if settings.DEBUG:
