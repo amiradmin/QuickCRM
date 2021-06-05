@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from training.models import Event,CandidateProfile,Country,Location,Product,Lecturer
 from django.contrib.auth.models import User
+import time
+import datetime
 # Create your views here.
 
 
@@ -137,7 +139,7 @@ class DeleteCandidatelView(TemplateView):
     
     
 class ProductView(TemplateView):
-    template_name = "training/product.html"
+    template_name = "training/product_list.html"
 
     def get_context_data(self):
         context = super(ProductView, self).get_context_data()
@@ -153,6 +155,7 @@ class ProductView(TemplateView):
             obj.name = request.POST['name']
             obj.code = request.POST['code']
             obj.price = request.POST['price']
+            obj.type = request.POST['type']
             obj.save()
         return redirect('training:product_')
     
@@ -166,10 +169,12 @@ class EventView(TemplateView):
         product_list = Product.objects.all()
         lecturers_list = Lecturer.objects.all()
         country_list = Country.objects.all()
+        location_list = Location.objects.all()
         context['event_list'] = event_list
         context['product_list'] = product_list
         context['lecturers_list'] = lecturers_list
         context['country_list'] = country_list
+        context['location_list'] = location_list
 
         return context
     
@@ -178,11 +183,15 @@ class EventView(TemplateView):
             country = Country.objects.get(id = request.POST['country'])
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
+
             obj = Event()
             obj.name = request.POST['name']
             obj.country = country
             obj.product = product
             obj.lecturers = lecturers
+            # obj.start_date = request.POST['start_date']
+            
+            obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
             obj.save()     
 
         return redirect('training:event_')

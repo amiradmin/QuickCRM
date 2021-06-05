@@ -16,7 +16,7 @@
                                         <li class="breadcrumb-item active">Data Tables</li>
                                     </ol>
                                 </div>
-                                <h4 class="page-title">Event List</h4>
+                                <h4 class="page-title">Product List</h4>
                             </div>
                         </div>
                     </div>     
@@ -37,11 +37,9 @@
                                                     <tr>
                                                         <th>ID</th>
                                                         <th>Name</th>
-                                                        <th>Product</th>
-                                                        <th>Lecturer</th>
-                                                        <th>Country</th>
-                                                        <th>Location</th>
-                                                        <th>Start Date</th>
+                                                        <th>Code</th>
+                                                        <th>Price</th>
+                                                        <th>Type</th>
                                           
                                                         <th></th>
                                                         <th></th>
@@ -50,15 +48,13 @@
                                             
                                             
                                                 <tbody>
-                                                    {% for item in event_list %}
+                                                    {% for item in product_list %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.name}}</td>
-                                                        <td>{{item.product}}</td>
-                                                        <td>{{item.lecturers}}</td>
-                                                        <td>{{item.country}}</td>
-                                                        <td>{{item.location}}</td>
-                                                        <td>{{item.start_date}}</td>
+                                                        <td>{{item.code}}</td>
+                                                        <td>{{item.price}}</td>
+                                                        <td>{{item.type}}</td>
                                                       
                                                         <td><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
 														<td><a href=''><i style="color:#660a0a" class="fa fa-times" aria-hidden="true"></i></a></td>
@@ -72,7 +68,6 @@
                                         </div> <!-- end preview-->
                                         <br>
                                         <br>
-                                        <br>
                                         
                                         <form   method="POST" >
                                             {% csrf_token %}
@@ -83,58 +78,25 @@
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputCity" class="form-label">Name</label>
-                                                    <input type="text" name="name" class="form-control" id="inputCity" required>
+                                                    <input type="text" name="name" class="form-control" id="inputCity">
                                                 </div>
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Product</label>
-                                                    <select name="product" id="inputState" class="form-select" required >
-                                                        <option>Choose</option>
-                                                        {% for item in product_list %}
-                                                        <option value="{{item.id}}" >{{item.name}}</option>
-                                                        {%endfor%}
-                                                    </select>
-                                                </div>
-                          
-                                            </div>                                            
-                                            <div class="row g-2">
-                                             
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Country</label>
-                                                    <select name="country" id="inputState" class="form-select">
-                                                        <option>Choose</option>
-                                                        {% for item in country_list %}
-                                                        <option value="{{item.id}}" >{{item.name}}</option>
-                                                        {%endfor%}
-                                                    </select>
+                                                    <label for="inputCity" class="form-label">Code</label>
+                                                    <input type="text" name="code" class="form-control" id="inputCity">
                                                 </div>                                                
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Location</label>
-                                                    <select name="location" id="inputState" class="form-select">
-                                                        <option>Choose</option>
-                                                        {% for item in location_list %}
-                                                        <option value="{{item.id}}" >{{item.name}}</option>
-                                                        {%endfor%}
-                                                    </select>
+                                                    <label for="inputCity" class="form-label">Price</label>
+                                                    <input type="text" name="price" class="form-control" id="inputCity">
                                                 </div>
-                          
-                                            </div>
-                                            <div class="row g-2">
-                                             
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Lecturer</label>
-                                                    <select name="lecturer" id="inputState" class="form-select">
+                                                    <label for="inputState" class="form-label">Type</label>
+                                                    <select name="type" id="inputState" class="form-select">
                                                         <option>Choose</option>
-                                                        {% for item in lecturers_list %}
-                                                        <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
-                                                        {%endfor%}
+                                                        <option value="O" >Online Zoom</option>
+                                                        <option value="C">Class Rooom Based</option>
+                                                        <option value="V" >Virtual Accademy</option>
+                                                      
                                                     </select>
-                                                </div>                                                
-                                                <div class="mb-3 col-md-6">
-                                              
-                                                <div class="mb-3 position-relative" id="datepicker4">
-                                                    <label class="form-label">Start Date</label>
-                                                    <input type="text" name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4">
-                                                </div>
                                                 </div>
                           
                                             </div>
