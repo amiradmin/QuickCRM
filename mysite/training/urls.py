@@ -18,6 +18,7 @@ urlpatterns = [
     path('country', views.CountryView.as_view(), name='country_'),
     path('location', views.LocationView.as_view(), name='location_'),
     path('updatecan/<int:id>', views.UpdateCandidatelView.as_view(), name='updatecan_'),
+    path('delcan/<int:id>', views.DeleteCandidatelView.as_view(), name='delcan_'),
 
 
 ]

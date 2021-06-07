@@ -19,14 +19,14 @@
                                                     {% csrf_token %}
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom01">First name</label>
-                                                        <input type="text" name="first_name" class="form-control" id="validationCustom01" placeholder="First name"  required>
+                                                        <input type="text" name="first_name" value="{{can.first_name}}" class="form-control" id="validationCustom01" placeholder="First name"  required>
                                                         <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom02">Last name</label>
-                                                        <input type="text" name="last_name" class="form-control" id="validationCustom02" placeholder="Last name" required>
+                                                        <input type="text" name="last_name" value="{{can.last_name}}"class="form-control" id="validationCustom02" placeholder="Last name" required>
                                                         <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
@@ -35,7 +35,7 @@
                                                         <label class="form-label" for="validationCustomUsername">Email</label>
                                                         <div class="input-group">
                                                             <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                            <input type="email" name="email" class="form-control" id="validationCustomUsername" placeholder="Email"
+                                                            <input type="email" name="email" value="{{can.email}}" class="form-control" id="validationCustomUsername" placeholder="Email"
                                                                 aria-describedby="inputGroupPrepend" required>
                                                             <div class="invalid-feedback">
                                                                 Please choose a email.
@@ -44,42 +44,42 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom03">Contact Number</label>
-                                                        <input type="text" name="phone" class="form-control" id="validationCustom03" placeholder="Phone" >
+                                                        <input type="text" name="phone" value="{{can.contact_number}}" class="form-control" id="validationCustom03" placeholder="Phone" >
                                                         <div class="invalid-feedback">
                                                             Please provide a valid contact number.
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom03">City</label>
-                                                        <input type="text" name="city" class="form-control" id="validationCustom03" placeholder="City" >
+                                                        <input type="text" name="city" value="{{can.city}}"  class="form-control" id="validationCustom03" placeholder="City" >
                                                         <div class="invalid-feedback">
                                                             Please provide a valid city.
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom04">Country</label>
-                                                        <input type="text" name="country" class="form-control" id="validationCustom04" placeholder="country" >
+                                                        <input type="text" name="country"  value="{{can.country}}"  class="form-control" id="validationCustom04" placeholder="country" >
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Country.
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom05">Tes Candidate ID</label>
-                                                        <input type="text"  name="tes_id" class="form-control" id="validationCustom05" placeholder="Tes Candidate ID" >
+                                                        <input type="text"  name="tes_id" value="{{can.tes_candidate_id}}"  class="form-control" id="validationCustom05" placeholder="Tes Candidate ID" >
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Tes Candidate ID.
                                                         </div>
                                                     </div>                                                    
                                                      <div class="mb-3">
                                                         <label class="form-label" for="validationCustom05">Customer ID</label>
-                                                        <input type="text"  name="customer_id" class="form-control" id="validationCustom05" placeholder="Customer ID" >
+                                                        <input type="text"  name="customer_id"  value="{{can.customer_id}}" class="form-control" id="validationCustom05" placeholder="Customer ID" >
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Customer ID.
                                                         </div>
                                                     </div> 
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom05">Sponsor Company</label>
-                                                        <input type="text" name= "sponsor_company" class="form-control" id="validationCustom06" placeholder="Sponsor Company" >
+                                                        <input type="text" name= "sponsor_company"  value="{{can.sponsor_company}}" class="form-control" id="validationCustom06" placeholder="Sponsor Company" >
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Sponsor Company.
                                                         </div>
@@ -88,7 +88,7 @@
                                                         <label class="form-label" for="validationCustom05">Address</label>
                                                    
                                                         <div class="form-floating">
-                                                            <textarea  name= "address" class="form-control" placeholder=" Address here" id="floatingTextarea" style="height: 100px;"></textarea>
+                                                            <textarea class="form-control" name= "address"sponsor_companyclass="form-control" placeholder=" Address here" id="floatingTextarea" style="height: 100px;">{{can.address}}</textarea>
                                                             
                                                         </div>
                                                     </div>

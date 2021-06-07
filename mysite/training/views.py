@@ -12,7 +12,7 @@ class CandidatelListView(TemplateView):
 
     def get_context_data(self):
         context = super(CandidatelListView, self).get_context_data()
-        can_list = CandidateProfile.objects.all()
+        can_list = CandidateProfile.objects.all().order_by("-id")
         context['can_list'] = can_list
         return context
     
@@ -26,45 +26,47 @@ class NewCandidatelView(TemplateView):
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
             print('OK')
-            user = User()
-            user.candidateprofile.first_name = request.POST['first_name']
-            user.candidateprofile.last_name = request.POST['last_name']
-            user.candidateprofile.twi_candidate_id = request.POST['twi_candidate_id']
-            user.candidateprofile.customer_id = request.POST['customer_id']
-            user.candidateprofile.address = request.POST['address']
-            user.candidateprofile.passport_id = request.POST['passport_id']
-            user.candidateprofile.sponsor_company = request.POST['sponsor_company']
-            user.candidateprofile.email = request.POST['email']
-            user.candidateprofile.city = request.POST['city']
-            user.candidateprofile.country = request.POST['country']
-            user.candidateprofile.contact_number = request.POST['contact_number']
-            user.candidateprofile.note = request.POST['note']
+            user = CandidateProfile()
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.tes_candidate_id = request.POST['tes_id']
+            user.customer_id = request.POST['customer_id']
+            user.address = request.POST['address']
+            # user.passport_id = request.POST['passport_id']
+            user.sponsor_company = request.POST['sponsor_company']
+            user.email = request.POST['email']
+            user.city = request.POST['city']
+            user.country = request.POST['country']
+            user.contact_number = request.POST['phone']
+            # user.note = request.POST['note']
             if request.FILES.get('photo', False):
-                user.candidateprofile.photo = request.FILES['photo']
-            if request.FILES.get('document_1', False):
-                user.candidateprofile.document_1 = request.FILES['document_1']
-            if request.FILES.get('document_2', False):
-                user.candidateprofile.document_2 = request.FILES['document_2']
-            if request.FILES.get('document_3', False):
-                user.candidateprofile.document_3 = request.FILES['document_3']
-            if request.FILES.get('document_4', False):
-                user.candidateprofile.document_4 = request.FILES['document_4']
-            if request.FILES.get('document_5', False):
-                user.candidateprofile.document_5 = request.FILES['document_5']
-            if request.FILES.get('document_6', False):
-                user.candidateprofile.document_6 = request.FILES['document_6']
-            if request.FILES.get('document_7', False):
-                user.candidateprofile.document_7 = request.FILES['document_7']
-            if request.FILES.get('document_8', False):
-                user.candidateprofile.document_8 = request.FILES['document_8']
-            if request.FILES.get('document_9', False):
-                user.candidateprofile.document_9 = request.FILES['document_9']
+                user.photo = request.FILES['photo']
+            if request.FILES.get('doc_1', False):
+                user.document_1 = request.FILES['doc_1']
+            if request.FILES.get('doc_2', False):
+                user.document_2 = request.FILES['doc_2']
+            if request.FILES.get('doc_3', False):
+                user.document_3 = request.FILES['doc_3']
+            if request.FILES.get('doc_4', False):
+                user.document_4 = request.FILES['doc_4']
+            if request.FILES.get('doc_5', False):
+                user.document_5 = request.FILES['doc_5']
+            if request.FILES.get('doc_6', False):
+                user.document_6 = request.FILES['doc_6']
+            if request.FILES.get('doc_7', False):
+                user.document_7 = request.FILES['doc_7']
+            if request.FILES.get('doc_8', False):
+                user.document_8 = request.FILES['doc_8']
+            if request.FILES.get('doc_9', False):
+                user.document_9 = request.FILES['doc_9']
+            if request.FILES.get('doc_10', False):
+                user.document_9 = request.FILES['doc_10']
             user.save() 
-        return redirect('training:canprofile_')
+        return redirect('training:canlist_')
 
 
 class UpdateCandidatelView(TemplateView):
-    template_name = "training/update.html"
+    template_name = "training/update_candidate.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateCandidatelView, self).get_context_data()
@@ -73,69 +75,68 @@ class UpdateCandidatelView(TemplateView):
 
         return context
 
-    def put(self, request, *args, **kwargs):
-    
+    def post(self, request, *args, **kwargs):
+        print('OK')
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
             print('OK')
-            user = User()
-            user.username = request.POST['username']
+            
+            user = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+            user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
-            user.password = request.POST['password']
-            user.save()
-            user.candidateprofile.first_name = request.POST['first_name']
-            user.candidateprofile.last_name = request.POST['last_name']
-            user.candidateprofile.twi_candidate_id = request.POST['twi_candidate_id']
-            user.candidateprofile.customer_id = request.POST['customer_id']
-            user.candidateprofile.address = request.POST['address']
-            user.candidateprofile.passport_id = request.POST['passport_id']
-            user.candidateprofile.sponsor_company = request.POST['sponsor_company']
-            user.candidateprofile.email = request.POST['email']
-            user.candidateprofile.city = request.POST['city']
-            user.candidateprofile.country = request.POST['country']
-            user.candidateprofile.contact_number = request.POST['contact_number']
-            user.candidateprofile.note = request.POST['note']
+            user.tes_candidate_id = request.POST['tes_id']
+            user.customer_id = request.POST['customer_id']
+            user.address = request.POST['address']
+            # user.passport_id = request.POST['passport_id']
+            user.sponsor_company = request.POST['sponsor_company']
+            user.email = request.POST['email']
+            user.city = request.POST['city']
+            user.country = request.POST['country']
+            user.contact_number = request.POST['phone']
+            # user.note = request.POST['note']
             if request.FILES.get('photo', False):
-                user.candidateprofile.photo = request.FILES['photo']
-            if request.FILES.get('document_1', False):
-                user.candidateprofile.document_1 = request.FILES['document_1']
-            if request.FILES.get('document_2', False):
-                user.candidateprofile.document_2 = request.FILES['document_2']
-            if request.FILES.get('document_3', False):
-                user.candidateprofile.document_3 = request.FILES['document_3']
-            if request.FILES.get('document_4', False):
-                user.candidateprofile.document_4 = request.FILES['document_4']
-            if request.FILES.get('document_5', False):
-                user.candidateprofile.document_5 = request.FILES['document_5']
-            if request.FILES.get('document_6', False):
-                user.candidateprofile.document_6 = request.FILES['document_6']
-            if request.FILES.get('document_7', False):
-                user.candidateprofile.document_7 = request.FILES['document_7']
-            if request.FILES.get('document_8', False):
-                user.candidateprofile.document_8 = request.FILES['document_8']
-            if request.FILES.get('document_9', False):
-                user.candidateprofile.document_9 = request.FILES['document_9']
+                user.photo = request.FILES['photo']
+            if request.FILES.get('doc_1', False):
+                user.document_1 = request.FILES['doc_1']
+            if request.FILES.get('doc_2', False):
+                user.document_2 = request.FILES['doc_2']
+            if request.FILES.get('doc_3', False):
+                user.document_3 = request.FILES['doc_3']
+            if request.FILES.get('doc_4', False):
+                user.document_4 = request.FILES['doc_4']
+            if request.FILES.get('doc_5', False):
+                user.document_5 = request.FILES['doc_5']
+            if request.FILES.get('doc_6', False):
+                user.document_6 = request.FILES['doc_6']
+            if request.FILES.get('doc_7', False):
+                user.document_7 = request.FILES['doc_7']
+            if request.FILES.get('doc_8', False):
+                user.document_8 = request.FILES['doc_8']
+            if request.FILES.get('doc_9', False):
+                user.document_9 = request.FILES['doc_9']
             user.save() 
-        return redirect('training:canprofile_')
+        return redirect('training:canlist_')
 
 
 class DeleteCandidatelView(TemplateView):
     template_name = "training/update.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(UpdateCandidatelView, self).get_context_data()
+        context = super(DeleteCandidatelView, self).get_context_data()
         can = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
         context['can'] = can
 
         return context
 
-    def put(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
     
         # form = MedicineForm(self.request.POST)
-        if request.method == 'DELETE':
-
-           
-            return redirect('training:canprofile_')
+        if request.method == 'GET':
+            print('Del Here')
+            can = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+            print(can.first_name)
+            can.delete()
+            return redirect('training:canlist_')
     
     
 class ProductView(TemplateView):
