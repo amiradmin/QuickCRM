@@ -13,13 +13,7 @@
                        <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-                                <div class="page-title-right">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Hyper</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Tables</a></li>
-                                        <li class="breadcrumb-item active">Data Tables</li>
-                                    </ol>
-                                </div>
+                    
                                 <h4 class="page-title">Candidate List</h4>
                             </div>
                         </div>
@@ -79,164 +73,57 @@
   <!-- dialog -->
 
 </div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title"> </h4>
+<table id="basic-datatable" class="table dt-responsive nowrap w-100">
+    <thead>
+        <tr>
+            <th  ></th>
+            
+            <th >Name</th>
+            <th  >Tes  ID</th>
+            <th  >Email</th>
+            <th>Phone</th> 
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        {% for item in can_list %}
+        <tr>
+            
+            <td  ><img  style="min-width: 50px;" src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="image" class="img-fluid avatar-sm rounded-circle"></td>
+           
+            <td><p style="margin:0px; padding:0px; min-width: 50px;" >{{item.first_name}} {{item.last_name}}</p></td>
+            <td><p style="margin:0px; padding:0px; ">{{item.tes_candidate_id}}</p></td>
+            <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.email}}</p></td>
+            <td><p style="margin:0px; padding:0px; ">{{item.contact_number}}</p></td>
+          
+          
+            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatecan_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:delcan_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
+            
+            
+           
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
+
+
+</div>
+</div>
+</div>
+</div>
         
-                            
-                                    <div class="tab-content">
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
-                                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
-                                                <thead style="text-align:justify;" >
-                                                    <tr style="width:100%; " >
-                                                        <th style="width:10%; " ></th>
-                                                        <th  >Customer ID</th>
-                                                        <th >Name</th>
-                                                        <th style="width:55%" >Tes Candidate ID</th>
-                                                        <th style="width:10%;"  >Email</th>
-                                                        <th>Phone</th>
-                                                        
-                                                        <th></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                            
-                                            
-                                                <tbody>
-                                                    {% for item in can_list %}
-                                                    <tr>
-                                                        
-                                                        <td style="width:100%;" ><img style="padding:0px; margin:0px; width:40px; height:40px"  src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="image" class="img-fluid avatar-md rounded-circle"></td>
-                                                        <td ><p style="width:120px;">{{item.customer_id}}</p></td>
-                                                        <td>{{item.first_name}} {{item.last_name}}</td>
-                                                        <td><p style="width:120px;">{{item.tes_candidate_id}}</p></td>
-                                                        <td  >{{item.email}}</td>
-                                                        <td>{{item.contact_number}}</td>
-                                                      
-                                                      
-                                                        <td><a href="{% url 'training:updatecan_' id=item.id %}"><i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:30px;"></i></a></td>
-														<td><a href="{% url 'training:delcan_' id=item.id %}"    ><i style="color:#660a0a;font-size:30px;" class="fa fa-times" aria-hidden="true"></i></a></td>
-                                                        
-                                                        
-                                                       
-                                                    </tr>
-                                                    {%endfor%}
-                                                </tbody>
-                                            </table>                                           
-                                        </div> <!-- end preview-->
-                                    
-                                        <div class="tab-pane" id="basic-datatable-code">
-                                            <p>Please include following css file at <code>head</code> element</p>
-
-                                            <pre>
-                                                <span class="html escape">
-                                                    &lt;!-- Datatables css --&gt;
-                                                    &lt;link href=&quot;{% static 'assets/css/vendor/dataTables.bootstrap4.css'%} &quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
-                                                    &lt;link href=&quot;{% static 'assets/css/vendor/responsive.bootstrap4.css'%}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
-
-                                            <p>Make sure to include following js files at end of <code>body</code> element</p>
-
-                                            <pre class="mb-0">
-                                                <span class="html escape">
-                                                    &lt;!-- Datatables js --&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/jquery.dataTables.min.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.bootstrap4.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.responsive.min.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/responsive.bootstrap4.min.js'%}&quot;&gt;&lt;/script&gt;
-
-                                                    &lt;!-- Datatable Init js --&gt;
-                                                    &lt;script src=&quot;assets/js/pages/demo.datatable-init.js&quot;&gt;&lt;/script&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
-
-                                            <pre class="mb-0">
-                                                <span class="html escape">
-                                                    &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;
-                                                        &lt;thead&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;th&gt;Name&lt;/th&gt;
-                                                                &lt;th&gt;Position&lt;/th&gt;
-                                                                &lt;th&gt;Office&lt;/th&gt;
-                                                                &lt;th&gt;Age&lt;/th&gt;
-                                                                &lt;th&gt;Start date&lt;/th&gt;
-                                                                &lt;th&gt;Salary&lt;/th&gt;
-                                                            &lt;/tr&gt;
-                                                        &lt;/thead&gt;
-                                                    
-                                                    
-                                                        &lt;tbody&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;td&gt;Tiger Nixon&lt;/td&gt;
-                                                                &lt;td&gt;System Architect&lt;/td&gt;
-                                                                &lt;td&gt;Edinburgh&lt;/td&gt;
-                                                                &lt;td&gt;61&lt;/td&gt;
-                                                                &lt;td&gt;2011/04/25&lt;/td&gt;
-                                                                &lt;td&gt;$320,800&lt;/td&gt;
-                                                            &lt;/tr&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;td&gt;Garrett Winters&lt;/td&gt;
-                                                                &lt;td&gt;Accountant&lt;/td&gt;
-                                                                &lt;td&gt;Tokyo&lt;/td&gt;
-                                                                &lt;td&gt;63&lt;/td&gt;
-                                                                &lt;td&gt;2011/07/25&lt;/td&gt;
-                                                                &lt;td&gt;$170,750&lt;/td&gt;
-                                                            &lt;/tr&gt;
-                                                        &lt;/tbody&gt;
-                                                    &lt;/table&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
-                                        </div> <!-- end preview code-->
-                                    </div> <!-- end tab-content-->
-
-                                </div> <!-- end card body-->
-                            </div> <!-- end card -->
-                        </div><!-- end col-->
-                    </div>
-                    <!-- end row-->
 
 
-                                        <div class="tab-pane" id="state-saving-code">
-                                            <pre class="mb-0">
-                                                <span class="html escape">
-                                                    &lt;table id=&quot;state-saving-datatable&quot; class=&quot;table activate-select dt-responsive nowrap&quot;&gt;
-                                                        &lt;thead&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;th&gt;Name&lt;/th&gt;
-                                                                &lt;th&gt;Position&lt;/th&gt;
-                                                                &lt;th&gt;Office&lt;/th&gt;
-                                                                &lt;th&gt;Age&lt;/th&gt;
-                                                                &lt;th&gt;Start date&lt;/th&gt;
-                                                                &lt;th&gt;Salary&lt;/th&gt;
-                                                            &lt;/tr&gt;
-                                                        &lt;/thead&gt;
-                                                    
-                                                        &lt;tbody&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;td&gt;Tiger Nixon&lt;/td&gt;
-                                                                &lt;td&gt;System Architect&lt;/td&gt;
-                                                                &lt;td&gt;Edinburgh&lt;/td&gt;
-                                                                &lt;td&gt;61&lt;/td&gt;
-                                                                &lt;td&gt;2011/04/25&lt;/td&gt;
-                                                                &lt;td&gt;$320,800&lt;/td&gt;
-                                                            &lt;/tr&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;td&gt;Garrett Winters&lt;/td&gt;
-                                                                &lt;td&gt;Accountant&lt;/td&gt;
-                                                                &lt;td&gt;Tokyo&lt;/td&gt;
-                                                                &lt;td&gt;63&lt;/td&gt;
-                                                                &lt;td&gt;2011/07/25&lt;/td&gt;
-                                                                &lt;td&gt;$170,750&lt;/td&gt;
-                                                            &lt;/tr&gt;
-                                                        &lt;/tbody&gt;
-                                                    &lt;/table&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
-                                        </div> <!-- end preview code-->
+                             
                                     </div> <!-- end tab-content-->
 
                                 </div> <!-- end card body-->
@@ -252,4 +139,8 @@
                 <!-- content -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+<script>
+$(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
+
+</script>
                 {% endblock %}
