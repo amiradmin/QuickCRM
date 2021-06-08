@@ -19,6 +19,8 @@ urlpatterns = [
     path('location', views.LocationView.as_view(), name='location_'),
     path('updatecan/<int:id>', views.UpdateCandidatelView.as_view(), name='updatecan_'),
     path('delcan/<int:id>', views.DeleteCandidatelView.as_view(), name='delcan_'),
+    path('delevent/<int:id>', views.DeleteEventView.as_view(), name='delevent_'),
+    path('updateevent/<int:id>', views.UpdateEventView.as_view(), name='updateevent_'),
 
 
 ]

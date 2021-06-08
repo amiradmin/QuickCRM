@@ -196,7 +196,66 @@ class EventView(TemplateView):
             obj.save()     
 
         return redirect('training:event_')
+
+class UpdateEventView(TemplateView):
+    template_name = "training/update_event.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateEventView, self).get_context_data()
+        event = Event.objects.filter(id = self.kwargs['id']).first()
+        product_list = Product.objects.all()
+        lecturers_list = Lecturer.objects.all()
+        country_list = Country.objects.all()
+        location_list = Location.objects.all()
+        context['event'] = event
+        context['product_list'] = product_list
+        context['lecturers_list'] = lecturers_list
+        context['country_list'] = country_list
+        context['location_list'] = location_list
+
+        return context
     
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            print(request.POST['country'])
+            country = Country.objects.get(id = request.POST['country'])
+            product = Product.objects.get(id = request.POST['product'])
+            lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
+
+            obj = Event.objects.filter(id = self.kwargs['id']).first()
+            obj.name = request.POST['name']
+            obj.country = country
+            obj.product = product
+            obj.lecturers = lecturers
+            # obj.start_date = request.POST['start_date']
+            
+            obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
+            obj.save()     
+
+        return redirect('training:event_')
+
+
+class DeleteEventView(TemplateView):
+    template_name = "training/update.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DeleteEventView, self).get_context_data()
+        can = Event.objects.filter(id = self.kwargs['id']).first()
+        context['can'] = can
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+    
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'GET':
+            print('Del Here')
+            event = Event.objects.filter(id = self.kwargs['id']).first()
+            print(event.name)
+            event.delete()
+            return redirect('training:event_')
+
+            
 class LecturerView(TemplateView):
     template_name = "training/lecturer_list.html"
 

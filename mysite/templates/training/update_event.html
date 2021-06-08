@@ -27,47 +27,9 @@
         
 
                                     <div class="tab-content">
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
-                                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Product</th>
-                                                        <th>Lecturer</th>
-                                                        <th>Country</th>
-                                                        <th>Location</th>
-                                                        <th>Start Date</th>
-                                          
-                                                        <th></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                            
-                                            
-                                                <tbody>
-                                                    {% for item in event_list %}
-                                                    <tr>
-                                                        <td>{{item.id}}</td>
-                                                        <td>{{item.name}}</td>
-                                                        <td>{{item.product}}</td>
-                                                        <td>{{item.lecturers}}</td>
-                                                        <td>{{item.country}}</td>
-                                                        <td>{{item.location}}</td>
-                                                        <td>{{item.start_date|date:'m/d/Y'}}</td>
-                                                      
-                                                        <td><a href="{% url 'training:updateevent_' id=item.id %}"><i style="font-size:20px;" class="fa fa-pencil-square-o" aria-hidden="true" ></i></a></td>
-														<td><a href="{% url 'training:delevent_' id=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
-                                                        
-                                                        
-                                                       
-                                                    </tr>
-                                                    {%endfor%}
-                                                </tbody>
-                                            </table>                                           
-                                        </div> <!-- end preview-->
-                                        <br>
-                                        <br>
+                                        
+                                       
+                                
                                         <br>
                                         
                                         <form   method="POST" >
@@ -79,12 +41,12 @@
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputCity" class="form-label">Name</label>
-                                                    <input type="text" name="name" class="form-control" id="inputCity" required>
+                                                    <input type="text" value="{{event.name}}" name="name" class="form-control" id="inputCity" required>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Product</label>
-                                                    <select name="product" id="inputState" class="form-select" required >
-                                                        <option value="" >Choose</option>
+                                                    <select name="product"   id="inputState" class="form-select" required >
+                                                        <option value="{{event.product.id}}" >{{event.product}}</option>
                                                         {% for item in product_list %}
                                                         <option value="{{item.id}}" >{{item.name}}</option>
                                                         {%endfor%}
@@ -97,7 +59,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Country</label>
                                                     <select name="country" id="inputState" class="form-select" required>
-                                                        <option value="" >Choose</option>
+                                                        <option value="{{event.country.id}}" >{{event.country}}</option>
                                                         {% for item in country_list %}
                                                         <option value="{{item.id}}" >{{item.name}}</option>
                                                         {%endfor%}
@@ -106,7 +68,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Location</label>
                                                     <select name="location" id="inputState" class="form-select" required>
-                                                        <option value="" >Choose</option>
+                                                        <option value="{{event.location.id}}" >{{event.location}}</option>
                                                         {% for item in location_list %}
                                                         <option value="{{item.id}}" >{{item.name}}</option>
                                                         {%endfor%}
@@ -119,7 +81,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Lecturer</label>
                                                     <select name="lecturer" id="inputState" class="form-select" required>
-                                                        <option value="">Choose</option>
+                                                        <option value="{{event.lecturers.id}}">{{event.lecturers}}</option>
                                                         {% for item in lecturers_list %}
                                                         <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
                                                         {%endfor%}
@@ -129,7 +91,7 @@
                                               
                                                 <div class="mb-3 position-relative" id="datepicker4">
                                                     <label class="form-label">Start Date</label>
-                                                    <input type="text" name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
+                                                    <input type="text" value="{{event.start_date |date:'m/d/Y' }}" name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
                                                 </div>
                                                 </div>
                           
