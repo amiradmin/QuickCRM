@@ -184,12 +184,14 @@ class EventView(TemplateView):
             country = Country.objects.get(id = request.POST['country'])
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
+            location = Location.objects.get(id = request.POST['location'])
 
             obj = Event()
             obj.name = request.POST['name']
             obj.country = country
             obj.product = product
             obj.lecturers = lecturers
+            obj.location = location
             # obj.start_date = request.POST['start_date']
             
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
@@ -221,12 +223,14 @@ class UpdateEventView(TemplateView):
             country = Country.objects.get(id = request.POST['country'])
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
+            location = Location.objects.get(id = request.POST['location'])
 
             obj = Event.objects.filter(id = self.kwargs['id']).first()
             obj.name = request.POST['name']
             obj.country = country
             obj.product = product
             obj.lecturers = lecturers
+            obj.location = location
             # obj.start_date = request.POST['start_date']
             
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
