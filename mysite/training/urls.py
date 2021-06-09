@@ -21,6 +21,8 @@ urlpatterns = [
     path('delcan/<int:id>', views.DeleteCandidatelView.as_view(), name='delcan_'),
     path('delevent/<int:id>', views.DeleteEventView.as_view(), name='delevent_'),
     path('updateevent/<int:id>', views.UpdateEventView.as_view(), name='updateevent_'),
+    path('delpro/<int:id>', views.DeleteProductView.as_view(), name='delpro_'),
+    path('updatepro/<int:id>', views.UpdateProductView.as_view(), name='updatepro_'),
 
 
 ]

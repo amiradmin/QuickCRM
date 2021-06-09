@@ -159,7 +159,47 @@ class ProductView(TemplateView):
             obj.type = request.POST['type']
             obj.save()
         return redirect('training:product_')
+
+
     
+class UpdateProductView(TemplateView):
+    template_name = "training/update_product.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateProductView, self).get_context_data()
+        product = Product.objects.filter(id = self.kwargs['id']).first()
+        context['product'] = product
+        return context
+
+    def post(self, request, *args, **kwargs):
+        
+        if request.method == 'POST':
+            obj = Product.objects.filter(id = self.kwargs['id']).first()
+            obj.name = request.POST['name']
+            obj.code = request.POST['code']
+            obj.price = request.POST['price']
+            obj.type = request.POST['type']
+            obj.save()
+        return redirect('training:product_')
+
+
+
+class DeleteProductView(TemplateView):
+    template_name = "training/update.html"
+
+
+
+    def get(self, request, *args, **kwargs):
+    
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'GET':
+            print('Del Here')
+            product = Product.objects.filter(id = self.kwargs['id']).first()
+            print(product.name)
+            product.delete()
+            return redirect('training:product_')
+
+
     
 class EventView(TemplateView):
     template_name = "training/event_list.html"
@@ -321,6 +361,22 @@ class CountryView(TemplateView):
             obj.name = request.POST['name']
             obj.save()
         return redirect('training:country_')
+
+class DeleteCountryView(TemplateView):
+    template_name = "training/update.html"
+
+
+
+    def get(self, request, *args, **kwargs):
+    
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'GET':
+            print('Del Here')
+            country = Country.objects.filter(id = self.kwargs['id']).first()
+            print(country.name)
+            country.delete()
+            return redirect('training:country_')
+
 
 class LocationView(TemplateView):
     template_name = "training/location_list.html"
