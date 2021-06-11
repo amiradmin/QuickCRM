@@ -462,6 +462,23 @@ class DeleteCountryView(TemplateView):
             country.delete()
             return redirect('training:country_')
 
+class UpdateCountryView(TemplateView):
+    template_name = "training/update_country.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateCountryView, self).get_context_data()
+        country = Country.objects.filter(id = self.kwargs['id']).first()
+        context['country'] = country
+        return context
+
+    def post(self, request, *args, **kwargs):
+        
+        if request.method == 'POST':
+            obj = Country.objects.filter(id = self.kwargs['id']).first()
+            obj.name = request.POST['name']
+            obj.save()
+        return redirect('training:country_')
+
 
 class LocationView(TemplateView):
     template_name = "training/location_list.html"
