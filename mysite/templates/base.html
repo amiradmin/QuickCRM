@@ -19,7 +19,7 @@
         <link href="{% static 'assets/css/vendor/select.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- third party css end -->
-
+        <link href="{% static 'assets/css/vendor/jquery-jvectormap-1.2.2.css'%}" rel="stylesheet" type="text/css" />     
         <!-- App css -->
         <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
         <link href="{% static 'assets/css/app-creative.min.css' %}" rel="stylesheet" type="text/css" id="light-style" />
@@ -71,7 +71,7 @@
                             <div class="collapse" id="sidebarDashboards">
                                 <ul class="side-nav-second-level">
                                     <li>
-                                        <a href="dashboard-analytics.html">Analytics</a>
+                                        <a href="{% url 'map:map_' %}">Map</a>
                                     </li>
                                     <li>
                                         <a href="dashboard-crm.html">CRM</a>

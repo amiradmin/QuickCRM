@@ -28,6 +28,8 @@ urlpatterns = [
     path('updatelec/<int:id>', views.UpdateLecturerView.as_view(), name='updatelec_'),
     path('delcountry/<int:id>', views.DeleteCountryView.as_view(), name='delcountry_'),
     path('updatecountry/<int:id>', views.UpdateCountryView.as_view(), name='updatecountry_'),
+    path('updateloc/<int:id>', views.UpdateLocationView.as_view(), name='updateloc_'),
+    path('locdel/<int:id>', views.DeleteLocationView.as_view(), name='locdel_'),
 
 
 ]

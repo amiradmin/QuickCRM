@@ -39,7 +39,7 @@ admin.site.register(Country,CountryAdmin)
 
 class LocationAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
-    list_display = ['id','name','country','created_at','updated_at']
+    list_display = ['id','name','log','lat','country','created_at','updated_at']
     list_filter = ['id','name','country','created_at','updated_at']
 
 admin.site.register(Location,LocationAdmin)

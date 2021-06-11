@@ -332,6 +332,8 @@ class NewLecturerView(TemplateView):
             obj.country = request.POST['country']
             obj.city = request.POST['city']
             obj.address = request.POST['address']
+            obj.log = request.POST['longitude']
+            obj.lat = request.POST['latitude']
             if request.FILES.get('photo', False):
                 obj.photo = request.FILES['photo']
             if request.FILES.get('doc_1', False):
@@ -504,7 +506,39 @@ class LocationView(TemplateView):
 
 
 
+class UpdateLocationView(TemplateView):
+    template_name = "training/update_location.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateLocationView, self).get_context_data()
+        location = Location.objects.filter(id = self.kwargs['id']).first()
+        context['location'] = location
+        print(location.name)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        
+        if request.method == 'POST':
+            obj = Location.objects.filter(id = self.kwargs['id']).first()
+            obj.name = request.POST['name']
+            obj.log = request.POST['longitude']
+            obj.lat = request.POST['latitude']
+            obj.save()
+        return redirect('training:location_')
+
+
+class DeleteLocationView(TemplateView):
+    template_name = "training/update.html"
+
+
+    def get(self, request, *args, **kwargs):
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'GET':
+            print('Del Here')
+            loc = Location.objects.filter(id = self.kwargs['id']).first()
+            
+            loc.delete()
+            return redirect('training:location_')
 
 class TrainingPanelView(TemplateView):
     template_name = "creative/layouts-vertical.html"

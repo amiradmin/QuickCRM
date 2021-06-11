@@ -33,6 +33,8 @@ class Location(models.Model):
 
     country = models.ForeignKey(Country,related_name="Country_location",  null=True, blank=True , on_delete=models.CASCADE)
     name = models.CharField(max_length=30, null=True, blank=True )
+    log = models.CharField(max_length=30, null=True, blank=True )
+    lat = models.CharField(max_length=30, null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

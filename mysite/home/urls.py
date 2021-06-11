@@ -5,11 +5,11 @@ from home import views
 
 
 
-app_name ="home"
+app_name ="map"
 urlpatterns = [
 
 
-    path('', views.HomeView.as_view(), name='home_'),
+    # path('', views.HomeView.as_view(), name='home_'),
 
 
 ]
