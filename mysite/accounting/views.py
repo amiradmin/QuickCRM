@@ -1,9 +1,11 @@
+from training.views import LecturerView
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
 from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponseRedirect
 from django.conf import settings
+from training.models import Lecturer,Event
 # Create your views here.
 
 class LoginView(TemplateView):
@@ -47,3 +49,16 @@ class LoginView(TemplateView):
 #     def get(self, request):
 #         logout(request)
 #         return HttpResponseRedirect(settings.LOGIN_URL)
+
+
+class ProfileView(TemplateView):
+
+    template_name = "accounts/profile.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProfileView, self).get_context_data()
+        lecturer = Lecturer.objects.filter(id = self.kwargs['id']).first()
+        event = Event.objects.all()
+        context['lecturer'] = lecturer
+        context['event'] = event
+        return context

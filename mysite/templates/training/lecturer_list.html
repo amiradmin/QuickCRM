@@ -99,7 +99,7 @@
             
             <td  ><img  style="min-width: 50px;" src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="image" class="img-fluid avatar-sm rounded-circle"></td>
            
-            <td><p style="margin:0px; padding:0px; min-width: 50px;" >{{item.first_name}} {{item.last_name}}</p></td>
+            <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a style="margin:0px; padding:0px; " href="{% url 'accounting:profile_' id=item.id %}"    >{{item.first_name}} {{item.last_name}}</a></p></td>
            
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.email}}</p></td>
             <td><p style="margin:0px; padding:0px; ">{{item.mobile}}</p></td>
