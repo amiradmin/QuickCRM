@@ -14,7 +14,7 @@
                         <div class="col-12">
                             <div class="page-title-box">
                     
-                                <h4 class="page-title">Lecturer List</h4>
+                                <h4 class="page-title">Candidate List</h4>
                             </div>
                         </div>
                     </div>     
@@ -84,7 +84,7 @@
             <th  ></th>
             
             <th >Name</th>
-    
+            <th  >Tes  ID</th>
             <th  >Email</th>
             <th>Phone</th> 
             <th></th>
@@ -94,19 +94,19 @@
 
 
     <tbody>
-        {% for item in lecturer_list %}
+        {% for item in can_list %}
         <tr>
             
             <td  ><img  style="min-width: 50px;" src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="image" class="img-fluid avatar-sm rounded-circle"></td>
            
             <td><p style="margin:0px; padding:0px; min-width: 50px;" >{{item.first_name}} {{item.last_name}}</p></td>
-           
+            <td><p style="margin:0px; padding:0px; ">{{item.tes_candidate_id}}</p></td>
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.email}}</p></td>
-            <td><p style="margin:0px; padding:0px; ">{{item.mobile}}</p></td>
+            <td><p style="margin:0px; padding:0px; ">{{item.contact_number}}</p></td>
           
           
-            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatelec_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
-            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:lecdel_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatecan_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:delcan_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
             
             
            

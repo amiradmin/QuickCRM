@@ -10,6 +10,7 @@ urlpatterns = [
 
 
     path('newcandidate', views.NewCandidatelView.as_view(), name='newcandidate_'),
+    path('newlec', views.NewLecturerView.as_view(), name='newlec_'),
     path('canlist', views.CandidatelListView.as_view(), name='canlist_'),
     path('trainpanel', views.TrainingPanelView.as_view(), name='trainpanel_'),
     path('product', views.ProductView.as_view(), name='product_'),
@@ -23,6 +24,8 @@ urlpatterns = [
     path('updateevent/<int:id>', views.UpdateEventView.as_view(), name='updateevent_'),
     path('delpro/<int:id>', views.DeleteProductView.as_view(), name='delpro_'),
     path('updatepro/<int:id>', views.UpdateProductView.as_view(), name='updatepro_'),
+    path('lecdel/<int:id>', views.DeleteLecturerView.as_view(), name='lecdel_'),
+    path('updatelec/<int:id>', views.UpdateLecturerView.as_view(), name='updatelec_'),
 
 
 ]

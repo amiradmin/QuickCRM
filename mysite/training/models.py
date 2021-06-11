@@ -62,6 +62,7 @@ class Lecturer(models.Model):
     document_7 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
     document_8 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
     document_9 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
+    document_10 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
     note = models.TextField(max_length=2000,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

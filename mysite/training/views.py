@@ -309,6 +309,17 @@ class LecturerView(TemplateView):
         context['lecturer_list'] = lecturer_list
 
         return context
+
+
+class NewLecturerView(TemplateView):
+    template_name = "training/new_lecturer.html"
+
+    def get_context_data(self):
+        context = super(NewLecturerView, self).get_context_data()
+        lecturer_list = Lecturer.objects.all()
+        context['lecturer_list'] = lecturer_list
+
+        return context
     
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
@@ -317,32 +328,106 @@ class LecturerView(TemplateView):
             obj.first_name = request.POST['first_name']
             obj.last_name = request.POST['last_name']
             obj.email = request.POST['email']
-            obj.mobile = request.POST['mobile']
+            obj.mobile = request.POST['phone']
             obj.country = request.POST['country']
             obj.city = request.POST['city']
+            obj.address = request.POST['address']
             if request.FILES.get('photo', False):
-                obj.candidateprofile.photo = request.FILES['photo']
-            if request.FILES.get('document_1', False):
-                obj.candidateprofile.document_1 = request.FILES['document_1']
-            if request.FILES.get('document_2', False):
-                obj.candidateprofile.document_2 = request.FILES['document_2']
-            if request.FILES.get('document_3', False):
-                obj.candidateprofile.document_3 = request.FILES['document_3']
-            if request.FILES.get('document_4', False):
-                user.candidateprofile.document_4 = request.FILES['document_4']
-            if request.FILES.get('document_5', False):
-                obj.candidateprofile.document_5 = request.FILES['document_5']
-            if request.FILES.get('document_6', False):
-                obj.candidateprofile.document_6 = request.FILES['document_6']
-            if request.FILES.get('document_7', False):
-                obj.candidateprofile.document_7 = request.FILES['document_7']
-            if request.FILES.get('document_8', False):
-                obj.candidateprofile.document_8 = request.FILES['document_8']
-            if request.FILES.get('document_9', False):
-                obj.candidateprofile.document_9 = request.FILES['document_9']
+                obj.photo = request.FILES['photo']
+            if request.FILES.get('doc_1', False):
+                obj.document_1 = request.FILES['doc_1']
+            if request.FILES.get('doc_2', False):
+                obj.document_2 = request.FILES['doc_2']
+            if request.FILES.get('doc_3', False):
+                obj.document_3 = request.FILES['doc_3']
+            if request.FILES.get('doc_4', False):
+                obj.document_4 = request.FILES['doc_4']
+            if request.FILES.get('doc_5', False):
+                obj.document_5 = request.FILES['doc_5']
+            if request.FILES.get('doc_6', False):
+                obj.document_6 = request.FILES['doc_6']
+            if request.FILES.get('doc_7', False):
+                obj.document_7 = request.FILES['doc_7']
+            if request.FILES.get('doc_8', False):
+                obj.document_8 = request.FILES['doc_8']
+            if request.FILES.get('doc_9', False):
+                obj.document_9 = request.FILES['doc_9']            
+            if request.FILES.get('doc_10', False):
+                obj.document_10 = request.FILES['doc_10']
             obj.save()     
 
         return redirect('training:lecturer_')
+
+
+class DeleteLecturerView(TemplateView):
+    template_name = "training/update.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DeleteLecturerView, self).get_context_data()
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+    
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'GET':
+            print('Del Here')
+            lec = Lecturer.objects.filter(id = self.kwargs['id']).first()
+            print(lec.first_name)
+            lec.delete()
+            return redirect('training:lecturer_')
+
+
+
+class UpdateLecturerView(TemplateView):
+    template_name = "training/update_lecturer.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateLecturerView, self).get_context_data()
+        lecturer = Lecturer.objects.filter(id = self.kwargs['id']).first()
+        context['lecturer'] = lecturer
+
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            # country = Country.objects.get(id = request.POST['country'])
+            obj =Lecturer.objects.filter(id = self.kwargs['id']).first()
+            obj.first_name = request.POST['first_name']
+            obj.last_name = request.POST['last_name']
+            obj.email = request.POST['email']
+            obj.mobile = request.POST['phone']
+            obj.country = request.POST['country']
+            obj.city = request.POST['city']
+            obj.address = request.POST['address']
+            if request.FILES.get('photo', False):
+                obj.photo = request.FILES['photo']
+            if request.FILES.get('doc_1', False):
+                obj.document_1 = request.FILES['doc_1']
+            if request.FILES.get('doc_2', False):
+                obj.document_2 = request.FILES['doc_2']
+            if request.FILES.get('doc_3', False):
+                obj.document_3 = request.FILES['doc_3']
+            if request.FILES.get('doc_4', False):
+                obj.document_4 = request.FILES['doc_4']
+            if request.FILES.get('doc_5', False):
+                obj.document_5 = request.FILES['doc_5']
+            if request.FILES.get('doc_6', False):
+                obj.document_6 = request.FILES['doc_6']
+            if request.FILES.get('doc_7', False):
+                obj.document_7 = request.FILES['doc_7']
+            if request.FILES.get('doc_8', False):
+                obj.document_8 = request.FILES['doc_8']
+            if request.FILES.get('doc_9', False):
+                obj.document_9 = request.FILES['doc_9']
+            if request.FILES.get('doc_10', False):
+                obj.document_10 = request.FILES['doc_10']
+            obj.save()     
+
+        return redirect('training:lecturer_')
+
+
+
 
 class CountryView(TemplateView):
     template_name = "training/country_list.html"
