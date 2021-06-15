@@ -62,3 +62,17 @@ class ProfileView(TemplateView):
         context['lecturer'] = lecturer
         context['event'] = event
         return context
+
+
+    def post(self, request, *args, **kwargs):
+        
+
+
+        if request.method == 'POST':
+            aboutMe =  request.POST['aboutMe']
+            print(aboutMe)
+            lecturer = Lecturer.objects.filter(id = self.kwargs['id']).first()
+            lecturer.aboutMe = aboutMe
+            lecturer.save()  
+            return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
+        return render(request, "index.html")

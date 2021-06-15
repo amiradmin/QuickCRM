@@ -36,8 +36,7 @@
                                         <div class="text-start mt-3">
                                             <h4 class="font-13 text-uppercase">About Me :</h4>
                                             <p class="text-muted font-13 mb-3">
-                                                Hi I'm Johnathn Deo,has been the industry's standard dummy text ever since the
-                                                1500s, when an unknown printer took a galley of type.
+                                              {{lecturer.aboutMe}} 
                                             </p>
                                             
 
@@ -86,47 +85,21 @@
                                         <h4 class="header-title mb-3">Certificates</h4>
 
                                         <div class="inbox-widget">
+                                        {% for item in lecturer.certificates.all %}
                                             <div class="inbox-item">
-                                                <div class="inbox-item-img"><img src="assets/images/users/avatar-2.jpg" class="rounded-circle" alt=""></div>
-                                                <p class="inbox-item-author">Tomaslau</p>
-                                                <p class="inbox-item-text">I've finished it! See you so...</p>
+                                                <div class="inbox-item-img"><img src="{% static 'assets/images/users/cer.png'%}" class="rounded-circle" alt=""></div>
+                                                <p class="inbox-item-author">{{item.name}}</p>
+                                                <p class="inbox-item-text">{{item.institute}}</p>
                                                 <p class="inbox-item-date">
-                                                    <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
+                                                    <a href="#" class="btn btn-sm btn-link text-info font-13"> {{item.expiryDate| date}} </a>
                                                 </p>
                                             </div>
-                                            <div class="inbox-item">
-                                                <div class="inbox-item-img"><img src="assets/images/users/avatar-3.jpg" class="rounded-circle" alt=""></div>
-                                                <p class="inbox-item-author">Stillnotdavid</p>
-                                                <p class="inbox-item-text">This theme is awesome!</p>
-                                                <p class="inbox-item-date">
-                                                    <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                                </p>
-                                            </div>
-                                            <div class="inbox-item">
-                                                <div class="inbox-item-img"><img src="assets/images/users/avatar-4.jpg" class="rounded-circle" alt=""></div>
-                                                <p class="inbox-item-author">Kurafire</p>
-                                                <p class="inbox-item-text">Nice to meet you</p>
-                                                <p class="inbox-item-date">
-                                                    <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                                </p>
-                                            </div>
+                                            <hr>
+                                        {% endfor %}
+                       
 
-                                            <div class="inbox-item">
-                                                <div class="inbox-item-img"><img src="assets/images/users/avatar-5.jpg" class="rounded-circle" alt=""></div>
-                                                <p class="inbox-item-author">Shahedk</p>
-                                                <p class="inbox-item-text">Hey! there I'm available...</p>
-                                                <p class="inbox-item-date">
-                                                    <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                                </p>
-                                            </div>
-                                            <div class="inbox-item">
-                                                <div class="inbox-item-img"><img src="assets/images/users/avatar-6.jpg" class="rounded-circle" alt=""></div>
-                                                <p class="inbox-item-author">Adhamdannaway</p>
-                                                <p class="inbox-item-text">This theme is awesome!</p>
-                                                <p class="inbox-item-date">
-                                                    <a href="#" class="btn btn-sm btn-link text-info font-13"> Reply </a>
-                                                </p>
-                                            </div>
+                              
+                                
                                         </div> <!-- end inbox-widget -->
                                     </div> <!-- end card-body-->
                                 </div> <!-- end card-->
@@ -302,7 +275,8 @@
     
                                             <div class="tab-pane " id="settings">
 
-                                                <form>
+                                                <form method="POST">
+                                                {% csrf_token %}
                                                     <h5 class="mb-4 text-uppercase"><i class="mdi mdi-account-circle me-1"></i> Personal Info</h5>
                                                     <div class="row">
                                                         <div class="col-md-6">
@@ -322,8 +296,8 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="mb-3">
-                                                                <label for="userbio" class="form-label">Bio</label>
-                                                                <textarea class="form-control" id="userbio" rows="4" placeholder="Write something..."></textarea>
+                                                                <label for="userbio" class="form-label">About Me</label>
+                                                                <textarea class="form-control" name="aboutMe" id="userbio" rows="4" style="text-align:justify" placeholder="Write something...">{{lecturer.aboutMe}} </textarea>
                                                             </div>
                                                         </div> <!-- end col -->
                                                     </div> <!-- end row -->
@@ -332,7 +306,7 @@
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
                                                                 <label for="useremail" class="form-label">Email Address</label>
-                                                                <input type="email" class="form-control" id="useremail" placeholder="Enter email">
+                                                                <input type="text" class="form-control" id="useremail" placeholder="Enter email">
                                                                 <span class="form-text text-muted"><small>If you want to change email please <a href="javascript: void(0);">click</a> here.</small></span>
                                                             </div>
                                                         </div>
@@ -461,7 +435,7 @@
 
         <script>
             !function(l){"use strict";function e(){this.$body=l("body"),this.$modal=new bootstrap.Modal(document.getElementById("event-modal"),{backdrop:"static"}),this.$calendar=l("#calendar"),this.$formEvent=l("#form-event"),this.$btnNewEvent=l("#btn-new-event"),this.$btnDeleteEvent=l("#btn-delete-event"),this.$btnSaveEvent=l("#btn-save-event"),this.$modalTitle=l("#modal-title"),this.$calendarObj=null,this.$selectedEvent=null,this.$newEventData=null}e.prototype.onEventClick=function(e){this.$formEvent[0].reset(),this.$formEvent.removeClass("was-validated"),this.$newEventData=null,this.$btnDeleteEvent.show(),this.$modalTitle.text("Edit Event"),this.$modal.show(),this.$selectedEvent=e.event,l("#event-title").val(this.$selectedEvent.title),l("#event-category").val(this.$selectedEvent.classNames[0])},e.prototype.onSelect=function(e){this.$formEvent[0].reset(),this.$formEvent.removeClass("was-validated"),this.$selectedEvent=null,this.$newEventData=e,this.$btnDeleteEvent.hide(),this.$modalTitle.text("Add New Event"),this.$modal.show(),this.$calendarObj.unselect()},e.prototype.init=function(){var e=new Date(l.now());new FullCalendar.Draggable(document.getElementById("external-events"),{itemSelector:".external-event",eventData:function(e){return{title:e.innerText,className:l(e).data("class")}}});var t=[
-            {% for item in event %}
+            {% for item in lecturer.events.all %}
             
             {title:'{{item.name  }}',start:new Date('{{item.start_date |date:'Y-m-d' }}'),className:"bg-warning"},
             {% endfor %}

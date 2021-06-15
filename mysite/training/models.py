@@ -54,6 +54,8 @@ class Lecturer(models.Model):
     address = models.CharField(max_length=1024,  null=True, blank=True  )
     birth_date = models.DateField(null=True, blank=True)
     events = models.ManyToManyField('Event')
+    certificates = models.ManyToManyField('Certificate')
+    aboutMe = models.CharField(max_length=5000, null=True, blank=True )
     photo = models.FileField(upload_to='lecturer_document',null=True,blank=True)
     document_1 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
     document_2 = models.FileField(upload_to='lecturer_document',null=True,blank=True)
@@ -130,3 +132,16 @@ class CandidateProfile(models.Model):
 #     if created:
 #         CandidateProfile.objects.create(user=instance)
 #     instance.candidateprofile.save()
+
+
+class Certificate(models.Model):
+    
+    name = models.CharField(max_length=64, null=True, blank=True )
+    institute = models.CharField(max_length=30, null=True, blank=True )
+    expiryDate = models.DateTimeField(null=True, blank=True)
+    issueDate = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name

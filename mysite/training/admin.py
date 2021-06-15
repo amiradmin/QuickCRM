@@ -1,5 +1,5 @@
 from django.contrib import admin
-from training.models import CandidateProfile,Product,Country,Location,Event,Lecturer
+from training.models import CandidateProfile,Product,Country,Location,Event,Lecturer,Certificate
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
@@ -26,6 +26,14 @@ class ProductAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_filter =['id','name','code','price','type','created_at','updated_at']
 
 admin.site.register(Product,ProductAdmin)
+
+
+class CertificateAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+
+    list_display = ['id','name','institute','expiryDate','issueDate','created_at','updated_at']
+    list_filter =['id','name','institute','expiryDate','issueDate','created_at','updated_at']
+
+admin.site.register(Certificate,CertificateAdmin)
 
 
 class CountryAdmin(ImportExportModelAdmin,admin.ModelAdmin):
