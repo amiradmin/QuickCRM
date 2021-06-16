@@ -88,7 +88,7 @@
                                         {% for item in lecturer.certificates.all %}
                                             <div class="inbox-item">
                                                 <div class="inbox-item-img"><img src="{% static 'assets/images/users/cer.png'%}" class="rounded-circle" alt=""></div>
-                                                <p class="inbox-item-author">{{item.name}}</p>
+                                                <p style="max-width:180px;" class="inbox-item-author">{{item.name}}</p>
                                                 <p class="inbox-item-text">{{item.institute}}</p>
                                                 <p class="inbox-item-date">
                                                     <a href="#" class="btn btn-sm btn-link text-info font-13"> {{item.expiryDate| date}} </a>
@@ -145,17 +145,8 @@
                                             <div class="col-lg-11">
                                                 <div class="mt-4 mt-lg-0">
                                                     <div id="calendar"></div>
-                                                </div>
-                                            </div> <!-- end col -->
 
-
-        <div class="row">
-                        <div class="col-12">
-                         <br>
-                         
-                         <br>
-                              <div class="tab-pane show active" id="basic-datatable-preview">
-                                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
+                            <table id="basic-datatable"  class="table dt-responsive  w-100">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
@@ -182,29 +173,28 @@
                                                         <td>{{item.location}}</td>
                                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
                                                       
-                                                 
+                                                       
+                                                        
                                                        
                                                     </tr>
                                                     {%endfor%}
                                                 </tbody>
-                                            </table>                                           
-                                        </div> <!-- end preview-->
-                                </div> <!-- end card -->
+                                            </table>                      
+                                                </div>
+                                            </div> <!-- end col -->
 
                                         </div>  <!-- end row -->
 
                     
                                     </div> <!-- end card body-->
-                             
+                                </div> <!-- end card -->
+
                                 <!-- Add New Event MODAL -->
                                 <div class="modal fade" id="event-modal" tabindex="-1">
                                     <div class="modal-dialog">
                              
                                     </div> <!-- end modal dialog-->
                                 </div>
-                                </div>
-                                </div>
-                                
 
                                       
                                             </div> <!-- end tab-pane -->

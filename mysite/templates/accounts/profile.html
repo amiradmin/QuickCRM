@@ -88,7 +88,7 @@
                                         {% for item in lecturer.certificates.all %}
                                             <div class="inbox-item">
                                                 <div class="inbox-item-img"><img src="{% static 'assets/images/users/cer.png'%}" class="rounded-circle" alt=""></div>
-                                                <p class="inbox-item-author">{{item.name}}</p>
+                                                <p style="max-width:180px;" class="inbox-item-author">{{item.name}}</p>
                                                 <p class="inbox-item-text">{{item.institute}}</p>
                                                 <p class="inbox-item-date">
                                                     <a href="#" class="btn btn-sm btn-link text-info font-13"> {{item.expiryDate| date}} </a>

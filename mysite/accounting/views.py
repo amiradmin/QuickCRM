@@ -56,7 +56,7 @@ class LecturerProfileView(TemplateView):
     template_name = "accounts/profile.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(ProfileView, self).get_context_data()
+        context = super(LecturerProfileView, self).get_context_data()
         lecturer = Lecturer.objects.filter(id = self.kwargs['id']).first()
         event = Event.objects.all()
         context['lecturer'] = lecturer
@@ -65,8 +65,6 @@ class LecturerProfileView(TemplateView):
 
     def post(self, request, *args, **kwargs):
         
-
-
         if request.method == 'POST':
             aboutMe =  request.POST['aboutMe']
             print(aboutMe)
