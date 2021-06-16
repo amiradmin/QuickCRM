@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from training.models import Lecturer,Event
+from training.models import CandidateProfile, Lecturer,Event
 # Create your views here.
 
 class LoginView(TemplateView):
@@ -51,7 +51,7 @@ class LoginView(TemplateView):
 #         return HttpResponseRedirect(settings.LOGIN_URL)
 
 
-class ProfileView(TemplateView):
+class LecturerProfileView(TemplateView):
 
     template_name = "accounts/profile.html"
 
@@ -60,7 +60,6 @@ class ProfileView(TemplateView):
         lecturer = Lecturer.objects.filter(id = self.kwargs['id']).first()
         event = Event.objects.all()
         context['lecturer'] = lecturer
-        context['event'] = event
         return context
 
 
@@ -72,6 +71,30 @@ class ProfileView(TemplateView):
             aboutMe =  request.POST['aboutMe']
             print(aboutMe)
             lecturer = Lecturer.objects.filter(id = self.kwargs['id']).first()
+            lecturer.aboutMe = aboutMe
+            lecturer.save()  
+            return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
+        return render(request, "index.html")
+    
+    
+    
+class CandidateProfileView(TemplateView):
+
+    template_name = "accounts/can_profile.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CandidateProfileView, self).get_context_data()
+        lecturer = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+        context['lecturer'] = lecturer
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+       
+        if request.method == 'POST':
+            aboutMe =  request.POST['aboutMe']
+            print(aboutMe)
+            lecturer = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
             lecturer.aboutMe = aboutMe
             lecturer.save()  
             return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
