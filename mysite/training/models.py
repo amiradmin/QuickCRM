@@ -29,6 +29,42 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
+class Skill(models.Model):
+
+    name = models.CharField(max_length=64, null=True, blank=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class WorkHistory(models.Model):
+
+    name = models.CharField(max_length=64, null=True, blank=True )
+    position = models.CharField(max_length=64, null=True, blank=True )
+    webSite = models.CharField(max_length=64, null=True, blank=True )
+    date = models.DateField(null=True, blank=True )
+    discription = models.CharField(max_length=2024, null=True, blank=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
+class CandidateProject(models.Model):
+
+    name = models.CharField(max_length=64, null=True, blank=True )
+    client = models.CharField(max_length=64, null=True, blank=True )
+    startDate = models.DateField(null=True, blank=True )
+    dueDate = models.DateField(null=True, blank=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Location(models.Model):
 
     country = models.ForeignKey(Country,related_name="Country_location",  null=True, blank=True , on_delete=models.CASCADE)
@@ -110,6 +146,9 @@ class CandidateProfile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     aboutMe = models.CharField(max_length=5000, null=True, blank=True )
     events = models.ManyToManyField('Event')
+    skills = models.ManyToManyField('Skill',  null=True, blank=True)
+    workHistory = models.ManyToManyField('WorkHistory',  null=True, blank=True)
+    project = models.ManyToManyField('CandidateProject',  null=True, blank=True)
     certificates = models.ManyToManyField('Certificate',  null=True, blank=True )
     photo = models.ImageField(upload_to='candidate_document',null=True,blank=True)
     document_1 = models.FileField(upload_to='candidate_document',null=True,blank=True)

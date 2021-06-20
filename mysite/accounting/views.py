@@ -82,8 +82,8 @@ class CandidateProfileView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(CandidateProfileView, self).get_context_data()
-        lecturer = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
-        context['lecturer'] = lecturer
+        candidate = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+        context['candidate'] = candidate
         return context
 
 

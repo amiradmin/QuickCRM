@@ -1,5 +1,5 @@
 from django.contrib import admin
-from training.models import CandidateProfile,Product,Country,Location,Event,Lecturer,Certificate
+from training.models import CandidateProfile,Product,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
@@ -24,9 +24,22 @@ class ProductAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
     list_display = ['id','name','code','price','type','created_at','updated_at']
     list_filter =['id','name','code','price','type','created_at','updated_at']
-
 admin.site.register(Product,ProductAdmin)
+    
+class SkillAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
+    list_display = ['id','name','created_at','updated_at']
+    list_filter =['id','name','created_at','updated_at']
+
+admin.site.register(Skill,SkillAdmin)
+
+
+class WorkHistoryAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+
+    list_display = ['id','name','date','created_at','updated_at']
+    list_filter =['id','name','created_at','updated_at']
+
+admin.site.register(WorkHistory,WorkHistoryAdmin)
 
 class CertificateAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
@@ -43,7 +56,12 @@ class CountryAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
 admin.site.register(Country,CountryAdmin)
 
+class CandidateProjectadmin(ImportExportModelAdmin,admin.ModelAdmin):
 
+    list_display = ['id','name','created_at','updated_at']
+    list_filter = ['id','name','created_at','updated_at']
+
+admin.site.register(CandidateProject,CandidateProjectadmin)
 
 class LocationAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
