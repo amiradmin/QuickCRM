@@ -541,13 +541,21 @@ class DeleteLocationView(TemplateView):
             return redirect('training:location_')
 
 class TrainingPanelView(TemplateView):
-    template_name = "creative/layouts-vertical.html"
+    template_name = "training/layouts-vertical.html"
 
     def get_context_data(self):
         context = super(TrainingPanelView, self).get_context_data()
         event_list = Event.objects.all()
+        canCount = CandidateProfile.objects.count()
+        lecCount = Lecturer.objects.count()
+        product = Product.objects.all()
       
         context['event_list'] = event_list
+        context['eventCount'] = event_list.count()
+        context['canCount'] = canCount
+        context['lecCount'] = lecCount
+        context['product'] = product
+        context['proCount'] = product.count()
 
         return context
 

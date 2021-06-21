@@ -27,16 +27,22 @@
 
         <link href="{% static 'assets/css/vendor/dataTables.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
         <link href="{% static 'assets/css/vendor/responsive.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+    <style>
+    a.disabled { 
+    pointer-events: none;
+    color: rgba(0,0,128,0.5);
+}
+</style>
     </head>
 
-    <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": true}'>
+    <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": false}'>
         <!-- Begin page -->
         <div class="wrapper">
             <!-- ========== Left Sidebar Start ========== -->
             <div class="leftside-menu">
 
                 <!-- LOGO -->
-                <a style="margin:10px 0;" href="index.html" class="logo text-center logo-light">
+                <a style="margin:10px 0;" href="{% url 'training:trainpanel_' %}" class="logo text-center logo-light">
                     <span class="logo-lg">
                         <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="60">
                     </span>
@@ -46,7 +52,7 @@
                 </a>
 <br>
                 <!-- LOGO -->
-                <a href="index.html" class="logo text-center logo-dark">
+                <a href="{% url 'training:trainpanel_' %}" class="logo text-center logo-dark">
                     <span class="logo-lg">
                         <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="48">
                     </span>
@@ -74,13 +80,13 @@
                                         <a href="{% url 'map:map_' %}">Map</a>
                                     </li>
                                     <li>
-                                        <a href="dashboard-crm.html">CRM</a>
+                                        <a href="dashboard-crm.html" class="disabled">CRM</a>
                                     </li>
                                     <li>
-                                        <a href="index.html">Ecommerce</a>
+                                        <a href="index.html" class="disabled">Ecommerce</a>
                                     </li>
                                     <li>
-                                        <a href="dashboard-projects.html">Projects</a>
+                                        <a href="dashboard-projects.html" class="disabled">Projects</a>
                                     </li>
                                 </ul>
                             </div>
@@ -95,25 +101,25 @@
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="apps-chat.html" class="side-nav-link">
+                            <a href="javascript:void(0)" class="side-nav-link disabled">
                                 <i class="uil-package"></i>
                                 <span> Administration </span>
                             </a>
                         </li>                        
                         <li class="side-nav-item">
-                            <a href="apps-chat.html" class="side-nav-link">
+                            <a href="apps-chat.html" onclick="return false;" class="side-nav-link disabled">
                                 <i class="dripicons-graduation"></i>
                                 <span> Certifications </span>
                             </a>
                         </li>
                         <li class="side-nav-item">
-                            <a href="apps-chat.html" class="side-nav-link">
+                            <a href="apps-chat.html" class="side-nav-link disabled">
                                 <i class=" dripicons-bookmarks"></i>
                                 <span> Examination </span>
                             </a>
                         </li>    
                         <li class="side-nav-item">
-                            <a href="apps-chat.html" class="side-nav-link">
+                            <a href="apps-chat.html" class="side-nav-link disabled">
                                 <i class="uil-comments-alt"></i>
                                 <span> Accountancy </span>
                             </a>
@@ -158,7 +164,7 @@
                         </li>
     
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link">
+                            <a data-bs-toggle="collapse" href="#sidebarEmail" aria-expanded="false" aria-controls="sidebarEmail" class="side-nav-link disabled">
                                 <i class="uil-envelope"></i>
                                 <span> Email </span>
                                 <span class="menu-arrow"></span>
@@ -176,7 +182,7 @@
                         </li>
     
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarProjects" aria-expanded="false" aria-controls="sidebarProjects" class="side-nav-link">
+                            <a data-bs-toggle="collapse" href="#sidebarProjects" aria-expanded="false" aria-controls="sidebarProjects" class="side-nav-link disabled">
                                 <i class="uil-briefcase"></i>
                                 <span> Projects </span>
                                 <span class="menu-arrow"></span>
@@ -202,7 +208,7 @@
 
     
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link">
+                            <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link disabled">
                                 <i class="uil-clipboard-alt"></i>
                                 <span> Tasks </span>
                                 <span class="menu-arrow"></span>
@@ -316,14 +322,7 @@
                                         </a>
 
                                         <!-- item-->
-                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                            <div class="notify-icon bg-info">
-                                                <i class="mdi mdi-account-plus"></i>
-                                            </div>
-                                            <p class="notify-details">New user registered.
-                                                <small class="text-muted">5 hours ago</small>
-                                            </p>
-                                        </a>
+                                
 
                                         <!-- item-->
                                         <a href="javascript:void(0);" class="dropdown-item notify-item">
