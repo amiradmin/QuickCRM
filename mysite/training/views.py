@@ -332,8 +332,7 @@ class NewLecturerView(TemplateView):
             obj.country = request.POST['country']
             obj.city = request.POST['city']
             obj.address = request.POST['address']
-            obj.log = request.POST['longitude']
-            obj.lat = request.POST['latitude']
+
             if request.FILES.get('photo', False):
                 obj.photo = request.FILES['photo']
             if request.FILES.get('doc_1', False):
