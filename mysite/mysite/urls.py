@@ -25,6 +25,7 @@ urlpatterns = [
     path('adminpanel/', include("adminpanel.urls",namespace="adminpanel")),
     path('calender/', include("tescalendar.urls",namespace="calendar_")),
     path('map/', include("map.urls",namespace="map_")),
+    path('forms/', include("forms.urls",namespace="forms_")),
     path('', include("accounting.urls",namespace="accounting")),
 ]
 if settings.DEBUG:

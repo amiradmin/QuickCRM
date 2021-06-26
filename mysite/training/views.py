@@ -311,10 +311,20 @@ class LecturerView(TemplateView):
         return context
 
 
+class NewAttendeesView(TemplateView):
+    template_name = "training/attendees.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewAttendeesView, self).get_context_data()
+        can_list = CandidateProfile.objects.all()
+        context['can_list'] = can_list
+
+        return context
+
 class NewLecturerView(TemplateView):
     template_name = "training/new_lecturer.html"
 
-    def get_context_data(self):
+    def get_context_data(self, *args, **kwargs):
         context = super(NewLecturerView, self).get_context_data()
         lecturer_list = Lecturer.objects.all()
         context['lecturer_list'] = lecturer_list

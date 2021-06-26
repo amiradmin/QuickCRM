@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css'>
+<style>
+
+.card {
+  border: 0 solid #edf2f9;
+  border-radius: 0.375rem;
+  -webkit-box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+}
+
+.card-body {
+  padding: 0.5rem;
+  background-color: #f9fafd !important;
+}
+
+.card-header {
+  padding: 1rem 1.25rem;
+  background-color: #fff;
+  border-bottom: 0 solid #edf2f9;
+}
+
+.dragableMultiselect {
+  display: none;
+}
+
+.dragSortableItems .sortable-list {
+  list-style: none;
+  margin: 0;
+  min-height: 20px;
+  padding: 0px;
+}
+.dragSortableItems .sortable-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  display: block;
+  margin-bottom: -1px;
+  padding: 10px;
+  cursor: move;
+  position: relative;
+  padding-left: 30px;
+}
+.dragSortableItems .sortable-item .icon-drag {
+  color: #ccc;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.dragSortableItems .sortable-item .sortable-item-input {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+}
+.dragSortableItems .placeholder {
+  border: 1px dashed #666;
+  height: 45px;
+  margin-bottom: 5px;
+}
+.dragSortableItems .fixed-panel {
+  max-height: 500px;
+  overflow-y: auto;
+  padding-bottom: 1px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 7px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+</style>
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+                            
+                                </div>
+                                <h4 class="page-title">Attendees</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title"> </h4>
+        
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+                                       
+                                        </div> <!-- end preview-->
+                                        <br>
+                                        <br>
+                                        
+                                     
+                                  <input type="text" name="page_contents[]" data-options='{
+
+
+
+                                  
+
+                                  
+                                               
+
+                                        
+                                               "2": "Tool Type",
+                                               "3": "Tool Portfolio",
+                                               "4": "Tool Status",
+                                               "5": "Tool Description",
+                                               "6": "Tool Owner QID",
+                                               "7": "Tool Owner NTID",
+                                               "8": "Tool Owner NTID sdfsdfsdf fsdf s fasasf afasfasfdasd"
+                                             }' 
+                                             data-selected='[]' 
+                                             data-field-title="<i class='fa fa-folder-open'></i> Available Candidate" 
+                                             data-selected-title="<i class='fa fa-star'></i> Selected Candidate" 
+                                             class="dragableMultiselect">
+
+   <form   method="POST" >
+                                        </form>
+
+                                    
+
+                     
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+               <!-- partial -->
+                  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
+                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable.js'></script>
+                <script src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/js/all.min.js'></script>
+                
+                
+<script  >
+               $(function() {
+  let mainWrapper = '.dragSortableItems',
+      in_available_fields = '.in_available_fields',
+      selectedDropzone = '.selectedDropzone',
+      input_name = 'name';
+
+  // On ready
+  $(document).ready(function() {
+    
+    const dragableMultiselect = $('.dragableMultiselect');
+    dragableMultiselect.length && dragableMultiselect.each((index, value) => {
+      const $this = $(value);
+
+      const available_fields = $.extend({}, $this.data('options'));
+      const selected_fields = $.extend([], $this.data('selected'));
+      const $input_name = $this.attr(input_name);
+      let fieldTitle = $this.data('field-title');
+      let selectedTitle = $this.data('selected-title');
+      
+      let html = '<div class="row dragSortableItems dragSortableItem_' + index + '">\
+                    <div class="col-sm-6">\
+                      <div class="card">\
+                        <div class="card-header">' + fieldTitle + '</div>\
+                        <div class="card-body">\
+                          <ul class="in_available_fields custom-scrollbar sortable-list fixed-panel ui-sortable"></ul>\
+                        </div>\
+                      </div>\
+                    </div>\
+                    <div class="col-sm-6">\
+                      <div class="card primaryPanel">\
+                        <div class="card-header">' + selectedTitle + '</div>\
+                        <div class="card-body">\
+                          <div class="alert alert-warning small text-center mb-0">No Fields Selected</div>\
+                          <ul class="in_primary_fields sortable-list selectedDropzone fixed-panel"></ul>\
+                        </div>\
+                      </div>\
+                    </div>\
+                  </div>';
+      $this.replaceWith(html);
+      $dragSortableItem = $('.dragSortableItem_' + index);
+      
+      let $mainWrapper = $dragSortableItem.closest(mainWrapper),
+        $in_available_fields = $mainWrapper.find(in_available_fields),
+        $selectedDropzone = $mainWrapper.find(selectedDropzone);
+      
+      
+      console.log(available_fields, selected_fields, $mainWrapper, $in_available_fields, $selectedDropzone, $input_name);
+
+      Object.keys(available_fields).forEach(function(key) {
+        var item = '<li class="sortable-item allowPrimary sortable-item-' + key + '" data-fid="' + key + '">'
+                + '<span class="icon-drag fas fa-grip-vertical mr-2"></span>'
+                + '<input type="checkbox" name="' + $input_name + '" class="sortable-item-input"/>'
+                + available_fields[key]
+              + '</li>';
+        $in_available_fields.append(item);
+      });
+
+      selected_fields.map(function(index) {
+        var item = $in_available_fields.find('.sortable-item-' + index);
+        item.find('.sortable-item-input').prop('checked', true);
+        $selectedDropzone.append(item);
+      });
+      checkFields( $mainWrapper );
+      
+      // Set up our dropzone
+      $in_available_fields.sortable({
+        connectWith: '.sortable-list',
+        placeholder: 'placeholder',
+        start: function(event, ui) {
+          if (!$(ui.item).hasClass("allowPrimary")) {
+            $mainWrapper.find(".primaryPanel").removeClass('panel-primary').addClass("panel-danger");
+          }
+          checkFields( $mainWrapper )
+        },
+        receive: function(event, ui) {
+          $(ui.item).find('.sortable-item-input').prop('checked', false);
+        },
+        stop: function(event, ui) {
+          if (!$(ui.item).hasClass("allowPrimary")) {
+            $mainWrapper.find(".primaryPanel").removeClass("panel-danger").addClass('panel-primary');
+          }
+        },
+        change: function(event, ui) {
+          checkFields( $mainWrapper );
+        },
+        update: function(event, ui) {
+          checkFields( $mainWrapper );
+        },
+        out: function(event, ui) {
+          checkFields( $mainWrapper );
+        }
+      }).disableSelection();
+
+      // Enable dropzone for primary fields
+      $selectedDropzone.sortable({
+        connectWith: '.sortable-list',
+        placeholder: 'placeholder',
+        receive: function(event, ui) {
+          // If we dont allow primary fields here, cancel
+          if (!$(ui.item).hasClass("allowPrimary")) {
+            $(ui.placeholder).css('display', 'none');
+            $(ui.sender).sortable("cancel");
+          } else {
+            $(ui.item).find('.sortable-item-input').prop('checked', true);
+          }
+        },
+        over: function(event, ui) {
+          if (!$(ui.item).hasClass("allowPrimary")) {
+            $(ui.placeholder).css('display', 'none');
+          } else {
+            $(ui.placeholder).css('display', '');
+          }
+        },
+        start: function(event, ui) {
+          checkFields( $mainWrapper )
+        },
+        change: function(event, ui) {
+          checkFields( $mainWrapper );
+        },
+        update: function(event, ui) {
+          checkFields( $mainWrapper );
+        },
+        out: function(event, ui) {
+          checkFields( $mainWrapper );
+        }
+      }).disableSelection();
+    });
+  });
+
+  // Checks to see if the fields section has fields selected. If not, shows a placeholder
+  function checkFields( $this ) {
+    if ( $this.find(selectedDropzone).find('li').length >= 1) {
+      $this.find('.primaryPanel').find('.alert').hide();
+    } else {
+      $this.find('.primaryPanel').find('.alert').show();
+    }
+  }
+  
+}); 
+                
+                
+                
+                
+                </script>
+
+           
+                {% endblock %}

@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'adminpanel',
     'tescalendar',
     'map',
+    'forms',
 ]
 
 MIDDLEWARE = [
