@@ -447,7 +447,7 @@
                                     </span>
                                     <span>
                                         <span style="padding:8px 0;" class="account-user-name">{% if user.is_authenticated %}
-                                           {{ user.get_username }}
+                                           Hi {{ user.get_short_name }}
                                      
                                         {% endif %}</span>
                                         <span class="account-position"></span>
@@ -484,7 +484,8 @@
                                     </a>
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                   
+                                    <a href="{% url 'accounting:logout_' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-logout me-1"></i>
                                         <span>Logout</span>
                                     </a>

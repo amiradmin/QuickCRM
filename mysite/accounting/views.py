@@ -1,7 +1,7 @@
 from training.views import LecturerView
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponseRedirect
 from django.conf import settings
@@ -45,10 +45,10 @@ class LoginView(TemplateView):
 
         return render(request, "index.html")
 
-# class LogoutView(View):
-#     def get(self, request):
-#         logout(request)
-#         return HttpResponseRedirect(settings.LOGIN_URL)
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return HttpResponseRedirect(settings.LOGIN_URL)
 
 
 class LecturerProfileView(TemplateView):
@@ -73,8 +73,9 @@ class LecturerProfileView(TemplateView):
             lecturer.save()  
             return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
         return render(request, "index.html")
-    
-    
+
+
+
     
 class CandidateProfileView(TemplateView):
 

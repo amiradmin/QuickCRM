@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': 'tesdb',
         'USER': 'tes_dbuser',
         'PASSWORD': "1qaz!QAZ",
-        'HOST': 'localhost',
+        'HOST': '185.231.59.78',
         'PORT': '5432',
     },
 
@@ -156,3 +156,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 LOGIN_URL ="/"
+LOGOUT_REDIRECT_URL = '/'
