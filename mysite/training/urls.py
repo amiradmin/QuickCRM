@@ -30,6 +30,7 @@ urlpatterns = [
     path('updatecountry/<int:id>', views.UpdateCountryView.as_view(), name='updatecountry_'),
     path('updateloc/<int:id>', views.UpdateLocationView.as_view(), name='updateloc_'),
     path('att/<int:id>', views.NewAttendeesView.as_view(), name='att_'),
+    path('locdel/<int:id>', views.DeleteLocationView.as_view(), name='locdel_'),
 
 
 ]

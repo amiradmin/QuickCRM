@@ -69,6 +69,8 @@ class Location(models.Model):
 
     country = models.ForeignKey(Country,related_name="Country_location",  null=True, blank=True , on_delete=models.CASCADE)
     name = models.CharField(max_length=30, null=True, blank=True )
+    address = models.CharField(max_length=1024, null=True, blank=True )
+    postalCode = models.CharField(max_length=512, null=True, blank=True )
     log = models.CharField(max_length=30, null=True, blank=True )
     lat = models.CharField(max_length=30, null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
@@ -119,6 +121,7 @@ class Event(models.Model):
     country = models.ForeignKey(Country,related_name="country_event",  null=True, blank=True , on_delete=models.CASCADE)
     location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
     lecturers = models.ForeignKey(Lecturer,related_name="lecturer_event",  null=True, blank=True , on_delete=models.CASCADE)
+    start_date = models.DateTimeField(null=True, blank=True)
     start_date = models.DateTimeField(null=True, blank=True)
     # start_date = models.DateField(null=True, blank=True)
 

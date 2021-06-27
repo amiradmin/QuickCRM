@@ -317,9 +317,19 @@ class NewAttendeesView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(NewAttendeesView, self).get_context_data()
         can_list = CandidateProfile.objects.all()
-        context['can_list'] = can_list
+        can='{'
+        for item in can_list:
+            can =can + '"'+ str(item.id)+'":"'+ str(item.first_name)+' '+ str(item.last_name)+'",'
+        can = can + '"10000000000":" "}'
+        context['can_list'] = can
 
         return context
+    
+    def post(self, request, *args, **kwargs):
+        print('Here')
+        if request.method == 'POST':
+            print( request.POST['page_contents'])
+        return redirect('training:event_')
 
 class NewLecturerView(TemplateView):
     template_name = "training/new_lecturer.html"
@@ -330,44 +340,8 @@ class NewLecturerView(TemplateView):
         context['lecturer_list'] = lecturer_list
 
         return context
-    
-    def post(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            # country = Country.objects.get(id = request.POST['country'])
-            obj = Lecturer()
-            obj.first_name = request.POST['first_name']
-            obj.last_name = request.POST['last_name']
-            obj.email = request.POST['email']
-            obj.mobile = request.POST['phone']
-            obj.country = request.POST['country']
-            obj.city = request.POST['city']
-            obj.address = request.POST['address']
 
-            if request.FILES.get('photo', False):
-                obj.photo = request.FILES['photo']
-            if request.FILES.get('doc_1', False):
-                obj.document_1 = request.FILES['doc_1']
-            if request.FILES.get('doc_2', False):
-                obj.document_2 = request.FILES['doc_2']
-            if request.FILES.get('doc_3', False):
-                obj.document_3 = request.FILES['doc_3']
-            if request.FILES.get('doc_4', False):
-                obj.document_4 = request.FILES['doc_4']
-            if request.FILES.get('doc_5', False):
-                obj.document_5 = request.FILES['doc_5']
-            if request.FILES.get('doc_6', False):
-                obj.document_6 = request.FILES['doc_6']
-            if request.FILES.get('doc_7', False):
-                obj.document_7 = request.FILES['doc_7']
-            if request.FILES.get('doc_8', False):
-                obj.document_8 = request.FILES['doc_8']
-            if request.FILES.get('doc_9', False):
-                obj.document_9 = request.FILES['doc_9']            
-            if request.FILES.get('doc_10', False):
-                obj.document_10 = request.FILES['doc_10']
-            obj.save()     
-
-        return redirect('training:lecturer_')
+  
 
 
 class DeleteLecturerView(TemplateView):
@@ -508,6 +482,10 @@ class LocationView(TemplateView):
             country = Country.objects.get(id = request.POST['country'])
             obj = Location()
             obj.name = request.POST['name']
+            obj.address = request.POST['address']
+            obj.postalCode = request.POST['postalCode']
+            obj.log = request.POST['longitude']
+            obj.lat = request.POST['latitude']
             obj.country = country
             obj.save()     
 
@@ -532,6 +510,8 @@ class UpdateLocationView(TemplateView):
             obj.name = request.POST['name']
             obj.log = request.POST['longitude']
             obj.lat = request.POST['latitude']
+            obj.address = request.POST['address']
+            obj.postalCode = request.POST['postalCode']
             obj.save()
         return redirect('training:location_')
 
