@@ -221,20 +221,21 @@ class EventView(TemplateView):
     
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-            country = Country.objects.get(id = request.POST['country'])
+            # country = Country.objects.get(id = request.POST['country'])
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
             location = Location.objects.get(id = request.POST['location'])
 
             obj = Event()
             obj.name = request.POST['name']
-            obj.country = country
+            
             obj.product = product
             obj.lecturers = lecturers
             obj.location = location
             # obj.start_date = request.POST['start_date']
             
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
+            obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
             obj.save()     
 
         return redirect('training:event_')
@@ -259,20 +260,19 @@ class UpdateEventView(TemplateView):
     
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-            print(request.POST['country'])
-            country = Country.objects.get(id = request.POST['country'])
+           
+           
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
             location = Location.objects.get(id = request.POST['location'])
 
             obj = Event.objects.filter(id = self.kwargs['id']).first()
             obj.name = request.POST['name']
-            obj.country = country
             obj.product = product
             obj.lecturers = lecturers
             obj.location = location
             # obj.start_date = request.POST['start_date']
-            
+            obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
             obj.save()     
 

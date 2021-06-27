@@ -122,7 +122,7 @@ class Event(models.Model):
     location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
     lecturers = models.ForeignKey(Lecturer,related_name="lecturer_event",  null=True, blank=True , on_delete=models.CASCADE)
     start_date = models.DateTimeField(null=True, blank=True)
-    start_date = models.DateTimeField(null=True, blank=True)
+    practicalDate = models.DateTimeField(null=True, blank=True)
     # start_date = models.DateField(null=True, blank=True)
 
     announcement_type =  models.CharField(max_length=1,null=True, blank=True, choices=ANNOUNCMENT_CHOICES)

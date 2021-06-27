@@ -38,6 +38,7 @@
                                                         <th>Country</th>
                                                         <th>Location</th>
                                                         <th>Start Date</th>
+                                                        <th>Practical Date</th>
                                           
                                                         <th></th>
                                                         <th></th>
@@ -56,6 +57,7 @@
                                                         <td>{{item.country}}</td>
                                                         <td>{{item.location}}</td>
                                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
+                                                        <td>{{item.practicalDate|date:'m/d/Y'}}</td>
                                                       
                                                         <td><a alt="Test" href="{% url 'training:att_' id=item.id %}"><i style="font-size:20px;" class="fa fa-users"></i></a></td>
                                                         <td><a href="{% url 'training:updateevent_' id=item.id %}"><i style="font-size:20px;" class="fa fa-pencil-square-o" aria-hidden="true" ></i></a></td>
@@ -95,16 +97,16 @@
                           
                                             </div>                                            
                                             <div class="row g-2">
-                                             
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Country</label>
-                                                    <select name="country" id="inputState" class="form-select" required>
-                                                        <option value="" >Choose</option>
-                                                        {% for item in country_list %}
-                                                        <option value="{{item.id}}" >{{item.name}}</option>
+                                                       <div class="mb-3 col-md-6">
+                                                    <label for="inputState" class="form-label">Lecturer</label>
+                                                    <select name="lecturer" id="inputState" class="form-select" required>
+                                                        <option value="">Choose</option>
+                                                        {% for item in lecturers_list %}
+                                                        <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
                                                         {%endfor%}
                                                     </select>
-                                                </div>                                                
+                                                </div>                                        
+                                            
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Location</label>
                                                     <select name="location" id="inputState" class="form-select" required>
@@ -118,15 +120,7 @@
                                             </div>
                                             <div class="row g-2">
                                              
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Lecturer</label>
-                                                    <select name="lecturer" id="inputState" class="form-select" required>
-                                                        <option value="">Choose</option>
-                                                        {% for item in lecturers_list %}
-                                                        <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
-                                                        {%endfor%}
-                                                    </select>
-                                                </div>                                                
+                                              
                                                 <div class="mb-3 col-md-6">
                                               
                                                 <div class="mb-3 position-relative" id="datepicker4">
@@ -134,7 +128,16 @@
                                                     <input type="text" name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
                                                 </div>
                                                 </div>
-                          
+                                                
+                                                 <div class="mb-3 col-md-6">
+                                              
+                                                <div class="mb-3 position-relative" id="datepicker4">
+                                                    <label class="form-label">Practical Date</label>
+                                                    <input type="text" value="{{event.practicalDate |date:'m/d/Y' }}" name="practicalDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
+                                                </div>
+                                                </div>
+
+
                                             </div>
                                         
 
@@ -153,31 +156,9 @@
                                     
 
                                         <div class="tab-pane" id="basic-datatable-code">
-                                            <p>Please include following css file at <code>head</code> element</p>
+                                        
 
-                                            <pre>
-                                                <span class="html escape">
-                                                    &lt;!-- Datatables css --&gt;
-                                                    &lt;link href=&quot;{% static 'assets/css/vendor/dataTables.bootstrap4.css'%} &quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
-                                                    &lt;link href=&quot;{% static 'assets/css/vendor/responsive.bootstrap4.css'%}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
-
-                                            <p>Make sure to include following js files at end of <code>body</code> element</p>
-
-                                            <pre class="mb-0">
-                                                <span class="html escape">
-                                                    &lt;!-- Datatables js --&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/jquery.dataTables.min.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.bootstrap4.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.responsive.min.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/responsive.bootstrap4.min.js'%}&quot;&gt;&lt;/script&gt;
-
-                                                    &lt;!-- Datatable Init js --&gt;
-                                                    &lt;script src=&quot;assets/js/pages/demo.datatable-init.js&quot;&gt;&lt;/script&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
-
+                                         
                                             <pre class="mb-0">
                                                 <span class="html escape">
                                                     &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;

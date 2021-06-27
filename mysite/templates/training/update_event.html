@@ -57,11 +57,11 @@
                                             <div class="row g-2">
                                              
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Country</label>
-                                                    <select name="country" id="inputState" class="form-select" required>
-                                                        <option value="{{event.country.id}}" >{{event.country}}</option>
-                                                        {% for item in country_list %}
-                                                        <option value="{{item.id}}" >{{item.name}}</option>
+                                                    <label for="inputState" class="form-label">Lecturer</label>
+                                                    <select name="lecturer" id="inputState" class="form-select" required>
+                                                        <option value="{{event.lecturers.id}}">{{event.lecturers}}</option>
+                                                        {% for item in lecturers_list %}
+                                                        <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
                                                         {%endfor%}
                                                     </select>
                                                 </div>                                                
@@ -78,15 +78,7 @@
                                             </div>
                                             <div class="row g-2">
                                              
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Lecturer</label>
-                                                    <select name="lecturer" id="inputState" class="form-select" required>
-                                                        <option value="{{event.lecturers.id}}">{{event.lecturers}}</option>
-                                                        {% for item in lecturers_list %}
-                                                        <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
-                                                        {%endfor%}
-                                                    </select>
-                                                </div>                                                
+                                                                                      
                                                 <div class="mb-3 col-md-6">
                                               
                                                 <div class="mb-3 position-relative" id="datepicker4">
@@ -94,12 +86,21 @@
                                                     <input type="text" value="{{event.start_date |date:'m/d/Y' }}" name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
                                                 </div>
                                                 </div>
-                          
+                                             <div class="mb-3 col-md-6">
+                                              
+                                                <div class="mb-3 position-relative" id="datepicker4">
+                                                    <label class="form-label">Practical Date</label>
+                                                    <input type="text" value="{{event.practicalDate |date:'m/d/Y' }}" name="practicalDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
+                                                </div>
+                                                </div>
                                             </div>
                                         
 
                                                         
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                               <div class="mb-3 col-md-12 text-center">
+
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
                                                                            
                                         </form>
 
