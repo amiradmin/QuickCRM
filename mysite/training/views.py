@@ -328,7 +328,9 @@ class NewAttendeesView(TemplateView):
     def post(self, request, *args, **kwargs):
         print('Here')
         if request.method == 'POST':
-            print( request.POST['page_contents'])
+            # print( request.POST['page_contents'])
+            tempList =request.POST.getlist('page_contents[]')
+            print( request.POST.getlist('page_contents[]'))
         return redirect('training:event_')
 
 class NewLecturerView(TemplateView):
@@ -486,6 +488,7 @@ class LocationView(TemplateView):
             obj.postalCode = request.POST['postalCode']
             obj.log = request.POST['longitude']
             obj.lat = request.POST['latitude']
+            obj.city = request.POST['city']
             obj.country = country
             obj.save()     
 
@@ -512,6 +515,7 @@ class UpdateLocationView(TemplateView):
             obj.lat = request.POST['latitude']
             obj.address = request.POST['address']
             obj.postalCode = request.POST['postalCode']
+            obj.city = request.POST['city']
             obj.save()
         return redirect('training:location_')
 
