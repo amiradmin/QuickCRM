@@ -8,9 +8,9 @@ from django.dispatch import receiver
 
 class Product(models.Model):
     TYPE_CHOICES = (('B','Class Room Course'),('L','Online Live Zoom Course'),('W','Online Live Zoom Course Weekend '),('A','Online Virtual Academy Course'),('X','Blended Course'),('N','Non-Blended Course'),('T','Online Training Only'),('AP','Appreciation'),('R','Refresh Course'))
-    name = models.CharField(max_length=30, null=True, blank=True )
-    code = models.CharField(max_length=30, null=True, blank=True )
-    price = models.CharField(max_length=30, null=True, blank=True )
+    name = models.CharField(max_length=512, null=True, blank=True )
+    code = models.CharField(max_length=512, null=True, blank=True )
+    price = models.CharField(max_length=64, null=True, blank=True )
     type = models.CharField(max_length=2, choices=TYPE_CHOICES)
 
     created_at = models.DateTimeField(auto_now_add=True)
