@@ -22,7 +22,7 @@ class Product(models.Model):
 
 class Country(models.Model):
 
-    name = models.CharField(max_length=30, null=True, blank=True )
+    name = models.CharField(max_length=256, null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -31,7 +31,7 @@ class Country(models.Model):
 
 class Skill(models.Model):
 
-    name = models.CharField(max_length=64, null=True, blank=True )
+    name = models.CharField(max_length=256, null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -68,12 +68,12 @@ class CandidateProject(models.Model):
 class Location(models.Model):
 
     country = models.ForeignKey(Country,related_name="Country_location",  null=True, blank=True , on_delete=models.CASCADE)
-    name = models.CharField(max_length=30, null=True, blank=True )
-    city = models.CharField(max_length=30, null=True, blank=True )
+    name = models.CharField(max_length=256, null=True, blank=True )
+    city = models.CharField(max_length=256, null=True, blank=True )
     address = models.CharField(max_length=1024, null=True, blank=True )
     postalCode = models.CharField(max_length=512, null=True, blank=True )
-    log = models.CharField(max_length=30, null=True, blank=True )
-    lat = models.CharField(max_length=30, null=True, blank=True )
+    log = models.CharField(max_length=256, null=True, blank=True )
+    lat = models.CharField(max_length=256, null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -82,14 +82,14 @@ class Location(models.Model):
 
 class Lecturer(models.Model):
   
-    first_name = models.CharField(max_length=30, null=True, blank=True )
-    last_name = models.CharField(max_length=30, null=True, blank=True )
-    passport_id = models.CharField(max_length=30, null=True, blank=True )
+    first_name = models.CharField(max_length=256, null=True, blank=True )
+    last_name = models.CharField(max_length=256, null=True, blank=True )
+    passport_id = models.CharField(max_length=256, null=True, blank=True )
     email = models.EmailField( null=True, blank=True )
-    city = models.CharField(max_length=30,  null=True, blank=True  )
-    country = models.CharField(max_length=30,  null=True, blank=True  )
-    mobile = models.CharField(max_length=30,  null=True, blank=True  )
-    contact_number = models.CharField(max_length=30,  null=True, blank=True  )
+    city = models.CharField(max_length=256,  null=True, blank=True  )
+    country = models.CharField(max_length=256,  null=True, blank=True  )
+    mobile = models.CharField(max_length=256,  null=True, blank=True  )
+    contact_number = models.CharField(max_length=256,  null=True, blank=True  )
     address = models.CharField(max_length=1024,  null=True, blank=True  )
     birth_date = models.DateField(null=True, blank=True)
     events = models.ManyToManyField('Event')
@@ -117,7 +117,7 @@ class Lecturer(models.Model):
 
 class Event(models.Model):
     ANNOUNCMENT_CHOICES = (('S', 'SMS'), ('E', 'Email'))
-    name = models.CharField(max_length=30, null=True, blank=True )
+    name = models.CharField(max_length=256, null=True, blank=True )
     product = models.ForeignKey(Product,related_name="product_event",  null=True, blank=True , on_delete=models.CASCADE)
     country = models.ForeignKey(Country,related_name="country_event",  null=True, blank=True , on_delete=models.CASCADE)
     location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
@@ -181,8 +181,8 @@ class CandidateProfile(models.Model):
 
 class Certificate(models.Model):
     
-    name = models.CharField(max_length=64, null=True, blank=True )
-    institute = models.CharField(max_length=30, null=True, blank=True )
+    name = models.CharField(max_length=256, null=True, blank=True )
+    institute = models.CharField(max_length=256, null=True, blank=True )
     expiryDate = models.DateTimeField(null=True, blank=True)
     issueDate = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
