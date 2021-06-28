@@ -101,7 +101,7 @@ DATABASES = {
         'NAME': 'tesdb',
         'USER': 'tes_dbuser',
         'PASSWORD': "1qaz!QAZ",
-        'HOST': '185.231.59.78',
+        'HOST': 'localhost',
         'PORT': '5432',
     },
 
