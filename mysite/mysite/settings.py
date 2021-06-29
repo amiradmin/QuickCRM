@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'tescalendar',
     'map',
     'forms',
+    
 ]
 
 MIDDLEWARE = [

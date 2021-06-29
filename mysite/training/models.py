@@ -114,24 +114,6 @@ class Lecturer(models.Model):
 
 
 
-class Event(models.Model):
-    ANNOUNCMENT_CHOICES = (('S', 'SMS'), ('E', 'Email'))
-    name = models.CharField(max_length=256, null=True, blank=True )
-    product = models.ForeignKey(Product,related_name="product_event",  null=True, blank=True , on_delete=models.CASCADE)
-    country = models.ForeignKey(Country,related_name="country_event",  null=True, blank=True , on_delete=models.CASCADE)
-    location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
-    lecturers = models.ForeignKey(Lecturer,related_name="lecturer_event",  null=True, blank=True , on_delete=models.CASCADE)
-    start_date = models.DateTimeField(null=True, blank=True)
-    practicalDate = models.DateTimeField(null=True, blank=True)
-    # start_date = models.DateField(null=True, blank=True)
-
-    announcement_type =  models.CharField(max_length=1,null=True, blank=True, choices=ANNOUNCMENT_CHOICES)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
 
 class CandidateProfile(models.Model):
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -174,6 +156,25 @@ class CandidateProfile(models.Model):
 #     if created:
 #         CandidateProfile.objects.create(user=instance)
 #     instance.candidateprofile.save()
+
+class Event(models.Model):
+    ANNOUNCMENT_CHOICES = (('S', 'SMS'), ('E', 'Email'))
+    name = models.CharField(max_length=256, null=True, blank=True )
+    product = models.ForeignKey(Product,related_name="product_event",  null=True, blank=True , on_delete=models.CASCADE)
+    country = models.ForeignKey(Country,related_name="country_event",  null=True, blank=True , on_delete=models.CASCADE)
+    location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
+    lecturers = models.ForeignKey(Lecturer,related_name="lecturer_event",  null=True, blank=True , on_delete=models.CASCADE)
+    start_date = models.DateTimeField(null=True, blank=True)
+    practicalDate = models.DateTimeField(null=True, blank=True)
+    candidates = models.ManyToManyField(CandidateProfile)
+    # start_date = models.DateField(null=True, blank=True)
+
+    announcement_type =  models.CharField(max_length=1,null=True, blank=True, choices=ANNOUNCMENT_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Certificate(models.Model):

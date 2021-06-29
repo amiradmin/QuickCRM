@@ -88,6 +88,7 @@
             <th>Phone</th> 
             <th>Country</th> 
             <th>City</th> 
+            <th>Event</th> 
             <th></th>
             <th></th>
         </tr>
@@ -100,12 +101,15 @@
             
             <td  ><img  style="min-width: 50px;" src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="image" class="img-fluid avatar-sm rounded-circle"></td>
            
-            <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a style="margin:0px; padding:0px; " href="{% url 'accounting:profile_' id=item.id %}"    >{{item.first_name}} {{item.last_name}}</a></p></td>
+            <td><p style="margin:0px; padding:0px; min-width: 50px; max-width:150px;" ><a style="margin:0px; padding:0px; " href="{% url 'accounting:profile_' id=item.id %}"    >{{item.first_name}} {{item.last_name}}</a></p></td>
            
-            <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.email}}</p></td>
-            <td><p style="margin:0px; padding:0px; ">{{item.contact_number}}</p></td>
-            <td><p style="margin:0px; padding:0px; ">{{item.country}}</p></td>
-            <td><p style="margin:0px; padding:0px; ">{{item.city}}</p></td>
+            <td  ><p style="margin:0px; padding:0px;min-width: 50px;max-width:150px;" >{{item.email}}</p></td>
+            <td><p style="margin:0px; padding:0px; max-width:150px;">{{item.contact_number}}</p></td>
+            <td><p style="margin:0px; padding:0px;max-width:70px; ">{{item.country}}</p></td>
+            <td><p style="margin:0px; padding:0px; max-width:70px;">{{item.city}}</p></td>
+            <td><p style="margin:0px; padding:0px; max-width:100px;">{% for event in item.events.all %}
+                                                                       {{event.name}}
+                                                                      {% endfor %}</p></td>
           
           
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatelec_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>

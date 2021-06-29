@@ -123,8 +123,8 @@
                  
                                <form method="POST">
                               {% csrf_token %} 
-
-                                  <input type="text" name="page_contents[]" data-options='{{can_list}}'                                      
+                                  <input type="text" id="input1"  name="temp[]" class="form-control" id="validationCustom04" placeholder="country" >
+                                  <input type="text" name="candidates" data-options='{{can_list}}'                                      
                                       
                                              
                                              data-selected='[]' 
@@ -182,12 +182,13 @@
     const dragableMultiselect = $('.dragableMultiselect');
     dragableMultiselect.length && dragableMultiselect.each((index, value) => {
       const $this = $(value);
-
+    
       const available_fields = $.extend({}, $this.data('options'));
       const selected_fields = $.extend([], $this.data('selected'));
       const $input_name = $this.attr(input_name);
       let fieldTitle = $this.data('field-title');
       let selectedTitle = $this.data('selected-title');
+      var output = '';
       
       let html = '<div class="row dragSortableItems dragSortableItem_' + index + '">\
                     <div class="col-sm-6">\
@@ -210,7 +211,7 @@
                   </div>';
       $this.replaceWith(html);
       $dragSortableItem = $('.dragSortableItem_' + index);
-      
+      console.log(available_fields)
       let $mainWrapper = $dragSortableItem.closest(mainWrapper),
         $in_available_fields = $mainWrapper.find(in_available_fields),
         $selectedDropzone = $mainWrapper.find(selectedDropzone);
@@ -259,6 +260,10 @@
         update: function(event, ui) {
           checkFields( $mainWrapper );
           console.log("hello : " + $(ui.item).text()+ " "+$(ui.item).text());
+          
+          
+          output = output + "-" + $(ui.item).text()
+          $("#input1").val(output);
         },
         out: function(event, ui) {
           checkFields( $mainWrapper );

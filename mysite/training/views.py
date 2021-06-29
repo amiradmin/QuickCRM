@@ -311,10 +311,12 @@ class NewAttendeesView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewAttendeesView, self).get_context_data()
-        can_list = CandidateProfile.objects.all()[:10]
+        can_list = CandidateProfile.objects.order_by('first_name')
+        counter = 0
         can='{'
         for item in can_list:
-            can =can + '"'+ str(item.id)+'":"'+ str(item.first_name)+' '+ str(item.last_name)+'",'
+            can =can + '"'+ str(counter)+'":"'+ str(item.first_name)+' '+ str(item.last_name)+'",'
+            counter = counter + 1 
         can = can + '"10000000000":" "}'
         context['can_list'] = can
 
@@ -323,9 +325,10 @@ class NewAttendeesView(TemplateView):
     def post(self, request, *args, **kwargs):
         print('Here')
         if request.method == 'POST':
-            print( request.POST.get('page_contents[]', None))
+            # print( request.POST.get('page_contents[]', None))
 
-            # print( request.POST.getlist('page_contents[]'))
+            # print( request.POST['page_contents'])
+            print(request.POST['temp[]'])
         return redirect('training:event_')
 
 class NewLecturerView(TemplateView):
