@@ -142,8 +142,6 @@ class CandidateProfile(models.Model):
     tes_candidate_id = models.CharField(max_length=1024, null=True, blank=True )
     sponsor_company = models.CharField(max_length=1024, null=True, blank=True )
     email = models.EmailField( null=True, blank=True )
-    city = models.CharField(max_length=1024,  null=True, blank=True  )
-    country = models.CharField(max_length=1024,  null=True, blank=True  )
     address = models.CharField(max_length=1024,  null=True, blank=True  )
     postal_code = models.CharField(max_length=128,  null=True, blank=True  )
     contact_number = models.CharField(max_length=1024,  null=True, blank=True  )

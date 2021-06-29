@@ -231,6 +231,7 @@
         var item = $in_available_fields.find('.sortable-item-' + index);
         item.find('.sortable-item-input').prop('checked', true);
         $selectedDropzone.append(item);
+        
       });
       checkFields( $mainWrapper );
       
@@ -257,6 +258,7 @@
         },
         update: function(event, ui) {
           checkFields( $mainWrapper );
+          console.log("hello : " + $(ui.item).text()+ " "+$(ui.item).text());
         },
         out: function(event, ui) {
           checkFields( $mainWrapper );
@@ -288,6 +290,7 @@
         },
         change: function(event, ui) {
           checkFields( $mainWrapper );
+          
         },
         update: function(event, ui) {
           checkFields( $mainWrapper );

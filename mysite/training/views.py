@@ -35,8 +35,6 @@ class NewCandidatelView(TemplateView):
             # user.passport_id = request.POST['passport_id']
             user.sponsor_company = request.POST['sponsor_company']
             user.email = request.POST['email']
-            user.city = request.POST['city']
-            user.country = request.POST['country']
             user.contact_number = request.POST['phone']
             # user.note = request.POST['note']
             if request.FILES.get('photo', False):
@@ -76,7 +74,6 @@ class UpdateCandidatelView(TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        print('OK')
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
             print('OK')
@@ -90,8 +87,6 @@ class UpdateCandidatelView(TemplateView):
             # user.passport_id = request.POST['passport_id']
             user.sponsor_company = request.POST['sponsor_company']
             user.email = request.POST['email']
-            user.city = request.POST['city']
-            user.country = request.POST['country']
             user.contact_number = request.POST['phone']
             # user.note = request.POST['note']
             if request.FILES.get('photo', False):
@@ -316,7 +311,7 @@ class NewAttendeesView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewAttendeesView, self).get_context_data()
-        can_list = CandidateProfile.objects.all()
+        can_list = CandidateProfile.objects.all()[:10]
         can='{'
         for item in can_list:
             can =can + '"'+ str(item.id)+'":"'+ str(item.first_name)+' '+ str(item.last_name)+'",'
@@ -328,9 +323,9 @@ class NewAttendeesView(TemplateView):
     def post(self, request, *args, **kwargs):
         print('Here')
         if request.method == 'POST':
-            # print( request.POST['page_contents'])
-            tempList =request.POST.getlist('page_contents[]')
-            print( request.POST.getlist('page_contents[]'))
+            print( request.POST.get('page_contents[]', None))
+
+            # print( request.POST.getlist('page_contents[]'))
         return redirect('training:event_')
 
 class NewLecturerView(TemplateView):
@@ -343,7 +338,57 @@ class NewLecturerView(TemplateView):
 
         return context
 
-  
+    def post(self, request, *args, **kwargs):
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'POST':
+            print('OK')
+            
+            lecturer = Lecturer()
+            lecturer.first_name = request.POST['first_name']
+            lecturer.last_name = request.POST['last_name']
+            lecturer.email = request.POST['email']
+            if request.FILES.get('tes_id', False):
+                lecturer.tes_candidate_id = request.POST['tes_id']
+            if request.FILES.get('customer_id', False):
+                lecturer.customer_id = request.POST['customer_id']
+            if request.FILES.get('address', False):
+                lecturer.address = request.POST['address']
+            if request.FILES.get('passport_id', False):
+                lecturer.passport_id = request.POST['passport_id']
+            if request.FILES.get('phone', False):
+                lecturer.contact_number = request.POST['phone']
+            if request.FILES.get('note', False):
+                lecturer.note = request.POST['note']
+            # lecturer.tes_candidate_id = request.POST['tes_id']
+            # lecturer.customer_id = request.POST['customer_id']
+            # lecturer.address = request.POST['address']
+            # # user.passport_id = request.POST['passport_id']
+            # lecturer.sponsor_company = request.POST['sponsor_company']
+            # lecturer.email = request.POST['email']
+            # lecturer.contact_number = request.POST['phone']
+            # user.note = request.POST['note']
+            if request.FILES.get('photo', False):
+                lecturer.photo = request.FILES['photo']
+            if request.FILES.get('doc_1', False):
+                lecturer.document_1 = request.FILES['doc_1']
+            if request.FILES.get('doc_2', False):
+                lecturer.document_2 = request.FILES['doc_2']
+            if request.FILES.get('doc_3', False):
+                lecturer.document_3 = request.FILES['doc_3']
+            if request.FILES.get('doc_4', False):
+                lecturer.document_4 = request.FILES['doc_4']
+            if request.FILES.get('doc_5', False):
+                lecturer.document_5 = request.FILES['doc_5']
+            if request.FILES.get('doc_6', False):
+                lecturer.document_6 = request.FILES['doc_6']
+            if request.FILES.get('doc_7', False):
+                lecturer.document_7 = request.FILES['doc_7']
+            if request.FILES.get('doc_8', False):
+                lecturer.document_8 = request.FILES['doc_8']
+            if request.FILES.get('doc_9', False):
+                lecturer.document_9 = request.FILES['doc_9']
+            lecturer.save() 
+        return redirect('training:lecturer_')
 
 
 class DeleteLecturerView(TemplateView):
