@@ -428,10 +428,18 @@ class UpdateLecturerView(TemplateView):
             obj.first_name = request.POST['first_name']
             obj.last_name = request.POST['last_name']
             obj.email = request.POST['email']
-            obj.mobile = request.POST['phone']
-            obj.country = request.POST['country']
-            obj.city = request.POST['city']
-            obj.address = request.POST['address']
+            if request.FILES.get('tes_id', False):
+                obj.tes_candidate_id = request.POST['tes_id']
+            if request.FILES.get('customer_id', False):
+                obj.customer_id = request.POST['customer_id']
+            if request.FILES.get('address', False):
+                obj.address = request.POST['address']
+            if request.FILES.get('passport_id', False):
+                obj.passport_id = request.POST['passport_id']
+            if request.FILES.get('phone', False):
+                obj.contact_number = request.POST['phone']
+            if request.FILES.get('note', False):
+                obj.note = request.POST['note']
             if request.FILES.get('photo', False):
                 obj.photo = request.FILES['photo']
             if request.FILES.get('doc_1', False):
