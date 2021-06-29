@@ -14,7 +14,7 @@ admin.site.register(CandidateProfile,CandidateProfileAdmin)
 class LecturerAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
 
-    list_display = ['id','first_name','last_name','passport_id','email','photo','document_1','document_2','contact_number','city','country','contact_number','birth_date','created_at','updated_at']
+    list_display = ['id','first_name','last_name','passport_id','email','contact_number','city','country','photo','document_1','document_2','contact_number','city','country','contact_number','birth_date','created_at','updated_at']
     list_filter = ['id','first_name','passport_id','email','city','country','contact_number','birth_date','created_at','updated_at']
 
 admin.site.register(Lecturer,LecturerAdmin)

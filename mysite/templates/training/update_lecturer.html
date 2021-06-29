@@ -53,7 +53,7 @@
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom03">Contact Number</label>
-                                                        <input type="text"  value="{{lecturer.mobile}}" name="phone" class="form-control" id="validationCustom03" placeholder="Phone" >
+                                                        <input type="text"  value="{{lecturer.contact_number}}" name="phone" class="form-control" id="validationCustom03" placeholder="Phone" >
                                                         <div class="invalid-feedback">
                                                             Please provide a valid contact number.
                                                         </div>
@@ -78,11 +78,18 @@
                                                         <label class="form-label" for="validationCustom05">Address</label>
                                                    
                                                         <div class="form-floating">
-                                                            <textarea  name= "address" class="form-control" placeholder=" Address here" id="floatingTextarea" style="height: 100px;">{{lecturer.address}}</textarea>
+                                                            <textarea  name= "address" class="form-control" placeholder=" Address here" id="floatingTextarea" style="height: 50px;">{{lecturer.address}}</textarea>
                                                             
                                                         </div>
                                                     </div>
-                                          
+                                                                                                        <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom05">Note</label>
+                                                   
+                                                        <div class="form-floating">
+                                                            <textarea  name= "note" class="form-control" placeholder=" Note here" id="floatingTextarea" style="height: 100px;">{{lecturer.note}}</textarea>
+                                                            
+                                                        </div>
+                                                    </div>                                       
                                                     <br>
                                                 
                                                     <div class="mb-3 col-md-12">

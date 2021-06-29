@@ -86,6 +86,8 @@
             <th>Name</th>  
             <th>Email</th>
             <th>Phone</th> 
+            <th>Country</th> 
+            <th>City</th> 
             <th></th>
             <th></th>
         </tr>
@@ -101,7 +103,9 @@
             <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a style="margin:0px; padding:0px; " href="{% url 'accounting:profile_' id=item.id %}"    >{{item.first_name}} {{item.last_name}}</a></p></td>
            
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.email}}</p></td>
-            <td><p style="margin:0px; padding:0px; ">{{item.mobile}}</p></td>
+            <td><p style="margin:0px; padding:0px; ">{{item.contact_number}}</p></td>
+            <td><p style="margin:0px; padding:0px; ">{{item.country}}</p></td>
+            <td><p style="margin:0px; padding:0px; ">{{item.city}}</p></td>
           
           
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatelec_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
