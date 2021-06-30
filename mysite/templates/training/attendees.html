@@ -136,9 +136,12 @@
                                      
 
                                     
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                      <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                                    </div> 
+
                         </form>
-                     
+                     <br>
                                     </div> <!-- end tab-content-->
                                   
 
@@ -188,7 +191,7 @@
       const $input_name = $this.attr(input_name);
       let fieldTitle = $this.data('field-title');
       let selectedTitle = $this.data('selected-title');
-      var output = '';
+      var canList=[];  
       
       let html = '<div class="row dragSortableItems dragSortableItem_' + index + '">\
                     <div class="col-sm-6">\
@@ -261,9 +264,8 @@
           checkFields( $mainWrapper );
           console.log("hello : " + $(ui.item).text()+ " "+$(ui.item).text());
           
-          
-          output = output + "-" + $(ui.item).text()
-          $("#input1").val(output);
+          canList.push($(ui.item).text());
+          $("#input1").val(canList);
         },
         out: function(event, ui) {
           checkFields( $mainWrapper );

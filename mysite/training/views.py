@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
-from training.models import Event,CandidateProfile,Country,Location,Product,Lecturer
+from training.models import Event,CandidateProfile,Country,Location,Product,Lecturer,TesCandidate
 from django.contrib.auth.models import User
 import time
 import datetime
@@ -311,11 +311,11 @@ class NewAttendeesView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewAttendeesView, self).get_context_data()
-        can_list = CandidateProfile.objects.order_by('first_name')
+        can_list = TesCandidate.objects.order_by('first_name')
         counter = 0
         can='{'
         for item in can_list:
-            can =can + '"'+ str(counter)+'":"'+ str(item.first_name)+' '+ str(item.last_name)+'",'
+            can =can + '"'+ str(counter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
             counter = counter + 1 
         can = can + '"10000000000":" "}'
         context['can_list'] = can
@@ -327,8 +327,18 @@ class NewAttendeesView(TemplateView):
         if request.method == 'POST':
             # print( request.POST.get('page_contents[]', None))
 
-            # print( request.POST['page_contents'])
-            print(request.POST['temp[]'])
+            event = Event.objects.filter(id=6 ).first()
+            
+            canList =request.POST['temp[]']
+            for item in canList.split(','):
+                can_id =item.split(' ')[0]
+                print(can_id)
+                candidate = TesCandidate.objects.filter(tes_candidate_id = can_id).first()
+                event.candidate.add(candidate)
+                # event.save()
+                print(candidate.first_name)
+                
+            
         return redirect('training:event_')
 
 class NewLecturerView(TemplateView):

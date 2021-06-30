@@ -32,6 +32,69 @@ class Country(models.Model):
 class Skill(models.Model):
 
     name = models.CharField(max_length=256, null=True, blank=True )
+    customer_id = models.CharField(max_length=1024, null=True, blank=True )
+    first_name = models.CharField(max_length=1024, null=True, blank=True )
+    last_name = models.CharField(max_length=1024, null=True, blank=True )
+    tes_candidate_id = models.CharField(max_length=1024, null=True, blank=True )
+    sponsor_company = models.CharField(max_length=1024, null=True, blank=True )
+    email = models.EmailField( null=True, blank=True )
+    address = models.CharField(max_length=1024,  null=True, blank=True  )
+    postal_code = models.CharField(max_length=128,  null=True, blank=True  )
+    contact_number = models.CharField(max_length=1024,  null=True, blank=True  )
+    birth_date = models.DateField(null=True, blank=True)
+    aboutMe = models.CharField(max_length=5000, null=True, blank=True )
+    skills = models.ManyToManyField('Skill',  null=True, blank=True)
+    workHistory = models.ManyToManyField('WorkHistory',  null=True, blank=True)
+    project = models.ManyToManyField('CandidateProject',  null=True, blank=True)
+    certificates = models.ManyToManyField('Certificate',  null=True, blank=True )
+    photo = models.ImageField(upload_to='candidate_document',null=True,blank=True)
+    photo = models.ImageField(upload_to='candidate_document',null=True,blank=True)
+    document_1 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_2 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_3 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_4 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_5 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_6 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_7 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_8 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_9 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_10 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class TesCandidate(models.Model):
+
+    name = models.CharField(max_length=256, null=True, blank=True )
+    customer_id = models.CharField(max_length=1024, null=True, blank=True )
+    first_name = models.CharField(max_length=1024, null=True, blank=True )
+    last_name = models.CharField(max_length=1024, null=True, blank=True )
+    tes_candidate_id = models.CharField(max_length=1024, null=True, blank=True )
+    sponsor_company = models.CharField(max_length=1024, null=True, blank=True )
+    email = models.EmailField( null=True, blank=True )
+    address = models.CharField(max_length=1024,  null=True, blank=True  )
+    postal_code = models.CharField(max_length=128,  null=True, blank=True  )
+    contact_number = models.CharField(max_length=1024,  null=True, blank=True  )
+    birth_date = models.DateField(null=True, blank=True)
+    aboutMe = models.CharField(max_length=5000, null=True, blank=True )
+    skills = models.ManyToManyField('Skill',  null=True, blank=True)
+    workHistory = models.ManyToManyField('WorkHistory',  null=True, blank=True)
+    project = models.ManyToManyField('CandidateProject',  null=True, blank=True)
+    certificates = models.ManyToManyField('Certificate',  null=True, blank=True )
+    photo = models.ImageField(upload_to='candidate_document',null=True,blank=True)
+    photo = models.ImageField(upload_to='candidate_document',null=True,blank=True)
+    document_1 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_2 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_3 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_4 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_5 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_6 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_7 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_8 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_9 = models.FileField(upload_to='candidate_document',null=True,blank=True)
+    document_10 = models.FileField(upload_to='candidate_document',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -114,6 +177,26 @@ class Lecturer(models.Model):
 
 
 
+class Event(models.Model):
+    ANNOUNCMENT_CHOICES = (('S', 'SMS'), ('E', 'Email'))
+    name = models.CharField(max_length=256, null=True, blank=True )
+    product = models.ForeignKey(Product,related_name="product_event",  null=True, blank=True , on_delete=models.CASCADE)
+    country = models.ForeignKey(Country,related_name="country_event",  null=True, blank=True , on_delete=models.CASCADE)
+    location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
+    lecturers = models.ForeignKey(Lecturer,related_name="lecturer_event",  null=True, blank=True , on_delete=models.CASCADE)
+    start_date = models.DateTimeField(null=True, blank=True)
+    practicalDate = models.DateTimeField(null=True, blank=True)
+    skills = models.ManyToManyField('Skill',  null=True, blank=True)
+    candidate = models.ManyToManyField('TesCandidate',  null=True, blank=True)
+    # start_date = models.DateField(null=True, blank=True)
+
+    announcement_type =  models.CharField(max_length=1,null=True, blank=True, choices=ANNOUNCMENT_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
 
 class CandidateProfile(models.Model):
     # user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -156,25 +239,6 @@ class CandidateProfile(models.Model):
 #     if created:
 #         CandidateProfile.objects.create(user=instance)
 #     instance.candidateprofile.save()
-
-class Event(models.Model):
-    ANNOUNCMENT_CHOICES = (('S', 'SMS'), ('E', 'Email'))
-    name = models.CharField(max_length=256, null=True, blank=True )
-    product = models.ForeignKey(Product,related_name="product_event",  null=True, blank=True , on_delete=models.CASCADE)
-    country = models.ForeignKey(Country,related_name="country_event",  null=True, blank=True , on_delete=models.CASCADE)
-    location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
-    lecturers = models.ForeignKey(Lecturer,related_name="lecturer_event",  null=True, blank=True , on_delete=models.CASCADE)
-    start_date = models.DateTimeField(null=True, blank=True)
-    practicalDate = models.DateTimeField(null=True, blank=True)
-    candidates = models.ManyToManyField(CandidateProfile)
-    # start_date = models.DateField(null=True, blank=True)
-
-    announcement_type =  models.CharField(max_length=1,null=True, blank=True, choices=ANNOUNCMENT_CHOICES)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
 
 
 class Certificate(models.Model):
