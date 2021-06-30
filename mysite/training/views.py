@@ -12,7 +12,7 @@ class CandidatelListView(TemplateView):
 
     def get_context_data(self):
         context = super(CandidatelListView, self).get_context_data()
-        can_list = CandidateProfile.objects.all().order_by("-id")
+        can_list = TesCandidate.objects.all().order_by("-id")
         context['can_list'] = can_list
         return context
     
@@ -26,7 +26,7 @@ class NewCandidatelView(TemplateView):
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
             print('OK')
-            user = CandidateProfile()
+            user = TesCandidate()
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.tes_candidate_id = request.POST['tes_id']
@@ -68,7 +68,7 @@ class UpdateCandidatelView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateCandidatelView, self).get_context_data()
-        can = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+        can = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         context['can'] = can
 
         return context
@@ -78,7 +78,7 @@ class UpdateCandidatelView(TemplateView):
         if request.method == 'POST':
             print('OK')
             
-            user = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+            user = TesCandidate.objects.filter(id = self.kwargs['id']).first()
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.tes_candidate_id = request.POST['tes_id']
@@ -118,7 +118,7 @@ class DeleteCandidatelView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(DeleteCandidatelView, self).get_context_data()
-        can = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+        can = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         context['can'] = can
 
         return context
@@ -128,7 +128,7 @@ class DeleteCandidatelView(TemplateView):
         # form = MedicineForm(self.request.POST)
         if request.method == 'GET':
             print('Del Here')
-            can = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+            can = TesCandidate.objects.filter(id = self.kwargs['id']).first()
             print(can.first_name)
             can.delete()
             return redirect('training:canlist_')
@@ -312,7 +312,7 @@ class NewAttendeesView(TemplateView):
     def get_context_data(self, *args, **kwargs):
         selectedList = []
         context = super(NewAttendeesView, self).get_context_data()
-        event = Event.objects.filter(id=6).first()
+        event = Event.objects.filter(id=self.kwargs['id']).first()
         for item in event.candidate.all():
             print(item.first_name)
             selectedList.append(item.first_name)
@@ -333,17 +333,19 @@ class NewAttendeesView(TemplateView):
         print('Here')
         if request.method == 'POST':
             # print( request.POST.get('page_contents[]', None))
-
+            print(self.kwargs['id'])
             event = Event.objects.filter(id=6 ).first()
             
             canList =request.POST['temp[]']
-            for item in canList.split(','):
-                can_id =item.split(' ')[0]
-                print(can_id)
-                candidate = TesCandidate.objects.filter(tes_candidate_id = can_id).first()
-                event.candidate.add(candidate)
-                # event.save()
-                print(candidate.first_name)
+            print(canList)
+            if canList :
+                for item in canList.split(','):
+                    can_id =item.split(' ')[0]
+                    print(can_id)
+                    candidate = TesCandidate.objects.filter(tes_candidate_id = can_id).first()
+                    event.candidate.add(candidate)
+                    # event.save()
+                    print(candidate.first_name)
                 
             
         return redirect('training:event_')
@@ -620,7 +622,7 @@ class TrainingPanelView(TemplateView):
     def get_context_data(self):
         context = super(TrainingPanelView, self).get_context_data()
         event_list = Event.objects.all()
-        canCount = CandidateProfile.objects.count()
+        canCount = TesCandidate.objects.count()
         lecCount = Lecturer.objects.count()
         product = Product.objects.all()
       

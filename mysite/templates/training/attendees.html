@@ -122,13 +122,13 @@
                                         
                  
                                <form method="POST">
-                               {{selectedList}}
+                              
                               {% csrf_token %} 
-                                  <input type="text" id="input1"  name="temp[]" class="form-control" id="validationCustom04" placeholder="country" >
+                                  <input type="hidden" id="input1"  name="temp[]" class="form-control" id="validationCustom04" placeholder="country" >
                                   <input type="text" name="candidates" data-options='{{can_list}}'                                      
                                       
                                              
-                                             data-selected='[{{selectedList}}]' 
+                                             data-selected='[]' 
                                              data-field-title="<i class='fa fa-folder-open'></i> Available Candidate" 
                                              data-selected-title="<i class='fa fa-star'></i> Selected Candidate" 
                                              class="dragableMultiselect">
@@ -215,7 +215,7 @@
                   </div>';
       $this.replaceWith(html);
       $dragSortableItem = $('.dragSortableItem_' + index);
-      console.log('{{selectedList}}')
+    
       let $mainWrapper = $dragSortableItem.closest(mainWrapper),
         $in_available_fields = $mainWrapper.find(in_available_fields),
         $selectedDropzone = $mainWrapper.find(selectedDropzone);
