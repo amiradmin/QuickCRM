@@ -310,7 +310,13 @@ class NewAttendeesView(TemplateView):
     template_name = "training/attendees.html"
 
     def get_context_data(self, *args, **kwargs):
+        selectedList = []
         context = super(NewAttendeesView, self).get_context_data()
+        event = Event.objects.filter(id=6).first()
+        for item in event.candidate.all():
+            print(item.first_name)
+            selectedList.append(item.first_name)
+            
         can_list = TesCandidate.objects.order_by('first_name')
         counter = 0
         can='{'
@@ -318,6 +324,7 @@ class NewAttendeesView(TemplateView):
             can =can + '"'+ str(counter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
             counter = counter + 1 
         can = can + '"10000000000":" "}'
+        context['selectedList'] = selectedList
         context['can_list'] = can
 
         return context

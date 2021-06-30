@@ -84,7 +84,6 @@ class TesCandidate(models.Model):
     project = models.ManyToManyField('CandidateProject',  null=True, blank=True)
     certificates = models.ManyToManyField('Certificate',  null=True, blank=True )
     photo = models.ImageField(upload_to='candidate_document',null=True,blank=True)
-    photo = models.ImageField(upload_to='candidate_document',null=True,blank=True)
     document_1 = models.FileField(upload_to='candidate_document',null=True,blank=True)
     document_2 = models.FileField(upload_to='candidate_document',null=True,blank=True)
     document_3 = models.FileField(upload_to='candidate_document',null=True,blank=True)
@@ -98,8 +97,8 @@ class TesCandidate(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class WorkHistory(models.Model):
 
