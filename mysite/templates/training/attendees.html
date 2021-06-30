@@ -120,7 +120,7 @@
                                         <br>
                                         <br>
                                         
-                 
+                            
                                <form method="POST">
                               
                               {% csrf_token %} 
@@ -128,7 +128,7 @@
                                   <input type="text" name="candidates" data-options='{{can_list}}'                                      
                                       
                                              
-                                             data-selected='[]' 
+                                             data-selected='{{selectedList}}'
                                              data-field-title="<i class='fa fa-folder-open'></i> Available Candidate" 
                                              data-selected-title="<i class='fa fa-star'></i> Selected Candidate" 
                                              class="dragableMultiselect">
@@ -233,9 +233,13 @@
       });
 
       selected_fields.map(function(index) {
-        var item = $in_available_fields.find('.sortable-item-' + index);
-        item.find('.sortable-item-input').prop('checked', true);
+        var item = '<li class="sortable-item allowPrimary sortable-item-1" data-fid="1">'
+                + '<span class="icon-drag fas fa-grip-vertical mr-2"></span>'
+                + '<input type="checkbox" name="Test" class="sortable-item-input"/>'
+                + index
+              + '</li>';
         $selectedDropzone.append(item);
+        console.log("Now")
         
       });
       checkFields( $mainWrapper );

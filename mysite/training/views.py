@@ -313,18 +313,24 @@ class NewAttendeesView(TemplateView):
         selectedList = []
         context = super(NewAttendeesView, self).get_context_data()
         event = Event.objects.filter(id=self.kwargs['id']).first()
-        for item in event.candidate.all():
-            print(item.first_name)
-            selectedList.append(item.first_name)
-            
         can_list = TesCandidate.objects.order_by('first_name')
+        selCan='{'
+        selCounter = 0
+        
+        
+        for item in event.candidate.all():
+            selCan =selCan + '"'+ str(selCounter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
+            selCounter = selCounter + 1 
+        selCan = selCan + '"10000000000":" "}'
+        
+        
         counter = 0
         can='{'
         for item in can_list:
             can =can + '"'+ str(counter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
             counter = counter + 1 
         can = can + '"10000000000":" "}'
-        context['selectedList'] = selectedList
+        context['selectedList'] = selCan
         context['can_list'] = can
 
         return context
