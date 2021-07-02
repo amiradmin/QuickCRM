@@ -332,6 +332,7 @@ class NewAttendeesView(TemplateView):
         can = can + '"10000000000":" "}'
         context['selectedList'] = selCan
         context['can_list'] = can
+        context['eventName'] = event.name
 
         return context
     
@@ -355,6 +356,63 @@ class NewAttendeesView(TemplateView):
                 
             
         return redirect('training:event_')
+
+
+class NewEventLecturerView(TemplateView):
+    template_name = "training/lecturer_events.html"
+
+    def get_context_data(self, *args, **kwargs):
+        selectedList = []
+        context = super(NewEventLecturerView, self).get_context_data()
+        print(self.kwargs['id'])
+        lecturer = Lecturer.objects.filter(id=self.kwargs['id']).first()
+        eventList = Event.objects.order_by('name').all()
+        selLec='{'
+        selCounter = 0
+        
+        for item in lecturer.events.all():
+            selLec =selLec + '"'+ str(selCounter)+'":"'+ str(item.id)+' - '+ str(item.name)+'",'
+            selCounter = selCounter + 1 
+        selLec = selLec + '"10000000000":" "}'
+        
+        
+        counter = 0
+        events='{'
+        for item in eventList:
+            events =events + '"'+ str(counter)+'":"'+ str(item.id)+' - '+ str(item.name)+'",'
+            counter = counter + 1 
+        events = events + '"10000000000":" "}'
+        # context['selectedList'] = selCan
+        context['eventList'] = events
+        context['lecturer'] = lecturer
+        context['selectedList'] = selLec
+
+        return context
+    
+    def post(self, request, *args, **kwargs):
+        print('Here')
+        if request.method == 'POST':
+            # print( request.POST.get('page_contents[]', None))
+            
+            lecturer = Lecturer.objects.filter(id=self.kwargs['id']).first()
+
+            eventList =request.POST['temp[]']
+           
+            
+           
+            if eventList :
+                for item in eventList.split(','):
+                    event_id =item.split(' ')[0]
+                   
+                    event = Event.objects.filter(id =7).first()
+                    print('here')
+                    print(event.name)
+                    lecturer.events.add(event)
+                    event.save()
+                    
+                
+            
+        return redirect('training:lecturer_')
 
 class NewLecturerView(TemplateView):
     template_name = "training/new_lecturer.html"

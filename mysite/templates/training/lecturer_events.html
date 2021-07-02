@@ -97,8 +97,7 @@
                                 <div class="page-title-right">
                             
                                 </div>
-                                <h4 class="page-title">Attendees for event : {{eventName}}</h4>
-                                
+                                <h4 class="page-title">Events for lectuter {{lecturer.first_name}} {{lecturer.last_name}}</h4>
                             </div>
                         </div>
                     </div>     
@@ -126,7 +125,7 @@
                               
                               {% csrf_token %} 
                                   <input type="hidden" id="input1"  name="temp[]" class="form-control" id="validationCustom04" placeholder="country" >
-                                  <input type="text" name="candidates" data-options='{{can_list}}'                                      
+                                  <input type="text" name="candidates" data-options='{{eventList}}'                                      
                                       
                                              
                                              data-selected='{{selectedList}}'

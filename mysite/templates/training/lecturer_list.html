@@ -91,6 +91,7 @@
             <th>Event</th> 
             <th></th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
 
@@ -111,7 +112,7 @@
                                                                        {{event.name}}
                                                                       {% endfor %}</p></td>
           
-          
+          <td><a alt="Test" href="{% url 'training:lecevnt_' id=item.id  %}"><i style="font-size:20px;" class="fa fa-users"></i></a></td>
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatelec_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
             <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:lecdel_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
             
