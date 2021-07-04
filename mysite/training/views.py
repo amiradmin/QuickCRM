@@ -21,13 +21,24 @@ class NewCandidatelView(TemplateView):
     template_name = "training/new_candidate.html"
 
 
+    def get_context_data(self):
+        context = super(NewCandidatelView, self).get_context_data()
+        lastCan = TesCandidate.objects.last()
+        tempID = int(lastCan.tes_candidate_id.split('-')[1])+1
+        tempID = 'TESN-'+str(tempID)
+        print(tempID)
+        context['tesId'] = tempID
+        return context
+    
+    
 
     def post(self, request, *args, **kwargs):
     
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
-            print('OK')
+            print(request.POST['tes_id'])
             user = TesCandidate()
+            # user.tes_candidate_id = request.POST['tesCanID']
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.tes_candidate_id = request.POST['tes_id']
