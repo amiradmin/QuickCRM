@@ -4,6 +4,7 @@ from training.models import Event,CandidateProfile,Country,Location,Product,Lect
 from django.contrib.auth.models import User
 import time
 import datetime
+import json
 # Create your views here.
 
 
@@ -318,41 +319,59 @@ class NewAttendeesView(TemplateView):
         selCounter = 0
         
         
+
+        counter = 0
+        can='{'
+        for item in can_list:
+            can =can + '"'+ str(counter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'--'+ '",'
+            counter = counter + 1 
+        can = can + '"10000000000":" "}'
+        
+       
+        # print(can[0])
+
+        
         for item in event.candidate.all():
             selCan =selCan + '"'+ str(selCounter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
             selCounter = selCounter + 1 
         selCan = selCan + '"10000000000":" "}'
         
+        myDict = json.loads(can)
+        selDict = json.loads(selCan)
+        values = []
         
-        counter = 0
-        can='{'
-        for item in can_list:
-            can =can + '"'+ str(counter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
-            counter = counter + 1 
-        can = can + '"10000000000":" "}'
-        context['selectedList'] = selCan
+        for item in event.candidate.all():
+            print(item.tes_candidate_id)
+            for index,value in myDict.items():
+                if str(item.tes_candidate_id) in value:
+                    # print('Here: '+index)
+                    values.append(int(index))
+            
+        
+        context['selectedList'] = values
         context['can_list'] = can
         context['eventName'] = event.name
 
         return context
     
     def post(self, request, *args, **kwargs):
-        print('Here')
+      
         if request.method == 'POST':
             # print( request.POST.get('page_contents[]', None))
-            print(self.kwargs['id'])
-            event = Event.objects.filter(id=6 ).first()
             
-            canList =request.POST['temp[]']
-            print(canList)
+            event = Event.objects.filter(id=self.kwargs['id'] ).first()
+            event.candidate.clear()
+            canList =request.POST['temp']
+            
             if canList :
-                for item in canList.split(','):
+                for item in canList.split('--'):
                     can_id =item.split(' ')[0]
-                    print(can_id)
-                    candidate = TesCandidate.objects.filter(tes_candidate_id = can_id).first()
-                    event.candidate.add(candidate)
+                    print('Now: '+can_id)
+                    candidate = TesCandidate.objects.filter(tes_candidate_id__exact =can_id).first()
+                    if candidate :
+                        event.candidate.add(candidate)
                     # event.save()
-                    print(candidate.first_name)
+                    
                 
             
         return redirect('training:event_')
@@ -395,7 +414,7 @@ class NewEventLecturerView(TemplateView):
             # print( request.POST.get('page_contents[]', None))
             
             lecturer = Lecturer.objects.filter(id=self.kwargs['id']).first()
-
+            lecturer.events.clear()
             eventList =request.POST['temp[]']
            
             

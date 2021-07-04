@@ -123,9 +123,9 @@
                                         
                             
                                <form method="POST">
-                              
+                              {{selectedList}}
                               {% csrf_token %} 
-                                  <input type="hidden" id="input1"  name="temp[]" class="form-control" id="validationCustom04" placeholder="country" >
+                                  <input type="hidden" id="input1"  name="temp" class="form-control" id="validationCustom04" placeholder="country" >
                                   <input type="text" name="candidates" data-options='{{can_list}}'                                      
                                       
                                              
@@ -194,6 +194,7 @@
       let fieldTitle = $this.data('field-title');
       let selectedTitle = $this.data('selected-title');
       var canList=[];  
+      var result = "";
       
       let html = '<div class="row dragSortableItems dragSortableItem_' + index + '">\
                     <div class="col-sm-6">\
@@ -234,11 +235,8 @@
       });
 
       selected_fields.map(function(index) {
-        var item = '<li class="sortable-item allowPrimary sortable-item-1" data-fid="1">'
-                + '<span class="icon-drag fas fa-grip-vertical mr-2"></span>'
-                + '<input type="checkbox" name="Test" class="sortable-item-input"/>'
-                + index
-              + '</li>';
+        var item = $in_available_fields.find('.sortable-item-' + index);
+        item.find('.sortable-item-input').prop('checked', true);
         $selectedDropzone.append(item);
         console.log("Now")
         
@@ -254,14 +252,17 @@
             $mainWrapper.find(".primaryPanel").removeClass('panel-primary').addClass("panel-danger");
           }
           checkFields( $mainWrapper )
+           console.log("Now1")
         },
         receive: function(event, ui) {
           $(ui.item).find('.sortable-item-input').prop('checked', false);
+           console.log("Now2")
         },
         stop: function(event, ui) {
           if (!$(ui.item).hasClass("allowPrimary")) {
             $mainWrapper.find(".primaryPanel").removeClass("panel-danger").addClass('panel-primary');
           }
+           console.log("Now3")
         },
         change: function(event, ui) {
           checkFields( $mainWrapper );
@@ -271,10 +272,13 @@
           console.log("hello : " + $(ui.item).text()+ " "+$(ui.item).text());
           
           canList.push($(ui.item).text());
-          $("#input1").val(canList);
+          $("#input1").val($selectedDropzone.text());
+           console.log( "Now Here "+$selectedDropzone.text())
+          
         },
         out: function(event, ui) {
           checkFields( $mainWrapper );
+           console.log("Now5")
         }
       }).disableSelection();
 
@@ -307,6 +311,7 @@
         },
         update: function(event, ui) {
           checkFields( $mainWrapper );
+          console.log("Here 3")
         },
         out: function(event, ui) {
           checkFields( $mainWrapper );
