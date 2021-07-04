@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 import time
 import datetime
 import json
+from django.http import JsonResponse
+
 # Create your views here.
 
 
@@ -37,6 +39,15 @@ class NewCandidatelView(TemplateView):
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
             print(request.POST['tes_id'])
+            firstName =request.POST['first_name']
+            lastName =request.POST['last_name']
+            result = TesCandidate.objects.filter(first_name=firstName,last_name= lastName ).count()
+            if result> 0 :
+                print('exist')
+                response = JsonResponse({"error": "there was an error"})
+                response.status_code = 403 # To announce that the user isn't allowed to publish
+                
+                return render(request, 'training/errors.html') 
             user = TesCandidate()
             # user.tes_candidate_id = request.POST['tesCanID']
             user.first_name = request.POST['first_name']
