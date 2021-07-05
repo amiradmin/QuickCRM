@@ -359,7 +359,6 @@ class NewAttendeesView(TemplateView):
         selCan = selCan + '"10000000000":" "}'
         
         myDict = json.loads(can)
-        selDict = json.loads(selCan)
         values = []
         
         for item in event.candidate.all():
@@ -410,7 +409,7 @@ class NewEventLecturerView(TemplateView):
         eventList = Event.objects.order_by('name').all()
         selLec='{'
         selCounter = 0
-        
+        print(lecturer)
         for item in lecturer.events.all():
             selLec =selLec + '"'+ str(selCounter)+'":"'+ str(item.id)+' - '+ str(item.name)+'",'
             selCounter = selCounter + 1 
@@ -420,13 +419,24 @@ class NewEventLecturerView(TemplateView):
         counter = 0
         events='{'
         for item in eventList:
-            events =events + '"'+ str(counter)+'":"'+ str(item.id)+' - '+ str(item.name)+'",'
+            events =events + '"'+ str(counter)+'":"'+ str(item.id)+' - '+ str(item.name)+'--",'
             counter = counter + 1 
         events = events + '"10000000000":" "}'
         # context['selectedList'] = selCan
+
+        myDict = json.loads(events)
+        values = []
+        
+        for item in lecturer.events.all():
+            print(item.name)
+            for index,value in myDict.items():
+                if str(item.name) in value:
+                    # print('Here: '+index)
+                    values.append(int(index))
+                    
         context['eventList'] = events
         context['lecturer'] = lecturer
-        context['selectedList'] = selLec
+        context['selectedList'] = values
 
         return context
     
@@ -437,19 +447,21 @@ class NewEventLecturerView(TemplateView):
             
             lecturer = Lecturer.objects.filter(id=self.kwargs['id']).first()
             lecturer.events.clear()
-            eventList =request.POST['temp[]']
-           
+            eventList =request.POST['temp']
+            print(eventList)
             
            
             if eventList :
-                for item in eventList.split(','):
+                for item in eventList.split('--'):
                     event_id =item.split(' ')[0]
-                   
-                    event = Event.objects.filter(id =7).first()
-                    print('here')
-                    print(event.name)
-                    lecturer.events.add(event)
-                    event.save()
+                    if event_id :
+                        print('--> '+event_id)
+                        event = Event.objects.filter(id = event_id).first()
+                        print('here')
+                        if event: 
+                            print('Exist')
+                            lecturer.events.add(event)
+                        
                     
                 
             
