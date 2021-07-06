@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import platform
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
@@ -95,18 +96,32 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+hostName = platform.node()
+print(hostName)
+if hostName == 'amir-MacBookPro':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'tesdb',
+            'USER': 'tes_dbuser',
+            'PASSWORD': "1qaz!QAZ",
+            'HOST': '185.231.59.78',
+            'PORT': '5432',
+        },
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tesdb',
-        'USER': 'tes_dbuser',
-        'PASSWORD': "1qaz!QAZ",
-        'HOST': '185.231.59.78',
-        'PORT': '5432',
-    },
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'tesdb',
+            'USER': 'tes_dbuser',
+            'PASSWORD': "1qaz!QAZ",
+            'HOST': 'localhost',
+            'PORT': '5432',
+        },
 
-}
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
