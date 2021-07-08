@@ -10,6 +10,8 @@ urlpatterns = [
 
   
     path('newform/', views.NewForm.as_view(), name='newform_'),
+    path('all/', views.AllForms.as_view(), name='all_'),
+    path('alldb/', views.AllFormsFromPostgres.as_view(), name='alldb_'),
  
 
 
