@@ -11,7 +11,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">All Form</h4>
+                                <h4 class="page-title">All Form </h4>
                             </div>
                         </div>
                     </div>     
@@ -39,12 +39,11 @@
             
             <th >ID</th>
             <th  >Name</th>
-            <th  >Table</th>
+      
             
             
       
-            <th></th>
-            <th></th>
+    
         </tr>
     </thead>
 
@@ -57,14 +56,10 @@
            
             <td><p  >{{item.id}} </p></td>
             <td><p ><a style="margin:0px; padding:0px;  " href="{% url 'forms:viewform_' id=item.id %}">{{item.name}}</a></p></td>
-            <td><p >{{item.dbName}}</p></td>
+           
            
  
-          
-            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatecan_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
-            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:delcan_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
-            
-            
+    
            
         </tr>
         {%endfor%}

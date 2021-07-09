@@ -11,7 +11,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">All Form</h4>
+                                <h4 class="page-title">{{form.name}}</h4>
                             </div>
                         </div>
                     </div>     
@@ -28,48 +28,18 @@
                                         <div class="tab-pane show active" id="basic-datatable-preview">
                                                                      
                                         </div> <!-- end preview-->
-                                        <br>
-                                        <br>
-                                        <br>
+                               {% for item in form.fields.all %}
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="">{{item.label}}</label>
+                                                        <input type="text" name="{{item.name}}" class="form-control" id="validationCustom01" placeholder=""  required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+
+                               {% endfor %}
                                         
-<table id="basic-datatable" class="table dt-responsive  w-100">
-    <thead>
-        <tr>
-       
-            
-            <th >ID</th>
-            <th  >Name</th>
-            <th  >Table</th>
-            
-            
-      
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
 
-
-    <tbody>
-        {% for item in forms %}
-        <tr>
-            
-           
-           
-            <td><p  >{{item.id}} </p></td>
-            <td><p ><a style="margin:0px; padding:0px;  " href="{% url 'forms:viewform_' id=item.id %}">{{item.name}}</a></p></td>
-            <td><p >{{item.dbName}}</p></td>
-           
- 
-          
-            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatecan_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
-            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:delcan_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
-            
-            
-           
-        </tr>
-        {%endfor%}
-    </tbody>
-</table>
                                     
 
                                         <div class="tab-pane" id="basic-datatable-code">

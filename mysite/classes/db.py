@@ -13,16 +13,21 @@ class FormDb():
         except:
             print("Cannot connect to the database") 
     
-    def TableGenerator(self,name):
-        cursor = self.conn.cursor()
-        sql ='''CREATE TABLE tesForm_''' +name +'''(
-                FIRST_NAME CHAR(20) NOT NULL,
-                LAST_NAME CHAR(20),
-                AGE INT,
-                SEX CHAR(1),
-                INCOME FLOAT
-                )'''
+    def TableGenerator(self,name,fields):
         
+        subSql=''
+        for item in fields:
+            subSql = subSql + item['name'] +' ' + 'VARCHAR(256),'
+        
+        print(subSql)
+        cursor = self.conn.cursor()
+        sql ="CREATE TABLE tesForm_" +name +"( \
+            id SERIAL PRIMARY KEY,\
+                "+ subSql +"\
+                INCOME FLOAT\
+                )"\
+                    
+        print(sql)
         cursor.execute(sql)
         print("Table created successfully........")
         self.conn.commit()

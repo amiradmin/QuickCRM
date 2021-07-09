@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms
+from forms.models import Forms,Field
 import json
 from classes.db import FormDb
 # Create your views here.
@@ -23,21 +23,50 @@ class NewForm(TemplateView):
 
             formName =request.POST['formName']
             jsonCode =request.POST['jsonCode']
-            
+            formNameDb = formName.replace(' ','_')
             data = json.loads(jsonCode)
+            fields = []
+            
+            obj = Forms()
+            obj.name=formName
+            obj.dbName = 'tesform_'+formNameDb
+            obj.save()
             
             for item in data:
-                if item['type'] == 'text' or item['type'] == 'number':
+                if item['type'] == 'text' :
                     
                     name = item['name']
                     label = item['label']
                     required = item['required']
-                    required = item['required']
+                    tempDict ={}
+                    tempDict['name']=name.replace('-','_')
+                    tempDict['label']=label
+                    tempDict['required']=required
+                    fields.append(tempDict)
                     
-                    formObj = FormDb()
-                    formObj.TableGenerator('test')
+                    fieldObj = Field()
+                    fieldObj.name = name
+                    fieldObj.type = 'VARCHAR(256)'
+                    fieldObj.require = required
+                    fieldObj.label = label
+                    fieldObj.save()
+                    
+                    obj.fields.add(fieldObj)
+                    
+                    
+            formObj = FormDb()
+            formObj.TableGenerator(formNameDb,fields)
+
         return redirect('forms:all_')  
     
+class AllFormsList(TemplateView):
+    template_name = "forms/all_forms_view.html"
+
+    def get_context_data(self):
+        context = super(AllFormsList, self).get_context_data()
+        forms = Forms.objects.all()
+        context['forms'] = forms
+        return context
     
 
 class AllForms(TemplateView):
@@ -48,8 +77,16 @@ class AllForms(TemplateView):
         forms = Forms.objects.all()
         context['forms'] = forms
         return context
+
     
-    
+class ViewForm(TemplateView):
+    template_name = "forms/view_form.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ViewForm, self).get_context_data()
+        form = Forms.objects.filter(id=self.kwargs['id']).first()
+        context['form'] = form
+        return context    
 
 
 
