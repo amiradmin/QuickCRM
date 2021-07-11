@@ -32,19 +32,25 @@
                                         <br>
                                         <br>
                                         
-                                        <form   method="POST" >
+                                        <form   method="POST" enctype="multipart/form-data">
                                             {% csrf_token %}
                  
                                                         
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom01">Form Name</label>
-                                                        <input type="text" name="formName" class="form-control" id="validationCustom01" placeholder="Name"  required>
+                                                        <input type="text" name="formName" class="form-control" id="validationCustom01" placeholder="Name"  >
                                                         <div class="valid-feedback">
                                                             Looks good!
                                                         </div>
                                                     </div>
 <div id="build-wrap"></div>
 <input type="text" name="jsonCode" class="form-control" id="jsonCode"  >
+                 <div class="mb-3 col-md-12">
+  <label class="form-label">File</label>
+    <input class="form-control" name="file" type="file" id="inputGroupFile054">
+                                                    </div>
+                                    
+                                     
                                         <br>
                                       <div class="mb-3 col-md-12 text-center">
                                                         <button class="btn btn-primary" type="submit">Submit</button>

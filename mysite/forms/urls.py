@@ -14,6 +14,8 @@ urlpatterns = [
     path('allformlist/', views.AllFormsList.as_view(), name='allformlist_'),
     path('alldb/', views.AllFormsFromPostgres.as_view(), name='alldb_'),
     path('viewform/<int:id>', views.ViewForm.as_view(), name='viewform_'),
+    
+    path('jaegertofdl2/', views.FormJaegerTOFDL2.as_view(), name='jaegertofdl2_'),
  
 
 

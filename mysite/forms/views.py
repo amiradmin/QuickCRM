@@ -5,7 +5,25 @@ import json
 from classes.db import FormDb
 # Create your views here.
 
+class FormJaegerTOFDL2(TemplateView):
+    template_name = "forms/reg_forms/Jaeger_TOFDL2.html"
 
+    def get_context_data(self):
+        context = super(FormJaegerTOFDL2, self).get_context_data()
+        # form = MedicineForm()
+        # context['form'] = form
+        return context
+    
+
+    def post(self, request, *args, **kwargs):
+        
+        if request.method == 'POST':
+            print('Here')
+            # if request.FILES.get('file', False):
+            #    pdfFile = request.FILES['file']
+            #    print(pdfFile)
+            
+        return redirect('forms:all_')  
 
 class NewForm(TemplateView):
     template_name = "forms/new_form.html"
@@ -17,47 +35,57 @@ class NewForm(TemplateView):
         return context
     
     
+    # def post(self, request, *args, **kwargs):
+        
+    #     if request.method == 'POST':
+
+    #         formName =request.POST['formName']
+    #         jsonCode =request.POST['jsonCode']
+    #         formNameDb = formName.replace(' ','_')
+    #         data = json.loads(jsonCode)
+    #         fields = []
+            
+    #         obj = Forms()
+    #         obj.name=formName
+    #         obj.dbName = 'tesform_'+formNameDb
+    #         obj.save()
+            
+    #         for item in data:
+    #             if item['type'] == 'text' :
+                    
+    #                 name = item['name']
+    #                 label = item['label']
+    #                 required = item['required']
+    #                 tempDict ={}
+    #                 tempDict['name']=name.replace('-','_')
+    #                 tempDict['label']=label
+    #                 tempDict['required']=required
+    #                 fields.append(tempDict)
+                    
+    #                 fieldObj = Field()
+    #                 fieldObj.name = name
+    #                 fieldObj.type = 'VARCHAR(256)'
+    #                 fieldObj.require = required
+    #                 fieldObj.label = label
+    #                 fieldObj.save()
+                    
+    #                 obj.fields.add(fieldObj)
+                    
+                    
+    #         formObj = FormDb()
+    #         formObj.TableGenerator(formNameDb,fields)
+
+    #     return redirect('forms:all_')  
     def post(self, request, *args, **kwargs):
         
         if request.method == 'POST':
-
-            formName =request.POST['formName']
-            jsonCode =request.POST['jsonCode']
-            formNameDb = formName.replace(' ','_')
-            data = json.loads(jsonCode)
-            fields = []
+            print('Here')
+            if request.FILES.get('file', False):
+               pdfFile = request.FILES['file']
+               print(pdfFile)
             
-            obj = Forms()
-            obj.name=formName
-            obj.dbName = 'tesform_'+formNameDb
-            obj.save()
-            
-            for item in data:
-                if item['type'] == 'text' :
-                    
-                    name = item['name']
-                    label = item['label']
-                    required = item['required']
-                    tempDict ={}
-                    tempDict['name']=name.replace('-','_')
-                    tempDict['label']=label
-                    tempDict['required']=required
-                    fields.append(tempDict)
-                    
-                    fieldObj = Field()
-                    fieldObj.name = name
-                    fieldObj.type = 'VARCHAR(256)'
-                    fieldObj.require = required
-                    fieldObj.label = label
-                    fieldObj.save()
-                    
-                    obj.fields.add(fieldObj)
-                    
-                    
-            formObj = FormDb()
-            formObj.TableGenerator(formNameDb,fields)
-
         return redirect('forms:all_')  
+    
     
 class AllFormsList(TemplateView):
     template_name = "forms/all_forms_view.html"
@@ -89,7 +117,8 @@ class ViewForm(TemplateView):
         return context    
 
 
-
+    
+    
 class AllFormsFromPostgres(TemplateView):
     template_name = "forms/all_forms_postres.html"
 
