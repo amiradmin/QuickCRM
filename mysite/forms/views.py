@@ -3,7 +3,7 @@ from django.views.generic import View,TemplateView
 from forms.models import Forms,Field
 import json
 from classes.db import FormDb
-from training.models import TesCandidate
+from training.models import TesCandidate,Event
 # Create your views here.
 
 class FormJaegerTOFDL2(TemplateView):
@@ -12,7 +12,9 @@ class FormJaegerTOFDL2(TemplateView):
     def get_context_data(self):
         context = super(FormJaegerTOFDL2, self).get_context_data()
         candidates = TesCandidate.objects.all()
+        events = Event.objects.all()
         context['candidates'] = candidates
+        context['events'] = events
         return context
     
 
@@ -22,11 +24,14 @@ class FormJaegerTOFDL2(TemplateView):
             print('Here')
             # if request.FILES.get('file', False):
             canID = request.POST['canID']
+            eventID = request.POST['eventID']
             print(canID)
             candidate= TesCandidate.objects.filter(id = canID).first()
+            event= Event.objects.filter(id = eventID).first()
             print(candidate.last_name)
             context = super(FormJaegerTOFDL2, self).get_context_data()
             context['candidate'] = candidate
+            context['event'] = event
         # return redirect('forms:jaegertofdl2_' ,context)  
             return render(request, 'forms/reg_forms/Jaeger_TOFDL2.html', context)
         
