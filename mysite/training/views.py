@@ -51,7 +51,9 @@ class NewCandidatelView(TemplateView):
             user = TesCandidate()
             # user.tes_candidate_id = request.POST['tesCanID']
             user.first_name = request.POST['first_name']
+            user.middleName = request.POST['middleName']
             user.last_name = request.POST['last_name']
+            user.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
             user.tes_candidate_id = request.POST['tes_id']
             user.customer_id = request.POST['customer_id']
             user.address = request.POST['address']
@@ -104,9 +106,11 @@ class UpdateCandidatelView(TemplateView):
             user = TesCandidate.objects.filter(id = self.kwargs['id']).first()
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
+            user.middleName = request.POST['middleName']
             user.tes_candidate_id = request.POST['tes_id']
             user.customer_id = request.POST['customer_id']
             user.address = request.POST['address']
+            user.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
             # user.passport_id = request.POST['passport_id']
             user.sponsor_company = request.POST['sponsor_company']
             user.email = request.POST['email']

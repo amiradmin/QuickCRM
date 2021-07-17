@@ -71,6 +71,7 @@ class TesCandidate(models.Model):
     customer_id = models.CharField(max_length=1024, null=True, blank=True )
     first_name = models.CharField(max_length=1024, null=True, blank=True )
     last_name = models.CharField(max_length=1024, null=True, blank=True )
+    middleName = models.CharField(max_length=1024, null=True, blank=True )
     tes_candidate_id = models.CharField(max_length=1024, null=True, blank=True )
     sponsor_company = models.CharField(max_length=1024, null=True, blank=True )
     email = models.EmailField( null=True, blank=True )

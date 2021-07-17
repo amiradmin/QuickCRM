@@ -29,11 +29,11 @@ class TwiEnrolment(TemplateView):
             candidate= TesCandidate.objects.filter(id = canID).first()
             event= Event.objects.filter(id = eventID).first()
             print(candidate.last_name)
-            context = super(FormJaegerTOFDL2, self).get_context_data()
+            context = super(TwiEnrolment, self).get_context_data()
             context['candidate'] = candidate
             context['event'] = event
         # return redirect('forms:jaegertofdl2_' ,context)  
-            return render(request, 'forms/reg_forms/Jaeger_TOFDL2.html', context)
+            return render(request, 'forms/reg_forms/twi_enrolment.html', context)
         
 class NewForm(TemplateView):
     template_name = "forms/new_form.html"
