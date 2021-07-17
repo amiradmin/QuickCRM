@@ -6,11 +6,11 @@ from classes.db import FormDb
 from training.models import TesCandidate,Event
 # Create your views here.
 
-class FormJaegerTOFDL2(TemplateView):
-    template_name = "forms/reg_forms/Jaeger_TOFDL2.html"
+class TwiEnrolment(TemplateView):
+    template_name = "forms/reg_forms/twi_enrolment.html"
 
     def get_context_data(self):
-        context = super(FormJaegerTOFDL2, self).get_context_data()
+        context = super(TwiEnrolment, self).get_context_data()
         candidates = TesCandidate.objects.all()
         events = Event.objects.all()
         context['candidates'] = candidates
