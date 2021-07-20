@@ -1,7 +1,14 @@
 from django.contrib import admin
-from forms.models import Forms,Field
+from forms.models import Forms,Field,TwiEnrolmentForm
 # Register your models here.
 
+
+class TwiEnrolmentFormAdmin(admin.ModelAdmin):
+    
+    list_display = ['id','twiCandidateID','firstName','lastName','created_at','updated_at']
+    list_filter =['id','twiCandidateID','firstName','lastName','created_at','updated_at']
+
+admin.site.register(TwiEnrolmentForm,TwiEnrolmentFormAdmin)
 
 
 class FormsAdmin(admin.ModelAdmin):

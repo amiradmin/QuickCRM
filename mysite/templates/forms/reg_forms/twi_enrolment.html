@@ -3,12 +3,13 @@
 {% block content %}
  
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
 
 
 <div style="clear:both"></div>
 
-                        <div class="row">
+                        <div  class="row">
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
@@ -47,13 +48,14 @@
                                 <button class="BUTTON_MZQ" type="submit">Generate</button>
                                                     </div> 
                         
-</form>
+
 
 </div>
 </div>
 </div>
 </div>
 </div>
+</form>
   <hr>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/forms/Jaeger_TOFDL2/assets/formviewer.css' %}">
@@ -180,6 +182,26 @@ FormViewer.on('ready', function(data) {
 })();
 </script>
 <style type="text/css">
+               /* style sheet for "A4" printing */
+@media print and (width: 21cm) and (height: 29.7cm) {
+     @page {
+        margin: 0cm;
+     }
+}
+
+/* style sheet for "letter" printing */
+@media print and (width: 8.5in) and (height: 11in) {
+    @page {
+        margin: 0in;
+    }
+}
+
+/* A4 Landscape*/
+@page {
+    size: A3 landscape;
+    margin: 0%;
+}
+
 .btn{border:0 none; height:30px; padding:0; width:30px; background-color:transparent; display:inline-block; margin:7px 5px 0; vertical-align:top; cursor:pointer; color:#fff;}
 
 
@@ -201,7 +223,7 @@ body{padding:0px; margin:0px;  }
    font-size: 20px;
    font-weight: 100;
    padding: 5px 15px;
-   margin-top:20px;
+   margin:20px 5px 10px 5px;
    -webkit-box-shadow: 1px 1px 10px 0 #000000;
    -moz-box-shadow: 1px 1px 10px 0 #000000;
    box-shadow: 1px 1px 10px 0 #000000;
@@ -234,7 +256,8 @@ body{padding:0px; margin:0px;  }
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
 
 <div id="formviewer">
-
+ <form method="POST">                       
+{% csrf_token %}    
 <div></div>
 <div id="overlay"></div>
 
@@ -709,8 +732,7 @@ function checkOver(i) {
 
 <!-- Begin page background -->
 <div id="pg1Overlay" style="width:100%; height:100%; position:absolute; z-index:1; background-color:rgba(0,0,0,0); -webkit-user-select: none;"></div>
-{% static 'assets/forms/Jaeger_TOFDL2/1/1.svg' %}
-<div id="pg1" style="-webkit-user-select: none;"><object width="935" height="1210" data="http://185.231.59.78:8000/static/assets/forms/Jaeger_TOFDL2/1/1.svg" type="image/svg+xml" id="pdf1" style="width:935px; height:1210px; -moz-transform:scale(1); z-index: 0;"></object></div>
+<div id="pg1" style="-webkit-user-select: none;"><object width="935" height="1210" data="{% static 'assets/forms/Jaeger_TOFDL2/1/1.svg' %}" type="image/svg+xml" id="pdf1" style="width:935px; height:1210px; -moz-transform:scale(1); z-index: 0;"></object></div>
 <!-- End page background -->
 
 
@@ -809,29 +831,29 @@ function checkOver(i) {
 
 
 <!-- Begin Form Data -->
-<input id="form1_1" type="text" tabindex="1" maxlength="6" value="" data-objref="2109 0 R" title="undefined" data-field-name="undefined" required />
-<input id="form2_1" type="text" tabindex="2" value="{{event.name}}" data-objref="2110 0 R" title="Event title" data-field-name="Event title" required/>
-<input id="form3_1" type="text" tabindex="3" value="{{event.start_date| date}}" data-objref="2111 0 R" title="Event date" data-field-name="Event date" required/>
-<input id="form4_1"  style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="4" maxlength="17" value="{{candidate.last_name |upper}}" data-objref="2112 0 R" title="Candidate&#39;s Family Name (as per ID / Passport" data-field-name="Candidates Family Name as per ID  Passport" required />
-<input id="form5_1" style="margin-left:6px;letter-spacing: 18px;"  type="text" tabindex="5" maxlength="17" value="{{candidate.middleName |upper}}" data-objref="2113 0 R" title="Candidate&#39;s Middle Name (as per ID / Passport" data-field-name="Candidates Middle Name as per ID  Passport" required/>
-<input id="form6_1" style="margin-left:6px;letter-spacing: 18px;"  value="{{candidate.first_name|upper}}" type="text" tabindex="6" maxlength="17" data-objref="2114 0 R" title="Candidate&#39;s Given Name (as per ID / Passport"  data-field-name="Candidates Given Name as per ID  Passport" required/>
+<input id="form1_1" name="form1_1" type="text" tabindex="1" maxlength="6" value="" data-objref="2109 0 R" title="undefined" data-field-name="undefined" required />
+<input id="form2_1" name="form2_1" type="text" tabindex="2" value="{{event.name}}" data-objref="2110 0 R" title="Event title" data-field-name="Event title"  >
+<input id="form3_1" name="form3_1" type="text" tabindex="3" value="{{event.start_date| date}}" data-objref="2111 0 R" title="Event date" data-field-name="Event date"  >
+<input id="form4_1"  name="form4_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="4" maxlength="17" value="{{candidate.last_name |upper}}" data-objref="2112 0 R" title="Candidate&#39;s Family Name (as per ID / Passport" data-field-name="Candidates Family Name as per ID  Passport" required />
+<input id="form5_1" name="form5_1" style="margin-left:6px;letter-spacing: 18px;"  type="text" tabindex="5" maxlength="17" value="{{candidate.middleName |upper}}" data-objref="2113 0 R" title="Candidate&#39;s Middle Name (as per ID / Passport" data-field-name="Candidates Middle Name as per ID  Passport"  >
+<input id="form6_1" name="form6_1" style="margin-left:6px;letter-spacing: 18px;"  value="{{candidate.first_name|upper}}" type="text" tabindex="6" maxlength="17" data-objref="2114 0 R" title="Candidate&#39;s Given Name (as per ID / Passport"  data-field-name="Candidates Given Name as per ID  Passport"  >
 
-<input id="form7_1" style="margin-left:6px;letter-spacing: 18px;" type="text" value="{{candidate.birth_date| date:"d"}}" tabindex="7" maxlength="2" value="" data-objref="2115 0 R" title="D" data-field-name="D" required/>
-<input id="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="8" maxlength="2" value="{{candidate.birth_date| date:"m"}}" data-objref="2116 0 R" title="M" data-field-name="M" required/>
+<input id="form7_1" style="margin-left:6px;letter-spacing: 18px;" type="text" value="{{candidate.birth_date| date:"d"}}" tabindex="7" maxlength="2" value="" data-objref="2115 0 R" title="D" data-field-name="D"  >
+<input id="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="8" maxlength="2" value="{{candidate.birth_date| date:"m"}}" data-objref="2116 0 R" title="M" data-field-name="M"  >
 <input id="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="9" maxlength="4" value="{{candidate.birth_date| date:"Y"}}" data-objref="2117 0 R" title="Y" data-field-name="Y" required />
 <input id="form10_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="10" data-objref="2118 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2118 0 R' %}" imagesT="110100"/>
 <input id="form11_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="11" data-objref="2120 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2120 0 R' %}" imagesT="110100"/>
 <input id="form12_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="12" data-objref="2121 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2121 0 R' %}" imagesT="110100"/>
 <input id="form13_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="13" data-objref="2122 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2122 0 R' %}" imagesT="110100"/>
 <input id="form14_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="14" data-objref="2123 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2123 0 R' %}" imagesT="110100"/>
-<input id="form15_1" type="text" tabindex="15" value="{{candidate.address}}" data-objref="2124 0 R" title="Permanent private address [1]" data-field-name="Permanent private address 1" required/>
+<input id="form15_1" type="text" tabindex="15" value="{{candidate.address}}" data-objref="2124 0 R" title="Permanent private address [1]" data-field-name="Permanent private address 1"  >
 <input id="form16_1" type="text" tabindex="16" value="" data-objref="2125 0 R" title="Permanent private address [2]" data-field-name="Permanent private address 2"/>
 <input id="form17_1" type="text" tabindex="17" value="" data-objref="2126 0 R" title="Permanent private address [3]" data-field-name="Permanent private address 3"/>
-<input id="form18_1" type="text" tabindex="18" value="{{candidate.postal_code}}" data-objref="2127 0 R" title="Postcode" data-field-name="Postcode" required/>
+<input id="form18_1" type="text" tabindex="18" value="{{candidate.postal_code}}" data-objref="2127 0 R" title="Postcode" data-field-name="Postcode"  >
 <input id="form19_1" type="text" tabindex="19" value="" data-objref="2128 0 R" title="Car Reg. No" data-field-name="Car Reg No"/>
 <input id="form20_1" type="text" tabindex="20" value="{{candidate.contact_number}}" data-objref="2129 0 R" title="Private Tel" data-field-name="Private Tel" required /> 
-<input id="form21_1" type="text" tabindex="21" value="" data-objref="2130 0 R" title="Tel" data-field-name="Tel" required/>
-<input id="form22_1" type="text" tabindex="22" value="{{candidate.email}}" data-objref="2131 0 R" title="E-mail" data-field-name="Email" required/>
+<input id="form21_1" type="text" tabindex="21" value="" data-objref="2130 0 R" title="Tel" data-field-name="Tel"  >
+<input id="form22_1" type="text" tabindex="22" value="{{candidate.email}}" data-objref="2131 0 R" title="E-mail" data-field-name="Email"  >
 <input id="form23_1" type="checkbox" tabindex="23" data-objref="2132 0 R" data-field-name="Check Box15" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2132 0 R' %}" images="110100"/>
 <input id="form24_1" type="checkbox" tabindex="24" data-objref="2133 0 R" data-field-name="Check Box16" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2133 0 R' %}" images="110100"/>
 <input id="form25_1" type="checkbox" tabindex="25" data-objref="2134 0 R" data-field-name="Check Box17" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2134 0 R' %}" images="110100"/>
@@ -1428,7 +1450,7 @@ function checkOver(i) {
 <input id="form31_2" onClick="expName(this)"  name="exName" type="checkbox" tabindex="90" data-objref="438 0 R" data-field-name="Check Box50" imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/438 0 R' %}" imagesT="110100"/>
 <input id="form32_2" id="form31_2" onClick="expName(this)"  name="exName"  type="checkbox" tabindex="91" data-objref="448 0 R" data-field-name="Check Box50" imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/448 0 R' %}" imagesT="110100"/>
 <input id="form33_2"  id="form31_2" onClick="expName(this)"  name="exName" type="checkbox" tabindex="92" data-objref="445 0 R" data-field-name="Check Box50" imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/445 0 R' %}" imagesT="110100"/>
-<textarea id="form34_2"  tabindex="93" data-objref="444 0 R" title="[1]" data-field-name="1" required></textarea>
+<textarea id="form34_2" name="form34_2"   tabindex="93" data-objref="444 0 R" title="[1]" data-field-name="1" required></textarea>
 <input id="form35_2" type="checkbox" tabindex="94" data-objref="449 0 R" data-field-name="Check Box54" imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/449 0 R' %}" images="110100"/>
 <input id="form36_2" type="checkbox" tabindex="95" data-objref="443 0 R" data-field-name="Check Box54" imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/443 0 R' %}" images="110100"/>
 <input id="form37_2" type="checkbox" tabindex="96" data-objref="446 0 R" data-field-name="Check Box54" imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/446 0 R' %}" images="110100"/>
@@ -2245,8 +2267,11 @@ function checkOver(i) {
 </div>
 <div style="clear:both"></div>
                           <div class="mb-3 col-md-12 text-center">
-                                <button class="BUTTON_MZQ" style="height:34px;" type="submit">Submit</button>
+                           <button name="upload" class="BUTTON_MZQ" onClick="" style="height:34px;" id="cmd">Upload </button>
+                                <button name="enrolment" class="BUTTON_MZQ" style="height:34px;" type="submit">Submit</button>
+                <button class="BUTTON_MZQ" onClick="printFunction()" style="height:34px;" id="cmd">Print</button>
                           </div> 
+</form>
 </div>
 
 
@@ -2370,4 +2395,10 @@ function myFunction() {
 
 
 </script>
+    <script>
+      function printFunction() { 
+        window.print(); 
+      }
+    </script>
+
  {% endblock %}

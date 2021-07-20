@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,Field
+from forms.models import Forms,Field,TwiEnrolmentForm
 import json
 from classes.db import FormDb
 from training.models import TesCandidate,Event
+import datetime
 # Create your views here.
 
 class TwiEnrolment(TemplateView):
@@ -21,19 +22,43 @@ class TwiEnrolment(TemplateView):
     def post(self, request, *args, **kwargs):
         
         if request.method == 'POST':
-            print('Here')
-            # if request.FILES.get('file', False):
-            canID = request.POST['canID']
-            eventID = request.POST['eventID']
-            print(canID)
-            candidate= TesCandidate.objects.filter(id = canID).first()
-            event= Event.objects.filter(id = eventID).first()
-            print(candidate.last_name)
-            context = super(TwiEnrolment, self).get_context_data()
-            context['candidate'] = candidate
-            context['event'] = event
+            if 'enrolment' in request.POST:
+                obj = TwiEnrolmentForm()
+                obj.twiCandidateID = request.POST['form1_1']
+                obj.eventName = request.POST['form2_1']
+                # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')
+                obj.firstName = request.POST['form4_1']
+                obj.middleName = request.POST['form5_1']
+                obj.lastName = request.POST['form6_1']
+                obj.save()
+                print('Enrolment')
+                
+                return redirect('forms:allenrolmentform_')  
+            else :
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                print(canID)
+                candidate= TesCandidate.objects.filter(id = canID).first()
+                event= Event.objects.filter(id = eventID).first()
+                print(candidate.last_name)
+                context = super(TwiEnrolment, self).get_context_data()
+                context['candidate'] = candidate
+                context['event'] = event
+                
         # return redirect('forms:jaegertofdl2_' ,context)  
             return render(request, 'forms/reg_forms/twi_enrolment.html', context)
+
+class AllEnrolmentForm(TemplateView):
+    template_name = "forms/all_forms_enrolment.html"
+
+    def get_context_data(self):
+        context = super(AllEnrolmentForm, self).get_context_data()
+        forms = TwiEnrolmentForm.objects.all()
+        context['forms'] = forms
+        return context   
+    
         
 class NewForm(TemplateView):
     template_name = "forms/new_form.html"
