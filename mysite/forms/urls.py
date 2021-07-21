@@ -15,6 +15,7 @@ urlpatterns = [
     path('allenrolmentform/', views.AllEnrolmentForm.as_view(), name='allenrolmentform_'),
     path('alldb/', views.AllFormsFromPostgres.as_view(), name='alldb_'),
     path('viewform/<int:id>', views.ViewForm.as_view(), name='viewform_'),
+    path('drawsig/<int:id>', views.sigDrawer.as_view(), name='drawsig_'),
     
     path('jaegertofdl2/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
  

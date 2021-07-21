@@ -180,3 +180,13 @@ class AllFormsFromPostgres(TemplateView):
         context['tList'] = tList
         return context
     
+
+class sigDrawer(TemplateView):
+    template_name = "forms/draw_sig.html"
+    candidateID = None
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(sigDrawer, self).get_context_data()
+ 
+
+        return context

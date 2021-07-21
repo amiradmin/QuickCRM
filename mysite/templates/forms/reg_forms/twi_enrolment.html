@@ -259,7 +259,7 @@ body{padding:0px; margin:0px;  }
  <form method="POST">                       
 {% csrf_token %}    
 
-<input type="text" value="{{candidate.id}} " name="mainCanID"/>
+<input type="hidden" value="{{candidate.id}} " name="mainCanID"/>
 <div></div>
 <div id="overlay"></div>
 
@@ -489,6 +489,8 @@ function checkOver(i) {
 #t1t_1{left:495px;bottom:731px;letter-spacing:0.04px;}
 #t1u_1{left:540px;bottom:731px;}
 #t1v_1{left:543px;bottom:731px;letter-spacing:0.01px;word-spacing:-0.02px;}
+#draw{left:495px;bottom:685px;letter-spacing:0.01px;word-spacing:-0.02px;}
+#sigUploud{left:550px;bottom:685px;letter-spacing:0.01px;word-spacing:-0.02px;}
 #t1w_1{left:632px;bottom:659px;letter-spacing:-0.01px;word-spacing:0.04px;}
 #t1x_1{left:495px;bottom:636px;letter-spacing:0.12px;}
 #t1y_1{left:773px;bottom:609px;}
@@ -777,7 +779,7 @@ function checkOver(i) {
 <span id="t1p_1" class="t s4_1">Methods of Payment </span><span id="t1q_1" class="t sd_1">(The E-transfer method is preferd) </span>
 <span id="t1r_1" class="t s2_1">Bookings received without payment / order Number will be treated as </span>
 <span id="t1s_1" class="t s2_1">provisional, which does not guarantee a place. </span>
-<span id="t1t_1" class="t s2_1">Sponsor</span><span id="t1u_1" class="t s9_1">’</span><span id="t1v_1" class="t s2_1">s signature: </span>
+<span id="t1t_1" class="t s2_1">Sponsor</span><span id="t1u_1" class="t s9_1">’</span><span id="t1v_1" class="t s2_1">s signature: </span><span id="draw" class="t s2_1"><a href="{% if candidate %}{% url 'forms:drawsig_' id=candidate.id %} {% endif %}">Sign Here </a></span><span id="sigUploud" class="t s2_1">Uploud Image</span>
 <span id="t1w_1" class="t se_1">(Handwritten signature required) </span>
 <span id="t1x_1" class="t s4_1">Venue </span>
 <span id="t1y_1" class="t sa_1">☐ </span><span id="t1z_1" class="t sf_1">Quebec </span><span id="t20_1" class="t sa_1">☐ </span><span id="t21_1" class="t sf_1">Calgary </span>
