@@ -190,3 +190,14 @@ class sigDrawer(TemplateView):
  
 
         return context
+
+
+class uploadSignature(TemplateView):
+    template_name = "forms/uploud_sig.html"
+    candidateID = None
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(uploadSignature, self).get_context_data()
+ 
+
+        return context
