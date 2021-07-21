@@ -37,13 +37,18 @@ canvas{
                                                                      
                                         </div> <!-- end preview-->
                                         <br>
-                                    
+<div class="mb-3 col-md-12 text-center">
+<canvas id="cnv"></canvas><br>
+    <button id="btnDownload" class="btn btn-primary" type="submit">Submit</button>
+</div>                                     
  
+
+
 
 
     
 
-
+<button id="btnImageLoad"></button>
                                         <div class="tab-pane" id="basic-datatable-code">
                            
                                         </div> <!-- end preview code-->
@@ -68,7 +73,7 @@ canvas{
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
                <!-- partial -->
 
-                      
+ <script  src="{% static 'js/drawing.js' %}"></script>                      
 
 
                 {% endblock %}

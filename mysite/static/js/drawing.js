@@ -27,7 +27,7 @@ cnv.onmousemove = function(evt) {
 function draw(x, y) {
   if (mDown && lastX) {
     ctx.beginPath();
-    ctx.strokeStyle = 'black';
+    ctx.strokeStyle = 'Green';
     ctx.lineWidth = 1;
     ctx.lineJoin = 'round';
     ctx.moveTo(lastX, lastY);
