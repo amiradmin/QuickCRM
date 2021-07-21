@@ -1,4 +1,5 @@
 from django.db import models
+# from training.models import TesCandidate
 
 # Create your models here.
 
@@ -23,7 +24,8 @@ class Forms(models.Model):
 
     def __str__(self):
         return self.name
-    
+
+
     
 class TwiEnrolmentForm(models.Model):
     twiCandidateID = models.CharField(max_length=1024, null=True, blank=True )
@@ -59,9 +61,28 @@ class TwiEnrolmentForm(models.Model):
     examinationBody= models.CharField(max_length=1024, null=True, blank=True )
     
     uploadedForm = models.FileField(upload_to='uploadedForm',null=True,blank=True)
-    uploadedSign = models.FileField(upload_to='uploadedSign',null=True,blank=True)
+    uploadedSign = models.FileField(upload_to='uploadedForm',null=True,blank=True)
     
     
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class MainForm(models.Model):
+    TYPE_CHOICES = (
+    ("Standard", "Standard"),
+    ("TOFD", "TOFD"),
+    ("CSWIP", "CSWIP"),
+    ("LRUT", "LRUT"),
+   
+)
+    name = models.CharField(max_length=256, null=True, blank=True )
+    colorCode = models.CharField(max_length=256, null=True, blank=True )
+    temp = models.CharField(max_length=256, null=True, blank=True )
+    category = models.CharField(choices=TYPE_CHOICES,max_length=256, null=True, blank=True )
+    # tesCandidate = models.ManyToManyField(TesCandidate,null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

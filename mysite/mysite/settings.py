@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'accountancy',
     'enrollment',
     'pclients',
+    'forms',
     'training',
     'import_export',
     'accounting',
@@ -58,7 +59,7 @@ INSTALLED_APPS = [
     'adminpanel',
     'tescalendar',
     'map',
-    'forms',
+    
     
 ]
 

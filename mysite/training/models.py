@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+# from forms.models import MainForm
 
 # Create your models here.
 
@@ -65,6 +66,26 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
+class MainForm(models.Model):
+    TYPE_CHOICES = (
+    ("Standard", "Standard"),
+    ("TOFD", "TOFD"),
+    ("CSWIP", "CSWIP"),
+    ("LRUT", "LRUT"),
+   
+)
+    name = models.CharField(max_length=256, null=True, blank=True )
+    colorCode = models.CharField(max_length=256, null=True, blank=True )
+    temp = models.CharField(max_length=256, null=True, blank=True )
+    category = models.CharField(choices=TYPE_CHOICES,max_length=256, null=True, blank=True )
+    # tesCandidate = models.ManyToManyField(TesCandidate,null=True, blank=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
+    
 class TesCandidate(models.Model):
 
     name = models.CharField(max_length=256, null=True, blank=True )
@@ -84,6 +105,7 @@ class TesCandidate(models.Model):
     workHistory = models.ManyToManyField('WorkHistory',  null=True, blank=True)
     project = models.ManyToManyField('CandidateProject',  null=True, blank=True)
     certificates = models.ManyToManyField('Certificate',  null=True, blank=True )
+    forms = models.ManyToManyField('MainForm',  null=True, blank=True )
     photo = models.ImageField(upload_to='candidate_document',null=True,blank=True)
     document_1 = models.FileField(upload_to='candidate_document',null=True,blank=True)
     document_2 = models.FileField(upload_to='candidate_document',null=True,blank=True)
@@ -252,3 +274,4 @@ class Certificate(models.Model):
 
     def __str__(self):
         return self.name
+

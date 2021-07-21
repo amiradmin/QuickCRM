@@ -1,14 +1,15 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,Field,TwiEnrolmentForm
+from forms.models import Forms,TwiEnrolmentForm
 import json
 from classes.db import FormDb
-from training.models import TesCandidate,Event
+from training.models import TesCandidate,Event,MainForm
 import datetime
 # Create your views here.
 
 class TwiEnrolment(TemplateView):
     template_name = "forms/reg_forms/twi_enrolment.html"
+    candidateID = None
 
     def get_context_data(self):
         context = super(TwiEnrolment, self).get_context_data()
@@ -16,6 +17,7 @@ class TwiEnrolment(TemplateView):
         events = Event.objects.all()
         context['candidates'] = candidates
         context['events'] = events
+        self.candidateID = 50
         return context
     
 
@@ -31,7 +33,19 @@ class TwiEnrolment(TemplateView):
                 obj.middleName = request.POST['form5_1']
                 obj.lastName = request.POST['form6_1']
                 obj.save()
-                print('Enrolment')
+                formObj = MainForm()
+                formObj.name = "Twi Enrolment Form"
+                formObj.colorCode = "#25e66b"
+                formObj.category="Standard"
+                formObj.save()
+                
+                mainCanID = request.POST['mainCanID']
+                print(mainCanID)
+                candidateObj = TesCandidate.objects.filter(id = 1050896).first()
+                print(candidateObj.first_name)
+                candidateObj.forms.add(formObj)
+                
+                
                 
                 return redirect('forms:allenrolmentform_')  
             else :
@@ -40,9 +54,11 @@ class TwiEnrolment(TemplateView):
                 canID = request.POST['canID']
                 eventID = request.POST['eventID']
                 print(canID)
+                
                 candidate= TesCandidate.objects.filter(id = canID).first()
                 event= Event.objects.filter(id = eventID).first()
-                print(candidate.last_name)
+                self.candidateID = candidate.id
+                print(self.candidateID)
                 context = super(TwiEnrolment, self).get_context_data()
                 context['candidate'] = candidate
                 context['event'] = event

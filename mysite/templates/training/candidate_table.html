@@ -87,6 +87,7 @@
             <th  >Tes  ID</th>
             <th  >Email</th>
             <th>Phone</th> 
+            <th>Submited Forms</th> 
             <th></th>
             <th></th>
         </tr>
@@ -103,6 +104,11 @@
             <td><p style="margin:0px; padding:0px; ">{{item.tes_candidate_id}}</p></td>
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.email}}</p></td>
             <td><p style="margin:0px; padding:0px; ">{{item.contact_number}}</p></td>
+            <td><p style="margin:0px; padding:0px; ">
+            {% for item2 in  item.forms.all %}
+            <p style="color:{{item2.colorCode}}">{{item2.name}}</p>
+            {% endfor %}
+            </p></td>
           
           
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatecan_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>

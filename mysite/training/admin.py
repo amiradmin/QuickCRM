@@ -1,6 +1,7 @@
 from django.contrib import admin
-from training.models import CandidateProfile,TesCandidate,Product,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
+from training.models import CandidateProfile,TesCandidate,Product,MainForm,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
 from import_export.admin import ImportExportModelAdmin
+
 # Register your models here.
 
 class CandidateProfileAdmin(ImportExportModelAdmin,admin.ModelAdmin):
@@ -95,3 +96,11 @@ class EventAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_filter = ['id','name','product','country','location','start_date','announcement_type','created_at','updated_at']
 
 admin.site.register(Event,EventAdmin)
+
+
+class MainFormAdmin(admin.ModelAdmin):
+    
+    list_display = ['id','name','category','colorCode','created_at','updated_at']
+    list_filter =['id','name','category','created_at','updated_at']
+
+admin.site.register(MainForm,MainFormAdmin)
