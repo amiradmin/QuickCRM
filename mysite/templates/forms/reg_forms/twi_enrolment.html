@@ -2271,7 +2271,7 @@ function checkOver(i) {
 </div>
 <div style="clear:both"></div>
                           <div class="mb-3 col-md-12 text-center">
-                           <button name="upload" class="BUTTON_MZQ" onClick="" style="height:34px;" id="cmd">Upload </button>
+                <a href="{% if candidate %}{% url 'forms:uploadform_' id=candidate.id %}{% endif %}" class="BUTTON_MZQ" style="height:34px;" id="cmd">Upload </a>
                                 <button name="enrolment" class="BUTTON_MZQ" style="height:34px;" type="submit">Submit</button>
                 <button class="BUTTON_MZQ" onClick="printFunction()" style="height:34px;" id="cmd">Print</button>
                           </div> 

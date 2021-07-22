@@ -44,6 +44,8 @@ class TwiEnrolment(TemplateView):
                 
                 
                 return redirect('forms:allenrolmentform_')  
+
+                 
             else :
                 print('Here')
                 # if request.FILES.get('file', False):
@@ -207,6 +209,24 @@ class formMap(TemplateView):
         
         context['tags'] = tags
         return context
+    
+class UploadForm(TemplateView):
+    template_name = "forms/uploud_form.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UploadForm, self).get_context_data()
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        
+        if request.method == 'POST':
+            print('Here')
+            if request.FILES.get('myFile', False):
+               fileName = request.FILES['myFile']
+               print(fileName)
+            
+        return redirect('forms:all_')  
     
     
 class EachFormMemebr(TemplateView):
