@@ -19,6 +19,7 @@ urlpatterns = [
     path('uploadsig/<int:id>', views.uploadSignature.as_view(), name='uploadsig_'),
     
     path('jaegertofdl2/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
+    path('formmap/', views.formMap.as_view(), name='formmap_'),
  
 
 

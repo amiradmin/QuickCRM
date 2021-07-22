@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,TwiEnrolmentForm
-import json
+from forms.models import Forms,TwiEnrolmentForm,Category
+from django.db.models import Count
 from classes.db import FormDb
 from training.models import TesCandidate,Event,MainForm
 import datetime
@@ -200,4 +200,14 @@ class uploadSignature(TemplateView):
         context = super(uploadSignature, self).get_context_data()
  
 
+        return context
+    
+class formMap(TemplateView):
+    template_name = "forms/form_map.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(formMap, self).get_context_data()
+        tags = Category.objects.all()
+        
+        context['tags'] = tags
         return context
