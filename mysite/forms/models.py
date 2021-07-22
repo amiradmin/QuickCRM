@@ -25,23 +25,7 @@ class Forms(models.Model):
     def __str__(self):
         return self.name
 
-class FormsList(models.Model):
-    name = models.CharField(max_length=256, null=True, blank=True )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.name   
-    
-class Category(models.Model):
-    name = models.CharField(max_length=256, null=True, blank=True )
-    colorCode = models.CharField(max_length=256, null=True, blank=True )
-    form = models.ManyToManyField('FormsList',null=True, blank=True )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
     
 
     

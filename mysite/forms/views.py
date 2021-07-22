@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,TwiEnrolmentForm,Category
+from forms.models import Forms,TwiEnrolmentForm
 from django.db.models import Count
 from classes.db import FormDb
-from training.models import TesCandidate,Event,MainForm
+from training.models import FormsList, TesCandidate,Event,Category
 import datetime
 # Create your views here.
 
@@ -33,11 +33,7 @@ class TwiEnrolment(TemplateView):
                 obj.middleName = request.POST['form5_1']
                 obj.lastName = request.POST['form6_1']
                 obj.save()
-                formObj = MainForm()
-                formObj.name = "Twi Enrolment Form"
-                formObj.colorCode = "#25e66b"
-                formObj.category="Standard"
-                formObj.save()
+                formObj = FormsList.objects.filter(id=1).first()
                 
                 mainCanID = request.POST['mainCanID']
                 print(mainCanID)
@@ -211,3 +207,17 @@ class formMap(TemplateView):
         
         context['tags'] = tags
         return context
+    
+    
+class EachFormMemebr(TemplateView):
+    template_name = "forms/categoried_form.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(EachFormMemebr, self).get_context_data()
+        formID = self.kwargs['id']
+        print(formID)
+        form = FormsList.objects.filter(id= formID).first()
+        canList = TesCandidate.objects.filter(forms=form)
+        context['canList'] = canList
+        context['form'] = form
+        return context 

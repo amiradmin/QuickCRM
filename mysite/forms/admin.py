@@ -1,5 +1,5 @@
 from django.contrib import admin
-from forms.models import Forms,Field,TwiEnrolmentForm,Category,FormsList
+from forms.models import Forms,Field,TwiEnrolmentForm
 
 # Register your models here.
 
@@ -21,20 +21,7 @@ class FormsAdmin(admin.ModelAdmin):
 
 admin.site.register(Forms,FormsAdmin)
 
-class FormsListAdmin(admin.ModelAdmin):
 
-    list_display = ['id','name','category','created_at','updated_at']
-    list_filter =['id','name','category','created_at','updated_at']
-
-admin.site.register(FormsList,FormsListAdmin)
-
-
-class CategoryAdmin(admin.ModelAdmin):
-
-    list_display = ['id','name','colorCode','created_at','updated_at']
-    list_filter =['id','name','created_at','updated_at']
-
-admin.site.register(Category,CategoryAdmin)
 
 
 class FieldAdmin(admin.ModelAdmin):

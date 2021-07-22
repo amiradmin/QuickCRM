@@ -1,5 +1,5 @@
 from django.contrib import admin
-from training.models import CandidateProfile,TesCandidate,Product,MainForm,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
+from training.models import CandidateProfile,TesCandidate,Product,FormsList,Category,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
@@ -98,9 +98,17 @@ class EventAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 admin.site.register(Event,EventAdmin)
 
 
-class MainFormAdmin(admin.ModelAdmin):
+class FormsListAdmin(admin.ModelAdmin):
     
-    list_display = ['id','name','category','colorCode','created_at','updated_at']
-    list_filter =['id','name','category','created_at','updated_at']
+    list_display = ['id','name','created_at','updated_at']
+    list_filter =['id','name','created_at','updated_at']
 
-admin.site.register(MainForm,MainFormAdmin)
+admin.site.register(FormsList,FormsListAdmin)
+
+
+class CategoryAdmin(admin.ModelAdmin):
+
+    list_display = ['id','name','colorCode','created_at','updated_at']
+    list_filter =['id','name','created_at','updated_at']
+
+admin.site.register(Category,CategoryAdmin)
