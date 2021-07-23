@@ -25,7 +25,9 @@ class TwiEnrolment(TemplateView):
         
         if request.method == 'POST':
             if 'enrolment' in request.POST:
+                candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
                 obj = TwiEnrolmentForm()
+                obj.candidate = candidate
                 obj.twiCandidateID = request.POST['form1_1']
                 obj.eventName = request.POST['form2_1']
                 # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')
@@ -35,11 +37,11 @@ class TwiEnrolment(TemplateView):
                 obj.save()
                 formObj = FormsList.objects.filter(id=1).first()
                 
-                mainCanID = request.POST['mainCanID']
-                print(mainCanID)
-                candidateObj = TesCandidate.objects.filter(id = 1050896).first()
-                print(candidateObj.first_name)
-                candidateObj.forms.add(formObj)
+                # mainCanID = request.POST['mainCanID']
+                # print(mainCanID)
+                # candidateObj = TesCandidate.objects.filter(id = 1050896).first()
+                # print(candidateObj.first_name)
+                candidate.forms.add(formObj)
                 
                 
                 
@@ -166,7 +168,20 @@ class ViewForm(TemplateView):
         return context    
 
 
-    
+
+class ViewFormByID(TemplateView):
+    template_name = "forms/reg_forms/twi_enrolment_by_id.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ViewFormByID, self).get_context_data()
+        canID = self.kwargs['id']
+        candidate = TesCandidate.objects.filter(id =canID).first()
+        print(canID)
+        print(candidate.id)
+        form = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
+        context['form'] = form
+        return context    
+
     
 class AllFormsFromPostgres(TemplateView):
     template_name = "forms/all_forms_postres.html"

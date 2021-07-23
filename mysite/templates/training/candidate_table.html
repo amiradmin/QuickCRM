@@ -106,7 +106,7 @@
             <td><p style="margin:0px; padding:0px; ">{{item.contact_number}}</p></td>
             <td><p style="margin:0px; padding:0px; ">
             {% for item2 in  item.forms.all %}
-            <p style="color:{{item2.colorCode}}">{{item2.name}}</p>
+             <a style="color:{{item2.colorCode}}"  href="{% url 'forms:formbyid_' id=item.id %}">{{item2.name}}</a>
             {% endfor %}
             </p></td>
           

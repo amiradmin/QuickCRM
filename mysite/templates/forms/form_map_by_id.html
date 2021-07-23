@@ -36,7 +36,7 @@
 <h4>{{tag.name}}</h4>
 <ul class="tags">
 {% for item2 in tag.form.all %}
-  <li><a href="{% url 'forms:eachformmem_' id=item2.id %}" class="tag" style="background-color:{{item.colorCode}};--my-color-var: {{item.colorCode}};">
+  <li><a href="{% url 'forms:eachformmem_' id=item2.id %}" class="tag" style="background-color:{{tag.colorCode}};--my-color-var: {{tag.colorCode}};">
   
   {{item2.name}}
   </a></li>

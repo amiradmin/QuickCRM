@@ -1,7 +1,7 @@
 from django.db import models
-# from training.models import TesCandidate
+from training.models import TesCandidate
 
-# Create your models here.
+
 
 class Field(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
@@ -30,6 +30,7 @@ class Forms(models.Model):
 
     
 class TwiEnrolmentForm(models.Model):
+    candidate = models.ForeignKey(TesCandidate,related_name="candidate", on_delete=models.CASCADE)
     twiCandidateID = models.CharField(max_length=1024, null=True, blank=True )
     eventName = models.CharField(max_length=1024, null=True, blank=True )
     eventDate = models.DateField( null=True, blank=True )
@@ -70,7 +71,7 @@ class TwiEnrolmentForm(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.lastName
 
 class MainForm(models.Model):
     TYPE_CHOICES = (
