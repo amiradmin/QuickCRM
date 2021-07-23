@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
-from training.models import Event,CandidateProfile,Country,Location,Product,Lecturer,TesCandidate
+from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category
 from django.contrib.auth.models import User
 import time
 import datetime
 import json
 from django.http import JsonResponse
+
 
 # Create your views here.
 
@@ -233,11 +234,13 @@ class EventView(TemplateView):
         lecturers_list = Lecturer.objects.all()
         country_list = Country.objects.all()
         location_list = Location.objects.all()
+        categoryList = Category.objects.all()
         context['event_list'] = event_list
         context['product_list'] = product_list
         context['lecturers_list'] = lecturers_list
         context['country_list'] = country_list
         context['location_list'] = location_list
+        context['categoryList'] = categoryList
 
         return context
     
@@ -247,14 +250,16 @@ class EventView(TemplateView):
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
             location = Location.objects.get(id = request.POST['location'])
+            category = Category.objects.get(id = request.POST['category'])
 
             obj = Event()
             obj.name = request.POST['name']
-            
             obj.product = product
             obj.lecturers = lecturers
             obj.location = location
-            # obj.start_date = request.POST['start_date']
+            obj.formCategory = category
+            obj.country = location.country
+            
             
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
             obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
@@ -272,27 +277,31 @@ class UpdateEventView(TemplateView):
         lecturers_list = Lecturer.objects.all()
         country_list = Country.objects.all()
         location_list = Location.objects.all()
+        categoryList = Category.objects.all()
         context['event'] = event
         context['product_list'] = product_list
         context['lecturers_list'] = lecturers_list
         context['country_list'] = country_list
         context['location_list'] = location_list
+        context['categoryList'] = categoryList
 
         return context
     
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
            
-           
+            print(request.POST['category'])
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
             location = Location.objects.get(id = request.POST['location'])
-
+            category = Category.objects.get(name__exact = request.POST['category'])
             obj = Event.objects.filter(id = self.kwargs['id']).first()
             obj.name = request.POST['name']
             obj.product = product
             obj.lecturers = lecturers
             obj.location = location
+            obj.formCategory = category
+            obj.country = location.country
             # obj.start_date = request.POST['start_date']
             obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')

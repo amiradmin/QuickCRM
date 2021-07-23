@@ -209,6 +209,19 @@ class formMap(TemplateView):
         
         context['tags'] = tags
         return context
+
+class FormMapByCatID(TemplateView):
+    template_name = "forms/form_map_by_id.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(FormMapByCatID, self).get_context_data()
+        catID = self.kwargs['id']
+        print(catID)
+        tag = Category.objects.filter(id=catID).first()
+        
+        context['tag'] = tag
+        return context
+    
     
 class UploadForm(TemplateView):
     template_name = "forms/uploud_form.html"

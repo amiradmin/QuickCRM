@@ -94,7 +94,16 @@
                                                 </div>
                                                 </div>
                                             </div>
-                                        
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputState" class="form-label">Form Category</label>
+                                                    <select value="" name="category" id="inputState" class="form-select" required>
+                                                        <option value="{{event.formCategory}}" >{{event.formCategory}}</option>
+                                                        {% for item in categoryList %}
+                                                        <option value="{{item.id}}" >{{item.name}}</option>
+                                                        {%endfor%}
+                                                    </select>
+                                                </div>                                            
+
 
                                                         
                                                <div class="mb-3 col-md-12 text-center">

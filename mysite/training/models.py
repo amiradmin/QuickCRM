@@ -205,6 +205,7 @@ class Event(models.Model):
     country = models.ForeignKey(Country,related_name="country_event",  null=True, blank=True , on_delete=models.CASCADE)
     location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
     lecturers = models.ForeignKey(Lecturer,related_name="lecturer_event",  null=True, blank=True , on_delete=models.CASCADE)
+    formCategory = models.ForeignKey(Category,related_name="form_cat_event",  null=True, blank=True , on_delete=models.CASCADE)
     start_date = models.DateTimeField(null=True, blank=True)
     practicalDate = models.DateTimeField(null=True, blank=True)
     skills = models.ManyToManyField('Skill',  null=True, blank=True)
