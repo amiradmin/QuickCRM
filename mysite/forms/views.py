@@ -34,6 +34,58 @@ class TwiEnrolment(TemplateView):
                 obj.firstName = request.POST['form4_1']
                 obj.middleName = request.POST['form5_1']
                 obj.lastName = request.POST['form6_1']
+                obj.permanentPrivateAddress = request.POST['form16_1']
+                obj.Postcode = request.POST['form18_1']
+                obj.CarRegNo = request.POST['form19_1']
+                obj.privateTel = request.POST['form20_1']
+                obj.emergencyTel = request.POST['form21_1']
+                obj.email = request.POST['form22_1']
+                obj.correspondenceAddress = request.POST['form28_1']
+                obj.invoiceAddress = request.POST['form38_1']
+                obj.sponsoringCompanyAndaddress = request.POST['form40_1']
+                obj.sponsorPostcode = request.POST['form43_1']
+                obj.sponsorContactName = request.POST['form44_1']
+                obj.sponsorTel = request.POST['form45_1']
+                obj.sponsorFax = request.POST['form46_1']
+                obj.sponsorEmail = request.POST['form47_1']
+                
+               
+                if request.POST.get('diabilityYes', None) == None:
+                    obj.disability =True
+                if request.POST.get('diabilityNo', None) == None:
+                    obj.disability =False
+                                    
+                if request.POST.get('sponserYes', None) == None:
+                    obj.sponsorStatus =True
+                if request.POST.get('sponserNo', None) == None:
+                    obj.sponsorStatus =False
+                
+                tempTearAbout=''
+                if not request.POST.get('form29_1', None) :
+                    tempTearAbout = 'TWI Corporate Website '
+                if not request.POST.get('form30_1', None) :
+                    tempTearAbout =tempTearAbout +' - '+ 'CSWIP Website'
+                if not request.POST.get('form31_1', None) :
+                    tempTearAbout =tempTearAbout +' - '+  'Email marketing '
+                if not request.POST.get('form32_1', None) :
+                    tempTearAbout =tempTearAbout +' - '+  'Bulletin / Connect '
+                if not request.POST.get('form33_1', None) :
+                    tempTearAbout =tempTearAbout +' - '+  'Google search'
+                if not request.POST.get('form34_1', None) :
+                    tempTearAbout =tempTearAbout +' - '+  'Other (please specify)'
+                if not request.POST.get('form23_1', None) :
+                    tempTearAbout =tempTearAbout +' - '+ 'LinkedIn'
+                if not request.POST.get('form24_1', None) :
+                    tempTearAbout =tempTearAbout +' - '+  'Facebook'
+                if not request.POST.get('form25_1', None) :
+                    tempTearAbout =tempTearAbout +' - '+  'NDT News / Insight'          
+                if not request.POST.get('form26_1', None) : 
+                    tempTearAbout =tempTearAbout +' - '+  'Exhibitions / Events'       
+                if not request.POST.get('form27_1', None) : 
+                    tempTearAbout =tempTearAbout +' - '+  'Word of Mouth'                     
+                obj.hearAbout =tempTearAbout
+                
+                
                 obj.save()
                 formObj = FormsList.objects.filter(id=1).first()
                 
