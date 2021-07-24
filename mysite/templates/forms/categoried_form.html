@@ -51,15 +51,15 @@
 
 
     <tbody>
-        {% for item in canList %}
+        {% for item in form %}
         <tr>
             
            
            
             <td><p  >{{item.id}} </p></td>
-            <td><p ><a style="margin:0px; padding:0px;  " href="">{{item.tes_candidate_id}}</a></p></td>
-            <td><p >{{item.first_name}}</p></td>
-            <td><p >{{item.last_name}}</p></td>
+            <td><p ><a style="margin:0px; padding:0px;  " href="{% url 'forms:formbyformid_' id=item.id %}">{{item.candidate.tes_candidate_id}}</a></p></td>
+            <td><p >{{item.candidate.first_name}}</p></td>
+            <td><p >{{item.candidate.last_name}}</p></td>
            
  
           

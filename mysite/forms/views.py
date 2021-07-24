@@ -277,7 +277,18 @@ class ViewFormByID(TemplateView):
         context['form'] = form
         return context    
 
-    
+class ViewFormByFormID(TemplateView):
+    template_name = "forms/reg_forms/twi_enrolment_by_id.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ViewFormByFormID, self).get_context_data()
+        canID = self.kwargs['id']
+        print(canID)
+
+        form = TwiEnrolmentForm.objects.filter(id=canID).first()
+        context['form'] = form
+        return context    
+        
 class AllFormsFromPostgres(TemplateView):
     template_name = "forms/all_forms_postres.html"
 
@@ -359,8 +370,8 @@ class EachFormMemebr(TemplateView):
         context = super(EachFormMemebr, self).get_context_data()
         formID = self.kwargs['id']
         print(formID)
-        form = FormsList.objects.filter(id= formID).first()
-        canList = TesCandidate.objects.filter(forms=form)
-        context['canList'] = canList
+        form = TwiEnrolmentForm.objects.all()
+        # canList = TesCandidate.objects.filter(forms=form)
+        # context['canList'] = canList
         context['form'] = form
         return context 
