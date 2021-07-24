@@ -34,7 +34,12 @@ class TwiEnrolment(TemplateView):
                 obj.firstName = request.POST['form4_1']
                 obj.middleName = request.POST['form5_1']
                 obj.lastName = request.POST['form6_1']
-                obj.permanentPrivateAddress = request.POST['form16_1']
+                day = request.POST['form7_1'] 
+                month = request.POST['form8_1'] 
+                year = request.POST['form9_1'] 
+                birdDay = day + '/' + month + '/' + year
+                obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
+                obj.permanentPrivateAddress = request.POST['form15_1']
                 obj.Postcode = request.POST['form18_1']
                 obj.CarRegNo = request.POST['form19_1']
                 obj.privateTel = request.POST['form20_1']
@@ -48,40 +53,78 @@ class TwiEnrolment(TemplateView):
                 obj.sponsorTel = request.POST['form45_1']
                 obj.sponsorFax = request.POST['form46_1']
                 obj.sponsorEmail = request.POST['form47_1']
+                # obj.GDPRstatement = request.POST['form37_1']
+                
+      
                 
                
-                if request.POST.get('diabilityYes', None) == None:
+                if not request.POST.get('form54_1', None) == None:                             
+                    obj.venue ='Calgary'
+                    
+                if not request.POST.get('form56_1', None) == None:                             
+                    obj.venue ='Edmonton'
+                                        
+                if not request.POST.get('form12_1', None) == None:                             
+                    obj.venue ='Brazil'
+                                                            
+                if not request.POST.get('form55_1', None) == None:                             
+                    obj.venue ='Toronto'
+                                                                                
+                if not request.POST.get('form57_1', None) == None:                             
+                   obj.venue ='Fort Erie'        
+                                                                                            
+                if not request.POST.get('form13_1', None) == None:                             
+                    obj.venue ='USA'
+                                                                                                                
+                if not request.POST.get('form10_1', None) == None:                             
+                    obj.venue ='Quebec' 
+                                                                                                                                   
+                if not request.POST.get('form11_1', None) == None:                             
+                    obj.venue ='Vancouver'     
+                                                                                                                                                  
+                if not request.POST.get('form14_1', None) == None:                             
+                    obj.venue ='New Brunswick'
+                    
+                if not request.POST.get('diabilityYes', None) == None:
                     obj.disability =True
                 if request.POST.get('diabilityNo', None) == None:
                     obj.disability =False
                                     
-                if request.POST.get('sponserYes', None) == None:
+                if not  request.POST.get('form58_1', None) == None:
+                    obj.weldingSociety =True
+                if not request.POST.get('form59_1', None) == None:
+                    obj.twiEmployee =True
+
+                if not request.POST.get('compSponser', None) == None:
                     obj.sponsorStatus =True
-                if request.POST.get('sponserNo', None) == None:
-                    obj.sponsorStatus =False
-                
+                if not request.POST.get('selfSponser', None) == None:
+                    obj.sponsorStatus =True          
+                          
+                if not request.POST.get('form37_1', None) == None:
+                    obj.GDPRstatement =True
+                    
                 tempTearAbout=''
-                if not request.POST.get('form29_1', None) :
+                if not request.POST.get('form29_1', None) == None:
                     tempTearAbout = 'TWI Corporate Website '
-                if not request.POST.get('form30_1', None) :
+                if not request.POST.get('form30_1', None) == None:
                     tempTearAbout =tempTearAbout +' - '+ 'CSWIP Website'
-                if not request.POST.get('form31_1', None) :
+                if not request.POST.get('form31_1', None) == None:
                     tempTearAbout =tempTearAbout +' - '+  'Email marketing '
-                if not request.POST.get('form32_1', None) :
+                if not request.POST.get('form32_1', None) == None:
                     tempTearAbout =tempTearAbout +' - '+  'Bulletin / Connect '
-                if not request.POST.get('form33_1', None) :
+                if not request.POST.get('form33_1', None) == None:
                     tempTearAbout =tempTearAbout +' - '+  'Google search'
-                if not request.POST.get('form34_1', None) :
+                if not request.POST.get('form34_1', None) == None:
                     tempTearAbout =tempTearAbout +' - '+  'Other (please specify)'
-                if not request.POST.get('form23_1', None) :
+                if not request.POST.get('form23_1', None) == None:
                     tempTearAbout =tempTearAbout +' - '+ 'LinkedIn'
-                if not request.POST.get('form24_1', None) :
+                if not request.POST.get('form24_1', None) == None:
                     tempTearAbout =tempTearAbout +' - '+  'Facebook'
-                if not request.POST.get('form25_1', None) :
+                if not request.POST.get('form25_1', None) == None:
                     tempTearAbout =tempTearAbout +' - '+  'NDT News / Insight'          
-                if not request.POST.get('form26_1', None) : 
+                if not request.POST.get('form26_1', None) == None: 
                     tempTearAbout =tempTearAbout +' - '+  'Exhibitions / Events'       
-                if not request.POST.get('form27_1', None) : 
+                if not request.POST.get('form27_1', None) == None: 
                     tempTearAbout =tempTearAbout +' - '+  'Word of Mouth'                     
                 obj.hearAbout =tempTearAbout
                 

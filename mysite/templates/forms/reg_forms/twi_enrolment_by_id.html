@@ -797,25 +797,25 @@ function checkOver(i) {
 
 
 <!-- Begin Form Data -->
-<input id="form1_1" name="form1_1" type="text" tabindex="1" maxlength="6" value="" data-objref="2109 0 R" title="undefined" data-field-name="undefined"  />
+<input id="form1_1" name="form1_1" type="text" tabindex="1" style="margin-left:12px;letter-spacing: 25px;" maxlength="6" value="{{form.twiCandidateID}}" data-objref="2109 0 R" title="undefined" data-field-name="undefined"  />
 <input id="form2_1" name="form2_1" type="text" tabindex="2" value="{{form.eventName}}" data-objref="2110 0 R" title="Event title" data-field-name="Event title"  >
 <input id="form3_1" name="form3_1" type="text" tabindex="3" value="{{form.eventDate| date}}" data-objref="2111 0 R" title="Event date" data-field-name="Event date"  >
-<input id="form4_1"  name="form4_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="4" maxlength="17" value="{{candidate.last_name |upper}}" data-objref="2112 0 R" title="Candidate&#39;s Family Name (as per ID / Passport" data-field-name="Candidates Family Name as per ID  Passport"  />
-<input id="form5_1" name="form5_1" style="margin-left:6px;letter-spacing: 18px;"  type="text" tabindex="5" maxlength="17" value="{{candidate.middleName |upper}}" data-objref="2113 0 R" title="Candidate&#39;s Middle Name (as per ID / Passport" data-field-name="Candidates Middle Name as per ID  Passport"  >
-<input id="form6_1" name="form6_1" style="margin-left:6px;letter-spacing: 18px;"  value="{{candidate.first_name|upper}}" type="text" tabindex="6" maxlength="17" data-objref="2114 0 R" title="Candidate&#39;s Given Name (as per ID / Passport"  data-field-name="Candidates Given Name as per ID  Passport"  >
+<input id="form4_1"  name="form4_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="4" maxlength="17" value="{{form.candidate.last_name |upper}}" data-objref="2112 0 R" title="Candidate&#39;s Family Name (as per ID / Passport" data-field-name="Candidates Family Name as per ID  Passport"  />
+<input id="form5_1" name="form5_1" style="margin-left:6px;letter-spacing: 18px;"  type="text" tabindex="5" maxlength="17" value="{{form.candidate.middleName |upper}}" data-objref="2113 0 R" title="Candidate&#39;s Middle Name (as per ID / Passport" data-field-name="Candidates Middle Name as per ID  Passport"  >
+<input id="form6_1" name="form6_1" style="margin-left:6px;letter-spacing: 18px;"  value="{{form.candidate.first_name|upper}}" type="text" tabindex="6" maxlength="17" data-objref="2114 0 R" title="Candidate&#39;s Given Name (as per ID / Passport"  data-field-name="Candidates Given Name as per ID  Passport"  >
 
-<input id="form7_1" style="margin-left:6px;letter-spacing: 18px;" type="text" value="{{candidate.birth_date| date:"d"}}" tabindex="7" maxlength="2" value="" data-objref="2115 0 R" title="D" data-field-name="D"  >
-<input id="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="8" maxlength="2" value="{{candidate.birth_date| date:"m"}}" data-objref="2116 0 R" title="M" data-field-name="M"  >
-<input id="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="9" maxlength="4" value="{{candidate.birth_date| date:"Y"}}" data-objref="2117 0 R" title="Y" data-field-name="Y"  />
+<input id="form7_1" style="margin-left:6px;letter-spacing: 18px;" type="text" value="{{form.birthOfDate | date:"m"}}" tabindex="7" maxlength="2"  data-objref="2115 0 R" title="D" data-field-name="D"  >
+<input id="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="8" maxlength="2" value="{{form.birthOfDate| date:"m"}}" data-objref="2116 0 R" title="M" data-field-name="M"  >
+<input id="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="9" maxlength="4" value="{{form.birthOfDate| date:"Y"}}" data-objref="2117 0 R" title="Y" data-field-name="Y"  />
 <input id="form10_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="10" data-objref="2118 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2118 0 R' %}" imagesT="110100"/>
 <input id="form11_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="11" data-objref="2120 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2120 0 R' %}" imagesT="110100"/>
 <input id="form12_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="12" data-objref="2121 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2121 0 R' %}" imagesT="110100"/>
 <input id="form13_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="13" data-objref="2122 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2122 0 R' %}" imagesT="110100"/>
 <input id="form14_1" onclick="myFunVenue(this)" name="venue" type="checkbox" tabindex="14" data-objref="2123 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2123 0 R' %}" imagesT="110100"/>
-<input id="form15_1" type="text" tabindex="15" value="{{candidate.address}}" data-objref="2124 0 R" title="Permanent private address [1]" data-field-name="Permanent private address 1"  >
+<input id="form15_1" type="text" tabindex="15" value="{{form.permanentPrivateAddress}}" data-objref="2124 0 R" title="Permanent private address [1]" data-field-name="Permanent private address 1"  >
 <input id="form16_1" type="text" tabindex="16" value="" data-objref="2125 0 R" title="Permanent private address [2]" data-field-name="Permanent private address 2"/>
 <input id="form17_1" type="text" tabindex="17" value="" data-objref="2126 0 R" title="Permanent private address [3]" data-field-name="Permanent private address 3"/>
-<input id="form18_1" type="text" tabindex="18" value="{{candidate.postal_code}}" data-objref="2127 0 R" title="Postcode" data-field-name="Postcode"  >
+<input id="form18_1" type="text" tabindex="18" value="{{form.Postcode}}" data-objref="2127 0 R" title="Postcode" data-field-name="Postcode"  >
 <input id="form19_1" type="text" tabindex="19" value="" data-objref="2128 0 R" title="Car Reg. No" data-field-name="Car Reg No"/>
 <input id="form20_1" type="text" tabindex="20" value="{{candidate.contact_number}}" data-objref="2129 0 R" title="Private Tel" data-field-name="Private Tel"  /> 
 <input id="form21_1" type="text" tabindex="21" value="" data-objref="2130 0 R" title="Tel" data-field-name="Tel"  >
@@ -846,8 +846,8 @@ function checkOver(i) {
 <input id="form46_1" type="text" tabindex="46" value="" data-objref="2155 0 R" title="Fax" data-field-name="Fax"/>
 <input id="form47_1" type="text" tabindex="47" value="" data-objref="2156 0 R" title="E-mail" data-field-name="Email_2"/>
 
-<input id="form48_1" type="checkbox" name="diability" onclick=""  tabindex="48" data-objref="2157 0 R" data-field-name="Check Box1.0" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2157 0 R' %}" images="110100"/>
-<input id="form49_1" type="checkbox" name="diability"  onclick=""  tabindex="49" data-objref="2158 0 R" data-field-name="Check Box1.0" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2158 0 R' %}" images="110100"/>
+<input id="form48_1" type="checkbox" name="diability" onclick=""  tabindex="48" data-objref="2157 0 R" data-field-name="Check Box1.0" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2157 0 R' %}" images="110100"  {% if form.disability == True %} checked  {% endif %}/>
+<input id="form49_1" type="checkbox" {% if form.disability == False %} checked  {% endif %} name="diability"  onclick=""  tabindex="49" data-objref="2158 0 R" data-field-name="Check Box1.0" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2158 0 R' %}" images="110100"/>
 
 
 
