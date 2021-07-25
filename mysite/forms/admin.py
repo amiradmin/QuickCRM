@@ -6,7 +6,7 @@ from forms.models import Forms,Field,TwiEnrolmentForm
 
 class TwiEnrolmentFormAdmin(admin.ModelAdmin):
     
-    list_display = ['id','twiCandidateID','firstName','lastName','created_at','updated_at']
+    list_display = ['id','twiCandidateID','firstName','lastName','uploadedForm','created_at','updated_at']
     list_filter =['id','twiCandidateID','firstName','lastName','created_at','updated_at']
 
 admin.site.register(TwiEnrolmentForm,TwiEnrolmentFormAdmin)

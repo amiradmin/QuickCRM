@@ -41,6 +41,7 @@
             <th  >TWI Candidate ID</th>
             <th  >First Name</th>
             <th  >Last Name</th>
+            <th  >Uploaded Form</th>
             
             
       
@@ -60,6 +61,7 @@
             <td><p ><a style="margin:0px; padding:0px;  " href="{% url 'forms:formbyformid_' id=item.id %}">{{item.twiCandidateID}}</a></p></td>
             <td><p >{{item.firstName}}</p></td>
             <td><p >{{item.lastName}}</p></td>
+            <td><a href="{% if item.uploadedForm  %}{{item.uploadedForm.url}}{% endif %}" >{{item.uploadedForm}}</a></td>
            
  
           

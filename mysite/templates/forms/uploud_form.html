@@ -77,6 +77,9 @@
                                         <div class="tab-content">
                                         <form method="POST" enctype="multipart/form-data">
                                         {%  csrf_token %}
+
+   
+<input type="hidden" value="{{id}}"  name="formID" />                                
 <div class="drop-zone">
     <span class="drop-zone__prompt">Drop file here or click to upload</span>
     <input type="file" name="myFile" class="drop-zone__input">

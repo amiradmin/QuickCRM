@@ -349,18 +349,20 @@ class UploadForm(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(UploadForm, self).get_context_data()
-
+        context['id'] = self.kwargs['id']
         return context
 
     def post(self, request, *args, **kwargs):
         
         if request.method == 'POST':
-            print('Here')
+            formID = request.POST['formID']
             if request.FILES.get('myFile', False):
-               fileName = request.FILES['myFile']
-               print(fileName)
+               print(formID)
+               formObj = TwiEnrolmentForm.objects.filter(id = formID).first()
+               formObj.uploadedForm = request.FILES['myFile']
+               formObj.save()
             
-        return redirect('forms:all_')  
+        return redirect('forms:allenrolmentform_')  
     
     
 class EachFormMemebr(TemplateView):
