@@ -53,6 +53,8 @@ class TwiEnrolment(TemplateView):
                 obj.sponsorTel = request.POST['form45_1']
                 obj.sponsorFax = request.POST['form46_1']
                 obj.sponsorEmail = request.POST['form47_1']
+                obj.PCN_BGASApprovalNumber = request.POST['form11_2']
+                obj.currentCSWIPQualifications = request.POST['form12_2']
                 # obj.GDPRstatement = request.POST['form37_1']
                 
       
@@ -128,7 +130,29 @@ class TwiEnrolment(TemplateView):
                     tempTearAbout =tempTearAbout +' - '+  'Word of Mouth'                     
                 obj.hearAbout =tempTearAbout
                 
-                
+                if not request.POST.get('form1_2', None) == None:                             
+                    obj.examinationType ='Initial'                
+                if not request.POST.get('form2_2', None) == None:                             
+                    obj.examinationType ='supplementary'
+                if not request.POST.get('form3_2', None) == None:                             
+                    obj.examinationType ='renewal'
+                if not request.POST.get('form4_2', None) == None:                             
+                    obj.examinationType ='bridging'
+                if not request.POST.get('form5_2', None) == None:                             
+                    obj.examinationType ='retest of a previously failed examination'
+
+                if not request.POST.get('form6_2', None) == None:                             
+                    obj.examinationBody ='CSWIP'                
+                if not request.POST.get('form7_2', None) == None:                             
+                    obj.examinationBody ='PCN'
+                if not request.POST.get('form8_2', None) == None:                             
+                    obj.examinationBody ='AWS'
+                if not request.POST.get('form9_2', None) == None:                             
+                    obj.examinationBody ='BGAS'
+                if not request.POST.get('form10_2', None) == None:                             
+                    obj.examinationBody ='ASNT'
+                    
+                    
                 obj.save()
                 formObj = FormsList.objects.filter(id=1).first()
                 
@@ -376,4 +400,16 @@ class EachFormMemebr(TemplateView):
         # canList = TesCandidate.objects.filter(forms=form)
         # context['canList'] = canList
         context['form'] = form
+        return context 
+    
+class EventSummary(TemplateView):
+    template_name = "forms/event_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(EventSummary, self).get_context_data()
+        # formID = self.kwargs['id']
+        # print(formID)
+        # form = TwiEnrolmentForm.objects.all()
+ 
+        # context['form'] = form
         return context 

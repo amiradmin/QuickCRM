@@ -38,6 +38,7 @@
                                                         <th>Country</th>
                                                         <th>Location</th>
                                                         <th>Forms</th>
+                                                        <th>Summary</th>
                                                         <th>Start Date</th>
                                                         <th>Practical Date</th>
                                           
@@ -58,6 +59,7 @@
                                                         <td>{{item.country}}</td>
                                                         <td>{{item.location}}</td>
                                                         <td><a style="color:{{item.formCategory.colorCode}}" href="{% url 'forms:formmapbyid_' id=item.formCategory_id %}">{{item.formCategory}}</a></td>
+                                                        <td><a  href="{% url 'forms:evensummary_' %}">View</a></td>
                                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
                                                         <td>{{item.practicalDate|date:'m/d/Y'}}</td>
                                                         
