@@ -414,7 +414,7 @@ class EventSummary(TemplateView):
         print("Here")
         twiForm = TwiEnrolmentForm.objects.filter(eventID=eventID).all()
         event = Event.objects.filter(id=eventID).first()
-        eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True)).count()
+        eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
         
         print(twiForm)
         context['twiForm'] = twiForm
