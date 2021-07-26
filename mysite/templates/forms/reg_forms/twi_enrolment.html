@@ -300,6 +300,8 @@ body{padding:0px; margin:0px;  }
 {% csrf_token %}    
 
 <input type="hidden" value="{{candidate.id}} " name="mainCanID"/>
+<input type="hidden" value="{{event.id}} " name="eventID"/>
+<input type="hidden" value="{{event.formCategory_id}} " name="fomCatID"/>
 <div></div>
 <div id="overlay"></div>
 

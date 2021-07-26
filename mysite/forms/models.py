@@ -84,6 +84,7 @@ class TwiEnrolmentForm(models.Model):
     VerifierTelephone = models.CharField(max_length=512, null=True, blank=True )
     VerifierEmail = models.CharField(max_length=512, null=True, blank=True )
     VerifierDate = models.DateField( null=True, blank=True )
+    confirmation = models.BooleanField( null=True, blank=True )
     
     uploadedForm = models.FileField(upload_to='uploadedForm',null=True,blank=True)
     uploadedSign = models.FileField(upload_to='uploadedForm',null=True,blank=True)

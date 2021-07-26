@@ -4,6 +4,7 @@ from forms.models import Forms,TwiEnrolmentForm
 from django.db.models import Count
 from classes.db import FormDb
 from training.models import FormsList, TesCandidate,Event,Category
+from django.db.models import Q
 import datetime
 # Create your views here.
 
@@ -27,6 +28,7 @@ class TwiEnrolment(TemplateView):
             if 'enrolment' in request.POST:
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
                 obj = TwiEnrolmentForm()
+                obj.eventID = request.POST['eventID']
                 obj.candidate = candidate
                 obj.twiCandidateID = request.POST['form1_1']
                 obj.eventName = request.POST['form2_1']
@@ -407,9 +409,15 @@ class EventSummary(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(EventSummary, self).get_context_data()
-        # formID = self.kwargs['id']
-        # print(formID)
-        # form = TwiEnrolmentForm.objects.all()
- 
-        # context['form'] = form
+        eventID = self.kwargs['id']
+        print(eventID)
+        print("Here")
+        twiForm = TwiEnrolmentForm.objects.filter(eventID=eventID).all()
+        event = Event.objects.filter(id=eventID).first()
+        eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True)).count()
+        
+        print(twiForm)
+        context['twiForm'] = twiForm
+        context['event'] = event
+        context['eventConfirm'] = eventConfirm
         return context 
