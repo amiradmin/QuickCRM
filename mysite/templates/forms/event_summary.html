@@ -35,11 +35,21 @@
                                         <br>
  
 
-  <h5 class="page-title" >Event: {{event.name}} &nbsp;&nbsp;  </h5>
-  <p>Start Date: {{event.start_date|date}}</p>
+  <h5 class="page-title" >Event: {{event.name}}  </h5>
+  <p style="font-size:14px;">Start Date: {{event.start_date|date}}</p>
+  <p style="font-size:14px;">Location: {{event.location}}</p>
    <br>
+   <ul class="tags">
+    {% for item2 in tag.form.all %}
+      <li><a href="{% url 'forms:evensummarybyformid_' genID=generalObj.id formID=item2.id %}" class="tag" style="background-color:{{tag.colorCode}};--my-color-var: {{tag.colorCode}};">
+      
+      {{item2.name}}
+      </a></li>
+    {% endfor %}
+    
+    </ul>
 
-
+<br>  
 <br>  
    <!-- Icon Cards-->
       <div class="row">
@@ -50,7 +60,7 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-comments"></i>
               </div>
-              <div class="mr-5">Total Candidate: <span style="font-size:25px;">{{event.candidate.count}}</span></div>
+              <div class="mr-5">Total Candidate: <span style="font-size:25px;">{{generalObj.event.candidate.count}}</span></div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <span class="float-left" id="toggleCanList" >View Details</span>
@@ -66,7 +76,7 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-list"></i>
               </div>
-              <div class="mr-5">Submitted Forms:<span style="font-size:25px;"> {{twiForm.count}}</div>
+              <div class="mr-5">Submitted Forms:<span style="font-size:25px;"> {{form.count}}</div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <span class="float-left" id="submitFormBtn">View Details</span>
@@ -98,7 +108,7 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-support"></i>
               </div>
-              <div class="mr-5">Form Categories: <span style="font-size:25px;"> {{event.formCategory.form.all.count}}<span style="font-size:25px;"></span></div>
+              <div class="mr-5">Unsubmitted Forms: <span style="font-size:25px;"> {{event.formCategory.form.all.count}}<span style="font-size:25px;"></span></div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
               <span class="float-left">View Details</span>
@@ -140,7 +150,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {% for item in event.candidate.all %}
+                                                {% for item in generalObj.event.candidate.all %}
                                                     <tr>
                                       
                                                         <td class="table-user">
@@ -189,7 +199,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {% for item in twiForm %}
+                                                {% for item in form %}
                                                     <tr>
                                       
                                                         <td class="table-user">
@@ -199,7 +209,7 @@
                                                         <td>
                                                             {{item.candidate.tes_candidate_id}}
                                                         </td>                     <td>
-                                                             {{item.candidate.contact_number}}
+                                                             {{item.privateTel}}
                                                         </td>
                                                         <td>
                                                             {{item.email}}

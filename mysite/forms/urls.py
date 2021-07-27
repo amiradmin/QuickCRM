@@ -26,6 +26,7 @@ urlpatterns = [
     path('formmap/', views.formMap.as_view(), name='formmap_'),
     path('formmapbyid/<slug:id>', views.FormMapByCatID.as_view(), name='formmapbyid_'),
     path('evensummary/<int:id>', views.EventSummary.as_view(), name='evensummary_'),
+    path('evensummarybyformid/<int:genID>/<int:formID>', views.EventSummaryByFormId.as_view(), name='evensummarybyformid_'),
  
 
 

@@ -1,5 +1,5 @@
 from django.db import models
-from training.models import TesCandidate
+from training.models import Category, TesCandidate,Event
 
 
 
@@ -97,6 +97,26 @@ class TwiEnrolmentForm(models.Model):
     def __str__(self):
         return self.lastName
 
+
+
+class BGAsExperienceForm(models.Model):
+
+    eventID = models.CharField(max_length=256, null=True, blank=True )
+    candidate = models.ForeignKey(TesCandidate,related_name="bgas_candidate", on_delete=models.CASCADE)
+    twiCandidateID = models.CharField(max_length=1024, null=True, blank=True )
+    eventName = models.CharField(max_length=1024, null=True, blank=True )
+    eventDate = models.DateField( null=True, blank=True )
+    firstName = models.CharField(max_length=1024, null=True, blank=True )
+    middleName = models.CharField(max_length=1024, null=True, blank=True )
+    lastName = models.CharField(max_length=1024, null=True, blank=True )
+    birthOfDate = models.DateField( null=True, blank=True )
+    confirmation = models.BooleanField( null=True, blank=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.lastName
+
 class MainForm(models.Model):
     TYPE_CHOICES = (
     ("Standard", "Standard"),
@@ -115,3 +135,16 @@ class MainForm(models.Model):
 
     def __str__(self):
         return self.name
+
+class General(models.Model):
+
+    event = models.ForeignKey(Event,related_name="general_event", on_delete=models.CASCADE)
+    formCategory = models.ForeignKey(Category,related_name="form_category_training", on_delete=models.CASCADE)
+    twiEnrolmentForm = models.ManyToManyField('TwiEnrolmentForm',  null=True, blank=True)
+    bgasExperienceForm =models.ManyToManyField('BGAsExperienceForm',  null=True, blank=True)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    # def __str__(self):
+    #     return self.name

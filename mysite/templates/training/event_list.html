@@ -59,7 +59,7 @@
                                                         <td>{{item.country}}</td>
                                                         <td>{{item.location}}</td>
                                                         <td><a style="color:{{item.formCategory.colorCode}}" href="{% url 'forms:formmapbyid_' id=item.formCategory_id %}">{{item.formCategory}}</a></td>
-                                                        <td><a  href="{% url 'forms:evensummary_' id=item.id %}">View</a></td>
+                                                        <td><a  href="{% url 'forms:evensummary_' id=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
                                                         <td>{{item.practicalDate|date:'m/d/Y'}}</td>
                                                         

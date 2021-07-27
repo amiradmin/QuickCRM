@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category
 from django.contrib.auth.models import User
-import time
+from forms.models import General
 import datetime
 import json
 from django.http import JsonResponse
@@ -251,6 +251,7 @@ class EventView(TemplateView):
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
             location = Location.objects.get(id = request.POST['location'])
             category = Category.objects.get(id = request.POST['category'])
+            generalObj = General()
 
             obj = Event()
             obj.name = request.POST['name']
@@ -263,7 +264,10 @@ class EventView(TemplateView):
             
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
             obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
-            obj.save()     
+            obj.save()  
+            generalObj.event= obj
+            generalObj.formCategory= category
+            generalObj.save()
 
         return redirect('training:event_')
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,TwiEnrolmentForm
+from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm
 from django.db.models import Count
 from classes.db import FormDb
 from training.models import FormsList, TesCandidate,Event,Category
@@ -26,9 +26,10 @@ class TwiEnrolment(TemplateView):
         
         if request.method == 'POST':
             if 'enrolment' in request.POST:
+                eventID = request.POST['eventID']
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
                 obj = TwiEnrolmentForm()
-                obj.eventID = request.POST['eventID']
+                obj.eventID = eventID
                 obj.candidate = candidate
                 obj.twiCandidateID = request.POST['form1_1']
                 obj.eventName = request.POST['form2_1']
@@ -163,8 +164,10 @@ class TwiEnrolment(TemplateView):
                 # candidateObj = TesCandidate.objects.filter(id = 1050896).first()
                 # print(candidateObj.first_name)
                 candidate.forms.add(formObj)
-                
-                
+
+                generalObj = General.objects.filter(event_id=eventID).first()
+                generalObj.twiEnrolmentForm.add( obj)
+                generalObj.save()
                 
                 return redirect('forms:allenrolmentform_')  
 
@@ -364,8 +367,7 @@ class FormMapByCatID(TemplateView):
         context = super(FormMapByCatID, self).get_context_data()
         catID = self.kwargs['id']
         print(catID)
-        tag = Category.objects.filter(id=catID).first()
-        
+        tag = Category.objects.filter(id=catID).first()      
         context['tag'] = tag
         return context
     
@@ -396,28 +398,70 @@ class EachFormMemebr(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(EachFormMemebr, self).get_context_data()
-        formID = self.kwargs['id']
-        print(formID)
+        eventID = self.kwargs['id']
+        event = Event.objects.filter(id=eventID).first()
+        general= General.objects.filter(event = event).first()
         form = TwiEnrolmentForm.objects.all()
         # canList = TesCandidate.objects.filter(forms=form)
         # context['canList'] = canList
         context['form'] = form
+        context['general'] = general
         return context 
     
 class EventSummary(TemplateView):
     template_name = "forms/event_summary.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(EventSummary, self).get_context_data()
-        eventID = self.kwargs['id']
-        print(eventID)
-        print("Here")
-        twiForm = TwiEnrolmentForm.objects.filter(eventID=eventID).all()
-        event = Event.objects.filter(id=eventID).first()
-        eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
+        context = super(EventSummaryByFormId, self).get_context_data()
+        formID = 1
+        generalID = self.kwargs['genID']
+        generalObj = General.objects.filter(id=generalID).first()
         
-        print(twiForm)
-        context['twiForm'] = twiForm
+        if formID==1 :
+            form = generalObj.twiEnrolmentForm.all
+            eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
+        elif formID==2:
+            form = generalObj.bgasExperienceForm.all
+            eventConfirm = BGAsExperienceForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
+        event = Event.objects.filter(id=generalObj.event.id).first()
+        
+        
+        tag = Category.objects.filter(id=event.formCategory.id).first()  
+
+        print(generalObj.id)
+        context['tag'] = tag        
         context['event'] = event
         context['eventConfirm'] = eventConfirm
+        context['generalObj'] = generalObj
+        context['form'] = form
+
+        return context 
+
+class EventSummaryByFormId(TemplateView):
+    template_name = "forms/event_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(EventSummaryByFormId, self).get_context_data()
+        formID = self.kwargs['formID']
+        generalID = self.kwargs['genID']
+        generalObj = General.objects.filter(id=generalID).first()
+        print(generalID)
+        if formID==1 :
+            form = generalObj.twiEnrolmentForm.all
+            eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
+        elif formID==2:
+            form = generalObj.bgasExperienceForm.all
+            eventConfirm = BGAsExperienceForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
+        event = Event.objects.filter(id=generalObj.event.id).first()
+        
+        
+        tag = Category.objects.filter(id=event.formCategory.id).first()  
+
+        print(generalObj.id)
+        context['tag'] = tag        
+        context['event'] = event
+        context['eventConfirm'] = eventConfirm
+        context['generalObj'] = generalObj
+        context['form'] = form
+
         return context 
