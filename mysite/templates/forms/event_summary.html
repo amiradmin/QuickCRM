@@ -108,10 +108,10 @@
               <div class="card-body-icon">
                 <i class="fa fa-fw fa-support"></i>
               </div>
-              <div class="mr-5">Unsubmitted Forms: <span style="font-size:25px;"> {{event.formCategory.form.all.count}}<span style="font-size:25px;"></span></div>
+              <div class="mr-5">Unsubmitted Forms: <span style="font-size:25px;"> {{unsubmited.count}}<span style="font-size:25px;"></span></div>
             </div>
             <a class="card-footer text-white clearfix small z-1" href="#">
-              <span class="float-left">View Details</span>
+              <span class="float-left" id="unsubmitBtn">View Details</span>
               <span class="float-right">
                 <i class="fa fa-angle-right"></i>
               </span>
@@ -182,7 +182,54 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <div class="table-responsive" id="unsubmittedTable">
+                                          <table class="table table-centered table-striped dt-responsive nowrap w-100" >
+                                              <thead>
+                                                  <tr>
+                                
+                                                      <th>Name</th>
+                                                      <th>TES ID</th>
 
+                                                      <th>Phone</th>
+                                                      <th>Email</th>
+                                                                                                     
+                                                      <th>Status</th>
+                                                      <th style="width: 75px;">Action</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                              {% for item in unsubmited %}
+                                                  <tr>
+                                    
+                                                      <td class="table-user">
+                                                          <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
+                                                          <a href="javascript:void(0);" class="text-body ">{{item.first_name}} {{item.last_name}}</a>
+                                                      </td>
+                                                      <td>
+                                                          {{item.tes_candidate_id}}
+                                                      </td>                     <td>
+                                                          {{item.contact_number}}
+                                                      </td>
+                                                      <td>
+                                                          {{item.email}}
+                                                      </td>
+                                                  
+                                                 
+                                                      <td>
+                                                          <span class="badge badge-success-lighten">Active</span>
+                                                      </td>
+                  
+                                                      <td>
+                                                          <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                          <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                      </td>
+                                                  </tr>
+                                                  {% endfor %}
+                                                  
+                                                  
+                                              </tbody>
+                                          </table>
+                                      </div>
                             <div class="table-responsive" id="submitFormTable">
                                             <table class="table table-centered table-striped dt-responsive nowrap w-100" >
                                                 <thead>
@@ -278,7 +325,55 @@
                                                     
                                                 </tbody>
                                             </table>
-                                        </div>
+
+<div class="table-responsive" id="confirmedFormTable">
+                                            <table class="table table-centered table-striped dt-responsive nowrap w-100" >
+                                                <thead>
+                                                    <tr>
+                                  
+                                                        <th>Name</th>
+                                                        <th>TES ID</th>
+
+                                                        <th>Phone</th>
+                                                        <th>Email</th>
+                                                                                                       
+                                                        <th>Status</th>
+                                                        <th style="width: 75px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in eventConfirm %}
+                                                    <tr>
+                                      
+                                                        <td class="table-user">
+                                                            <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
+                                                            <a href="javascript:void(0);" class="text-body ">{{item.firstName}} {{item.lastName}}</a>
+                                                        </td>
+                                                        <td>
+                                                            {{item.candidate.tes_candidate_id}}
+                                                        </td>                     <td>
+                                                             {{item.candidate.contact_number}}
+                                                        </td>
+                                                        <td>
+                                                            {{item.email}}
+                                                        </td>
+                                                    
+                                                   
+                                                        <td>
+                                                            <span class="badge badge-success-lighten">Active</span>
+                                                        </td>
+                    
+                                                        <td>
+                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    
+                                                    
+                                                </tbody>
+                                            </table>
+       
                                     </div> <!-- end card-body-->
                                         <div class="tab-pane" id="basic-datatable-code">
                            
@@ -313,9 +408,12 @@ const targetDivSubmit = document.getElementById("submitFormTable");
 const SubBtn = document.getElementById("submitFormBtn");
 const targetDivConfirm = document.getElementById("confirmedFormTable");
 const ConfBtn = document.getElementById("confirmedFormBtn");
+const targetUnsubmit = document.getElementById("unsubmittedTable");
+const unsubmitBtn = document.getElementById("unsubmitBtn");
 btn.onclick = function () {
     targetDivSubmit.style.display = "none";
     targetDivConfirm.style.display = "none";
+    targetUnsubmit.style.display = "none";
   if (targetDiv.style.display !== "none") {
     targetDiv.style.display = "none";
   } else {
@@ -326,9 +424,12 @@ btn.onclick = function () {
 
 targetDivSubmit.style.display = "none";
 targetDivConfirm.style.display = "none";
+targetUnsubmit.style.display = "none";
+
 SubBtn.onclick = function () {
   targetDiv.style.display = "none";
   targetDivConfirm.style.display = "none";
+  targetUnsubmit.style.display = "none";
   if (targetDivSubmit.style.display !== "none") {
     targetDivSubmit.style.display = "none";
     
@@ -339,11 +440,23 @@ SubBtn.onclick = function () {
 ConfBtn.onclick = function () {
   targetDiv.style.display = "none";
   targetDivSubmit.style.display = "none";
+  targetUnsubmit.style.display = "none";
   if (targetDivConfirm.style.display !== "none") {
     targetDivConfirm.style.display = "none";
     
   } else {
     targetDivConfirm.style.display = "block";
+  }
+};
+
+unsubmitBtn.onclick = function () {
+  targetDiv.style.display = "none";
+  targetDivSubmit.style.display = "none";
+  if (targetUnsubmit.style.display !== "none") {
+    targetUnsubmit.style.display = "none";
+    
+  } else {
+    targetUnsubmit.style.display = "block";
   }
 };
     </script>

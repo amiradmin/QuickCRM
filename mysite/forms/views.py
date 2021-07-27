@@ -412,29 +412,37 @@ class EventSummary(TemplateView):
     template_name = "forms/event_summary.html"
 
     def get_context_data(self, *args, **kwargs):
-        context = super(EventSummaryByFormId, self).get_context_data()
-        formID = 1
-        generalID = self.kwargs['genID']
-        generalObj = General.objects.filter(id=generalID).first()
-        
-        if formID==1 :
-            form = generalObj.twiEnrolmentForm.all
-            eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
-        elif formID==2:
-            form = generalObj.bgasExperienceForm.all
-            eventConfirm = BGAsExperienceForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
-        event = Event.objects.filter(id=generalObj.event.id).first()
-        
-        
+        context = super(EventSummary, self).get_context_data()
+        eventID = self.kwargs['id']
+        twiForm = TwiEnrolmentForm.objects.filter(eventID=10)
+        event = Event.objects.filter(id=eventID).first()
+        generalObj = General.objects.filter(event=event).first()
+        eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
         tag = Category.objects.filter(id=event.formCategory.id).first()  
 
-        print(generalObj.id)
+        candidateList = event.candidate.all()
+        submitedList = generalObj.twiEnrolmentForm.all()
+        list1=[]
+        list2=[]
+        for item in candidateList:
+            print(item.tes_candidate_id)
+            list1.append(item.tes_candidate_id)
+        
+        print("====")
+        for item in submitedList:
+            print(item.candidate.tes_candidate_id)
+            list2.append(item.candidate.tes_candidate_id)
+
+        resultList = list(set(list1).difference(list2))
+        unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
+
+        print(resultList)
         context['tag'] = tag        
+        context['form'] = twiForm
         context['event'] = event
         context['eventConfirm'] = eventConfirm
         context['generalObj'] = generalObj
-        context['form'] = form
-
+        context['unsubmited'] = unsubmited
         return context 
 
 class EventSummaryByFormId(TemplateView):
