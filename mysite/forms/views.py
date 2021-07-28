@@ -260,7 +260,23 @@ class NewForm(TemplateView):
                print(pdfFile)
             
         return redirect('forms:all_')  
-    
+
+class BGASExperienceForm(TemplateView):
+    template_name = "forms/reg_forms/BGAS_experience_form.html"
+
+    def get_context_data(self):
+        context = super(BGASExperienceForm, self).get_context_data()
+        # form = MedicineForm()
+        # context['form'] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        
+        if request.method == 'POST':
+            print('Here')
+   
+            
+        return redirect('forms:all_')    
     
 class AllFormsList(TemplateView):
     template_name = "forms/all_forms_view.html"

@@ -23,6 +23,7 @@ urlpatterns = [
     path('formbyformid/<int:id>', views.ViewFormByFormID.as_view(), name='formbyformid_'),
     
     path('jaegertofdl2/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
+    path('bgasexpform/', views.BGASExperienceForm.as_view(), name='bgasexpform_'),
     path('formmap/', views.formMap.as_view(), name='formmap_'),
     path('formmapbyid/<slug:id>', views.FormMapByCatID.as_view(), name='formmapbyid_'),
     path('evensummary/<int:id>', views.EventSummary.as_view(), name='evensummary_'),
