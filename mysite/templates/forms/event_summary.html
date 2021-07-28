@@ -144,7 +144,7 @@
 
                                                         <th>Phone</th>
                                                         <th>Email</th>
-                                                                                                       
+                                                                                                                                                            
                                                         <th>Status</th>
                                                         <th style="width: 75px;">Action</th>
                                                     </tr>
@@ -165,7 +165,7 @@
                                                         <td>
                                                             {{item.email}}
                                                         </td>
-                                                    
+                                                        
                                                    
                                                         <td>
                                                             <span class="badge badge-success-lighten">Active</span>
@@ -240,7 +240,8 @@
 
                                                         <th>Phone</th>
                                                         <th>Email</th>
-                                                                                                       
+                                                        <th>Form</th>
+                                                        <th>Form</th>                                              
                                                         <th>Status</th>
                                                         <th style="width: 75px;">Action</th>
                                                     </tr>
@@ -261,7 +262,9 @@
                                                         <td>
                                                             {{item.email}}
                                                         </td>
-                                                    
+                                                        <td><a  href="{% url 'forms:formbyformid_' id=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+                                                         {% if item.uploadedForm %}<a href="{{item.uploadedForm.url}}"><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
+                                                        </td>
                                                    
                                                         <td>
                                                             <span class="badge badge-success-lighten">Active</span>
@@ -288,7 +291,7 @@
 
                                                         <th>Phone</th>
                                                         <th>Email</th>
-                                                                                                       
+                                                        <th>Form</th>                                               
                                                         <th>Status</th>
                                                         <th style="width: 75px;">Action</th>
                                                     </tr>
@@ -310,7 +313,10 @@
                                                             {{item.email}}
                                                         </td>
                                                     
-                                                   
+                                                      </td>
+                                                      <td><a  href="{% url 'forms:formbyformid_' id=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+                                                       {% if item.uploadedForm %}<a href="{{item.uploadedForm.url}}"><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
+                                                      </td>                                                  
                                                         <td>
                                                             <span class="badge badge-success-lighten">Active</span>
                                                         </td>
@@ -326,54 +332,7 @@
                                                 </tbody>
                                             </table>
 
-<div class="table-responsive" id="confirmedFormTable">
-                                            <table class="table table-centered table-striped dt-responsive nowrap w-100" >
-                                                <thead>
-                                                    <tr>
-                                  
-                                                        <th>Name</th>
-                                                        <th>TES ID</th>
-
-                                                        <th>Phone</th>
-                                                        <th>Email</th>
-                                                                                                       
-                                                        <th>Status</th>
-                                                        <th style="width: 75px;">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {% for item in eventConfirm %}
-                                                    <tr>
-                                      
-                                                        <td class="table-user">
-                                                            <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
-                                                            <a href="javascript:void(0);" class="text-body ">{{item.firstName}} {{item.lastName}}</a>
-                                                        </td>
-                                                        <td>
-                                                            {{item.candidate.tes_candidate_id}}
-                                                        </td>                     <td>
-                                                             {{item.candidate.contact_number}}
-                                                        </td>
-                                                        <td>
-                                                            {{item.email}}
-                                                        </td>
-                                                    
-                                                   
-                                                        <td>
-                                                            <span class="badge badge-success-lighten">Active</span>
-                                                        </td>
-                    
-                                                        <td>
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                                        </td>
-                                                    </tr>
-                                                    {% endfor %}
-                                                    
-                                                    
-                                                </tbody>
-                                            </table>
-       
+ 
                                     </div> <!-- end card-body-->
                                         <div class="tab-pane" id="basic-datatable-code">
                            
@@ -452,6 +411,7 @@ ConfBtn.onclick = function () {
 unsubmitBtn.onclick = function () {
   targetDiv.style.display = "none";
   targetDivSubmit.style.display = "none";
+  targetDivConfirm.style.display = "none";
   if (targetUnsubmit.style.display !== "none") {
     targetUnsubmit.style.display = "none";
     

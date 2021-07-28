@@ -164,7 +164,7 @@ class TwiEnrolment(TemplateView):
                 # candidateObj = TesCandidate.objects.filter(id = 1050896).first()
                 # print(candidateObj.first_name)
                 candidate.forms.add(formObj)
-
+                
                 generalObj = General.objects.filter(event_id=eventID).first()
                 generalObj.twiEnrolmentForm.add( obj)
                 generalObj.save()
@@ -414,7 +414,7 @@ class EventSummary(TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(EventSummary, self).get_context_data()
         eventID = self.kwargs['id']
-        twiForm = TwiEnrolmentForm.objects.filter(eventID=10)
+        twiForm = TwiEnrolmentForm.objects.filter(eventID=eventID)
         event = Event.objects.filter(id=eventID).first()
         generalObj = General.objects.filter(event=event).first()
         eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
@@ -438,7 +438,7 @@ class EventSummary(TemplateView):
 
         print(resultList)
         context['tag'] = tag        
-        context['form'] = twiForm
+        context['form'] = generalObj.twiEnrolmentForm.all()
         context['event'] = event
         context['eventConfirm'] = eventConfirm
         context['generalObj'] = generalObj
@@ -452,18 +452,35 @@ class EventSummaryByFormId(TemplateView):
         context = super(EventSummaryByFormId, self).get_context_data()
         formID = self.kwargs['formID']
         generalID = self.kwargs['genID']
+        submitedList=None
         generalObj = General.objects.filter(id=generalID).first()
         print(generalID)
         if formID==1 :
-            form = generalObj.twiEnrolmentForm.all
+            form = generalObj.twiEnrolmentForm.all()
+            
             eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
         elif formID==2:
-            form = generalObj.bgasExperienceForm.all
+            form = generalObj.bgasExperienceForm.all()
             eventConfirm = BGAsExperienceForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
         event = Event.objects.filter(id=generalObj.event.id).first()
         
         
         tag = Category.objects.filter(id=event.formCategory.id).first()  
+        candidateList = event.candidate.all()
+        
+        list1=[]
+        list2=[]
+        for item in candidateList:
+            print(item.tes_candidate_id)
+            list1.append(item.tes_candidate_id)
+        
+        print("====")
+        for item in form:
+            print(item.candidate.tes_candidate_id)
+            list2.append(item.candidate.tes_candidate_id)
+
+        resultList = list(set(list1).difference(list2))
+        unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
 
         print(generalObj.id)
         context['tag'] = tag        
@@ -471,5 +488,6 @@ class EventSummaryByFormId(TemplateView):
         context['eventConfirm'] = eventConfirm
         context['generalObj'] = generalObj
         context['form'] = form
+        context['unsubmited'] = unsubmited
 
         return context 
