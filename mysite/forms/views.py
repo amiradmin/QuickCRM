@@ -266,17 +266,39 @@ class BGASExperienceForm(TemplateView):
 
     def get_context_data(self):
         context = super(BGASExperienceForm, self).get_context_data()
-        # form = MedicineForm()
-        # context['form'] = form
+        candidates = TesCandidate.objects.all()
+        events = Event.objects.all()
+        context['candidates'] = candidates
+        context['events'] = events
         return context
 
     def post(self, request, *args, **kwargs):
-        
         if request.method == 'POST':
-            print('Here')
-   
-            
-        return redirect('forms:all_')    
+            if 'mainForm' in request.POST:
+                print("Form")
+                return redirect('forms:allenrolmentform_')
+
+
+            else:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                print(canID)
+                print(eventID)
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                print(candidate.first_name)
+                event = Event.objects.filter(id=eventID).first()
+                self.candidateID = candidate.id
+                twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
+                context = super(BGASExperienceForm, self).get_context_data()
+                context['candidate'] = candidate
+                context['event'] = event
+                context['twiEnrolmentForm'] = twiEnrolmentForm
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/reg_forms/BGAS_experience_form.html', context)
     
 class AllFormsList(TemplateView):
     template_name = "forms/all_forms_view.html"

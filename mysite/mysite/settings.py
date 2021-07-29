@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 hostName = platform.node()
 print(hostName)
-if hostName == 'amir-MacBookPro':
+if hostName == 'amir-ThinkPad':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
