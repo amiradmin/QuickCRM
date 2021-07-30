@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+{% load static %}
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Tescan | </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico'%}">
+
+        <!-- third party css -->
+        <link href="{% static 'assets/css/vendor/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/dataTables.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/responsive.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/buttons.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/select.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- third party css end -->
+        <link href="{% static 'assets/css/vendor/jquery-jvectormap-1.2.2.css'%}" rel="stylesheet" type="text/css" />
+        <!-- App css -->
+        <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/app-creative.min.css' %}" rel="stylesheet" type="text/css" id="light-style" />
+        <link href="{% static 'assets/css/app-creative-dark.min.css' %}" rel="stylesheet" type="text/css" id="dark-style" />
+        <link rel="stylesheet" href="{% static 'css/tag.css' %}">
+        <link href="{% static 'assets/css/vendor/dataTables.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/responsive.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+    <style>
+    a.disabled {
+    pointer-events: none;
+    color: rgba(0,0,128,0.5);
+}
+
+
+</style>
+    </head>
+
+    <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": false}'>
+        <!-- Begin page -->
+        <div class="wrapper">
+            <div class="content-page">
+                <div class="content">
+ <img src="{% static 'images/TES Canada Logo_PNG1.png' %}" alt="" height="60">
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+
+                                <h4 class="page-title">Registration</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title"></h4>
+
+
+                                        <div class="tab-content">
+
+                                            <div class="tab-pane show active" id="custom-styles-preview">
+                                                <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom05">Tes Candidate ID</label>
+                                                        <input type="text"  name="tes_id" value="{{tesId}}" class="form-control" id="validationCustom05" placeholder="Tes Candidate ID" readonly>
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Tes Candidate ID.
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom01">First Name</label>
+                                                        <input type="text" name="first_name" class="form-control" id="validationCustom01" placeholder="First name"  required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom01">Middle Name</label>
+                                                        <input type="text" name="middleName" class="form-control" id="validationCustom01" placeholder="First name"  required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom02">Last name</label>
+                                                        <input type="text" name="last_name" class="form-control" id="validationCustom02" placeholder="Last name" required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                   <div class="mb-3 col-md-12">
+
+                                                <div class="mb-3 position-relative" id="datepicker4">
+                                                    <label class="form-label">Birth Date</label>
+                                                    <input type="text" name="birthDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" >
+                                                </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustomUsername">Email</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                            <input type="email" name="email" class="form-control" id="validationCustomUsername" placeholder="Email"
+                                                                aria-describedby="inputGroupPrepend" required>
+                                                            <div class="invalid-feedback">
+                                                                Please choose a email.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom03">Contact Number</label>
+                                                        <input type="text" name="phone" class="form-control" id="validationCustom03" placeholder="Phone" >
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid contact number.
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom05">Customer ID</label>
+                                                        <input type="text"  name="customer_id" class="form-control" id="validationCustom05" placeholder="Customer ID" >
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Customer ID.
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom05">Sponsor Company</label>
+                                                        <input type="text" name= "sponsor_company" class="form-control" id="validationCustom06" placeholder="Sponsor Company" >
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid Sponsor Company.
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom05">Address</label>
+
+                                                        <div class="form-floating">
+                                                            <textarea  name= "address" class="form-control" placeholder=" Address here" id="floatingTextarea" style="height: 100px;"></textarea>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <br>
+
+                                                    <div class="mb-3 col-md-12">
+                                                        <label class="form-label">Photo</label>
+                                                        <input class="form-control" name="photo" type="file" id="inputGroupFile04">
+                                                    </div>
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 1</label>
+                                                            <input class="form-control" name="doc_1" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 2</label>
+                                                            <input class="form-control" name='doc_2' type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 3</label>
+                                                            <input class="form-control" name="doc_3" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 4</label>
+                                                            <input class="form-control" name="doc_4" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 5</label>
+                                                            <input class="form-control" name="doc_5" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 6</label>
+                                                            <input class="form-control"  name="doc_6" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 7</label>
+                                                            <input class="form-control" name="doc_7" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 8</label>
+                                                            <input class="form-control" name="doc_8" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Document 9</label>
+                                                            <input class="form-control" name="doc_" type="file" id="inputGroupFile04">
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Documanet 10</label>
+                                                            <input class="form-control" name="doc_10" type="file" id="inputGroupFile05">
+                                                        </div>
+                                                    </div>
+
+
+                                                    <br>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" type="submit">Submit form</button>
+                                                    </div>
+                                                </form>
+                                            </div> <!-- end preview-->
+
+
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+                            </div> <!-- end col-->
+
+
+  </div>
+  </div>
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+            <div class="rightbar-overlay"></div>
+            <!-- /End-bar -->
+
+            <!-- bundle -->
+            <script src="{% static 'assets/js/vendor.min.js'%}"></script>
+            <script src="{% static 'assets/js/app.min.js'%}"></script>
+
+            <!-- third party js -->
+            <script src="{% static 'assets/js/vendor/apexcharts.min.js'%}"></script>
+            <script src="{% static 'assets/js/vendor/jquery-jvectormap-1.2.2.min.js'%}"></script>
+            <script src="{% static 'assets/js/vendor/jquery-jvectormap-world-mill-en.js'%}"></script>
+            <!-- third party js ends -->
+
+
+
+        <!-- third party js -->
+        <script src="{% static 'assets/js/vendor/jquery.dataTables.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/dataTables.bootstrap4.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/dataTables.responsive.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/responsive.bootstrap4.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/dataTables.buttons.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/buttons.bootstrap4.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/buttons.html5.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/buttons.flash.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/buttons.print.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/dataTables.keyTable.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/dataTables.select.min.js'%}"></script>
+
+<!-- Datatable Init js -->
+<script src="assets/js/pages/demo.datatable-init.js"></script>
+        <!-- third party js ends -->
+
+
+<script src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'></script>
+
+
+        </body>
+    </html>

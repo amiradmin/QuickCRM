@@ -98,3 +98,13 @@ class CandidateProfileView(TemplateView):
             lecturer.save()  
             return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
         return render(request, "index.html")
+
+
+class RegisterView(TemplateView):
+    template_name = "accounts/registration.html"
+
+    def get_context_data(self):
+        context = super(RegisterView, self).get_context_data()
+        # form = MedicineForm()
+        # context['form'] = form
+        return context
