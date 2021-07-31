@@ -5,7 +5,8 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User, Group
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from training.models import CandidateProfile, Lecturer,Event
+from training.models import CandidateProfile, Lecturer,Event,TesCandidate
+import datetime
 # Create your views here.
 
 class LoginView(TemplateView):
@@ -108,3 +109,64 @@ class RegisterView(TemplateView):
         # form = MedicineForm()
         # context['form'] = form
         return context
+
+    def post(self, request, *args, **kwargs):
+
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'POST':
+            print(request.POST['tes_id'])
+            firstName = request.POST['first_name']
+            lastName = request.POST['last_name']
+            print(firstName)
+            result = TesCandidate.objects.filter(first_name=firstName, last_name=lastName).count()
+            # if result > 0:
+            #     print('exist')
+            #     response = JsonResponse({"error": "there was an error"})
+            #     response.status_code = 403  # To announce that the user isn't allowed to publish
+            #
+            #     return render(request, 'training/errors.html')
+            user = User()
+
+            # user.refresh_from_db()
+            user.username = request.POST['email']
+            user.password = request.POST['password']
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.save()
+            # user.tes_candidate_id = request.POST['tesCanID']
+            user.tescandidate.first_name = request.POST['first_name']
+            user.tescandidate.middleName = request.POST['middleName']
+            user.tescandidate.last_name = request.POST['last_name']
+            user.tescandidate.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
+            user.tescandidate.tes_candidate_id = request.POST['tes_id']
+            user.tescandidate.customer_id = request.POST['customer_id']
+            user.tescandidate.address = request.POST['address']
+            # user.passport_id = request.POST['passport_id']
+            user.tescandidate.sponsor_company = request.POST['sponsor_company']
+            user.tescandidate.email = request.POST['email']
+            user.tescandidate.contact_number = request.POST['phone']
+            # user.note = request.POST['note']
+            # if request.FILES.get('photo', False):
+            #     user.photo = request.FILES['photo']
+            # if request.FILES.get('doc_1', False):
+            #     user.document_1 = request.FILES['doc_1']
+            # if request.FILES.get('doc_2', False):
+            #     user.document_2 = request.FILES['doc_2']
+            # if request.FILES.get('doc_3', False):
+            #     user.document_3 = request.FILES['doc_3']
+            # if request.FILES.get('doc_4', False):
+            #     user.document_4 = request.FILES['doc_4']
+            # if request.FILES.get('doc_5', False):
+            #     user.document_5 = request.FILES['doc_5']
+            # if request.FILES.get('doc_6', False):
+            #     user.document_6 = request.FILES['doc_6']
+            # if request.FILES.get('doc_7', False):
+            #     user.document_7 = request.FILES['doc_7']
+            # if request.FILES.get('doc_8', False):
+            #     user.document_8 = request.FILES['doc_8']
+            # if request.FILES.get('doc_9', False):
+            #     user.document_9 = request.FILES['doc_9']
+            # if request.FILES.get('doc_10', False):
+            #     user.document_9 = request.FILES['doc_10']
+            user.save()
+        return redirect('training:product_list_')

@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 # Create your models here.
@@ -87,6 +90,7 @@ class Category(models.Model):
     
 class TesCandidate(models.Model):
 
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True )
     name = models.CharField(max_length=256, null=True, blank=True )
     customer_id = models.CharField(max_length=1024, null=True, blank=True )
     first_name = models.CharField(max_length=1024, null=True, blank=True )
@@ -121,6 +125,12 @@ class TesCandidate(models.Model):
 
     # def __str__(self):
     #     return self.name
+@receiver(post_save, sender=User)
+def update_user_tescandidate(sender, instance, created, **kwargs):
+    if created:
+        TesCandidate.objects.create(user=instance)
+    instance.tescandidate.save()
+
 
 class WorkHistory(models.Model):
 
