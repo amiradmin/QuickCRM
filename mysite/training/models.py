@@ -231,7 +231,7 @@ class Event(models.Model):
 
 
 class CandidateProfile(models.Model):
-    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     customer_id = models.CharField(max_length=1024, null=True, blank=True )
     first_name = models.CharField(max_length=1024, null=True, blank=True )
     last_name = models.CharField(max_length=1024, null=True, blank=True )
@@ -243,7 +243,7 @@ class CandidateProfile(models.Model):
     contact_number = models.CharField(max_length=1024,  null=True, blank=True  )
     birth_date = models.DateField(null=True, blank=True)
     aboutMe = models.CharField(max_length=5000, null=True, blank=True )
-    events = models.ManyToManyField('Event')
+    events = models.ManyToManyField('Event',  null=True, blank=True)
     skills = models.ManyToManyField('Skill',  null=True, blank=True)
     workHistory = models.ManyToManyField('WorkHistory',  null=True, blank=True)
     project = models.ManyToManyField('CandidateProject',  null=True, blank=True)

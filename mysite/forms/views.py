@@ -190,6 +190,181 @@ class TwiEnrolment(TemplateView):
         # return redirect('forms:jaegertofdl2_' ,context)  
             return render(request, 'forms/reg_forms/twi_enrolment.html', context)
 
+
+class TwiEnrolmentReg(TemplateView):
+    template_name = "forms/reg_forms/twi_enrolment_reg.html"
+    candidateID = None
+
+    def get_context_data(self):
+        context = super(TwiEnrolmentReg, self).get_context_data()
+        self.candidateID = 50
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+            if 'enrolment' in request.POST:
+                print("Here")
+                eventID = request.POST['eventID']
+                candidate = TesCandidate.objects.filter(id=	1050941).first()
+                obj = TwiEnrolmentForm()
+                obj.eventID = eventID
+                obj.candidate = candidate
+                obj.twiCandidateID = request.POST['form1_1']
+                obj.eventName = request.POST['form2_1']
+                # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')
+                obj.firstName = request.POST['form4_1']
+                obj.middleName = request.POST['form5_1']
+                obj.lastName = request.POST['form6_1']
+                day = request.POST['form7_1']
+                month = request.POST['form8_1']
+                year = request.POST['form9_1']
+                birdDay = day + '/' + month + '/' + year
+                obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
+                obj.permanentPrivateAddress = request.POST['form15_1']
+                obj.Postcode = request.POST['form18_1']
+                obj.CarRegNo = request.POST['form19_1']
+                obj.privateTel = request.POST['form20_1']
+                obj.emergencyTel = request.POST['form21_1']
+                obj.email = request.POST['form22_1']
+                obj.correspondenceAddress = request.POST['form28_1']
+                obj.invoiceAddress = request.POST['form38_1']
+                obj.sponsoringCompanyAndaddress = request.POST['form40_1']
+                obj.sponsorPostcode = request.POST['form43_1']
+                obj.sponsorContactName = request.POST['form44_1']
+                obj.sponsorTel = request.POST['form45_1']
+                obj.sponsorFax = request.POST['form46_1']
+                obj.sponsorEmail = request.POST['form47_1']
+                obj.PCN_BGASApprovalNumber = request.POST['form11_2']
+                obj.currentCSWIPQualifications = request.POST['form12_2']
+                # obj.GDPRstatement = request.POST['form37_1']
+
+                if not request.POST.get('form54_1', None) == None:
+                    obj.venue = 'Calgary'
+
+                if not request.POST.get('form56_1', None) == None:
+                    obj.venue = 'Edmonton'
+
+                if not request.POST.get('form12_1', None) == None:
+                    obj.venue = 'Brazil'
+
+                if not request.POST.get('form55_1', None) == None:
+                    obj.venue = 'Toronto'
+
+                if not request.POST.get('form57_1', None) == None:
+                    obj.venue = 'Fort Erie'
+
+                if not request.POST.get('form13_1', None) == None:
+                    obj.venue = 'USA'
+
+                if not request.POST.get('form10_1', None) == None:
+                    obj.venue = 'Quebec'
+
+                if not request.POST.get('form11_1', None) == None:
+                    obj.venue = 'Vancouver'
+
+                if not request.POST.get('form14_1', None) == None:
+                    obj.venue = 'New Brunswick'
+
+                if not request.POST.get('diabilityYes', None) == None:
+                    obj.disability = True
+                if request.POST.get('diabilityNo', None) == None:
+                    obj.disability = False
+
+                if not request.POST.get('form58_1', None) == None:
+                    obj.weldingSociety = True
+                if not request.POST.get('form59_1', None) == None:
+                    obj.twiEmployee = True
+
+                if not request.POST.get('compSponser', None) == None:
+                    obj.sponsorStatus = True
+                if not request.POST.get('selfSponser', None) == None:
+                    obj.sponsorStatus = True
+
+                if not request.POST.get('form37_1', None) == None:
+                    obj.GDPRstatement = True
+
+                tempTearAbout = ''
+                if not request.POST.get('form29_1', None) == None:
+                    tempTearAbout = 'TWI Corporate Website '
+                if not request.POST.get('form30_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'CSWIP Website'
+                if not request.POST.get('form31_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Email marketing '
+                if not request.POST.get('form32_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Bulletin / Connect '
+                if not request.POST.get('form33_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Google search'
+                if not request.POST.get('form34_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Other (please specify)'
+                if not request.POST.get('form23_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'LinkedIn'
+                if not request.POST.get('form24_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Facebook'
+                if not request.POST.get('form25_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'NDT News / Insight'
+                if not request.POST.get('form26_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Exhibitions / Events'
+                if not request.POST.get('form27_1', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Word of Mouth'
+                obj.hearAbout = tempTearAbout
+
+                if not request.POST.get('form1_2', None) == None:
+                    obj.examinationType = 'Initial'
+                if not request.POST.get('form2_2', None) == None:
+                    obj.examinationType = 'supplementary'
+                if not request.POST.get('form3_2', None) == None:
+                    obj.examinationType = 'renewal'
+                if not request.POST.get('form4_2', None) == None:
+                    obj.examinationType = 'bridging'
+                if not request.POST.get('form5_2', None) == None:
+                    obj.examinationType = 'retest of a previously failed examination'
+
+                if not request.POST.get('form6_2', None) == None:
+                    obj.examinationBody = 'CSWIP'
+                if not request.POST.get('form7_2', None) == None:
+                    obj.examinationBody = 'PCN'
+                if not request.POST.get('form8_2', None) == None:
+                    obj.examinationBody = 'AWS'
+                if not request.POST.get('form9_2', None) == None:
+                    obj.examinationBody = 'BGAS'
+                if not request.POST.get('form10_2', None) == None:
+                    obj.examinationBody = 'ASNT'
+
+                obj.save()
+                print("Here 3")
+                # formObj = FormsList.objects.filter(id=1).first()
+                #
+                # # mainCanID = request.POST['mainCanID']
+                # # print(mainCanID)
+                # # candidateObj = TesCandidate.objects.filter(id = 1050896).first()
+                # # print(candidateObj.first_name)
+                # candidate.forms.add(formObj)
+                #
+                # generalObj = General.objects.filter(event_id=eventID).first()
+                # generalObj.twiEnrolmentForm.add(obj)
+                # generalObj.save()
+
+                return redirect('accounting:suceess_')
+
+
+            else:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                print(canID)
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                self.candidateID = candidate.id
+                print(self.candidateID)
+                context = super(TwiEnrolment, self).get_context_data()
+                context['candidate'] = candidate
+                context['event'] = event
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/reg_forms/twi_enrolment.html', context)
 class AllEnrolmentForm(TemplateView):
     template_name = "forms/all_forms_enrolment.html"
 

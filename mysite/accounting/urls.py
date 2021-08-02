@@ -12,7 +12,8 @@ urlpatterns = [
     path('profile/<int:id>', views.LecturerProfileView.as_view(), name='profile_'),
     path('canprofile/<int:id>', views.CandidateProfileView.as_view(), name='canprofile_'),
     path('logout/', views.LogoutView.as_view(), name='logout_'),
-    path('register/', views.RegisterView.as_view(), name='register_')
+    path('register/', views.RegisterView.as_view(), name='register_'),
+    path('suceess/', views.RegSuccessView.as_view(), name='suceess_'),
 
 
 ]

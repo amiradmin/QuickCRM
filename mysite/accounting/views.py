@@ -37,7 +37,7 @@ class LoginView(TemplateView):
                 elif group_name == 'candidates':
 
                     print('can')
-                    return redirect('training:canprofile_')
+                    return redirect('accounting:canprofile_', id =user.id)
 
             else:
                 return HttpResponse("Inactive user.")
@@ -84,6 +84,7 @@ class CandidateProfileView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(CandidateProfileView, self).get_context_data()
+        print(self.kwargs['id'])
         candidate = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
         context['candidate'] = candidate
         return context
@@ -114,7 +115,7 @@ class RegisterView(TemplateView):
 
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
-            print(request.POST['tes_id'])
+            # print(request.POST['tes_id'])
             firstName = request.POST['first_name']
             lastName = request.POST['last_name']
             print(firstName)
@@ -138,13 +139,14 @@ class RegisterView(TemplateView):
             user.tescandidate.middleName = request.POST['middleName']
             user.tescandidate.last_name = request.POST['last_name']
             user.tescandidate.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
-            user.tescandidate.tes_candidate_id = request.POST['tes_id']
+            # user.tescandidate.tes_candidate_id = request.POST['tes_id']
             user.tescandidate.customer_id = request.POST['customer_id']
             user.tescandidate.address = request.POST['address']
             # user.passport_id = request.POST['passport_id']
             user.tescandidate.sponsor_company = request.POST['sponsor_company']
             user.tescandidate.email = request.POST['email']
             user.tescandidate.contact_number = request.POST['phone']
+            user.save()
             # user.note = request.POST['note']
             # if request.FILES.get('photo', False):
             #     user.photo = request.FILES['photo']
@@ -168,5 +170,22 @@ class RegisterView(TemplateView):
             #     user.document_9 = request.FILES['doc_9']
             # if request.FILES.get('doc_10', False):
             #     user.document_9 = request.FILES['doc_10']
-            user.save()
-        return redirect('training:product_list_')
+            print("here")
+            print(user.username)
+            canObj = CandidateProfile()
+            canObj.user = user
+            canObj.first_name = request.POST['first_name']
+            canObj.last_name = request.POST['last_name']
+            canObj.save()
+            print('End')
+
+        return redirect('forms:twienrolreg_')
+
+class RegSuccessView(TemplateView):
+    template_name = "accounts/success.html"
+
+    def get_context_data(self):
+        context = super(RegSuccessView, self).get_context_data()
+        # form = MedicineForm()
+        # context['form'] = form
+        return context

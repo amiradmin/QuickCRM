@@ -37,11 +37,11 @@
 </style>
     </head>
 
-    <body class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": false}'>
+    <body style=" height: 100%; background-repeat: no-repeat; background-position: center; background-size: cover; background-image: url('{% static "images/Baner.jpg" %}');" class="loading" data-layout-config='{"leftSideBarTheme":"dark","layoutBoxed":false, "leftSidebarCondensed":false, "leftSidebarScrollable":false,"darkMode":false, "showRightSidebarOnStart": false}'>
         <!-- Begin page -->
         <div class="wrapper">
-            <div class="content-page">
-                <div class="content">
+            <div class="content-page-login" style="width:80%;display: block; margin-left: auto; margin-right: auto;" >
+                <div class="content ">
  <img src="{% static 'images/TES Canada Logo_PNG1.png' %}" alt="" height="60">
                     <!-- Start Content-->
                     <div class="container-fluid">
@@ -67,13 +67,7 @@
                                             <div class="tab-pane show active" id="custom-styles-preview">
                                                 <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                                     {% csrf_token %}
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="validationCustom05">Tes Candidate ID</label>
-                                                        <input type="text"  name="tes_id" value="{{tesId}}" class="form-control" id="validationCustom05" placeholder="Tes Candidate ID" readonly>
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid Tes Candidate ID.
-                                                        </div>
-                                                    </div>
+
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom01">First Name</label>
                                                         <input type="text" name="first_name" class="form-control" id="validationCustom01" placeholder="First name"  required>
@@ -99,7 +93,7 @@
 
                                                 <div class="mb-3 position-relative" id="datepicker4">
                                                     <label class="form-label">Birth Date</label>
-                                                    <input type="text" name="birthDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" >
+                                                    <input type="text" name="birthDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
                                                 </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustomUsername">Email</label>
