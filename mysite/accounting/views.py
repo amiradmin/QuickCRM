@@ -127,6 +127,9 @@ class RegisterView(TemplateView):
             #     response.status_code = 403  # To announce that the user isn't allowed to publish
             #
             #     return render(request, 'training/errors.html')
+            lastCan = TesCandidate.objects.last()
+            tempID = int(lastCan.tes_candidate_id.split('-')[1]) + 1
+            tempID = 'TESN-' + str(tempID)
             user = User()
 
             # user.refresh_from_db()
@@ -140,7 +143,7 @@ class RegisterView(TemplateView):
             user.tescandidate.middleName = request.POST['middleName']
             user.tescandidate.last_name = request.POST['last_name']
             user.tescandidate.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
-            # user.tescandidate.tes_candidate_id = request.POST['tes_id']
+            user.tescandidate.tes_candidate_id = tempID
             user.tescandidate.customer_id = request.POST['customer_id']
             user.tescandidate.address = request.POST['address']
             # user.passport_id = request.POST['passport_id']
@@ -182,7 +185,7 @@ class RegisterView(TemplateView):
             canObj.save()
             print('End')
 
-        return redirect('forms:twienrolreg_')
+        return redirect('forms:twienrolreg_',id=user.tescandidate.id)
 
 class RegSuccessView(TemplateView):
     template_name = "accounts/success.html"

@@ -4,6 +4,7 @@ from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm
 from django.db.models import Count
 from classes.db import FormDb
 from training.models import FormsList, TesCandidate,Event,Category
+from django.core.mail import EmailMessage
 from django.db.models import Q
 import datetime
 # Create your views here.
@@ -195,20 +196,22 @@ class TwiEnrolmentReg(TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_reg.html"
     candidateID = None
 
-    def get_context_data(self):
+    def get_context_data(self,id, *args, **kwargs):
         context = super(TwiEnrolmentReg, self).get_context_data()
-        self.candidateID = 50
+        self.candidateID = self.kwargs['id']
+        print("Get : "+ str(id))
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request,id, *args, **kwargs):
 
         if request.method == 'POST':
             if 'enrolment' in request.POST:
-                print("Here")
-                eventID = request.POST['eventID']
-                candidate = TesCandidate.objects.filter(id=	1050941).first()
+                print("Post: "+ str(id))
+                # print("Here")
+                # eventID = request.POST['eventID']
+                candidate = TesCandidate.objects.filter(id=	id).first()
                 obj = TwiEnrolmentForm()
-                obj.eventID = eventID
+                # obj.eventID = eventID
                 obj.candidate = candidate
                 obj.twiCandidateID = request.POST['form1_1']
                 obj.eventName = request.POST['form2_1']
@@ -344,7 +347,18 @@ class TwiEnrolmentReg(TemplateView):
                 # generalObj = General.objects.filter(event_id=eventID).first()
                 # generalObj.twiEnrolmentForm.add(obj)
                 # generalObj.save()
+                # email = EmailMessage('Subject', 'Body', to=['your@email.com'],['bcc@example.com'])
+                print("Start Mailing")
+                email = EmailMessage(
+                    'Tescan Registration Dept.',
+                    'Dear {}! Registration is done successfully. '.format(obj.firstName),
+                    'registration@tescan.ca',
+                    [obj.email],
+                    ['nima.vakilotojjar@tescan.ca'],
 
+                )
+                email.send()
+                print("End Mailing")
                 return redirect('accounting:suceess_')
 
 

@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category
 from django.contrib.auth.models import User
+from django.contrib.auth.hashers import make_password
 from forms.models import General
 import datetime
 import json
@@ -49,42 +50,47 @@ class NewCandidatelView(TemplateView):
                 response.status_code = 403 # To announce that the user isn't allowed to publish
                 
                 return render(request, 'training/errors.html') 
-            user = TesCandidate()
-            # user.tes_candidate_id = request.POST['tesCanID']
+            user = User()
+            user.username = request.POST['email']
+            user.password =make_password(request.POST['password'])
             user.first_name = request.POST['first_name']
-            user.middleName = request.POST['middleName']
             user.last_name = request.POST['last_name']
-            user.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
-            user.tes_candidate_id = request.POST['tes_id']
-            user.customer_id = request.POST['customer_id']
-            user.address = request.POST['address']
+            user.save()
+            # user.tes_candidate_id = request.POST['tesCanID']
+            user.tescandidate.first_name = request.POST['first_name']
+            user.tescandidate.middleName = request.POST['middleName']
+            user.tescandidate.last_name = request.POST['last_name']
+            user.tescandidate.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
+            user.tescandidate.tes_candidate_id = request.POST['tes_id']
+            user.tescandidate.customer_id = request.POST['customer_id']
+            user.tescandidate.address = request.POST['address']
             # user.passport_id = request.POST['passport_id']
-            user.sponsor_company = request.POST['sponsor_company']
-            user.email = request.POST['email']
-            user.contact_number = request.POST['phone']
+            user.tescandidate.sponsor_company = request.POST['sponsor_company']
+            user.tescandidate.email = request.POST['email']
+            user.tescandidate.contact_number = request.POST['phone']
             # user.note = request.POST['note']
             if request.FILES.get('photo', False):
-                user.photo = request.FILES['photo']
+                user.tescandidate.photo = request.FILES['photo']
             if request.FILES.get('doc_1', False):
-                user.document_1 = request.FILES['doc_1']
+                user.tescandidate.document_1 = request.FILES['doc_1']
             if request.FILES.get('doc_2', False):
-                user.document_2 = request.FILES['doc_2']
+                user.tescandidate.document_2 = request.FILES['doc_2']
             if request.FILES.get('doc_3', False):
-                user.document_3 = request.FILES['doc_3']
+                user.tescandidate.document_3 = request.FILES['doc_3']
             if request.FILES.get('doc_4', False):
-                user.document_4 = request.FILES['doc_4']
+                user.tescandidate.document_4 = request.FILES['doc_4']
             if request.FILES.get('doc_5', False):
-                user.document_5 = request.FILES['doc_5']
+                user.tescandidate.document_5 = request.FILES['doc_5']
             if request.FILES.get('doc_6', False):
-                user.document_6 = request.FILES['doc_6']
+                user.tescandidate.document_6 = request.FILES['doc_6']
             if request.FILES.get('doc_7', False):
-                user.document_7 = request.FILES['doc_7']
+                user.tescandidate.document_7 = request.FILES['doc_7']
             if request.FILES.get('doc_8', False):
-                user.document_8 = request.FILES['doc_8']
+                user.tescandidate.document_8 = request.FILES['doc_8']
             if request.FILES.get('doc_9', False):
-                user.document_9 = request.FILES['doc_9']
+                user.tescandidate.document_9 = request.FILES['doc_9']
             if request.FILES.get('doc_10', False):
-                user.document_9 = request.FILES['doc_10']
+                user.tescandidate.document_10= request.FILES['doc_10']
             user.save() 
         return redirect('training:canlist_')
 

@@ -260,8 +260,8 @@ body{padding:0px; margin:0px;  }
 <div id="formviewer">
  <form method="POST">                       
 {% csrf_token %}    
-
-<input type="hidden" value="{{candidate.id}} " value="1" name="mainCanID"/>
+{{id}}
+<input type="hidden" value="{{candidate.id}} " value="{{id}}" name="mainCanID"/>
 <input type="hidden" value="{{event.id}} " value=""  name="eventID"/>
 <input type="hidden" value="{{event.formCategory_id}} " name="fomCatID"/>
 <div></div>

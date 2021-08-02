@@ -175,3 +175,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL ="/"
 LOGOUT_REDIRECT_URL = '/'
+
+#Email
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'registration@tescan.ca'
+EMAIL_HOST = 'smtp.outlook.office365.com'  # (also tried : smtp.office365.com  and outlook.office365.com)
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_PASSWORD = 'Top11080'
