@@ -6,6 +6,7 @@ from django.contrib.auth.models import User, Group
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from training.models import CandidateProfile, Lecturer,Event,TesCandidate
+from django.contrib.auth.hashers import make_password
 import datetime
 # Create your views here.
 
@@ -130,7 +131,7 @@ class RegisterView(TemplateView):
 
             # user.refresh_from_db()
             user.username = request.POST['email']
-            user.password = request.POST['password']
+            user.password =make_password(request.POST['password'])
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.save()
@@ -147,6 +148,8 @@ class RegisterView(TemplateView):
             user.tescandidate.email = request.POST['email']
             user.tescandidate.contact_number = request.POST['phone']
             user.save()
+            group = Group.objects.get(name='candidates')
+            group.user_set.add(user)
             # user.note = request.POST['note']
             # if request.FILES.get('photo', False):
             #     user.photo = request.FILES['photo']
