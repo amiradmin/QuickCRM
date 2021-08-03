@@ -73,6 +73,7 @@ class TwiEnrolmentForm(models.Model):
     underwaterInspectionExam = models.CharField(max_length=128, null=True, blank=True )
     NDTexamination = models.CharField(max_length=128, null=True, blank=True )
     NDTexaminationLevel = models.CharField(max_length=128, null=True, blank=True )
+    NDTIndustrySector = models.CharField(max_length=128, null=True, blank=True )
     NDTexaminationCategories = models.CharField(max_length=256, null=True, blank=True )
     plantInspection  = models.CharField(max_length=256, null=True, blank=True )
     plantInspectionLevel  = models.CharField(max_length=2048, null=True, blank=True )
