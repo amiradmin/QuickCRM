@@ -305,9 +305,9 @@ body{padding:0px; margin:0px;  }
 
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaJSAPI.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
-<button onclick="printDiv('formviewer')">Print only the above div</button>
+<button onclick="printDiv('myForm')">Print only the above div</button>
 <div id="formviewer" style=" overflow: hidden;">
- <form method="POST">                       
+ <form method="POST" id="myForm">
 {% csrf_token %}    
 
 <input type="hidden" value="{{candidate.id}} " name="mainCanID"/>
@@ -895,9 +895,9 @@ function checkOver(i) {
 <input id="form5_1" name="form5_1" style="margin-left:6px;letter-spacing: 18px;"  type="text" tabindex="5" maxlength="17" value="{{candidate.middleName |upper}}" data-objref="2113 0 R" title="Candidate&#39;s Middle Name (as per ID / Passport" data-field-name="Candidates Middle Name as per ID  Passport"  >
 <input id="form6_1" name="form6_1" style="margin-left:6px;letter-spacing: 18px;"  value="{{candidate.first_name|upper}}" type="text" tabindex="6" maxlength="17" data-objref="2114 0 R" title="Candidate&#39;s Given Name (as per ID / Passport"  data-field-name="Candidates Given Name as per ID  Passport"  >
 
-<input id="form7_1"  name="form7_1"  style="margin-left:6px;letter-spacing: 18px;" type="text" value="{{candidate.birth_date| date:"d"}}" tabindex="7" maxlength="2" value="" data-objref="2115 0 R" title="D" data-field-name="D"  >
-<input id="form8_1" name="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="8" maxlength="2" value="{{candidate.birth_date| date:"m"}}" data-objref="2116 0 R" title="M" data-field-name="M"  >
-<input id="form9_1" name="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="9" maxlength="4" value="{{candidate.birth_date| date:"Y"}}" data-objref="2117 0 R" title="Y" data-field-name="Y"  />
+<input id="form7_1"  name="form7_1"  style="margin-left:6px;letter-spacing: 18px;" type="text" value="{{candidate.birth_date| date:"d"}}" tabindex="7" maxlength="2" value="" data-objref="2115 0 R" title="D" data-field-name="D"  required >
+<input id="form8_1" name="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="8" maxlength="2" value="{{candidate.birth_date| date:"m"}}" data-objref="2116 0 R" title="M" data-field-name="M" required >
+<input id="form9_1" name="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="9" maxlength="4" value="{{candidate.birth_date| date:"Y"}}" data-objref="2117 0 R" title="Y" data-field-name="Y"  required />
 <input id="form10_1" name="form10_1" type="checkbox" tabindex="10" data-objref="2118 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2118 0 R' %}" imagesT="110100"/>
 <input id="form11_1"  name="form11_1" type="checkbox" tabindex="11" data-objref="2120 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2120 0 R' %}" imagesT="110100"/>
 <input id="form12_1" name="form12_1"  name="form12_1" type="checkbox" tabindex="12" data-objref="2121 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2121 0 R' %}" imagesT="110100"/>
