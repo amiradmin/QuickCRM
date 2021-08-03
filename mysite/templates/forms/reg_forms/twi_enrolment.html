@@ -181,27 +181,38 @@ FormViewer.on('ready', function(data) {
 
 })();
 </script>
+example.html
+	<script>
+		function printDiv(divName){
+			var printContents = document.getElementById(divName).innerHTML;
+			var originalContents = document.body.innerHTML;
+
+			document.body.innerHTML = printContents;
+
+			window.print();
+
+			document.body.innerHTML = originalContents;
+
+		}
+	</script>
+
 <style type="text/css">
-               /* style sheet for "A4" printing */
-@media print and (width: 21cm) and (height: 29.7cm) {
-     @page {
-        margin: 0cm;
-     }
-}
 
-/* style sheet for "letter" printing */
-@media print and (width: 8.5in) and (height: 11in) {
-    @page {
-        margin: 0in;
-    }
-}
+@media print {
+  body * {
+    visibility: hidden;
 
-/* A4 Landscape*/
-@page {
-    size: A3 landscape;
-    margin: 0%;
-}
+  }
+  #formviewer, #formviewer * {
+    visibility: visible;
 
+  }
+  #formviewer {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+}
 .btn{border:0 none; height:30px; padding:0; width:30px; background-color:transparent; display:inline-block; margin:7px 5px 0; vertical-align:top; cursor:pointer; color:#fff;}
 
 
@@ -294,8 +305,8 @@ body{padding:0px; margin:0px;  }
 
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaJSAPI.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
-
-<div id="formviewer">
+<button onclick="printDiv('formviewer')">Print only the above div</button>
+<div id="formviewer" style=" overflow: hidden;">
  <form method="POST">                       
 {% csrf_token %}    
 
@@ -2075,26 +2086,26 @@ function checkOver(i) {
 <input id="form28_3" name="form28_3" type="checkbox" tabindex="127" data-objref="493 0 R" data-field-name="Check Box85" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/493 0 R' %}"  imagesT="110100"/>
 <input id="form29_3" name="form29_3"  type="checkbox" tabindex="128" data-objref="487 0 R" data-field-name="Check Box86" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/487 0 R' %}"  imagesT="110100"/>
 <input id="form30_3" name="form30_3" type="checkbox" tabindex="129" data-objref="494 0 R" data-field-name="Check Box87" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/494 0 R' %}"  imagesT="110100"/>
-<input id="form31_3" type="checkbox" tabindex="130" data-objref="495 0 R" data-field-name="Check Box90" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/495 0 R' %}"  imagesT="110100"/>
-<input id="form32_3" type="checkbox" tabindex="131" data-objref="496 0 R" data-field-name="Check Box91" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/496 0 R' %}"  imagesT="110100"/>
-<input id="form33_3" type="checkbox" tabindex="132" data-objref="497 0 R" data-field-name="Check Box92" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/497 0 R' %}"  imagesT="110100"/>
-<input id="form34_3" type="checkbox" tabindex="133" data-objref="501 0 R" data-field-name="Check Box93" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/501 0 R' %}"  imagesT="110100"/>
-<input id="form35_3" type="checkbox" tabindex="134" data-objref="498 0 R" data-field-name="Check Box94" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/498 0 R' %}"  imagesT="110100"/>
-<input id="form36_3" type="checkbox" tabindex="135" data-objref="499 0 R" data-field-name="Check Box95" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/499 0 R' %}"  imagesT="110100"/>
-<input id="form37_3" type="checkbox" tabindex="136" data-objref="500 0 R" data-field-name="Check Box96" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/500 0 R' %}"  imagesT="110100"/>
-<input id="form38_3" type="checkbox" tabindex="137" data-objref="477 0 R" data-field-name="Check Box96" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/477 0 R' %}"  imagesT="110100"/>
-<input id="form39_3" type="checkbox" tabindex="138" data-objref="478 0 R" data-field-name="Check Box96" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/478 0 R' %}"  imagesT="110100"/>
-<input id="form40_3" type="checkbox" tabindex="139" data-objref="466 0 R" data-field-name="Check Box96" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/466 0 R' %}"  imagesT="110100"/>
-<input id="form41_3" type="checkbox" tabindex="140" data-objref="465 0 R" data-field-name="Check Box100" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/465 0 R' %}"  imagesT="110100"/>
-<input id="form42_3" type="checkbox" tabindex="141" data-objref="463 0 R" data-field-name="Check Box100" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/463 0 R' %}"  imagesT="110100"/>
-<input id="form43_3" type="checkbox" tabindex="142" data-objref="464 0 R" data-field-name="Check Box100" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/464 0 R' %}"  imagesT="110100"/>
-<input id="form44_3" type="checkbox" tabindex="143" data-objref="474 0 R" data-field-name="Check Box100" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/474 0 R' %}"  imagesT="110100"/>
-<input id="form45_3" type="checkbox" tabindex="144" data-objref="473 0 R" data-field-name="Check Box104" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/473 0 R' %}"  imagesT="110100"/>
-<input id="form46_3" type="checkbox" tabindex="145" data-objref="472 0 R" data-field-name="Check Box104" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/472 0 R' %}"  imagesT="110100"/>
-<textarea id="form47_3" tabindex="146" data-objref="476 0 R" title="[1]" data-field-name="1_2"></textarea>
-<input id="form48_3" type="checkbox" tabindex="147" data-objref="475 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/475 0 R'%}"  imagesT="110100"/>
-<input id="form49_3" type="checkbox" tabindex="148" data-objref="462 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/462 0 R'%}"  imagesT="110100"/>
-<input id="form50_3" type="checkbox" tabindex="149" data-objref="468 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/468 0 R'%}"  imagesT="110100"/>
+<input id="form31_3" name="form31_3" type="checkbox" tabindex="130" data-objref="495 0 R" data-field-name="Check Box90" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/495 0 R' %}"  imagesT="110100"/>
+<input id="form32_3" name="form32_3" type="checkbox" tabindex="131" data-objref="496 0 R" data-field-name="Check Box91" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/496 0 R' %}"  imagesT="110100"/>
+<input id="form33_3" name="form33_3" type="checkbox" tabindex="132" data-objref="497 0 R" data-field-name="Check Box92" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/497 0 R' %}"  imagesT="110100"/>
+<input id="form34_3"  name="form34_3" type="checkbox" tabindex="133" data-objref="501 0 R" data-field-name="Check Box93" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/501 0 R' %}"  imagesT="110100"/>
+<input id="form35_3" name="form35_3" type="checkbox" tabindex="134" data-objref="498 0 R" data-field-name="Check Box94" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/498 0 R' %}"  imagesT="110100"/>
+<input id="form36_3" name="form36_3" type="checkbox" tabindex="135" data-objref="499 0 R" data-field-name="Check Box95" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/499 0 R' %}"  imagesT="110100"/>
+<input id="form37_3"  name="form37_3" type="checkbox" tabindex="136" data-objref="500 0 R" data-field-name="Check Box96" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/500 0 R' %}"  imagesT="110100"/>
+<input id="form38_3" name="form38_3" type="checkbox" tabindex="137" data-objref="477 0 R" data-field-name="Check Box96" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/477 0 R' %}"  imagesT="110100"/>
+<input id="form39_3" name="form39_3" type="checkbox" tabindex="138" data-objref="478 0 R" data-field-name="Check Box96" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/478 0 R' %}"  imagesT="110100"/>
+<input id="form40_3" name="form40_3" type="checkbox" tabindex="139" data-objref="466 0 R" data-field-name="Check Box96" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/466 0 R' %}"  imagesT="110100"/>
+<input id="form41_3" name="form41_3" type="checkbox" tabindex="140" data-objref="465 0 R" data-field-name="Check Box100" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/465 0 R' %}"  imagesT="110100"/>
+<input id="form42_3" name="form42_3" type="checkbox" tabindex="141" data-objref="463 0 R" data-field-name="Check Box100" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/463 0 R' %}"  imagesT="110100"/>
+<input id="form43_3" name="form43_3"  type="checkbox" tabindex="142" data-objref="464 0 R" data-field-name="Check Box100" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/464 0 R' %}"  imagesT="110100"/>
+<input id="form44_3" name="form44_3" type="checkbox" tabindex="143" data-objref="474 0 R" data-field-name="Check Box100" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/474 0 R' %}"  imagesT="110100"/>
+<input id="form45_3" name="form45_3"  type="checkbox" tabindex="144" data-objref="473 0 R" data-field-name="Check Box104" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/473 0 R' %}"  imagesT="110100"/>
+<input id="form46_3" name="form46_3"  type="checkbox" tabindex="145" data-objref="472 0 R" data-field-name="Check Box104" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/472 0 R' %}"  imagesT="110100"/>
+<textarea id="form47_3" name="form47_3" tabindex="146" data-objref="476 0 R" title="[1]" data-field-name="1_2"></textarea>
+<input id="form48_3" name="form48_3" type="checkbox" tabindex="147" data-objref="475 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/475 0 R'%}"  imagesT="110100"/>
+<input id="form49_3" name="form49_3"  type="checkbox" tabindex="148" data-objref="462 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/462 0 R'%}"  imagesT="110100"/>
+<input id="form50_3"  name="form50_3"  type="checkbox" tabindex="149" data-objref="468 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/468 0 R'%}"  imagesT="110100"/>
 <input id="form51_3" type="text" tabindex="150" value="" data-objref="467 0 R" data-field-name="Text109"/>
 
 <!-- End Form Data -->

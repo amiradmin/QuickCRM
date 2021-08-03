@@ -59,6 +59,7 @@ class TwiEnrolment(TemplateView):
                 obj.sponsorEmail = request.POST['form47_1']
                 obj.PCN_BGASApprovalNumber = request.POST['form11_2']
                 obj.currentCSWIPQualifications = request.POST['form12_2']
+                obj.plantInspectionRequirements = request.POST['form47_3']
 
                 # obj.GDPRstatement = request.POST['form37_1']
                 
@@ -284,6 +285,53 @@ class TwiEnrolment(TemplateView):
                     obj.NDTIndustrySector ='Tubes & Pipes'
                 if not request.POST.get('form30_3', None) == None:
                     obj.NDTIndustrySector ='Aero'
+
+
+                if not request.POST.get('form31_3', None) == None:
+                    obj.NDTexaminationCategories ='3.1'
+                if not request.POST.get('form32_3', None) == None:
+                    obj.NDTexaminationCategories ='3.2'
+                if not request.POST.get('form33_3', None) == None:
+                    obj.NDTexaminationCategories ='3.7'
+                if not request.POST.get('form34_3', None) == None:
+                    obj.NDTexaminationCategories ='3.8'
+                if not request.POST.get('form35_3', None) == None:
+                    obj.NDTexaminationCategories ='3.9'
+                if not request.POST.get('form36_3', None) == None:
+                    obj.NDTexaminationCategories ='Critical sizing'
+
+
+                if not request.POST.get('form37_3', None) == None:
+                    obj.plantInspectionLevel ='Level 1'
+                if not request.POST.get('form38_3', None) == None:
+                    obj.plantInspectionLevel ='Level 2'
+                if not request.POST.get('form39_3', None) == None:
+                    obj.plantInspectionLevel ='Level 3'
+                if not request.POST.get('form40_3', None) == None:
+                    obj.plantInspectionLevel ='Endorsement'
+
+                if not request.POST.get('form41_3', None) == None:
+                    obj.plantInspectionLevel1 ='I hold current approved NDT Level 2 (ACCP, CSWIP, PCN or ASNT) in two methods, one of which must be Ultrasonic'
+                if not request.POST.get('form42_3', None) == None:
+                    obj.plantInspectionLevel1 ='I hold CSWIP Welding Inspector or higher'
+                if not request.POST.get('form43_3', None) == None:
+                    obj.plantInspectionLevel1 ='I hold HNC in Mechanical Engineering or equivalent'
+                if not request.POST.get('form44_3', None) == None:
+                    obj.plantInspectionLevel1 ='I have a minimum of Five years, assessed and authenticated industry experience in this field (Mature Entry Route), a verified CV can be supplied – Must be Authenticated by Line Manager'
+
+                if not request.POST.get('form45_3', None) == None:
+                    obj.plantInspectionLevel2 ='I hold a valid Level 1 Plant Inspector approval'
+                if not request.POST.get('form46_3', None) == None:
+                    obj.plantInspectionLevel2 ='I have successfully completed the Level 1 exams as a pre entry requirement'
+
+
+                if not request.POST.get('form48_3', None) == None:
+                   obj.otherExaminationsTitleRequired ='Plastic welding'
+                if not request.POST.get('form49_3', None) == None:
+                    obj.otherExaminationsTitleRequired ='Offshore visual Inspector'
+                if not request.POST.get('form50_3', None) == None:
+                    obj.otherExaminationsTitleRequired ='BGAS'
+
 
 
                 obj.save()
