@@ -60,6 +60,13 @@ class TwiEnrolment(TemplateView):
                 obj.PCN_BGASApprovalNumber = request.POST['form11_2']
                 obj.currentCSWIPQualifications = request.POST['form12_2']
                 obj.plantInspectionRequirements = request.POST['form47_3']
+                obj.VerifierName = request.POST['form1_4']
+                obj.VerifierCompanyPosition = request.POST['form2_4']
+                obj.VerifierProfessionalRelation = request.POST['form3_4']
+                obj.VerifierTelephone = request.POST['form4_4']
+                obj.VerifierEmail = request.POST['form4_4']
+                obj.VerifierDate = request.POST['form5_4']
+                obj.VerifierDate = datetime.datetime.strptime(request.POST['form5_4'], '%m/%d/%Y')
 
                 # obj.GDPRstatement = request.POST['form37_1']
                 
