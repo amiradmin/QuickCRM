@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from training.models import CandidateProfile, Lecturer,Event,TesCandidate
 from django.contrib.auth.hashers import make_password
+from django.core.mail import EmailMessage
 import datetime
 # Create your views here.
 
@@ -18,6 +19,17 @@ class LoginView(TemplateView):
         context = super(LoginView, self).get_context_data()
         # form = MedicineForm()
         # context['form'] = form
+        # print("Start Mailing")
+        # email = EmailMessage(
+        #     'Tescan Registration Dept.',
+        #     'Dear Test! Registration is done successfully. ',
+        #     'registration@tescan.ca',
+        #     ['amirbehvandi747@gmail.com'],
+        #     ['nima.vakilotojjar@tescan.ca'],
+        #
+        # )
+        # email.send()
+        # print("End Mailing")
         return context
 
     def post(self, request):

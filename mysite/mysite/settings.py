@@ -182,6 +182,7 @@ LOGOUT_REDIRECT_URL = '/'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST_USER = 'registration@tescan.ca'
 EMAIL_HOST = 'mail.tescan.ca'  # (also tried : smtp.office365.com  and outlook.office365.com)
-EMAIL_PORT = 465
-EMAIL_USE_TLS = True
+EMAIL_PORT = 26
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL: False
 EMAIL_HOST_PASSWORD = 'Top@11080cA'
