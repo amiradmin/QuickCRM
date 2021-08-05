@@ -760,18 +760,24 @@ class TrainingPanelView(TemplateView):
     template_name = "training/layouts-vertical.html"
 
     def get_context_data(self):
+        adminStatus=False
         context = super(TrainingPanelView, self).get_context_data()
         event_list = Event.objects.all()
         canCount = TesCandidate.objects.count()
         lecCount = Lecturer.objects.count()
         product = Product.objects.all()
-      
+
+        for g in self.request.user.groups.all():
+            if  g.name == 'super_admin' or g.name=='training_admin':
+                adminStatus=True
+                print(g.name)
         context['event_list'] = event_list
         context['eventCount'] = event_list.count()
         context['canCount'] = canCount
         context['lecCount'] = lecCount
         context['product'] = product
         context['proCount'] = product.count()
+        context['adminStatus'] = adminStatus
 
         return context
 

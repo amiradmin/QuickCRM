@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User, Group
+from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.conf import settings
 from training.models import CandidateProfile, Lecturer,Event,TesCandidate
@@ -17,19 +18,7 @@ class LoginView(TemplateView):
 
     def get_context_data(self):
         context = super(LoginView, self).get_context_data()
-        # form = MedicineForm()
-        # context['form'] = form
-        # print("Start Mailing")
-        # email = EmailMessage(
-        #     'Tescan Registration Dept.',
-        #     'Dear Test! Registration is done successfully. ',
-        #     'registration@tescan.ca',
-        #     ['amirbehvandi747@gmail.com'],
-        #     ['nima.vakilotojjar@tescan.ca'],
-        #
-        # )
-        # email.send()
-        # print("End Mailing")
+
         return context
 
     def post(self, request):
