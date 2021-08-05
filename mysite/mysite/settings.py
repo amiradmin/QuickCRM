@@ -184,4 +184,4 @@ EMAIL_HOST_USER = 'registration@tescan.ca'
 EMAIL_HOST = 'mail.tescan.ca'  # (also tried : smtp.office365.com  and outlook.office365.com)
 EMAIL_PORT = 465
 EMAIL_USE_TLS = True
-EMAIL_HOST_PASSWORD = 'Top11080@'
+EMAIL_HOST_PASSWORD = 'Top@11080cA'
