@@ -257,7 +257,7 @@ body{padding:0px; margin:0px;  }
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaJSAPI.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
 
-<div id="formviewer">
+<div id="formviewer" style=" overflow: hidden;">
  <form method="POST">                       
 {% csrf_token %}    
 {{id}}
