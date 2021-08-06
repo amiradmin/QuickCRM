@@ -15,7 +15,7 @@ class TwiEnrolment(TemplateView):
 
     def get_context_data(self):
         context = super(TwiEnrolment, self).get_context_data()
-        candidates = TesCandidate.objects.all()
+        candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
         events = Event.objects.all()
         context['candidates'] = candidates
         context['events'] = events
@@ -41,7 +41,7 @@ class TwiEnrolment(TemplateView):
                 day = request.POST['form7_1'] 
                 month = request.POST['form8_1'] 
                 year = request.POST['form9_1'] 
-                birdDay = day + '/' + month + '/' + year
+                birdDay = month + '/' + day + '/' + year
                 obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
                 obj.permanentPrivateAddress = request.POST['form15_1']
                 obj.Postcode = request.POST['form18_1']
@@ -64,9 +64,9 @@ class TwiEnrolment(TemplateView):
                 obj.VerifierCompanyPosition = request.POST['form2_4']
                 obj.VerifierProfessionalRelation = request.POST['form3_4']
                 obj.VerifierTelephone = request.POST['form4_4']
-                obj.VerifierEmail = request.POST['form4_4']
-                obj.VerifierDate = request.POST['form5_4']
-                obj.VerifierDate = datetime.datetime.strptime(request.POST['form5_4'], '%m/%d/%Y')
+                obj.VerifierEmail = request.POST['form5_4']
+                # obj.VerifierDate = request.POST['form6_4']
+                obj.VerifierDate = datetime.datetime.strptime(request.POST['form6_4'], '%m/%d/%Y')
 
                 # obj.GDPRstatement = request.POST['form37_1']
                 
