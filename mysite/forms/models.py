@@ -82,6 +82,7 @@ class TwiEnrolmentForm(models.Model):
     plantInspectionRequirements  = models.CharField(max_length=4096, null=True, blank=True )
     otherExaminations  = models.CharField(max_length=1024, null=True, blank=True )
     otherExaminationsTitleRequired  = models.CharField(max_length=1024, null=True, blank=True )
+    otherExaminationsTitle  = models.CharField(max_length=1024, null=True, blank=True )
     VerifierName  = models.CharField(max_length=512, null=True, blank=True )
     VerifierCompanyPosition  = models.CharField(max_length=512, null=True, blank=True )
     VerifierProfessionalRelation  = models.CharField(max_length=512, null=True, blank=True )

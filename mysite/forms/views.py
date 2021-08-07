@@ -65,6 +65,8 @@ class TwiEnrolment(TemplateView):
                 obj.VerifierProfessionalRelation = request.POST['form3_4']
                 obj.VerifierTelephone = request.POST['form4_4']
                 obj.VerifierEmail = request.POST['form5_4']
+                obj.experienceRequirements = request.POST['form34_2']
+                obj.otherExaminationsTitle = request.POST['form51_3']
                 # obj.VerifierDate = request.POST['form6_4']
                 obj.VerifierDate = datetime.datetime.strptime(request.POST['form6_4'], '%m/%d/%Y')
 
@@ -209,8 +211,8 @@ class TwiEnrolment(TemplateView):
                     obj.experience ='ASME IX - Certified Welding Inspector with five years relevant verified work experience or international equivalent '
                 if not request.POST.get('form32_2', None) == None:
                     obj.experience ='ASME IX - A HNC in Welding Fabrication'
-                if not request.POST.get('form33_2 - Working in quality control function related to welding activities with five years of verified working experience (this could relate to a CSWIP WI (3.1) holder', None) == None:
-                    obj.experience ='ASME IX'
+                if not request.POST.get('form33_2', None) == None:
+                    obj.experience ='ASME IX - Working in quality control function related to welding activities with five years of verified working experience (this could relate to a CSWIP WI (3.1) holder'
 
 
                 if not request.POST.get('form35_2', None) == None:
