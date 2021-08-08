@@ -155,12 +155,7 @@ class RegisterView(TemplateView):
             group = Group.objects.get(name='candidates')
             group.user_set.add(user)
             # user.note = request.POST['note']
-            # if request.FILES.get('photo', False):
-            #     user.photo = request.FILES['photo']
-            # if request.FILES.get('doc_1', False):
-            #     user.document_1 = request.FILES['doc_1']
-            # if request.FILES.get('doc_2', False):
-            #     user.document_2 = request.FILES['doc_2']
+
             # if request.FILES.get('doc_3', False):
             #     user.document_3 = request.FILES['doc_3']
             # if request.FILES.get('doc_4', False):
@@ -183,6 +178,12 @@ class RegisterView(TemplateView):
             canObj.user = user
             canObj.first_name = request.POST['first_name']
             canObj.last_name = request.POST['last_name']
+            if request.FILES.get('photo', False):
+                canObj.photo = request.FILES['photo']
+            if request.FILES.get('doc_1', False):
+                canObj.document_1 = request.FILES['doc_1']
+            if request.FILES.get('doc_2', False):
+                canObj.document_2 = request.FILES['doc_2']
             canObj.save()
             print('End')
 

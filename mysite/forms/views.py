@@ -641,7 +641,7 @@ class BGASExperienceForm(TemplateView):
 
     def get_context_data(self):
         context = super(BGASExperienceForm, self).get_context_data()
-        candidates = TesCandidate.objects.all()
+        candidates = TesCandidate.objects.all().order_by('first_name')
         events = Event.objects.all()
         context['candidates'] = candidates
         context['events'] = events
@@ -651,6 +651,18 @@ class BGASExperienceForm(TemplateView):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Form")
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                bgasObj = BGAsExperienceForm()
+                bgasObj.candidate =candidate
+                bgasObj.evenID =event.id
+                bgasObj.firstName =candidate.first_name
+                bgasObj.lastName =candidate.last_name
+                bgasObj.middleName =candidate.middleName
+                bgasObj.twiCandidateID = request.POST['canID']
+
+                bgasObj.save()
+
                 return redirect('forms:allenrolmentform_')
 
 

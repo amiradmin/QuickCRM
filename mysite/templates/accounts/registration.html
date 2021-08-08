@@ -31,8 +31,92 @@
     a.disabled {
     pointer-events: none;
     color: rgba(0,0,128,0.5);
+
+.X{
+  margin: auto;
+  padding: 1% 2%;
+  max-width: 1440px;
+  border-radius: 5px;
+  background: #ecf0f1;
+  box-shadow: 0 2px 6px 0 rgba(0,0,0, .3);
+}
+h1,h2,h3{
+  text-align: center;
+  font-family: 'Baloo Tamma', cursive;
+}
+li{
+  color: #2c3e50;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: justify;
+  letter-spacing: 1px;
+  font-family: 'Raleway', serif;
+}
+/*SG = style grid*/
+.SG{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.SG .sgLi{
+  min-width: 24%;
+  margin: 2% .35%;
+  display: inline-flex;
+  box-shadow: 0 2px 4px rgba(0,0,0, .2);
+}
+.SG .sgLi:hover{
+  box-shadow:0 5px 10px rgba(0,0,0,.15);}
+.SG .box{
+  width: 100%;
+  height: 100vh;
+  padding: 1% 2%;
+  background: #fff;
+  min-height: 200px;
+  max-height: 220px;
+  box-sizing: border-box;
+}
+/*Styles */
+.df{list-style-type: disc;}
+.s1{list-style-type: square;}
+.s2{list-style-type: circle;}
+.s3{list-style-type: decimal;}
+.s4{list-style-type: decimal-leading-zero;}
+.s5{list-style-type: lower-alpha;}
+.s6{list-style-type: upper-alpha;}
+.s7{list-style-type: lower-roman;}
+.s8{list-style-type: upper-roman;}
+.s9{list-style-type: lower-greek;}
+.s10{list-style-type: georgian;}
+.s11{list-style-type: hebrew;}
+.s12{list-style-type: hiragana;}
+.s13{list-style-type: hiragana-iroha;}
+.s14{list-style-type: katakana;}
+.s15{list-style-type: katakana-iroha;}
+.s16{list-style-type: cjk-ideographic;}
+.s17{list-style-image: url(//goo.gl/L3tqpe);}
+.s18{list-style: none;}
+.s18 li:before{
+  content: '';
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  display: inline-block;
+  background: url(//goo.gl/lcPSVD);
+  background-position: 50%;
+}
+.s19{list-style: none;}
+.s19 li:before{
+  content: '\f0a9';
+  margin-right: 15px;
+  font-family: FontAwesome;
 }
 
+/* responsive grid*/
+@media (max-width: 970px){
+  .SG .sgLi{width: 180px;}}
+@media (max-width: 425px){
+  .SG .sgLi{width: 100%;}
+}
 
 </style>
     </head>
@@ -99,8 +183,8 @@
                                                    <div class="mb-3 col-md-12">
 
                                                 <div class="mb-3 position-relative" id="datepicker4">
-                                                    <label class="form-label" autocomplete="off">Birth Date</label>
-                                                    <input type="text" name="birthDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
+                                                    <label class="form-label" >Birth Date</label>
+                                                    <input type="text" autocomplete="off"  name="birthDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
                                                 </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustomUsername">Email</label>
@@ -161,6 +245,36 @@
                                                         <label class="form-label">Photo</label>
                                                         <input class="form-control" name="photo" type="file" id="inputGroupFile04">
                                                     </div>
+ <ul class="SG">
+  <li class="sgLi">
+    <div class="box">
+    <h3 style="font-size:14px;">Your photos or digital images must be:</h3>
+    <ul class="df">
+    <li>In color</li>
+    <li>Sized such that the head is between 1 inch and 1 3/8 inches (22 mm and 35 mm) or 50% and 69% of the image's total height from the bottom of the chin to the top of the head. View the Photo Composition Template for more size requirement details.</li>
+    <li>Taken within the last 6 months to reflect your current appearance</li>
+    <li>Taken in front of a plain white or off-white background</li>
+    <li>Taken in full-face view directly facing the camera</li>
+    <li>With a neutral facial expression and both eyes open</li>
+    <li>Taken in clothing that you normally wear on a daily basis</li>
+    <li>Uniforms should not be worn in your photo, except religious clothing that is worn daily.</li>
+    <li>Do not wear a hat or head covering that obscures the hair or hairline, unless worn daily for a religious purpose. Your full face must be visible, and the head covering must not cast any shadows on your face.</li>
+    <li>Headphones, wireless hands-free devices, or similar items are not acceptable in your photo.</li>
+    <li>Eyeglasses are no longer allowed in new visa photos</li>
+    </ul>
+  </div>
+ </li>
+</ul>
+<br>
+
+
+
+
+
+
+
+
+
 
                                                     <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
@@ -173,50 +287,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Document 3</label>
-                                                            <input class="form-control" name="doc_3" type="file" id="inputGroupFile04">
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Documanet 4</label>
-                                                            <input class="form-control" name="doc_4" type="file" id="inputGroupFile05">
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Document 5</label>
-                                                            <input class="form-control" name="doc_5" type="file" id="inputGroupFile04">
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Documanet 6</label>
-                                                            <input class="form-control"  name="doc_6" type="file" id="inputGroupFile05">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Document 7</label>
-                                                            <input class="form-control" name="doc_7" type="file" id="inputGroupFile04">
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Documanet 8</label>
-                                                            <input class="form-control" name="doc_8" type="file" id="inputGroupFile05">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Document 9</label>
-                                                            <input class="form-control" name="doc_" type="file" id="inputGroupFile04">
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Documanet 10</label>
-                                                            <input class="form-control" name="doc_10" type="file" id="inputGroupFile05">
-                                                        </div>
-                                                    </div>
 
 
                                                     <br>
