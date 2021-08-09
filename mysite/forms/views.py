@@ -650,23 +650,32 @@ class BGASExperienceForm(TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
+                canID = request.POST['canID']
+                # eventID = request.POST['eventID']
                 print("Form")
-                candidate = TesCandidate.objects.filter(id=canID).first()
-                event = Event.objects.filter(id=eventID).first()
-                bgasObj = BGAsExperienceForm()
-                bgasObj.candidate =candidate
-                bgasObj.evenID =event.id
-                bgasObj.firstName =candidate.first_name
-                bgasObj.lastName =candidate.last_name
-                bgasObj.middleName =candidate.middleName
-                bgasObj.twiCandidateID = request.POST['canID']
-
-                bgasObj.save()
+                # candidate = TesCandidate.objects.filter(id=canID).first()
+                # # event = Event.objects.filter(id=eventID).first()
+                # bgasObj = BGAsExperienceForm()
+                # bgasObj.candidate =candidate
+                # # bgasObj.evenID =event.id
+                # bgasObj.firstName =candidate.first_name
+                # bgasObj.lastName =candidate.last_name
+                # bgasObj.middleName =candidate.middleName
+                # bgasObj.twiCandidateID = request.POST['canID']
+                # bgasObj.VerifierName = request.POST['verifierName']
+                # bgasObj.VerifierCompany = request.POST['verifierCompany']
+                # bgasObj.VerifierPosition = request.POST['verifierPosition']
+                # bgasObj.VerifierTelephone = request.POST['verifierTel']
+                # bgasObj.VerifierEmail = request.POST['verifiermail']
+                # bgasObj.VerifierDate = datetime.datetime.strptime(request.POST['verifierDate'], '%m/%d/%Y')
+                # bgasObj.PreCertificationExperience = request.POST['PreCertificationExperience']
+                #
+                # bgasObj.save()
 
                 return redirect('forms:allenrolmentform_')
 
 
-            else:
+            elif 'selector' in request.POST:
                 print('Here')
                 # if request.FILES.get('file', False):
                 canID = request.POST['canID']
@@ -685,7 +694,7 @@ class BGASExperienceForm(TemplateView):
                 context['twiEnrolmentForm'] = twiEnrolmentForm
 
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/reg_forms/BGAS_experience_form.html', context)
+                return render(request, 'forms/reg_forms/BGAS_experience_form.html', context)
     
 class AllFormsList(TemplateView):
     template_name = "forms/all_forms_view.html"

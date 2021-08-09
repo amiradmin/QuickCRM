@@ -117,6 +117,7 @@ class BGAsExperienceForm(models.Model):
     PreCertificationExperience = models.CharField(max_length=4096, null=True, blank=True )
     VerifierName  = models.CharField(max_length=512, null=True, blank=True )
     VerifierCompany  = models.CharField(max_length=512, null=True, blank=True )
+    VerifierPosition = models.CharField(max_length=512, null=True, blank=True )
     VerifierTelephone = models.CharField(max_length=512, null=True, blank=True )
     VerifierEmail = models.CharField(max_length=512, null=True, blank=True )
     VerifierDate = models.DateField( null=True, blank=True )
