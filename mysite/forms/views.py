@@ -17,6 +17,10 @@ class TwiEnrolment(TemplateView):
         context = super(TwiEnrolment, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
         events = Event.objects.all()
+        for g in self.request.user.groups.all():
+            if  g.name == 'super_admin' or g.name=='training_admin':
+                adminStatus=True
+        context['adminStatus'] = adminStatus
         context['candidates'] = candidates
         context['events'] = events
         self.candidateID = 50
@@ -643,6 +647,10 @@ class BGASExperienceForm(TemplateView):
         context = super(BGASExperienceForm, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name')
         events = Event.objects.all()
+        for g in self.request.user.groups.all():
+            if  g.name == 'super_admin' or g.name=='training_admin':
+                adminStatus=True
+        context['adminStatus'] = adminStatus
         context['candidates'] = candidates
         context['events'] = events
         return context
@@ -695,7 +703,74 @@ class BGASExperienceForm(TemplateView):
 
             # return redirect('forms:jaegertofdl2_' ,context)
                 return render(request, 'forms/reg_forms/BGAS_experience_form.html', context)
-    
+
+
+class PSL30LogExperienceForm(TemplateView):
+    template_name = "forms/reg_forms/PSL_30_log_exper.html"
+
+    def get_context_data(self):
+        context = super(PSL30LogExperienceForm, self).get_context_data()
+        candidates = TesCandidate.objects.all().order_by('first_name')
+        events = Event.objects.all()
+        for g in self.request.user.groups.all():
+            if  g.name == 'super_admin' or g.name=='training_admin':
+                adminStatus=True
+        context['adminStatus'] = adminStatus
+        context['candidates'] = candidates
+        context['events'] = events
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                canID = request.POST['canID']
+                # eventID = request.POST['eventID']
+                print("Form")
+                # candidate = TesCandidate.objects.filter(id=canID).first()
+                # # event = Event.objects.filter(id=eventID).first()
+                # bgasObj = BGAsExperienceForm()
+                # bgasObj.candidate =candidate
+                # # bgasObj.evenID =event.id
+                # bgasObj.firstName =candidate.first_name
+                # bgasObj.lastName =candidate.last_name
+                # bgasObj.middleName =candidate.middleName
+                # bgasObj.twiCandidateID = request.POST['canID']
+                # bgasObj.VerifierName = request.POST['verifierName']
+                # bgasObj.VerifierCompany = request.POST['verifierCompany']
+                # bgasObj.VerifierPosition = request.POST['verifierPosition']
+                # bgasObj.VerifierTelephone = request.POST['verifierTel']
+                # bgasObj.VerifierEmail = request.POST['verifiermail']
+                # bgasObj.VerifierDate = datetime.datetime.strptime(request.POST['verifierDate'], '%m/%d/%Y')
+                # bgasObj.PreCertificationExperience = request.POST['PreCertificationExperience']
+                #
+                # bgasObj.save()
+
+                return redirect('forms:allenrolmentform_')
+
+
+            elif 'selector' in request.POST:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                print(canID)
+                print(eventID)
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                print(candidate.first_name)
+                event = Event.objects.filter(id=eventID).first()
+                self.candidateID = candidate.id
+                twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
+                context = super(BGASExperienceForm, self).get_context_data()
+                context['candidate'] = candidate
+                context['event'] = event
+                context['twiEnrolmentForm'] = twiEnrolmentForm
+
+                # return redirect('forms:jaegertofdl2_' ,context)
+                return render(request, 'forms/reg_forms/BGAS_experience_form.html', context)
+
+
 class AllFormsList(TemplateView):
     template_name = "forms/all_forms_view.html"
 

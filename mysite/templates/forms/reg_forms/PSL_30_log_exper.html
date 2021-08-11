@@ -1,0 +1,385 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+.drop-zone {
+  max-width: 100%%;
+  height: 300px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  color: #cccccc;
+  border: 4px dashed #009578;
+  border-radius: 10px;
+}
+
+.drop-zone--over {
+  border-style: solid;
+}
+
+.drop-zone__input {
+  display: none;
+}
+
+.drop-zone__thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #cccccc;
+  background-size: cover;
+  position: relative;
+}
+
+.drop-zone__thumb::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  text-align: center;
+}
+span.cls_002{font-family:"Liberation Sans Narrow Bold Italic",serif;font-size:15.6px;color:rgb(0,0,0);font-weight:bold;font-style:italic;text-decoration: none}
+div.cls_002{font-family:"Liberation Sans Narrow Bold Italic",serif;font-size:15.6px;color:rgb(0,0,0);font-weight:bold;font-style:italic;text-decoration: none}
+span.cls_003{font-family:"Liberation Sans Narrow Bold Italic",serif;font-size:9.6px;color:rgb(0,0,0);font-weight:bold;font-style:italic;text-decoration: none}
+div.cls_003{font-family:"Liberation Sans Narrow Bold Italic",serif;font-size:9.6px;color:rgb(0,0,0);font-weight:bold;font-style:italic;text-decoration: none}
+span.cls_004{font-family:"Liberation Sans Narrow Bold",serif;font-size:9.6px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_004{font-family:"Liberation Sans Narrow Bold",serif;font-size:9.6px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_005{font-family:"Liberation Sans Narrow",serif;font-size:7.5px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_005{font-family:"Liberation Sans Narrow",serif;font-size:7.5px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_006{font-family:"Liberation Sans Narrow Bold",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_006{font-family:"Liberation Sans Narrow Bold",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_007{font-family:"Liberation Sans Narrow Bold",serif;font-size:7.5px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_007{font-family:"Liberation Sans Narrow Bold",serif;font-size:7.5px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_008{font-family:"Liberation Sans Narrow Bold",serif;font-size:8.6px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_008{font-family:"Liberation Sans Narrow Bold",serif;font-size:8.6px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_009{font-family:"Liberation Sans Narrow",serif;font-size:8.6px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_009{font-family:"Liberation Sans Narrow",serif;font-size:8.6px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+
+
+.BUTTON_MZQ {
+   background: #3D94F6;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 5px 15px;
+   margin:20px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+
+.BUTTON_MZQ:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+}
+
+.aLink {
+   background:#337FED ;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 16px 15px;
+   margin:5px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+.aLink:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+   color:white;
+}
+</style>
+<!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                 
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">PSL-30 Log Of Experience</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form name="selector" method="POST"  >
+{% csrf_token %}
+<div class="row g-2">
+<div class="mb-3 col-md-6">
+                                                    <label for="inputState" class="form-label">Candidate</label>
+                                                    <select name="canID" id="inputState" class="form-select" >
+    <option value="{{candidate.id}} ">{{candidate.first_name}}  {{candidate.middleName}}   {{candidate.last_name}}</option>
+                        {% for item in candidates %}
+                            <option value="{{item.id}}">{{item.first_name}}  {{item.middleName}}  {{item.last_name}}</option>
+                        {% endfor %}
+
+                                                    </select>
+ </div>
+
+
+<div class="mb-3 col-md-6">
+                                                    <label for="inputState" class="form-label">Event</label>
+                                                    <select name="eventID" id="inputState" class="form-select" >
+                                                <option value="">{{event.name}}  </option>
+                                    {% for item in events %}
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                    {% endfor %}
+
+                                                    </select>
+ </div>
+ </div>
+
+                          <div class="mb-3 col-md-12 text-center">
+                                <button class="BUTTON_MZQ" type="submit">Generate</button>
+                                                    </div>
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+                                      
+                                        <div class="tab-content">
+                                        <form method="POST" name="mainForm" enctype="multipart/form-data">
+                                        {%  csrf_token %}
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<input type="hidden" value="{{id}}"  name="formID" />                                
+
+<div style=" transform: scale(1.3); position:relative;left:50%;margin-left:-306px;top:0px;width:612px;height:828px;border-style:outset;overflow:hidden">
+<div style="position:relative;left:0px;top:0px">
+<img src="{% static 'images/bgasbackground1.png' %}" width=612 height=828></div>
+<div style="position:absolute;left:29.10px;top:14.20px" class="cls_002"><span class="cls_002">BGAS EXPERIENCE DOCUMENT</span></div>
+<div style="position:absolute;left:29.10px;top:43.90px" class="cls_003"><span class="cls_003">Please return to:</span></div>
+<div style="position:absolute;left:129.10px;top:43.90px" class="cls_004"><span class="cls_004">TWI Training and Examination Services</span></div>
+<div style="position:absolute;left:29.10px;top:62.00px" class="cls_005"><span class="cls_005">Customer Services</span></div>
+<div style="position:absolute;left:245.10px;top:62.00px" class="cls_005"><span class="cls_005">Customer Services</span></div>
+<div style="position:absolute;left:29.10px;top:70.60px" class="cls_005"><span class="cls_005">Granta Park</span></div>
+<div style="position:absolute;left:245.10px;top:70.60px" class="cls_005"><span class="cls_005">Aurora Court, Barton Road</span></div>
+<div style="position:absolute;left:29.10px;top:79.30px" class="cls_005"><span class="cls_005">Great Abington</span></div>
+<div style="position:absolute;left:245.10px;top:79.30px" class="cls_005"><span class="cls_005">Riverside</span></div>
+<div style="position:absolute;left:29.10px;top:87.90px" class="cls_005"><span class="cls_005">Cambridge CB21 6AL</span></div>
+<div style="position:absolute;left:200.10px;top:87.80px" class="cls_004"><span class="cls_004">OR</span></div>
+<div style="position:absolute;left:245.10px;top:87.90px" class="cls_005"><span class="cls_005">Middlesbrough TS2 1RY</span></div>
+<div style="position:absolute;left:29.10px;top:96.50px" class="cls_005"><span class="cls_005">Tel: 01223 899500</span></div>
+<div style="position:absolute;left:245.10px;top:96.50px" class="cls_005"><span class="cls_005">Tel: 01642 210512</span></div>
+<div style="position:absolute;left:29.10px;top:105.10px" class="cls_005"><span class="cls_005">Email: trainexam@twi.co.uk</span></div>
+<div style="position:absolute;left:245.10px;top:105.10px" class="cls_005"><span class="cls_005">Email: twinorth@twi.co.uk</span></div>
+<div style="position:absolute;left:22.10px;top:140.80px" class="cls_006"><span class="cls_006">Candidate Name: <input type="text" value="{{candidate.first_name}} {{candidate.middleName}} {{candidate.last_name}}  " name="canName" style="border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:337.10px;top:140.80px" class="cls_006"><span class="cls_006">Candidate ID: <input type="text" value="{{twiEnrolmentForm.twiCandidateID}}"  name="canID" style="border: none; background: transparent;" /></span></div>
+<div style="position:absolute;left:23.10px;top:174.30px" class="cls_007"><span class="cls_007">If company sponsored please supply details of your sponsor.</span></div>
+<div style="position:absolute;left:24.10px;top:197.50px" class="cls_005"><span class="cls_005">Company Name  <input type="text" value=""  name="canID" style="margin-left:60px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:24.10px;top:215.50px" class="cls_005"><span class="cls_005">Contact <input type="text" value="{{twiEnrolmentForm.sponsorContactName}}"  name="sponContact" style="margin-left:80px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:26.10px;top:242.40px" class="cls_005"><span class="cls_005">Company Address <input type="text" value="{{twiEnrolmentForm.correspondenceAddress}}"  name="sponContact" style="margin-left:50px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:34.10px;top:300.90px" class="cls_007"><span class="cls_007">Pre-certification experience</span></div>
+<div style="position:absolute;left:34.10px;top:310.10px" class="cls_005"><span class="cls_005">Please list your </span><span class="cls_007">specific experience and duration</span><span class="cls_005"> as required by the scheme documentation, this is not a pre-requisite for examination, however certification</span></div>
+<div style="position:absolute;left:34.10px;top:318.70px" class="cls_005"><span class="cls_005">will not be awarded until the experience is gained and evidence provided. This experience must be verified by your employer or a recent major client.</span></div>
+<textarea style="position:absolute;left:34.10px;top:338.70px;width:85%; height:100px; border: none; background: transparent;"  name="PreCertificationExperience" ></textarea>
+<div style="position:absolute;left:37.10px;top:452.30px;" class="cls_007"><span class="cls_007">Claimed duration of experience in applying the BGAS method under qualified supervision enter number of months or weeks:</span></div>
+<div style="position:absolute;left:38.10px;top:482.80px;" class="cls_008"><span class="cls_008">Verifier</span></div>
+<div style="position:absolute;left:42.10px;top:502.40px; " class="cls_009"><span class="cls_009">Name (in capitals): <input type="text" value=""  name="verifierName" style="margin-left:0px; width:150px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:42.10px;top:518.00px; " class="cls_009"><span class="cls_009">Company: <input type="text" value=""  name="verifierCompany" style="margin-left:0px; width:150px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:42.10px;top:533.70px; " class="cls_009"><span class="cls_009">Position:<input type="text" value=""  name="verifierPosition" style="margin-left:0px; width:150px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:42.10px;top:550.70px; " class="cls_009"><span class="cls_009">Tel No:<input type="text" value=""  name="verifierTel" style="margin-left:0px; width:150px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:42.10px;top:568.30px; " class="cls_009"><span class="cls_009">Email Address:<input type="email" value=""  name="verifiermail" style="margin-left:0px; width:150px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:42.10px;top:583.30px; " class="cls_009"><span class="cls_009">Date:<input type="text" value=""  name="verifierDate" style="margin-left:0px; width:150px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:442.10px;top:602.10px" class="cls_005"><span class="cls_005">Authenticated Company Stamp</span></div>
+<div style="position:absolute;left:40.10px;top:602.20px" class="cls_007"><span class="cls_007">To the best of my belief, the candidate’s statement is correct at the time of signing</span></div>
+<div style="position:absolute;left:40.99px;top:620.70px" class="cls_008"><span class="cls_008">Verifying Signature (employer or equivalent):</span></div>
+<div style="position:absolute;left:34.10px;top:673.90px" class="cls_007"><span class="cls_007">CANDIDATE - PLEASE NOTE</span></div>
+<div style="position:absolute;left:34.10px;top:683.70px" class="cls_007"><span class="cls_007">Terms and conditions of your online booking apply.</span></div>
+<div style="position:absolute;left:34.10px;top:705.20px" class="cls_007"><span class="cls_007">I understand that any false statement may result in the examination being invalidated.</span></div>
+<div style="position:absolute;left:38.29px;top:730.50px" class="cls_004"><span class="cls_004">CANDIDATE SIGNATURE:</span></div>
+
+
+    <br>
+    <br>
+    <br>
+<div class="col-md-12 text-center" style="position:absolute;bottom:0px;">
+                 <button class="BUTTON_MZQ" type="submit">Submit</button>
+             </div>
+</div>
+
+
+
+
+                                     </form>   
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+                                            <br>
+                                        </div> <!-- end tab-content-->
+                                    </div>
+                                    <!-- end card-body -->
+                                </div>
+                                <!-- end card-->
+                            </div>
+                            <!-- end col-->
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+        <!-- bundle -->
+        <script src="{% static 'assets/js/vendor.min.js' %}"></script>
+        <script src="{% static 'assets/js/app.min.js' %}"></script>
+
+<script>
+document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+  const dropZoneElement = inputElement.closest(".drop-zone");
+
+  dropZoneElement.addEventListener("click", (e) => {
+    inputElement.click();
+  });
+
+  inputElement.addEventListener("change", (e) => {
+    if (inputElement.files.length) {
+      updateThumbnail(dropZoneElement, inputElement.files[0]);
+    }
+  });
+
+  dropZoneElement.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZoneElement.classList.add("drop-zone--over");
+  });
+
+  ["dragleave", "dragend"].forEach((type) => {
+    dropZoneElement.addEventListener(type, (e) => {
+      dropZoneElement.classList.remove("drop-zone--over");
+    });
+  });
+
+  dropZoneElement.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    if (e.dataTransfer.files.length) {
+      inputElement.files = e.dataTransfer.files;
+      updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+    }
+
+    dropZoneElement.classList.remove("drop-zone--over");
+  });
+});
+
+/**
+ * Updates the thumbnail on a drop zone element.
+ *
+ * @param {HTMLElement} dropZoneElement
+ * @param {File} file
+ */
+function updateThumbnail(dropZoneElement, file) {
+  let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+  // First time - remove the prompt
+  if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+    dropZoneElement.querySelector(".drop-zone__prompt").remove();
+  }
+
+  // First time - there is no thumbnail element, so lets create it
+  if (!thumbnailElement) {
+    thumbnailElement = document.createElement("div");
+    thumbnailElement.classList.add("drop-zone__thumb");
+    dropZoneElement.appendChild(thumbnailElement);
+  }
+
+  thumbnailElement.dataset.label = file.name;
+
+  // Show thumbnail for image files
+  if (file.type.startsWith("image/")) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+    };
+  } else {
+    thumbnailElement.style.backgroundImage = null;
+  }
+}
+</script>
+
+                {% endblock %}
