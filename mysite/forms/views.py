@@ -403,7 +403,7 @@ class TwiEnrolmentReg(TemplateView):
                 obj = TwiEnrolmentForm()
                 # obj.eventID = eventID
                 obj.candidate = candidate
-                obj.twiCandidateID = request.POST['form1_1']
+                # obj.twiCandidateID = request.POST['form1_1']
                 obj.eventName = request.POST['form2_1']
                 # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')
                 obj.firstName = request.POST['form4_1']
@@ -729,14 +729,21 @@ class PSL30LogExperienceForm(TemplateView):
                 # eventID = request.POST['eventID']
                 print("Form")
                 candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
                 pslObj = PSL30LogExp()
                 pslObj.candidate =candidate
-                pslObj.eventID =eventID
-                pslObj.fullname =request.POST['canName']
-                pslObj.fullname =request.POST['canName']
+                pslObj.event =event
+                pslObj.fullName =request.POST['canName']
                 pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
                 pslObj.dateTo = datetime.datetime.strptime(request.POST['dateTo'], '%m/%d/%Y')
                 pslObj.ndtMethod =request.POST['NDTmethod']
+                pslObj.totalHours =request.POST['totalHours']
+                pslObj.employingOrganisation =request.POST['employingOrganisation']
+                pslObj.reviewerName =request.POST['reviewerName']
+                pslObj.reviewerDate =datetime.datetime.strptime(request.POST['reviewerDate'], '%m/%d/%Y')
+                pslObj.finalEmployerDeclarationName =request.POST['finalEmployerDeclarationName']
+                pslObj.dateCandidateDeclaration =datetime.datetime.strptime(request.POST['dateCandidateDeclaration'], '%m/%d/%Y')
+
 
                 pslObj.save()
 

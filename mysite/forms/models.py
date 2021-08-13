@@ -163,17 +163,16 @@ class General(models.Model):
 
 class PSL30LogExp(models.Model):
 
-    eventID = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="osl_event", on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate,related_name="psl_candidate", on_delete=models.CASCADE)
-    fullname = models.CharField(max_length=1024, null=True, blank=True )
+    fullName = models.CharField(max_length=1024, null=True, blank=True )
     pslNumber = models.CharField(max_length=1024, null=True, blank=True )
     ndtMethod = models.CharField(max_length=1024, null=True, blank=True )
     employingOrganisation = models.CharField(max_length=1024, null=True, blank=True )
     reviewerName = models.CharField(max_length=1024, null=True, blank=True )
     finalEmployerDeclarationName = models.CharField(max_length=1024, null=True, blank=True )
-    dateCandidateDeclaration = models.CharField(max_length=1024, null=True, blank=True )
-    reviewerDate = models.CharField(max_length=1024, null=True, blank=True )
-    reviewerDate = models.CharField(max_length=1024, null=True, blank=True )
+    dateCandidateDeclaration = models.DateField( null=True, blank=True )
+    reviewerDate = models.DateField( null=True, blank=True )
     dateFrom = models.DateField( null=True, blank=True )
     dateTo = models.DateField( null=True, blank=True )
 
@@ -181,4 +180,4 @@ class PSL30LogExp(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.lastName
+        return self.fullName

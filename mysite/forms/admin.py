@@ -29,8 +29,8 @@ admin.site.register(Forms,FormsAdmin)
 
 class PSL30LogExpAdmin(admin.ModelAdmin):
 
-    list_display = ['id','fullname','ndtMethod','eventID','created_at','updated_at']
-    list_filter =['id','fullname','ndtMethod','created_at','updated_at']
+    list_display = ['id','fullName','ndtMethod','event','created_at','updated_at']
+    list_filter =['id','fullName','ndtMethod','created_at','updated_at']
 
 admin.site.register(PSL30LogExp,PSL30LogExpAdmin)
 

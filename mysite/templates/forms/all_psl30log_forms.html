@@ -39,23 +39,29 @@
             
             <th >ID</th>
             <th  >Name</th>
-            <th  >Table</th>
-            
-            
-      
-            <th></th>
-            <th></th>
+            <th  >Event</th>
+            <th  ></th>
+            <th  ></th>
+            <th  ></th>
+
+
+
         </tr>
     </thead>
 
 
     <tbody>
-        {% for item in forms %}
+        {% for item in pslForms %}
         <tr>
             
            
            
             <td><p  >{{item.id}} </p></td>
+            <td><p  >{{item.fullName}} </p></td>
+            <td><p  >{{item.event}} </p></td>
+            <td><a  href=""><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href=""><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px; " href=""    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
 
            
  
