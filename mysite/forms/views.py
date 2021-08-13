@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm
+from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp
 from django.db.models import Count
 from classes.db import FormDb
 from training.models import FormsList, TesCandidate,Event,Category
@@ -725,35 +725,30 @@ class PSL30LogExperienceForm(TemplateView):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 canID = request.POST['canID']
+                eventID = request.POST['eventID']
                 # eventID = request.POST['eventID']
                 print("Form")
-                # candidate = TesCandidate.objects.filter(id=canID).first()
-                # # event = Event.objects.filter(id=eventID).first()
-                # bgasObj = BGAsExperienceForm()
-                # bgasObj.candidate =candidate
-                # # bgasObj.evenID =event.id
-                # bgasObj.firstName =candidate.first_name
-                # bgasObj.lastName =candidate.last_name
-                # bgasObj.middleName =candidate.middleName
-                # bgasObj.twiCandidateID = request.POST['canID']
-                # bgasObj.VerifierName = request.POST['verifierName']
-                # bgasObj.VerifierCompany = request.POST['verifierCompany']
-                # bgasObj.VerifierPosition = request.POST['verifierPosition']
-                # bgasObj.VerifierTelephone = request.POST['verifierTel']
-                # bgasObj.VerifierEmail = request.POST['verifiermail']
-                # bgasObj.VerifierDate = datetime.datetime.strptime(request.POST['verifierDate'], '%m/%d/%Y')
-                # bgasObj.PreCertificationExperience = request.POST['PreCertificationExperience']
-                #
-                # bgasObj.save()
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                pslObj = PSL30LogExp()
+                pslObj.candidate =candidate
+                pslObj.eventID =eventID
+                pslObj.fullname =request.POST['canName']
+                pslObj.fullname =request.POST['canName']
+                pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
+                pslObj.dateTo = datetime.datetime.strptime(request.POST['dateTo'], '%m/%d/%Y')
+                pslObj.ndtMethod =request.POST['NDTmethod']
 
-                return redirect('forms:allenrolmentform_')
+                pslObj.save()
+
+                return redirect('forms:allpslform_')
 
 
-            elif 'selector' in request.POST:
+            else :
                 print('Here')
-                # if request.FILES.get('file', False):
+                context = super(PSL30LogExperienceForm, self).get_context_data()
                 canID = request.POST['canID']
                 eventID = request.POST['eventID']
+
                 print(canID)
                 print(eventID)
 
@@ -762,14 +757,28 @@ class PSL30LogExperienceForm(TemplateView):
                 event = Event.objects.filter(id=eventID).first()
                 self.candidateID = candidate.id
                 twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
-                context = super(BGASExperienceForm, self).get_context_data()
+
                 context['candidate'] = candidate
                 context['event'] = event
                 context['twiEnrolmentForm'] = twiEnrolmentForm
 
                 # return redirect('forms:jaegertofdl2_' ,context)
-                return render(request, 'forms/reg_forms/BGAS_experience_form.html', context)
+                return render(request, 'forms/reg_forms/PSL_30_log_exper.html', context)
 
+
+class AllPSL30LogForm(TemplateView):
+    template_name = "forms/all_psl30log_forms.html"
+
+    def get_context_data(self):
+        context = super(AllPSL30LogForm, self).get_context_data()
+        pslForms = PSL30LogExp.objects.all()
+        for g in self.request.user.groups.all():
+            if  g.name == 'super_admin' or g.name=='training_admin':
+                adminStatus=True
+        context['adminStatus'] = adminStatus
+        context['pslForms'] = pslForms
+
+        return context
 
 class AllFormsList(TemplateView):
     template_name = "forms/all_forms_view.html"

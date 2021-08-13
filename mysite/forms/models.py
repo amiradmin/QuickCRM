@@ -160,3 +160,25 @@ class General(models.Model):
 
     # def __str__(self):
     #     return self.name
+
+class PSL30LogExp(models.Model):
+
+    eventID = models.CharField(max_length=256, null=True, blank=True )
+    candidate = models.ForeignKey(TesCandidate,related_name="psl_candidate", on_delete=models.CASCADE)
+    fullname = models.CharField(max_length=1024, null=True, blank=True )
+    pslNumber = models.CharField(max_length=1024, null=True, blank=True )
+    ndtMethod = models.CharField(max_length=1024, null=True, blank=True )
+    employingOrganisation = models.CharField(max_length=1024, null=True, blank=True )
+    reviewerName = models.CharField(max_length=1024, null=True, blank=True )
+    finalEmployerDeclarationName = models.CharField(max_length=1024, null=True, blank=True )
+    dateCandidateDeclaration = models.CharField(max_length=1024, null=True, blank=True )
+    reviewerDate = models.CharField(max_length=1024, null=True, blank=True )
+    reviewerDate = models.CharField(max_length=1024, null=True, blank=True )
+    dateFrom = models.DateField( null=True, blank=True )
+    dateTo = models.DateField( null=True, blank=True )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.lastName

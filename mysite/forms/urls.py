@@ -21,7 +21,8 @@ urlpatterns = [
     path('uploadform/<int:id>', views.UploadForm.as_view(), name='uploadform_'),
     path('formbyid/<int:id>', views.ViewFormByID.as_view(), name='formbyid_'),
     path('formbyformid/<int:id>', views.ViewFormByFormID.as_view(), name='formbyformid_'),
-    
+    path('allpslform/', views.AllPSL30LogForm.as_view(), name='allpslform_'),
+
     path('jaegertofdl2/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
     path('psl30log/', views.PSL30LogExperienceForm.as_view(), name='psl30log_'),
