@@ -767,7 +767,7 @@ class TwiEnrolmentReg(TemplateView):
                 msg['Subject'] = 'Tescan Registration Dept.'
                 msg['From'] = fromEmail
                 msg['To'] = toEmail
-                msg['Cc'] = 'nima.vakilotojjar@tescan.ca'
+                msg['Cc'] = 'customersupportdesk@tescan.ca'
 
                 s = smtplib.SMTP('mail.tescan.ca', 26)
                 s.starttls()
@@ -808,16 +808,35 @@ class TwiEnrolmentReg(TemplateView):
 
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/reg_forms/twi_enrolment.html', context)
+
 class AllEnrolmentForm(TemplateView):
     template_name = "forms/all_forms_enrolment.html"
 
     def get_context_data(self):
         context = super(AllEnrolmentForm, self).get_context_data()
         forms = TwiEnrolmentForm.objects.all()
+        adminStatus = False
+        for g in self.request.user.groups.all():
+            if  g.name == 'super_admin' or g.name=='training_admin':
+                adminStatus=True
+        context['adminStatus'] = adminStatus
         context['forms'] = forms
         return context   
     
-        
+class AllBGASForm(TemplateView):
+    template_name = "forms/all_bgas_form.html"
+
+    def get_context_data(self):
+        context = super(AllBGASForm, self).get_context_data()
+        forms = BGAsExperienceForm.objects.all()
+        adminStatus = False
+        for g in self.request.user.groups.all():
+            if  g.name == 'super_admin' or g.name=='training_admin':
+                adminStatus=True
+        context['adminStatus'] = adminStatus
+        context['forms'] = forms
+        return context
+
 class NewForm(TemplateView):
     template_name = "forms/new_form.html"
 
@@ -901,26 +920,33 @@ class BGASExperienceForm(TemplateView):
                 canID = request.POST['canID']
                 # eventID = request.POST['eventID']
                 print("Form")
-                # candidate = TesCandidate.objects.filter(id=canID).first()
-                # # event = Event.objects.filter(id=eventID).first()
-                # bgasObj = BGAsExperienceForm()
-                # bgasObj.candidate =candidate
-                # # bgasObj.evenID =event.id
-                # bgasObj.firstName =candidate.first_name
-                # bgasObj.lastName =candidate.last_name
-                # bgasObj.middleName =candidate.middleName
+                print(canID)
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                # event = Event.objects.filter(id=eventID).first()
+                bgasObj = BGAsExperienceForm()
+                bgasObj.candidate =candidate
+                # bgasObj.evenID =event.id
+                bgasObj.firstName =candidate.first_name
+                bgasObj.lastName =candidate.last_name
+                bgasObj.middleName =candidate.middleName
                 # bgasObj.twiCandidateID = request.POST['canID']
-                # bgasObj.VerifierName = request.POST['verifierName']
-                # bgasObj.VerifierCompany = request.POST['verifierCompany']
-                # bgasObj.VerifierPosition = request.POST['verifierPosition']
-                # bgasObj.VerifierTelephone = request.POST['verifierTel']
-                # bgasObj.VerifierEmail = request.POST['verifiermail']
-                # bgasObj.VerifierDate = datetime.datetime.strptime(request.POST['verifierDate'], '%m/%d/%Y')
-                # bgasObj.PreCertificationExperience = request.POST['PreCertificationExperience']
-                #
-                # bgasObj.save()
+                bgasObj.VerifierName = request.POST['verifierName']
+                bgasObj.VerifierCompany = request.POST['verifierCompany']
+                bgasObj.VerifierPosition = request.POST['verifierPosition']
+                bgasObj.VerifierTelephone = request.POST['verifierTel']
+                bgasObj.VerifierEmail = request.POST['verifiermail']
+                bgasObj.VerifierDate = datetime.datetime.strptime(request.POST['verifierDate'], '%m/%d/%Y')
+                bgasObj.PreCertificationExperience = request.POST['PreCertificationExperience']
 
-                return redirect('forms:allenrolmentform_')
+                bgasObj.save()
+
+                formObj = FormList()
+                formObj.name = "BGAS Experience Form"
+                formObj.candidate = candidate
+
+                formObj.save()
+
+                return redirect('forms:allbgasform_')
 
 
             elif 'selector' in request.POST:

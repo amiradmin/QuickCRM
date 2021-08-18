@@ -13,6 +13,7 @@ urlpatterns = [
     path('all/', views.AllForms.as_view(), name='all_'),
     path('allformlist/', views.AllFormsList.as_view(), name='allformlist_'),
     path('allenrolmentform/', views.AllEnrolmentForm.as_view(), name='allenrolmentform_'),
+    path('allbgasform/', views.AllBGASForm.as_view(), name='allbgasform_'),
     path('alldb/', views.AllFormsFromPostgres.as_view(), name='alldb_'),
     path('viewform/<int:id>', views.ViewForm.as_view(), name='viewform_'),
     path('drawsig/<int:id>', views.sigDrawer.as_view(), name='drawsig_'),

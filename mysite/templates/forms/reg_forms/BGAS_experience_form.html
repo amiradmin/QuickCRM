@@ -83,7 +83,7 @@ div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb
    font-family: Brush Script MT;
    font-size: 20px;
    font-weight: 100;
-   padding: 5px 15px;
+   padding: 3px 15px;
    margin:20px 5px 10px 5px;
    -webkit-box-shadow: 1px 1px 10px 0 #000000;
    -moz-box-shadow: 1px 1px 10px 0 #000000;
@@ -173,7 +173,7 @@ div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form name="selector" method="POST"  >
+                                        <form  method="POST"  >
 {% csrf_token %}
 <div class="row g-2">
 <div class="mb-3 col-md-6">
@@ -201,7 +201,7 @@ div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb
  </div>
 
                           <div class="mb-3 col-md-12 text-center">
-                                <button class="BUTTON_MZQ" type="submit">Generate</button>
+                                <button class="BUTTON_MZQ" name="selector" type="submit">Generate</button>
                                                     </div>
 
 
@@ -214,7 +214,7 @@ div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb
 </form>
                                       
                                         <div class="tab-content">
-                                        <form method="POST" name="mainForm" enctype="multipart/form-data">
+                                        <form method="POST"  enctype="multipart/form-data">
                                         {%  csrf_token %}
 <br>
 <br>
@@ -244,9 +244,9 @@ div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb
 <div style="position:absolute;left:29.10px;top:105.10px" class="cls_005"><span class="cls_005">Email: trainexam@twi.co.uk</span></div>
 <div style="position:absolute;left:245.10px;top:105.10px" class="cls_005"><span class="cls_005">Email: twinorth@twi.co.uk</span></div>
 <div style="position:absolute;left:22.10px;top:140.80px" class="cls_006"><span class="cls_006">Candidate Name: <input type="text" value="{{candidate.first_name}} {{candidate.middleName}} {{candidate.last_name}}  " name="canName" style="border: none; background: transparent;" / ></span></div>
-<div style="position:absolute;left:337.10px;top:140.80px" class="cls_006"><span class="cls_006">Candidate ID: <input type="text" value="{{twiEnrolmentForm.twiCandidateID}}"  name="canID" style="border: none; background: transparent;" /></span></div>
+<div style="position:absolute;left:337.10px;top:140.80px" class="cls_006"><span class="cls_006">Candidate ID: <input type="text" value="{{candidate.id}}"  name="canID" style="border: none; background: transparent;" /></span></div>
 <div style="position:absolute;left:23.10px;top:174.30px" class="cls_007"><span class="cls_007">If company sponsored please supply details of your sponsor.</span></div>
-<div style="position:absolute;left:24.10px;top:197.50px" class="cls_005"><span class="cls_005">Company Name  <input type="text" value=""  name="canID" style="margin-left:60px; border: none; background: transparent;" / ></span></div>
+<div style="position:absolute;left:24.10px;top:197.50px" class="cls_005"><span class="cls_005">Company Name  <input type="text" value=""  name="companyName" style="margin-left:60px; border: none; background: transparent;" / ></span></div>
 <div style="position:absolute;left:24.10px;top:215.50px" class="cls_005"><span class="cls_005">Contact <input type="text" value="{{twiEnrolmentForm.sponsorContactName}}"  name="sponContact" style="margin-left:80px; border: none; background: transparent;" / ></span></div>
 <div style="position:absolute;left:26.10px;top:242.40px" class="cls_005"><span class="cls_005">Company Address <input type="text" value="{{twiEnrolmentForm.correspondenceAddress}}"  name="sponContact" style="margin-left:50px; border: none; background: transparent;" / ></span></div>
 <div style="position:absolute;left:34.10px;top:300.90px" class="cls_007"><span class="cls_007">Pre-certification experience</span></div>
@@ -273,8 +273,11 @@ div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb
     <br>
     <br>
     <br>
-<div class="col-md-12 text-center" style="position:absolute;bottom:0px;">
-                 <button class="BUTTON_MZQ" type="submit">Submit</button>
+    <br>
+    <br>
+    <br>
+<div class="col-md-12 text-center" style="position:absolute;bottom:-7px; margin-top:0px;">
+                 <button class="BUTTON_MZQ" name="mainForm" type="submit">Submit</button>
              </div>
 </div>
 
