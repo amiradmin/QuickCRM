@@ -1,5 +1,5 @@
 from django.contrib import admin
-from forms.models import Forms,Field,TwiEnrolmentForm,General,PSL30LogExp
+from forms.models import Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList
 
 # Register your models here.
 
@@ -9,6 +9,13 @@ class GeneralAdmin(admin.ModelAdmin):
     list_filter =['id','event','formCategory','created_at','updated_at']
 
 admin.site.register(General,GeneralAdmin)
+
+class FormListAdmin(admin.ModelAdmin):
+
+    list_display = ['id','name','candidate','event','product','status','created_at','updated_at']
+    list_filter =['id','name','candidate','event','product','status','created_at','updated_at']
+
+admin.site.register(FormList,FormListAdmin)
 
 class TwiEnrolmentFormAdmin(admin.ModelAdmin):
     
@@ -26,6 +33,13 @@ class FormsAdmin(admin.ModelAdmin):
     list_filter =['id','name','dbName','created_at','updated_at']
 
 admin.site.register(Forms,FormsAdmin)
+
+class NdtTechniqueAdmin(admin.ModelAdmin):
+
+    list_display = ['id','candidate','techniqueCode','employerComponent','created_at','updated_at']
+    list_filter =['id','candidate','techniqueCode','employerComponent','created_at','updated_at']
+
+admin.site.register(NdtTechnique,NdtTechniqueAdmin)
 
 class PSL30LogExpAdmin(admin.ModelAdmin):
 

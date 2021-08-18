@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
-from forms.models import General
+from forms.models import General,FormList
 import datetime
 import json
 from django.http import JsonResponse
@@ -18,9 +18,39 @@ class CandidatelListView(TemplateView):
     def get_context_data(self):
         context = super(CandidatelListView, self).get_context_data()
         can_list = TesCandidate.objects.all().order_by("-id")
+        adminStatus = False
+        for g in self.request.user.groups.all():
+            if  g.name == 'super_admin' or g.name=='training_admin':
+                adminStatus=True
         context['can_list'] = can_list
+        context['adminStatus'] = adminStatus
         return context
-    
+
+
+class UserFormMonitor(TemplateView):
+    template_name = "training/user_form_monitor.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UserFormMonitor, self).get_context_data()
+        userID = self.kwargs['id']
+        candidate = TesCandidate.objects.filter(id = userID).first()
+        events = Event.objects.filter(candidate = candidate)
+        formList = FormList.objects.filter(candidate = candidate)
+
+        print(candidate.id)
+
+        adminStatus = False
+        for g in self.request.user.groups.all():
+            if g.name == 'super_admin' or g.name == 'training_admin':
+                adminStatus = True
+
+        context['adminStatus'] = adminStatus
+        context['candidate'] = candidate
+        context['events'] = events
+        context['formList'] = formList
+        return context
+
+
 class NewCandidatelView(TemplateView):
     template_name = "training/new_candidate.html"
 

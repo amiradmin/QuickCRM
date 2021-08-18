@@ -199,7 +199,7 @@ th, td {
 
 
 
-#page_7 {position:relative; overflow: hidden;padding: 10px 0px;width: 1000px;border: 1px solid;margin:40px auto;}
+#page_7 {position:relative; overflow: hidden;padding: 10px 0px;width: 1000px;border: 1px solid;margin:40px auto; margin-top:30px;background-image:url("{% static 'images/page7_back.png'%}");background-repeat: no-repeat;background-position: bottom 398Px left 0px;}
 #page_7 #id7_1 {margin: 0px 0px 0px 2px;padding: 0px;width: 1000px;overflow: hidden;}
 #page_7 #id7_2 {margin: 7px 0px 0px 9px;padding: 0px;width: 985px;overflow: hidden;}
 #page_7 #id7_2 #id7_2_1 {float:left;margin: 0px 0px 0px 0px;padding: 0px;width: 101px;overflow: hidden;}
@@ -211,13 +211,17 @@ th, td {
 #page_7 #id7_3 #id7_3_4 {float:left;margin: 0px 0px 0px 30px;padding: 0px;width: 116px;overflow: hidden;}
 #page_7 #id7_3 #id7_3_5 {float:left;margin: 1px 0px 0px 0px;padding: 0px;width: 272px;overflow: hidden;}
 #page_7 #id7_4 {border:none;margin: 353px 0px 0px 0px;padding: 0px;border:none;width: 677px;overflow: hidden;}
+#page_7 #id7_44 {border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 1000px;overflow: hidden;}
 
 #page_7 #p7dimg1 {position:absolute;top:130px;left:2px;opacity:30%}
 #page_7 #p7dimg1 #p7img1 {width:1000px;height:567px;}
 
 
+input {
+<!--    background-color: transparent;-->
+    border: border: 0px solid;
 
-
+}
 #page_8 {position:relative; overflow: hidden;padding: 10px 0px;border: none;width: 1000px;border: 1px solid;margin:40px auto;}
 #page_8 #id8_1 {border:none;margin: 0px 0px 0px 0px;padding: 0px;border:none;width: 1000px;overflow: hidden;}
 #page_8 #id8_2 {border:none;margin: 508px 0px 0px 7px;padding: 0px;border:none;width: 908px;overflow: hidden;}
@@ -500,7 +504,7 @@ th, td {
 .td115{border-left: #000000 1px solid;padding: 0px;margin: 0px;width: 6px;vertical-align: bottom;}
 .td116{padding: 0px;margin: 0px;width: 12px;vertical-align: bottom;}
 .td117{padding: 0px;margin: 0px;width: 218px;vertical-align: bottom;}
-.td118{padding: 0px;margin: 0px;width: 165px;vertical-align: bottom;}
+.td118{padding: 0px;margin: 0px;width: 0px;vertical-align: bottom;}
 .td119{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 77px;vertical-align: bottom;}
 .td120{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 131px;vertical-align: bottom;}
 .td121{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 183px;vertical-align: bottom;}
@@ -1273,10 +1277,9 @@ th, td {
 	<TD class="tr17 td93"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD colspan=8 class="tr17 td99"><P class="p15 ft41"><SPAN class="ft13">Inclusive dates where experience was gained, please Insert dates: </SPAN>Date from:<input style="width:60px;background: transparent;	border: none;" type="text" name="dateFrom"/> Date to:<input style="width:60px;background: transparent;	border: none;" type="text" name="dateTo"/>NDT Method<input style="width:60px;background: transparent;	border: none;" type="text" name="NDTmethod"/></P></TD>
 	<TD class="tr17 td55"><input type="text"  style="" name="employingOrganisation" /></TD>
-	<TD class="tr17 td100"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr17 td101"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr17 td102"><P class="p15 ft10">&nbsp;</P></TD>
-</TR>
+	<TD class="tr17 td100"><P class="p15 ft10" style="width:2px;"></P></TD>
+	<TD class="tr17 td101"><P class="p15 ft10" style="width:2px;"></P></TD>
+	<TD class="tr17 td102"><P class="p15 ft10" style="width:2px;"></P></TD>
 <TR>
 	<TD class="tr8 td93"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD colspan=5 class="tr8 td94"><P class="p15 ft15">Total hours claimed for the above inclusive time period:</P></TD>
@@ -1305,14 +1308,14 @@ th, td {
 </TR>
 <TR>
 	<TD class="tr21 td115"></TD>
-	<TD class="tr21 td57"><input type="text" style="" name="totalHours" /></TD>
-	<TD class="tr21 td116"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr21 td117"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr21 td118"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr21 td59"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr21 td52"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr21 td53"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr21 td119"><P class="p15 ft10">&nbsp;</P></TD>
+	<TD class="tr21 td57" style="width:100%;"><input type="text" style="width:100%;height:100%;" name="totalHours" /></TD>
+	<TD class="tr21 " style="border: 1px solid;width:5px;padding:0; margin:0;background-color:yellow;"></TD>
+	<TD class="" style=" width:0;padding:0; margin:0;"></TD>
+	<TD class="" style=" width:0;padding:0; margin:0;"></TD>
+	<TD class=""  style=width:0;padding:0; margin:0;"></TD>
+	<TD class=""  style="width:0;padding:0; margin:0;"></TD>
+	<TD class=""  style="width:0;padding:0; margin:0;"> </TD>
+	<TD class="tr21 td119" style="width:0; padding:0; margin:0; " ></TD>
 	<TD colspan=2 class="tr21 td120"><P class="p19 ft14">Reviewer (Appropriately</P></TD>
 	<TD colspan=2 class="tr21 td121"><input type="text"  style="" name="reviewerName" /></TD>
 </TR>
@@ -1489,7 +1492,7 @@ th, td {
 											 <br>
 <DIV id="page_7">
 <DIV id="p7dimg1">
-<IMG src="{% static 'images/page7_back.png'%}" id="p7img1"></DIV>
+</DIV>
 
 
 <DIV id="id7_1">
@@ -1501,13 +1504,13 @@ th, td {
 </TR>
 <TR>
 	<TD class="tr27 td139"><P class="p25 ft1">Candidate's name:</P></TD>
-	<TD colspan=2 class="tr27 td140"><P class="p84 ft1">_____________________________________________________</P></TD>
-	<TD class="tr27 td138"><P class="p15 ft1">PCN number (if known): ___________________________________</P></TD>
+	<TD colspan=2 class="tr27 td140"><P class="p84 ft1"><input style="width:100%;background: transparent;	border: none;" value="{{candidate.first_name}} {{candidate.last_name}}" type="text" name="canName"/> </P></TD>
+	<TD class="tr27 td138"><P class="p15 ft1">PCN number (if known): <input style="width:100%;background: transparent;	border: none;" value="" type="text" name="pslNumber2"/> </P></TD>
 </TR>
 <TR>
 	<TD class="tr28 td139"><P class="p25 ft1">Candidate’s email:</P></TD>
-	<TD colspan=2 class="tr28 td140"><P class="p84 ft1">_____________________________________________________</P></TD>
-	<TD class="tr28 td138"><P class="p15 ft1">Candidate’s contact number: ___________________________________</P></TD>
+	<TD colspan=2 class="tr28 td140"><P class="p84 ft1"><input style="width:100%;background: transparent;	border: none;" value="{{candidate.email}}" type="text" name="canMail2"/></P></TD>
+	<TD class="tr28 td138"><P class="p15 ft1">Candidate’s contact number:<input style="width:100%;background: transparent;	border: none;" value="{{candidate.contact_number}}" type="text" name="canMobile"/>/P></TD>
 </TR>
 <TR>
 	<TD class="tr2 td139"><P class="p15 ft12">&nbsp;</P></TD>
@@ -1523,7 +1526,7 @@ th, td {
 </TR>
 </TABLE>
 </DIV>
-
+	<br>
 <DIV id="id7_2">
 <DIV id="id7_2_1">
 <P class="p85 ft6">NDT METHOD FOR CERTIFICATION</P>
@@ -1533,7 +1536,7 @@ th, td {
 <P class="p87 ft7">Experience in the METHOD for which certification is sought should be entered into the white space below. Details may include, but not be limited to, the candidate’s use of codes, industrial standards, NDT procedures, written NDT instructions and techniques for the testing of the employer’s components / materials / plant or structure.</P>
 </DIV>
 </DIV>
-<DIV id="id7_3">
+<DIV id="id7_3"  >
 <DIV id="id7_3_1">
 <P class="p88 ft53">Candidate: Insert details of NDT technique / code / procedure or standard applied</P>
 </DIV>
@@ -1553,6 +1556,72 @@ th, td {
 <P class="p93 ft1">Insert name and certification No. for each</P>
 <P class="p94 ft1">entry:</P>
 </DIV>
+</DIV>
+<DIV id="id7_44" style="padding:0; margin-left: auto; margin-right: auto;">
+<TABLE cellpadding=10 cellspacing=10 class="t88" style="margin:20px 10px;">
+<TR style="padding: 10px;">
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR0" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;" name="employerComponentR0" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="ndtTaskR0" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="experienceHoursR0" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:220px;height:32px;margin-bottom:8px;" name="experienceConfirmedR0" /></TD>
+</TR>
+<TR style="padding: 10px;">
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR1" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;" name="employerComponentR1" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="ndtTaskR1" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="experienceHoursR1" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:220px;height:32px;margin-bottom:8px;" name="experienceConfirmedR1" /></TD>
+
+</TR>
+<TR style="padding: 10px;">
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR2" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;" name="employerComponentR2" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="ndtTaskR2" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="experienceHoursR2" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:220px;height:32px;margin-bottom:8px;" name="experienceConfirmedR2" /></TD>
+
+</TR>
+<TR style="padding: 10px;">
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR3" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;" name="employerComponentR3" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="ndtTaskR3" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="experienceHoursR3" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:220px;height:32px;margin-bottom:8px;" name="experienceConfirmedR3" /></TD>
+
+</TR>
+<TR style="padding: 10px;">
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR4" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;" name="employerComponentR4" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="ndtTaskR4" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="experienceHoursR4" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:220px;height:32px;margin-bottom:8px;" name="experienceConfirmedR4" /></TD>
+</TR>
+<TR style="padding: 10px;">
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR5" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;" name="employerComponentR5" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="ndtTaskR5" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="experienceHoursR5" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:220px;height:32px;margin-bottom:8px;" name="experienceConfirmedR5" /></TD>
+
+</TR>
+<TR style="padding: 10px;">
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR6" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;" name="employerComponentR6" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="ndtTaskR6" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="experienceHoursR6" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:220px;height:32px;margin-bottom:8px;" name="experienceConfirmedR6" /></TD>
+
+</TR>
+<TR style="padding: 10px;">
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR7" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;" name="employerComponentR7" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="ndtTaskR7" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:110px;height:32px;margin-bottom:8px;" name="experienceHoursR7" /></TD>
+	<TD class="tr3 td13"><input type="text"  style="width:220px;height:32px;margin-bottom:8px;" name="experienceConfirmedR7" /></TD>
+
+</TR>
+</TABLE>
 </DIV>
 <DIV id="id7_4">
 <TABLE cellpadding=0 cellspacing=0 class="t8">

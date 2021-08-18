@@ -1,5 +1,5 @@
 from django.db import models
-from training.models import Category, TesCandidate,Event
+from training.models import Category, TesCandidate,Event,Product
 
 
 
@@ -26,9 +26,20 @@ class Forms(models.Model):
         return self.name
 
 
-    
+class FormList(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True)
+    candidate = models.ForeignKey(TesCandidate, related_name="candidate_form", on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, related_name="event_form", on_delete=models.CASCADE, null=True, blank=True)
+    product = models.ForeignKey(Product, related_name="event_form", on_delete=models.CASCADE, null=True, blank=True)
+    status = models.BooleanField(null=True, blank=True)
 
-    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class TwiEnrolmentForm(models.Model):
     eventID = models.CharField(max_length=256, null=True, blank=True )
     candidate = models.ForeignKey(TesCandidate,related_name="candidate", on_delete=models.CASCADE)
@@ -161,6 +172,22 @@ class General(models.Model):
     # def __str__(self):
     #     return self.name
 
+class NdtTechnique(models.Model):
+
+    candidate = models.ForeignKey(TesCandidate, related_name="ndt_technice_candidate", on_delete=models.CASCADE)
+    techniqueCode = models.CharField(max_length=2048, null=True, blank=True )
+    employerComponent = models.CharField(max_length=2048, null=True, blank=True )
+    ndtTask = models.CharField(max_length=2048, null=True, blank=True )
+    experienceHours = models.CharField(max_length=2048, null=True, blank=True )
+    experienceConfirmed  = models.CharField(max_length=2048, null=True, blank=True )
+
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.techniqueCode
+
 class PSL30LogExp(models.Model):
 
     event = models.ForeignKey(Event, related_name="osl_event", on_delete=models.CASCADE)
@@ -175,6 +202,7 @@ class PSL30LogExp(models.Model):
     reviewerDate = models.DateField( null=True, blank=True )
     dateFrom = models.DateField( null=True, blank=True )
     dateTo = models.DateField( null=True, blank=True )
+    ndtTechnique = models.ManyToManyField('NdtTechnique', null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
