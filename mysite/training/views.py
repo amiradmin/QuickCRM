@@ -37,7 +37,28 @@ class UserFormMonitor(TemplateView):
         events = Event.objects.filter(candidate = candidate)
         formList = FormList.objects.filter(candidate = candidate)
 
-        print(candidate.id)
+        mapFromList = []
+        canFromList = []
+        mainList = []
+        formDict = dict()
+
+
+        for item in events:
+            for item2 in item.formCategory.form.all():
+                mapFromList.append(item2.name)
+
+        for item in formList:
+            canFromList.append(item.name)
+
+        for item in mapFromList:
+            if item in canFromList:
+                mainList.append({'name': item,'status':True})
+            else:
+                mainList.append({'name': item,'status':False})
+
+        print(mapFromList)
+        print(canFromList)
+        print(mainList)
 
         adminStatus = False
         for g in self.request.user.groups.all():
@@ -47,7 +68,8 @@ class UserFormMonitor(TemplateView):
         context['adminStatus'] = adminStatus
         context['candidate'] = candidate
         context['events'] = events
-        context['formList'] = formList
+        context['mainList'] = mainList
+
         return context
 
 

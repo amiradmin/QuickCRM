@@ -531,7 +531,7 @@ class TwiEnrolmentReg(TemplateView):
                 print("Here 3")
 
                 formObj = FormList()
-                formObj.name = "TWI registration Form"
+                formObj.name = "TWI Enrolment Form"
                 formObj.candidate = candidate
                 formObj.save()
 
@@ -941,7 +941,7 @@ class BGASExperienceForm(TemplateView):
                 bgasObj.save()
 
                 formObj = FormList()
-                formObj.name = "BGAS Experience Form"
+                formObj.name = "BGAS_Experience_Form"
                 formObj.candidate = candidate
 
                 formObj.save()
