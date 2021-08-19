@@ -123,8 +123,9 @@ class TesCandidate(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    # def __str__(self):
-    #     return self.name
+    def __str__(self):
+        return str(self.first_name) + str(self.id)
+
 @receiver(post_save, sender=User)
 def update_user_tescandidate(sender, instance, created, **kwargs):
     if created:

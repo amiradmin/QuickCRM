@@ -42,22 +42,35 @@ class UserFormMonitor(TemplateView):
         mainList = []
         formDict = dict()
 
-
-        for item in events:
-            for item2 in item.formCategory.form.all():
-                mapFromList.append(item2.name)
+        finalList = []
 
         for item in formList:
             canFromList.append(item.name)
 
-        for item in mapFromList:
-            if item in canFromList:
-                mainList.append({'name': item,'status':True})
-            else:
-                mainList.append({'name': item,'status':False})
+        for item in events:
+            print(item.name)
+            temooList = []
+            for item2 in item.formCategory.form.all():
+                if item2.name in canFromList:
+                    temooList.append({'name': item2.name,'status':True})
+                else:
+                    temooList.append({'name': item2.name, 'status': False})
+            mainList.append({'event': item.name, 'forms': temooList})
+                # tempDict = {'form':item2.name}
+                # finalList.
 
-        print(mapFromList)
-        print(canFromList)
+
+
+        # for item in mapFromList:
+        #     temooList=[]
+        #     if item in canFromList:
+        #         temooList.append({'name': item,'status':True})
+        #     else:
+        #         mainList.append({'event':'temp', 'name': item,'status':False})
+        #     mainList.append({'event':'temp','forms':temooList})
+
+        # print(mapFromList)
+        # print(canFromList)
         print(mainList)
 
         adminStatus = False

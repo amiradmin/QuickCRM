@@ -137,28 +137,22 @@
 
  <div class="mb-3 col-md-12 ">
 
-<h4>Participated in events:</h4>
-<ul class="tags">
-{% for item in events %}
-    <h4>{{item.name}} </h4>
 
-    {% for item2 in item.formCategory.form.all %}
-
-
-    {% endfor %}
-{% endfor %}
-    </ul>
-</div>
                                         <br>
 
                                         <br>
  <div class="mb-3 col-md-12 ">
-                                        <h4>Forms:</h4>
-<ul class="tags">
+                                        <h4>Events:</h4>
+
 {% for item in mainList %}
- <li><a href="" class="tag"  style="{% if item.status %} background-color:#25e66b;--my-color-var: #25e66b; {% else %} background-color:grey;--my-color-var: grey; {%endif %}" >{{item.name}} </a></li>
-{% endfor %}
+ <h5>{{item.event}}</h5>
+     <ul class="tags">
+    {% for item2 in item.forms %}
+ <li><a href="" class="tag"  style="{% if item2.status %} background-color:#25e66b;--my-color-var: #25e66b; {% else %} background-color:grey;--my-color-var: grey; {%endif %}" >{{item2.name}} </a></li>
+  {% endfor %}
     </ul>
+    {% endfor %}
+
 </div>
                                         <br>
 
