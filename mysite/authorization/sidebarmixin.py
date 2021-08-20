@@ -10,6 +10,6 @@ class SidebarMixin(object):
         for g in self.request.user.groups.all():
             if  g.name == 'super_admin' or g.name=='training_admin':
                 adminStatus=True
-                
+
         context['adminStatus'] = adminStatus
         return context

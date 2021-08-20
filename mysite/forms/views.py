@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList
+from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,PSL30InitialForm
 from django.db.models import Count
 from classes.db import FormDb
 from training.models import FormsList, TesCandidate,Event,Category
@@ -997,14 +997,23 @@ class BGASinitialForm(SidebarMixin,TemplateView):
                 print(eventID)
                 candidate = TesCandidate.objects.filter(id=canID).first()
                 event = Event.objects.filter(id=eventID).first()
+                event.candidate.add(candidate)
+                
+                mainObj =PSL30InitialForm()
+                mainObj.candidate =candidate
+                mainObj.event =event
+                mainObj.cerAddres =request.POST['cerAddres']
 
-                # formObj = FormList()
-                # formObj.name = "BGAS_Experience_Form"
-                # formObj.candidate = candidate
-                #
-                # formObj.save()
+                mainObj.save()
 
-                return redirect('forms:allbgasform_')
+
+                formObj = FormList()
+                formObj.name = "PSL-57A Initial exam application"
+                formObj.candidate = candidate
+                formObj.event = event
+                formObj.save()
+
+                return redirect('forms:allpslinitialform_')
 
 
             elif 'selector' in request.POST:
@@ -1029,6 +1038,15 @@ class BGASinitialForm(SidebarMixin,TemplateView):
                 return render(request, 'forms/reg_forms/PSL-57A_Initial_exam_application.html', context)
 
 
+class AllBGASinitialForms(SidebarMixin,TemplateView):
+    template_name = "forms/all_psl30_inintal_forms.html"
+
+    def get_context_data(self):
+        context = super(AllBGASinitialForms, self).get_context_data()
+        forms = PSL30InitialForm.objects.all()
+
+        context['forms'] = forms
+        return context
 
 class PSL30LogExperienceForm(TemplateView):
     template_name = "forms/reg_forms/PSL_30_log_exper.html"

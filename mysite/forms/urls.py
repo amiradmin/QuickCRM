@@ -23,6 +23,7 @@ urlpatterns = [
     path('formbyid/<int:id>', views.ViewFormByID.as_view(), name='formbyid_'),
     path('formbyformid/<int:id>', views.ViewFormByFormID.as_view(), name='formbyformid_'),
     path('allpslform/', views.AllPSL30LogForm.as_view(), name='allpslform_'),
+    path('allpslinitialform/', views.AllBGASinitialForms.as_view(), name='allpslinitialform_'),
 
     path('jaegertofdl2/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
