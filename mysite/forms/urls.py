@@ -28,6 +28,7 @@ urlpatterns = [
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
     path('psl30log/', views.PSL30LogExperienceForm.as_view(), name='psl30log_'),
     path('bgasexpform/', views.BGASExperienceForm.as_view(), name='bgasexpform_'),
+    path('bgasinitailform/', views.BGASinitialForm.as_view(), name='bgasinitailform_'),
     path('formmap/', views.formMap.as_view(), name='formmap_'),
     path('formmapbyid/<slug:id>', views.FormMapByCatID.as_view(), name='formmapbyid_'),
     path('evensummary/<int:id>', views.EventSummary.as_view(), name='evensummary_'),

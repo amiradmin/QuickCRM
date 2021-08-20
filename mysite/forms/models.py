@@ -209,3 +209,39 @@ class PSL30LogExp(models.Model):
 
     def __str__(self):
         return self.fullName
+
+
+class PSL30InitialForm(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Femail')
+        ]
+
+    event = models.ForeignKey(Event, related_name="initial_event", on_delete=models.CASCADE)
+    candidate = models.ForeignKey(TesCandidate,related_name="initial_candidate", on_delete=models.CASCADE)
+    cerAddres = models.CharField(max_length=2048, null=True, blank=True )
+    pslCerAddres = models.CharField(max_length=2048, null=True, blank=True )
+    phone = models.CharField(max_length=256, null=True, blank=True )
+    email = models.EmailField( null=True, blank=True )
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES, null=True, blank=True)
+    pslNumber = models.CharField(max_length=1024, null=True, blank=True )
+    birthDay = models.DateField(null=True, blank=True)
+    currentEmploymentDetails = models.CharField(max_length=2048, null=True, blank=True)
+    currentEmploymentPosition = models.CharField(max_length=1024, null=True, blank=True)
+    currentEmploymentStatus = models.CharField(max_length=512, null=True, blank=True)
+    preCerTraining = models.CharField(max_length=2048, null=True, blank=True)
+    preCerTrainingDate = models.CharField(max_length=512, null=True, blank=True)
+    productInductory = models.CharField(max_length=512, null=True, blank=True)
+    ndtMethod = models.CharField(max_length=512, null=True, blank=True)
+    level = models.CharField(max_length=512, null=True, blank=True)
+    level3State = models.CharField(max_length=512, null=True, blank=True)
+    basicRadiationSafty = models.BooleanField( null=True, blank=True)
+    radiationProtectionSupervisor = models.BooleanField( null=True, blank=True)
+    cerCategory = models.CharField(max_length=512, null=True, blank=True)
+    preferredExaminationDateVenue = models.CharField(max_length=1024, null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.email

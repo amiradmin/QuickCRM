@@ -9,6 +9,7 @@ from email.message import EmailMessage
 from email.utils import make_msgid
 from django.db.models import Q
 import datetime
+from  authorization.sidebarmixin import SidebarMixin
 # Create your views here.
 
 class TwiEnrolment(TemplateView):
@@ -969,6 +970,64 @@ class BGASExperienceForm(TemplateView):
 
             # return redirect('forms:jaegertofdl2_' ,context)
                 return render(request, 'forms/reg_forms/BGAS_experience_form.html', context)
+
+
+
+class BGASinitialForm(SidebarMixin,TemplateView):
+    template_name = "forms/reg_forms/PSL-57A_Initial_exam_application.html"
+
+    def get_context_data(self):
+        context = super(BGASinitialForm, self).get_context_data()
+        candidates = TesCandidate.objects.all().order_by('first_name')
+        events = Event.objects.all()
+
+
+        context['candidates'] = candidates
+        context['events'] = events
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                # eventID = request.POST['eventID']
+                print("Form")
+                print(canID)
+                print(eventID)
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+
+                # formObj = FormList()
+                # formObj.name = "BGAS_Experience_Form"
+                # formObj.candidate = candidate
+                #
+                # formObj.save()
+
+                return redirect('forms:allbgasform_')
+
+
+            elif 'selector' in request.POST:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                print(canID)
+                print(eventID)
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                print(candidate.first_name)
+                event = Event.objects.filter(id=eventID).first()
+                self.candidateID = candidate.id
+                twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
+                context = super(BGASinitialForm, self).get_context_data()
+                context['candidate'] = candidate
+                context['event'] = event
+                context['twiEnrolmentForm'] = twiEnrolmentForm
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+                return render(request, 'forms/reg_forms/PSL-57A_Initial_exam_application.html', context)
+
 
 
 class PSL30LogExperienceForm(TemplateView):

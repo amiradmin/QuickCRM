@@ -1,5 +1,5 @@
 from django.contrib import admin
-from forms.models import Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList
+from forms.models import Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,PSL30InitialForm
 
 # Register your models here.
 
@@ -16,6 +16,14 @@ class FormListAdmin(admin.ModelAdmin):
     list_filter =['id','name','candidate','event','product','status','created_at','updated_at']
 
 admin.site.register(FormList,FormListAdmin)
+
+class PSL30InitialFormAdmin(admin.ModelAdmin):
+
+    list_display = ['id','event','candidate','email','created_at','updated_at']
+    list_filter =['id','event','candidate','email','created_at','updated_at']
+
+admin.site.register(PSL30InitialForm,PSL30InitialFormAdmin)
+
 
 class TwiEnrolmentFormAdmin(admin.ModelAdmin):
     
