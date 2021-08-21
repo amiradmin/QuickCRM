@@ -998,7 +998,7 @@ class BGASinitialForm(SidebarMixin,TemplateView):
                 candidate = TesCandidate.objects.filter(id=canID).first()
                 event = Event.objects.filter(id=eventID).first()
                 event.candidate.add(candidate)
-                
+
                 mainObj =PSL30InitialForm()
                 mainObj.candidate =candidate
                 mainObj.event =event
@@ -1011,6 +1011,9 @@ class BGASinitialForm(SidebarMixin,TemplateView):
                 formObj.name = "PSL-57A Initial exam application"
                 formObj.candidate = candidate
                 formObj.event = event
+                if not request.POST.get('comfirmation', None) == None:
+                    formObj.status = True
+
                 formObj.save()
 
                 return redirect('forms:allpslinitialform_')
