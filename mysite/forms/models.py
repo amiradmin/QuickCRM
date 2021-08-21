@@ -101,6 +101,7 @@ class TwiEnrolmentForm(models.Model):
     VerifierEmail = models.CharField(max_length=512, null=True, blank=True )
     VerifierDate = models.DateField( null=True, blank=True )
     confirmation = models.BooleanField( null=True, blank=True )
+    confirmation = models.BooleanField(null=True, blank=True)
     
     uploadedForm = models.FileField(upload_to='uploadedForm',null=True,blank=True)
     uploadedSign = models.FileField(upload_to='uploadedForm',null=True,blank=True)
@@ -203,6 +204,7 @@ class PSL30LogExp(models.Model):
     dateFrom = models.DateField( null=True, blank=True )
     dateTo = models.DateField( null=True, blank=True )
     ndtTechnique = models.ManyToManyField('NdtTechnique', null=True, blank=True)
+    confirmation = models.BooleanField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -235,10 +237,11 @@ class PSL30InitialForm(models.Model):
     ndtMethod = models.CharField(max_length=512, null=True, blank=True)
     level = models.CharField(max_length=512, null=True, blank=True)
     level3State = models.CharField(max_length=512, null=True, blank=True)
-    basicRadiationSafty = models.BooleanField( null=True, blank=True)
-    radiationProtectionSupervisor = models.BooleanField( null=True, blank=True)
+    basicRadiationSafty = models.CharField(max_length=512, null=True, blank=True)
+    radiationProtectionSupervisor = models.CharField( max_length=512,null=True, blank=True)
     cerCategory = models.CharField(max_length=512, null=True, blank=True)
     preferredExaminationDateVenue = models.CharField(max_length=1024, null=True, blank=True)
+    confirmation = models.BooleanField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

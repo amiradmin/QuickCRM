@@ -7,12 +7,13 @@ from forms.models import General,FormList
 import datetime
 import json
 from django.http import JsonResponse
-
+from  authorization.sidebarmixin import SidebarMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
 
-class CandidatelListView(TemplateView):
+class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/candidate_table.html"
 
     def get_context_data(self):
@@ -27,7 +28,7 @@ class CandidatelListView(TemplateView):
         return context
 
 
-class UserFormMonitor(TemplateView):
+class UserFormMonitor(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/user_form_monitor.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -52,6 +53,9 @@ class UserFormMonitor(TemplateView):
             temooList = []
             for item2 in item.formCategory.form.all():
                 if item2.name in canFromList:
+                    form = FormList.objects.filter(name=item2.name).first()
+                    print(form.id)
+                    print(item2.name)
                     temooList.append({'name': item2.name,'status':True})
                 else:
                     temooList.append({'name': item2.name, 'status': False})
@@ -73,12 +77,7 @@ class UserFormMonitor(TemplateView):
         # print(canFromList)
         print(mainList)
 
-        adminStatus = False
-        for g in self.request.user.groups.all():
-            if g.name == 'super_admin' or g.name == 'training_admin':
-                adminStatus = True
 
-        context['adminStatus'] = adminStatus
         context['candidate'] = candidate
         context['events'] = events
         context['mainList'] = mainList
@@ -86,7 +85,7 @@ class UserFormMonitor(TemplateView):
         return context
 
 
-class NewCandidatelView(TemplateView):
+class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/new_candidate.html"
 
 
@@ -160,7 +159,7 @@ class NewCandidatelView(TemplateView):
         return redirect('training:canlist_')
 
 
-class UpdateCandidatelView(TemplateView):
+class UpdateCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update_candidate.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -212,7 +211,7 @@ class UpdateCandidatelView(TemplateView):
         return redirect('training:canlist_')
 
 
-class DeleteCandidatelView(TemplateView):
+class DeleteCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -233,7 +232,7 @@ class DeleteCandidatelView(TemplateView):
             return redirect('training:canlist_')
     
     
-class ProductView(TemplateView):
+class ProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/product_list.html"
 
     def get_context_data(self):
@@ -256,7 +255,7 @@ class ProductView(TemplateView):
 
 
     
-class UpdateProductView(TemplateView):
+class UpdateProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update_product.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -278,7 +277,7 @@ class UpdateProductView(TemplateView):
 
 
 
-class DeleteProductView(TemplateView):
+class DeleteProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update.html"
 
 
@@ -295,7 +294,7 @@ class DeleteProductView(TemplateView):
 
 
     
-class EventView(TemplateView):
+class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/event_list.html"
 
     def get_context_data(self):
@@ -342,7 +341,7 @@ class EventView(TemplateView):
 
         return redirect('training:event_')
 
-class UpdateEventView(TemplateView):
+class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update_event.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -385,7 +384,7 @@ class UpdateEventView(TemplateView):
         return redirect('training:event_')
 
 
-class DeleteEventView(TemplateView):
+class DeleteEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -406,7 +405,7 @@ class DeleteEventView(TemplateView):
             return redirect('training:event_')
 
             
-class LecturerView(TemplateView):
+class LecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/lecturer_list.html"
 
     def get_context_data(self):
@@ -417,7 +416,7 @@ class LecturerView(TemplateView):
         return context
 
 
-class NewAttendeesView(TemplateView):
+class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/attendees.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -486,7 +485,7 @@ class NewAttendeesView(TemplateView):
         return redirect('training:event_')
 
 
-class NewEventLecturerView(TemplateView):
+class NewEventLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/lecturer_events.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -555,7 +554,7 @@ class NewEventLecturerView(TemplateView):
             
         return redirect('training:lecturer_')
 
-class NewLecturerView(TemplateView):
+class NewLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/new_lecturer.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -621,7 +620,7 @@ class NewLecturerView(TemplateView):
         return redirect('training:lecturer_')
 
 
-class DeleteLecturerView(TemplateView):
+class DeleteLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -641,7 +640,7 @@ class DeleteLecturerView(TemplateView):
 
 
 
-class UpdateLecturerView(TemplateView):
+class UpdateLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update_lecturer.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -704,7 +703,7 @@ class UpdateLecturerView(TemplateView):
 
 
 
-class CountryView(TemplateView):
+class CountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/country_list.html"
 
     def get_context_data(self):
@@ -722,7 +721,7 @@ class CountryView(TemplateView):
             obj.save()
         return redirect('training:country_')
 
-class DeleteCountryView(TemplateView):
+class DeleteCountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update.html"
 
 
@@ -737,7 +736,7 @@ class DeleteCountryView(TemplateView):
             country.delete()
             return redirect('training:country_')
 
-class UpdateCountryView(TemplateView):
+class UpdateCountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update_country.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -755,7 +754,7 @@ class UpdateCountryView(TemplateView):
         return redirect('training:country_')
 
 
-class LocationView(TemplateView):
+class LocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/location_list.html"
 
     def get_context_data(self):
@@ -784,7 +783,7 @@ class LocationView(TemplateView):
 
 
 
-class UpdateLocationView(TemplateView):
+class UpdateLocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update_location.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -808,7 +807,7 @@ class UpdateLocationView(TemplateView):
         return redirect('training:location_')
 
 
-class DeleteLocationView(TemplateView):
+class DeleteLocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update.html"
 
 
@@ -821,7 +820,7 @@ class DeleteLocationView(TemplateView):
             loc.delete()
             return redirect('training:location_')
 
-class TrainingPanelView(TemplateView):
+class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/layouts-vertical.html"
 
     def get_context_data(self):

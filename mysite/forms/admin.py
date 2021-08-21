@@ -19,7 +19,7 @@ admin.site.register(FormList,FormListAdmin)
 
 class PSL30InitialFormAdmin(admin.ModelAdmin):
 
-    list_display = ['id','event','candidate','email','created_at','updated_at']
+    list_display = ['id','event','confirmation','candidate','email','created_at','updated_at']
     list_filter =['id','event','candidate','email','created_at','updated_at']
 
 admin.site.register(PSL30InitialForm,PSL30InitialFormAdmin)

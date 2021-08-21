@@ -1,0 +1,17 @@
+[13379:13402:0821/102933.633205:ERROR:gpu_process_host.cc(995)] GPU process exited unexpectedly: exit_code=1024
+[13379:13402:0821/102933.633252:WARNING:gpu_process_host.cc(1308)] The GPU process has crashed 1 time(s)
+[13379:13416:0821/102933.640593:ERROR:bus.cc(393)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[13379:13416:0821/102933.640659:ERROR:bus.cc(393)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[13379:13416:0821/102933.658858:ERROR:bus.cc(393)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[13379:13416:0821/102933.658910:ERROR:bus.cc(393)] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+[13379:13402:0821/102933.711708:ERROR:gpu_process_host.cc(995)] GPU process exited unexpectedly: exit_code=1024
+[13379:13402:0821/102933.711745:WARNING:gpu_process_host.cc(1308)] The GPU process has crashed 2 time(s)
+[13379:13402:0821/102933.719336:ERROR:gpu_process_host.cc(995)] GPU process exited unexpectedly: exit_code=1024
+[13379:13402:0821/102933.719372:WARNING:gpu_process_host.cc(1308)] The GPU process has crashed 3 time(s)
+[13379:13402:0821/102933.730940:ERROR:gpu_process_host.cc(995)] GPU process exited unexpectedly: exit_code=1024
+[13379:13402:0821/102933.730978:WARNING:gpu_process_host.cc(1308)] The GPU process has crashed 4 time(s)
+[13379:13402:0821/102933.741028:ERROR:gpu_process_host.cc(995)] GPU process exited unexpectedly: exit_code=1024
+[13379:13402:0821/102933.741064:WARNING:gpu_process_host.cc(1308)] The GPU process has crashed 5 time(s)
+[13379:13402:0821/102933.760786:ERROR:gpu_process_host.cc(995)] GPU process exited unexpectedly: exit_code=1024
+[13379:13402:0821/102933.760830:WARNING:gpu_process_host.cc(1308)] The GPU process has crashed 6 time(s)
+[13379:13402:0821/102933.760848:FATAL:gpu_data_manager_impl_private.cc(414)] GPU process isn't usable. Goodbye.

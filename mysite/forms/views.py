@@ -4,6 +4,7 @@ from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30
 from django.db.models import Count
 from classes.db import FormDb
 from training.models import FormsList, TesCandidate,Event,Category
+from django.contrib.auth.mixins import LoginRequiredMixin
 import smtplib
 from email.message import EmailMessage
 from email.utils import make_msgid
@@ -12,7 +13,7 @@ import datetime
 from  authorization.sidebarmixin import SidebarMixin
 # Create your views here.
 
-class TwiEnrolment(TemplateView):
+class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/reg_forms/twi_enrolment.html"
     candidateID = None
 
@@ -810,7 +811,7 @@ class TwiEnrolmentReg(TemplateView):
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/reg_forms/twi_enrolment.html', context)
 
-class AllEnrolmentForm(TemplateView):
+class AllEnrolmentForm(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/all_forms_enrolment.html"
 
     def get_context_data(self):
@@ -824,7 +825,7 @@ class AllEnrolmentForm(TemplateView):
         context['forms'] = forms
         return context   
     
-class AllBGASForm(TemplateView):
+class AllBGASForm(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/all_bgas_form.html"
 
     def get_context_data(self):
@@ -899,7 +900,7 @@ class NewForm(TemplateView):
             
         return redirect('forms:all_')  
 
-class BGASExperienceForm(TemplateView):
+class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/reg_forms/BGAS_experience_form.html"
 
     def get_context_data(self):
@@ -973,7 +974,7 @@ class BGASExperienceForm(TemplateView):
 
 
 
-class BGASinitialForm(SidebarMixin,TemplateView):
+class BGASinitialForm(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/reg_forms/PSL-57A_Initial_exam_application.html"
 
     def get_context_data(self):
@@ -1003,6 +1004,56 @@ class BGASinitialForm(SidebarMixin,TemplateView):
                 mainObj.candidate =candidate
                 mainObj.event =event
                 mainObj.cerAddres =request.POST['cerAddres']
+                mainObj.pslCerAddres =request.POST['pslCerAddres']
+                mainObj.phone =request.POST['phone']
+                mainObj.pslNumber =request.POST['pslNumber']
+                mainObj.email =request.POST['email']
+                mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
+                mainObj.currentEmploymentPosition =request.POST['currentEmploymentPosition']
+                mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
+                mainObj.preCerTraining =request.POST['preCerTraining']
+                mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
+                # mainObj.preCerTraining = request.POST['preCerTraining']
+
+                if not request.POST.get('et', None) == None:
+                    mainObj.ndtMethod = 'ET'
+
+                if not request.POST.get('mt', None) == None:
+                    mainObj.ndtMethod = 'MT'
+
+                if not request.POST.get('pt', None) == None:
+                    mainObj.ndtMethod = 'PT'
+
+                if not request.POST.get('rt', None) == None:
+                    mainObj.ndtMethod = 'RT'
+
+                if not request.POST.get('ri', None) == None:
+                    mainObj.ndtMethod = 'RI'
+                if not request.POST.get('ut', None) == None:
+                    mainObj.ndtMethod = 'UT'
+                if not request.POST.get('vt', None) == None:
+                    mainObj.ndtMethod = 'VT'
+                if not request.POST.get('crt', None) == None:
+                    mainObj.ndtMethod = 'CRT'
+                if not request.POST.get('tofd', None) == None:
+                    mainObj.ndtMethod = 'TOFD'
+                if not request.POST.get('paut', None) == None:
+                    mainObj.ndtMethod = 'PAUT'
+
+
+                if not request.POST.get('levelOne', None) == None:
+                    mainObj.level = 'level 1'
+                if not request.POST.get('levelTwo', None) == None:
+                    mainObj.level = 'level 2'
+                if not request.POST.get('levelThree', None) == None:
+                    mainObj.level = 'level 3'
+
+                # mainObj.ndtMethod = request.POST['ndtOther']
+                mainObj.level3State = request.POST['ifLevel3']
+                mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
+                mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
+                mainObj.cerCategory = request.POST['cerCategory']
+                mainObj.preferredExaminationDateVenue = request.POST['preferredExaminationDateVenue']
 
                 mainObj.save()
 
@@ -1041,7 +1092,7 @@ class BGASinitialForm(SidebarMixin,TemplateView):
                 return render(request, 'forms/reg_forms/PSL-57A_Initial_exam_application.html', context)
 
 
-class AllBGASinitialForms(SidebarMixin,TemplateView):
+class AllBGASinitialForms(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/all_psl30_inintal_forms.html"
 
     def get_context_data(self):
@@ -1305,7 +1356,7 @@ class PSL30LogExperienceForm(TemplateView):
                 return render(request, 'forms/reg_forms/PSL_30_log_exper.html', context)
 
 
-class AllPSL30LogForm(TemplateView):
+class AllPSL30LogForm(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/all_psl30log_forms.html"
 
     def get_context_data(self):
@@ -1320,7 +1371,7 @@ class AllPSL30LogForm(TemplateView):
 
         return context
 
-class AllFormsList(TemplateView):
+class AllFormsList(SidebarMixin,TemplateView):
     template_name = "forms/all_forms_view.html"
 
     def get_context_data(self):
@@ -1466,7 +1517,7 @@ class EachFormMemebr(TemplateView):
         context['general'] = general
         return context 
     
-class EventSummary(TemplateView):
+class EventSummary(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/event_summary.html"
 
     def get_context_data(self, *args, **kwargs):
