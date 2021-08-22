@@ -424,28 +424,36 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(NewAttendeesView, self).get_context_data()
         event = Event.objects.filter(id=self.kwargs['id']).first()
         can_list = TesCandidate.objects.order_by('first_name')
+        print("Here Amir")
         selCan='{'
-        selCounter = 0
+     
         
-        
+
 
         counter = 0
         can='{'
         for item in can_list:
             can =can + '"'+ str(counter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'--'+ '",'
-            counter = counter + 1 
-        can = can + '"10000000000":" "}'
-        
-       
-        # print(can[0])
+            counter = counter + 1
 
-        
+            tempdict={}
+
+        can = can + '"10000000000":" "}'
+
+
+
+
         for item in event.candidate.all():
-            selCan =selCan + '"'+ str(selCounter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
-            selCounter = selCounter + 1 
+            for i, j in enumerate(can.split('--')):
+                tesID =j.split(':')[1].split(' -')[0][1:]
+                if tesID == item.tes_candidate_id:
+                    print(str(i) + " : " + tesID)
+                    selCan =selCan + '"'+ str(i)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
+
         selCan = selCan + '"10000000000":" "}'
         
-        myDict = json.loads(can)
+        myDict = json.loads(selCan)
+
         values = []
         
         for item in event.candidate.all():
