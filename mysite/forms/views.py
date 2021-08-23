@@ -1554,7 +1554,7 @@ class EventSummary(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['unsubmited'] = unsubmited
         return context 
 
-class EventSummaryByFormId(TemplateView):
+class EventSummaryByFormId(SidebarMixin,TemplateView):
     template_name = "forms/event_summary.html"
 
     def get_context_data(self, *args, **kwargs):

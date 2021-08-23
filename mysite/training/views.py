@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
-from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
+from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from forms.models import General,FormList
@@ -924,3 +926,116 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 obj.save()
             # return render(request, 'medicine/medicine_panel.html', {'data': response.json()})
             return redirect('training:trainpanel_')
+
+
+class FormCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "training/category_list.html"
+
+    def get_context_data(self):
+        context = super(FormCategoryView, self).get_context_data()
+        category_list = Category.objects.all()
+        form_list = Guideline.objects.all()
+        context['category_list'] = category_list
+        context['form_list'] = form_list
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            guideID = request.POST['guideline']
+            guidelineForm = Guideline.objects.filter(id = guideID).first()
+            obj = Category()
+            obj.name = request.POST['name']
+            obj.save()
+            obj.form.add(guidelineForm)
+        return redirect('training:category_')
+
+
+class FormCategoryDeleteView(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = Category
+    success_url = reverse_lazy('training:category_')
+
+
+class FormGuidelineView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "training/guideline_list.html"
+
+    def get_context_data(self):
+        context = super(FormGuidelineView, self).get_context_data()
+        form_list = Guideline.objects.all()
+        context['form_list'] = form_list
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            obj = Guideline()
+            obj.name = request.POST['name']
+            obj.save()
+        return redirect('training:guideline_')
+
+
+class FormGuidelineDeleteView(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = Guideline
+    success_url = reverse_lazy('training:guideline_')
+
+
+class AddFormToCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "training/add_form_category.html"
+
+    def get_context_data(self, *args, **kwargs):
+        selectedList = []
+        context = super(AddFormToCategoryView, self).get_context_data()
+        category = Category.objects.filter(id=self.kwargs['id']).first()
+        form_list = Guideline.objects.order_by('name')
+        print("Here Amir")
+        selForms = '{'
+
+        counter = 0
+        formList = '{'
+        for item in form_list:
+            formList = formList + '"' + str(counter) + '":"' + str(item.name)  + '--' + '",'
+            counter = counter + 1
+
+            tempdict = {}
+
+        formList = formList + '"10000000000":" "}'
+        values = []
+        for item in category.form.all():
+            for i, j in enumerate(formList.split('--')):
+                tesID = j.split(':')[1].split(' -')[0][1:]
+                print(tesID)
+                if tesID == item.name:
+                    print(str(i) + " : " + tesID)
+                    values.append(i)
+                    selForms = selForms + '"' + str(i) + '":"' + str(item.name) + '",'
+
+        selForms = selForms + '"10000000000":" "}'
+
+        myDict = json.loads(selForms)
+
+
+        context['selectedList'] = values
+        context['formList'] = formList
+        context['category'] = category.name
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+            # print( request.POST.get('page_contents[]', None))
+
+            category = Category.objects.filter(id=self.kwargs['id']).first()
+            category.form.clear()
+            canList = request.POST['temp']
+
+            if canList:
+                for item in canList.split('--'):
+                    can_id = item.split('--')[0]
+                    print('Now: ' + can_id)
+                    candidate = Guideline.objects.filter(name__exact=can_id).first()
+                    if candidate:
+                        category.form.add(candidate)
+                    # event.save()
+
+        return redirect('training:category_')

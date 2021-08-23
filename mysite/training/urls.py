@@ -17,6 +17,10 @@ urlpatterns = [
     path('event', views.EventView.as_view(), name='event_'),
     path('lecturer', views.LecturerView.as_view(), name='lecturer_'),
     path('country', views.CountryView.as_view(), name='country_'),
+    path('category', views.FormCategoryView.as_view(), name='category_'),
+    path('guideline', views.FormGuidelineView.as_view(), name='guideline_'),
+    path('delcategory/<int:pk>/delete/', views.FormCategoryDeleteView.as_view(), name='delcategory_'),
+    path('delguideline/<int:pk>/delete/', views.FormGuidelineDeleteView.as_view(), name='delguideline_'),
     path('location', views.LocationView.as_view(), name='location_'),
     path('updatecan/<int:id>', views.UpdateCandidatelView.as_view(), name='updatecan_'),
     path('delcan/<int:id>', views.DeleteCandidatelView.as_view(), name='delcan_'),
@@ -33,6 +37,7 @@ urlpatterns = [
     path('locdel/<int:id>', views.DeleteLocationView.as_view(), name='locdel_'),
     path('lecevnt/<int:id>', views.NewEventLecturerView.as_view(), name='lecevnt_'),
     path('usermonitor/<int:id>', views.UserFormMonitor.as_view(), name='usermonitor_'),
+    path('addformcategory/<int:id>', views.AddFormToCategoryView.as_view(), name='addformcategory_'),
 
 
 ]
