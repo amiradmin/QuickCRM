@@ -148,7 +148,7 @@
  <h5>{{item.event}}</h5>
      <ul class="tags" style="list-style-type: none;" >
     {% for item2 in item.forms %}
- <li ><a href="" class="tag"  style="{% if item2.status %} background-color:#25e66b;--my-color-var: #25e66b; {% else %} background-color:grey;--my-color-var: grey; {% endif %}" >{% if item2.confirmation %}<i class="fa fa-check" aria-hidden="true"></i>{% endif %}{{item2.name}} </a></li>
+ <li ><a href="" class="tag"  style="{% if item2.confirmation %} background-color:#25e66b;--my-color-var: #25e66b; {% elif item2.status %} background-color:orange;--my-color-var: orange; {% else %} background-color:grey;--my-color-var: grey; {% endif %}" >{% if item2.confirmation %}<i class="fa fa-check" aria-hidden="true"></i>{% endif %}{{item2.name}} </a></li>
   {% endfor %}
     </ul>
     {% endfor %}

@@ -97,7 +97,7 @@ class TesCandidate(models.Model):
     last_name = models.CharField(max_length=1024, null=True, blank=True )
     middleName = models.CharField(max_length=1024, null=True, blank=True )
     tes_candidate_id = models.CharField(max_length=1024, null=True, blank=True )
-    sponsor_company = models.CharField(max_length=1024, null=True, blank=True )
+    emergencyContact = models.CharField(max_length=1024, null=True, blank=True )
     email = models.EmailField( null=True, blank=True )
     address = models.CharField(max_length=1024,  null=True, blank=True  )
     postal_code = models.CharField(max_length=128,  null=True, blank=True  )

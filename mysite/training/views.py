@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
 from forms.models import General,FormList
 import datetime
@@ -20,13 +20,10 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(CandidatelListView, self).get_context_data()
-        can_list = TesCandidate.objects.all().order_by("-id")
-        adminStatus = False
-        for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
-                adminStatus=True
+        # can_list = TesCandidate.objects.all().order_by("-id")
+        can_list = TesCandidate.objects.filter(user__groups__name__in=['candidates',] )
         context['can_list'] = can_list
-        context['adminStatus'] = adminStatus
+
         return context
 
 
@@ -57,8 +54,8 @@ class UserFormMonitor(SidebarMixin,LoginRequiredMixin,TemplateView):
                 if item2.name in canFromList:
                     form = FormList.objects.filter(name=item2.name).first()
                     print(form.id)
-                    print(item2.name)
-                    temooList.append({'name': item2.name,'status':True})
+
+                    temooList.append({'name': item2.name,'status':True,'confirmation':form.status})
                 else:
                     temooList.append({'name': item2.name, 'status': False})
             mainList.append({'event': item.name, 'forms': temooList})
@@ -117,11 +114,14 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 
                 return render(request, 'training/errors.html') 
             user = User()
+            group =Group.objects.filter(id=2).first()
+
             user.username = request.POST['email']
             user.password =make_password(request.POST['password'])
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.save()
+            user.groups.add(group)
             # user.tes_candidate_id = request.POST['tesCanID']
             user.tescandidate.first_name = request.POST['first_name']
             user.tescandidate.middleName = request.POST['middleName']
@@ -131,7 +131,7 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
             user.tescandidate.customer_id = request.POST['customer_id']
             user.tescandidate.address = request.POST['address']
             # user.passport_id = request.POST['passport_id']
-            user.tescandidate.sponsor_company = request.POST['sponsor_company']
+            user.tescandidate.emergencyContact = request.POST['emergencyContact']
             user.tescandidate.email = request.POST['email']
             user.tescandidate.contact_number = request.POST['phone']
             # user.note = request.POST['note']
@@ -834,24 +834,21 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/layouts-vertical.html"
 
     def get_context_data(self):
-        adminStatus=False
+
         context = super(TrainingPanelView, self).get_context_data()
         event_list = Event.objects.all()
         canCount = TesCandidate.objects.count()
         lecCount = Lecturer.objects.count()
         product = Product.objects.all()
 
-        for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
-                adminStatus=True
-                print(g.name)
+
         context['event_list'] = event_list
         context['eventCount'] = event_list.count()
         context['canCount'] = canCount
         context['lecCount'] = lecCount
         context['product'] = product
         context['proCount'] = product.count()
-        context['adminStatus'] = adminStatus
+
 
         return context
 

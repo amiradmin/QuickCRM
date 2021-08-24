@@ -1563,15 +1563,19 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
         generalID = self.kwargs['genID']
         submitedList=None
         generalObj = General.objects.filter(id=generalID).first()
-        print(generalID)
+        event = Event.objects.filter(id=generalObj.event.id).first()
+        form = generalObj.twiEnrolmentForm.all()
         if formID==1 :
-            form = generalObj.twiEnrolmentForm.all()
-            
             eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
         elif formID==2:
-            form = generalObj.bgasExperienceForm.all()
             eventConfirm = BGAsExperienceForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
-        event = Event.objects.filter(id=generalObj.event.id).first()
+
+        elif formID==3:
+            eventConfirm = PSL30LogExp.objects.filter(Q(event=event) & Q(confirmation=True))
+
+        elif formID==4:
+            eventConfirm = PSL30InitialForm.objects.filter(Q(event=event) & Q(confirmation=True))
+
         
         
         tag = Category.objects.filter(id=event.formCategory.id).first()  

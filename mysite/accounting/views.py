@@ -139,6 +139,8 @@ class RegisterView(TemplateView):
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.save()
+            group = Group.objects.filter(id=2).first()
+            user.groups.add(group)
             # user.tes_candidate_id = request.POST['tesCanID']
             user.tescandidate.first_name = request.POST['first_name']
             user.tescandidate.middleName = request.POST['middleName']
@@ -148,7 +150,8 @@ class RegisterView(TemplateView):
             user.tescandidate.customer_id = request.POST['customer_id']
             user.tescandidate.address = request.POST['address']
             # user.passport_id = request.POST['passport_id']
-            user.tescandidate.sponsor_company = request.POST['sponsor_company']
+
+            user.tescandidate.emergencyContact = request.POST['emergencyContact']
             user.tescandidate.email = request.POST['email']
             user.tescandidate.contact_number = request.POST['phone']
             user.save()
