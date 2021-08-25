@@ -43,6 +43,23 @@
                                                     </select>
  </div>
  </div>
+
+
+
+<div class="mb-3 col-md-12">
+                                                    <label for="inputState" class="form-label">Category</label>
+                                                    <select name="categoryID" id="inputState" class="form-select" >
+    <option value="{{category.id}} ">{{category.name}}  </option>
+                        {% for item in categories %}
+                            <option value="{{item.id}}">{{item.name}}  </option>
+                        {% endfor %}
+
+                                                    </select>
+ </div>
+
+
+
+
                                             
                           <div class="mb-3 col-md-12 text-center">
                                 <button class="BUTTON_MZQ" type="submit">Generate</button>
@@ -313,6 +330,7 @@ body{padding:0px; margin:0px;  }
 <input type="hidden" value="{{candidate.id}} " name="mainCanID"/>
 <input type="hidden" value="{{event.id}} " name="eventID"/>
 <input type="hidden" value="{{event.formCategory_id}} " name="fomCatID"/>
+<input type="hidden" value="{{category.id}} " name="categoryID"/>
 <div></div>
 <div id="overlay"></div>
 
@@ -2106,7 +2124,7 @@ function checkOver(i) {
 <input id="form48_3" name="form48_3" type="checkbox" tabindex="147" data-objref="475 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/475 0 R'%}"  imagesT="110100"/>
 <input id="form49_3" name="form49_3"  type="checkbox" tabindex="148" data-objref="462 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/462 0 R'%}"  imagesT="110100"/>
 <input id="form50_3"  name="form50_3"  type="checkbox" tabindex="149" data-objref="468 0 R" data-field-name="Check Box106" imageName="{% static 'assets/forms/Jaeger_TOFDL2/3/form/468 0 R'%}"  imagesT="110100"/>
-<input id="form51_3" type="text" tabindex="150" value="" data-objref="467 0 R" data-field-name="Text109"/>
+<input id="form51_3" name="form51_3" type="text" tabindex="150" value="" data-objref="467 0 R" data-field-name="Text109"/>
 
 <!-- End Form Data -->
 

@@ -3,7 +3,7 @@ from django.views.generic import View,TemplateView
 from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,PSL30InitialForm
 from django.db.models import Count
 from classes.db import FormDb
-from training.models import FormsList, TesCandidate,Event,Category
+from training.models import FormsList, TesCandidate,Event,Category,FormsList as Guideline
 from django.contrib.auth.mixins import LoginRequiredMixin
 import smtplib
 from email.message import EmailMessage
@@ -21,13 +21,11 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(TwiEnrolment, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
         events = Event.objects.all()
-        adminStatus = False
-        for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
-                adminStatus=True
-        context['adminStatus'] = adminStatus
+        categories = Category.objects.all()
+
         context['candidates'] = candidates
         context['events'] = events
+        context['categories'] = categories
         self.candidateID = 50
         return context
     
@@ -37,6 +35,9 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
         if request.method == 'POST':
             if 'enrolment' in request.POST:
                 eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                category = Category.objects.filter(id =categoryID).first()
+                event = Event.objects.filter(id = eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
                 obj = TwiEnrolmentForm()
                 obj.eventID = eventID
@@ -361,9 +362,12 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 # print(candidateObj.first_name)
                 candidate.forms.add(formObj)
                 
-                generalObj = General.objects.filter(event_id=eventID).first()
-                generalObj.twiEnrolmentForm.add( obj)
-                generalObj.save()
+                formListObj = FormList()
+                formListObj.name = event.name
+                formListObj.event = event
+                formListObj.candidate = candidate
+                formListObj.category = category
+                formListObj.save()
                 
                 return redirect('forms:allenrolmentform_')  
 
@@ -373,14 +377,17 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 # if request.FILES.get('file', False):
                 canID = request.POST['canID']
                 eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
                 print(canID)
                 
                 candidate= TesCandidate.objects.filter(id = canID).first()
                 event= Event.objects.filter(id = eventID).first()
+                category= Category.objects.filter(id = categoryID).first()
                 self.candidateID = candidate.id
                 print(self.candidateID)
                 context = super(TwiEnrolment, self).get_context_data()
                 context['candidate'] = candidate
+                context['category'] = category
                 context['event'] = event
                 
         # return redirect('forms:jaegertofdl2_' ,context)  
@@ -1525,32 +1532,34 @@ class EventSummary(SidebarMixin,LoginRequiredMixin,TemplateView):
         eventID = self.kwargs['id']
         twiForm = TwiEnrolmentForm.objects.filter(eventID=eventID)
         event = Event.objects.filter(id=eventID).first()
-        generalObj = General.objects.filter(event=event).first()
+        # generalObj = General.objects.filter(event=event).first()
         eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
-        tag = Category.objects.filter(id=event.formCategory.id).first()  
+
+        print('OK here')
+        # tag = Category.objects.filter(id=event.formCategory.id).first()
 
         candidateList = event.candidate.all()
-        submitedList = generalObj.twiEnrolmentForm.all()
+        # submitedList = generalObj.twiEnrolmentForm.all()
         list1=[]
         list2=[]
         for item in candidateList:
             print(item.tes_candidate_id)
             list1.append(item.tes_candidate_id)
         
-        print("====")
-        for item in submitedList:
-            print(item.candidate.tes_candidate_id)
-            list2.append(item.candidate.tes_candidate_id)
+        # print("====")
+        # for item in submitedList:
+        #     print(item.candidate.tes_candidate_id)
+        #     list2.append(item.candidate.tes_candidate_id)
 
         resultList = list(set(list1).difference(list2))
         unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
 
         print(resultList)
-        context['tag'] = tag        
-        context['form'] = generalObj.twiEnrolmentForm.all()
+        # context['tag'] = tag
+        # context['form'] = generalObj.twiEnrolmentForm.all()
         context['event'] = event
         context['eventConfirm'] = eventConfirm
-        context['generalObj'] = generalObj
+        # context['generalObj'] = generalObj
         context['unsubmited'] = unsubmited
         return context 
 
@@ -1559,26 +1568,32 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(EventSummaryByFormId, self).get_context_data()
-        formID = self.kwargs['formID']
-        generalID = self.kwargs['genID']
+        guideID = self.kwargs['guideID']
+        eventID = self.kwargs['eventID']
+        catID = self.kwargs['catID']
+        print("Now")
         submitedList=None
-        generalObj = General.objects.filter(id=generalID).first()
-        event = Event.objects.filter(id=generalObj.event.id).first()
-        form = generalObj.twiEnrolmentForm.all()
-        if formID==1 :
-            eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
-        elif formID==2:
-            eventConfirm = BGAsExperienceForm.objects.filter(Q(eventID=generalObj.event.id) & Q(confirmation=True))
 
-        elif formID==3:
+        event = Event.objects.filter(id=eventID).first()
+        category = Category.objects.filter(id=catID).first()
+        guideline = Guideline.objects.filter(id = guideID).first()
+
+        if guideID==1 :
+            print("Now AMir")
+            eventSubmit = FormList.objects.filter(Q(event=event) & Q(category=category) )
+            eventConfirm = FormList.objects.filter(Q(event=event) & Q(category=category) & Q(status=True))
+        elif guideID==2:
+            eventConfirm = BGAsExperienceForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
+
+        elif guideID==3:
             eventConfirm = PSL30LogExp.objects.filter(Q(event=event) & Q(confirmation=True))
 
-        elif formID==4:
+        elif guideID==4:
             eventConfirm = PSL30InitialForm.objects.filter(Q(event=event) & Q(confirmation=True))
 
         
         
-        tag = Category.objects.filter(id=event.formCategory.id).first()  
+        tag = Category.objects.filter(id=catID).first()
         candidateList = event.candidate.all()
         
         list1=[]
@@ -1588,19 +1603,19 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
             list1.append(item.tes_candidate_id)
         
         print("====")
-        for item in form:
-            print(item.candidate.tes_candidate_id)
-            list2.append(item.candidate.tes_candidate_id)
+        # for item in form:
+        #     print(item.candidate.tes_candidate_id)
+        #     list2.append(item.candidate.tes_candidate_id)
+        #
+        # resultList = list(set(list1).difference(list2))
+        # unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
 
-        resultList = list(set(list1).difference(list2))
-        unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
 
-        print(generalObj.id)
         context['tag'] = tag        
         context['event'] = event
         context['eventConfirm'] = eventConfirm
-        context['generalObj'] = generalObj
-        context['form'] = form
-        context['unsubmited'] = unsubmited
+        context['eventSubmit'] = eventSubmit
+        # context['form'] = form
+        # context['unsubmited'] = unsubmited
 
         return context 

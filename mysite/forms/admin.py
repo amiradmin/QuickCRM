@@ -12,7 +12,7 @@ admin.site.register(General,GeneralAdmin)
 
 class FormListAdmin(admin.ModelAdmin):
 
-    list_display = ['id','name','candidate','event','product','status','created_at','updated_at']
+    list_display = ['id','name','candidate','event','category','guideline','product','status','created_at','updated_at']
     list_filter =['id','name','candidate','event','product','status','created_at','updated_at']
 
 admin.site.register(FormList,FormListAdmin)

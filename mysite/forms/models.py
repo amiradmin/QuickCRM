@@ -1,5 +1,5 @@
 from django.db import models
-from training.models import Category, TesCandidate,Event,Product
+from training.models import Category, TesCandidate,Event,Product,FormsList as Guideline
 
 
 
@@ -30,6 +30,8 @@ class FormList(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True)
     candidate = models.ForeignKey(TesCandidate, related_name="candidate_form", on_delete=models.CASCADE)
     event = models.ForeignKey(Event, related_name="event_form", on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(Category, related_name="category_form", on_delete=models.CASCADE, null=True, blank=True)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_form", on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey(Product, related_name="event_form", on_delete=models.CASCADE, null=True, blank=True)
     status = models.BooleanField(null=True, blank=True)
 
