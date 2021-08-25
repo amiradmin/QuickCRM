@@ -307,6 +307,9 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
         country_list = Country.objects.all()
         location_list = Location.objects.all()
         categoryList = Category.objects.all()
+
+
+
         context['event_list'] = event_list
         context['product_list'] = product_list
         context['lecturers_list'] = lecturers_list
@@ -322,7 +325,9 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
             location = Location.objects.get(id = request.POST['location'])
-            category = Category.objects.get(id = request.POST['category'])
+            categories = Category.objects.filter(pk__in = request.POST.getlist('category'))
+
+
             generalObj = General()
 
             obj = Event()
@@ -330,16 +335,20 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.product = product
             obj.lecturers = lecturers
             obj.location = location
-            obj.formCategory = category
+            # obj.formCategory = category
             obj.country = location.country
             
-            
+
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
             obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
-            obj.save()  
-            generalObj.event= obj
-            generalObj.formCategory= category
-            generalObj.save()
+            obj.save()
+            for item in categories:
+                obj.formCategory.add(item)
+            # generalObj.event= obj
+            # generalObj.formCategory= category
+            # generalObj.save()
+
+
 
         return redirect('training:event_')
 
