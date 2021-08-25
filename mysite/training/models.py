@@ -126,11 +126,11 @@ class TesCandidate(models.Model):
     def __str__(self):
         return str(self.first_name) + str(self.id)
 
-@receiver(post_save, sender=User)
-def update_user_tescandidate(sender, instance, created, **kwargs):
-    if created:
-        TesCandidate.objects.create(user=instance)
-    instance.tescandidate.save()
+# @receiver(post_save, sender=User)
+# def update_user_tescandidate(sender, instance, created, **kwargs):
+#     if created:
+#         TesCandidate.objects.create(user=instance)
+#     instance.tescandidate.save()
 
 
 class WorkHistory(models.Model):
