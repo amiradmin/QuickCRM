@@ -199,6 +199,31 @@ div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb
                                                     </select>
  </div>
  </div>
+ <div class="row g-2">
+<div class="mb-3 col-md-6">
+                                                    <label for="inputState" class="form-label">Category</label>
+                                                    <select name="categoryID" id="inputState" class="form-select" >
+    <option value="{{category.id}} ">{{category.name}}  </option>
+                        {% for item in categories %}
+                            <option value="{{item.id}}">{{item.name}}  </option>
+                        {% endfor %}
+
+                                                    </select>
+</div>
+    <div class="mb-3 col-md-6">
+          <label for="inputState" class="form-label">Guideline Form</label>
+         <select name="guidelineID" id="inputState2" class="form-select" >
+    <option value="{{guideline.id}} ">{{guideline.name}}  </option>
+                        {% for item in guidelines %}
+                            <option value="{{item.id}}">{{item.name}}  </option>
+                        {% endfor %}
+
+                                                    </select>
+
+ </div>
+ </div>
+
+
 
                           <div class="mb-3 col-md-12 text-center">
                                 <button class="BUTTON_MZQ" name="selector" type="submit">Generate</button>
@@ -216,6 +241,12 @@ div.cls_010{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb
                                         <div class="tab-content">
                                         <form method="POST"  enctype="multipart/form-data">
                                         {%  csrf_token %}
+
+<input type="hidden" value="{{candidate.id}} " name="mainCanID"/>
+<input type="hidden" value="{{event.id}} " name="eventID"/>
+<input type="hidden" value="{{category.id}} " name="categoryID"/>
+<input type="hidden" value="{{guideline.id}} " name="guidelineID"/>
+
 <br>
 <br>
 <br>

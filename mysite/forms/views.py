@@ -22,10 +22,13 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
         candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
         events = Event.objects.all()
         categories = Category.objects.all()
+        guidelines = Guideline.objects.all()
 
+        context['categories'] = categories
+        context['guidelines'] = guidelines
         context['candidates'] = candidates
         context['events'] = events
-        context['categories'] = categories
+
         self.candidateID = 50
         return context
     
@@ -36,7 +39,9 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
             if 'enrolment' in request.POST:
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
                 category = Category.objects.filter(id =categoryID).first()
+                guideline = Guideline.objects.filter(id =guidelineID).first()
                 event = Event.objects.filter(id = eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
                 obj = TwiEnrolmentForm()
@@ -367,6 +372,7 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 formListObj.event = event
                 formListObj.candidate = candidate
                 formListObj.category = category
+                formListObj.guideline = guideline
                 formListObj.save()
                 
                 return redirect('forms:allenrolmentform_')  
@@ -378,18 +384,21 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 canID = request.POST['canID']
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
                 print(canID)
                 
                 candidate= TesCandidate.objects.filter(id = canID).first()
                 event= Event.objects.filter(id = eventID).first()
                 category= Category.objects.filter(id = categoryID).first()
+                guideline= Guideline.objects.filter(id = guidelineID).first()
                 self.candidateID = candidate.id
                 print(self.candidateID)
                 context = super(TwiEnrolment, self).get_context_data()
                 context['candidate'] = candidate
                 context['category'] = category
                 context['event'] = event
-                
+                context['guideline'] = guideline
+
         # return redirect('forms:jaegertofdl2_' ,context)  
             return render(request, 'forms/reg_forms/twi_enrolment.html', context)
 
@@ -914,11 +923,11 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(BGASExperienceForm, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name')
         events = Event.objects.all()
-        adminStatus =False
-        for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
-                adminStatus=True
-        context['adminStatus'] = adminStatus
+        categories = Category.objects.all()
+        guidelines = Guideline.objects.all()
+
+        context['categories'] = categories
+        context['guidelines'] = guidelines
         context['candidates'] = candidates
         context['events'] = events
         return context
@@ -927,11 +936,15 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 canID = request.POST['canID']
-                # eventID = request.POST['eventID']
-                print("Form")
-                print(canID)
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                category = Category.objects.filter(id =categoryID).first()
+                guideline = Guideline.objects.filter(id =guidelineID).first()
                 candidate = TesCandidate.objects.filter(id=canID).first()
-                # event = Event.objects.filter(id=eventID).first()
+                event = Event.objects.filter(id=eventID).first()
+
+
                 bgasObj = BGAsExperienceForm()
                 bgasObj.candidate =candidate
                 # bgasObj.evenID =event.id
@@ -949,11 +962,13 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
 
                 bgasObj.save()
 
-                formObj = FormList()
-                formObj.name = "BGAS_Experience_Form"
-                formObj.candidate = candidate
-
-                formObj.save()
+                formListObj = FormList()
+                formListObj.name = event.name
+                formListObj.event = event
+                formListObj.candidate = candidate
+                formListObj.category = category
+                formListObj.guideline = guideline
+                formListObj.save()
 
                 return redirect('forms:allbgasform_')
 
@@ -963,17 +978,20 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 # if request.FILES.get('file', False):
                 canID = request.POST['canID']
                 eventID = request.POST['eventID']
-                print(canID)
-                print(eventID)
-
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                category = Category.objects.filter(id =categoryID).first()
+                guideline = Guideline.objects.filter(id =guidelineID).first()
                 candidate = TesCandidate.objects.filter(id=canID).first()
-                print(candidate.first_name)
+
                 event = Event.objects.filter(id=eventID).first()
                 self.candidateID = candidate.id
                 twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
                 context = super(BGASExperienceForm, self).get_context_data()
                 context['candidate'] = candidate
                 context['event'] = event
+                context['category'] = category
+                context['guideline'] = guideline
                 context['twiEnrolmentForm'] = twiEnrolmentForm
 
             # return redirect('forms:jaegertofdl2_' ,context)
@@ -1563,6 +1581,9 @@ class EventSummary(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['unsubmited'] = unsubmited
         return context 
 
+
+
+
 class EventSummaryByFormId(SidebarMixin,TemplateView):
     template_name = "forms/event_summary.html"
 
@@ -1578,20 +1599,10 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
         category = Category.objects.filter(id=catID).first()
         guideline = Guideline.objects.filter(id = guideID).first()
 
-        if guideID==1 :
-            print("Now AMir")
-            eventSubmit = FormList.objects.filter(Q(event=event) & Q(category=category) )
-            eventConfirm = FormList.objects.filter(Q(event=event) & Q(category=category) & Q(status=True))
-        elif guideID==2:
-            eventConfirm = BGAsExperienceForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
+        eventSubmit = FormList.objects.filter(Q(event=event) & Q(guideline=guideline) & Q(category=category))
+        eventConfirm = FormList.objects.filter(
+            Q(event=event) & Q(guideline=guideline) & Q(category=category) & Q(status=True))
 
-        elif guideID==3:
-            eventConfirm = PSL30LogExp.objects.filter(Q(event=event) & Q(confirmation=True))
-
-        elif guideID==4:
-            eventConfirm = PSL30InitialForm.objects.filter(Q(event=event) & Q(confirmation=True))
-
-        
         
         tag = Category.objects.filter(id=catID).first()
         candidateList = event.candidate.all()

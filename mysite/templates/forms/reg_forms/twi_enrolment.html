@@ -45,8 +45,8 @@
  </div>
 
 
-
-<div class="mb-3 col-md-12">
+<div class="row g-2">
+<div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Category</label>
                                                     <select name="categoryID" id="inputState" class="form-select" >
     <option value="{{category.id}} ">{{category.name}}  </option>
@@ -55,6 +55,18 @@
                         {% endfor %}
 
                                                     </select>
+</div>
+    <div class="mb-3 col-md-6">
+          <label for="inputState" class="form-label">Guideline Form</label>
+         <select name="guidelineID" id="inputState2" class="form-select" >
+    <option value="{{guideline.id}} ">{{guideline.name}}  </option>
+                        {% for item in guidelines %}
+                            <option value="{{item.id}}">{{item.name}}  </option>
+                        {% endfor %}
+
+                                                    </select>
+
+ </div>
  </div>
 
 
@@ -331,6 +343,7 @@ body{padding:0px; margin:0px;  }
 <input type="hidden" value="{{event.id}} " name="eventID"/>
 <input type="hidden" value="{{event.formCategory_id}} " name="fomCatID"/>
 <input type="hidden" value="{{category.id}} " name="categoryID"/>
+<input type="hidden" value="{{guideline.id}} " name="guidelineID"/>
 <div></div>
 <div id="overlay"></div>
 

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+{% load template_filters %}
 <link rel="stylesheet" href="{% static 'css/summary.css' %}">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap4.css'>
@@ -166,7 +167,7 @@
                                                         <td>
                                                             {{item.tes_candidate_id}}
                                                         </td>                     <td>
-                                                            {{item.contact_number}}
+                                                            {{item.contact_number| phone_number}}
                                                         </td>
                                                         <td>
                                                             {{item.email}}
@@ -253,20 +254,20 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                {% for item in form %}
+                                                {% for item in eventSubmit %}
                                                     <tr>
                                       
                                                         <td class="table-user">
                                                             <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
-                                                            <a href="javascript:void(0);" class="text-body ">{{item.firstName}} {{item.lastName}}</a>
+                                                            <a href="javascript:void(0);" class="text-body ">{{item.candidate.firstName}} {{item.candidate.lastName}}</a>
                                                         </td>
                                                         <td>
                                                             {{item.candidate.tes_candidate_id}}
                                                         </td>                     <td>
-                                                             {{item.privateTel}}
+                                                             {{item.candidate.contact_number| phone_number}}
                                                         </td>
                                                         <td>
-                                                            {{item.email}}
+                                                            {{item.candidate.email}}
                                                         </td>
                                                         <td><a  href="{% url 'forms:formbyformid_' id=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                                                          {% if item.uploadedForm %}<a href="{{item.uploadedForm.url}}"><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
@@ -313,10 +314,10 @@
                                                         <td>
                                                             {{item.candidate.tes_candidate_id}}
                                                         </td>                     <td>
-                                                             {{item.candidate.contact_number}}
+                                                             {{item.candidate.contact_number| phone_number}}
                                                         </td>
                                                         <td>
-                                                            {{item.email}}
+                                                            {{item.candidate.email}}
                                                         </td>
                                                     
                                                       </td>
