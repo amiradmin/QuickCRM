@@ -1451,8 +1451,23 @@ class ViewFormByFormID(TemplateView):
 
         form = TwiEnrolmentForm.objects.filter(id=canID).first()
         context['form'] = form
-        return context    
-        
+        return context
+
+
+class ViewFormByFormIDSum(TemplateView):
+    template_name = "forms/reg_forms/twi_enrolment_by_id.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ViewFormByFormIDSum, self).get_context_data()
+        canID = self.kwargs['canID']
+        print(canID)
+        #
+        # form = TwiEnrolmentForm.objects.filter(id=canID).first()
+        # context['form'] = form
+        return context
+
+
+
 class AllFormsFromPostgres(TemplateView):
     template_name = "forms/all_forms_postres.html"
 
@@ -1590,9 +1605,11 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(EventSummaryByFormId, self).get_context_data()
-        guideID = self.kwargs['guideID']
+
         eventID = self.kwargs['eventID']
         catID = self.kwargs['catID']
+        guideID = self.kwargs['guideID']
+        # canID = self.kwargs['canID']
         print("Now")
         submitedList=None
 
