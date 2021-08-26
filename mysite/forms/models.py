@@ -33,6 +33,7 @@ class FormList(models.Model):
     category = models.ForeignKey(Category, related_name="category_form", on_delete=models.CASCADE, null=True, blank=True)
     guideline = models.ForeignKey(Guideline, related_name="guideline_form", on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey(Product, related_name="event_form", on_delete=models.CASCADE, null=True, blank=True)
+    FormID = models.CharField(max_length=128, null=True, blank=True)
     status = models.BooleanField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

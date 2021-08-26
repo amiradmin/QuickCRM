@@ -47,34 +47,24 @@ class UserFormMonitor(SidebarMixin,LoginRequiredMixin,TemplateView):
         for item in formList:
             canFromList.append(item.name)
 
-        for item in events:
-            print(item.name)
-            temooList = []
-            for item2 in item.formCategory.form.all():
-                if item2.name in canFromList:
-                    form = FormList.objects.filter(name=item2.name).first()
-                    print(form.id)
-
-                    temooList.append({'name': item2.name,'status':True,'confirmation':form.status})
-                else:
-                    temooList.append({'name': item2.name, 'status': False})
-            mainList.append({'event': item.name, 'forms': temooList})
+        # for item in events:
+        #     print(item.name)
+        #     temooList = []
+        #     for item2 in item.formCategory.form.all():
+        #         if item2.name in canFromList:
+        #             form = FormList.objects.filter(name=item2.name).first()
+        #             print(form.id)
+        #
+        #             temooList.append({'name': item2.name,'status':True,'confirmation':form.status})
+        #         else:
+        #             temooList.append({'name': item2.name, 'status': False})
+        #     mainList.append({'event': item.name, 'forms': temooList})
                 # tempDict = {'form':item2.name}
                 # finalList.
 
 
 
-        # for item in mapFromList:
-        #     temooList=[]
-        #     if item in canFromList:
-        #         temooList.append({'name': item,'status':True})
-        #     else:
-        #         mainList.append({'event':'temp', 'name': item,'status':False})
-        #     mainList.append({'event':'temp','forms':temooList})
-
-        # print(mapFromList)
-        # print(canFromList)
-        print(mainList)
+        # print(mainList)
 
 
         context['candidate'] = candidate

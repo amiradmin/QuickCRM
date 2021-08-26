@@ -21,7 +21,7 @@ urlpatterns = [
     path('eachformmem/<int:id>', views.EachFormMemebr.as_view(), name='eachformmem_'),
     path('uploadform/<int:id>', views.UploadForm.as_view(), name='uploadform_'),
     path('formbyid/<int:id>', views.ViewFormByID.as_view(), name='formbyid_'),
-    path('formbyformid/<int:id>', views.ViewFormByFormID.as_view(), name='formbyformid_'),
+    path('formbyformid/<int:eventID>/<int:formID>/<int:canID>', views.ViewFormByFormID.as_view(), name='formbyformid_'),
     path('allpslform/', views.AllPSL30LogForm.as_view(), name='allpslform_'),
     path('allpslinitialform/', views.AllBGASinitialForms.as_view(), name='allpslinitialform_'),
 

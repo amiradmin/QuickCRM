@@ -269,7 +269,7 @@
                                                         <td>
                                                             {{item.candidate.email}}
                                                         </td>
-                                                        <td><a  href="{% url 'forms:formbyformid_' id=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+                                                        <td><a  href="{% url 'forms:formbyformid_' eventID=17 formID=item.id canID=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                                                          {% if item.uploadedForm %}<a href="{{item.uploadedForm.url}}"><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
                                                         </td>
                                                    
@@ -321,7 +321,7 @@
                                                         </td>
                                                     
                                                       </td>
-                                                      <td><a  href="{% url 'forms:formbyformid_' id=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+                                                      <td><a  href=""><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                                                        {% if item.uploadedForm %}<a href="{{item.uploadedForm.url}}"><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
                                                       </td>                                                  
                                                         <td>

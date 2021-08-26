@@ -373,6 +373,7 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
+                formListObj.formID = obj.id
                 formListObj.save()
                 
                 return redirect('forms:allenrolmentform_')  
@@ -1445,7 +1446,7 @@ class ViewFormByFormID(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ViewFormByFormID, self).get_context_data()
-        canID = self.kwargs['id']
+        canID = self.kwargs['canID']
         print(canID)
 
         form = TwiEnrolmentForm.objects.filter(id=canID).first()
@@ -1604,29 +1605,29 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
             Q(event=event) & Q(guideline=guideline) & Q(category=category) & Q(status=True))
 
         
-        tag = Category.objects.filter(id=catID).first()
+        # tag = Category.objects.filter(id=catID).first()
         candidateList = event.candidate.all()
         
-        list1=[]
-        list2=[]
+        submittedList1=[]
+        allList=[]
         for item in candidateList:
             print(item.tes_candidate_id)
-            list1.append(item.tes_candidate_id)
+            allList.append(item.tes_candidate_id)
         
         print("====")
-        # for item in form:
-        #     print(item.candidate.tes_candidate_id)
-        #     list2.append(item.candidate.tes_candidate_id)
-        #
-        # resultList = list(set(list1).difference(list2))
-        # unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
+        for item in eventSubmit:
+            print(item.candidate.tes_candidate_id)
+            submittedList1.append(item.candidate.tes_candidate_id)
+
+        resultList = list(set(allList).difference(submittedList1))
+        unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
 
 
-        context['tag'] = tag        
+        # context['tag'] = tag
         context['event'] = event
         context['eventConfirm'] = eventConfirm
         context['eventSubmit'] = eventSubmit
         # context['form'] = form
-        # context['unsubmited'] = unsubmited
+        context['unsubmited'] = unsubmited
 
         return context 

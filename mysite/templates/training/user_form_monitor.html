@@ -144,13 +144,28 @@
  <div class="mb-3 col-md-12 ">
                                         <h4>Events:</h4>
 
-{% for item in mainList %}
- <h5>{{item.event}}</h5>
-     <ul class="tags" style="list-style-type: none;" >
-    {% for item2 in item.forms %}
- <li ><a href="" class="tag"  style="{% if item2.confirmation %} background-color:#25e66b;--my-color-var: #25e66b; {% elif item2.status %} background-color:orange;--my-color-var: orange; {% else %} background-color:grey;--my-color-var: grey; {% endif %}" >{% if item2.confirmation %}<i class="fa fa-check" aria-hidden="true"></i>{% endif %}{{item2.name}} </a></li>
+{% for item in events %}
+
+ <h5>{{item.name}}</h5>
+
+    {% for item2 in item.formCategory.all %}
+          <ul class="tags" style="list-style-type: none;" >
+   <h4>Category:</h4>
+ <li ><a href="" class="tag"  style="background-color:grey;--my-color-var: grey;" >{{item2.name}} </a>
+     <br>
+      <span style="float:left; "> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>
+ {% for item3 in item2.form.all %}
+
+ <ul class="tags" style="list-style-type: none;margin-left:30px; display: inline;" >
+<li  style=" display: inline;"><a href="{% url 'forms:formbyformid_' eventID=item.id formID=item3.id  canID=candidate.id %} " class="tag"  style="background-color:orange;--my-color-var: orange;" >{{item3.name}} </a>
+ </ul>
   {% endfor %}
-    </ul>
+ </li>
+</ul>
+ <br>
+          {% endfor %}
+
+
     {% endfor %}
 
 </div>
