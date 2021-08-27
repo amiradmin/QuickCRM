@@ -108,10 +108,7 @@
               <th>Tes ID</th>
               <td style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 20rem;">{{candidate.tes_candidate_id}}</td>
             </tr>
-            <tr v-show="user.password">
-              <th>Sponsor Company</th>
-              <td>{{candidate.sponsor_company}}</td>
-            </tr>
+
             <tr v-show="user.uid">
               <th>Email</th>
               <td>{{candidate.email}}</td>
@@ -157,7 +154,7 @@
  {% for item3 in item2.form.all %}
 
  <ul class="tags" style="list-style-type: none;margin-left:30px; display: inline;" >
-<li  style=" display: inline;"><a href="{% url 'forms:formbyformid_' eventID=item.id formID=item3.id  canID=candidate.id %} " class="tag"  style="background-color:orange;--my-color-var: orange;" >{{item3.name}} </a>
+<li  style=" display: inline;"><a href="{% url 'forms:formbyformidsum_' eventID=item.id catID=item2.id guideID=item3.id canID=candidate.id %}" class="tag"  style="background-color:orange;--my-color-var: orange;" >{{item3.name}} </a>
  </ul>
   {% endfor %}
  </li>

@@ -368,12 +368,12 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 candidate.forms.add(formObj)
                 
                 formListObj = FormList()
-                formListObj.name = event.name
+                formListObj.name = obj.__class__.__name__
                 formListObj.event = event
                 formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
-                formListObj.formID = obj.id
+                formListObj.FormID = obj.id
                 formListObj.save()
                 
                 return redirect('forms:allenrolmentform_')  
@@ -964,11 +964,12 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 bgasObj.save()
 
                 formListObj = FormList()
-                formListObj.name = event.name
+                formListObj.name = bgasObj.__class__.__name__
                 formListObj.event = event
                 formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
+                formListObj.FormID = bgasObj.id
                 formListObj.save()
 
                 return redirect('forms:allbgasform_')
@@ -1446,24 +1447,44 @@ class ViewFormByFormID(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ViewFormByFormID, self).get_context_data()
-        canID = self.kwargs['canID']
-        print(canID)
+        id = self.kwargs['id']
 
-        form = TwiEnrolmentForm.objects.filter(id=canID).first()
+        print(id)
+
+        form = TwiEnrolmentForm.objects.filter(id=id).first()
         context['form'] = form
         return context
 
 
-class ViewFormByFormIDSum(TemplateView):
+class ViewFormByFormIDSum(SidebarMixin,TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_by_id.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ViewFormByFormIDSum, self).get_context_data()
+        print('Here')
         canID = self.kwargs['canID']
+        eventID = self.kwargs['eventID']
+        guideID = self.kwargs['guideID']
+        catID = self.kwargs['catID']
+
+        candidate = TesCandidate.objects.filter(id=canID).first()
+        event = Event.objects.filter(id=eventID).first()
+        guideline = Guideline.objects.filter(id=guideID).first()
+        category = Category.objects.filter(id=catID).first()
+
         print(canID)
+        print(eventID)
+        print(guideID)
+        print(catID)
         #
-        # form = TwiEnrolmentForm.objects.filter(id=canID).first()
-        # context['form'] = form
+        formList =FormList.objects.filter(Q(event=event) & Q(guideline=guideline) & Q(category=category) & Q(candidate=candidate)).last()
+        model_name = formList.name
+        app_name = 'forms'
+        from django.apps import apps
+        twienrolmentform = apps.get_model(app_label=app_name, model_name=model_name)
+        form = twienrolmentform.objects.filter(id=formList.FormID).first()
+
+        context['form'] = form
         return context
 
 

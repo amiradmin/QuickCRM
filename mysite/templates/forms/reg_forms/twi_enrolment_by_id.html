@@ -257,7 +257,7 @@ body{padding:0px; margin:0px;  }
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaJSAPI.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
 
-<div id="formviewer">
+<div id="formviewer" style="overflow: hidden;">
  <form method="POST">                       
 {% csrf_token %}    
 
@@ -2274,7 +2274,7 @@ function checkOver(i) {
 </div>
 <div style="clear:both"></div>
                           <div class="mb-3 col-md-12 text-center">
-                <a href="{% url 'forms:uploadform_' id=form.id %}" class="aLink"  id="cmd">Upload </a>
+                <a href="" class="aLink"  id="cmd">Upload </a>
                                 <button name="enrolment" class="BUTTON_MZQ" style="height:34px;" type="submit">Submit</button>
                 <button class="BUTTON_MZQ" onClick="printFunction()" style="height:34px;" id="cmd">Print</button>
                           </div> 

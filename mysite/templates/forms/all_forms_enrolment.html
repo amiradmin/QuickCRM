@@ -58,10 +58,10 @@
            
            
             <td><p  >{{item.id}} </p></td>
-            <td><p ><a style="margin:0px; padding:0px;  " href="{% url 'forms:formbyformid_' id=item.id %}">{{item.candidate.tes_candidate_id}}</a></p></td>
+            <td><p ><a style="margin:0px; padding:0px;  " href="">{{item.candidate.tes_candidate_id}}</a></p></td>
             <td><p >{{item.firstName}}</p></td>
             <td><p >{{item.lastName}}</p></td>
-            <td><a href="{% if item.uploadedForm  %}{{item.uploadedForm.url}}{% endif %}" ><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            <td><a href="{% url 'forms:formbyformid_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a></td>
            
  
           

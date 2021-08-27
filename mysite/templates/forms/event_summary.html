@@ -269,7 +269,7 @@
                                                         <td>
                                                             {{item.candidate.email}}
                                                         </td>
-                                                        <td><a  href="{% url 'forms:formbyformidsum_'   catID=1 guideID=1  canID=item.candidate.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+                                                        <td><a  href="{% url 'forms:formbyformidsum_' eventID=event.id  catID=item.category.id guideID=item.guideline.id  canID=item.candidate.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                                                         <i class="fa fa-camera" aria-hidden="true"></i>
                                                         </td>
                                                    
