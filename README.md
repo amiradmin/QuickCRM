@@ -41,14 +41,6 @@ Http://localhost:8000
 
 Login with your user which you made then you will be redirected to the training panel.
 
-## Contributing
-
-1. Fork it!
-2. Create your feature branch: `git checkout -b main`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin main
-5. Submit a pull request :D
-
 
 Verify the deployment by navigating to your server address in
 your preferred browser.
