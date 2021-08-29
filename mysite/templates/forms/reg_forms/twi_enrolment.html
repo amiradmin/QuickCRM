@@ -336,8 +336,8 @@ body{padding:0px; margin:0px;  }
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
 
 <div id="formviewer" style=" overflow: hidden;">
- <form method="POST" id="myForm">
-{% csrf_token %}    
+ <form method="POST" name="formvalidate"  onsubmit="return validate();" >
+{% csrf_token %}
 
 <input type="hidden" value="{{candidate.id}} " name="mainCanID"/>
 <input type="hidden" value="{{event.id}} " name="eventID"/>
@@ -683,6 +683,7 @@ function checkOver(i) {
 #form5_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 480px;	width: 423px;	height: 23px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px 'Courier New', Courier, monospace;}
 #form6_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 532px;	width: 423px;	height: 23px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px 'Courier New', Courier, monospace;}
 #form7_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 211px;	top: 581px;	width: 46px;	height: 22px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px 'Courier New', Courier, monospace;}
+#form7_1Error{	z-index: 2;	padding: 0px;	position: absolute;	left: 211px;	top: 608px;	width: 250px;	height: 22px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 12px 'Courier New', Courier, monospace;}
 #form8_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 283px;	top: 581px;	width: 46px;	height: 22px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px 'Courier New', Courier, monospace;}
 #form9_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 355px;	top: 581px;	width: 96px;	height: 22px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px 'Courier New', Courier, monospace;}
 #form10_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 773px;	top: 581px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
@@ -864,7 +865,7 @@ function checkOver(i) {
 <span id="t1r_1" class="t s2_1">Bookings received without payment / order Number will be treated as </span>
 <span id="t1s_1" class="t s2_1">provisional, which does not guarantee a place. </span>
 <span id="t1t_1" class="t s2_1">Sponsor</span><span id="t1u_1" class="t s9_1">’</span><span id="t1v_1" class="t s2_1">s signature: </span><span id="draw" class="t s2_1"><a href="{% if candidate %}{% url 'forms:drawsig_' id=candidate.id %} {% endif %}">Sign Here </a></span><span id="sigUploud" class="t s2_1"><a href="{% if candidate %}{% url 'forms:uploadsig_' id=candidate.id %} {% endif %}">Uploud Image</a></span>
-<span id="t1w_1" class="t se_1">(Handwritten signature required) </span>
+<span id="t1w_1" class="t se_1">(Handwritten signature required ) </span>
 <span id="t1x_1" class="t s4_1">Venue </span>
 <span id="t1y_1" class="t sa_1">☐ </span><span id="t1z_1" class="t sf_1">Quebec </span><span id="t20_1" class="t sa_1">☐ </span><span id="t21_1" class="t sf_1">Calgary </span>
 <span id="t22_1" class="t sa_1">☐ </span><span id="t23_1" class="t sf_1">Edmonton </span>
@@ -926,9 +927,10 @@ function checkOver(i) {
 <input id="form5_1" name="form5_1" style="margin-left:6px;letter-spacing: 18px;"  type="text" tabindex="5" maxlength="17" value="{{candidate.middleName |upper}}" data-objref="2113 0 R" title="Candidate&#39;s Middle Name (as per ID / Passport" data-field-name="Candidates Middle Name as per ID  Passport"  >
 <input id="form6_1" name="form6_1" style="margin-left:6px;letter-spacing: 18px;"  value="{{candidate.first_name|upper}}" type="text" tabindex="6" maxlength="17" data-objref="2114 0 R" title="Candidate&#39;s Given Name (as per ID / Passport"  data-field-name="Candidates Given Name as per ID  Passport"  >
 
-<input id="form7_1"  name="form7_1"  style="margin-left:6px;letter-spacing: 18px;" type="text" value="{{candidate.birth_date| date:"d"}}" tabindex="7" maxlength="2" value="" data-objref="2115 0 R" title="D" data-field-name="D"  required >
-<input id="form8_1" name="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="8" maxlength="2" value="{{candidate.birth_date| date:"m"}}" data-objref="2116 0 R" title="M" data-field-name="M" required >
-<input id="form9_1" name="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="9" maxlength="4" value="{{candidate.birth_date| date:"Y"}}" data-objref="2117 0 R" title="Y" data-field-name="Y"  required />
+<input id="form7_1"  name="form7_1"  style="margin-left:1px;letter-spacing: 18px;" type="number" value="{{candidate.birth_date| date:"d"}}" tabindex="7"  value="" data-objref="2115 0 R" title="D" data-field-name="D"     >
+<input id="form8_1" name="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="8" maxlength="2" value="{{candidate.birth_date| date:"m"}}" data-objref="2116 0 R" title="M" data-field-name="M"   >
+<input id="form9_1" name="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="text" tabindex="9" maxlength="4" value="{{candidate.birth_date| date:"Y"}}" data-objref="2117 0 R" title="Y" data-field-name="Y"    />
+<div  ><span id="form7_1Error" class="text-danger"></span></div>
 <input id="form10_1" name="form10_1" type="checkbox" tabindex="10" data-objref="2118 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2118 0 R' %}" imagesT="110100"/>
 <input id="form11_1"  name="form11_1" type="checkbox" tabindex="11" data-objref="2120 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2120 0 R' %}" imagesT="110100"/>
 <input id="form12_1" name="form12_1"  name="form12_1" type="checkbox" tabindex="12" data-objref="2121 0 R" data-field-name="Check Box4" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2121 0 R' %}" imagesT="110100"/>
@@ -2075,13 +2077,13 @@ function checkOver(i) {
 <span id="t3l_3" class="t s6_3">☐ </span><span id="t3m_3" class="t s2_3">I have successfully completed the Level 1 exams as a pre entry requirement </span>
 <span id="t3n_3" class="t s4_3">Please give a detailed statement of how you meet the requirements (this must be signed and verified by an employer/third party) </span>
 <span id="t3o_3" class="t s3_3">Section 6: </span><span id="t3p_3" class="t s3_3">Other examinations </span><span id="t3q_3" class="t s2_3">(to be completed in full by all candidates for any other examinations) </span>
-<span id="t3r_3" class="t s4_3">Please tick and specify exam title as required </span>
+<span id="t3r_3" class="t s4_3">Please tick and specify exam title as   </span>
 <span id="t3s_3" class="t s6_3">☐ </span><span id="t3t_3" class="t s2_3">Plastic welding </span><span id="t3u_3" class="t s6_3">☐ </span><span id="t3v_3" class="t s2_3">Offshore visual Inspector </span><span id="t3w_3" class="t s6_3">☐ </span><span id="t3x_3" class="t s2_3">BGAS </span>
-<span id="t3y_3" class="t s2_3">Examination title required: </span>
+<span id="t3y_3" class="t s2_3">Examination title  : </span>
 <span id="t3z_3" class="t s8_3">Pre-certification experience </span>
 <span id="t40_3" class="t s2_3">CSWIP and BGAS Scheme documents stipulates the minimum requirements on the industrial pre-certification experience. Compliance with these requirements </span>
 <span id="t41_3" class="t s2_3">is an essential part of the eligibility criteria. Please refer to the latest version of scheme document published on the CSWIP website. </span>
-<span id="t42_3" class="t s2_3">Please contact TWI Customer Services for advice on relevant forms and documentation required. </span>
+<span id="t42_3" class="t s2_3">Please contact TWI Customer Services for advice on relevant forms and documentation  . </span>
 
 </div>
 <!-- End text definitions -->
@@ -2312,14 +2314,14 @@ function checkOver(i) {
 <span id="tg_4" class="t s5">I accept responsibility for any examination fees in the event of non-payment by the sponsor. I agree to abide by the requirements for certification as relevant to the examination for which </span>
 <span id="th_4" class="t s5">I am applying. In particular I agree to comply, if applicable, with the CSWIP rules on use and misuse of certificates and on professional conduct (see www.cswip.com). </span>
 <span id="ti_4" class="t s5">I understand that any appeal against an exam result must be received within six months of the exam date. </span>
-<span id="tj_4" class="t s5">I agree to provide any additional documents and information required by examination body to support my enrolment. </span>
+<span id="tj_4" class="t s5">I agree to provide any additional documents and information   by examination body to support my enrolment. </span>
 <span id="tk_4" class="t s5">I understand that any false statement may result in the examination being invalidated. </span>
 <span id="tl_4" class="t s5">In the event of cancellation by you, the event fee and the accommodation fee (if applicable) will be returned </span><span id="tm_4" class="t s6">less a cancellation charge of 20%. If less than 14 days’ notice is given by you, </span>
 <span id="tn_4" class="t s5">TWI reserves the right to retain the whole fee. TWI reserves the right to cancel the event in case of insufficient registration or illness of lecturers. TWI will ensure maximum possible notice </span>
-<span id="to_4" class="t s5">is given to the attendees and reserves the right to substitute lecturers and modify the course details as required. </span>
+<span id="to_4" class="t s5">is given to the attendees and reserves the right to substitute lecturers and modify the course details as  . </span>
 <span id="tp_4" class="t s5">By signing this Enrolment form I confirm complete acceptance of the TWI Ltd Terms and Conditions of Training, copy available on request. </span>
 <span id="tq_4" class="t s2">Candidate</span><span id="tr_4" class="t s7">’</span><span id="ts_4" class="t s2">s Signature: </span>
-<span id="tt_4" class="t s8">(Handwritten signature required) </span>
+<span id="tt_4" class="t s8">(Handwritten signature  ) </span>
 <span id="tu_4" class="t s3">Section 8: </span><span id="tv_4" class="t s3">Verification </span><span id="tw_4" class="t s2">(to be com</span><span id="tx_4" class="t s9">pleted in full by all applicant’s verifier</span><span id="ty_4" class="t s2">) </span>
 <span id="tz_4" class="t s2">Verification is an essential part of the exam eligibility process, and the verification contact details provided by the candidate will only be used to complete the </span>
 <span id="t10_4" class="t s2">exam eligibility process. The verifier will not be contacted by TWI for any marketing or promotional purposes, and their details will not be shared to any party </span>
@@ -2335,7 +2337,7 @@ function checkOver(i) {
 <span id="t1b_4" class="t sb">Verifier’s declaration: </span>
 <span id="t1c_4" class="t s2">To the best of my belief, </span><span id="t1d_4" class="t s9">the candidate’s statement given above is correct at the time of signing </span>
 <span id="t1e_4" class="t s2">Verifier</span><span id="t1f_4" class="t s7">’</span><span id="t1g_4" class="t s2">s Signature (employer</span><span id="t1h_4" class="t s7">’</span><span id="t1i_4" class="t s2">s or equivalent) </span>
-<span id="t1j_4" class="t s8">(Handwritten signature required) </span></div>
+<span id="t1j_4" class="t s8">(Handwritten signature  ) </span></div>
 <!-- End text definitions -->
 
 
@@ -2345,7 +2347,7 @@ function checkOver(i) {
 <input id="form3_4" name="form3_4" type="text" tabindex="153" value="" data-objref="521 0 R" title="to the candidate" data-field-name="to the candidate"/>
 <input id="form4_4" name="form4_4" type="text" tabindex="154" value="" data-objref="520 0 R" title="Telephone no" data-field-name="Telephone no"/>
 <input id="form5_4" name="form5_4" type="text" tabindex="155" value="" data-objref="517 0 R" title="Email Address" data-field-name="Email Address"/>
-<input id="form6_4" name="form6_4" type="text" tabindex="156" value="" data-objref="519 0 R" title="Date" data-field-name="Date"/>
+<input id="form6_4" name="form6_4" type="text" tabindex="156" value="" data-objref="519 0 R" title="Date" data-field-name="Date"   />
 
 <!-- End Form Data -->
 
@@ -2357,6 +2359,7 @@ function checkOver(i) {
                           <div class="mb-3 col-md-12 text-center">
                 <a href="" class="aLink"  id="cmd">Upload </a>
                                 <button name="enrolment" class="BUTTON_MZQ" style="height:34px;" type="submit">Submit</button>
+
                 <button class="BUTTON_MZQ" onClick="printFunction()" style="height:34px;" id="cmd">Print</button>
                           </div> 
 </form>
@@ -2373,6 +2376,7 @@ JVBERi0xLjYNJeLjz9MNCjE5NDIgMCBvYmoNPDwvTGluZWFyaXplZCAxL0wgOTkyMTE4L08gMTk0NS9F
 </div>
 
 <script src="{% static 'assets/forms/Jaeger_TOFDL2js/config.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/regex.js' %}" type="text/javascript"></script>
 <script type="text/javascript">FormViewer.setup();</script>
 <script type="text/javascript">
 (function reticulateSplines() {
@@ -2381,6 +2385,8 @@ JVBERi0xLjYNJeLjz9MNCjE5NDIgMCBvYmoNPDwvTGluZWFyaXplZCAxL0wgOTkyMTE4L08gMTk0NS9F
 	{% comment %} document.body[atob("YXBwZW5kQ2hpbGQ=")](el.firstChild); {% endcomment %}
 })();
 </script>
+
+
 <script>
   function myFunVenue(checkbox) {
     
@@ -2430,19 +2436,19 @@ JVBERi0xLjYNJeLjz9MNCjE5NDIgMCBvYmoNPDwvTGluZWFyaXplZCAxL0wgOTkyMTE4L08gMTk0NS9F
    if (checkBox.checked == true){
        checkBoxCompany.checked =  false;
         form40_1.style.backgroundColor = "white";
-        document.getElementById("form40_1").required = false;
+        document.getElementById("form40_1").  = false;
 
         form43_1.style.backgroundColor = "white";
-        document.getElementById("form43_1").required = false;
+        document.getElementById("form43_1").  = false;
 
         form44_1.style.backgroundColor = "white";
-        document.getElementById("form44_1").required = false;    
+        document.getElementById("form44_1").  = false;    
 
         form45_1.style.backgroundColor = "white";
-        document.getElementById("form45_1").required = false;
+        document.getElementById("form45_1").  = false;
 
         form47_1.style.backgroundColor = "white";
-        document.getElementById("form47_1").required = false;
+        document.getElementById("form47_1").  = false;
 
 
   }
@@ -2463,19 +2469,19 @@ function myFunction() {
  
   if (checkBox.checked == true){
     form40_1.style.backgroundColor = "yellow";
-    document.getElementById("form40_1").required = true;
+    document.getElementById("form40_1").  = true;
 
     form43_1.style.backgroundColor = "yellow";
-    document.getElementById("form43_1").required = true;
+    document.getElementById("form43_1").  = true;
     
     form44_1.style.backgroundColor = "yellow";
-    document.getElementById("form44_1").required = true;    
+    document.getElementById("form44_1").  = true;    
 
     form45_1.style.backgroundColor = "yellow";
-    document.getElementById("form45_1").required = true;
+    document.getElementById("form45_1").  = true;
 
     form47_1.style.backgroundColor = "yellow";
-    document.getElementById("form47_1").required = true;
+    document.getElementById("form47_1").  = true;
 
     checkBoxSelf.checked =  false
   } 
@@ -2488,5 +2494,6 @@ function myFunction() {
         window.print(); 
       }
     </script>
+
 
  {% endblock %}

@@ -1442,7 +1442,7 @@ class ViewFormByID(TemplateView):
         context['form'] = form
         return context    
 
-class ViewFormByFormID(TemplateView):
+class ViewFormByFormID(SidebarMixin,TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_by_id.html"
 
     def get_context_data(self, *args, **kwargs):
