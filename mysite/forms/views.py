@@ -1433,6 +1433,15 @@ class ViewFormByID(TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_by_id.html"
 
     def get_context_data(self, *args, **kwargs):
+        """
+
+        Args:
+            *args:
+            **kwargs:
+
+        Returns:
+
+        """
         context = super(ViewFormByID, self).get_context_data()
         canID = self.kwargs['id']
         candidate = TesCandidate.objects.filter(id =canID).first()
