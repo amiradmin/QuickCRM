@@ -6,10 +6,38 @@ var cursorFocus = function(elem) {
   window.scrollTo(x, y);
 }
 
+function topFormValidate(){
+
+    canID = document.getElementById("canID");
+    eventID = document.getElementById("eventID");
+
+    if(canID.value == "" || canID.value == null  ){
+          msg = "Please choose candidate first!";
+          mainCanIDError.style.visibility = "visible";
+          mainCanIDError.innerHTML = msg;
+          canID.focus();
+          canID.style.backgroundColor = "#ffabab";
+          window.scrollTo(100,canID.offsetTop);
+          return false;
+        }
+
+    if(eventID.value == "" || eventID.value == null  ){
+          msg = "Please choose event!";
+          eventIDError.style.visibility = "visible";
+          eventIDError.innerHTML = msg;
+          eventID.focus();
+          eventID.style.backgroundColor = "#ffabab";
+          window.scrollTo(100,eventID.offsetTop);
+          return false;
+        }
+
+}
 
 function validate() {
 
     mainCanID = document.getElementById("mainCanID");
+    mainEventID = document.getElementById("mainEventID");
+
     form7_1 = document.getElementById("form7_1");
     form8_1 = document.getElementById("form8_1");
     form9_1 = document.getElementById("form9_1");
@@ -20,14 +48,16 @@ function validate() {
 
 
     if(mainCanID.value == "" || mainCanID.value == null  ){
-          msg = "Please choose candidate first!";
-          mainCanIDError.style.visibility = "visible";
-          mainCanIDError.innerHTML = msg;
+          msg = "Please choose this section first!";
+          topFormError.style.visibility = "visible";
+          topFormError.innerHTML = msg;
           mainCanID.focus();
           mainCanID.style.backgroundColor = "#ffabab";
           window.scrollTo(100,mainCanID.offsetTop);
           return false;
         }
+
+
 
     if(form4_1.value == "" || form4_1.value == null  ){
           msg = "Please insert family name!";

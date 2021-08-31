@@ -1,6 +1,8 @@
 var ctx = cnv.getContext('2d');
 var cnvDispSizeW = 300;
 var cnvDispSizeH = 300;
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, cnvDispSizeW, cnvDispSizeH);
 var mDown = false;
 var lastX = 0, lastY = 0;
 var posConv = function(x, y) {
@@ -27,7 +29,7 @@ cnv.onmousemove = function(evt) {
 function draw(x, y) {
   if (mDown && lastX) {
     ctx.beginPath();
-    ctx.strokeStyle = 'Green';
+    ctx.strokeStyle = 'black';
     ctx.lineWidth = 1;
     ctx.lineJoin = 'round';
     ctx.moveTo(lastX, lastY);
@@ -74,7 +76,7 @@ function execDownload(url) {
     var blob = cnv.msToBlob();
     window.navigator.msSaveBlob(blob, 'save.jpg');
   } else if(a.download === '') {
-    a.download = 'save.jpg';
+    a.download = 'sign.jpg';
     var evt = new MouseEvent('click', {view: window, bubbles: false});
     a.dispatchEvent(evt);
   } else if(navigator.userAgent.indexOf('Safari') > -1) {

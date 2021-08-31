@@ -151,23 +151,36 @@ FormViewer.on('ready', function(data) {
      }
 }
 
-/* style sheet for "letter" printing */
-@media print and (width: 8.5in) and (height: 11in) {
-    @page {
-        margin: 0in;
-    }
-}
 
-/* A4 Landscape*/
-@page {
-    size: A3 landscape;
-    margin: 0%;
-}
 
+@media print {
+
+  body * {
+    visibility: hidden;
+    width:width:100%;
+    padding:0px;
+    margin:0px;
+
+  }
+  #formviewer, #formviewer * {
+    visibility: visible;
+width:100%;
+    padding:0px;
+    margin:0px;
+
+
+zoom: 92%;
+
+
+
+
+  }
+
+}
 .btn{border:0 none; height:30px; padding:0; width:30px; background-color:transparent; display:inline-block; margin:7px 5px 0; vertical-align:top; cursor:pointer; color:#fff;}
 
 
-#formviewer{ top:40px; left:12%; width:79%; background-color:transparent; position:relative; -webkit-box-shadow: 1px 1px 20px 0 #000000;-moz-box-shadow: 1px 1px 20px 0 #000000;}
+#formviewer{ margin:10px auto; width:78%; background-color:transparent; position:relative; -webkit-box-shadow: 1px 1px 20px 0 #000000;-moz-box-shadow: 1px 1px 20px 0 #000000;}
 body{padding:0px; margin:0px;  }
 
 .BUTTON_MZQ {
@@ -489,6 +502,7 @@ function checkOver(i) {
 #t1r_1{left:495px;bottom:1053px;letter-spacing:0.09px;word-spacing:2.89px;}
 #t1s_1{left:495px;bottom:1039px;letter-spacing:0.08px;}
 #t1t_1{left:495px;bottom:731px;letter-spacing:0.04px;}
+#t1t_1img{left:630px;bottom:700px;letter-spacing:0.04px;}
 #t1u_1{left:540px;bottom:731px;}
 #t1v_1{left:543px;bottom:731px;letter-spacing:0.01px;word-spacing:-0.02px;}
 #draw{left:495px;bottom:685px;letter-spacing:0.01px;word-spacing:-0.02px;}
@@ -782,7 +796,9 @@ function checkOver(i) {
 <span id="t1p_1" class="t s4_1">Methods of Payment </span><span id="t1q_1" class="t sd_1">(The E-transfer method is preferd) </span>
 <span id="t1r_1" class="t s2_1">Bookings received without payment / order Number will be treated as </span>
 <span id="t1s_1" class="t s2_1">provisional, which does not guarantee a place. </span>
-<span id="t1t_1" class="t s2_1">Sponsor</span><span id="t1u_1" class="t s9_1">’</span><span id="t1v_1" class="t s2_1">s signature: </span><span id="draw" class="t s2_1"><a href="{% if candidate %}{% url 'forms:drawsig_' id=candidate.id %} {% endif %}">Sign Here </a></span><span id="sigUploud" class="t s2_1"><a href="{% if candidate %}{% url 'forms:uploadsig_' id=candidate.id %} {% endif %}">Uploud Image</a></span>
+<span id="t1t_1" class="t s2_1">Sponsor</span><span id="t1u_1" class="t s9_1">’</span><span id="t1v_1" class="t s2_1">s signature: </span>
+    {% if form.uploadedSign %} <span id="t1t_1img" class="t s2_1"><img  width="100" src="{{form.uploadedSign.url}}" />   </span> {% endif %}
+    <span id="draw" class="t s2_1"><a href="{% url 'forms:drawsig_' id=form.id %}">Sign Here </a></span><span id="sigUploud" class="t s2_1"><a href="{% url 'forms:uploadsig_' id=form.id %} ">Uploud Image</a></span>
 <span id="t1w_1" class="t se_1">(Handwritten signature required) </span>
 <span id="t1x_1" class="t s4_1">Venue </span>
 <span id="t1y_1" class="t sa_1">☐ </span><span id="t1z_1" class="t sf_1">Quebec </span><span id="t20_1" class="t sa_1">☐ </span><span id="t21_1" class="t sf_1">Calgary </span>
@@ -2274,7 +2290,7 @@ function checkOver(i) {
 </div>
 <div style="clear:both"></div>
                           <div class="mb-3 col-md-12 text-center">
-                <a href="" class="aLink"  id="cmd">Upload </a>
+                <a href="{% url 'forms:uploadform_' id=form.id %}" class="aLink" id="cmd">Upload </a>
                                 <button name="enrolment" class="BUTTON_MZQ" style="height:34px;" type="submit">Submit</button>
                 <button class="BUTTON_MZQ" onClick="printFunction()" style="height:34px;" id="cmd">Print</button>
                           </div> 

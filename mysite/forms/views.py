@@ -1509,7 +1509,7 @@ class AllFormsFromPostgres(TemplateView):
         return context
     
 
-class sigDrawer(TemplateView):
+class sigDrawer(SidebarMixin,TemplateView):
     template_name = "forms/draw_sig.html"
     candidateID = None
 
@@ -1520,16 +1520,26 @@ class sigDrawer(TemplateView):
         return context
 
 
-class uploadSignature(TemplateView):
+class uploadSignature(SidebarMixin,TemplateView):
     template_name = "forms/uploud_sig.html"
     candidateID = None
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, id,*args, **kwargs):
         context = super(uploadSignature, self).get_context_data()
- 
-
+        print(self.kwargs['id'])
         return context
-    
+
+    def post(self, request,id, *args, **kwargs):
+
+        if request.method == 'POST':
+            if request.FILES.get('imageFile', False):
+                print(self.kwargs['id'])
+                formObj = TwiEnrolmentForm.objects.filter(id=self.kwargs['id']).first()
+                formObj.uploadedSign = request.FILES['imageFile']
+                formObj.save()
+
+        return redirect('forms:allenrolmentform_')
+
 class formMap(TemplateView):
     template_name = "forms/form_map.html"
 
@@ -1552,7 +1562,7 @@ class FormMapByCatID(TemplateView):
         return context
     
     
-class UploadForm(TemplateView):
+class UploadForm(SidebarMixin,TemplateView):
     template_name = "forms/uploud_form.html"
 
     def get_context_data(self, *args, **kwargs):

@@ -61,7 +61,9 @@
             <td><p ><a style="margin:0px; padding:0px;  " href="">{{item.candidate.tes_candidate_id}}</a></p></td>
             <td><p >{{item.firstName}}</p></td>
             <td><p >{{item.lastName}}</p></td>
-            <td><a href="{% url 'forms:formbyformid_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            <td><a href="{% url 'forms:formbyformid_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+                {% if item.uploadedForm %} <a target="_blank" href="{{item.uploadedForm.url}}" ><i class="fa fa-camera" aria-hidden="true"></i></a> {% endif %}
+            </td>
            
  
           

@@ -11,17 +11,23 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
+        <div class="card" style="text-align:center;">
+            <div class="card-body" >
 
 
                 <div class="tab-content">
-                    <form method="POST">
+                    <form method="POST" onsubmit="return topFormValidate();">
                         {% csrf_token %}
+                             <br>
+
+<div  style="visibility:hidden; text-align:center;"><span style="width:300px;" id="topFormError" class="alert alert-danger"></span></div>
+                            <br>
+                            <br>
                         <div class="row g-2">
+
                             <div class="mb-3 col-md-6">
                                 <label for="inputState" class="form-label">Candidate</label>
-                                <select name="canID" id="inputState" class="form-select">
+                                <select name="canID" id="canID" class="form-select">
                                     <option value="{{candidate.id}} ">{{candidate.first_name}} {{candidate.middleName}}
                                         {{candidate.last_name}}
                                     </option>
@@ -32,13 +38,13 @@
                                     {% endfor %}
 
                                 </select>
-                                <div><span id="mainCanIDError" class="text-danger">55</span></div>
+                                <div><span id="mainCanIDError" class="text-danger"></span></div>
                             </div>
 
 
                             <div class="mb-3 col-md-6">
                                 <label for="inputState" class="form-label">Event</label>
-                                <select name="eventID" id="inputState" class="form-select">
+                                <select name="eventID" id="eventID" class="form-select">
                                     <option value="">{{event.name}}</option>
                                     {% for item in events %}
                                     <option value="{{item.id}}">{{item.name}}</option>
@@ -46,6 +52,7 @@
 
                                 </select>
                             </div>
+                            <div><span id="eventIDError" class="text-danger"></span></div>
                         </div>
 
 
@@ -229,25 +236,35 @@ FormViewer.on('ready', function(data) {
 
 <style type="text/css">
 
+
 @media print {
+
   body * {
     visibility: hidden;
+    width:width:100%;
+    padding:0px;
+    margin:0px;
 
   }
   #formviewer, #formviewer * {
     visibility: visible;
+width:100%;
+    padding:0px;
+    margin:0px;
+
+
+zoom: 92%;
+
+
+
 
   }
-  #formviewer {
-    position: absolute;
-    left: 0;
-    top: 0;
-  }
+
 }
 .btn{border:0 none; height:30px; padding:0; width:30px; background-color:transparent; display:inline-block; margin:7px 5px 0; vertical-align:top; cursor:pointer; color:#fff;}
 
 
-#formviewer{ top:40px; left:12%; width:77%; background-color:transparent; position:relative; -webkit-box-shadow: 1px 1px 20px 0 #000000;-moz-box-shadow: 1px 1px 20px 0 #000000;}
+#formviewer{ margin:10px auto; width:77%; background-color:transparent; position:relative; -webkit-box-shadow: 1px 1px 20px 0 #000000;-moz-box-shadow: 1px 1px 20px 0 #000000;}
 body{padding:0px; margin:0px;  }
 
 .BUTTON_MZQ {
@@ -344,7 +361,7 @@ body{padding:0px; margin:0px;  }
 
         <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="mainCanID"/>
 
-        <input type="hidden" value="{{event.id}}" name="eventID"/>
+        <input type="hidden" id="mainEventID" value="{{event.id}}" name="eventID"/>
         <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
         <input type="hidden" value="{{category.id}}" name="categoryID"/>
         <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
@@ -2827,10 +2844,10 @@ function checkOver(i) {
             </div>
             <div style="clear:both"></div>
             <div class="mb-3 col-md-12 text-center">
-                <a href="" class="aLink" id="cmd">Upload </a>
+
                 <button name="enrolment" class="BUTTON_MZQ" style="height:34px;" type="submit">Submit</button>
 
-                <button class="BUTTON_MZQ" onClick="printFunction()" style="height:34px;" id="cmd">Print</button>
+
             </div>
     </form>
 </div>
