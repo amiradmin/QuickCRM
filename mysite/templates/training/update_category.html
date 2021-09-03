@@ -12,7 +12,7 @@
                                 <div class="page-title-right">
 
                                 </div>
-                                <h4 class="page-title">Form Category List</h4>
+                                <h4 class="page-title">Update Category : {{category.name}}</h4>
                             </div>
                         </div>
                     </div>     
@@ -27,64 +27,20 @@
         
 
                                     <div class="tab-content">
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
-                                            <table id="basic-datatable" class="table dt-responsive nowrap w-100">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Guideline Forms</th>
 
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                            
-                                            
-                                                <tbody>
-                                                    {% for item in category_list %}
-                                                    <tr>
-                                                        <td>{{item.id}}</td>
-                                                        <td>{{item.name}}</td>
-                                                        <td>
-                                                            {% for item2 in item.form.all %}
-                                                            <p>{{item2.name}}</p>
-                                                            {% endfor %}
-                                                        </td>
-                                                      
-                                                        <td><a href="{% url 'training:addformcategory_' id=item.id %}"><i style="font-size:20px;" class="fa fa-wpforms" aria-hidden="true"></i></a></td>
-                                                        <td><a href="{% url 'training:updatecategory_' catID=item.id %}"><i style="font-size:20px;" class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-														<td><a href="{% url 'training:delcategory_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
-                                                        
-                                                        
-                                                       
-                                                    </tr>
-                                                    {%endfor%}
-                                                </tbody>
-                                            </table>                                           
-                                        </div> <!-- end preview-->
                                         <br>
                                         <br>
                                         
                                         <form   method="POST" >
                                             {% csrf_token %}
                                             <div class="mb-3 col-md-12">
-                                                <label for="inputCity" class="form-label">New Category</label>
-                                                <input type="text" name="name" class="form-control" id="inputCity">
+                                                <label for="inputCity" class="form-label">Category</label>
+                                                <input type="text" name="name" value="{{category.name}}" class="form-control" id="inputCity">
                                             </div>
-                                                <div class="mb-3 col-md-12">
-                                                    <label for="inputState" class="form-label">Guideline Forms</label>
-                                                    <select name="guideline" id="inputState" class="form-select">
-                                                        <option>Choose</option>
-                                                        {% for item in form_list %}
-                                                        <option value="{{item.id}}" >{{item.name}}</option>
-                                                        {%endfor%}
-                                                    </select>
-                                                </div>
+
 
                                             <div class="mb-3 col-md-12 text-center">                
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn btn-primary">Update</button>
                                         </div>
                                         </form>
 

@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card" style="text-align:center;">
+        <div class="card" >
             <div class="card-body" >
 
 
@@ -723,7 +723,7 @@ function checkOver(i) {
 #form18_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 132px;	top: 698px;	width: 107px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
 #form19_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 338px;	top: 698px;	width: 110px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
 #form20_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 132px;	top: 718px;	width: 316px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
-#form21_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 132px;	top: 747px;	width: 316px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
+#form21_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 132px;	top: 747px;	width: 316px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}#form21_1Form{	z-index: 2;	padding: 0px;	position: absolute;	left: 132px;	top: 770px;	width: 316px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 10px Arial, Helvetica, sans-serif;}
 #form22_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 132px;	top: 767px;	width: 316px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
 #form23_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 711px;	top: 689px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form24_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 711px;	top: 715px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
@@ -1017,19 +1017,19 @@ function checkOver(i) {
                         0 R" title="Y" data-field-name="Y" />
                         <div><span id="birthDayError" class="text-danger"></span></div>
                         <input id="form10_1" name="form10_1" type="checkbox" tabindex="10" data-objref="2118 0 R"
-                               data-field-name="Check Box4"
+                               data-field-name="Check Box4" class="venueCh" onchange="venueChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2118 0 R' %}" imagesT="110100"/>
                         <input id="form11_1" name="form11_1" type="checkbox" tabindex="11" data-objref="2120 0 R"
-                               data-field-name="Check Box4"
+                               data-field-name="Check Box4" class="venueCh" onchange="venueChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2120 0 R' %}" imagesT="110100"/>
                         <input id="form12_1" name="form12_1" name="form12_1" type="checkbox" tabindex="12"
-                               data-objref="2121 0 R" data-field-name="Check Box4"
+                               data-objref="2121 0 R" data-field-name="Check Box4" class="venueCh" onchange="venueChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2121 0 R' %}" imagesT="110100"/>
                         <input id="form13_1" name="form13_1" type="checkbox" tabindex="13" data-objref="2122 0 R"
-                               data-field-name="Check Box4"
+                               data-field-name="Check Box4" class="venueCh" onchange="venueChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2122 0 R' %}" imagesT="110100"/>
                         <input id="form14_1" name="form14_1" type="checkbox" tabindex="14" data-objref="2123 0 R"
-                               data-field-name="Check Box4"
+                               data-field-name="Check Box4" class="venueCh" onchange="venueChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2123 0 R' %}" imagesT="110100"/>
                         <input id="form15_1" name="form15_1" type="text" tabindex="15" value="{{candidate.address}}"
                                data-objref="2124 0 R" title="Permanent private address [1]"
@@ -1042,11 +1042,12 @@ function checkOver(i) {
                                data-objref="2127 0 R" title="Postcode" data-field-name="Postcode">
                         <input id="form19_1" name="form19_1" type="text" tabindex="19" value="" data-objref="2128 0 R"
                                title="Car Reg. No" data-field-name="Car Reg No"/>
-                        <input id="form20_1" name="form20_1" type="text" tabindex="20"
+                        <input id="form20_1" name="form20_1"  type="text" onkeypress="return numberPressed(event);" tabindex="20"
                                value="{{candidate.contact_number}}" data-objref="2129 0 R" title="Private Tel"
                                data-field-name="Private Tel"/>
-                        <input id="form21_1" name="form21_1" type="text" tabindex="21" value="" data-objref="2130 0 R"
+                        <input id="form21_1" name="form21_1" type="text" onkeypress="return emrNumberPressed(event);" tabindex="21" value="" data-objref="2130 0 R"
                                title="Tel" data-field-name="Tel">
+                        <div><span id="form21_1Form" class="text-danger"></span></div>
                         <input id="form22_1" name="form22_1" type="text" tabindex="22" value="{{candidate.email}}"
                                data-objref="2131 0 R" title="E-mail" data-field-name="Email">
                         <input id="form23_1" name="form23_1" type="checkbox" tabindex="23" data-objref="2132 0 R"
@@ -1120,35 +1121,35 @@ function checkOver(i) {
                         <input id="form47_1" name="form47_1" type="text" tabindex="47" value="" data-objref="2156 0 R"
                                title="E-mail" data-field-name="Email_2"/>
 
-                        <input id="form48_1" type="checkbox" name="diabilityYes" onclick="" tabindex="48"
+                        <input id="form48_1" class="ability" type="checkbox" onchange="abilityChange(this)" name="diabilityYes"  tabindex="48"
                                data-objref="2157 0 R" data-field-name="Check Box1.0"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2157 0 R' %}" imagesT="110100"/>
-                        <input id="form49_1" type="checkbox" name="diabilityNo" onclick="" tabindex="49"
+                        <input id="form49_1" class="ability" type="checkbox" onchange="abilityChange(this)" name="diabilityNo" " tabindex="49"
                                data-objref="2158 0 R" data-field-name="Check Box1.0"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2158 0 R' %}" imagesT="110100"/>
 
 
-                        <input id="form50_1" name="selfSponser" type="checkbox" onclick="myFun(this)" tabindex="50"
-                               data-objref="2159 0 R" data-field-name="Check Box2"
+                        <input id="form50_1" name="selfSponser" type="checkbox" tabindex="50"
+                               data-objref="2159 0 R" data-field-name="Check Box2" class="sponsorCh" onchange="sponsorChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2159 0 R' %}" imagesT="110100"/>
                         <input id="form51_1" name="compSponser" type="checkbox" tabindex="51" name="sponsTypeCompany"
-                               onclick="myFunction()" data-objref="2160 0 R" data-field-name="Check Box2"
+                               data-objref="2160 0 R" data-field-name="Check Box2" class="sponsorCh" onchange="sponsorChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2160 0 R' %}" imagesT="110100"/>
                         <input id="form52_1" type="text" tabindex="52" value="" data-objref="2161 0 R"
                                title="Company order No" data-field-name="Company order No"/>
                         <input id="form53_1" type="text" tabindex="53" value="" data-objref="2162 0 R" title="name"
                                data-field-name="name"/>
-                        <input id="form54_1" name="form54_1" type="checkbox" tabindex="54" data-objref="2163 0 R"
+                        <input class="venueCh" onchange="venueChange(this)" id="form54_1" name="form54_1" type="checkbox" tabindex="54" data-objref="2163 0 R"
                                data-field-name="Check Box4"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2163 0 R' %}" imagesT="110100"/>
-                        <input id="form55_1" name="form55_1" onclick="myFunVenue(this)" type="checkbox" tabindex="55"
-                               data-objref="2164 0 R" data-field-name="Check Box4"
+                        <input class="venueCh"  id="form55_1" name="form55_1" onchange="venueChange(this)" type="checkbox" tabindex="55"
+                               data-objref="2164 0 R" data-field-name="Check Box4" onchange="venueChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2164 0 R' %}" imagesT="110100"/>
-                        <input id="form56_1" name="form56_1" onclick="myFunVenue(this)" type="checkbox" tabindex="56"
+                        <input  class="venueCh"  id="form56_1" name="form56_1" onchange="venueChange(this)" type="checkbox" tabindex="56"
                                data-objref="2165 0 R" data-field-name="Check Box4"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2165 0 R' %}" imagesT="110100"/>
-                        <input id="form57_1" name="form57_1" onclick="myFunVenue(this)" type="checkbox" tabindex="57"
-                               data-objref="2166 0 R" data-field-name="Check Box4"
+                        <input id="form57_1" name="form57_1" type="checkbox" tabindex="57"
+                               data-objref="2166 0 R" data-field-name="Check Box4" class="venueCh" onchange="venueChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2166 0 R' %}" imagesT="110100"/>
                         <input id="form58_1" name="form58_1" type="checkbox" tabindex="58" data-objref="2167 0 R"
                                data-field-name="Check Box21"
@@ -1727,19 +1728,19 @@ function checkOver(i) {
 
                         <!-- Begin Form Data -->
                         <input id="form1_2" onClick="examType(this)" name="form1_2" type="checkbox" tabindex="60"
-                               data-objref="415 0 R" data-field-name="Check Box23"
+                               data-objref="415 0 R" data-field-name="Check Box23" class="examTypeCh" onchange="examTypeChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/415 0 R' %}" imagesT="110100"/>
                         <input id="form2_2" onClick="examType(this)" name="form2_2" type="checkbox" tabindex="61"
-                               data-objref="412 0 R" data-field-name="Check Box23"
+                               data-objref="412 0 R" data-field-name="Check Box23" class="examTypeCh" onchange="examTypeChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/412 0 R' %}" imagesT="110100"/>
                         <input id="form3_2" onClick="examType(this)" name="form3_2" type="checkbox" tabindex="62"
-                               data-objref="411 0 R" data-field-name="Check Box23"
+                               data-objref="411 0 R" data-field-name="Check Box23" class="examTypeCh" onchange="examTypeChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/411 0 R' %}" imagesT="110100"/>
                         <input id="form4_2" onClick="examType(this)" name="form4_2" type="checkbox" tabindex="63"
-                               data-objref="414 0 R" data-field-name="Check Box23"
+                               data-objref="414 0 R" data-field-name="Check Box23" class="examTypeCh" onchange="examTypeChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/414 0 R' %}" imagesT="110100"/>
                         <input id="form5_2" onClick="examType(this)" name="form5_2" type="checkbox" tabindex="64"
-                               data-objref="421 0 R" data-field-name="Check Box23"
+                               data-objref="421 0 R" data-field-name="Check Box23" class="examTypeCh" onchange="examTypeChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/2/form/421 0 R' %}" imagesT="110100"/>
                         <input id="form6_2" onClick="examBody(this)" name="form6_2" type="checkbox" tabindex="65"
                                data-objref="420 0 R" data-field-name="Check Box28"

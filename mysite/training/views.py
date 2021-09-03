@@ -952,6 +952,27 @@ class FormCategoryDeleteView(SidebarMixin, LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('training:category_')
 
 
+class UpdateFormCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "training/update_category.html"
+
+    def get_context_data(self ,catID,*args, **kwargs):
+        context = super(UpdateFormCategoryView, self).get_context_data()
+        category = Category.objects.filter(id=self.kwargs['catID']).first()
+        form_list = Guideline.objects.all()
+        context['category'] = category
+        context['form_list'] = form_list
+
+        return context
+
+    def post(self, request,catID, *args, **kwargs):
+        if request.method == 'POST':
+            categoryObj = Category.objects.filter(id = catID).first()
+            categoryObj.name = request.POST['name']
+            categoryObj.save()
+        return redirect('training:category_')
+
+
+
 class FormGuidelineView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "training/guideline_list.html"
 
@@ -974,6 +995,22 @@ class FormGuidelineDeleteView(SidebarMixin, LoginRequiredMixin,DeleteView):
     model = Guideline
     success_url = reverse_lazy('training:guideline_')
 
+class UpdateFormGuidelineView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "training/update_guideline.html"
+
+    def get_context_data(self ,id,*args, **kwargs):
+        context = super(UpdateFormGuidelineView, self).get_context_data()
+        guideline = Guideline.objects.filter(id=self.kwargs['id']).first()
+        context['guideline'] = guideline
+        return context
+
+    def post(self, request,id, *args, **kwargs):
+        if request.method == 'POST':
+            guidelineObj = Guideline.objects.filter(id = id).first()
+            guidelineObj.name = request.POST['guideName']
+            guidelineObj.save()
+        return redirect('training:guideline_')
+
 
 class AddFormToCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "training/add_form_category.html"
@@ -981,7 +1018,7 @@ class AddFormToCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         selectedList = []
         context = super(AddFormToCategoryView, self).get_context_data()
-        category = Category.objects.filter(id=self.kwargs['id']).first()
+        category = Guideline.objects.filter(id=self.kwargs['id']).first()
         form_list = Guideline.objects.order_by('name')
         print("Here Amir")
         selForms = '{'
