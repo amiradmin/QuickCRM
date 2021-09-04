@@ -68,6 +68,123 @@ function examTypeChange(obj) {
     }
     obj.checked = true;
 }
+function examBodyChange(obj) {
+    var cbs = document.getElementsByClassName("examBodyCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function weldingInspChange(obj) {
+    var cbs = document.getElementsByClassName("weldInspCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function wIChange(obj) {
+    var cbs = document.getElementsByClassName("wICh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function swIChange(obj) {
+    var cbs = document.getElementsByClassName("swICh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function weldingQcChange(obj) {
+    var cbs = document.getElementsByClassName("weldingQcCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function asmeChange(obj) {
+    var cbs = document.getElementsByClassName("asmeCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+
+function underWaterChange(obj) {
+    var cbs = document.getElementsByClassName("underWaterCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+
+function ndtExamChange(obj) {
+    var cbs = document.getElementsByClassName("ndtExamCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function ndtLevelChange(obj) {
+    var cbs = document.getElementsByClassName("ndtLevelCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function inductorySectorChange(obj) {
+    var cbs = document.getElementsByClassName("inductorySectorCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function utCatChange(obj) {
+    var cbs = document.getElementsByClassName("utCatCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function plantInspectionChange(obj) {
+    var cbs = document.getElementsByClassName("plantInspectionCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function plantInspectionLevelChange(obj) {
+    var cbs = document.getElementsByClassName("plantInspectionLevelCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function plantInspectionLevel2Change(obj) {
+    var cbs = document.getElementsByClassName("plantInspectionLevel2Ch");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function examTitleChange(obj) {
+    var cbs = document.getElementsByClassName("examTitleCh");
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
 
 function sponsorChange(obj) {
     var cbs = document.getElementsByClassName("sponsorCh");
@@ -160,6 +277,11 @@ function validate() {
         }
 
         controllerMani("form21_1","Please insert emergency tel!");
+        controllerMani("form11_2","Please insert approval number!");
+        controllerMani("form12_2","Please insert qualifications held!");
+        controllerMani("form34_2","Please insert under water inspection!");
+        controllerMani("form47_3","Please insert requirements!");
+        controllerMani("form51_3","Please insert examination title!");
 
 
 }
