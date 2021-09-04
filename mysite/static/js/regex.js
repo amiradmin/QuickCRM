@@ -39,7 +39,6 @@ function controllerMani(id,msg) {
             element.focus();
             element.style.backgroundColor = "#ffabab";
             window.scrollTo(100,element.offsetTop);
-            alert();
             return false;
           }
 }
@@ -282,6 +281,14 @@ function validate() {
         controllerMani("form34_2","Please insert under water inspection!");
         controllerMani("form47_3","Please insert requirements!");
         controllerMani("form51_3","Please insert examination title!");
+
+        controllerMani("form1_4","Please insert insert name!");
+        controllerMani("form2_4","Please insert company & position!");
+        controllerMani("form3_4","Please insert relation!");
+        controllerMani("form4_4","Please insert tel!");
+        controllerMani("form5_4","Please insert email address!");
+        return controllerMani("form6_4","Please insert date!");
+
 
 
 }
