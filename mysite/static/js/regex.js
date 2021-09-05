@@ -184,6 +184,42 @@ function examTitleChange(obj) {
     obj.checked = true;
 }
 
+function isValidDate(input) {
+    var inputEelemnt = document.getElementById(input);
+    var temp = inputEelemnt.value.split('/');
+    var d = new Date(temp[2] + '/' + temp[0] + '/' + temp[1]);
+    var result = (d && (d.getMonth() + 1) == temp[0] && d.getDate() == Number(temp[1]) && d.getFullYear() == Number(temp[2]));
+
+
+    if (result !== true){
+            inputEelemnt.style.backgroundColor = "#ffabab";
+    }
+    return result
+}
+function selectCheck(className,indicator){
+    var checkboxs=document.getElementsByClassName(className);
+    var indicatorElement = document.getElementById(indicator);
+    var okay=false;
+    for(var i=0,l=checkboxs.length;i<l;i++)
+    {
+        if(checkboxs[i].checked)
+        {
+            okay=true;
+            break;
+        }else{
+
+        }
+    }
+    if(okay){
+    alert("Thank you for checking a checkbox");
+    }
+    else {
+    indicatorElement.style.color = "#ffabab";
+    indicatorElement.focus();
+    window.scrollTo(100,indicatorElement.offsetTop);
+    }
+}
+
 
 function sponsorChange(obj) {
     var cbs = document.getElementsByClassName("sponsorCh");
@@ -274,20 +310,22 @@ function validate() {
           window.scrollTo(100,form9_1.offsetTop);
           return false;
         }
-
-        controllerMani("form21_1","Please insert emergency tel!");
-        controllerMani("form11_2","Please insert approval number!");
-        controllerMani("form12_2","Please insert qualifications held!");
-        controllerMani("form34_2","Please insert under water inspection!");
-        controllerMani("form47_3","Please insert requirements!");
-        controllerMani("form51_3","Please insert examination title!");
-
-        controllerMani("form1_4","Please insert insert name!");
-        controllerMani("form2_4","Please insert company & position!");
-        controllerMani("form3_4","Please insert relation!");
+        selectCheck("sponsorCh","t1k_1");
+//        controllerMani("form21_1","Please insert emergency tel!");
+//        controllerMani("form11_2","Please insert approval number!");
+//        controllerMani("form12_2","Please insert qualifications held!");
+//        controllerMani("form34_2","Please insert under water inspection!");
+//        controllerMani("form47_3","Please insert requirements!");
+//        controllerMani("form51_3","Please insert examination title!");
+//
+//        controllerMani("form1_4","Please insert insert name!");
+//        controllerMani("form2_4","Please insert company & position!");
+//        controllerMani("form3_4","Please insert relation!");
         controllerMani("form4_4","Please insert tel!");
         controllerMani("form5_4","Please insert email address!");
+        return isValidDate("form6_4");
         return controllerMani("form6_4","Please insert date!");
+
 
 
 
@@ -349,6 +387,25 @@ document.getElementById('form21_1').value = phoneFormat(document.getElementById(
 
 // A function to determine if the pressed key is an integer
 function emrNumberPressed(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if(charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 36 || charCode > 40)){
+                return false;
+        }
+        return true;
+}
+
+// Emergency Tel
+document.getElementById('form4_4').addEventListener('keyup',function(evt){
+        var phoneNumber = document.getElementById('form4_4');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('form4_4').value = phoneFormat(document.getElementById('form4_4').value);
+
+// A function to determine if the pressed key is an integer
+function sponsorNumberPressed(evt){
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         if(charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 36 || charCode > 40)){
                 return false;
