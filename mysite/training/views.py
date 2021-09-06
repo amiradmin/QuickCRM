@@ -11,7 +11,7 @@ import json
 from django.http import JsonResponse
 from  authorization.sidebarmixin import SidebarMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.db.models import Q
 # Create your views here.
 
 
@@ -833,7 +833,6 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/layouts-vertical.html"
 
     def get_context_data(self):
-
         context = super(TrainingPanelView, self).get_context_data()
         event_list = Event.objects.all()
         canCount = TesCandidate.objects.count()
@@ -847,56 +846,33 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['lecCount'] = lecCount
         context['product'] = product
         context['proCount'] = product.count()
-
-
         return context
 
 
     def post(self, request, *args, **kwargs):
-
-        # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
-            if 'new_can' in request.POST:
-                print('OK')
-                user = User()
-                user.username = request.POST['username']
-                user.last_name = request.POST['last_name']
-                user.password = request.POST['password']
+            if 'searchBtn' in request.POST:
+                keyword= request.POST['keyword']
+                q_object = ~Q()
+                eventQ_object = ~Q()
+                kewordList = keyword.split(" ")
+                for item in kewordList:
+                    q_object |= Q(first_name__icontains=item) | (Q(middleName__icontains=item)) | (Q(last_name__icontains=item))
+                    print(item)
+                queryset = TesCandidate.objects.filter(q_object)
 
-                user.save()
-                user.candidateprofile.first_name = request.POST['first_name']
-                user.candidateprofile.last_name = request.POST['last_name']
-                user.candidateprofile.twi_candidate_id = request.POST['twi_candidate_id']
-                user.candidateprofile.customer_id = request.POST['customer_id']
-                user.candidateprofile.address = request.POST['address']
-                user.candidateprofile.passport_id = request.POST['passport_id']
-                user.candidateprofile.sponsor_company = request.POST['sponsor_company']
-                user.candidateprofile.email = request.POST['email']
-                user.candidateprofile.city = request.POST['city']
-                user.candidateprofile.country = request.POST['country']
-                user.candidateprofile.contact_number = request.POST['contact_number']
-                user.candidateprofile.note = request.POST['note']
-                if request.FILES.get('photo', False):
-                    user.candidateprofile.photo = request.FILES['photo']
-                if request.FILES.get('document_1', False):
-                    user.candidateprofile.document_1 = request.FILES['document_1']
-                if request.FILES.get('document_2', False):
-                    user.candidateprofile.document_2 = request.FILES['document_2']
-                if request.FILES.get('document_3', False):
-                    user.candidateprofile.document_3 = request.FILES['document_3']
-                if request.FILES.get('document_4', False):
-                    user.candidateprofile.document_4 = request.FILES['document_4']
-                if request.FILES.get('document_5', False):
-                    user.candidateprofile.document_5 = request.FILES['document_5']
-                if request.FILES.get('document_6', False):
-                    user.candidateprofile.document_6 = request.FILES['document_6']
-                if request.FILES.get('document_7', False):
-                    user.candidateprofile.document_7 = request.FILES['document_7']
-                if request.FILES.get('document_8', False):
-                    user.candidateprofile.document_8 = request.FILES['document_8']
-                if request.FILES.get('document_9', False):
-                    user.candidateprofile.document_9 = request.FILES['document_9']
-                user.save()
+
+                for item in kewordList:
+                    eventQ_object |= Q(name__icontains=item) | Q(country__name__icontains=item)
+                eventQueryset = Event.objects.filter(eventQ_object)
+
+                adminStatus = False
+                for g in self.request.user.groups.all():
+                    if g.name == 'super_admin' or g.name == 'training_admin':
+                        adminStatus = True
+
+                return render(request, 'training/search_result.html', {'searchResult': queryset, 'eventQueryset':eventQueryset,'adminStatus':adminStatus})
+
 
             elif 'cont_btn' in request.POST:
                 print('OK')
@@ -1072,3 +1048,5 @@ class AddFormToCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
                     # event.save()
 
         return redirect('training:category_')
+
+
