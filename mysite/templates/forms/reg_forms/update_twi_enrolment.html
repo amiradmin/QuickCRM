@@ -16,82 +16,7 @@
 
 
                 <div class="tab-content">
-                    <form method="POST" onsubmit="return topFormValidate();">
-                        {% csrf_token %}
-                             <br>
 
-<div  style="visibility:hidden; text-align:center;"><span style="width:300px;" id="topFormError" class="alert alert-danger"></span></div>
-                            <br>
-                            <br>
-                        <div class="row g-2">
-
-                            <div class="mb-3 col-md-6">
-                                <label for="inputState" class="form-label">Candidate</label>
-                                <select name="canID" id="canID" class="form-select">
-                                    <option value="{{candidate.id}} ">{{candidate.first_name}} {{candidate.middleName}}
-                                        {{candidate.last_name}}
-                                    </option>
-                                    {% for item in candidates %}
-                                    <option value="{{item.id}}">{{item.first_name}} {{item.middleName}}
-                                        {{item.last_name}}
-                                    </option>
-                                    {% endfor %}
-
-                                </select>
-                                <div><span id="mainCanIDError" class="text-danger"></span></div>
-                            </div>
-
-
-                            <div class="mb-3 col-md-6">
-                                <label for="inputState" class="form-label">Event</label>
-                                <select name="eventID" id="eventID" class="form-select">
-                                    <option value="">{{event.name}}</option>
-                                    {% for item in events %}
-                                    <option value="{{item.id}}">{{item.name}}</option>
-                                    {% endfor %}
-
-                                </select>
-                            </div>
-                            <div><span id="eventIDError" class="text-danger"></span></div>
-                        </div>
-
-
-                        <div class="row g-2">
-                            <div class="mb-3 col-md-6">
-                                <label for="inputState" class="form-label">Category</label>
-                                <select name="categoryID" id="inputState" class="form-select">
-                                    <option value="{{category.id}} ">{{category.name}}</option>
-                                    {% for item in categories %}
-                                    <option value="{{item.id}}">{{item.name}}</option>
-                                    {% endfor %}
-
-                                </select>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="inputState" class="form-label">Guideline Form</label>
-                                <select name="guidelineID" id="inputState2" class="form-select">
-                                    <option value="{{guideline.id}} ">{{guideline.name}}</option>
-                                    {% for item in guidelines %}
-                                    <option value="{{item.id}}">{{item.name}}</option>
-                                    {% endfor %}
-
-                                </select>
-
-                            </div>
-                        </div>
-
-
-                        <div class="mb-3 col-md-12 text-center">
-                            <button class="BUTTON_MZQ" type="submit">Generate</button>
-                        </div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</form>
 <hr>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="{% static 'assets/forms/Jaeger_TOFDL2/assets/formviewer.css' %}">
@@ -988,32 +913,32 @@ function checkOver(i) {
                         <input id="form1_1" name="form1_1" style="margin-left:12px;letter-spacing: 26px;" type="text"
                                tabindex="1" maxlength="6" value="" data-objref="2109 0 R" title="undefined"
                                data-field-name="undefined"/>
-                        <input id="form2_1" name="form2_1" type="text" tabindex="2" value="{{event.name}}"
-                               data-objref="2110 0 R" title="Event title" data-field-name="Event title">
-                        <input id="form3_1" name="form3_1" type="text" tabindex="3" value="{{event.start_date| date}}"
+                        <input id="form2_1" name="form2_1" type="text" tabindex="2" value="{{form.event.name}}"
+                               data-objref="2110 0 R" title="Event title" data-field-name="form title">
+                        <input id="form3_1" name="form3_1" type="text" tabindex="3" value="{{form.event.start_date| date}}"
                                data-objref="2111 0 R" title="Event date" data-field-name="Event date">
                         <input id="form4_1" name="form4_1" style="margin-left:6px;letter-spacing: 18px;" type="text"
-                               tabindex="4" maxlength="17" value="{{candidate.last_name |upper}}" data-objref="2112 0 R"
+                               tabindex="4" maxlength="17" value="{{form.candidate.last_name |upper}}" data-objref="2112 0 R"
                                title="Candidate&#39;s Family Name (as per ID / Passport"
                                data-field-name="Candidates Family Name as per ID  Passport"/>
                         <div><span id="familyNameError" class="text-danger"></span></div>
                         <input id="form5_1" name="form5_1" style="margin-left:6px;letter-spacing: 18px;" type="text"
-                               tabindex="5" maxlength="17" value="{{candidate.middleName |upper}}"
+                               tabindex="5" maxlength="17" value="{{form.candidate.middleName |upper}}"
                                data-objref="2113 0 R" title="Candidate&#39;s Middle Name (as per ID / Passport"
                                data-field-name="Candidates Middle Name as per ID  Passport">
                         <input id="form6_1" name="form6_1" style="margin-left:6px;letter-spacing: 18px;"
-                               value="{{candidate.first_name|upper}}" type="text" tabindex="6" maxlength="17"
+                               value="{{form.candidate.first_name|upper}}" type="text" tabindex="6" maxlength="17"
                                data-objref="2114 0 R" title="Candidate&#39;s Given Name (as per ID / Passport"
                                data-field-name="Candidates Given Name as per ID  Passport">
                         <div><span id="form6_1Error" class="text-danger"></span></div>
-                        <input id="form7_1" name="form7_1" style="margin-left:1px;letter-spacing: 18px;" type="number"
-                               value="{{candidate.birth_date| date:" d"}}" tabindex="7" value="" data-objref="2115 0 R"
+                        <input id="form7_1" name="form7_1" style="margin-left:1px;letter-spacing: 18px;" type="text"
+                               value="{{form.birthOfDate|date:"d"}}" tabindex="7"  data-objref="2115 0 R"
                         title="D" data-field-name="D" >
-                        <input id="form8_1" name="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="number"
-                               tabindex="8" maxlength="2" value="{{candidate.birth_date| date:" m"}}" data-objref="2116
+                        <input id="form8_1" name="form8_1" style="margin-left:6px;letter-spacing: 18px;" type="text"
+                               tabindex="8" maxlength="2" value="{{form.birthOfDate|date:"m"}}" data-objref="2116
                         0 R" title="M" data-field-name="M" >
-                        <input id="form9_1" name="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="number"
-                               tabindex="9" maxlength="4" value="{{candidate.birth_date| date:" Y"}}" data-objref="2117
+                        <input id="form9_1" name="form9_1" style="margin-left:6px;letter-spacing: 18px;" type="text"
+                               tabindex="9" maxlength="4" value="{{form.birthOfDate|date:"Y"}}" data-objref="2117
                         0 R" title="Y" data-field-name="Y" />
                         <div><span id="birthDayError" class="text-danger"></span></div>
                         <input id="form10_1" name="form10_1" type="checkbox" tabindex="10" data-objref="2118 0 R"
@@ -1031,24 +956,24 @@ function checkOver(i) {
                         <input id="form14_1" name="form14_1" type="checkbox" tabindex="14" data-objref="2123 0 R"
                                data-field-name="Check Box4" class="venueCh" onchange="venueChange(this)"
                                imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2123 0 R' %}" imagesT="110100"/>
-                        <input id="form15_1" name="form15_1" type="text" tabindex="15" value="{{candidate.address}}"
+                        <input id="form15_1" name="form15_1" type="text" tabindex="15" value="{{form.permanentPrivateAddress}}"
                                data-objref="2124 0 R" title="Permanent private address [1]"
                                data-field-name="Permanent private address 1">
                         <input id="form16_1" name="form16_1" type="text" tabindex="16" value="" data-objref="2125 0 R"
                                title="Permanent private address [2]" data-field-name="Permanent private address 2"/>
                         <input id="form17_1" type="text" tabindex="17" value="" data-objref="2126 0 R"
                                title="Permanent private address [3]" data-field-name="Permanent private address 3"/>
-                        <input id="form18_1" name="form18_1" type="text" tabindex="18" value="{{candidate.postal_code}}"
+                        <input id="form18_1" name="form18_1" type="text" tabindex="18" value="{{form.Postcode}}"
                                data-objref="2127 0 R" title="Postcode" data-field-name="Postcode">
-                        <input id="form19_1" name="form19_1" type="text" tabindex="19" value="" data-objref="2128 0 R"
+                        <input id="form19_1" name="form19_1" type="text" tabindex="19" value="{{form.Postcode}}" data-objref="2128 0 R"
                                title="Car Reg. No" data-field-name="Car Reg No"/>
                         <input id="form20_1" name="form20_1"  type="text" onkeypress="return numberPressed(event);" tabindex="20"
                                value="{{candidate.contact_number}}" data-objref="2129 0 R" title="Private Tel"
                                data-field-name="Private Tel"/>
-                        <input id="form21_1" name="form21_1" type="text" onkeypress="return emrNumberPressed(event);" tabindex="21" value="" data-objref="2130 0 R"
+                        <input id="form21_1" name="form21_1" type="text" onkeypress="return emrNumberPressed(event);" tabindex="21" value="" data-objref="2130 0 R" value="{{form.emergencyContact}}"
                                title="Tel" data-field-name="Tel">
                         <div><span id="form21_1Form" class="text-danger"></span></div>
-                        <input id="form22_1" name="form22_1" type="text" tabindex="22" value="{{candidate.email}}"
+                        <input id="form22_1" name="form22_1" type="text" tabindex="22" value="{{form.email}}"
                                data-objref="2131 0 R" title="E-mail" data-field-name="Email">
                         <input id="form23_1" name="form23_1" type="checkbox" tabindex="23" data-objref="2132 0 R"
                                data-field-name="Check Box15"

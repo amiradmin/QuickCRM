@@ -189,8 +189,6 @@ function isValidDate(input) {
     var temp = inputEelemnt.value.split('/');
     var d = new Date(temp[2] + '/' + temp[0] + '/' + temp[1]);
     var result = (d && (d.getMonth() + 1) == temp[0] && d.getDate() == Number(temp[1]) && d.getFullYear() == Number(temp[2]));
-
-
     if (result !== true){
             inputEelemnt.style.backgroundColor = "#ffabab";
     }
@@ -206,18 +204,16 @@ function selectCheck(className,indicator){
         {
             okay=true;
             break;
-        }else{
-
         }
     }
-    if(okay){
-    alert("Thank you for checking a checkbox");
-    }
-    else {
-    indicatorElement.style.color = "#ffabab";
+    if(!okay){
+    indicatorElement.style.color = "#FF0000";
     indicatorElement.focus();
     window.scrollTo(100,indicatorElement.offsetTop);
+    }else{
+    indicatorElement.style.color = "#000000";
     }
+
 }
 
 
@@ -311,16 +307,18 @@ function validate() {
           return false;
         }
         selectCheck("sponsorCh","t1k_1");
-//        controllerMani("form21_1","Please insert emergency tel!");
+        selectCheck("venueCh","t1x_1");
+        selectCheck("agreement","t2z_1");
+        controllerMani("form21_1","Please insert emergency tel!");
 //        controllerMani("form11_2","Please insert approval number!");
 //        controllerMani("form12_2","Please insert qualifications held!");
 //        controllerMani("form34_2","Please insert under water inspection!");
 //        controllerMani("form47_3","Please insert requirements!");
 //        controllerMani("form51_3","Please insert examination title!");
 //
-//        controllerMani("form1_4","Please insert insert name!");
-//        controllerMani("form2_4","Please insert company & position!");
-//        controllerMani("form3_4","Please insert relation!");
+        controllerMani("form1_4","Please insert insert name!");
+        controllerMani("form2_4","Please insert company & position!");
+        controllerMani("form3_4","Please insert relation!");
         controllerMani("form4_4","Please insert tel!");
         controllerMani("form5_4","Please insert email address!");
         return isValidDate("form6_4");

@@ -1018,7 +1018,7 @@ class AddFormToCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         selectedList = []
         context = super(AddFormToCategoryView, self).get_context_data()
-        category = Guideline.objects.filter(id=self.kwargs['id']).first()
+        category = Category.objects.filter(id=self.kwargs['id']).first()
         form_list = Guideline.objects.order_by('name')
         print("Here Amir")
         selForms = '{'

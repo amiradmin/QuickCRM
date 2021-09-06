@@ -13,6 +13,7 @@ urlpatterns = [
     path('all/', views.AllForms.as_view(), name='all_'),
     path('allformlist/', views.AllFormsList.as_view(), name='allformlist_'),
     path('allenrolmentform/', views.AllEnrolmentForm.as_view(), name='allenrolmentform_'),
+    path('updatetwienroment/<int:id>', views.UpdateTwiEnrolment.as_view(), name='updatetwienroment_'),
     path('allbgasform/', views.AllBGASForm.as_view(), name='allbgasform_'),
     path('alldb/', views.AllFormsFromPostgres.as_view(), name='alldb_'),
     path('viewform/<int:id>', views.ViewForm.as_view(), name='viewform_'),
@@ -36,6 +37,6 @@ urlpatterns = [
     path('evensummary/<int:id>', views.EventSummary.as_view(), name='evensummary_'),
     path('evensummarybyformid/<int:eventID>/<int:catID>/<int:guideID>', views.EventSummaryByFormId.as_view(), name='evensummarybyformid_'),
  
-
+    path('deltwienrol/<int:pk>/delete/', views.DeleteTwiEnrolment.as_view(), name='deltwienrol_'),
 
 ]
