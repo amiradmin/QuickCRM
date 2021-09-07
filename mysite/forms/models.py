@@ -266,3 +266,52 @@ class PSL30InitialForm(models.Model):
 
     def __str__(self):
         return self.email
+
+class CurrentFormerCertification(models.Model):
+    methodLevel = models.CharField(max_length=512, null=True, blank=True)
+    SchemeCertifyingAuthority = models.CharField(max_length=512, null=True, blank=True)
+    ExpiryDate = models.DateField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate
+
+class ExperienceClaimed(models.Model):
+    methodLevel = models.CharField(max_length=512, null=True, blank=True)
+    ExperienceClaimedSince = models.CharField(max_length=512, null=True, blank=True)
+    ExperienceClaimedSince = models.CharField(max_length=512, null=True, blank=True)
+    NumberOfNonths = models.IntegerField( null=True, blank=True)
+    DateOfExamination = models.DateField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate
+
+class NDT15AExperienceVerification(models.Model):
+    event = models.ForeignKey(Event, related_name="event_ndt", on_delete=models.CASCADE)
+    candidate = models.ForeignKey(TesCandidate, related_name="candidate_ndt", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="category_ndt", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_ndt", on_delete=models.CASCADE)
+    candidateID = models.CharField(max_length=512, null=True, blank=True)
+    currentFormerCertification = models.ManyToManyField('CurrentFormerCertification', null=True, blank=True)
+    experienceClaimed = models.ManyToManyField('ExperienceClaimed', null=True, blank=True)
+    descriptionOfExperience = models.CharField(max_length=512, null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
+    nameJobTitle =  models.CharField(max_length=512, null=True, blank=True)
+    companyName =  models.CharField(max_length=512, null=True, blank=True)
+    supervisionActivity =  models.CharField(max_length=512, null=True, blank=True)
+    verEmail =  models.EmailField(null=True, blank=True)
+    verDate = models.DateField(null=True, blank=True)
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate
+
+

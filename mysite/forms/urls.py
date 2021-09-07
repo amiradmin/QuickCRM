@@ -38,5 +38,7 @@ urlpatterns = [
     path('evensummarybyformid/<int:eventID>/<int:catID>/<int:guideID>', views.EventSummaryByFormId.as_view(), name='evensummarybyformid_'),
  
     path('deltwienrol/<int:pk>/delete/', views.DeleteTwiEnrolment.as_view(), name='deltwienrol_'),
+    path('ndt15expver/', views.NDT15AExperienceVerificationView.as_view(), name='ndt15expver_'),
+    path('allndt15expver/', views.AllNDT15AExpVerView.as_view(), name='allndt15expver_'),
 
 ]

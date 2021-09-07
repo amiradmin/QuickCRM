@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,PSL30InitialForm
+from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,PSL30InitialForm,NDT15AExperienceVerification
 from django.db.models import Count
 from classes.db import FormDb
 from training.models import FormsList, TesCandidate,Event,Category,FormsList as Guideline
@@ -1990,4 +1990,89 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
         # context['form'] = form
         context['unsubmited'] = unsubmited
 
-        return context 
+        return context
+
+
+class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/ndt/ndt_15.html"
+
+
+    def get_context_data(self):
+        context = super(NDT15AExperienceVerification, self).get_context_data()
+        candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
+        events = Event.objects.all()
+        categories = Category.objects.all()
+        guidelines = Guideline.objects.all()
+
+        context['categories'] = categories
+        context['guidelines'] = guidelines
+        context['candidates'] = candidates
+        context['events'] = events
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                event = Event.objects.filter(id=eventID).first()
+                candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
+
+                obj =NDT15AExperienceVerification()
+                obj.candidate =candidate
+                obj.category =category
+                obj.guideline =guideline
+                obj.event =event
+                obj.descriptionOfExperience = request.POST['descriptionOfExperience']
+                obj.save()
+
+                # formListObj = FormList()
+                # formListObj.name = obj.__class__.__name__
+                # formListObj.event = event
+                # formListObj.candidate = candidate
+                # formListObj.category = category
+                # formListObj.guideline = guideline
+                # formListObj.FormID = obj.id
+                # formListObj.save()
+
+                return redirect('forms:allenrolmentform_')
+
+
+            else:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                print(canID)
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                self.candidateID = candidate.id
+                print(self.candidateID)
+                context = super(NDT15AExperienceVerification, self).get_context_data()
+                context['candidate'] = candidate
+                context['category'] = category
+                context['event'] = event
+                context['guideline'] = guideline
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/ndt/ndt_15.html', context)
+
+
+class AllNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/ndt/all_ndt_15.html"
+
+
+    def get_context_data(self):
+        context = super(AllNDT15AExpVerView, self).get_context_data()
+        forms = NDT15AExperienceVerification.objects.all()
+        context['forms'] = forms
+        return context
