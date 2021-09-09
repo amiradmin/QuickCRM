@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
-from forms.models import Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,PSL30InitialForm,NDT15AExperienceVerification
+from forms.models import ( Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,
+                           PSL30InitialForm,NDT15AExperienceVerification, CurrentFormerCertification,
+                           ExperienceClaimed
+                           )
 from django.db.models import Count
 from classes.db import FormDb
 from training.models import FormsList, TesCandidate,Event,Category,FormsList as Guideline
@@ -1998,7 +2001,7 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
 
 
     def get_context_data(self):
-        context = super(NDT15AExperienceVerification, self).get_context_data()
+        context = super(NDT15AExperienceVerificationView, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
         events = Event.objects.all()
         categories = Category.objects.all()
@@ -2028,7 +2031,58 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 obj.guideline =guideline
                 obj.event =event
                 obj.descriptionOfExperience = request.POST['descriptionOfExperience']
+                obj.date = request.POST['date']
+                obj.nameJobTitle = request.POST['nameJobTitle']
+                obj.companyName = request.POST['companyName']
+                obj.supervisionActivity = request.POST['supervisionActivity']
+                obj.verEmail = request.POST['verEmail']
+                obj.verDate = request.POST['verDate']
                 obj.save()
+
+                if request.POST['methodLevel']:
+                    objCurrent = CurrentFormerCertification()
+                    objCurrent.methodLevel =request.POST['methodLevel']
+                    objCurrent.SchemeCertifyingAuthority =request.POST['SchemeCertifyingAuthority']
+                    objCurrent.ExpiryDate =request.POST['ExpiryDate']
+                    objCurrent.save()
+                    obj.currentFormerCertification.add(objCurrent)
+
+                if request.POST['methodLevel2']:
+                    objCurrent = CurrentFormerCertification()
+                    objCurrent.methodLevel =request.POST['methodLevel2']
+                    objCurrent.SchemeCertifyingAuthority =request.POST['SchemeCertifyingAuthority2']
+                    objCurrent.ExpiryDate =request.POST['ExpiryDate2']
+                    objCurrent.save()
+                    obj.currentFormerCertification.add(objCurrent)
+
+
+                if request.POST['claimedMethodLevel']:
+                    objClaimed = ExperienceClaimed()
+                    objClaimed.methodLevel =request.POST['claimedMethodLevel']
+                    objClaimed.ExperienceClaimedSince =request.POST['ExperienceClaimedSince']
+                    objClaimed.NumberOfNonths =request.POST['NumberOfNonths']
+                    objClaimed.DateOfExamination =request.POST['DateOfExamination']
+                    objClaimed.save()
+                    obj.experienceClaimed.add(objClaimed)
+
+                if request.POST['claimedMethodLevel2']:
+                    objClaimed = ExperienceClaimed()
+                    objClaimed.methodLevel =request.POST['claimedMethodLevel2']
+                    objClaimed.ExperienceClaimedSince =request.POST['ExperienceClaimedSince2']
+                    objClaimed.NumberOfNonths =request.POST['NumberOfNonths2']
+                    objClaimed.DateOfExamination =request.POST['DateOfExamination2']
+                    objClaimed.save()
+                    obj.experienceClaimed.add(objClaimed)
+
+                if request.POST['claimedMethodLevel3']:
+                    objClaimed = ExperienceClaimed()
+                    objClaimed.methodLevel =request.POST['claimedMethodLevel3']
+                    objClaimed.ExperienceClaimedSince =request.POST['ExperienceClaimedSince3']
+                    objClaimed.NumberOfNonths =request.POST['NumberOfNonths3']
+                    objClaimed.DateOfExamination =request.POST['DateOfExamination3']
+                    objClaimed.save()
+                    obj.experienceClaimed.add(objClaimed)
+
 
                 # formListObj = FormList()
                 # formListObj.name = obj.__class__.__name__
@@ -2039,7 +2093,7 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 # formListObj.FormID = obj.id
                 # formListObj.save()
 
-                return redirect('forms:allenrolmentform_')
+                return redirect('forms:allndt15expver_')
 
 
             else:
@@ -2057,7 +2111,7 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 guideline = Guideline.objects.filter(id=guidelineID).first()
                 self.candidateID = candidate.id
                 print(self.candidateID)
-                context = super(NDT15AExperienceVerification, self).get_context_data()
+                context = super(NDT15AExperienceVerificationView, self).get_context_data()
                 context['candidate'] = candidate
                 context['category'] = category
                 context['event'] = event
@@ -2065,6 +2119,10 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
 
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/ndt_15.html', context)
+
+class DeleteNdt15A(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = NDT15AExperienceVerification
+    success_url = reverse_lazy('forms:allndt15expver_')
 
 
 class AllNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):

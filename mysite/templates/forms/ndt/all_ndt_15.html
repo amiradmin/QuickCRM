@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load template_filters %}
 {% block content %}
              <!-- Start Content-->
                     <div class="container-fluid">
@@ -60,7 +61,7 @@
             <td><p  >{{item.id}} </p></td>
             <td><p ><a style="margin:0px; padding:0px;  " href="">{{item.candidate.tes_candidate_id}}</a></p></td>
             <td><p >{{item.candidate.first_name}} {{item.candidate.middleName}} {{item.candidate.last_name}}</p></td>
-            <td><p >{{item.candidate.contact_number}}</p></td>
+            <td><p >{{item.candidate.contact_number| phone_number}}</p></td>
             <td><p >{{item.candidate.email}}</p></td>
             <td><a href="{% url 'forms:formbyformid_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                 {% if item.uploadedForm %} <a target="_blank" href="{{item.uploadedForm.url}}" ><i class="fa fa-camera" aria-hidden="true"></i></a> {% endif %}
@@ -69,7 +70,7 @@
  
           
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'forms:updatetwienroment_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
-            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'forms:deltwienrol_' pk=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'forms:delndt15a_' pk=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
             
             
            

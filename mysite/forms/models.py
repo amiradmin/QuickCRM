@@ -276,7 +276,7 @@ class CurrentFormerCertification(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.candidate
+        return self.methodLevel
 
 class ExperienceClaimed(models.Model):
     methodLevel = models.CharField(max_length=512, null=True, blank=True)
@@ -289,7 +289,7 @@ class ExperienceClaimed(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.candidate
+        return self.methodLevel
 
 class NDT15AExperienceVerification(models.Model):
     event = models.ForeignKey(Event, related_name="event_ndt", on_delete=models.CASCADE)
@@ -312,6 +312,6 @@ class NDT15AExperienceVerification(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.candidate
+        return self.candidate.last_name
 
 
