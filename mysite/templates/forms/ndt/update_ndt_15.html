@@ -247,14 +247,14 @@ div.cls_016{font-family:"Calibri",serif;font-size:9.1px;color:rgb(0,0,0);font-we
                 <div style="position:absolute;left:196.88px;top:227.82px" class="cls_003"><span class="cls_003">Expiry date </span><span
                         class="cls_007"><sup>6</sup></span>
                     {% for item in form.currentFormerCertification.all %}
-                    <br><input type="text" name="ExpiryDate"   value="{{item.SchemeCertifyingAuthority}}"  style="margin-top:4px;margin-left:0px;width:100px;" />
+                    <br><input type="text" name="ExpiryDate"   value="{{item.ExpiryDate|date:'m/d/Y'}}"  style="margin-top:4px;margin-left:0px;width:100px;" />
 
                 {% endfor %}
                 </div>
                 <div style="position:absolute;left:314.86px;top:227.82px" class="cls_003"><span class="cls_003">Scheme / Certifying authority </span><span
                         class="cls_007"><sup>7</sup></span>
                          {% for item in form.currentFormerCertification.all %}
-                    <br><input type="text" name="SchemeCertifyingAuthority"  value="{{item.ExpiryDate|date:'m/d/Y'}}"  style="margin-top:4px;margin-left:0px;width:210px;" />
+                    <br><input type="text" name="SchemeCertifyingAuthority"  value="{{item.SchemeCertifyingAuthority}}"  style="margin-top:4px;margin-left:0px;width:210px;" />
 
                 {% endfor %}
                 </div>
@@ -498,7 +498,10 @@ div.cls_016{font-family:"Calibri",serif;font-size:9.1px;color:rgb(0,0,0);font-we
             </div>
 
             <div style="clear:both"></div>
-
+            <div class="mb-3 col-md-12 text-center">
+                <button name="mainForm" class="BUTTON_MZQ" style="height:40px; width:150px;" type="submit">Update
+                </button>
+            </div>
 
         </form>
 
