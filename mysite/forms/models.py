@@ -281,7 +281,6 @@ class CurrentFormerCertification(models.Model):
 class ExperienceClaimed(models.Model):
     methodLevel = models.CharField(max_length=512, null=True, blank=True)
     ExperienceClaimedSince = models.CharField(max_length=512, null=True, blank=True)
-    ExperienceClaimedSince = models.CharField(max_length=512, null=True, blank=True)
     NumberOfNonths = models.IntegerField( null=True, blank=True)
     DateOfExamination = models.DateField(null=True, blank=True)
 

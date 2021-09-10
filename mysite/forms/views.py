@@ -2031,12 +2031,12 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 obj.guideline =guideline
                 obj.event =event
                 obj.descriptionOfExperience = request.POST['descriptionOfExperience']
-                obj.date = request.POST['date']
+                obj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 obj.nameJobTitle = request.POST['nameJobTitle']
                 obj.companyName = request.POST['companyName']
                 obj.supervisionActivity = request.POST['supervisionActivity']
                 obj.verEmail = request.POST['verEmail']
-                obj.verDate = request.POST['verDate']
+                obj.verDate = datetime.datetime.strptime(request.POST['verDate'], '%m/%d/%Y')
                 obj.save()
 
                 if request.POST['methodLevel']:
@@ -2133,4 +2133,23 @@ class AllNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(AllNDT15AExpVerView, self).get_context_data()
         forms = NDT15AExperienceVerification.objects.all()
         context['forms'] = forms
+        return context
+
+class ViewNDT15FormByID(SidebarMixin, LoginRequiredMixin,TemplateView):
+    template_name = "forms/ndt/ndt_15_byid.html"
+
+    def get_context_data(self, *args, **kwargs):
+        """
+
+        Args:
+            *args:
+            **kwargs:
+
+        Returns:
+
+        """
+        context = super(ViewNDT15FormByID, self).get_context_data()
+        formID = self.kwargs['id']
+        form = NDT15AExperienceVerification.objects.filter(id=formID).last()
+        context['form'] = form
         return context

@@ -41,5 +41,6 @@ urlpatterns = [
     path('delndt15a/<int:pk>/delete/', views.DeleteNdt15A.as_view(), name='delndt15a_'),
     path('ndt15expver/', views.NDT15AExperienceVerificationView.as_view(), name='ndt15expver_'),
     path('allndt15expver/', views.AllNDT15AExpVerView.as_view(), name='allndt15expver_'),
+    path('getndt15byid/<int:id>', views.ViewNDT15FormByID.as_view(), name='getndt15byid_'),
 
 ]

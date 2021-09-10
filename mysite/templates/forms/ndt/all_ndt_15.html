@@ -63,7 +63,7 @@
             <td><p >{{item.candidate.first_name}} {{item.candidate.middleName}} {{item.candidate.last_name}}</p></td>
             <td><p >{{item.candidate.contact_number| phone_number}}</p></td>
             <td><p >{{item.candidate.email}}</p></td>
-            <td><a href="{% url 'forms:formbyformid_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+            <td><a href="{% url 'forms:getndt15byid_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                 {% if item.uploadedForm %} <a target="_blank" href="{{item.uploadedForm.url}}" ><i class="fa fa-camera" aria-hidden="true"></i></a> {% endif %}
             </td>
            
