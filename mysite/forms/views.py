@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
 from forms.models import ( Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,
                            PSL30InitialForm,NDT15AExperienceVerification, CurrentFormerCertification,
-                           ExperienceClaimed
+                           ExperienceClaimed,NDTCovid19
                            )
 from django.db.models import Count
 from classes.db import FormDb
@@ -2127,7 +2127,6 @@ class DeleteNdt15A(SidebarMixin, LoginRequiredMixin,DeleteView):
 class AllNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/ndt/all_ndt_15.html"
 
-
     def get_context_data(self):
         context = super(AllNDT15AExpVerView, self).get_context_data()
         forms = NDT15AExperienceVerification.objects.all()
@@ -2219,3 +2218,149 @@ class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/ndt_15.html', context)
+
+
+
+class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/ndt/covid_19.html"
+
+    def get_context_data(self):
+        context = super(NDTCovid19View, self).get_context_data()
+        candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
+        events = Event.objects.all()
+        categories = Category.objects.all()
+        guidelines = Guideline.objects.all()
+
+        context['categories'] = categories
+        context['guidelines'] = guidelines
+        context['candidates'] = candidates
+        context['events'] = events
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                event = Event.objects.filter(id=eventID).first()
+                candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
+
+                obj =NDTCovid19()
+                obj.candidate =candidate
+                obj.category =category
+                obj.guideline =guideline
+                obj.event =event
+                obj.candidateID = request.POST['candidateID']
+                obj.candidateAdress = request.POST['candidateAddress']
+                obj.candidateHomePhone = request.POST['candidateAddress']
+                obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
+
+                if not  request.POST.get('case1yes', None) == None:
+                    obj.confirmCase1 =True
+                if not  request.POST.get('case1No', None) == None:
+                    obj.confirmCase1 =False
+
+                if not  request.POST.get('case2yes', None) == None:
+                    obj.confirmCase2 =True
+                if not  request.POST.get('case2No', None) == None:
+                    obj.confirmCase2 =False
+
+                if not  request.POST.get('case3yes', None) == None:
+                    obj.confirmCase3 =True
+                if not  request.POST.get('case3No', None) == None:
+                    obj.confirmCase3 =False
+
+                if not  request.POST.get('case4yes', None) == None:
+                    obj.confirmCase4 =True
+                if not  request.POST.get('case4No', None) == None:
+                    obj.confirmCase4 =False
+
+                if not  request.POST.get('case5yes', None) == None:
+                    obj.confirmCase5 =True
+                if not  request.POST.get('case5No', None) == None:
+                    obj.confirmCase5 =False
+
+                if not  request.POST.get('case6yes', None) == None:
+                    obj.confirmCase6 =True
+                if not  request.POST.get('case6No', None) == None:
+                    obj.confirmCase6 =False
+
+
+                if not  request.POST.get('medicalTravelCase1Yes', None) == None:
+                    obj.medicalTravelCase1 =True
+                if not  request.POST.get('medicalTravelCase1No', None) == None:
+                    obj.medicalTravelCase1 =False
+                obj.medicalHistory = request.POST['medicalHistory']
+
+
+                if not  request.POST.get('medicalTravelCase2Yes', None) == None:
+                    obj.medicalTravelCase2 =True
+                if not  request.POST.get('medicalTravelCase2No', None) == None:
+                    obj.medicalTravelCase2 =False
+                obj.temperature = request.POST['temperature']
+
+                if not  request.POST.get('medicalTravelCase3Yes', None) == None:
+                    obj.medicalTravelCase3 =True
+                if not  request.POST.get('medicalTravelCase3No', None) == None:
+                    obj.medicalTravelCase3 =False
+
+
+                if not  request.POST.get('medicalTravelCase4Yes', None) == None:
+                    obj.medicalTravelCase4 =True
+                if not  request.POST.get('medicalTravelCase4No', None) == None:
+                    obj.medicalTravelCase4 =False
+
+                obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
+
+                obj.save()
+
+
+                formListObj = FormList()
+                formListObj.name = obj.__class__.__name__
+                formListObj.event = event
+                formListObj.candidate = candidate
+                formListObj.category = category
+                formListObj.guideline = guideline
+                formListObj.FormID = obj.id
+                formListObj.save()
+
+                return redirect('forms:allndtcovid19_')
+
+
+            else:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                print(canID)
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                self.candidateID = candidate.id
+                print(self.candidateID)
+                context = super(NDTCovid19View, self).get_context_data()
+                context['candidate'] = candidate
+                context['category'] = category
+                context['event'] = event
+                context['guideline'] = guideline
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/ndt/covid_19.html', context)
+
+
+class AllNDT15Covid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/ndt/all_ndt_covid19.html"
+
+    def get_context_data(self):
+        context = super(AllNDT15Covid19View, self).get_context_data()
+        forms = NDTCovid19.objects.all()
+        context['forms'] = forms
+        return context

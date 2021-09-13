@@ -1,12 +1,19 @@
 from django.contrib import admin
-from forms.models import Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,PSL30InitialForm,NDT15AExperienceVerification
+from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
+                          PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19 )
 
 # Register your models here.
+
+class NDTCovid19Admin(admin.ModelAdmin):
+    list_display = ['id', 'event', 'candidate','category','fillingDate', 'created_at', 'updated_at']
+    list_filter = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
+
+admin.site.register(NDTCovid19, NDTCovid19Admin)
+
 
 class NDT15AExperienceVerificationAdmin(admin.ModelAdmin):
     list_display = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
     list_filter = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
-
 
 admin.site.register(NDT15AExperienceVerification, NDT15AExperienceVerificationAdmin)
 

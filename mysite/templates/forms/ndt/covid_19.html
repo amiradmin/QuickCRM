@@ -1,0 +1,430 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+.drop-zone {
+  max-width: 100%%;
+  height: 300px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  color: #cccccc;
+  border: 4px dashed #009578;
+  border-radius: 10px;
+}
+
+.drop-zone--over {
+  border-style: solid;
+}
+
+.drop-zone__input {
+  display: none;
+}
+
+.drop-zone__thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #cccccc;
+  background-size: cover;
+  position: relative;
+}
+
+.drop-zone__thumb::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  text-align: center;
+}
+
+.BUTTON_MZQ {
+   background: #3D94F6;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 5px 15px;
+   margin:20px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+
+.BUTTON_MZQ:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+}
+
+.aLink {
+   background:#337FED ;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 16px 15px;
+   margin:5px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+.aLink:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+   color:white;
+}
+
+<style type="text/css">
+<!--
+span.cls_002{font-family:"Liberation Sans Narrow Bold",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_002{font-family:"Liberation Sans Narrow Bold",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_003{font-family:"Liberation Sans Narrow Bold",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_003{font-family:"Liberation Sans Narrow Bold",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_004{font-family:"Liberation Sans Narrow",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_004{font-family:"Liberation Sans Narrow",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_014{font-family:"Liberation Sans Narrow Bold",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
+div.cls_014{font-family:"Liberation Sans Narrow Bold",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_006{font-family:"DejaVu Sans",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_006{font-family:"DejaVu Sans",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_015{font-family:"Liberation Sans Narrow",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: underline}
+div.cls_015{font-family:"Liberation Sans Narrow",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_005{font-family:"Liberation Sans Narrow Bold",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_005{font-family:"Liberation Sans Narrow Bold",serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_007{font-family:"DejaVu Sans",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_007{font-family:"DejaVu Sans",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_008{font-family:"Liberation Sans Narrow",serif;font-size:3.8px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_008{font-family:"Liberation Sans Narrow",serif;font-size:3.8px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_009{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_009{font-family:"Liberation Sans Narrow",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_010{font-family:"Liberation Sans Narrow Bold",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_010{font-family:"Liberation Sans Narrow Bold",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_012{font-family:"DejaVu Sans Bold",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_012{font-family:"DejaVu Sans Bold",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+-->
+</style>
+</style>
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+
+                    </ol>
+                </div>
+                <h4 class="page-title">Covid 19 Form</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="tab-content">
+                        <form method="POST" onsubmit="return topFormValidate();">
+                            {% csrf_token %}
+                            <br>
+
+                            <div style="visibility:hidden; text-align:center;"><span style="width:300px;"
+                                                                                     id="topFormError"
+                                                                                     class="alert alert-danger"></span>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row g-2">
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Candidate</label>
+                                    <select name="canID" id="canID" class="form-select">
+                                        <option value="{{candidate.id}} ">{{candidate.first_name}}
+                                            {{candidate.middleName}}
+                                            {{candidate.last_name}}
+                                        </option>
+                                        {% for item in candidates %}
+                                        <option value="{{item.id}}">{{item.first_name}} {{item.middleName}}
+                                            {{item.last_name}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </select>
+                                    <div><span id="mainCanIDError" class="text-danger"></span></div>
+                                </div>
+
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Event</label>
+                                    <select name="eventID" id="eventID" class="form-select">
+                                        <option value="">{{event.name}}</option>
+                                        {% for item in events %}
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                                <div><span id="eventIDError" class="text-danger"></span></div>
+                            </div>
+
+
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Category</label>
+                                    <select name="categoryID" id="inputState" class="form-select">
+                                        <option value="{{category.id}} ">{{category.name}}</option>
+                                        {% for item in categories %}
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Guideline Form</label>
+                                    <select name="guidelineID" id="inputState2" class="form-select">
+                                        <option value="{{guideline.id}} ">{{guideline.name}}</option>
+                                        {% for item in guidelines %}
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3 col-md-12 text-center">
+                                <button class="BUTTON_MZQ" type="submit">Generate</button>
+                            </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+
+    <div class="col-12">
+
+        <form method="POST"  name="formvalidate" onsubmit="return validate();">
+            {% csrf_token %}
+            <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="mainCanID"/>
+            <input type="hidden" id="mainEventID" value="{{event.id}}" name="eventID"/>
+            <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
+            <input type="hidden" value="{{category.id}}" name="categoryID"/>
+            <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
+
+            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+                 class="card">
+                <div style="position:relative;left:0px;top:0px">
+
+<img src="{% static 'images/forms/ndt/covid19/background1.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:165.80px;top:89.01px" class="cls_002"><span class="cls_002">TRAINING / EXAMINATION CANDIDATE CONSENT</span></div>
+<div style="position:absolute;left:212.50px;top:101.71px" class="cls_002"><span class="cls_002">TO PARTICIPATE IN THE EVENT</span></div>
+<div style="position:absolute;left:205.80px;top:114.31px" class="cls_002"><span class="cls_002">DURING THE COVID-19 PANDEMIC</span></div>
+<div style="position:absolute;left:237.80px;top:126.91px" class="cls_003"><span class="cls_003">TES-IMS-FRM-047-00</span></div>
+<div style="position:absolute;left:77.50px;top:145.81px" class="cls_004"><span class="cls_004">Candidate Full Name:</span> <input style="border:none" type="type" value="{{candidate.first_name}} {{candidate.middleName}} {{candidate.last_name}}" /></div>
+<div style="position:absolute;left:359.50px;top:145.81px" class="cls_004"><span class="cls_004">Candidate ID No:</span> <input style="border:none" name="candidateID" type="type" value="" /></div>
+<div style="position:absolute;left:77.50px;top:165.41px" class="cls_004"><span class="cls_004">Date of Birth (dd/mm/yy):</span><input style="border:none;height:15px;" type="type" value="{{candidate.birth_date}}" /></div>
+<div style="position:absolute;left:359.50px;top:165.41px" class="cls_004"><span class="cls_004">Mobile No:</span><input style="border:none;height:15px;" type="type" value="{{candidate.contact_number}}" /></div>
+<div style="position:absolute;left:77.50px;top:180.61px" class="cls_004"><span class="cls_004">Candidate Address:</span><input style="border:none;width:200px;margin-top:3px;" name="candidateAddress" type="type"  /></div>
+<div style="position:absolute;left:359.50px;top:180.61px" class="cls_004"><span class="cls_004">Home Phone No:</span><input style="border:none;margin-top:3px;" name="candidateHomePhone" type="type" value="" /></div>
+<div style="position:absolute;left:77.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Title:</span><input style="border:none;width:140px;" type="type" value="{{event.name}}" /></div>
+<div style="position:absolute;left:359.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Date:</span><input style="border:none;height:15px;" type="type" value="{{event.start_date|date}}" /></div>
+<div style="position:absolute;left:77.50px;top:232.91px" class="cls_004"><span class="cls_004">Date of Filling the Form:</span><input style="border:none;height:15px;" type="type" name="fillingDate" /></div>
+<div style="position:absolute;left:77.50px;top:247.51px" class="cls_014"><span class="cls_014">Before the Event:</span></div>
+<div style="position:absolute;left:77.50px;top:270.51px" class="cls_004"><span class="cls_004">I hereby confirm:</span></div>
+<div style="position:absolute;left:77.50px;top:286.41px" class="cls_004"><span class="cls_004">1.  that I agree without contest to attend the event at my own risk among COVID-19</span></div>
+<div style="position:absolute;left:458.30px;top:286.41px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case1yes"  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case1No"  /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:91.70px;top:297.91px" class="cls_004"><span class="cls_004">pandemic.</span></div>
+<div style="position:absolute;left:77.50px;top:314.81px" class="cls_004"><span class="cls_004">2.  that  this form may form part of  my registration  records and  may be used  for</span></div>
+<div style="position:absolute;left:458.30px;top:314.81px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case2yes"  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case2No"  /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:91.70px;top:326.31px" class="cls_004"><span class="cls_004">future reference by TES CANADA and by Committees concerned with health</span></div>
+<div style="position:absolute;left:91.70px;top:337.81px" class="cls_004"><span class="cls_004">and safety.</span></div>
+<div style="position:absolute;left:77.50px;top:349.31px" class="cls_004"><span class="cls_004">3.  to wilfully and honestly disclose my medical and travel history and voluntarily</span></div>
+<div style="position:absolute;left:458.30px;top:349.31px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case3yes"  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case3No"  /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:91.70px;top:360.81px" class="cls_004"><span class="cls_004">undergone thermal scanning as per </span><span class="cls_015">Appendix A - Medical and Travel History</span><span class="cls_004">.</span></div>
+<div style="position:absolute;left:77.50px;top:377.81px" class="cls_004"><span class="cls_004">4.  to wilfully abide on all instructions as being stated by TES CANADA to ensure</span></div>
+<div style="position:absolute;left:458.30px;top:377.81px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case4yes"  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case4No"  /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:91.70px;top:389.31px" class="cls_004"><span class="cls_004">minimum level of exposure and adhere to  </span><span class="cls_015">Appendix B - Healthy Practices to</span></div>
+<div style="position:absolute;left:91.70px;top:400.81px" class="cls_015"><span class="cls_015">Protect Yourself.</span></div>
+<div style="position:absolute;left:77.50px;top:420.21px" class="cls_004"><span class="cls_004">5.  to use all the PPEs providing by TES CANADA during the event and while in</span></div>
+<div style="position:absolute;left:458.30px;top:420.21px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case5yes"  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case5No"  /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:91.70px;top:431.71px" class="cls_004"><span class="cls_004">TES CANADA premises.</span></div>
+<div style="position:absolute;left:77.50px;top:448.31px" class="cls_004"><span class="cls_004">6.  that TES CANADA will not assume any legal or other liability for any possibility</span></div>
+<div style="position:absolute;left:458.30px;top:448.31px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case6yes"  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case6No"  /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:91.70px;top:459.81px" class="cls_004"><span class="cls_004">of  illness  occurred  during  and  after  the  duration  of  course  at  TES  CANADA</span></div>
+<div style="position:absolute;left:91.70px;top:471.31px" class="cls_004"><span class="cls_004">premises.</span></div>
+<div style="position:absolute;left:77.50px;top:491.01px" class="cls_004"><span class="cls_004">Agent (if applicable):</span></div>
+<div style="position:absolute;left:77.50px;top:512.81px" class="cls_005"><span class="cls_005">Appendix A : Medical and Travel History</span></div>
+<div style="position:absolute;left:77.50px;top:532.81px" class="cls_004"><span class="cls_004">1.  Do you have any known medical history?</span></div>
+<div style="position:absolute;left:451.70px;top:532.61px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase1Yes"  /> Yes <input type="checkbox" name="medicalTravelCase1No"  /> No</span></div>
+<div style="position:absolute;left:77.50px;top:544.31px" class="cls_004"><span class="cls_004">If Yes, please advise: <input type="text" name="medicalHistory" style="width:180px;height:15px; border:none;" /></span></div>
+<div style="position:absolute;left:77.50px;top:561.11px" class="cls_004"><span class="cls_004">2.  Is current body temperature above 37.2 </span><span class="cls_008"><sup>0 </sup></span><span class="cls_004">C (99 </span><span class="cls_008"><sup>0 </sup></span><span class="cls_004">F)?</span></div>
+<div style="position:absolute;left:451.70px;top:560.91px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase2Yes"  /> Yes <input type="checkbox" name="medicalTravelCase2No"  /> No</span></div>
+<div style="position:absolute;left:77.50px;top:572.61px" class="cls_004"><span class="cls_004">Mandatory Thermal Scanning - Current Body Temperature: <input type="text" name="temperature" style="width:50px;height:15px; border:none;" /> </span><span class="cls_008"><sup>0 </sup></span><span class="cls_004">C (99 </span><span class="cls_008"><sup>0 </sup></span><span class="cls_004">F)</span></div>
+<div style="position:absolute;left:77.50px;top:589.81px" class="cls_004"><span class="cls_004">3.  Have you been outside the country in the last one (1) month?</span></div>
+<div style="position:absolute;left:451.70px;top:589.61px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase3Yes"  /> Yes <input type="checkbox" name="medicalTravelCase3No"  /> No</span></div>
+<div style="position:absolute;left:77.50px;top:601.31px" class="cls_004"><span class="cls_004">If Yes, where: …</span></div>
+<div style="position:absolute;left:77.50px;top:612.81px" class="cls_004"><span class="cls_004">If the country mentioned is from “red zone” countries please see note below.</span></div>
+<div style="position:absolute;left:77.50px;top:631.61px" class="cls_004"><span class="cls_004">4.  Have you been exposed with person positive of COVID19? (family, friends, …)</span></div>
+<div style="position:absolute;left:451.70px;top:631.41px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase4Yes"  /> Yes <input type="checkbox" name="medicalTravelCase4No"  /> No</span></div>
+<div style="position:absolute;left:77.50px;top:643.11px" class="cls_004"><span class="cls_004">If yes, please note below.</span></div>
+<div style="position:absolute;left:77.50px;top:688.01px" class="cls_004"><span class="cls_004">Note: If “Yes” to questions 2-4</span><span class="cls_007"> </span><span class="cls_015">Appendix A</span><span class="cls_004">, you will not be allowed to sit for exam/course and will</span></div>
+<div style="position:absolute;left:77.50px;top:700.51px" class="cls_004"><span class="cls_004">be requested to leave the premises immediately and quarantine yourself for 14 days. If symptoms</span></div>
+<div style="position:absolute;left:77.50px;top:712.01px" class="cls_004"><span class="cls_004">persist like fever, cough, and shortness of breath, please go to the nearest hospital. TES CANADA</span></div>
+<div style="position:absolute;left:77.50px;top:723.51px" class="cls_004"><span class="cls_004">will  have  the  right  to  check  on  you  within 14  days  to  check  your  condition  which  you  should</span></div>
+<div style="position:absolute;left:77.50px;top:735.01px" class="cls_004"><span class="cls_004">respond.</span></div>
+<div style="position:absolute;left:77.50px;top:746.51px" class="cls_004"><span class="cls_004">Your details will  be shared with  local public health authorities if any candidates become  ill with</span></div>
+<div style="position:absolute;left:77.50px;top:758.01px" class="cls_004"><span class="cls_004">suspected infectious disease. If you will not agree to this, you cannot attend the course, event or</span></div>
+<div style="position:absolute;left:77.50px;top:769.51px" class="cls_004"><span class="cls_004">meeting.</span></div>
+<div style="position:absolute;left:276.00px;top:808.71px" class="cls_009"><span class="cls_009">Page </span><span class="cls_010">1</span><span class="cls_009"> of </span><span class="cls_010">2</span></div>
+<div style="position:absolute;left:460.70px;top:808.71px" class="cls_009"><span class="cls_009">Rev. 0, Jan. 2021</span></div>
+</div>
+            <div style="margin:5px auto; width:595px;height:900px;border-style:outset;overflow:hidden" class="card">
+                <div style="position:relative;left:0px;top:0px">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/ndt/covid19/background2.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:165.80px;top:89.01px" class="cls_002"><span class="cls_002">TRAINING / EXAMINATION CANDIDATE CONSENT</span></div>
+<div style="position:absolute;left:212.50px;top:101.71px" class="cls_002"><span class="cls_002">TO PARTICIPATE IN THE EVENT</span></div>
+<div style="position:absolute;left:205.80px;top:114.31px" class="cls_002"><span class="cls_002">DURING THE COVID-19 PANDEMIC</span></div>
+<div style="position:absolute;left:237.80px;top:126.91px" class="cls_003"><span class="cls_003">TES-IMS-FRM-047-00</span></div>
+<div style="position:absolute;left:77.50px;top:152.71px" class="cls_012"><span class="cls_012">Appendix B: Healthy Practices to Protect Yourself</span></div>
+<div style="position:absolute;left:77.50px;top:177.31px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  The most common symptoms of COVID-19 are fever, tiredness, and dry cough. Some patients</span></div>
+<div style="position:absolute;left:91.70px;top:188.91px" class="cls_004"><span class="cls_004">may  have  aches  and  pains,  nasal  congestion,  runny  nose,  sore  throat  or  diarrhoea.  These</span></div>
+<div style="position:absolute;left:91.70px;top:200.41px" class="cls_004"><span class="cls_004">symptoms are usually mild and begin gradually.</span></div>
+<div style="position:absolute;left:77.50px;top:211.91px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Stay home if you feel unwell. If you have a fever, cough and difficulty breathing, seek medical</span></div>
+<div style="position:absolute;left:91.70px;top:223.41px" class="cls_004"><span class="cls_004">attention and call in advance.</span></div>
+<div style="position:absolute;left:77.50px;top:234.91px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Some  people  become  infected  but  don’t  develop  any symptoms and don’t  feel unwell.  Most</span></div>
+<div style="position:absolute;left:91.70px;top:246.51px" class="cls_004"><span class="cls_004">people recover from the disease without needing special treatment. So, it is important to wear</span></div>
+<div style="position:absolute;left:91.70px;top:258.01px" class="cls_004"><span class="cls_004">suitable facemask.</span></div>
+<div style="position:absolute;left:77.50px;top:269.51px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Try to reduce the use of the public transport or equipment.</span></div>
+<div style="position:absolute;left:77.50px;top:281.01px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  TES CANADA will place posters that encourage hand hygiene to help stop the spread at the</span></div>
+<div style="position:absolute;left:91.70px;top:292.61px" class="cls_004"><span class="cls_004">entrance and in other workplace areas where they are likely to be seen.</span></div>
+<div style="position:absolute;left:77.50px;top:304.11px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  TES CANADA discourage handshaking - we encourage other noncontact methods of greeting.</span></div>
+<div style="position:absolute;left:77.50px;top:315.61px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Practice social distancing by keeping at least six feet (2 meters) away from others</span></div>
+<div style="position:absolute;left:77.50px;top:327.21px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Wash your hands often with soap and water for at least 20 seconds, especially after being in a</span></div>
+<div style="position:absolute;left:91.70px;top:338.71px" class="cls_004"><span class="cls_004">public place, or after blowing your nose, coughing or sneezing. If soap and water are not readily</span></div>
+<div style="position:absolute;left:91.70px;top:350.21px" class="cls_004"><span class="cls_004">available, use a hand sanitizer with at least 70% alcohol.</span></div>
+<div style="position:absolute;left:77.50px;top:361.71px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  The virus disappears at temperatures above 60 degrees Celsius, so it is best to use warm water</span></div>
+<div style="position:absolute;left:91.70px;top:373.31px" class="cls_004"><span class="cls_004">(as much as possible) to wash your hands or clothes.</span></div>
+<div style="position:absolute;left:77.50px;top:384.81px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Avoid touching your eyes, nose and mouth with unwashed hands.</span></div>
+<div style="position:absolute;left:77.50px;top:396.31px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Avoid close contact with people who are sick.</span></div>
+<div style="position:absolute;left:77.50px;top:407.91px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Cover your nose and mouth with a tissue when coughing or sneezing and throw the tissue away</span></div>
+<div style="position:absolute;left:91.70px;top:419.41px" class="cls_004"><span class="cls_004">after use. If a tissue isn’t available, cough or sneeze into your elbow or sleeve, not your hands.</span></div>
+<div style="position:absolute;left:77.50px;top:430.91px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Clean  and  disinfect  frequently  touched  surfaces  daily.  This  includes  tables,  doorknobs,  light</span></div>
+<div style="position:absolute;left:91.70px;top:442.51px" class="cls_004"><span class="cls_004">switches,  handles,  desks,  computers,  phones,  keyboards,  sinks,  toilets,  faucets  and</span></div>
+<div style="position:absolute;left:91.70px;top:454.01px" class="cls_004"><span class="cls_004">countertops.</span></div>
+<div style="position:absolute;left:77.50px;top:469.61px" class="cls_004"><span class="cls_004">Candidate Name and Signature:</span></div>
+<div style="position:absolute;left:77.50px;top:504.91px" class="cls_014"><span class="cls_014">After the Event</span></div>
+<div style="position:absolute;left:77.50px;top:527.91px" class="cls_004"><span class="cls_004">I hereby confirmed that I fully understood the health & safety briefing as explained by TES</span></div>
+<div style="position:absolute;left:77.50px;top:539.41px" class="cls_004"><span class="cls_004">CANADA personnel. I am satisfied with safety precautionary measures taken by the management</span></div>
+<div style="position:absolute;left:77.50px;top:550.91px" class="cls_004"><span class="cls_004">of TES CANADA to make sure that the class room is properly sanitized as per National Standards</span></div>
+<div style="position:absolute;left:77.50px;top:562.41px" class="cls_004"><span class="cls_004">and with sufficient hand hygiene for all.</span></div>
+<div style="position:absolute;left:77.50px;top:581.81px" class="cls_004"><span class="cls_004">Candidate Name and Signature:</span></div>
+<div style="position:absolute;left:417.80px;top:581.81px" class="cls_004"><span class="cls_004">Date:<input type="text" name="afterEventDate" style="margin-top:3px;width:80px;height:15px; border:none;" /> </span></div>
+<div style="position:absolute;left:276.00px;top:808.71px" class="cls_009"><span class="cls_009">Page </span><span class="cls_010">2</span><span class="cls_009"> of </span><span class="cls_010">2</span></div>
+<div style="position:absolute;left:460.70px;top:808.71px" class="cls_009"><span class="cls_009">Rev. 0, Jan. 2021</span></div>
+</div>
+</div>
+
+            <div style="clear:both"></div>
+            <div class="mb-3 col-md-12 text-center">
+                <button name="mainForm" class="BUTTON_MZQ" style="height:40px; width:150px;" type="submit">Submit
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div> <!-- end tab-content-->
+
+</div>
+<!-- end card-body -->
+</div>
+<!-- end card-->
+</div>
+<!-- end col-->
+</div>
+<!-- end row -->
+
+<!-- container -->
+
+</div>
+<!-- content -->
+<!-- bundle -->
+<script src="{% static 'assets/js/vendor.min.js' %}"></script>
+<script src="{% static 'assets/js/app.min.js' %}"></script>
+<script src="{% static 'js/forms/ndt15a/regex.js' %}" type="text/javascript"></script>
+<script>
+
+
+</script>
+
+{% endblock %}

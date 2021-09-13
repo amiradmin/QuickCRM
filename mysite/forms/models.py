@@ -314,3 +314,35 @@ class NDT15AExperienceVerification(models.Model):
         return self.candidate.last_name
 
 
+
+class NDTCovid19(models.Model):
+    event = models.ForeignKey(Event, related_name="event_ndt_covid19", on_delete=models.CASCADE)
+    candidate = models.ForeignKey(TesCandidate, related_name="candidate_ndt_covid19", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="category_ndt_covid19", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_ndt_covid19", on_delete=models.CASCADE)
+    candidateID = models.CharField(max_length=512, null=True, blank=True)
+    candidateAdress = models.CharField(max_length=512, null=True, blank=True)
+    candidateHomePhone = models.CharField(max_length=512, null=True, blank=True)
+    fillingDate = models.DateField(null=True, blank=True)
+
+    confirmCase1 = models.BooleanField(null=True, blank=True)
+    confirmCase2 = models.BooleanField(null=True, blank=True)
+    confirmCase3 = models.BooleanField(null=True, blank=True)
+    confirmCase4 = models.BooleanField(null=True, blank=True)
+    confirmCase5 = models.BooleanField(null=True, blank=True)
+    confirmCase6 = models.BooleanField(null=True, blank=True)
+
+    medicalTravelCase1 = models.BooleanField(null=True, blank=True)
+    medicalHistory =models.CharField(max_length=512, null=True, blank=True)
+    medicalTravelCase2 = models.BooleanField(null=True, blank=True)
+    temperature = models.CharField(max_length=512, null=True, blank=True)
+    medicalTravelCase3 = models.BooleanField(null=True, blank=True)
+    medicalTravelCase4 = models.BooleanField(null=True, blank=True)
+
+    afterEventDate = models.DateField(null=True, blank=True)
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate.last_name
