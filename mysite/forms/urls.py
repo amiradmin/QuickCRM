@@ -39,11 +39,14 @@ urlpatterns = [
  
     path('deltwienrol/<int:pk>/delete/', views.DeleteTwiEnrolment.as_view(), name='deltwienrol_'),
     path('delndt15a/<int:pk>/delete/', views.DeleteNdt15A.as_view(), name='delndt15a_'),
+    path('delecovid19/<int:pk>/delete/', views.DeleteCovid19.as_view(), name='delecovid19_'),
     path('ndt15expver/', views.NDT15AExperienceVerificationView.as_view(), name='ndt15expver_'),
     path('allndt15expver/', views.AllNDT15AExpVerView.as_view(), name='allndt15expver_'),
     path('getndt15byid/<int:id>', views.ViewNDT15FormByID.as_view(), name='getndt15byid_'),
     path('updatendt15/<int:id>', views.UpdateNDT15AExpVerView.as_view(), name='updatendt15_'),
     path('ndtcovid/', views.NDTCovid19View.as_view(), name='ndtcovid_'),
     path('allndtcovid19/', views.AllNDT15Covid19View.as_view(), name='allndtcovid19_'),
+    path('covidbyid/<int:id>', views.ViewNDTCovid19FormByID.as_view(), name='covidbyid_'),
+    path('updatecovid19/<int:id>', views.UpdateNDTCovid19View.as_view(), name='updatecovid19_'),
 
 ]

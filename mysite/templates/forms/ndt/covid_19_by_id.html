@@ -187,86 +187,6 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
             <div class="card">
                 <div class="card-body">
                     <div class="tab-content">
-                        <form method="POST" onsubmit="return topFormValidate();">
-                            {% csrf_token %}
-                            <br>
-
-                            <div style="visibility:hidden; text-align:center;"><span style="width:300px;"
-                                                                                     id="topFormError"
-                                                                                     class="alert alert-danger"></span>
-                            </div>
-                            <br>
-                            <br>
-                            <div class="row g-2">
-
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Candidate</label>
-                                    <select name="canID" id="canID" class="form-select">
-                                        <option value="{{candidate.id}} ">{{candidate.first_name}}
-                                            {{candidate.middleName}}
-                                            {{candidate.last_name}}
-                                        </option>
-                                        {% for item in candidates %}
-                                        <option value="{{item.id}}">{{item.first_name}} {{item.middleName}}
-                                            {{item.last_name}}
-                                        </option>
-                                        {% endfor %}
-
-                                    </select>
-                                    <div><span id="mainCanIDError" class="text-danger"></span></div>
-                                </div>
-
-
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Event</label>
-                                    <select name="eventID" id="eventID" class="form-select">
-                                        <option value="">{{event.name}}</option>
-                                        {% for item in events %}
-                                        <option value="{{item.id}}">{{item.name}}</option>
-                                        {% endfor %}
-
-                                    </select>
-                                </div>
-                                <div><span id="eventIDError" class="text-danger"></span></div>
-                            </div>
-
-
-                            <div class="row g-2">
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Category</label>
-                                    <select name="categoryID" id="inputState" class="form-select">
-                                        <option value="{{category.id}} ">{{category.name}}</option>
-                                        {% for item in categories %}
-                                        <option value="{{item.id}}">{{item.name}}</option>
-                                        {% endfor %}
-
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Guideline Form</label>
-                                    <select name="guidelineID" id="inputState2" class="form-select">
-                                        <option value="{{guideline.id}} ">{{guideline.name}}</option>
-                                        {% for item in guidelines %}
-                                        <option value="{{item.id}}">{{item.name}}</option>
-                                        {% endfor %}
-
-                                    </select>
-
-                                </div>
-                            </div>
-
-
-                            <div class="mb-3 col-md-12 text-center">
-                                <button class="BUTTON_MZQ" type="submit">Generate</button>
-                            </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </form>
 
 
     <div class="col-12">
@@ -288,52 +208,52 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
 <div style="position:absolute;left:212.50px;top:101.71px" class="cls_002"><span class="cls_002">TO PARTICIPATE IN THE EVENT</span></div>
 <div style="position:absolute;left:205.80px;top:114.31px" class="cls_002"><span class="cls_002">DURING THE COVID-19 PANDEMIC</span></div>
 <div style="position:absolute;left:237.80px;top:126.91px" class="cls_003"><span class="cls_003">TES-IMS-FRM-047-00</span></div>
-<div style="position:absolute;left:77.50px;top:145.81px" class="cls_004"><span class="cls_004">Candidate Full Name:</span> <input style="border:none" type="type" value="{{candidate.first_name}} {{candidate.middleName}} {{candidate.last_name}}" /></div>
+<div style="position:absolute;left:77.50px;top:145.81px" class="cls_004"><span class="cls_004">Candidate Full Name:</span> <input style="border:none" type="type" value="{{form.candidate.first_name}} {{form.candidate.middleName}} {{form.candidate.last_name}}" /></div>
 <div style="position:absolute;left:359.50px;top:145.81px" class="cls_004"><span class="cls_004">Candidate ID No:</span> <input style="border:none" name="candidateID" type="type" value="" /></div>
-<div style="position:absolute;left:77.50px;top:165.41px" class="cls_004"><span class="cls_004">Date of Birth (dd/mm/yy):</span><input style="border:none;height:15px;" type="type" value="{{candidate.birth_date}}" /></div>
-<div style="position:absolute;left:359.50px;top:165.41px" class="cls_004"><span class="cls_004">Mobile No:</span><input style="border:none;height:15px;" type="type"  value="{{candidate.contact_number}}" /></div>
-<div style="position:absolute;left:77.50px;top:180.61px" class="cls_004"><span class="cls_004">Candidate Address:</span><input style="border:none;width:200px;margin-top:3px;" name="candidateAddress" type="type"  /></div>
-<div style="position:absolute;left:359.50px;top:180.61px" class="cls_004"><span class="cls_004">Home Phone No:</span><input style="border:none;margin-top:3px;" name="candidateHomePhone" id="candidateHomePhone" type="type" value="" onkeypress="return numberPressed(event);" /></div>
-<div style="position:absolute;left:77.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Title:</span><input style="border:none;width:140px;" type="type" value="{{event.name}}" /></div>
-<div style="position:absolute;left:359.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Date:</span><input style="border:none;height:15px;" type="type" value="{{event.start_date|date}}" /></div>
-<div style="position:absolute;left:77.50px;top:232.91px" class="cls_004"><span class="cls_004">Date of Filling the Form:</span><input  id="fillingDate" style="border:none;height:15px;" type="type" name="fillingDate" /></div>
+<div style="position:absolute;left:77.50px;top:165.41px" class="cls_004"><span class="cls_004">Date of Birth (dd/mm/yy):</span><input style="border:none;height:15px;" type="type" value="{{form.candidate.birth_date}}" /></div>
+<div style="position:absolute;left:359.50px;top:165.41px" class="cls_004"><span class="cls_004">Mobile No:</span><input style="border:none;height:15px;" type="type"  value="{{form.candidate.contact_number}}" /></div>
+<div style="position:absolute;left:77.50px;top:180.61px" class="cls_004"><span class="cls_004">Candidate Address:</span><input style="border:none;width:200px;margin-top:3px;" name="form.candidateAddress" type="type"  value="{{form.candidateAdress}}" /></div>
+<div style="position:absolute;left:359.50px;top:180.61px" class="cls_004"><span class="cls_004">Home Phone No:</span><input style="border:none;margin-top:3px;" name="candidateHomePhone" id="candidateHomePhone" value="{{form.candidateHomePhone}}" type="type" value="" onkeypress="return numberPressed(event);" /></div>
+<div style="position:absolute;left:77.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Title:</span><input style="border:none;width:140px;" type="type" value="{{form.event.name}}" /></div>
+<div style="position:absolute;left:359.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Date:</span><input style="border:none;height:15px;" type="type" value="{{form.event.start_date|date}}" /></div>
+<div style="position:absolute;left:77.50px;top:232.91px" class="cls_004"><span class="cls_004">Date of Filling the Form:</span><input  id="fillingDate" style="border:none;height:15px;" type="type" name="fillingDate" value="{{form.fillingDate|date}}"  /></div>
 <div style="position:absolute;left:77.50px;top:247.51px" class="cls_014"><span class="cls_014">Before the Event:</span></div>
 <div style="position:absolute;left:77.50px;top:270.51px" class="cls_004"><span class="cls_004">I hereby confirm:</span></div>
 <div style="position:absolute;left:77.50px;top:286.41px" class="cls_004"><span id="case1Text" class="cls_004">1.  that I agree without contest to attend the event at my own risk among COVID-19</span></div>
-<div style="position:absolute;left:458.30px;top:286.41px" class="cls_006"><span  class="cls_006"><input type="checkbox" name="case1yes"   class="case1Class" onchange="checkboxChange(this,'case1Class')" /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case1No" class="case1Class" onchange="checkboxChange(this,'case1Class')"  /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:458.30px;top:286.41px" class="cls_006"><span  class="cls_006"><input type="checkbox" name="case1yes"  class="case1Class" {% if form.confirmCase1 %} checked {% endif %} /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case1No" class="case1Class" {% if form.confirmCase1 == False %}checked{% endif %} /></span><span class="cls_004"> No</span></div>
 <div style="position:absolute;left:91.70px;top:297.91px" class="cls_004"><span class="cls_004">pandemic.</span></div>
 <div style="position:absolute;left:77.50px;top:314.81px" class="cls_004"><span id="case2Text" class="cls_004">2.  that  this form may form part of  my registration  records and  may be used  for</span></div>
-<div style="position:absolute;left:458.30px;top:314.81px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case2yes"  class="case2Class"  onchange="checkboxChange(this,'case2Class')" /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case2No" class="case2Class" onchange="checkboxChange(this,'case2Class')" /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:458.30px;top:314.81px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case2yes"  class="case2Class"   {% if form.confirmCase2 %} checked {% endif %}  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case2No" class="case2Class"  {% if form.confirmCase2 == False %}checked{% endif %}  /></span><span class="cls_004"> No</span></div>
 <div style="position:absolute;left:91.70px;top:326.31px" class="cls_004"><span class="cls_004">future reference by TES CANADA and by Committees concerned with health</span></div>
 <div style="position:absolute;left:91.70px;top:337.81px" class="cls_004"><span class="cls_004">and safety.</span></div>
 <div style="position:absolute;left:77.50px;top:349.31px" class="cls_004"><span id="case3Text" class="cls_004">3.  to wilfully and honestly disclose my medical and travel history and voluntarily</span></div>
-<div style="position:absolute;left:458.30px;top:349.31px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case3yes"  class="case3Class"  onchange="checkboxChange(this,'case3Class')" /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case3No" class="case3Class" onchange="checkboxChange(this,'case3Class')"  /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:458.30px;top:349.31px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case3yes"  class="case3Class"   {% if form.confirmCase3 %} checked {% endif %}  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case3No" class="case3Class"  {% if form.confirmCase3 == False %}checked{% endif %} /></span><span class="cls_004"> No</span></div>
 <div style="position:absolute;left:91.70px;top:360.81px" class="cls_004"><span class="cls_004">undergone thermal scanning as per </span><span class="cls_015">Appendix A - Medical and Travel History</span><span class="cls_004">.</span></div>
 <div style="position:absolute;left:77.50px;top:377.81px" class="cls_004"><span id="case4Text" class="cls_004">4.  to wilfully abide on all instructions as being stated by TES CANADA to ensure</span></div>
-<div style="position:absolute;left:458.30px;top:377.81px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case4yes" class="case4Class" onchange="checkboxChange(this,'case4Class')" /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case4No" class="case4Class" onchange="checkboxChange(this,'case4Class')" /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:458.30px;top:377.81px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case4yes" class="case4Class"   {% if form.confirmCase4 %} checked {% endif %}  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case4No" class="case4Class"   {% if form.confirmCase4 == False %}checked{% endif %}/></span><span class="cls_004"> No</span></div>
 <div style="position:absolute;left:91.70px;top:389.31px" class="cls_004"><span class="cls_004">minimum level of exposure and adhere to  </span><span class="cls_015">Appendix B - Healthy Practices to</span></div>
 <div style="position:absolute;left:91.70px;top:400.81px" class="cls_015"><span class="cls_015">Protect Yourself.</span></div>
 <div style="position:absolute;left:77.50px;top:420.21px" class="cls_004"><span id="case5Text" class="cls_004">5.  to use all the PPEs providing by TES CANADA during the event and while in</span></div>
-<div style="position:absolute;left:458.30px;top:420.21px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case5yes"  class="case5Class" onchange="checkboxChange(this,'case5Class')" /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case5No" class="case5Class" onchange="checkboxChange(this,'case5Class')" /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:458.30px;top:420.21px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case5yes"  class="case5Class"  {% if form.confirmCase5 %} checked {% endif %}  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case5No" class="case5Class"  {% if form.confirmCase5 == False %}checked{% endif %} /></span><span class="cls_004"> No</span></div>
 <div style="position:absolute;left:91.70px;top:431.71px" class="cls_004"><span class="cls_004">TES CANADA premises.</span></div>
 <div style="position:absolute;left:77.50px;top:448.31px" class="cls_004"><span id="case6Text" class="cls_004">6.  that TES CANADA will not assume any legal or other liability for any possibility</span></div>
-<div style="position:absolute;left:458.30px;top:448.31px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case6yes" class="case6Class" onchange="checkboxChange(this,'case6Class')" /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case6No" class="case6Class" onchange="checkboxChange(this,'case6Class')" /></span><span class="cls_004"> No</span></div>
+<div style="position:absolute;left:458.30px;top:448.31px" class="cls_006"><span class="cls_006"><input type="checkbox" name="case6yes" class="case6Class"  {% if form.confirmCase6 %} checked {% endif %}  /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case6No" class="case6Class"   {% if form.confirmCase6 == False %}checked{% endif %}/></span><span class="cls_004"> No</span></div>
 <div style="position:absolute;left:91.70px;top:459.81px" class="cls_004"><span class="cls_004">of  illness  occurred  during  and  after  the  duration  of  course  at  TES  CANADA</span></div>
 <div style="position:absolute;left:91.70px;top:471.31px" class="cls_004"><span class="cls_004">premises.</span></div>
 <div style="position:absolute;left:77.50px;top:491.01px" class="cls_004"><span class="cls_004">Agent (if applicable):</span></div>
 <div style="position:absolute;left:77.50px;top:512.81px" class="cls_005"><span class="cls_005">Appendix A : Medical and Travel History</span></div>
 <div style="position:absolute;left:77.50px;top:532.81px" class="cls_004"><span id="medicalTravelCase1Text" class="cls_004">1.  Do you have any known medical history?</span></div>
-<div style="position:absolute;left:451.70px;top:532.61px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase1Yes" class="medicalTravelCase1Class" onchange="checkboxChange(this,'medicalTravelCase1Class')"  /> Yes <input type="checkbox" name="medicalTravelCase1No" class="medicalTravelCase1Class"  onchange="checkboxChange(this,'medicalTravelCase1Class')" /> No</span></div>
+<div style="position:absolute;left:451.70px;top:532.61px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase1Yes"  {% if form.medicalTravelCase1 %} checked {% endif %}  class="medicalTravelCase1Class"   /> Yes <input type="checkbox" name="medicalTravelCase1No" class="medicalTravelCase1Class"   {% if form.medicalTravelCase1 == False %}checked{% endif %} /> No</span></div>
 <div style="position:absolute;left:77.50px;top:544.31px" class="cls_004"><span class="cls_004">If Yes, please advise: <input type="text" name="medicalHistory" style="width:180px;height:15px; border:none;" /></span></div>
 <div style="position:absolute;left:77.50px;top:561.11px" class="cls_004"><span id="medicalTravelCase2Text" class="cls_004">2.  Is current body temperature above 37.2 </span><span class="cls_008"><sup>0 </sup></span><span class="cls_004">C (99 </span><span class="cls_008"><sup>0 </sup></span><span class="cls_004">F)?</span></div>
-<div style="position:absolute;left:451.70px;top:560.91px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase2Yes" class="medicalTravelCase2Class" onchange="checkboxChange(this,'medicalTravelCase2Class')" /> Yes <input type="checkbox" name="medicalTravelCase2No"  class="medicalTravelCase2Class"  onchange="checkboxChange(this,'medicalTravelCase2Class')" /> No</span></div>
+<div style="position:absolute;left:451.70px;top:560.91px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase2Yes" class="medicalTravelCase2Class"  {% if form.medicalTravelCase2 %} checked {% endif %} /> Yes <input type="checkbox" name="medicalTravelCase2No"  class="medicalTravelCase2Class"  {% if form.medicalTravelCase2 == False %}checked{% endif %}   /> No</span></div>
 <div style="position:absolute;left:77.50px;top:572.61px" class="cls_004"><span class="cls_004">Mandatory Thermal Scanning - Current Body Temperature: <input type="text" name="temperature" style="width:50px;height:15px; border:none;" /> </span><span class="cls_008"><sup>0 </sup></span><span class="cls_004">C (99 </span><span class="cls_008"><sup>0 </sup></span><span class="cls_004">F)</span></div>
 <div style="position:absolute;left:77.50px;top:589.81px" class="cls_004"><span id="medicalTravelCase3Text" class="cls_004">3.  Have you been outside the country in the last one (1) month?</span></div>
-<div style="position:absolute;left:451.70px;top:589.61px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase3Yes" class="medicalTravelCase3Class" onchange="checkboxChange(this,'medicalTravelCase3Class')" /> Yes <input type="checkbox" name="medicalTravelCase3No"  class="medicalTravelCase3Class" onchange="checkboxChange(this,'medicalTravelCase3Class')"  /> No</span></div>
+<div style="position:absolute;left:451.70px;top:589.61px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase3Yes" class="medicalTravelCase3Class" {% if form.medicalTravelCase3 %} checked {% endif %}  /> Yes <input type="checkbox" name="medicalTravelCase3No"  class="medicalTravelCase3Class"   {% if form.medicalTravelCase3 == False %}checked{% endif %}  /> No</span></div>
 <div style="position:absolute;left:77.50px;top:601.31px" class="cls_004"><span class="cls_004">If Yes, where: …</span></div>
 <div style="position:absolute;left:77.50px;top:612.81px" class="cls_004"><span class="cls_004">If the country mentioned is from “red zone” countries please see note below.</span></div>
 <div style="position:absolute;left:77.50px;top:631.61px" class="cls_004"><span id="medicalTravelCase4Text" class="cls_004">4.  Have you been exposed with person positive of COVID19? (family, friends, …)</span></div>
-<div style="position:absolute;left:451.70px;top:631.41px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase4Yes" class="medicalTravelCase4Class" onchange="checkboxChange(this,'medicalTravelCase4Class')" /> Yes <input type="checkbox" name="medicalTravelCase4No"   class="medicalTravelCase4Class"  onchange="checkboxChange(this,'medicalTravelCase4Class')" /> No</span></div>
+<div style="position:absolute;left:451.70px;top:631.41px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase4Yes" class="medicalTravelCase4Class"  {% if form.medicalTravelCase4 %} checked {% endif %} /> Yes <input type="checkbox" name="medicalTravelCase4No"   class="medicalTravelCase4Class"  {% if form.medicalTravelCase4 == False %}checked{% endif %}  /> No</span></div>
 <div style="position:absolute;left:77.50px;top:643.11px" class="cls_004"><span class="cls_004">If yes, please note below.</span></div>
 <div style="position:absolute;left:77.50px;top:688.01px" class="cls_004"><span class="cls_004">Note: If “Yes” to questions 2-4</span><span class="cls_007"> </span><span class="cls_015">Appendix A</span><span class="cls_004">, you will not be allowed to sit for exam/course and will</span></div>
 <div style="position:absolute;left:77.50px;top:700.51px" class="cls_004"><span class="cls_004">be requested to leave the premises immediately and quarantine yourself for 14 days. If symptoms</span></div>
@@ -394,10 +314,7 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
 </div>
 
             <div style="clear:both"></div>
-            <div class="mb-3 col-md-12 text-center">
-                <button name="mainForm" class="BUTTON_MZQ" style="height:40px; width:150px;" type="submit">Submit
-                </button>
-            </div>
+
 
         </form>
 
