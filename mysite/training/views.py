@@ -330,7 +330,8 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             
 
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
-            obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
+            if not request.POST.get('practicalDate', None) == '':
+                obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
             obj.save()
             for item in categories:
                 obj.formCategory.add(item)
