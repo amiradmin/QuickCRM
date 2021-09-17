@@ -346,3 +346,31 @@ class NDTCovid19(models.Model):
 
     def __str__(self):
         return self.candidate.last_name
+
+
+class PSL57B(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Femail')
+        ]
+
+    event = models.ForeignKey(Event, related_name="event_psl_57b", on_delete=models.CASCADE)
+    candidate = models.ForeignKey(TesCandidate, related_name="candidate_psl_57b", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="category_psl_57b", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_psl_57b", on_delete=models.CASCADE)
+    contactMe = models.BooleanField(null=True, blank=True)
+    cerAddress = models.CharField(max_length=2048, null=True, blank=True )
+    pslCerAddress = models.CharField(max_length=2048, null=True, blank=True )
+    phone = models.CharField(max_length=256, null=True, blank=True )
+    email = models.EmailField( null=True, blank=True )
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES, null=True, blank=True)
+    pslNumber = models.CharField(max_length=1024, null=True, blank=True )
+    birthDay = models.DateField(null=True, blank=True)
+
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate.last_name

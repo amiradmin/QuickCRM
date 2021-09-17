@@ -354,6 +354,38 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
         country_list = Country.objects.all()
         location_list = Location.objects.all()
         categoryList = Category.objects.all()
+
+        categorylist = Category.objects.order_by('name')
+        print("Here Amir")
+        selForms = '{'
+
+        counter = 0
+        formList = '{'
+        for item in categorylist:
+            formList = formList + '"' + str(counter) + '":"' + str(item.name) + '--' + '",'
+            counter = counter + 1
+
+            tempdict = {}
+
+        formList = formList + '"10000000000":" "}'
+
+        values = []
+        for item in event.formCategory.all():
+            for i, j in enumerate(formList.split('--')):
+                tesID = j.split(':')[1].split(' -')[0][1:]
+                print(tesID)
+                if tesID == item.name:
+                    print(str(i) + " : " + tesID)
+                    values.append(i)
+                    selForms = selForms + '"' + str(i) + '":"' + str(item.name) + '",'
+
+        selForms = selForms + '"10000000000":" "}'
+
+        myDict = json.loads(selForms)
+
+        context['selectedList'] = values
+        context['formList'] = formList
+
         context['event'] = event
         context['product_list'] = product_list
         context['lecturers_list'] = lecturers_list
@@ -366,22 +398,32 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
            
-            print(request.POST['category'])
+
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
             location = Location.objects.get(id = request.POST['location'])
-            category = Category.objects.get(name__exact = request.POST['category'])
+            # category = Category.objects.get(name__exact = request.POST['category'])
             obj = Event.objects.filter(id = self.kwargs['id']).first()
             obj.name = request.POST['name']
             obj.product = product
             obj.lecturers = lecturers
             obj.location = location
-            obj.formCategory = category
             obj.country = location.country
             # obj.start_date = request.POST['start_date']
             obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
-            obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
-            obj.save()     
+            if not request.POST.get('practicalDate', None) == '':
+                obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
+            obj.save()
+
+            categoryList = request.POST['categories']
+            if categoryList:
+                for item in categoryList.split('--'):
+                    cat_name = item.split('--')[0]
+                    print('Now: ' + cat_name)
+                    category = Category.objects.filter(name__exact=cat_name).first()
+                    if category:
+                        obj.formCategory.add(category)
+
 
         return redirect('training:event_')
 

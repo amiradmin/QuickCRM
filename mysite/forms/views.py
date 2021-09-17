@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
 from forms.models import ( Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,
                            PSL30InitialForm,NDT15AExperienceVerification, CurrentFormerCertification,
-                           ExperienceClaimed,NDTCovid19
+                           ExperienceClaimed,NDTCovid19,PSL57B
                            )
 from django.db.models import Count
 from classes.db import FormDb
@@ -2486,3 +2486,100 @@ class UpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/covid_19.html', context)
 
+
+
+class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/psl_57B.html"
+
+    def get_context_data(self):
+        context = super(NewPSL57B, self).get_context_data()
+        candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
+        events = Event.objects.all()
+        categories = Category.objects.all()
+        guidelines = Guideline.objects.all()
+
+        context['categories'] = categories
+        context['guidelines'] = guidelines
+        context['candidates'] = candidates
+        context['events'] = events
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                event = Event.objects.filter(id=eventID).first()
+                candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
+
+                objPSL50 = PSL57B()
+                objPSL50.candidate =candidate
+                objPSL50.category =category
+                objPSL50.guideline =guideline
+                objPSL50.event =event
+
+                if not  request.POST.get('contactMe', None) == None:
+                    objPSL50.contactMe =True
+                if not  request.POST.get('contactMe', None) == None:
+                    objPSL50.contactMe =False
+
+                objPSL50.cerAddress = request.POST['cerAddress']
+                objPSL50.pslCerAddress = request.POST['pslCerAddress']
+                objPSL50.phone = request.POST['phone']
+                objPSL50.email = request.POST['email']
+                objPSL50.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+
+
+                objPSL50.save()
+
+
+                formListObj = FormList()
+                formListObj.name = objPSL50.__class__.__name__
+                formListObj.event = event
+                formListObj.candidate = candidate
+                formListObj.category = category
+                formListObj.guideline = guideline
+                formListObj.FormID = objPSL50.id
+                formListObj.save()
+
+                return redirect('forms:allpsl57b_')
+
+
+            else:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                print(canID)
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                self.candidateID = candidate.id
+                print(self.candidateID)
+                context = super(NewPSL57B, self).get_context_data()
+                context['candidate'] = candidate
+                context['category'] = category
+                context['event'] = event
+                context['guideline'] = guideline
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/psl_57B.html', context)
+
+
+
+class AllPSL57BView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/all_psl_57b.html"
+
+    def get_context_data(self):
+        context = super(AllPSL57BView, self).get_context_data()
+        forms = PSL57B.objects.all()
+        context['forms'] = forms
+        return context
