@@ -366,6 +366,17 @@ class PSL57B(models.Model):
     gender = models.CharField(max_length=1,choices=GENDER_CHOICES, null=True, blank=True)
     pslNumber = models.CharField(max_length=1024, null=True, blank=True )
     birthDay = models.DateField(null=True, blank=True)
+    currentEmploymentDetails = models.CharField(max_length=1024, null=True, blank=True)
+    candidatePosition = models.CharField(max_length=512, null=True, blank=True)
+    employmentStatus  = models.CharField(max_length=512, null=True, blank=True)
+    examinationType   = models.CharField(max_length=512, null=True, blank=True)
+    iroductsIndustrySector    = models.CharField(max_length=1024, null=True, blank=True)
+    NDTMethod    = models.CharField(max_length=256, null=True, blank=True)
+    NDTLevel    = models.CharField(max_length=256, null=True, blank=True)
+    ifLevel3    = models.CharField(max_length=256, null=True, blank=True)
+    categoriesOfCertification = models.CharField(max_length=256, null=True, blank=True)
+    recertification = models.CharField(max_length=1024, null=True, blank=True)
+    preferredExaminationDateVenu = models.CharField(max_length=1024, null=True, blank=True)
 
 
     confirmation = models.BooleanField(null=True, blank=True)

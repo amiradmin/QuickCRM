@@ -2532,7 +2532,38 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL50.phone = request.POST['phone']
                 objPSL50.email = request.POST['email']
                 objPSL50.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                objPSL50.currentEmploymentDetails = request.POST['currentEmploymentDetails']
+                objPSL50.candidatePosition = request.POST['candidatePosition']
+                objPSL50.employmentStatus = request.POST['employmentStatus']
+                objPSL50.examinationType = request.POST['examinationType']
+                objPSL50.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
+                if not request.POST.get('MT', None) == None:
+                    objPSL50.NDTMethod ='MT'
+
+                if not request.POST.get('PT', None) == None:
+                    objPSL50.NDTMethod ='PT'
+
+                if not request.POST.get('RT', None) == None:
+                    objPSL50.NDTMethod ='RT'
+
+                if not request.POST.get('RI', None) == None:
+                    objPSL50.NDTMethod ='RI'
+
+                if not request.POST.get('UI', None) == None:
+                    objPSL50.NDTMethod ='UI'
+
+                if not request.POST.get('VT', None) == None:
+                    objPSL50.NDTMethod ='VT'
+
+                if not request.POST.get('CRT', None) == None:
+                    objPSL50.NDTMethod ='CRT'
+
+                if not request.POST.get('TOFT', None) == None:
+                    objPSL50.NDTMethod ='TOFT'
+
+                if not request.POST.get('PAUT', None) == None:
+                    objPSL50.NDTMethod ='PAUT'
 
                 objPSL50.save()
 
