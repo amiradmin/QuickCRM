@@ -415,12 +415,14 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
             obj.save()
 
-            categoryList = request.POST['categories']
+            categoryList = request.POST['catList']
+            print(categoryList)
             if categoryList:
                 for item in categoryList.split('--'):
                     cat_name = item.split('--')[0]
                     print('Now: ' + cat_name)
                     category = Category.objects.filter(name__exact=cat_name).first()
+                    
                     if category:
                         obj.formCategory.add(category)
 
