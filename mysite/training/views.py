@@ -422,7 +422,7 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
                     cat_name = item.split('--')[0]
                     print('Now: ' + cat_name)
                     category = Category.objects.filter(name__exact=cat_name).first()
-                    
+
                     if category:
                         obj.formCategory.add(category)
 
