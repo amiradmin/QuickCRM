@@ -2653,3 +2653,7 @@ class AllPSL57BView(SidebarMixin, LoginRequiredMixin, TemplateView):
         forms = PSL57B.objects.all()
         context['forms'] = forms
         return context
+
+class DeletePSL57B(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = PSL57B
+    success_url = reverse_lazy('forms:allpsl57b_')
