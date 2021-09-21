@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
 from forms.models import ( Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,
                            PSL30InitialForm,NDT15AExperienceVerification, CurrentFormerCertification,
-                           ExperienceClaimed,NDTCovid19,PSL57B
+                           ExperienceClaimed,NDTCovid19,PSL57B,empHistory
                            )
 from django.db.models import Count
 from classes.db import FormDb
@@ -2606,6 +2606,29 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.debit = request.POST['debit']
                 objPSL57.save()
 
+                if not request.POST.get('organisation1', None) == None:
+                    historyObj = empHistory()
+                    historyObj.organisation = request.POST['organisation1']
+                    historyObj.period = request.POST['period1']
+                    historyObj.contactNamePhone = request.POST['contactNamePhone1']
+                    historyObj.save()
+                    objPSL57.emphistory.add(historyObj)
+
+                if not request.POST.get('organisation2', None) == None:
+                    historyObj = empHistory()
+                    historyObj.organisation = request.POST['organisation2']
+                    historyObj.period = request.POST['period2']
+                    historyObj.contactNamePhone = request.POST['contactNamePhone2']
+                    historyObj.save()
+                    objPSL57.emphistory.add(historyObj)
+
+                if not request.POST.get('organisation3', None) == None:
+                    historyObj = empHistory()
+                    historyObj.organisation = request.POST['organisation3']
+                    historyObj.period = request.POST['period3']
+                    historyObj.contactNamePhone = request.POST['contactNamePhone3']
+                    historyObj.save()
+                    objPSL57.emphistory.add(historyObj)
 
                 formListObj = FormList()
                 formListObj.name = objPSL57.__class__.__name__

@@ -348,6 +348,19 @@ class NDTCovid19(models.Model):
         return self.candidate.last_name
 
 
+class empHistory(models.Model):
+    organisation = models.CharField(max_length=512, null=True, blank=True)
+    period = models.CharField(max_length=512, null=True, blank=True)
+    contactNamePhone = models.CharField(max_length=512, null=True, blank=True)
+
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.organisation
+
+
 class PSL57B(models.Model):
     GENDER_CHOICES = [
         ('M', 'Male'),
@@ -366,6 +379,7 @@ class PSL57B(models.Model):
     gender = models.CharField(max_length=1,choices=GENDER_CHOICES, null=True, blank=True)
     pclNumber = models.CharField(max_length=1024, null=True, blank=True )
     birthDay = models.DateField(null=True, blank=True)
+    emphistory = models.ManyToManyField(empHistory, null=True, blank=True)
     currentEmploymentDetails = models.CharField(max_length=1024, null=True, blank=True)
     candidatePosition = models.CharField(max_length=512, null=True, blank=True)
     employmentStatus  = models.CharField(max_length=512, null=True, blank=True)
