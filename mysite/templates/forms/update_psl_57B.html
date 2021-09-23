@@ -210,86 +210,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
             <div class="card">
                 <div class="card-body">
                     <div class="tab-content">
-                        <form method="POST" onsubmit="return topFormValidate();">
-                            {% csrf_token %}
-                            <br>
 
-                            <div style="visibility:hidden; text-align:center;"><span style="width:300px;"
-                                                                                     id="topFormError"
-                                                                                     class="alert alert-danger"></span>
-                            </div>
-                            <br>
-                            <br>
-                            <div class="row g-2">
-
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Candidate</label>
-                                    <select name="canID" id="canID" class="form-select">
-                                        <option value="{{candidate.id}} ">{{candidate.first_name}}
-                                            {{candidate.middleName}}
-                                            {{candidate.last_name}}
-                                        </option>
-                                        {% for item in candidates %}
-                                        <option value="{{item.id}}">{{item.first_name}} {{item.middleName}}
-                                            {{item.last_name}}
-                                        </option>
-                                        {% endfor %}
-
-                                    </select>
-                                    <div><span id="mainCanIDError" class="text-danger"></span></div>
-                                </div>
-
-
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Event</label>
-                                    <select name="eventID" id="eventID" class="form-select">
-                                        <option value="">{{event.name}}</option>
-                                        {% for item in events %}
-                                        <option value="{{item.id}}">{{item.name}}</option>
-                                        {% endfor %}
-
-                                    </select>
-                                </div>
-                                <div><span id="eventIDError" class="text-danger"></span></div>
-                            </div>
-
-
-                            <div class="row g-2">
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Category</label>
-                                    <select name="categoryID" id="inputState" class="form-select">
-                                        <option value="{{category.id}} ">{{category.name}}</option>
-                                        {% for item in categories %}
-                                        <option value="{{item.id}}">{{item.name}}</option>
-                                        {% endfor %}
-
-                                    </select>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Guideline Form</label>
-                                    <select name="guidelineID" id="inputState2" class="form-select">
-                                        <option value="{{guideline.id}} ">{{guideline.name}}</option>
-                                        {% for item in guidelines %}
-                                        <option value="{{item.id}}">{{item.name}}</option>
-                                        {% endfor %}
-
-                                    </select>
-
-                                </div>
-                            </div>
-
-
-                            <div class="mb-3 col-md-12 text-center">
-                                <button class="BUTTON_MZQ" type="submit">Generate</button>
-                            </div>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </form>
 
 
     <div class="col-12">
@@ -473,39 +394,41 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:70.92px;top:146.36px" class="cls_017"><span class="cls_017">APPLICATION FORM</span></div>
 <div style="position:absolute;left:70.92px;top:164.12px" class="cls_006"><span class="cls_006">PART 1. CANDIDATE'S PERSONAL DETAILS</span></div>
 <div style="position:absolute;left:250.92px;top:164.12px" class="cls_010"><span class="cls_010">(to be completed by all applicants)</span></div>
-<div style="position:absolute;left:70.92px;top:178.28px" class="cls_010"><span class="cls_010">Family</span><input type="text" value="{{candidate.last_name}}" style="margin-left:20px;border:none" /></div>
-<div style="position:absolute;left:260.40px;top:178.28px" class="cls_010"><span class="cls_010">Given</span><input type="text" value="{{candidate.first_name}}" style="margin-left:20px;border:none" /></div>
+<div style="position:absolute;left:70.92px;top:178.28px" class="cls_010"><span class="cls_010">Family</span><input type="text" value="{{form.candidate.last_name}}" style="margin-left:20px;border:none" /></div>
+<div style="position:absolute;left:260.40px;top:178.28px" class="cls_010"><span class="cls_010">Given</span><input type="text" value="{{form.candidate.first_name}}" style="margin-left:20px;border:none" /></div>
 <div style="position:absolute;left:70.92px;top:190.52px" class="cls_010"><span class="cls_010">name:</span></div>
 <div style="position:absolute;left:260.40px;top:190.52px" class="cls_010"><span class="cls_010">names:</span></div>
 <div style="position:absolute;left:70.92px;top:216.80px" class="cls_010"><span class="cls_010">Candidate’s usual residence, including post code (this is</span></div>
 <div style="position:absolute;left:310.08px;top:216.80px" class="cls_010"><span class="cls_010">Address, including postcode, to which the PCN</span></div>
-<div style="position:absolute;left:70.92px;top:229.04px" class="cls_010"><span class="cls_010">the address that will be shown on the certificate):</span><br><input type="text" name="cerAddress" value="" style="margin-left:20px;border:none" /></div>
-<div style="position:absolute;left:310.08px;top:229.04px" class="cls_010"><span class="cls_010">certificate, when issued, is to be sent:</span><br><input type="text" name="pslCerAddress" value="" style="margin-left:20px;border:none" /></div>
+<div style="position:absolute;left:70.92px;top:229.04px" class="cls_010"><span class="cls_010">the address that will be shown on the certificate):</span><br><input type="text" name="cerAddress" value="{{form.cerAddress}}" style="margin-left:20px;border:none" /></div>
+<div style="position:absolute;left:310.08px;top:229.04px" class="cls_010"><span class="cls_010">certificate, when issued, is to be sent:</span><br><input type="text" name="pslCerAddress" value="{{form.pslCerAddress}}" style="margin-left:20px;border:none" /></div>
 <div style="position:absolute;left:70.92px;top:313.40px" class="cls_006"><span class="cls_006">CANDIDATES SIGNATURE AUTHORISING CERTIFICATE TO BE SENT TO</span></div>
 <div style="position:absolute;left:70.92px;top:325.64px" class="cls_006"><span class="cls_006">ABOVE ADDRESS</span></div>
-<div style="position:absolute;left:70.92px;top:339.68px" class="cls_010"><span class="cls_010">Telephone number</span><input type="text" name="phone" value="" style="margin-left:20px;border:none" /></div>
+<div style="position:absolute;left:70.92px;top:339.68px" class="cls_010"><span class="cls_010">Telephone number</span><input type="text" name="phone" value="{{form.pslCerAddress}}" style="margin-left:20px;border:none" /></div>
 <div style="position:absolute;left:373.92px;top:339.68px" class="cls_010"><span class="cls_010">PCN number:</span></div>
 <div style="position:absolute;left:70.92px;top:351.92px" class="cls_010"><span class="cls_010">include area</span></div>
 <div style="position:absolute;left:70.92px;top:364.16px" class="cls_010"><span class="cls_010">code/international</span></div>
 <div style="position:absolute;left:70.92px;top:376.28px" class="cls_010"><span class="cls_010">area code:</span></div>
-<div style="position:absolute;left:70.92px;top:390.44px" class="cls_010"><span class="cls_010">Personal email</span><input type="text" name="email" value="" style="margin-left:34px;border:none" /></div>
-<div style="position:absolute;left:373.92px;top:390.44px" class="cls_010"><span class="cls_010">Date of birth</span><input type="text" id="birthDay" name="birthDay" value="" style="margin-left:24px;border:none;width:70px;" /></div>
+<div style="position:absolute;left:70.92px;top:390.44px" class="cls_010"><span class="cls_010">Personal email</span><input type="text" name="email" value="{{form.pslCerAddress}}" style="margin-left:34px;border:none" /></div>
+<div style="position:absolute;left:373.92px;top:390.44px" class="cls_010"><span class="cls_010">Date of birth</span><input type="text" id="birthDay" name="birthDay" value="{{form.birthDay|date:'m/d/Y'}}" style="margin-left:24px;border:none;width:70px;" /></div>
 <div style="position:absolute;left:70.92px;top:402.68px" class="cls_010"><span class="cls_010">address (for issue of</span></div>
 <div style="position:absolute;left:373.92px;top:402.68px" class="cls_010"><span class="cls_010">(dd/mm/yyyy):</span></div>
 <div style="position:absolute;left:70.92px;top:414.80px" class="cls_010"><span class="cls_010">e-certificate):</span></div>
-<div style="position:absolute;left:70.92px;top:428.96px" class="cls_010"><span class="cls_010">Gender (optional):</span><input type="text" name="gender" value="" style="margin-left:20px;border:none" /></div>
+<div style="position:absolute;left:70.92px;top:428.96px" class="cls_010"><span class="cls_010">Gender (optional):</span><input type="text" name="gender" value="{{form.gender}}" style="margin-left:20px;border:none" /></div>
 <div style="position:absolute;left:70.92px;top:454.88px" class="cls_010"><span class="cls_010">It may be possible to make provision in PCN examinations for disabled candidates. If you are disabled please bring</span></div>
 <div style="position:absolute;left:70.92px;top:467.12px" class="cls_010"><span class="cls_010">this fact to the attention of the examining body.</span></div>
 <div style="position:absolute;left:70.92px;top:491.96px" class="cls_006"><span class="cls_006">PART 2. CURRENT EMPLOYMENT DETAILS</span><span class="cls_010"> (to be completed by all applicants)</span></div>
-<div style="position:absolute;left:70.92px;top:506.12px" class="cls_010"><span class="cls_010">Employer's name and address (including telephone, email address and post code):</span><br><input type="text" name="currentEmploymentDetails" value="" style="margin-left:4px;width:90%;" /></div>
-<div style="position:absolute;left:70.92px;top:563.84px" class="cls_010"><span class="cls_010">Candidate's position in the organisation:</span><br><input type="text" name="candidatePosition" value="" style="margin-left:4px;width:90%;" /></div>
-<div style="position:absolute;left:280.80px;top:563.84px" class="cls_010"><span class="cls_010">Employment status (employed or self employed):</span><br><input type="text" name="employmentStatus" value="" style="margin-left:4px;width:90%;" /></div>
+<div style="position:absolute;left:70.92px;top:506.12px" class="cls_010"><span class="cls_010">Employer's name and address (including telephone, email address and post code):</span><br><input type="text" name="currentEmploymentDetails" value="{{form.currentEmploymentDetails}}" style="margin-left:4px;width:90%;border:none;" /></div>
+<div style="position:absolute;left:70.92px;top:563.84px" class="cls_010"><span class="cls_010">Candidate's position in the organisation:</span><br><input type="text" name="candidatePosition" value="{{form.candidatePosition}}" style="margin-left:4px;width:90%;border:none;" /></div>
+<div style="position:absolute;left:280.80px;top:563.84px" class="cls_010"><span class="cls_010">Employment status (employed or self employed):</span><br><input type="text" name="employmentStatus" value="{{form.employmentStatus}}" style="margin-left:4px;width:90%;border:none;" /></div>
 <div style="position:absolute;left:70.92px;top:613.16px" class="cls_006"><span class="cls_006">PART 3. EMPLOYMENT HISTORY</span><span class="cls_010"> (</span><span class="cls_030">applicable only to recertification applicants</span><span class="cls_010"> - list all employers during previous 5</span></div>
 <div style="position:absolute;left:70.92px;top:625.40px" class="cls_010"><span class="cls_010">years, continuing on a separate sheet if necessary, or attach a completed record of employment using CP16 annex</span></div>
 <div style="position:absolute;left:70.92px;top:637.64px" class="cls_010"><span class="cls_010">D1)</span></div>
-<div style="position:absolute;left:70.92px;top:651.68px" class="cls_010"><span class="cls_010">Employing organisation</span><br><input type="text" name="organisation1" style="margin-left:5px;margin-top:15px;width:170px; border:none;" /><br><input type="text" name="organisation2" style="margin-left:5px;margin-top:25px;width:170px; border:none;" /><br><input type="text" name="organisation3" style="margin-left:5px;margin-top:25px;width:170px; border:none;" /></div>
-<div style="position:absolute;left:253.92px;top:651.68px" class="cls_010"><span class="cls_010">Period of employment</span><br><input type="text" name="period1" style="margin-left:10px;margin-top:15px;width:100px; border:none;" /><br><input type="text" name="period2" style="margin-left:10px;margin-top:25px;width:100px; border:none;" /><br><input type="text" name="period3" style="margin-left:10px;margin-top:25px;width:100px; border:none;" /></div>
-<div style="position:absolute;left:372.12px;top:651.68px" class="cls_010"><span class="cls_010">Contact name and telephone number</span><br><input type="text" name="contactNamePhone1" style="margin-left:10px;margin-top:15px;width:160px; border:none;" /><br><input type="text" name="contactNamePhone2" style="margin-left:10px;margin-top:25px;width:160px; border:none;" /><br><input type="text" name="contactNamePhone3" style="margin-left:10px;margin-top:25px;width:160px; border:none;" /></div>
+<div style="position:absolute;left:70.92px;top:651.68px" class="cls_010"><span class="cls_010">Employing organisation</span>{% for item in form.emphistory.all %}<br><input type="text" name="organisation1" value="{{item.organisation}}" style="margin-left:5px;margin-top:15px;width:170px; border:none;" /><input type="text" name="period1" value="{{item.period}}" style="margin-left:5px;margin-top:25px;width:110px; border:none;" /><input type="text" name="contactNamePhone3" value="{{item.contactNamePhone}}" style="margin-left:10px;margin-top:25px;width:170px; border:none;" />{% endfor %}</div>
+
+
+<div style="position:absolute;left:253.92px;top:651.68px" class="cls_010"><span class="cls_010">Period of employment</span></div>
+<div style="position:absolute;left:372.12px;top:651.68px" class="cls_010"><span class="cls_010">Contact name and telephone number</span></div>
 <div style="position:absolute;left:253.92px;top:663.92px" class="cls_010"><span class="cls_010">(from - to)</span></div>
 <div style="position:absolute;left:372.12px;top:663.92px" class="cls_010"><span class="cls_010">for verification purposes</span></div>
 <div style="position:absolute;left:70.92px;top:812.96px" class="cls_010"><span class="cls_010">PSL 57B Issue 16</span></div>
@@ -523,27 +446,27 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:372.12px;top:42.08px" class="cls_010"><span class="cls_010">for verification purposes</span></div>
 <div style="position:absolute;left:70.92px;top:149.00px" class="cls_006"><span class="cls_006">PART 4. EXAMINATION APPLIED FOR</span><span class="cls_010"> (to be completed by all applicants - check examination availability with the</span></div>
 <div style="position:absolute;left:70.92px;top:161.12px" class="cls_010"><span class="cls_010">Test Centre before completing)</span></div>
-<div style="position:absolute;left:70.92px;top:187.52px" class="cls_010"><span class="cls_010">Examination type</span><span class="cls_006"> </span><span class="cls_010">(please state if </span><span class="cls_030">supplementary</span><span class="cls_010">, </span><span class="cls_030">recertification</span><span class="cls_010"> or </span><span class="cls_030">retest </span><span class="cls_010">of a previously failed examination):</span><br><input type="text" name="examinationType" value="" style="margin-left:4px;width:90%;" /></div>
+<div style="position:absolute;left:70.92px;top:187.52px" class="cls_010"><span class="cls_010">Examination type</span><span class="cls_006"> </span><span class="cls_010">(please state if </span><span class="cls_030">supplementary</span><span class="cls_010">, </span><span class="cls_030">recertification</span><span class="cls_010"> or </span><span class="cls_030">retest </span><span class="cls_010">of a previously failed examination):</span><br><input type="text" name="examinationType" value="{{form.examinationType}}" style="margin-left:4px;width:90%;border:none;" /></div>
 <div style="position:absolute;left:70.92px;top:245.48px" class="cls_010"><span class="cls_010">Products or industry sector in which certification is sought (castings, welds, forgings/wrought products, pre &</span></div>
-<div style="position:absolute;left:70.92px;top:257.72px" class="cls_010"><span class="cls_010">in-service inspection, railway or aerospace):</span><br><input type="text" name="iroductsIndustrySector" value="" style="margin-left:4px;width:90%;" /></div>
+<div style="position:absolute;left:70.92px;top:257.72px" class="cls_010"><span class="cls_010">in-service inspection, railway or aerospace):</span><br><input type="text" name="iroductsIndustrySector" value="{{form.iroductsIndustrySector}}" style="margin-left:4px;width:90%;border:none;" /></div>
 <div style="position:absolute;left:70.92px;top:301.40px" class="cls_010"><span class="cls_010" id="ndtMethodTitle" >NDT method (tick only ONE NDT</span></div>
-<div style="position:absolute;left:239.40px;top:301.40px" class="cls_010"><span class="cls_010">ET <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="ET"   /></span></div>
-<div style="position:absolute;left:281.88px;top:301.40px" class="cls_010"><span class="cls_010">MT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="MT"   /></span></div>
-<div style="position:absolute;left:324.36px;top:301.40px" class="cls_010"><span class="cls_010">PT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="PT"   /></span></div>
-<div style="position:absolute;left:366.84px;top:301.40px" class="cls_010"><span class="cls_010">RT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="RT"   /></span></div>
-<div style="position:absolute;left:409.44px;top:301.40px" class="cls_010"><span class="cls_010">RI <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="RI"   /></span></div>
-<div style="position:absolute;left:451.92px;top:301.40px" class="cls_010"><span class="cls_010">UT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="UI"   /></span></div>
-<div style="position:absolute;left:494.52px;top:301.40px" class="cls_010"><span class="cls_010">VT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="VT"   /></span></div>
+<div style="position:absolute;left:239.40px;top:301.40px" class="cls_010"><span class="cls_010">ET <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="ET"  {% if form.NDTMethod == 'ET' %} checked {% endif %} /></span></div>
+<div style="position:absolute;left:281.88px;top:301.40px" class="cls_010"><span class="cls_010">MT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="MT"  {% if form.NDTMethod == 'MT' %} checked {% endif %}  /></span></div>
+<div style="position:absolute;left:324.36px;top:301.40px" class="cls_010"><span class="cls_010">PT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="PT"   {% if form.NDTMethod == 'PT' %} checked {% endif %}  /></span></div>
+<div style="position:absolute;left:366.84px;top:301.40px" class="cls_010"><span class="cls_010">RT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="RT" {% if form.NDTMethod == 'RT' %} checked {% endif %}  /></span></div>
+<div style="position:absolute;left:409.44px;top:301.40px" class="cls_010"><span class="cls_010">RI <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="RI" {% if form.NDTMethod == 'RI' %} checked {% endif %}  /></span></div>
+<div style="position:absolute;left:451.92px;top:301.40px" class="cls_010"><span class="cls_010">UT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="UI"  {% if form.NDTMethod == 'UI' %} checked {% endif %}  /></span></div>
+<div style="position:absolute;left:494.52px;top:301.40px" class="cls_010"><span class="cls_010">VT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="VT"  {% if form.NDTMethod == 'VT' %} checked {% endif %}  /></span></div>
 <div style="position:absolute;left:70.92px;top:313.64px" class="cls_010"><span class="cls_010" >method):</span></div>
-<div style="position:absolute;left:239.40px;top:339.56px" class="cls_010"><span class="cls_010">CRT <br> <input  class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="CRT"   /></span></div>
-<div style="position:absolute;left:281.88px;top:339.56px" class="cls_010"><span class="cls_010">TOFD <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="TOFD"   /></span></div>
-<div style="position:absolute;left:324.36px;top:339.56px" class="cls_010"><span class="cls_010">PAUT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="PAUT"   /></span></div>
+<div style="position:absolute;left:239.40px;top:339.56px" class="cls_010"><span class="cls_010">CRT <br> <input  class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="CRT"  {% if form.NDTMethod == 'CRT' %} checked {% endif %}  /></span></div>
+<div style="position:absolute;left:281.88px;top:339.56px" class="cls_010"><span class="cls_010">TOFD <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="TOFD"  {% if form.NDTMethod == 'TOFD' %} checked {% endif %}  /></span></div>
+<div style="position:absolute;left:324.36px;top:339.56px" class="cls_010"><span class="cls_010">PAUT <br> <input class="ndtMethod" onchange="checkboxChange(this,'ndtMethod')" style="margin-left:10px;" type="checkbox" name="PAUT"  {% if form.NDTMethod == 'PAUT' %} checked {% endif %}  /></span></div>
 <div style="position:absolute;left:366.84px;top:339.56px" class="cls_010"><span class="cls_010">Other please state:</span></div>
 <div style="position:absolute;left:70.92px;top:377.60px" class="cls_010"><span class="cls_010"  id="levelTitle" >Level (tick one box).</span></div>
-<div style="position:absolute;left:182.64px;top:377.60px" class="cls_010"><span class="cls_010">1 <br> <input class="level" onchange="checkboxChange(this,'level')" style="margin-left:5px;margin-top:-8px;" type="checkbox" name="one" /></span></div>
-<div style="position:absolute;left:210.96px;top:377.60px" class="cls_010"><span class="cls_010">2<br> <input  class="level" onchange="checkboxChange(this,'level')" style="margin-left:5px;margin-top:-8px;" type="checkbox" name="two" /></span></div>
-<div style="position:absolute;left:239.40px;top:377.60px" class="cls_010"><span class="cls_010">3<br> <input  class="level" onchange="checkboxChange(this,'level')" style="margin-left:5px;margin-top:-8px;" type="checkbox" name="three" /></span></div>
-<div style="position:absolute;left:281.88px;top:377.60px" class="cls_010"><span class="cls_010">If level 3 retest, state whether Basic or</span><input type="text" name="ifLevel3" value="" style="margin-left:20px;border:none;width:70px;" /></div>
+<div style="position:absolute;left:182.64px;top:377.60px" class="cls_010"><span class="cls_010">1 <br> <input class="level" onchange="checkboxChange(this,'level')" style="margin-left:5px;margin-top:-8px;" type="checkbox" name="one"  {% if form.NDTLevel == 'Level 1' %} checked {% endif %} /></span></div>
+<div style="position:absolute;left:210.96px;top:377.60px" class="cls_010"><span class="cls_010">2<br> <input  class="level" onchange="checkboxChange(this,'level')" style="margin-left:5px;margin-top:-8px;" type="checkbox" name="two"  {% if form.NDTLevel == 'Level 2' %} checked {% endif %}/></span></div>
+<div style="position:absolute;left:239.40px;top:377.60px" class="cls_010"><span class="cls_010">3<br> <input  class="level" onchange="checkboxChange(this,'level')" style="margin-left:5px;margin-top:-8px;" type="checkbox" name="three" {% if form.NDTLevel == 'Level 3' %} checked {% endif %}/></span></div>
+<div style="position:absolute;left:281.88px;top:377.60px" class="cls_010"><span class="cls_010">If level 3 retest, state whether Basic or</span><input type="text" name="ifLevel3" value="{{form.ifLevel3}}" style="margin-left:20px;border:none;width:70px;" /></div>
 <div style="position:absolute;left:70.92px;top:389.84px" class="cls_010"><span class="cls_010">N.B. RI is level 2 only</span></div>
 <div style="position:absolute;left:281.88px;top:389.84px" class="cls_010"><span class="cls_010">Main Method:</span></div>
 <div style="position:absolute;left:70.92px;top:404.96px" class="cls_020"><span class="cls_020">Sector/methods applicable to PED recognition and administration charge</span></div>
@@ -562,11 +485,11 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:182.64px;top:543.44px" class="cls_010"><span class="cls_010">35 Computer Radiographic Interpreter</span></div>
 <div style="position:absolute;left:70.92px;top:557.60px" class="cls_010"><span class="cls_010">State in the space below the categories of certification that you seek to attain (see relevant appendix to</span></div>
 <div style="position:absolute;left:70.92px;top:569.72px" class="cls_010"><span class="cls_010">PCN/GEN). Note that there may be limitations upon the number of categories that may be attempted at any</span></div>
-<div style="position:absolute;left:70.93px;top:581.96px" class="cls_010"><span class="cls_010">one sitting - consult PCN or the Test Centre for further advice.</span><br><input type="text" name="categoriesOfCertification" value="" style="margin-left:4px;border:none;width:90%;" /></div>
-<div style="position:absolute;left:70.92px;top:644.72px" class="cls_010"><span class="cls_010">For recertification or supplementary, provide</span><input type="text" name="recertification" value="" style="margin-left:40px;border:none;width:180px;" /></div>
+<div style="position:absolute;left:70.93px;top:581.96px" class="cls_010"><span class="cls_010">one sitting - consult PCN or the Test Centre for further advice.</span><br><input type="text" name="categoriesOfCertification" value="{{form.categoriesOfCertification}}" style="margin-left:4px;border:none;width:90%;" /></div>
+<div style="position:absolute;left:70.92px;top:644.72px" class="cls_010"><span class="cls_010">For recertification or supplementary, provide</span><input type="text" name="recertification" value="{{form.recertification}}" style="margin-left:40px;border:none;width:180px;" /></div>
 <div style="position:absolute;left:70.92px;top:656.96px" class="cls_010"><span class="cls_010">applicable certificate number and expiry date:</span></div>
 <div style="position:absolute;left:70.92px;top:675.08px" class="cls_010"><span class="cls_010">For retest, give applicable results notice number:</span></div>
-<div style="position:absolute;left:70.92px;top:701.00px" class="cls_010"><span class="cls_010">Preferred examination date and venue:</span><input type="text" name="preferredExaminationDateVenu" value="" style="margin-left:70px;width:180px;" /></div>
+<div style="position:absolute;left:70.92px;top:701.00px" class="cls_010"><span class="cls_010">Preferred examination date and venue:</span><input type="text" name="preferredExaminationDateVenu" value="{{form.preferredExaminationDateVenu}}" style="margin-left:70px;width:180px;border:none;" /></div>
 <div style="position:absolute;left:70.92px;top:812.96px" class="cls_010"><span class="cls_010">PSL 57B Issue 16</span></div>
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 5 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
@@ -576,34 +499,34 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background06.jpg' %}" width=595 height=842></div>
 <div style="position:absolute;left:70.93px;top:27.92px" class="cls_006"><span class="cls_006">PART 5. PAYMENT</span><span class="cls_010"> (to be completed by all applicants - applicable sections only)</span></div>
-<div style="position:absolute;left:70.92px;top:54.32px" class="cls_010"><span class="cls_010">Name and address for invoice (if different from candidate's), including telephone/fax number:</span><br><input type="text" name="nameAddressInvoice" value="" style="margin-left:4px;border:none;width:90%;" /></div>
-<div style="position:absolute;left:70.92px;top:118.64px" class="cls_010"><span class="cls_010">Some Test Centres provide accommodation or information on the availability of local</span><input type="text" name="accommodation" value="" style="margin-left:62px;border:none;width:68px;" /></div>
+<div style="position:absolute;left:70.92px;top:54.32px" class="cls_010"><span class="cls_010">Name and address for invoice (if different from candidate's), including telephone/fax number:</span><br><input type="text" name="nameAddressInvoice" value="{{form.nameAddressInvoice}}" style="margin-left:4px;border:none;width:90%;" /></div>
+<div style="position:absolute;left:70.92px;top:118.64px" class="cls_010"><span class="cls_010">Some Test Centres provide accommodation or information on the availability of local</span><input type="text" name="accommodation" value="{{form.accommodation}}" style="margin-left:62px;border:none;width:68px;" /></div>
 <div style="position:absolute;left:70.92px;top:130.88px" class="cls_010"><span class="cls_010">accommodation. If you wish to receive assistance with accommodation, please tick here:</span></div>
-<div style="position:absolute;left:70.92px;top:146.36px" class="cls_010"><span class="cls_010">Preferred method of payment (bank</span><input type="text" name="paymentMethod" value="" style="margin-left:32px;border:none;width:170px;" /></div>
-<div style="position:absolute;left:430.68px;top:146.36px" class="cls_010"><span class="cls_010">Tick box if cheque</span><input style="margin-left:15px;margin-top:0px;" type="checkbox" name="cheque" /></div>
+<div style="position:absolute;left:70.92px;top:146.36px" class="cls_010"><span class="cls_010">Preferred method of payment (bank</span><input type="text" name="paymentMethod" value="{{form.paymentMethod}}" style="margin-left:32px;border:none;width:170px;" /></div>
+<div style="position:absolute;left:430.68px;top:146.36px" class="cls_010"><span class="cls_010">Tick box if cheque</span><input style="margin-left:15px;margin-top:0px;" type="checkbox" name="cheque" {% if form.cheque %} checked {% endif %} /></div>
 <div style="position:absolute;left:70.92px;top:158.48px" class="cls_010"><span class="cls_010">draft, BACS, cheque, credit card):</span></div>
 <div style="position:absolute;left:430.68px;top:158.48px" class="cls_010"><span class="cls_010">enclosed:</span></div>
-<div style="position:absolute;left:70.92px;top:174.08px" class="cls_010"><span class="cls_010">Name of senior responsible official of the organisation paying</span><input type="text" name="nameResponsible" value="" style="margin-left:32px;border:none;width:170px;" /></div>
+<div style="position:absolute;left:70.92px;top:174.08px" class="cls_010"><span class="cls_010">Name of senior responsible official of the organisation paying</span><input type="text" name="nameResponsible" value="{{form.nameResponsible}}" style="margin-left:32px;border:none;width:170px;" /></div>
 <div style="position:absolute;left:70.92px;top:186.20px" class="cls_010"><span class="cls_010">examination fees (not the candidate - unless self employed):</span></div>
-<div style="position:absolute;left:70.92px;top:201.80px" class="cls_010"><span class="cls_010">Company order reference:</span><input type="text" name="companyOrderReference" value="" style="margin-left:32px;border:none;width:170px;" /></div>
+<div style="position:absolute;left:70.92px;top:201.80px" class="cls_010"><span class="cls_010">Company order reference:</span><input type="text" name="companyOrderReference" value="{{form.companyOrderReference}}" style="margin-left:32px;border:none;width:170px;" /></div>
 <div style="position:absolute;left:70.92px;top:229.04px" class="cls_010"><span class="cls_010">For credit card payment, tick</span></div>
-<div style="position:absolute;left:210.96px;top:229.04px" class="cls_010"><span class="cls_010">Visa</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="visa" /></div>
-<div style="position:absolute;left:246.36px;top:229.04px" class="cls_010"><span class="cls_010">MasterCard</span><br><input style="margin-left:20px;margin-top:0px;" type="checkbox" name="masterCard" /></div>
-<div style="position:absolute;left:310.20px;top:229.04px" class="cls_010"><span class="cls_010">Amex</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="amex" /></div>
-<div style="position:absolute;left:352.56px;top:229.04px" class="cls_010"><span class="cls_010">Switch</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="switch" /></div>
-<div style="position:absolute;left:395.28px;top:229.04px" class="cls_010"><span class="cls_010">Issue & expiry dates:</span><input type="text" id="issueExpiryDates" name="issueExpiryDates" value="" style="margin-left:2px;border:none;width:140px;" /></div>
+<div style="position:absolute;left:210.96px;top:229.04px" class="cls_010"><span class="cls_010">Visa</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="visa" {% if form.creditCardPayment == 'Visa' %} checked {% endif %} /></div>
+<div style="position:absolute;left:246.36px;top:229.04px" class="cls_010"><span class="cls_010">MasterCard</span><br><input style="margin-left:20px;margin-top:0px;" type="checkbox" name="masterCard"  {% if form.creditCardPayment == 'MasterCard' %} checked {% endif %}  /></div>
+<div style="position:absolute;left:310.20px;top:229.04px" class="cls_010"><span class="cls_010">Amex</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="amex"  {% if form.creditCardPayment == 'Amex' %} checked {% endif %} /></div>
+<div style="position:absolute;left:352.56px;top:229.04px" class="cls_010"><span class="cls_010">Switch</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="switch" {% if form.creditCardPayment == 'Switch' %} checked {% endif %} /></div>
+<div style="position:absolute;left:395.28px;top:229.04px" class="cls_010"><span class="cls_010">Issue & expiry dates:</span><input type="text" id="issueExpiryDates" name="issueExpiryDates" value="{{form.issueExpiryDates|date:'m/d/Y'}}" style="margin-left:2px;border:none;width:140px;" /></div>
 <div style="position:absolute;left:70.92px;top:241.28px" class="cls_010"><span class="cls_010">the relevant box & provide</span></div>
 <div style="position:absolute;left:70.92px;top:253.52px" class="cls_010"><span class="cls_010">issue and expiry dates:</span></div>
-<div style="position:absolute;left:70.92px;top:269.00px" class="cls_010"><span class="cls_010">Name on card:</span><input type="text" name="NameOnCard" value="" style="margin-left:80px;border:none;width:170px;" /></div>
-<div style="position:absolute;left:70.92px;top:296.24px" class="cls_010"><span class="cls_010">Card number:</span><input type="text" name="cardNumber" value="" style="margin-left:85px;border:none;width:80px;" /></div>
-<div style="position:absolute;left:324.36px;top:296.24px" class="cls_010"><span class="cls_010">Security code (last 3 figures on the</span><input type="text" name="securityCode" value="" style="margin-left:20px;border:none;width:60px;" /></div>
+<div style="position:absolute;left:70.92px;top:269.00px" class="cls_010"><span class="cls_010">Name on card:</span><input type="text" name="NameOnCard" value="{{form.NameOnCard}}" style="margin-left:80px;border:none;width:170px;" /></div>
+<div style="position:absolute;left:70.92px;top:296.24px" class="cls_010"><span class="cls_010">Card number:</span><input type="text" name="cardNumber" value="{{form.cardNumber}}" style="margin-left:85px;border:none;width:80px;" /></div>
+<div style="position:absolute;left:324.36px;top:296.24px" class="cls_010"><span class="cls_010">Security code (last 3 figures on the</span><input type="text" name="securityCode" value="{{form.securityCode}}" style="margin-left:20px;border:none;width:60px;" /></div>
 <div style="position:absolute;left:324.36px;top:308.48px" class="cls_010"><span class="cls_010">security strip on the reverse of the</span></div>
 <div style="position:absolute;left:324.36px;top:320.72px" class="cls_010"><span class="cls_010">card)</span></div>
 <div style="position:absolute;left:70.92px;top:334.76px" class="cls_010"><span class="cls_010">Signature of above named</span></div>
 <div style="position:absolute;left:70.92px;top:347.00px" class="cls_010"><span class="cls_010">individual:</span></div>
-<div style="position:absolute;left:70.92px;top:362.48px" class="cls_010"><span class="cls_010">Address of credit card holder:</span><input type="text" name="addressCreditCardHolder" value="" style="margin-left:20px;border:none;width:190px;" /></div>
+<div style="position:absolute;left:70.92px;top:362.48px" class="cls_010"><span class="cls_010">Address of credit card holder:</span><input type="text" name="addressCreditCardHolder" value="{{form.addressCreditCardHolder}}" style="margin-left:20px;border:none;width:190px;" /></div>
 <div style="position:absolute;left:70.92px;top:402.44px" class="cls_010"><span class="cls_010">Debit the above credit/debit card for the amount shown in respect of exam fees</span></div>
-<div style="position:absolute;left:423.00px;top:401.96px" class="cls_021"><span class="cls_021">£</span><input type="text" name="debit" value="" style="margin-left:20px;border:none;width:80px;height:20px;" /></div>
+<div style="position:absolute;left:423.00px;top:401.96px" class="cls_021"><span class="cls_021">£</span><input type="text" name="debit" value="{{form.debit}}" style="margin-left:20px;border:none;width:80px;height:20px;" /></div>
 <div style="position:absolute;left:477.07px;top:401.96px" class="cls_021"><span class="cls_021">:</span></div>
 <div style="position:absolute;left:70.92px;top:414.68px" class="cls_010"><span class="cls_010">(check with Test Centre to confirm that credit card payment is available)</span></div>
 <div style="position:absolute;left:70.92px;top:812.96px" class="cls_010"><span class="cls_010">PSL 57B Issue 16</span></div>
@@ -615,7 +538,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background07.jpg' %}" width=595 height=842></div>
 <div style="position:absolute;left:70.93px;top:27.92px" class="cls_006"><span class="cls_006">PART 6. CANDIDATE’S STATEMENT CONFIRMING ELIGIBILITY FOR EXAMINATION</span></div>
-<div style="position:absolute;left:70.92px;top:53.60px" class="cls_010"><span class="cls_010">CANDIDATE’S FULL NAME: ……………………………………………</span></div>
+<div style="position:absolute;left:70.92px;top:53.60px" class="cls_010"><span class="cls_010">CANDIDATE’S FULL NAME: {{form.candidate.first_name}} {{form.candidate.middleName}} {{form.candidate.last_name}}</span></div>
 <div style="position:absolute;left:408.95px;top:53.60px" class="cls_010"><span class="cls_010">………</span></div>
 <div style="position:absolute;left:70.92px;top:77.96px" class="cls_010"><span class="cls_010">PCN NUMBER (if existing PCN certificate holder): …………………………………………………………...</span></div>
 <div style="position:absolute;left:70.93px;top:102.44px" class="cls_010"><span class="cls_010">I have read and understand PCN General Requirements for the certification of personnel engaged in NDT,</span></div>
