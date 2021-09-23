@@ -54,5 +54,9 @@ urlpatterns = [
     path('psl57b/', views.NewPSL57B.as_view(), name='psl57b_'),
     path('allpsl57b/', views.AllPSL57BView.as_view(), name='allpsl57b_'),
     path('updatepsl57b/<int:id>', views.UpdatePSL57B.as_view(), name='updatepsl57b_'),
+    path('viewpsl57b/<int:id>', views.ViewPSL57B.as_view(), name='viewpsl57b_'),
+
+    path('newvisiontest/', views.NewVisionTest.as_view(), name='newvisiontest_'),
+    path('allisiontest/', views.AllVisionTestView.as_view(), name='allisiontest_'),
 
 ]

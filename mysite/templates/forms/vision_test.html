@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+{% load static %}
+{% load template_filters %}
+{% block content %}
+<style>
+.drop-zone {
+  max-width: 100%%;
+  height: 300px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  color: #cccccc;
+  border: 4px dashed #009578;
+  border-radius: 10px;
+}
+
+.drop-zone--over {
+  border-style: solid;
+}
+
+.drop-zone__input {
+  display: none;
+}
+
+.drop-zone__thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #cccccc;
+  background-size: cover;
+  position: relative;
+}
+
+.drop-zone__thumb::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  text-align: center;
+}
+
+.BUTTON_MZQ {
+   background: #3D94F6;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 5px 15px;
+   margin:20px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+
+.BUTTON_MZQ:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+}
+
+.aLink {
+   background:#337FED ;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 16px 15px;
+   margin:5px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+.aLink:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+   color:white;
+}
+
+</style>
+
+<style type="text/css">
+<!--
+span.cls_006{font-family:Arial,serif;font-size:12.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_006{font-family:Arial,serif;font-size:12.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_003{font-family:Arial,serif;font-size:14.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_003{font-family:Arial,serif;font-size:14.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_004{font-family:Arial,serif;font-size:8.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_004{font-family:Arial,serif;font-size:8.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_005{font-family:Arial,serif;font-size:11.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_005{font-family:Arial,serif;font-size:11.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_009{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_009{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_010{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:italic;text-decoration: none}
+div.cls_010{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:normal;font-style:italic;text-decoration: none}
+span.cls_011{font-family:Arial,serif;font-size:8.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_011{font-family:Arial,serif;font-size:8.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_012{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_012{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_013{font-family:Arial,serif;font-size:14.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_013{font-family:Arial,serif;font-size:14.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_014{font-family:Arial,serif;font-size:22.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_014{font-family:Arial,serif;font-size:22.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_017{font-family:Arial,serif;font-size:8.0px;color:rgb(0,0,255);font-weight:normal;font-style:normal;text-decoration: underline}
+div.cls_017{font-family:Arial,serif;font-size:8.0px;color:rgb(0,0,255);font-weight:normal;font-style:normal;text-decoration: none}
+-->
+</style>
+<!-- Start Content-->
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+
+                    </ol>
+                </div>
+                <h4 class="page-title">PSL 57B Form</h4>
+            </div>
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="tab-content">
+                        <form method="POST" onsubmit="return topFormValidate();">
+                            {% csrf_token %}
+                            <br>
+
+                            <div style="visibility:hidden; text-align:center;"><span style="width:300px;"
+                                                                                     id="topFormError"
+                                                                                     class="alert alert-danger"></span>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="row g-2">
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Candidate</label>
+                                    <select name="canID" id="canID" class="form-select">
+                                        <option value="{{candidate.id}} ">{{candidate.first_name}}
+                                            {{candidate.middleName}}
+                                            {{candidate.last_name}}
+                                        </option>
+                                        {% for item in candidates %}
+                                        <option value="{{item.id}}">{{item.first_name}} {{item.middleName}}
+                                            {{item.last_name}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </select>
+                                    <div><span id="mainCanIDError" class="text-danger"></span></div>
+                                </div>
+
+
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Event</label>
+                                    <select name="eventID" id="eventID" class="form-select">
+                                        <option value="">{{event.name}}</option>
+                                        {% for item in events %}
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                                <div><span id="eventIDError" class="text-danger"></span></div>
+                            </div>
+
+
+                            <div class="row g-2">
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Category</label>
+                                    <select name="categoryID" id="inputState" class="form-select">
+                                        <option value="{{category.id}} ">{{category.name}}</option>
+                                        {% for item in categories %}
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                        {% endfor %}
+
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-6">
+                                    <label for="inputState" class="form-label">Guideline Form</label>
+                                    <select name="guidelineID" id="inputState2" class="form-select">
+                                        <option value="{{guideline.id}} ">{{guideline.name}}</option>
+                                        {% for item in guidelines %}
+                                        <option value="{{item.id}}">{{item.name}}</option>
+                                        {% endfor %}
+
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3 col-md-12 text-center">
+                                <button class="BUTTON_MZQ" type="submit">Generate</button>
+                            </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+
+    <div class="col-12">
+
+        <form method="POST"  name="formvalidate" onsubmit="return validate();">
+            {% csrf_token %}
+            <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="mainCanID"/>
+            <input type="hidden" id="mainEventID" value="{{event.id}}" name="eventID"/>
+            <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
+            <input type="hidden" value="{{category.id}}" name="categoryID"/>
+            <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
+
+            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+                 class="card">
+                <div style="position:relative;left:0px;top:0px">
+
+
+<img src="{% static 'images/vistion_test.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:517.14px;top:12.52px" class="cls_006"><span class="cls_006">TWI Ltd</span></div>
+<div style="position:absolute;left:209.18px;top:19.00px" class="cls_003"><span class="cls_003">RECORD OF VISION TESTS</span></div>
+<div style="position:absolute;left:517.98px;top:26.50px" class="cls_004"><span class="cls_004">Granta Park</span></div>
+<div style="position:absolute;left:507.30px;top:35.68px" class="cls_004"><span class="cls_004">Great Abington</span></div>
+<div style="position:absolute;left:254.02px;top:41.38px" class="cls_005"><span class="cls_005">EX07 doc 2 (rev 8)</span></div>
+<div style="position:absolute;left:483.30px;top:44.86px" class="cls_004"><span class="cls_004">Cambridge CB21 6AL</span></div>
+<div style="position:absolute;left:504.18px;top:54.10px" class="cls_004"><span class="cls_004">United Kingdom</span></div>
+<div style="position:absolute;left:54.72px;top:81.28px" class="cls_006"><span class="cls_006">Details of individual tested:</span></div>
+<div style="position:absolute;left:54.72px;top:113.08px" class="cls_009"><span class="cls_009">Name:</span><input type="text" name="name" value="{{candidate.first_name}} {{candidate.middleName}} {{candidate.last_name}}" style="margin-left:10px;width:180px; border:none;" /> </div>
+<div style="position:absolute;left:54.72px;top:144.84px" class="cls_009"><span class="cls_009">Address:</span><input type="text" name="address" style="margin-left:10px;width:180px; border:none;" /></div>
+<div style="position:absolute;left:54.72px;top:176.52px" class="cls_009"><span class="cls_009">Telephone:</span><input type="text" name="phone" style="margin-left:10px;width:180px; border:none;" /></div>
+<div style="position:absolute;left:313.96px;top:176.52px" class="cls_009"><span class="cls_009">Date of Birth:</span><input type="text" name="birthDay" style="margin-left:10px;width:180px; border:none;" /></div>
+<div style="position:absolute;left:54.72px;top:208.20px" class="cls_009"><span class="cls_009">Email:</span><input type="text" name="email" style="margin-left:10px;width:180px; border:none;" /></div>
+<div style="position:absolute;left:313.96px;top:208.20px" class="cls_009"><span class="cls_009">Employer:</span><input type="text" name="employer" style="margin-left:10px;width:180px; border:none;" /></div>
+<div style="position:absolute;left:112.10px;top:237.36px" class="cls_010"><span class="cls_010">These tests meet the requirements of EN ISO 9712, NAS 410, EN 4179 and SNT-TC-1A</span></div>
+<div style="position:absolute;left:159.32px;top:249.90px" class="cls_010"><span class="cls_010">These tests are suitable for BGAS, PCN and CSWIP examinations.</span></div>
+<div style="position:absolute;left:54.72px;top:276.18px" class="cls_006"><span class="cls_006">Near Vision Acuity </span><span class="cls_011">(To be carried out for all candidates).</span></div>
+<div style="position:absolute;left:54.72px;top:295.98px" class="cls_009"><span class="cls_009">Individual shall be capable of reading </span><span class="cls_012">N4.5 Times New Roman</span><span class="cls_009"> or </span><span class="cls_012">Jaeger J1</span><span class="cls_009"> on a standard reading test plate at a</span></div>
+<div style="position:absolute;left:54.72px;top:309.18px" class="cls_009"><span class="cls_009">distance of not less than 30 cm unaided or corrected in at least one eye or read at least 9 of 10 lines of tumbling E</span></div>
+<div style="position:absolute;left:54.72px;top:322.44px" class="cls_009"><span class="cls_009">(as per </span><span class="cls_012">EN ISO 18490</span><span class="cls_009">) at distance of 400 ± 25 mm by both eyes.</span></div>
+<div style="position:absolute;left:361.54px;top:338.64px" class="cls_009"><span class="cls_009">Tumbling E result:</span><input type="text" name="tumbling" style="margin-left:2px;width:50px; border:none;" /></div>
+<div style="position:absolute;left:494.88px;top:338.64px" class="cls_009"><span class="cls_009">of 10 lines</span></div>
+<div style="position:absolute;left:69.30px;top:356.94px" class="cls_013"><span class="cls_013">UNCORRECTED</span><span class="cls_006"> </span><span class="cls_014">  <input type="checkbox" name="uncorrected" /> </span></div>
+<div style="position:absolute;left:260.08px;top:356.94px" class="cls_013"><span class="cls_013">CORRECTED</span><span class="cls_006"> </span><span class="cls_014">  <input type="checkbox" name="corrected" /></span></div>
+<div style="position:absolute;left:423.96px;top:362.46px" class="cls_013"><span class="cls_013">IS NOT ABLE</span></div>
+<div style="position:absolute;left:521.16px;top:356.94px" class="cls_014"><span class="cls_014"><input type="checkbox" name="isNotAble" /></span><span class="cls_013"></span></div>
+<div style="position:absolute;left:54.72px;top:392.88px" class="cls_006"><span class="cls_006">Colour Perception</span></div>
+<div style="position:absolute;left:54.72px;top:408.86px" class="cls_011"><span class="cls_011">To be carried out on candidates who are using colour perception in in the testing e.g. NDT, Painting inspection etc.</span></div>
+<div style="position:absolute;left:54.72px;top:427.88px" class="cls_009"><span class="cls_009">Colour perception shall be assessed by the </span><span class="cls_012">Ishihara</span><span class="cls_009"> 24 plate test. Individual shall be able to distinguish contrast</span></div>
+<div style="position:absolute;left:54.72px;top:441.08px" class="cls_009"><span class="cls_009">between the colours used in the NDT method concerned as specified by the employer. If misreading any of the first</span></div>
+<div style="position:absolute;left:54.72px;top:454.34px" class="cls_009"><span class="cls_009">17 plates is detected during the Ishihara test, a further “trade test” is to be carried out by candidate’s employer. The</span></div>
+<div style="position:absolute;left:54.72px;top:467.54px" class="cls_009"><span class="cls_009">candidate’s employer shall be informed where any colour deficiency is recorded.</span></div>
+<div style="position:absolute;left:121.94px;top:485.12px" class="cls_013"><span class="cls_013">ACCEPT  </span><span class="cls_014"><input type="checkbox" name="colorAccept" /></span></div>
+<div style="position:absolute;left:294.40px;top:485.12px" class="cls_013"><span class="cls_013">REJECT  </span><span class="cls_014"><input type="checkbox" name="colorReject" /></span></div>
+<div style="position:absolute;left:54.72px;top:520.28px" class="cls_006"><span class="cls_006">Shades of Grey Perception</span></div>
+<div style="position:absolute;left:54.72px;top:536.24px" class="cls_011"><span class="cls_011">To be carried out on candidates who are conducting tests using shades of grey e.g. Radiographic Testing, TOFD etc.</span></div>
+<div style="position:absolute;left:54.72px;top:555.26px" class="cls_009"><span class="cls_009">Shades of grey perception shall be assessed by the </span><span class="cls_012">Skerik grey scale</span><span class="cls_009"> test or equivalent.</span><span class="cls_012"> </span><span class="cls_009">Grey scale test can be</span></div>
+<div style="position:absolute;left:54.72px;top:568.52px" class="cls_009"><span class="cls_009">downloaded from TWI web site. In specific cases the individual shall be able to differentiate shades of grey used in</span></div>
+<div style="position:absolute;left:54.72px;top:581.72px" class="cls_009"><span class="cls_009">the NDT method (e.g. radiography). If any difficulty is observed, during this test, a further “trade test” is to be carried</span></div>
+<div style="position:absolute;left:54.72px;top:594.92px" class="cls_009"><span class="cls_009">out by candidate’s employer. Any observed difficulty shall be reported to the employer.</span></div>
+<div style="position:absolute;left:121.94px;top:619.10px" class="cls_013"><span class="cls_013">ACCEPT  </span><span class="cls_014"><input type="checkbox" name="shadeAccept" /></span></div>
+<div style="position:absolute;left:294.40px;top:619.10px" class="cls_013"><span class="cls_013">REJECT  </span><span class="cls_014"><input type="checkbox" name="shageReject" /></span></div>
+<div style="position:absolute;left:54.72px;top:651.62px" class="cls_006"><span class="cls_006">Details of Medically Recognised Person</span></div>
+<div style="position:absolute;left:54.72px;top:677.96px" class="cls_009"><span class="cls_009">Organisation:</span><input type="text" name="recognisedOrganisation" style="margin-left:10px;width:180px; border:none;" /></div>
+<div style="position:absolute;left:359.56px;top:677.96px" class="cls_009"><span class="cls_009">Telephone number:</span><input type="text" name="recognisedName" style="margin-left:10px;width:90px; border:none;" /></div>
+<div style="position:absolute;left:54.72px;top:712.48px" class="cls_009"><span class="cls_009">Name:</span><input type="text" name="recognisedPhone" style="margin-left:10px;width:180px; border:none;" /></div>
+<div style="position:absolute;left:359.56px;top:712.48px" class="cls_009"><span class="cls_009">Registration or licence number:</span><input type="text" name="recognisedLicenceNumber" style="margin-left:2px;width:60px; border:none;" /></div>
+<div style="position:absolute;left:54.72px;top:746.98px" class="cls_009"><span class="cls_009">Date of test:</span><input type="text" name="recognisedDate" style="margin-left:10px;width:180px; border:none;" /></div>
+<div style="position:absolute;left:204.74px;top:746.98px" class="cls_009"><span class="cls_009">Signature:</span></div>
+<div style="position:absolute;left:359.56px;top:746.98px" class="cls_009"><span class="cls_009">Official stamp:</span></div>
+<div style="position:absolute;left:67.56px;top:801.28px" class="cls_004"><span class="cls_004">Tel: +44 (0) 1223 899 000</span></div>
+<div style="position:absolute;left:195.80px;top:801.28px" class="cls_004"><span class="cls_004">Fax: +44 (0) 1223 892 588</span></div>
+<div style="position:absolute;left:322.12px;top:801.28px" class="cls_004"><span class="cls_004">E-mail: </span><span class="cls_017">trainexam@twitraining.com</span></div>
+<div style="position:absolute;left:477.54px;top:801.28px" class="cls_004"><span class="cls_004">Web: </span><A HREF="http://www.twi.co.uk/">www.twi.co.uk</A> </div>
+</div>
+
+
+</div>
+
+            <div style="clear:both"></div>
+            <div class="mb-3 col-md-12 text-center">
+                <button name="mainForm" class="BUTTON_MZQ" style="height:40px; width:150px;" type="submit">Submit
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+
+</div> <!-- end tab-content-->
+
+</div>
+<!-- end card-body -->
+</div>
+<!-- end card-->
+</div>
+<!-- end col-->
+</div>
+<!-- end row -->
+
+<!-- container -->
+
+</div>
+<!-- content -->
+<!-- bundle -->
+<script src="{% static 'assets/js/vendor.min.js' %}"></script>
+<script src="{% static 'assets/js/app.min.js' %}"></script>
+<script src="{% static 'js/forms/ndt15b/regex.js' %}" type="text/javascript"></script>
+<script>
+
+
+</script>
+
+{% endblock %}

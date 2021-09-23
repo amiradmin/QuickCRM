@@ -412,3 +412,35 @@ class PSL57B(models.Model):
 
     def __str__(self):
         return self.candidate.last_name
+
+
+
+class VisionTest(models.Model):
+
+    event = models.ForeignKey(Event, related_name="event_vision_test", on_delete=models.CASCADE)
+    candidate = models.ForeignKey(TesCandidate, related_name="candidate_vision_test", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="category_vision_test", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_vision_test", on_delete=models.CASCADE)
+    address = models.CharField(max_length=2048, null=True, blank=True )
+    address = models.CharField(max_length=2048, null=True, blank=True )
+    phone = models.CharField(max_length=256, null=True, blank=True )
+    email = models.EmailField( null=True, blank=True )
+    birthDay = models.DateField(null=True, blank=True)
+    employer = models.CharField(max_length=2048, null=True, blank=True)
+    nearVisionAcuity = models.CharField(max_length=2048, null=True, blank=True)
+    colourPerception = models.CharField(max_length=2048, null=True, blank=True)
+    shadesOfGrey = models.CharField(max_length=2048, null=True, blank=True)
+    tumbling = models.CharField(max_length=2048, null=True, blank=True)
+    recognisedOrganisation = models.CharField(max_length=2048, null=True, blank=True)
+    recognisedName = models.CharField(max_length=2048, null=True, blank=True)
+    recognisedPhone = models.CharField(max_length=2048, null=True, blank=True)
+    recognisedLicenceNumber = models.CharField(max_length=2048, null=True, blank=True)
+    recognisedDate = models.DateField(null=True, blank=True)
+
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate.last_name

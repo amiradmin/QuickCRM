@@ -1,8 +1,15 @@
 from django.contrib import admin
 from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
-                          PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B )
+                          PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,VisionTest )
 
 # Register your models here.
+class VisionTestAdmin(admin.ModelAdmin):
+    list_display = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
+    list_filter = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
+
+admin.site.register(VisionTest, VisionTestAdmin)
+
+
 class PSL57BAdmin(admin.ModelAdmin):
     list_display = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
     list_filter = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
