@@ -58,5 +58,8 @@ urlpatterns = [
 
     path('newvisiontest/', views.NewVisionTest.as_view(), name='newvisiontest_'),
     path('allisiontest/', views.AllVisionTestView.as_view(), name='allisiontest_'),
+    path('visionview/<int:id>', views.ViewVitionTest.as_view(), name='visionview_'),
+    path('delvision/<int:pk>/delete/', views.DeleteVisionTest.as_view(), name='delvision_'),
+    path('updatevision/<int:id>', views.updateVisionTest.as_view(), name='updatevision_'),
 
 ]
