@@ -355,8 +355,8 @@ body{padding:0px; margin:0px;  }
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaJSAPI.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
 
-<div id="formviewer" style=" overflow: hidden;">
-    <form method="POST" name="formvalidate" onsubmit="return validate();">
+<div id="formviewer" style=" overflow: hidden;width:100%;max-width:900px; padding:0;margin-top:0;">
+    <form method="POST" name="formvalidate" onsubmit="return validate();" style="width:100%; padding:0;margin-top:0;">
         {% csrf_token %}
 
         <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="mainCanID"/>
@@ -531,9 +531,9 @@ function checkOver(i) {
                         <style type="text/css">
 
 #t1_1{left:37px;bottom:1142px;letter-spacing:-0.27px;word-spacing:-0.01px;}
-#t2_1{left:425px;bottom:1162px;letter-spacing:0.12px;}
-#t3_1{left:769px;bottom:1162px;letter-spacing:0.1px;word-spacing:-0.01px;}
-#t4_1{left:840px;bottom:1162px;letter-spacing:0.09px;}
+#t2_1{left:40.5%;bottom:1162px;letter-spacing:0.12px;}
+#t3_1{left:70%;bottom:1162px;letter-spacing:0.1px;word-spacing:-0.01px;}
+#t4_1{left:80%;bottom:1162px;letter-spacing:0.09px;}
 #t5_1{left:50px;bottom:1122px;letter-spacing:0.05px;word-spacing:0.03px;}
 #t6_1{left:68px;bottom:1108px;letter-spacing:0.05px;word-spacing:0.02px;}
 #t7_1{left:105px;bottom:1073px;letter-spacing:0.13px;word-spacing:-0.68px;}
@@ -585,29 +585,29 @@ function checkOver(i) {
 #t1h_1{left:358px;bottom:81px;letter-spacing:0.08px;}
 #t1i_1{left:377px;bottom:79px;}
 #t1j_1{left:107px;bottom:59px;letter-spacing:0.07px;}
-#t1k_1{left:495px;bottom:1120px;letter-spacing:-0.08px;word-spacing:-0.01px;}
+#t1k_1{left:48%;bottom:1120px;letter-spacing:-0.08px;word-spacing:-0.01px;}
 #t1l_1{left:616px;bottom:1110px;}
-#t1m_1{left:635px;bottom:1111px;letter-spacing:0.1px;}
+#t1m_1{left:57.5%;bottom:1111px;letter-spacing:0.1px;}
 #t1n_1{left:764px;bottom:1110px;}
-#t1o_1{left:783px;bottom:1111px;letter-spacing:0.11px;}
-#t1p_1{left:495px;bottom:1072px;letter-spacing:0.1px;}
-#t1q_1{left:618px;bottom:1072px;letter-spacing:0.09px;word-spacing:-0.05px;}
-#t1r_1{left:495px;bottom:1053px;letter-spacing:0.09px;word-spacing:2.89px;}
-#t1s_1{left:495px;bottom:1039px;letter-spacing:0.08px;}
-#t1t_1{left:495px;bottom:731px;letter-spacing:0.04px;}
+#t1o_1{left:72.5%;bottom:1111px;letter-spacing:0.11px;}
+#t1p_1{left:48%;top:9%;letter-spacing:0.1px;}
+#t1q_1{left:58%;bottom:1072px;letter-spacing:0.09px;word-spacing:-0.05px;}
+#t1r_1{left:48%;bottom:1053px;letter-spacing:0.09px;word-spacing:2.89px;}
+#t1s_1{left:48%;bottom:1039px;letter-spacing:0.08px;}
+#t1t_1{left:48%;bottom:731px;letter-spacing:0.04px;}
 #t1u_1{left:540px;bottom:731px;}
 #t1v_1{left:543px;bottom:731px;letter-spacing:0.01px;word-spacing:-0.02px;}
-#draw{left:495px;bottom:685px;letter-spacing:0.01px;word-spacing:-0.02px;}
+#draw{left:48%;bottom:685px;letter-spacing:0.01px;word-spacing:-0.02px;}
 #sigUploud{left:550px;bottom:685px;letter-spacing:0.01px;word-spacing:-0.02px;}
 #t1w_1{left:632px;bottom:659px;letter-spacing:-0.01px;word-spacing:0.04px;}
-#t1x_1{left:495px;bottom:636px;letter-spacing:0.12px;}
+#t1x_1{left:48%;bottom:636px;letter-spacing:0.12px;}
 #t1y_1{left:773px;bottom:609px;}
 #t1z_1{left:806px;bottom:610px;letter-spacing:0.11px;}
-#t20_1{left:495px;bottom:609px;}
+#t20_1{left:48%;bottom:609px;}
 #t21_1{left:525px;bottom:610px;letter-spacing:0.09px;}
-#t22_1{left:495px;bottom:584px;}
+#t22_1{left:48%;bottom:584px;}
 #t23_1{left:525px;bottom:586px;letter-spacing:0.11px;}
-#t24_1{left:495px;bottom:560px;}
+#t24_1{left:48%;bottom:560px;}
 #t25_1{left:525px;bottom:561px;letter-spacing:0.08px;}
 #t26_1{left:632px;bottom:609px;}
 #t27_1{left:664px;bottom:610px;letter-spacing:0.09px;}
@@ -615,31 +615,31 @@ function checkOver(i) {
 #t29_1{left:664px;bottom:586px;letter-spacing:0.08px;}
 #t2a_1{left:632px;bottom:560px;}
 #t2b_1{left:664px;bottom:561px;letter-spacing:0.13px;}
-#t2c_1{left:495px;bottom:526px;letter-spacing:0.1px;word-spacing:0.05px;}
-#t2d_1{left:495px;bottom:499px;}
+#t2c_1{left:48%;bottom:526px;letter-spacing:0.1px;word-spacing:0.05px;}
+#t2d_1{left:48%;bottom:499px;}
 #t2e_1{left:525px;bottom:501px;letter-spacing:0.03px;word-spacing:0.01px;}
 #t2f_1{left:713px;bottom:499px;}
 #t2g_1{left:744px;bottom:501px;letter-spacing:0.01px;}
-#t2h_1{left:495px;bottom:473px;}
+#t2h_1{left:48%;bottom:473px;}
 #t2i_1{left:525px;bottom:475px;letter-spacing:0.04px;word-spacing:-0.02px;}
 #t2j_1{left:713px;bottom:473px;}
 #t2k_1{left:744px;bottom:475px;letter-spacing:0.03px;}
-#t2l_1{left:495px;bottom:447px;}
+#t2l_1{left:48%;bottom:447px;}
 #t2m_1{left:525px;bottom:450px;letter-spacing:0.02px;word-spacing:-0.02px;}
 #t2n_1{left:713px;bottom:447px;}
 #t2o_1{left:744px;bottom:450px;letter-spacing:0.03px;word-spacing:0.01px;}
-#t2p_1{left:495px;bottom:421px;}
+#t2p_1{left:48%;bottom:421px;}
 #t2q_1{left:525px;bottom:424px;letter-spacing:0.02px;word-spacing:0.02px;}
 #t2r_1{left:713px;bottom:421px;}
 #t2s_1{left:744px;bottom:424px;letter-spacing:0.02px;word-spacing:-0.02px;}
-#t2t_1{left:495px;bottom:395px;}
+#t2t_1{left:48%;bottom:395px;}
 #t2u_1{left:525px;bottom:398px;letter-spacing:0.03px;word-spacing:-0.01px;}
 #t2v_1{left:713px;bottom:395px;}
 #t2w_1{left:744px;bottom:398px;letter-spacing:0.03px;word-spacing:0.03px;}
-#t2x_1{left:495px;bottom:369px;}
+#t2x_1{left:48%;bottom:369px;}
 #t2y_1{left:525px;bottom:372px;letter-spacing:0.02px;word-spacing:0.03px;}
-#t2z_1{left:495px;bottom:335px;letter-spacing:0.12px;word-spacing:-0.02px;}
-#t30_1{left:495px;bottom:311px;}
+#t2z_1{left:48%;bottom:335px;letter-spacing:0.12px;word-spacing:-0.02px;}
+#t30_1{left:48%;bottom:311px;}
 #t31_1{left:525px;bottom:316px;letter-spacing:0.03px;word-spacing:0.64px;}
 #t32_1{left:525px;bottom:302px;letter-spacing:0.02px;word-spacing:1.33px;}
 #t33_1{left:525px;bottom:288px;letter-spacing:0.01px;word-spacing:0.04px;}
@@ -664,25 +664,25 @@ function checkOver(i) {
 #t3m_1{left:811px;bottom:584px;letter-spacing:0.1px;}
 #t3n_1{left:779px;bottom:558px;}
 #t3o_1{left:811px;bottom:559px;letter-spacing:0.1px;}
-#t3p_1{left:497px;bottom:1002px;letter-spacing:-0.14px;}
+#t3p_1{left:48%;bottom:1002px;letter-spacing:-0.14px;}
 #t3q_1{left:514px;bottom:987px;letter-spacing:-0.13px;}
-#t3r_1{left:497px;bottom:972px;letter-spacing:-0.14px;}
-#t3s_1{left:497px;bottom:957px;letter-spacing:-0.13px;}
-#t3t_1{left:520px;bottom:942px;letter-spacing:-0.16px;}
-#t3u_1{left:523px;bottom:926px;letter-spacing:-0.15px;}
-#t3v_1{left:497px;bottom:900px;letter-spacing:-0.16px;}
-#t3w_1{left:497px;bottom:887px;letter-spacing:-0.17px;}
-#t3x_1{left:497px;bottom:874px;letter-spacing:-0.16px;}
-#t3y_1{left:497px;bottom:861px;letter-spacing:-0.15px;}
-#t3z_1{left:497px;bottom:848px;letter-spacing:-0.13px;}
-#t40_1{left:497px;bottom:835px;letter-spacing:-0.15px;}
-#t41_1{left:497px;bottom:823px;letter-spacing:-0.15px;}
-#t42_1{left:497px;bottom:797px;letter-spacing:-0.17px;}
-#t43_1{left:497px;bottom:784px;letter-spacing:-0.15px;}
-#t44_1{left:497px;bottom:771px;letter-spacing:-0.16px;}
+#t3r_1{left:48%;bottom:972px;letter-spacing:-0.14px;}
+#t3s_1{left:48%;bottom:957px;letter-spacing:-0.13px;}
+#t3t_1{left:48%;bottom:942px;letter-spacing:-0.16px;}
+#t3u_1{left:48%;bottom:926px;letter-spacing:-0.15px;}
+#t3v_1{left:48%;bottom:900px;letter-spacing:-0.16px;}
+#t3w_1{left:48%;bottom:887px;letter-spacing:-0.17px;}
+#t3x_1{left:48%;bottom:874px;letter-spacing:-0.16px;}
+#t3y_1{left:48%;bottom:861px;letter-spacing:-0.15px;}
+#t3z_1{left:48%;bottom:848px;letter-spacing:-0.13px;}
+#t40_1{left:48%;bottom:835px;letter-spacing:-0.15px;}
+#t41_1{left:48%;bottom:823px;letter-spacing:-0.15px;}
+#t42_1{left:48%;bottom:797px;letter-spacing:-0.17px;}
+#t43_1{left:48%;bottom:784px;letter-spacing:-0.15px;}
+#t44_1{left:48%;bottom:771px;letter-spacing:-0.16px;}
 
-.s1_1{font-size:34px;font-family:sub_Arial-BoldItalicMT_lsbi;color:#3365FF;}
-.s2_1{font-size:12px;font-family:sub_ArialMT_lsr;color:#000;}
+.s1_1{font-size:2vw;font-family:sub_Arial-BoldItalicMT_lsbi;color:#3365FF;}
+.s2_1{font-size:0.7vw;font-family:sub_ArialMT_lsr;color:#000;}
 .s3_1{font-size:15px;font-family:sub_Arial-BoldMT_lsb;color:#000;}
 .s4_1{font-size:12px;font-family:sub_Arial-BoldMT_lsb;color:#000;}
 .s5_1{font-size:11px;font-family:sub_ArialMT_lsr;color:#000;}
@@ -714,7 +714,7 @@ function checkOver(i) {
 #form9_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 350px;	top: 581px;	width: 95px;	height: 22px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px 'Courier New', Courier, monospace;}
 #form10_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 773px;	top: 581px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form11_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 773px;	top: 604px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form12_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 627px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form12_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 627px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form13_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 633px;	top: 627px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form14_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 773px;	top: 627px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form15_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 637px;	width: 420px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
@@ -731,15 +731,15 @@ function checkOver(i) {
 #form26_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 711px;	top: 767px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form27_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 711px;	top: 793px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form28_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 814px;	width: 420px;	height: 17px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
-#form29_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 688px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form30_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 714px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form31_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 740px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form32_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 766px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form33_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 792px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form34_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 818px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form29_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 688px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form30_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 714px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form31_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 740px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form32_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 766px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form33_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 792px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form34_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 818px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form35_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 834px;	width: 420px;	height: 17px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
 #form36_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 854px;	width: 420px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
-#form37_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 876px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form37_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 876px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form38_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 900px;	width: 420px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
 #form39_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 921px;	width: 420px;	height: 17px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
 #form40_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 28px;	top: 967px;	width: 420px;	height: 17px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
@@ -752,16 +752,16 @@ function checkOver(i) {
 #form47_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 132px;	top: 1068px;	width: 316px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
 #form48_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 306px;	top: 1109px;	width: 20px;	height: 20px;	color: rgb(0,0,0);	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Wingdings, 'Zapf Dingbats';}
 #form49_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 376px;	top: 1109px;	width: 20px;	height: 20px;	color: rgb(0,0,0);	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Wingdings, 'Zapf Dingbats';}
-#form50_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 613px;	top: 78px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form51_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 761px;	top: 78px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form50_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 55%;	top: 78px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form51_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 70%;	top: 78px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form52_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 656px;	top: 312px;	width: 249px;	height: 17px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
 #form53_1{	z-index: 2;	padding: 0px;	position: absolute;	left: 656px;	top: 345px;	width: 249px;	height: 19px;	color: rgb(0,0,0);	text-align: left;	background: transparent;	border: none;	font: normal 13px Arial, Helvetica, sans-serif;}
-#form54_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 581px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form54_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 581px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form55_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 633px;	top: 581px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form56_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 604px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
+#form56_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 604px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
 #form57_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 633px;	top: 604px;	width: 20px;	height: 20px;	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Arial, Helvetica, sans-serif;}
-#form58_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 1036px;	width: 20px;	height: 20px;	color: rgb(0,0,0);	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Wingdings, 'Zapf Dingbats';}
-#form59_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 494px;	top: 1062px;	width: 20px;	height: 20px;	color: rgb(0,0,0);	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Wingdings, 'Zapf Dingbats';}
+#form58_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 1036px;	width: 20px;	height: 20px;	color: rgb(0,0,0);	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Wingdings, 'Zapf Dingbats';}
+#form59_1{	z-index: 2;	border-style: none;	padding: 0px;	position: absolute;	left: 48%;	top: 1062px;	width: 20px;	height: 20px;	color: rgb(0,0,0);	text-align: left;	background-color: rgb(255,255,255);	font: normal 15px Wingdings, 'Zapf Dingbats';}
 #form48_1 { z-index:3; }
 #form49_1 { z-index:2; }
 #form50_1 { z-index:3; }
@@ -849,11 +849,11 @@ function checkOver(i) {
 
                         <!-- Begin page background -->
                         <div id="pg1Overlay"
-                             style="width:100%; height:100%; position:absolute; z-index:1; background-color:rgba(0,0,0,0); -webkit-user-select: none;"></div>
-                        <div id="pg1" style="-webkit-user-select: none;"><img width="935" height="1210"
+                             style=" position:absolute; z-index:1; background-color:rgba(0,0,0,0); -webkit-user-select: none;"></div>
+                        <div id="pg1" style="-webkit-user-select: none; margin-left:0px;width:100%;padding:0px; "><img width="90%" height="1210"
                                                                               src="{% static 'assets/forms/Jaeger_TOFDL2/1/1.svg' %}"
                                                                               type="image/svg+xml" id="pdf1"
-                                                                              style="width:935px; height:1210px; -moz-transform:scale(1); z-index: 0;"/>
+                                                                              style="margin-top:1px; -moz-transform:scale(1); z-index: 0;"/>
                         </div>
                         <!-- End page background -->
 
@@ -903,9 +903,8 @@ function checkOver(i) {
                                     id="t1h_1" class="t s2_1">No </span><span id="t1i_1" class="t sa_1">☐ </span>
                             <span id="t1j_1" class="t sb_1">(If yes, please let us know details of any adjustments you may require). </span>
                             <span id="t1k_1" class="t sc_1">Please tick: </span>
-                            <span id="t1l_1" class="t sa_1">☐ </span><span id="t1m_1"
-                                                                           class="t s2_1">Self-sponsored </span><span
-                                    id="t1n_1" class="t sa_1">☐ </span><span id="t1o_1"
+                           <span id="t1m_1"
+                                                                           class="t s2_1">Self-sponsored </span><span id="t1o_1"
                                                                              class="t s2_1">Company sponsored </span>
                             <span id="t1p_1" class="t s4_1">Methods of Payment </span><span id="t1q_1" class="t sd_1">(The E-transfer method is preferd) </span>
                             <span id="t1r_1" class="t s2_1">Bookings received without payment / order Number will be treated as </span>
@@ -917,19 +916,15 @@ function checkOver(i) {
                                     href="{% if candidate %}{% url 'forms:uploadsig_' id=candidate.id %} {% endif %}">Uploud Image</a></span>
                             <span id="t1w_1" class="t se_1">(Handwritten signature required ) </span>
                             <span id="t1x_1" class="t s4_1">Venue </span>
-                            <span id="t1y_1" class="t sa_1">☐ </span><span id="t1z_1" class="t sf_1">Quebec </span><span
-                                    id="t20_1" class="t sa_1">☐ </span><span id="t21_1" class="t sf_1">Calgary </span>
-                            <span id="t22_1" class="t sa_1">☐ </span><span id="t23_1" class="t sf_1">Edmonton </span>
-                            <span id="t24_1" class="t sa_1">☐ </span><span id="t25_1" class="t sf_1">Brazil </span>
-                            <span id="t26_1" class="t sa_1">☐ </span><span id="t27_1" class="t sf_1">Toronto </span>
-                            <span id="t28_1" class="t sa_1">☐ </span><span id="t29_1" class="t sf_1">Fort Erie </span>
-                            <span id="t2a_1" class="t sa_1">☐ </span><span id="t2b_1" class="t sf_1">USA </span>
+                            <span id="t1z_1" class="t sf_1">Quebec </span><span id="t21_1" class="t sf_1">Calgary </span>
+                            <span id="t23_1" class="t sf_1">Edmonton </span>
+                            <span id="t25_1" class="t sf_1">Brazil </span>
+                            <span id="t27_1" class="t sf_1">Toronto </span>
+                            <span id="t29_1" class="t sf_1">Fort Erie </span>
+                            <span id="t2b_1" class="t sf_1">USA </span>
                             <span id="t2c_1" class="t s4_1">Where did you hear about TWI Ltd? </span>
-                            <span id="t2d_1" class="t sa_1">☐ </span><span id="t2e_1" class="t s2_1">TWI Corporate Website </span><span
-                                    id="t2f_1" class="t sa_1">☐ </span><span id="t2g_1" class="t s2_1">LinkedIn </span>
-                            <span id="t2h_1" class="t sa_1">☐ </span><span id="t2i_1"
-                                                                           class="t s2_1">CSWIP Website </span><span
-                                    id="t2j_1" class="t sa_1">☐ </span><span id="t2k_1" class="t s2_1">Facebook </span>
+                            <span id="t2e_1" class="t s2_1">TWI Corporate Website </span><span id="t2g_1" class="t s2_1">LinkedIn </span>
+                           <span id="t2i_1" class="t s2_1">CSWIP Website </span><span id="t2k_1" class="t s2_1">Facebook </span>
                             <span id="t2l_1" class="t sa_1">☐ </span><span id="t2m_1"
                                                                            class="t s2_1">Email marketing </span><span
                                     id="t2n_1" class="t sa_1">☐ </span><span id="t2o_1" class="t s2_1">NDT News / Insight </span>
@@ -1329,9 +1324,9 @@ function checkOver(i) {
                         <style type="text/css">
 
 #t1_2{left:43px;bottom:1142px;letter-spacing:-0.27px;word-spacing:-0.01px;}
-#t2_2{left:431px;bottom:1163px;letter-spacing:0.12px;}
+#t2_2{left:42%;bottom:1163px;letter-spacing:0.12px;}
 #t3_2{left:775px;bottom:1163px;letter-spacing:0.1px;word-spacing:-0.01px;}
-#t4_2{left:846px;bottom:1163px;letter-spacing:0.09px;}
+#t4_2{left:90%;bottom:1163px;letter-spacing:0.09px;}
 #t5_2{left:43px;bottom:1096px;letter-spacing:0.15px;word-spacing:0.01px;}
 #t6_2{left:146px;bottom:1096px;letter-spacing:0.17px;word-spacing:0.03px;}
 #t7_2{left:372px;bottom:1098px;letter-spacing:0.09px;word-spacing:-0.01px;}
