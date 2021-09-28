@@ -2992,7 +2992,7 @@ class updateVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
     def post(self, request,id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-
+                print("Git Test")
                 # if not  request.POST.get('contactMe', None) == None:
                 #     objPSL57.contactMe =True
                 # if not  request.POST.get('contactMe', None) == None:
@@ -3013,7 +3013,7 @@ class updateVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 if not request.POST.get('isNotAble', None) == None:
                     visionObj.nearVisionAcuity ='IS NOT ABLE'
-                    
+
                 if not request.POST.get('colorAccept', None) == None:
                     visionObj.colourPerception ='ACCEPT'
 
