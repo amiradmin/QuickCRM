@@ -3013,8 +3013,7 @@ class updateVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 if not request.POST.get('isNotAble', None) == None:
                     visionObj.nearVisionAcuity ='IS NOT ABLE'
-
-
+                    
                 if not request.POST.get('colorAccept', None) == None:
                     visionObj.colourPerception ='ACCEPT'
 
