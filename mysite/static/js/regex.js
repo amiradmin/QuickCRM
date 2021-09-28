@@ -339,6 +339,25 @@ document.getElementById('form20_1').addEventListener('keyup',function(evt){
 // We need to manually format the phone number on page load
 document.getElementById('form20_1').value = phoneFormat(document.getElementById('form20_1').value);
 
+
+document.getElementById('form45_1').addEventListener('keyup',function(evt){
+        var phoneNumber = document.getElementById('form45_1');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('form45_1').value = phoneFormat(document.getElementById('form45_1').value);
+
+document.getElementById('form46_1').addEventListener('keyup',function(evt){
+        var phoneNumber = document.getElementById('form46_1');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('form46_1').value = phoneFormat(document.getElementById('form46_1').value);
+
 // A function to determine if the pressed key is an integer
 function numberPressed(evt){
         var charCode = (evt.which) ? evt.which : evt.keyCode;
