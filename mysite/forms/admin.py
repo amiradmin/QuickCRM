@@ -1,8 +1,21 @@
 from django.contrib import admin
 from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
-                          PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,VisionTest )
+                          PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,VisionTest,TesFrmCandidate,
+                          TesFrmExaminationAttendance)
 
 # Register your models here.
+class TesFrmExaminationAttendanceAdmin(admin.ModelAdmin):
+    list_display = ['id', 'examTitleCode', 'venue','date','invigilatorName', 'created_at', 'updated_at']
+    list_filter = ['id', 'examTitleCode', 'venue','date','invigilatorName', 'created_at', 'updated_at']
+
+admin.site.register(TesFrmExaminationAttendance, TesFrmExaminationAttendanceAdmin)
+
+class TesFrmCandidateAdmin(admin.ModelAdmin):
+    list_display = ['id', 'testSequence', 'candidate','scheme','methodOfExam', 'created_at', 'updated_at']
+    list_filter =  ['id', 'testSequence', 'candidate','scheme','methodOfExam', 'created_at', 'updated_at']
+
+admin.site.register(TesFrmCandidate, TesFrmCandidateAdmin)
+
 class VisionTestAdmin(admin.ModelAdmin):
     list_display = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
     list_filter = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']

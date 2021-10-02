@@ -62,4 +62,11 @@ urlpatterns = [
     path('delvision/<int:pk>/delete/', views.DeleteVisionTest.as_view(), name='delvision_'),
     path('updatevision/<int:id>', views.updateVisionTest.as_view(), name='updatevision_'),
 
+
+    path('tesfrmexamattend/', views.NewTesFrmExaminationAttendance.as_view(), name='tesfrmexamattend_'),
+    path('alltesfrmexamattend/', views.AllTesFrmExaminationAttendance.as_view(), name='alltesfrmexamattend_'),
+    path('deletetesfrmexamattend/<int:pk>/delete/', views.DeleteTesFrmExaminationAttendance.as_view(), name='deletetesfrmexamattend_'),
+    path('updatetesfrmexamattend/<int:id>', views.UpdateTesFrmExaminationAttendance.as_view(), name='updatetesfrmexamattend_'),
+    path('viewtesfrmexamattend/<int:id>', views.ViewTesFrmExaminationAttendance.as_view(), name='viewtesfrmexamattend_'),
+
 ]

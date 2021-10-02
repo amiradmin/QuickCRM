@@ -444,3 +444,38 @@ class VisionTest(models.Model):
 
     def __str__(self):
         return self.candidate.last_name
+
+
+class TesFrmCandidate(models.Model):
+
+    candidate = models.ForeignKey(TesCandidate, related_name="tes_frm_candidate", on_delete=models.CASCADE)
+    testSequence= models.CharField(max_length=1024, null=True, blank=True)
+    scheme= models.CharField(max_length=1024, null=True, blank=True)
+    methodOfExam= models.CharField(max_length=1024, null=True, blank=True)
+    methodOfExam= models.CharField(max_length=1024, null=True, blank=True)
+    remark= models.CharField(max_length=1024, null=True, blank=True)
+
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate.last_name
+
+
+
+
+class TesFrmExaminationAttendance(models.Model):
+    examTitleCode= models.CharField(max_length=2048, null=True, blank=True)
+    venue= models.CharField(max_length=2048, null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
+    invigilatorName = models.CharField(max_length=2048, null=True, blank=True)
+    tesFrmCandidate = models.ManyToManyField(TesFrmCandidate, null=True, blank=True)
+
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.examTitleCode
