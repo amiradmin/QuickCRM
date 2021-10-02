@@ -191,8 +191,8 @@ th, td {
 
 
 
-#page_6 {position:relative; overflow: hidden;padding: 0px 0px;border: none;width: 1000px;border: 1px solid;margin:40px auto;}
-#page_6 #id6_1 {border:none;margin: 0px 0px 0px 4px;padding: 2px;border:none;width: 1000px;overflow: hidden;}
+#page_6 {position:relative; overflow: hidden;padding: 0px 0px;border: none;width: 100%;border: 1px solid;margin:40px auto;}
+#page_6 #id6_1 {border:none;margin: 0px 0px 0px 4px;padding: 2px;border:none;width: 100%;overflow: hidden;}
 #page_6 #id6_2 {border:none;margin: 23px 0px 0px 0px;padding: 2px;border:none;width: 677px;overflow: hidden;}
 
 
@@ -457,10 +457,10 @@ input {
 .td68{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 132px;vertical-align: bottom;}
 .td69{border-bottom: #000000 1px solid;padding: 0px;margin: 0px;width: 176px;vertical-align: bottom;}
 .td70{border-left: #000000 1px solid;padding: 0px;margin: 0px;width: 6px;vertical-align: bottom;background: #f3f3f3;}
-.td71{padding: 0px;margin: 0px;width: 504px;vertical-align: bottom;background: #f3f3f3;}
-.td72{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 7px;vertical-align: bottom;background: #f3f3f3;}
+.td71{padding: 0px;margin: 0px;width: 60%;vertical-align: bottom;background: #f3f3f3;}
+.td72{border-right: #000000 1px solid;padding: 0px;margin: 0px;width: 2px;vertical-align: bottom;background: #f3f3f3;}
 .td73{padding: 0px;margin: 0px;width: 6px;vertical-align: bottom;background: #f3f3f3;}
-.td74{padding: 0px;margin: 0px;width: 434px;vertical-align: bottom;background: #f3f3f3;}
+.td74{padding: 0px;margin: 0px;width: 80%;vertical-align: bottom;background: #f3f3f3;}
 .td75{padding: 0px;margin: 0px;width: 48px;vertical-align: bottom;background: #f3f3f3;}
 .td76{padding: 0px;margin: 0px;width: 386px;vertical-align: bottom;background: #f3f3f3;}
 .td77{padding: 0px;margin: 0px;width: 109px;vertical-align: bottom;background: #f3f3f3;}
@@ -577,11 +577,11 @@ input {
 .t0{width: 621px;margin-left: 86px;margin-top: 20px;font: 13px 'Calibri';}
 .t1{width: 621px;margin-left: 57px;font: 13px 'Calibri';}
 .t2{width: 645px;margin-top: 21px;font: 12px 'Calibri';}
-.t3{width: 633px;margin-left: 38px;margin-top: 16px;font: 13px 'Calibri';}
+.t3{width: 633px;margin-left: 38px;margin-top: 16px;font: 13px 'Calibri';border: 1px solid black;}
 .t4{width: 645px;margin-top: 82px;font: 12px 'Calibri';}
 .t5{width: 645px;margin-top: 4px;font: 12px 'Calibri';}
 .t6{width: 645px;margin-top: 851px;font: 12px 'Calibri';}
-.t7{width: 967px;font: 11px 'Calibri';}
+.t7{width: 100%;font: 11px 'Calibri';table-layout: fixed;}
 .t8{width: 677px;font: 11px 'Calibri';}
 .t9{width: 993px;font: 13px 'Calibri';}
 .t10{width: 1005px;margin-top: 11px;font: 13px 'Calibri';}
@@ -1119,40 +1119,40 @@ input {
 </DIV>
 <DIV id="page_6">
 
-
+<div style="clear:both"></div>
 <DIV id="id6_1">
+		<input style="width:100%;background: transparent;	border: none;" value="{{candidate.id}}" type="hidden" name="canID"/>
+	<input style="width:100%;background: transparent;	border: none;" value="{{event.id}}" type="hidden" name="eventID"/>
 <TABLE cellpadding=02 cellspacing=0 class="t7">
-<TR>
+<TR style="width:100%;">
 	<TD class="tr14 td39"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=5 class="tr14 td51"><P class="p15 ft34">FORM 1: PSL/30 - <NOBR>PRE-CERTIFICATION</NOBR> EXPERIENCE DECLARATION (use more than 1 sheet if necessary)</P></TD>
-	<TD class="tr14 td52"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr14 td53"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr14 td54"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr14 td55"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=3 class="tr14 td56"><P class="p51 ft34">SHEET _______ OF ________</P></TD>
+	<TD colspan=5 class="tr14 td51"  style="width:78%;"><P  class="p15 ft34" >FORM 1: PSL/30 - <NOBR>PRE-CERTIFICATION</NOBR> EXPERIENCE DECLARATION (use more than 1 sheet if necessary)</P></TD>
+
+
+	<TD colspan=3 class="tr14 td56" style="width:21%;text-align:left;padding:left:0;"><P class="p51 ft34" style="margin:0;padding-left:20px;">SHEET _______ OF ________</P></TD>
 </TR>
 <TR>
-	<input style="width:100%;background: transparent;	border: none;" value="{{candidate.id}}" type="hidden" name="canID"/>
-	<input style="width:100%;background: transparent;	border: none;" value="{{event.id}}" type="hidden" name="eventID"/>
+
 	<TD class="tr5 td39"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr5 td57"><P class="p15 ft21">Candidate's name:</P></TD>
-	<TD colspan=3 class="tr5 td58"><P class="p75 ft21"><input style="width:100%;background: transparent;	border: none;" value="{{candidate.first_name}} {{candidate.last_name}}" type="text" name="canName"/> </P></TD>
-	<TD class="tr5 td59"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr5 td52"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr5 td53"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=2 class="tr5 td60"><P class="p76 ft21">PCN number (if known):</P></TD>
-	<TD colspan=2 class="tr5 td61"><P class="p77 ft21"><input style="width:100%;background: transparent;	border: none;" type="text" name="canPCNnumber"/> </P></TD>
+	<TD class="tr5 td57" style="width:80px"><P class="p15 ft21">Candidate's name:<input style="margin-left:2px;width:170px;;background: transparent;	border: none;" value="{{candidate.first_name}} {{candidate.last_name}}" type="text" name="canName"/> </P></TD>
+
+	<TD class="tr5 td59"></TD>
+
+	<TD class="tr5 td53" ></TD>
+	<TD class="tr5 td53" ></TD>
+	<TD colspan=2 class="tr5 td60" style="width:30%;"><P class="p76 ft21">PCN number (if known):<input style="width:80%;background: transparent;	border: none;" type="text" name="canPCNnumber"/></P></TD>
+	<TD colspan=2 class="tr5 td61" ><P class="p77 ft21"> </P></TD>
 	<TD class="tr5 td59"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
 	<TD class="tr15 td39"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr15 td57"><P class="p15 ft21">Candidates Email:</P></TD>
-	<TD colspan=3 class="tr15 td58"><P class="p75 ft21"><input style="width:100%;background: transparent;	border: none;" value="{{candidate.email}}"  type="text" name="canEmail"/> </P></TD>
+	<TD class="tr15 td57"><P class="p15 ft21">Candidates Email:<input style="width:170px;background: transparent;	border: none;" value="{{candidate.email}}"  type="text" name="canEmail"/> </P></TD>
+
 	<TD class="tr15 td59"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD class="tr15 td52"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD class="tr15 td53"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=2 class="tr15 td60"><P class="p76 ft21">Candidates Telephone:</P></TD>
-	<TD colspan=2 class="tr15 td61"><P class="p77 ft21"><input style="width:100%;background: transparent;	border: none;" value="{{candidate.contact_number}}"  type="text" name="canTel"/> </P></TD>
+	<TD colspan=2 class="tr15 td60"><P class="p76 ft21">Candidates Telephone:<input style="width:80%;background: transparent;	border: none;" value="{{candidate.contact_number}}"  type="text" name="canTel"/></P></TD>
+	<TD colspan=2 class="tr15 td61"><P class="p77 ft21"> </P></TD>
 	<TD class="tr15 td59"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -1167,50 +1167,50 @@ input {
 	<TD class="tr2 td69"><P class="p15 ft12">&nbsp;</P></TD>
 	<TD class="tr2 td65"><P class="p15 ft12">&nbsp;</P></TD>
 </TR>
-<TR>
-	<TD class="tr10 td70"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=4 class="tr10 td71"><P class="p15 ft36"><SPAN class="ft35">Industrial Experience Candidate Declaration: </SPAN>The candidate shall provide brief details of the Industrial NDT</P></TD>
-	<TD class="tr10 td72"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr10 td73"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=5 class="tr10 td74"><P class="p15 ft38"><SPAN class="ft37">Industrial Experience Employer declaration: </SPAN>The employer shall attest to the candidate having</P></TD>
-	<TD class="tr10 td72"><P class="p15 ft10">&nbsp;</P></TD>
+<TR style="background-color:red;">
+	<TD class="tr10 td70" style="width:1px;backgrond-color:yellow;"></TD>
+	<TD colspan=3 class="tr10 td71"><P class="p15 ft36"><SPAN class="ft35">Industrial Experience Candidate Declaration: </SPAN>The candidate shall provide brief details of the Industrial NDT</P></TD>
+	<TD class="tr10 td72" style="width:10px;backgrond-color:yellow;"></TD>
+
+	<TD colspan=3 class="tr10 td74" style="padding:0;margin:0;background-color:red;"><P class="p15 ft38" style="text-align:left;margin:0;padding:0;"><SPAN class="ft37" style="">Industrial Experience Employer declaration: </SPAN>The employer shall attest to the candidate having</P></TD>
+	<TD class="tr10 td72" style="width:10px;backgrond-color:yellow;"></TD>
 </TR>
 <TR>
 	<TD class="tr13 td70"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=4 class="tr13 td71"><P class="p15 ft13">experience gained in the <SPAN class="ft39">METHOD</SPAN> for which certification is sought in the whitespace provided below. Details may</P></TD>
+	<TD colspan=3 class="tr13 td71"><P class="p15 ft13">experience gained in the <SPAN class="ft39">METHOD</SPAN> for which certification is sought in the whitespace provided below. Details may</P></TD>
 	<TD class="tr13 td72"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr13 td73"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=5 class="tr13 td74"><P class="p15 ft13">successfully achieved the minimum number of industrial experience hours required for the NDT</P></TD>
+
+	<TD colspan=3 class="tr13 td74"><P class="p15 ft13">successfully achieved the minimum number of industrial experience hours required for the NDT</P></TD>
 	<TD class="tr13 td72"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
 	<TD class="tr16 td70"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=4 class="tr16 td71"><P class="p15 ft15">include, but not be limited to:</P></TD>
+	<TD colspan=3 class="tr16 td71"><P class="p15 ft15">include, but not be limited to:</P></TD>
 	<TD class="tr16 td72"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr16 td73"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=5 class="tr16 td74"><P class="p15 ft15">method as per the requirements contained within Table 2 herein, and BS EN ISO 9712.</P></TD>
+
+	<TD colspan=4 class="tr16 td74"><P class="p15 ft15">method as per the requirements contained within Table 2 herein, and BS EN ISO 9712.</P></TD>
 	<TD class="tr16 td72"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
 	<TD class="tr17 td70"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=4 class="tr17 td71"><P class="p15 ft13">The candidates experience and use of - Codes / Industrial Standards / NDT Procedures / Written NDT Instructions</P></TD>
+	<TD colspan=3 class="tr17 td71"><P class="p15 ft13">The candidates experience and use of - Codes / Industrial Standards / NDT Procedures / Written NDT Instructions</P></TD>
 	<TD class="tr17 td72"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr17 td73"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=5 class="tr17 td74"><P class="p15 ft13">The employer representative shall review all evidence of industrial experience supplied ensuring:</P></TD>
+
+	<TD colspan=3 class="tr17 td74"><P class="p15 ft13">The employer representative shall review all evidence of industrial experience supplied ensuring:</P></TD>
 	<TD class="tr17 td72"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
 	<TD class="tr16 td70"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=4 class="tr16 td71"><P class="p15 ft15">and or NDT Techniques for the testing of;</P></TD>
-	<TD class="tr16 td72"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr16 td73"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD rowspan=2 class="tr4 td75"><P class="p78 ft40">•</P></TD>
+	<TD colspan=3 class="tr16 td71"><P class="p15 ft15">and or NDT Techniques for the testing of;</P></TD>
+	<TD class="tr16 td72"></TD>
+
+	<TD rowspan=2 class="tr4 td75"><P class="p78 ft40" style="width:4px;">•</P></TD>
 	<TD colspan=4 rowspan=2 class="tr4 td76"><P class="p79 ft13">All Industrial experience has been attained under qualified supervision; (see *Note) and</P></TD>
 	<TD class="tr16 td72"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
 	<TD class="tr2 td70"><P class="p15 ft12">&nbsp;</P></TD>
-	<TD colspan=4 rowspan=2 class="tr4 td71"><P class="p15 ft15">The employer’s - components / materials / plant or structure.</P></TD>
+	<TD colspan=3 rowspan=2 class="tr4 td71"><P class="p15 ft15">The employer’s - components / materials / plant or structure.</P></TD>
 	<TD class="tr2 td72"><P class="p15 ft12">&nbsp;</P></TD>
 	<TD class="tr2 td73"><P class="p15 ft12">&nbsp;</P></TD>
 	<TD class="tr2 td72"><P class="p15 ft12">&nbsp;</P></TD>
@@ -1218,36 +1218,36 @@ input {
 <TR>
 	<TD class="tr16 td70"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD class="tr16 td72"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr16 td73"><P class="p15 ft10">&nbsp;</P></TD>
+
 	<TD class="tr16 td75"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=4 class="tr16 td76"><P class="p15 ft15">in the correct application of the NDT method on the employer’s product.</P></TD>
+	<TD colspan=3 class="tr16 td76"><P class="p15 ft15">in the correct application of the NDT method on the employer’s product.</P></TD>
 	<TD class="tr16 td72"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
 	<TD class="tr18 td70"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=4 class="tr18 td71"><P class="p15 ft13"><SPAN class="ft41">Additionally: </SPAN>The candidate shall keep detailed written records of all industrial experience which <SPAN class="ft39">SHALL</SPAN> be reviewed</P></TD>
+	<TD colspan=3 class="tr18 td71"><P class="p15 ft13"><SPAN class="ft41">Additionally: </SPAN>The candidate shall keep detailed written records of all industrial experience which <SPAN class="ft39">SHALL</SPAN> be reviewed</P></TD>
 	<TD class="tr18 td72"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr18 td73"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=5 rowspan=2 class="tr5 td74"><P class="p16 ft22">All candidate industrial experience records shall be made available to PCN where</P></TD>
+	<TD class="tr18 td73"><P class="p15 ft10"></P></TD>
+	<TD colspan=3 rowspan=2 class="tr5 td74"><P class="p16 ft22">All candidate industrial experience records shall be made available to PCN where</P></TD>
 	<TD class="tr18 td72"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
 	<TD class="tr19 td70"><P class="p15 ft42">&nbsp;</P></TD>
-	<TD colspan=4 class="tr19 td71"><P class="p15 ft43">by the employer for suitability before the employer declaration is made.</P></TD>
+	<TD colspan=3 class="tr19 td71"><P class="p15 ft43">by the employer for suitability before the employer declaration is made.</P></TD>
 	<TD class="tr19 td72"><P class="p15 ft42">&nbsp;</P></TD>
 	<TD class="tr19 td73"><P class="p15 ft42">&nbsp;</P></TD>
 	<TD class="tr19 td72"><P class="p15 ft42">&nbsp;</P></TD>
 </TR>
 <TR>
 	<TD class="tr20 td70"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td77"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td78"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td79"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td80"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td72"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td73"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td75"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD colspan=4 class="tr20 td76"><P class="p80 ft22">requested for additional technical review and scrutiny.</P></TD>
+	<TD class="tr20 td77"><P class="p15 ft10"></P></TD>
+	<TD class="tr20 td78"><P class="p15 ft10"></P></TD>
+	<TD class="tr20 td79"><P class="p15 ft10"></P></TD>
+	<TD class="tr20 td80"><P class="p15 ft10"></P></TD>
+	<TD class="tr20 td72"><P class="p15 ft10"></P></TD>
+	<TD class="tr20 td73"><P class="p15 ft10"></P></TD>
+
+	<TD colspan=3 class="tr20 td76"><P class="p80 ft22">requested for additional technical review and scrutiny.</P></TD>
 	<TD class="tr20 td72"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -1255,7 +1255,7 @@ input {
 	<TD class="tr19 td82"><P class="p15 ft42">&nbsp;</P></TD>
 	<TD class="tr19 td83"><P class="p15 ft42">&nbsp;</P></TD>
 	<TD class="tr19 td84"><P class="p15 ft42">&nbsp;</P></TD>
-	<TD class="tr19 td85"><P class="p15 ft42">&nbsp;</P></TD>
+
 	<TD class="tr19 td86"><P class="p15 ft42">&nbsp;</P></TD>
 	<TD class="tr19 td87"><P class="p15 ft42">&nbsp;</P></TD>
 	<TD class="tr19 td88"><P class="p15 ft42">&nbsp;</P></TD>
@@ -1268,15 +1268,14 @@ input {
 <TR>
 	<TD class="tr0 td93"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD colspan=5 class="tr0 td94"><P class="p15 ft15"><SPAN class="ft14">Candidate: </SPAN>Use the white space below to provide a brief description of Industrial Experience attained.</P></TD>
-	<TD class="tr0 td95"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr0 td96"><P class="p15 ft10">&nbsp;</P></TD>
+
 	<TD class="tr0 td97"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD colspan=4 class="tr0 td98"><P class="p19 ft15">Employing Organisation:</P></TD>
 </TR>
 <TR>
 	<TD class="tr17 td93"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD colspan=8 class="tr17 td99"><P class="p15 ft41"><SPAN class="ft13">Inclusive dates where experience was gained, please Insert dates: </SPAN>Date from:<input style="width:60px;background: transparent;	border: none;" type="text" name="dateFrom"/> Date to:<input style="width:60px;background: transparent;	border: none;" type="text" name="dateTo"/>NDT Method<input style="width:60px;background: transparent;	border: none;" type="text" name="NDTmethod"/></P></TD>
-	<TD class="tr17 td55"><input type="text"  style="" name="employingOrganisation" /></TD>
+	<TD class="tr17 td55"><input type="text"  style="border:none;" name="employingOrganisation" /></TD>
 	<TD class="tr17 td100"><P class="p15 ft10" style="width:2px;"></P></TD>
 	<TD class="tr17 td101"><P class="p15 ft10" style="width:2px;"></P></TD>
 	<TD class="tr17 td102"><P class="p15 ft10" style="width:2px;"></P></TD>
@@ -1308,24 +1307,21 @@ input {
 </TR>
 <TR>
 	<TD class="tr21 td115"></TD>
-	<TD class="tr21 td57" style="width:100%;"><input type="text" style="width:100%;height:100%;" name="totalHours" /></TD>
-	<TD class="tr21 " style="border: 1px solid;width:5px;padding:0; margin:0;background-color:yellow;"></TD>
-	<TD class="" style=" width:0;padding:0; margin:0;"></TD>
-	<TD class="" style=" width:0;padding:0; margin:0;"></TD>
+	<TD class="tr21 td57" style="width:100%;border:none;"><input type="text" style="border:none;width:100%;height:100%;" name="totalHours" /></TD>
+
+
 	<TD class=""  style=width:0;padding:0; margin:0;"></TD>
 	<TD class=""  style="width:0;padding:0; margin:0;"></TD>
-	<TD class=""  style="width:0;padding:0; margin:0;"> </TD>
+
 	<TD class="tr21 td119" style="width:0; padding:0; margin:0; " ></TD>
-	<TD colspan=2 class="tr21 td120"><P class="p19 ft14">Reviewer (Appropriately</P></TD>
-	<TD colspan=2 class="tr21 td121"><input type="text"  style="" name="reviewerName" /></TD>
+	<TD colspan=2 class="tr21 td120"><P class="p19 ft14">Reviewer (Appropriately)</P></TD>
+	<TD colspan=2 class="tr21 td121"><input style="border:none;" type="text"  style="border:none;" name="reviewerName" /></TD>
 </TR>
 <TR>
 	<TD class="tr20 td115"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td57"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td116"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td117"><P class="p15 ft10">&nbsp;</P></TD>
+
 	<TD class="tr20 td118"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr20 td59"><P class="p15 ft10">&nbsp;</P></TD>
+
 	<TD class="tr20 td52"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD class="tr20 td53"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD class="tr20 td119"><P class="p15 ft10">&nbsp;</P></TD>
@@ -1387,7 +1383,7 @@ input {
 	<TD class="tr24 td119"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD class="tr24 td55"><P class="p19 ft14">Final Employer</P></TD>
 	<TD class="tr24 td122"><P class="p15 ft10">&nbsp;</P></TD>
-	<TD class="tr24 td101"><input type="text"  style="" name="finalEmployerDeclarationName" /></TD>
+	<TD class="tr24 td101"><input type="text"  style="border:none;" name="finalEmployerDeclarationName" /></TD>
 	<TD class="tr24 td102"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -1453,12 +1449,12 @@ input {
 	<TD class="tr25 td130"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD class="tr25 td131"><P class="p15 ft10">&nbsp;</P></TD>
 	<TD colspan=2 class="tr25 td132"><P class="p25 ft15">Date of Candidate Declaration:</P></TD>
-	<TD class="tr25 td52"><input type="text"  style="width:40px;" name="dateCandidateDeclaration" /></TD>
+	<TD class="tr25 td52"><input type="text"  style="width:70px;border:none;" name="dateCandidateDeclaration" /></TD>
 	<TD class="tr25 td53"><P class="p15 ft10"></P></TD>
 	<TD class="tr25 td119"><P class="p15 ft10"></P></TD>
 	<TD class="tr25 td55"><P class="p19 ft15">Date:</P></TD>
 	<TD class="tr25 td122"></TD>
-	<TD class="tr25 td101"><input type="text"  style="width:40px;" name="reviewerDate" /></TD>
+	<TD class="tr25 td101"><input type="text"  style="width:100px;border:none;" name="reviewerDate" /></TD>
 	<TD class="tr25 td102"><P class="p15 ft10">&nbsp;</P></TD>
 </TR>
 <TR>
@@ -1504,13 +1500,13 @@ input {
 </TR>
 <TR>
 	<TD class="tr27 td139"><P class="p25 ft1">Candidate's name:</P></TD>
-	<TD colspan=2 class="tr27 td140"><P class="p84 ft1"><input style="width:100%;background: transparent;	border: none;" value="{{candidate.first_name}} {{candidate.last_name}}" type="text" name="canName"/> </P></TD>
-	<TD class="tr27 td138"><P class="p15 ft1">PCN number (if known): <input style="width:100%;background: transparent;	border: none;" value="" type="text" name="pslNumber2"/> </P></TD>
+	<TD colspan=2 class="tr27 td140"><P class="p84 ft1"><input style="width:60%;background: transparent;	border: none;" value="{{candidate.first_name}} {{candidate.last_name}}" type="text" name="canName"/> </P></TD>
+	<TD class="tr27 td138"><P class="p15 ft1">PCN number (if known): <input style="width:60%;background: transparent;	border: none;" value="" type="text" name="pslNumber2"/> </P></TD>
 </TR>
 <TR>
 	<TD class="tr28 td139"><P class="p25 ft1">Candidate’s email:</P></TD>
 	<TD colspan=2 class="tr28 td140"><P class="p84 ft1"><input style="width:100%;background: transparent;	border: none;" value="{{candidate.email}}" type="text" name="canMail2"/></P></TD>
-	<TD class="tr28 td138"><P class="p15 ft1">Candidate’s contact number:<input style="width:100%;background: transparent;	border: none;" value="{{candidate.contact_number}}" type="text" name="canMobile"/>/P></TD>
+	<TD class="tr28 td138"><P class="p15 ft1">Candidate’s contact number:<input style="width:60%;background: transparent;	border: none;" value="{{candidate.contact_number}}" type="text" name="canMobile"/></P></TD>
 </TR>
 <TR>
 	<TD class="tr2 td139"><P class="p15 ft12">&nbsp;</P></TD>
