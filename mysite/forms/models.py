@@ -479,3 +479,56 @@ class TesFrmExaminationAttendance(models.Model):
 
     def __str__(self):
         return self.examTitleCode
+
+
+class TesLecFeedbackFrom(models.Model):
+    courseName= models.ForeignKey(Event, related_name="feed_form_event", on_delete=models.CASCADE)
+    lecturerName= models.CharField(max_length=512, null=True, blank=True)
+    startDate = models.DateField(null=True, blank=True)
+    location = models.CharField(max_length=512, null=True, blank=True)
+    candidate = models.ForeignKey(TesCandidate, related_name="feed_form_candidate", on_delete=models.CASCADE)
+
+    knowledge = models.IntegerField( null=True, blank=True)
+    knowledgeComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    teachingMethod  = models.IntegerField( null=True, blank=True)
+    teachingMethodComment = models.CharField(max_length=2048, null=True, blank=True)
+
+
+    abilityToAnswer   = models.IntegerField( null=True, blank=True)
+    abilityToAnswerComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    usefulExample   = models.IntegerField( null=True, blank=True)
+    usefulExampleComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    industrialExperience   = models.IntegerField( null=True, blank=True)
+    industrialExperienceComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    appropriateAids   = models.IntegerField( null=True, blank=True)
+    appropriateAidsComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    transposition   = models.IntegerField( null=True, blank=True)
+    transpositionComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    participantsAttraction   = models.IntegerField( null=True, blank=True)
+    participantsAttractionComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    ControllingTheClass   = models.IntegerField( null=True, blank=True)
+    ControllingTheClassComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    punctuality   = models.IntegerField( null=True, blank=True)
+    punctualityComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    generalBehaviour   = models.IntegerField( null=True, blank=True)
+    generalBehaviourComment = models.CharField(max_length=2048, null=True, blank=True)
+
+    anyComments = models.CharField(max_length=4092, null=True, blank=True)
+
+
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.courseName.name

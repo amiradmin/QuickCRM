@@ -69,4 +69,8 @@ urlpatterns = [
     path('updatetesfrmexamattend/<int:id>', views.UpdateTesFrmExaminationAttendance.as_view(), name='updatetesfrmexamattend_'),
     path('viewtesfrmexamattend/<int:id>', views.ViewTesFrmExaminationAttendance.as_view(), name='viewtesfrmexamattend_'),
 
+
+    path('newlecfedform/', views.NewLecFeedbackForm.as_view(), name='newlecfedform_'),
+    path('alllecfedform/', views.AllLecFeedbackForm.as_view(), name='alllecfedform_'),
+
 ]

@@ -1,9 +1,15 @@
 from django.contrib import admin
 from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
                           PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,VisionTest,TesFrmCandidate,
-                          TesFrmExaminationAttendance)
+                          TesFrmExaminationAttendance,TesLecFeedbackFrom)
 
 # Register your models here.
+class TesLecFeedbackFromAdmin(admin.ModelAdmin):
+    list_display = ['id', 'courseName', 'candidate','startDate','lecturerName','location', 'created_at', 'updated_at']
+    list_filter =['id', 'courseName', 'candidate','startDate','lecturerName','location', 'created_at', 'updated_at']
+admin.site.register(TesLecFeedbackFrom, TesLecFeedbackFromAdmin)
+
+
 class TesFrmExaminationAttendanceAdmin(admin.ModelAdmin):
     list_display = ['id', 'examTitleCode', 'venue','date','invigilatorName', 'created_at', 'updated_at']
     list_filter = ['id', 'examTitleCode', 'venue','date','invigilatorName', 'created_at', 'updated_at']
