@@ -532,3 +532,50 @@ class TesLecFeedbackFrom(models.Model):
 
     def __str__(self):
         return self.courseName.name
+
+
+
+class TesAttCandidate(models.Model):
+
+    candidate = models.ForeignKey(TesCandidate, related_name="tes_att_candidate", on_delete=models.CASCADE)
+    testSequence= models.CharField(max_length=1024, null=True, blank=True)
+
+    dayOneSec1= models.BooleanField( null=True, blank=True)
+    dayOneSec2= models.BooleanField( null=True, blank=True)
+    dayOneSec3= models.BooleanField( null=True, blank=True)
+    dayOneSec4= models.BooleanField( null=True, blank=True)
+    dayOneSec5= models.BooleanField( null=True, blank=True)
+
+    dayTwoSec1= models.BooleanField( null=True, blank=True)
+    dayTwoSec2= models.BooleanField( null=True, blank=True)
+    dayTwoSec3= models.BooleanField( null=True, blank=True)
+    dayTwoSec4= models.BooleanField( null=True, blank=True)
+    dayTwoSec5= models.BooleanField( null=True, blank=True)
+
+    dayThreeSec1= models.BooleanField( null=True, blank=True)
+    dayThreeSec2= models.BooleanField( null=True, blank=True)
+    dayThreeSec3= models.BooleanField( null=True, blank=True)
+    dayThreeSec4= models.BooleanField( null=True, blank=True)
+    dayThreeSec5= models.BooleanField( null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate.last_name
+
+
+
+class TrainingAttendance(models.Model):
+    examTitleCode= models.CharField(max_length=2048, null=True, blank=True)
+    venue= models.CharField(max_length=2048, null=True, blank=True)
+    date = models.DateField(null=True, blank=True)
+    lecturerName = models.CharField(max_length=2048, null=True, blank=True)
+    attCandidate = models.ManyToManyField(TesAttCandidate, null=True, blank=True)
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.examTitleCode

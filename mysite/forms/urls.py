@@ -72,5 +72,15 @@ urlpatterns = [
 
     path('newlecfedform/', views.NewLecFeedbackForm.as_view(), name='newlecfedform_'),
     path('alllecfedform/', views.AllLecFeedbackForm.as_view(), name='alllecfedform_'),
+    path('deletelecfedform/<int:pk>/delete/', views.DeleteLecFeedbackForm.as_view(), name='deletelecfedform_'),
+    path('updatelecfedform/<int:id>', views.UpdateLecFeedbackForm.as_view(), name='updatelecfedform_'),
+    path('viewlecfedform/<int:id>', views.ViewLecFeedbackForm.as_view(), name='viewlecfedform_'),
 
+
+
+    path('newtrainingatt/', views.NewTrainingAttendance.as_view(), name='newtrainingatt_'),
+    path('alltrainingatt/', views.AllTrainingAttendance.as_view(), name='alltrainingatt_'),
+    path('deletetrainingatt/<int:pk>/delete/', views.DeleteTrainingAttendance.as_view(), name='deletetrainingatt_'),
+    path('updatetrainingatt/<int:id>', views.UpdateTrainingAttendancem.as_view(), name='updatetrainingatt_'),
+    path('viewtrainingatt/<int:id>', views.ViewTrainingAttendance.as_view(), name='viewtrainingatt_'),
 ]

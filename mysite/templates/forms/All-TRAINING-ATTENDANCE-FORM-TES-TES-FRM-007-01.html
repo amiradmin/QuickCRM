@@ -12,7 +12,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">All LECTURER FEEDBACK FORM TES-TES-FRM-014-00 Forms:</h4>
+                                <h4 class="page-title">All TRAINING ATTENDANCE FORM TES-TES-FRM-007-01:</h4>
                             </div>
                         </div>
                     </div>     
@@ -39,11 +39,10 @@
        
             
             <th >ID</th>
-            <th  >Course Name</th>
-            <th  >Lecturer</th>
-            <th  >Start Date</th>
-            <th  >Candidate</th>
-            <th  >Location</th>
+            <th  >Exam Title Code</th>
+            <th  >Venue</th>
+            <th  >Date</th>
+            <th  >Lecturer Name</th>
             
             
             <th></th>
@@ -60,19 +59,18 @@
            
            
             <td><p  >{{item.id}} </p></td>
-            <td><p ><a style="margin:0px; padding:0px;  " href="">{{item.courseName.name}}</a></p></td>
+            <td><p ><a style="margin:0px; padding:0px;  " href="">{{item.examTitleCode}}</a></p></td>
+            <td><p >{{item.venue}} </p></td>
+            <td><p >{{item.date|date:"m/d/Y"}}</p></td>
             <td><p >{{item.lecturerName}}</p></td>
-            <td><p >{{ item.startDate|date:"m/d/Y" }}</p></td>
-            <td><p >{{item.candidate.first_name}} {{item.candidate.middleName}} {{item.candidate.last_name}}</p></td>
-            <td><p >{{item.location}}</p></td>
-            <td><a href="{% url 'forms:viewlecfedform_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+            <td><a href="{% url 'forms:viewtrainingatt_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
                 {% if item.uploadedForm %} <a target="_blank" href="{{item.uploadedForm.url}}" ><i class="fa fa-camera" aria-hidden="true"></i></a> {% endif %}
             </td>
            
  
           
-            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'forms:updatelecfedform_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
-            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'forms:deletelecfedform_' pk=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'forms:updatetrainingatt_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'forms:deletetrainingatt_' pk=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
             
             
            

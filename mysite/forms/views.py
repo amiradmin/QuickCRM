@@ -3,7 +3,7 @@ from django.views.generic import View,TemplateView
 from forms.models import ( Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,
                            PSL30InitialForm,NDT15AExperienceVerification, CurrentFormerCertification,
                            ExperienceClaimed,NDTCovid19,PSL57B,empHistory,VisionTest,TesFrmExaminationAttendance,
-                            TesLecFeedbackFrom
+                            TesLecFeedbackFrom,TrainingAttendance
                            )
 from django.db.models import Count
 from classes.db import FormDb
@@ -3401,4 +3401,295 @@ class AllLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(AllLecFeedbackForm, self).get_context_data()
         forms = TesLecFeedbackFrom.objects.all()
         context['forms'] = forms
+        return context
+
+
+
+class DeleteLecFeedbackForm(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = TesLecFeedbackFrom
+    success_url = reverse_lazy('forms:alllecfedform_')
+
+
+
+
+
+class UpdateLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/update_lect_feedback_form.html"
+
+    def get_context_data(self,id , *args, **kwargs):
+        context = super(UpdateLecFeedbackForm, self).get_context_data()
+        id = self.kwargs['id']
+        form = TesFrmExaminationAttendance.objects.filter(id=id).first()
+        context['form'] = form
+        return context
+
+    def post(self, request,id, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                print("Git Test")
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =True
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =False
+                visionObj = VisionTest.objects.filter(id=id).first()
+                visionObj.address = request.POST['address']
+                visionObj.phone = request.POST['phone']
+                visionObj.email = request.POST['email']
+                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                visionObj.employer = request.POST['employer']
+                visionObj.tumbling = request.POST['tumbling']
+
+                if not request.POST.get('uncorrected', None) == None:
+                    visionObj.nearVisionAcuity ='UNCORRECTED'
+
+                if not request.POST.get('corrected', None) == None:
+                    visionObj.nearVisionAcuity ='CORRECTED'
+
+                if not request.POST.get('isNotAble', None) == None:
+                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+
+                if not request.POST.get('colorAccept', None) == None:
+                    visionObj.colourPerception ='ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.colourPerception ='REJECT'
+
+
+                if not request.POST.get('shadeAccept', None) == None:
+                    visionObj.shadesOfGrey ='ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.shadesOfGrey ='shageReject'
+
+                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
+                visionObj.recognisedName = request.POST['recognisedName']
+                visionObj.recognisedPhone = request.POST['recognisedPhone']
+                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
+                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+
+                visionObj.save()
+
+
+
+
+
+
+
+
+                return redirect('forms:allisiontest_')
+
+
+
+            return render(request, 'forms/vision_test.html', context)
+
+
+
+
+class ViewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/update_lect_feedback_form.html"
+
+    def get_context_data(self,id , *args, **kwargs):
+        context = super(ViewLecFeedbackForm, self).get_context_data()
+        id = self.kwargs['id']
+        form = VisionTest.objects.filter(id=id).first()
+        context['form'] = form
+        return context
+
+
+
+class NewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
+
+    def get_context_data(self):
+        context = super(NewTrainingAttendance, self).get_context_data()
+        candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
+        events = Event.objects.all()
+        categories = Category.objects.all()
+        guidelines = Guideline.objects.all()
+
+        context['categories'] = categories
+        context['guidelines'] = guidelines
+        context['candidates'] = candidates
+        context['events'] = events
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                event = Event.objects.filter(id=eventID).first()
+                candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
+
+                visionObj = VisionTest()
+                visionObj.candidate =candidate
+                visionObj.category =category
+                visionObj.guideline =guideline
+                visionObj.event =event
+                #
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =True
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =False
+
+                visionObj.address = request.POST['address']
+                visionObj.phone = request.POST['phone']
+                visionObj.email = request.POST['email']
+                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                visionObj.employer = request.POST['employer']
+                visionObj.tumbling = request.POST['tumbling']
+
+                if not request.POST.get('uncorrected', None) == None:
+                    visionObj.nearVisionAcuity ='UNCORRECTED'
+
+                if not request.POST.get('corrected', None) == None:
+                    visionObj.nearVisionAcuity ='CORRECTED'
+
+                if not request.POST.get('isNotAble', None) == None:
+                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+
+
+                if not request.POST.get('colorAccept', None) == None:
+                    visionObj.colourPerception ='ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.colourPerception ='REJECT'
+
+
+                if not request.POST.get('shadeAccept', None) == None:
+                    visionObj.shadesOfGrey ='ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.shadesOfGrey ='shageReject'
+
+                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
+                visionObj.recognisedName = request.POST['recognisedName']
+                visionObj.recognisedPhone = request.POST['recognisedPhone']
+                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
+                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+
+                visionObj.save()
+
+
+
+
+
+
+
+
+                formListObj = FormList()
+                formListObj.name = visionObj.__class__.__name__
+                formListObj.event = event
+                formListObj.candidate = candidate
+                formListObj.category = category
+                formListObj.guideline = guideline
+                formListObj.FormID = visionObj.id
+                formListObj.save()
+
+                return redirect('forms:allisiontest_')
+
+
+class AllTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/All-TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
+
+    def get_context_data(self):
+        context = super(AllTrainingAttendance, self).get_context_data()
+        forms = TrainingAttendance.objects.all()
+        context['forms'] = forms
+        return context
+
+
+
+class DeleteTrainingAttendance(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = TrainingAttendance
+    success_url = reverse_lazy('forms:alltrainingatt_')
+
+
+
+
+
+class UpdateTrainingAttendancem(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/update_TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
+
+    def get_context_data(self,id , *args, **kwargs):
+        context = super(UpdateTrainingAttendancem, self).get_context_data()
+        id = self.kwargs['id']
+        form = TesFrmExaminationAttendance.objects.filter(id=id).first()
+        context['form'] = form
+        return context
+
+    def post(self, request,id, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                print("Git Test")
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =True
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =False
+                visionObj = VisionTest.objects.filter(id=id).first()
+                visionObj.address = request.POST['address']
+                visionObj.phone = request.POST['phone']
+                visionObj.email = request.POST['email']
+                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                visionObj.employer = request.POST['employer']
+                visionObj.tumbling = request.POST['tumbling']
+
+                if not request.POST.get('uncorrected', None) == None:
+                    visionObj.nearVisionAcuity ='UNCORRECTED'
+
+                if not request.POST.get('corrected', None) == None:
+                    visionObj.nearVisionAcuity ='CORRECTED'
+
+                if not request.POST.get('isNotAble', None) == None:
+                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+
+                if not request.POST.get('colorAccept', None) == None:
+                    visionObj.colourPerception ='ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.colourPerception ='REJECT'
+
+
+                if not request.POST.get('shadeAccept', None) == None:
+                    visionObj.shadesOfGrey ='ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.shadesOfGrey ='shageReject'
+
+                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
+                visionObj.recognisedName = request.POST['recognisedName']
+                visionObj.recognisedPhone = request.POST['recognisedPhone']
+                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
+                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+
+                visionObj.save()
+
+
+
+
+
+
+
+
+                return redirect('forms:allisiontest_')
+
+
+
+            return render(request, 'forms/vision_test.html', context)
+
+
+
+
+class ViewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/view_TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
+
+    def get_context_data(self,id , *args, **kwargs):
+        context = super(ViewTrainingAttendance, self).get_context_data()
+        id = self.kwargs['id']
+        form = VisionTest.objects.filter(id=id).first()
+        context['form'] = form
         return context

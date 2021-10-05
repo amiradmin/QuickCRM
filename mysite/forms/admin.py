@@ -1,9 +1,20 @@
 from django.contrib import admin
 from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
                           PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,VisionTest,TesFrmCandidate,
-                          TesFrmExaminationAttendance,TesLecFeedbackFrom)
+                          TesFrmExaminationAttendance,TesLecFeedbackFrom,TesAttCandidate,TrainingAttendance)
 
 # Register your models here.
+class TrainingAttendanceAdmin(admin.ModelAdmin):
+    list_display = ['id', 'examTitleCode', 'venue','date','lecturerName', 'created_at', 'updated_at']
+    list_filter =['id', 'examTitleCode', 'venue','date','lecturerName', 'created_at', 'updated_at']
+admin.site.register(TrainingAttendance, TrainingAttendanceAdmin)
+
+class TesAttCandidateAdmin(admin.ModelAdmin):
+    list_display = ['id', 'testSequence', 'candidate', 'created_at', 'updated_at']
+    list_filter =['id', 'testSequence', 'candidate', 'created_at', 'updated_at']
+admin.site.register(TesAttCandidate, TesAttCandidateAdmin)
+# Register your models here.
+
 class TesLecFeedbackFromAdmin(admin.ModelAdmin):
     list_display = ['id', 'courseName', 'candidate','startDate','lecturerName','location', 'created_at', 'updated_at']
     list_filter =['id', 'courseName', 'candidate','startDate','lecturerName','location', 'created_at', 'updated_at']
