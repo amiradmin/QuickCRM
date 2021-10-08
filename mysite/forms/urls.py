@@ -83,4 +83,8 @@ urlpatterns = [
     path('deletetrainingatt/<int:pk>/delete/', views.DeleteTrainingAttendance.as_view(), name='deletetrainingatt_'),
     path('updatetrainingatt/<int:id>', views.UpdateTrainingAttendancem.as_view(), name='updatetrainingatt_'),
     path('viewtrainingatt/<int:id>', views.ViewTrainingAttendance.as_view(), name='viewtrainingatt_'),
+
+
+    path('newtwitrainingfeed/', views.NewTWITrainingFeedback.as_view(), name='newtwitrainingfeed_'),
+    path('alltwitrainingfeed/', views.AllTWITrainingFeedback.as_view(), name='alltwitrainingfeed_'),
 ]

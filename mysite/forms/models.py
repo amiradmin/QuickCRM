@@ -579,3 +579,29 @@ class TrainingAttendance(models.Model):
 
     def __str__(self):
         return self.examTitleCode
+
+
+class TwiTrainingFeedback(models.Model):
+    candidate = models.ForeignKey(TesCandidate, related_name="twi_training_candidate", on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, related_name="twi_training_event", on_delete=models.CASCADE)
+    region= models.CharField(max_length=2048, null=True, blank=True)
+    venue= models.CharField(max_length=2048, null=True, blank=True)
+    startDate = models.DateField(null=True, blank=True)
+    lecturerName = models.CharField(max_length=2048, null=True, blank=True)
+    programme = models.CharField(max_length=2048, null=True, blank=True)
+
+    bookingProcess = models.CharField(max_length=2048, null=True, blank=True)
+    joiningInstructions = models.CharField(max_length=2048, null=True, blank=True)
+    trainingEnvironment = models.CharField(max_length=2048, null=True, blank=True)
+    objectivesCourse = models.CharField(max_length=2048, null=True, blank=True)
+    tutorLecturer  = models.CharField(max_length=2048, null=True, blank=True)
+    principlesExplained  = models.CharField(max_length=2048, null=True, blank=True)
+    questionsAnswered  = models.CharField(max_length=2048, null=True, blank=True)
+
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate.first_name
