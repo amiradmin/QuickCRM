@@ -2,9 +2,14 @@ from django.contrib import admin
 from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
                           PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,VisionTest,TesFrmCandidate,
                           TesFrmExaminationAttendance,TesLecFeedbackFrom,TesAttCandidate,TrainingAttendance,
-                          TwiTrainingFeedback)
+                          TwiTrainingFeedback,TwiExamFeedback)
 
 # Register your models here.
+class TwiExamFeedbackAdmin(admin.ModelAdmin):
+    list_display = ['id', 'candidate', 'venue','startDate','invigilator', 'created_at', 'updated_at']
+    list_filter =['id', 'candidate', 'venue','startDate','invigilator', 'created_at', 'updated_at']
+admin.site.register(TwiExamFeedback, TwiExamFeedbackAdmin)
+
 class TwiTrainingFeedbackAdmin(admin.ModelAdmin):
     list_display = ['id', 'candidate', 'venue','startDate','lecturerName', 'created_at', 'updated_at']
     list_filter =['id', 'candidate', 'venue','startDate','lecturerName', 'created_at', 'updated_at']

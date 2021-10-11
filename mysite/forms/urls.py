@@ -87,4 +87,11 @@ urlpatterns = [
 
     path('newtwitrainingfeed/', views.NewTWITrainingFeedback.as_view(), name='newtwitrainingfeed_'),
     path('alltwitrainingfeed/', views.AllTWITrainingFeedback.as_view(), name='alltwitrainingfeed_'),
+    path('deletetwitrainingfeed/<int:pk>/delete/', views.DeleteTWITrainingFeedback.as_view(), name='deletetwitrainingfeed_'),
+    path('updatetwitrainingfeed/<int:id>', views.UpdateTWITrainingFeedback.as_view(), name='updatetwitrainingfeed_'),
+    path('viewtwitrainingfeed/<int:id>', views.ViewTWITrainingFeedback.as_view(), name='viewtwitrainingfeed_'),
+
+
+    path('newtwiexamfeed/', views.NewTWIExamFeedback.as_view(), name='newtwiexamfeed_'),
+    path('alltwiexamfeed/', views.AllTWIExamFeedback.as_view(), name='alltwiexamfeed_'),
 ]

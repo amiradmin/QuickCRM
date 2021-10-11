@@ -605,3 +605,40 @@ class TwiTrainingFeedback(models.Model):
 
     def __str__(self):
         return self.candidate.first_name
+
+
+
+
+class TwiExamFeedback(models.Model):
+    candidate = models.ForeignKey(TesCandidate, related_name="twi_examg_candidate", on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, related_name="twi_texam_event", on_delete=models.CASCADE)
+    region= models.CharField(max_length=2048, null=True, blank=True)
+    venue= models.CharField(max_length=2048, null=True, blank=True)
+    startDate = models.DateField(null=True, blank=True)
+    invigilator = models.CharField(max_length=2048, null=True, blank=True)
+    programme = models.CharField(max_length=2048, null=True, blank=True)
+
+    administrativeStaff = models.CharField(max_length=2048, null=True, blank=True)
+    examinationRoom = models.CharField(max_length=2048, null=True, blank=True)
+    feltComfortable = models.CharField(max_length=2048, null=True, blank=True)
+    explanationInvigilator = models.CharField(max_length=2048, null=True, blank=True)
+    writtenExamination  = models.CharField(max_length=2048, null=True, blank=True)
+    courseContent  = models.CharField(max_length=2048, null=True, blank=True)
+    equipment  = models.CharField(max_length=2048, null=True, blank=True)
+    samples  = models.CharField(max_length=2048, null=True, blank=True)
+    reflection  = models.CharField(max_length=2048, null=True, blank=True)
+    practicalSamples  = models.CharField(max_length=2048, null=True, blank=True)
+    recommend  = models.CharField(max_length=2048, null=True, blank=True)
+    comparisonTo  = models.CharField(max_length=2048, null=True, blank=True)
+    afterYourExperience  = models.CharField(max_length=2048, null=True, blank=True)
+    catering  = models.CharField(max_length=2048, null=True, blank=True)
+    howWeDid  = models.CharField(max_length=4092, null=True, blank=True)
+    candidateOpinion  = models.CharField(max_length=4092, null=True, blank=True)
+
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate.first_name
