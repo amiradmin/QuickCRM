@@ -4002,3 +4002,95 @@ class AllTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['forms'] = forms
         return context
 
+
+
+
+class DeleteTWIExamFeedback(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = TwiExamFeedback
+    success_url = reverse_lazy('forms:alltwiexamfeed_')
+
+
+
+
+
+class UpdateTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/update_twi_exam_Feedback.html"
+
+    def get_context_data(self,id , *args, **kwargs):
+        context = super(UpdateTWIExamFeedback, self).get_context_data()
+        id = self.kwargs['id']
+        form = TesFrmExaminationAttendance.objects.filter(id=id).first()
+        context['form'] = form
+        return context
+
+    def post(self, request,id, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                print("Git Test")
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =True
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =False
+                visionObj = VisionTest.objects.filter(id=id).first()
+                visionObj.address = request.POST['address']
+                visionObj.phone = request.POST['phone']
+                visionObj.email = request.POST['email']
+                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                visionObj.employer = request.POST['employer']
+                visionObj.tumbling = request.POST['tumbling']
+
+                if not request.POST.get('uncorrected', None) == None:
+                    visionObj.nearVisionAcuity ='UNCORRECTED'
+
+                if not request.POST.get('corrected', None) == None:
+                    visionObj.nearVisionAcuity ='CORRECTED'
+
+                if not request.POST.get('isNotAble', None) == None:
+                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+
+                if not request.POST.get('colorAccept', None) == None:
+                    visionObj.colourPerception ='ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.colourPerception ='REJECT'
+
+
+                if not request.POST.get('shadeAccept', None) == None:
+                    visionObj.shadesOfGrey ='ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.shadesOfGrey ='shageReject'
+
+                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
+                visionObj.recognisedName = request.POST['recognisedName']
+                visionObj.recognisedPhone = request.POST['recognisedPhone']
+                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
+                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+
+                visionObj.save()
+
+
+
+
+
+
+
+
+                return redirect('forms:allisiontest_')
+
+
+
+            return render(request, 'forms/vision_test.html', context)
+
+
+
+
+class ViewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/view_twi_exam_Feedback.html"
+
+    def get_context_data(self,id , *args, **kwargs):
+        context = super(ViewTWIExamFeedback, self).get_context_data()
+        id = self.kwargs['id']
+        form = VisionTest.objects.filter(id=id).first()
+        context['form'] = form
+        return context

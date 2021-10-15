@@ -82,12 +82,12 @@ class LecturerProfileView(TemplateView):
     
 class CandidateProfileView(TemplateView):
 
-    template_name = "accounts/can_profile.html"
+    template_name = "accounts/profile.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(CandidateProfileView, self).get_context_data()
         print(self.kwargs['id'])
-        candidate = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         context['candidate'] = candidate
         return context
 
@@ -95,12 +95,14 @@ class CandidateProfileView(TemplateView):
     def post(self, request, *args, **kwargs):
        
         if request.method == 'POST':
+            print("Here")
             aboutMe =  request.POST['aboutMe']
             print(aboutMe)
-            lecturer = CandidateProfile.objects.filter(id = self.kwargs['id']).first()
-            lecturer.aboutMe = aboutMe
-            lecturer.save()  
-            return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
+            profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
+            profileData.first_name = request.POST['first_name']
+            profileData.aboutMe = aboutMe
+            profileData.save()
+            return render(request, "accounts/profile.html",context = {'lecturer':profileData})
         return render(request, "index.html")
 
 
@@ -147,7 +149,7 @@ class RegisterView(TemplateView):
             user.tescandidate.last_name = request.POST['last_name']
             user.tescandidate.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
             user.tescandidate.tes_candidate_id = tempID
-            user.tescandidate.customer_id = request.POST['customer_id']
+            # user.tescandidate.customer_id = request.POST['customer_id']
             user.tescandidate.address = request.POST['address']
             # user.passport_id = request.POST['passport_id']
 

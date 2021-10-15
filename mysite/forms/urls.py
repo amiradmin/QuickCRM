@@ -94,4 +94,7 @@ urlpatterns = [
 
     path('newtwiexamfeed/', views.NewTWIExamFeedback.as_view(), name='newtwiexamfeed_'),
     path('alltwiexamfeed/', views.AllTWIExamFeedback.as_view(), name='alltwiexamfeed_'),
+    path('deletetwiexamfeed/<int:pk>/delete/', views.DeleteTWIExamFeedback.as_view(), name='deletetwiexamfeed_'),
+    path('updatetwiexamfeed/<int:id>', views.UpdateTWIExamFeedback.as_view(), name='updatetwiexamfeed_'),
+    path('viewtwiexamfeed/<int:id>', views.ViewTWIExamFeedback.as_view(), name='viewtwiexamfeed_'),
 ]
