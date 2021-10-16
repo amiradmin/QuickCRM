@@ -10,6 +10,7 @@ from training.models import CandidateProfile, Lecturer,Event,TesCandidate
 from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
 import datetime
+
 # Create your views here.
 
 class LoginView(TemplateView):
@@ -88,7 +89,11 @@ class CandidateProfileView(TemplateView):
         context = super(CandidateProfileView, self).get_context_data()
         print(self.kwargs['id'])
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
+        events = Event.objects.filter(candidate = candidate)
+        now = datetime.datetime.now()
         context['candidate'] = candidate
+        context['events'] = events
+        context['now'] = now
         return context
 
 

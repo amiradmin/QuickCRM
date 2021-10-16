@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+{% load tz %}
 <style >
 
 
@@ -143,7 +144,7 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a href="#evens" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0 ">
+                                                <a href="#events" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0 ">
                                                     Events
                                                 </a>
                                             </li>
@@ -208,9 +209,105 @@
                                             </p>
                                  </div>
 
+
+
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="card widget-flat">
+                                            <div class="card-body">
+                                                <div class="float-end">
+                                                    <i class="mdi mdi-certificate widget-icon bg-success-lighten text-success"></i>
+                                                </div>
+                                                <h5 class="text-muted fw-normal mt-0" title="Number of Customers">Certificates</h5>
+                                                <h3 class="mt-3 mb-3">{{canCount}}</h3>
+                                                <p class="mb-0 text-muted">
+                                                    <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 5.27%</span>
+                                                    <span class="text-nowrap">Since last month</span>
+                                                </p>
+                                            </div> <!-- end card-body-->
+                                        </div> <!-- end card-->
+                                    </div> <!-- end col-->
+
+                                    <div class="col-lg-4">
+                                        <div class="card widget-flat">
+                                            <div class="card-body">
+                                                <div class="float-end">
+                                                    <i class="mdi mdi-clock-time-eight-outline widget-icon bg-danger-lighten text-danger"></i>
+                                                </div>
+                                                <h5 class="text-muted fw-normal mt-0" title="Number of Orders">Events</h5>
+                                                <h3 class="mt-3 mb-3">{{eventCount}}</h3>
+                                                <p class="mb-0 text-muted">
+                                                    <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 1.08%</span>
+                                                    <span class="text-nowrap">Since last month</span>
+                                                </p>
+                                            </div> <!-- end card-body-->
+                                        </div> <!-- end card-->
+                                    </div> <!-- end col-->
+
+                                    <div class="col-lg-4">
+                                        <div class="card widget-flat">
+                                            <div class="card-body">
+                                                <div class="float-end">
+                                                    <i class="mdi mdi-currency-usd widget-icon bg-danger-lighten text-danger"></i>
+                                                </div>
+                                                <h5 class="text-muted fw-normal mt-0" title="Number of Orders">Finance</h5>
+                                                <h3 class="mt-3 mb-3">{{eventCount}}</h3>
+                                                <p class="mb-0 text-muted">
+                                                    <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 1.08%</span>
+                                                    <span class="text-nowrap">Since last month</span>
+                                                </p>
+                                            </div> <!-- end card-body-->
+                                        </div> <!-- end card-->
+                                    </div> <!-- end col-->
+                                </div> <!-- end row -->
+
                              </div>
 
+                         <div class="tab-pane" id="events">
+                                                <!-- end timeline -->
 
+
+                             <div class="text-start mt-3" >
+                                            <h4 class="font-13 text-uppercase">Events:</h4>
+
+                                     <table id="basic-datatable"  class="table dt-responsive  w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Lecturer</th>
+                                                        <th>Country</th>
+                                                        <th>Location</th>
+                                                        <th>Start Date</th>
+                                                        <th></th>
+
+
+                                                    </tr>
+                                                </thead>
+
+
+                                                <tbody>
+                                                    {% for item in events %}
+                                                    <tr>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.name}}</td>
+                                                        <td>{{item.lecturers}}</td>
+                                                        <td>{{item.country}}</td>
+                                                        <td>{{item.location}}</td>
+                                                        <td>{{item.start_date|date:'m/d/Y'}} </td>
+                                                         <td>{% if item.start_date|utc < now|utc %}<i class="fa fa-hourglass-end" aria-hidden="true"></i>{% else %} <i style="color:orange" class="fa fa-hourglass-start" aria-hidden="true"></i> {% endif %}</td>
+
+
+
+
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>
+
+                                 </div>
+
+                             </div>
                                             <div class="tab-pane " id="settings">
 
                                                 <form method="POST" enctype="multipart/form-data" >
