@@ -250,7 +250,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 </div>
 </form>
                                       
-                                        <div class="tab-content">
+                                        <div class="tab-content" style="overflow-x: auto;">
                                         <form method="POST"  enctype="multipart/form-data">
                                         {%  csrf_token %}
 <input type="hidden" name="canID" value="{{candidate.id}}" />
@@ -377,7 +377,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:42.60px;top:166.84px" class="cls_017"><span class="cls_017">APPLICATION FORM</span></div>
 <div style="position:absolute;left:42.60px;top:184.72px" class="cls_002"><span class="cls_002">PART 1. CANDIDATE'S PERSONAL DETAILS</span></div>
 <div style="position:absolute;left:42.60px;top:198.76px" class="cls_009"><span class="cls_009" >Family</span><input name="lastyName" value="{{candidate.first_name}}" style="margin-left:10px;width:170px;border:none;" /></div>
-<div style="position:absolute;left:274.56px;top:198.76px" class="cls_009"><span class="cls_009">Given</span><input name="firstName" value="{{candidate.last_name}}" style="margin-left:20px;width:170px;border:none;" /></div>
+<div style="position:absolute;left:274.56px;top:198.76px" class="cls_009"><span class="cls_009">Given</span><input name="firstName" value="{{candidate.last_name}}" style="margin-left:25px;width:170px;border:none;" /></div>
 <div style="position:absolute;left:42.60px;top:214.00px" class="cls_009"><span class="cls_009">name:</span></div>
 <div style="position:absolute;left:274.56px;top:214.00px" class="cls_009"><span class="cls_009">names:</span></div>
 <div style="position:absolute;left:42.60px;top:237.28px" class="cls_009"><span class="cls_009">Candidate’s usual residence, including post code</span></div>
@@ -537,15 +537,15 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:42.60px;top:672.16px" class="cls_002"><span class="cls_002">PART 8. VERIFICATION OF CANDIDATE’S STATEMENT BY THE SPONSOR, EMPLOYER OR, IF THE CANDIDATE IS SELF-</span></div>
 <div style="position:absolute;left:42.60px;top:684.40px" class="cls_002"><span class="cls_002">EMPLOYED, A REFEREE.</span></div>
 <div style="position:absolute;left:42.60px;top:708.76px" class="cls_009"><span class="cls_009">To the best of my belief, the candidate's statement given above is correct at the time of signing.</span></div>
-<div style="position:absolute;left:42.60px;top:739.24px" class="cls_009"><span class="cls_009">NAME: …………………………………………………...…</span></div>
-<div style="position:absolute;left:228.96px;top:739.24px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:260.40px;top:739.24px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:291.96px;top:739.24px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:323.40px;top:739.24px" class="cls_009"><span class="cls_009">……..SIGNATURE: ……………………………………..……</span></div>
-<div style="position:absolute;left:42.61px;top:769.60px" class="cls_009"><span class="cls_009">COMPANY: …………………………………...…………...……</span></div>
-<div style="position:absolute;left:254.29px;top:769.60px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:285.85px;top:769.60px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:317.29px;top:769.60px" class="cls_009"><span class="cls_009">……</span></div>
+<div style="position:absolute;left:42.60px;top:739.24px" class="cls_009"><span class="cls_009">NAME: …………………………………………………………………………………………</span></div>
+<div style="position:absolute;left:228.96px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:260.40px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:291.96px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:323.40px;top:739.24px" class="cls_009"><span class="cls_009">SIGNATURE: ……………………………………..……</span></div>
+<div style="position:absolute;left:42.61px;top:769.60px" class="cls_009"><span class="cls_009">COMPANY: …………………………………………………………………………………………</span></div>
+<div style="position:absolute;left:254.29px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:285.85px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:317.29px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:343.69px;top:769.60px" class="cls_009"><span class="cls_009">TELEPHONE: ……………….……………..……</span></div>
 <div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
 <div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 5 of 8</span></div>
@@ -555,24 +555,24 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_initial/background06.jpg' %}" width=595 height=841></div>
 <div style="position:absolute;left:42.59px;top:27.28px" class="cls_002"><span class="cls_002">PART 9. FOR OPTIONAL USE BY THE TEST CENTRE</span></div>
-<div style="position:absolute;left:42.59px;top:51.76px" class="cls_009"><span class="cls_009">EXAMINATION DATE : .……</span></div>
-<div style="position:absolute;left:167.40px;top:51.76px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:198.84px;top:51.76px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:230.28px;top:51.76px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:261.84px;top:51.76px" class="cls_009"><span class="cls_009">…  EXAMINATION VENUE:</span></div>
-<div style="position:absolute;left:441.60px;top:51.76px" class="cls_009"><span class="cls_009">………………</span></div>
+<div style="position:absolute;left:42.59px;top:51.76px" class="cls_009"><span class="cls_009">EXAMINATION DATE : .……………………………………………</span></div>
+<div style="position:absolute;left:167.40px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:198.84px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:230.28px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:261.84px;top:51.76px" class="cls_009"><span class="cls_009">  EXAMINATION VENUE:</span></div>
+<div style="position:absolute;left:356.60px;top:51.76px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
 <div style="position:absolute;left:42.59px;top:76.13px" class="cls_009"><span class="cls_009">EXAMINER:</span></div>
-<div style="position:absolute;left:209.75px;top:76.13px" class="cls_009"><span class="cls_009">…</span></div>
-<div style="position:absolute;left:244.43px;top:76.13px" class="cls_009"><span class="cls_009">……</span></div>
+<div style="position:absolute;left:90.75px;top:76.13px" class="cls_009"><span class="cls_009">……………………………………………………………………</span></div>
+<div style="position:absolute;left:244.43px;top:76.13px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:273.12px;top:76.13px" class="cls_009"><span class="cls_009">MODERATOR:</span></div>
-<div style="position:absolute;left:461.16px;top:76.13px" class="cls_009"><span class="cls_009">………</span></div>
+<div style="position:absolute;left:331.16px;top:76.13px" class="cls_009"><span class="cls_009">………………………………………………………………</span></div>
 <div style="position:absolute;left:42.60px;top:100.61px" class="cls_009"><span class="cls_009">PAYMENT RECEIVED:</span></div>
-<div style="position:absolute;left:203.28px;top:100.61px" class="cls_009"><span class="cls_009">……</span></div>
-<div style="position:absolute;left:234.84px;top:100.61px" class="cls_009"><span class="cls_009">……</span></div>
+<div style="position:absolute;left:128.28px;top:100.61px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
+<div style="position:absolute;left:234.84px;top:100.61px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:273.49px;top:100.61px" class="cls_009"><span class="cls_009">RESULT REFERENCE:</span></div>
-<div style="position:absolute;left:453.84px;top:100.61px" class="cls_009"><span class="cls_009">….</span></div>
+<div style="position:absolute;left:356.84px;top:100.61px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
 <div style="position:absolute;left:42.60px;top:124.97px" class="cls_009"><span class="cls_009">EXAMINATION FILE COMPLETE AND CLOSED (initials/date):</span></div>
-<div style="position:absolute;left:417.97px;top:124.97px" class="cls_009"><span class="cls_009">……...……</span></div>
+<div style="position:absolute;left:282.97px;top:124.97px" class="cls_009"><span class="cls_009">…………………………………………………………………………………</span></div>
 <div style="position:absolute;left:42.60px;top:149.45px" class="cls_009"><span class="cls_009">REMARKS (if any verification sought and obtained, record details below or on a separate page and keep with candidate</span></div>
 <div style="position:absolute;left:42.59px;top:161.57px" class="cls_009"><span class="cls_009">exam pack):</span></div>
 <div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
@@ -612,7 +612,9 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:42.60px;top:425.80px" class="cls_009"><span class="cls_009">Debit the above credit/debit card for the amount shown in respect of exam fees</span></div>
 <div style="position:absolute;left:394.44px;top:425.80px" class="cls_009"><span class="cls_009">£</span></div>
 <div style="position:absolute;left:435.84px;top:425.80px" class="cls_009"><span class="cls_009">:</span></div>
-<div style="position:absolute;left:42.60px;top:438.04px" class="cls_009"><span class="cls_009">(check with Test Centre to confirm that credit card payment is available)</span></div>
+<div style="position:absolute;left:42.60px;top:438.04px" class="cls_009"><span class="cls_009">(check with Test Centre to confirm that credit card payment is available)</span>
+<h5 style="color: red;">
+  This page is not required to be filled for those who registered with TES Canada.</h5></div>
 <div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
 <div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 7 of 8</span></div>
 <div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>

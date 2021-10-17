@@ -241,7 +241,7 @@ FormViewer.on('ready', function(data) {
 
   body * {
     visibility: hidden;
-    width:width:100%;
+    width:100%;
     padding:0px;
     margin:0px;
 
@@ -355,7 +355,7 @@ body{padding:0px; margin:0px;  }
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaJSAPI.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
 
-<div id="formviewer" style=" overflow: hidden;width:100%;max-width:900px; padding:0;margin-top:0;">
+<div id="formviewer" style=" overflow: hidden;width:100%;max-width:900px; padding:0;margin-top:0;overflow-x: auto;">
     <form method="POST" name="formvalidate" onsubmit="return validate();" style="width:100%; padding:0;margin-top:0;">
         {% csrf_token %}
 
@@ -369,7 +369,7 @@ body{padding:0px; margin:0px;  }
         <div id="overlay"></div>
 
         <div id="contentContainer">
-            <div id="page1" style="width: 935px; height: 1210px; margin-top:20px;" class="page">
+            <div id="page1" style="width: 935px; height: 1210px; margin-top:20px;overflow-x:auto;" class="page">
                 <div class="page-inner" style="width: 935px; height: 1210px;">
 
                     <div id="p1" class="pageArea"
@@ -2875,19 +2875,19 @@ function checkOver(i) {
    if (checkBox.checked == true){
        checkBoxCompany.checked =  false;
         form40_1.style.backgroundColor = "white";
-        document.getElementById("form40_1").  = false;
+        document.getElementById("form40_1")  = false;
 
         form43_1.style.backgroundColor = "white";
-        document.getElementById("form43_1").  = false;
+        document.getElementById("form43_1")  = false;
 
         form44_1.style.backgroundColor = "white";
-        document.getElementById("form44_1").  = false;    
+        document.getElementById("form44_1")  = false;    
 
         form45_1.style.backgroundColor = "white";
-        document.getElementById("form45_1").  = false;
+        document.getElementById("form45_1")  = false;
 
         form47_1.style.backgroundColor = "white";
-        document.getElementById("form47_1").  = false;
+        document.getElementById("form47_1")  = false;
 
 
   }
@@ -2909,19 +2909,19 @@ function myFunction() {
  
   if (checkBox.checked == true){
     form40_1.style.backgroundColor = "yellow";
-    document.getElementById("form40_1").  = true;
+    document.getElementById("form40_1")  = true;
 
     form43_1.style.backgroundColor = "yellow";
-    document.getElementById("form43_1").  = true;
+    document.getElementById("form43_1")  = true;
     
     form44_1.style.backgroundColor = "yellow";
-    document.getElementById("form44_1").  = true;    
+    document.getElementById("form44_1")  = true;    
 
     form45_1.style.backgroundColor = "yellow";
-    document.getElementById("form45_1").  = true;
+    document.getElementById("form45_1")  = true;
 
     form47_1.style.backgroundColor = "yellow";
-    document.getElementById("form47_1").  = true;
+    document.getElementById("form47_1")  = true;
 
     checkBoxSelf.checked =  false
   } 

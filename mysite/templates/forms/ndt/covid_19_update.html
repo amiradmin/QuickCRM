@@ -189,7 +189,7 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
                     <div class="tab-content">
 
 
-    <div class="col-12">
+    <div class="col-12" style="overflow-x: auto;">
 
         <form method="POST"  name="formvalidate" onsubmit="return validate();">
             {% csrf_token %}
@@ -209,13 +209,13 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
 <div style="position:absolute;left:205.80px;top:114.31px" class="cls_002"><span class="cls_002">DURING THE COVID-19 PANDEMIC</span></div>
 <div style="position:absolute;left:237.80px;top:126.91px" class="cls_003"><span class="cls_003">TES-IMS-FRM-047-00</span></div>
 <div style="position:absolute;left:77.50px;top:145.81px" class="cls_004"><span class="cls_004">Candidate Full Name:</span> <input style="border:none" type="type" value="{{form.candidate.first_name}} {{form.candidate.middleName}} {{form.candidate.last_name}}" /></div>
-<div style="position:absolute;left:359.50px;top:145.81px" class="cls_004"><span class="cls_004">Candidate ID No:</span> <input style="border:none" name="candidateID" type="type" value="" /></div>
+<div style="position:absolute;left:359.50px;top:145.81px" class="cls_004"><span class="cls_004">Candidate ID No:</span> <input style="border:none;background: transparent;width:80px;" name="candidateID" type="type" value="" /></div>
 <div style="position:absolute;left:77.50px;top:165.41px" class="cls_004"><span class="cls_004">Date of Birth (dd/mm/yy):</span><input style="border:none;height:15px;" type="type" value="{{form.candidate.birth_date|date:'m/d/Y'}}" /></div>
-<div style="position:absolute;left:359.50px;top:165.41px" class="cls_004"><span class="cls_004">Mobile No:</span><input style="border:none;height:15px;" type="type"  value="{% if  form.candidate.contact_number %} {{form.candidate.contact_number|phone_number}}{% endif %}" /></div>
+<div style="position:absolute;left:359.50px;top:165.41px" class="cls_004"><span class="cls_004">Mobile No:</span><input style="border:none;height:15px;background: transparent;width:80px;" type="type"  value="{% if  form.candidate.contact_number %} {{form.candidate.contact_number|phone_number}}{% endif %}" /></div>
 <div style="position:absolute;left:77.50px;top:180.61px" class="cls_004"><span class="cls_004">Candidate Address:</span><input style="border:none;width:200px;margin-top:3px;" name="candidateAddress" type="type"  value="{{form.candidateAdress}}" /></div>
-<div style="position:absolute;left:359.50px;top:180.61px" class="cls_004"><span class="cls_004">Home Phone No:</span><input style="border:none;margin-top:3px;" name="candidateHomePhone" id="candidateHomePhone" value="{% if  form.candidateHomePhone %} {{form.candidateHomePhone|phone_number}}{% endif %}" type="type" value="" onkeypress="return numberPressed(event);" /></div>
+<div style="position:absolute;left:359.50px;top:180.61px" class="cls_004"><span class="cls_004">Home Phone No:</span><input style="border:none;margin-top:3px;background: transparent;width:80px;" name="candidateHomePhone" id="candidateHomePhone" value="{% if  form.candidateHomePhone %} {{form.candidateHomePhone|phone_number}}{% endif %}" type="type" value="" onkeypress="return numberPressed(event);" /></div>
 <div style="position:absolute;left:77.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Title:</span><input style="border:none;width:140px;" type="type" value="{{form.event.name}}" /></div>
-<div style="position:absolute;left:359.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Date:</span><input style="border:none;height:15px;" type="type" value="{{form.event.start_date|date:'m/d/Y'}}" /></div>
+<div style="position:absolute;left:359.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Date:</span><input style="border:none;height:15px;background: transparent;width:80px;" type="type" value="{{form.event.start_date|date:'m/d/Y'}}" /></div>
 <div style="position:absolute;left:77.50px;top:232.91px" class="cls_004"><span class="cls_004">Date of Filling the Form:</span><input  id="fillingDate" style="border:none;height:15px;" type="type" name="fillingDate" value="{{form.fillingDate|date:'m/d/Y'}}"  /></div>
 <div style="position:absolute;left:77.50px;top:247.51px" class="cls_014"><span class="cls_014">Before the Event:</span></div>
 <div style="position:absolute;left:77.50px;top:270.51px" class="cls_004"><span class="cls_004">I hereby confirm:</span></div>
@@ -274,7 +274,7 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
 <div style="position:absolute;left:212.50px;top:101.71px" class="cls_002"><span class="cls_002">TO PARTICIPATE IN THE EVENT</span></div>
 <div style="position:absolute;left:205.80px;top:114.31px" class="cls_002"><span class="cls_002">DURING THE COVID-19 PANDEMIC</span></div>
 <div style="position:absolute;left:237.80px;top:126.91px" class="cls_003"><span class="cls_003">TES-IMS-FRM-047-00</span></div>
-<div style="position:absolute;left:77.50px;top:152.71px" class="cls_012"><span class="cls_012">Appendix B: Healthy Practices to Protect Yourself</span></div>
+<div style="position: absolute;left: 73.5px;padding-left: 5px;top: 152.71px;width: 445px;background: white;" class="cls_012"><span class="cls_012">Appendix B: Healthy Practices to Protect Yourself</span></div>
 <div style="position:absolute;left:77.50px;top:177.31px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  The most common symptoms of COVID-19 are fever, tiredness, and dry cough. Some patients</span></div>
 <div style="position:absolute;left:91.70px;top:188.91px" class="cls_004"><span class="cls_004">may  have  aches  and  pains,  nasal  congestion,  runny  nose,  sore  throat  or  diarrhoea.  These</span></div>
 <div style="position:absolute;left:91.70px;top:200.41px" class="cls_004"><span class="cls_004">symptoms are usually mild and begin gradually.</span></div>
