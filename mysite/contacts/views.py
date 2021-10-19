@@ -54,3 +54,13 @@ class AdminOutboxView(SidebarMixin,LoginRequiredMixin,TemplateView):
         message_list = Contact.objects.filter(type="Admin").order_by('-id')
         context['message_list'] = message_list
         return context
+
+class MessageDetailView(LoginRequiredMixin,TemplateView):
+    template_name = "contact/message_detail.html"
+
+    def get_context_data(self,id):
+        context = super(MessageDetailView, self).get_context_data()
+        message = Contact.objects.filter(id=self.kwargs['id']).first()
+        context['message'] = message
+
+        return context
