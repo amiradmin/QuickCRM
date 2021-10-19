@@ -27,6 +27,7 @@ urlpatterns = [
     path('map/', include("map.urls",namespace="map_")),
     path('forms/', include("forms.urls",namespace="forms_")),
     path('', include("accounting.urls",namespace="accounting")),
+    path('contacts/', include("contacts.urls",namespace="contacts")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

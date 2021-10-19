@@ -9,6 +9,7 @@ from django.conf import settings
 from training.models import CandidateProfile, Lecturer,Event,TesCandidate
 from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
+from django.contrib.auth.mixins import LoginRequiredMixin
 import datetime
 
 # Create your views here.
@@ -81,7 +82,7 @@ class LecturerProfileView(TemplateView):
 
 
     
-class CandidateProfileView(TemplateView):
+class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
     template_name = "accounts/profile.html"
 

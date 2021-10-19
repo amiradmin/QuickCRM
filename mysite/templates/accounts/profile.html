@@ -56,7 +56,7 @@
                                         <h4 class="mb-0 mt-2">{{candidate.first_name}}  {{candidate.last_name}}</h4>
                                         <p class="text-muted font-14">Student</p>
 
-                                        <button type="button" class="btn btn-success btn-sm mb-2">Contact Administration</button>
+                                        <a href="{% url 'contacts:newcontact_' %}" class="btn btn-success btn-sm mb-2">Contact Administration</a>
 
 
                                         <div class="text-start mt-3" >
@@ -138,11 +138,7 @@
                                                      Dashboard
                                                 </a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a href="#myCalendar" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0">
-                                                     Calendar
-                                                </a>
-                                            </li>
+
                                             <li class="nav-item">
                                                 <a href="#events" data-bs-toggle="tab" aria-expanded="false" class="nav-link rounded-0 ">
                                                     Events
@@ -388,7 +384,7 @@
 
 
                                                     <div class="mb-3">
-                                                        <label class="form-label" >Address</label>
+                                                        <label class="form-label" >Address(Included Postal Code)</label>
 
                                                         <div class="form-floating">
                                                             <textarea  name="address" class="form-control" title="Address should be included with postal code!" placeholder=" Address here" id="floatingTextarea" style="height: 100px;">{{candidate.address}}</textarea>
@@ -549,4 +545,13 @@
             ],a=this;a.$calendarObj=new FullCalendar.Calendar(a.$calendar[0],{slotDuration:"00:15:00",slotMinTime:"08:00:00",slotMaxTime:"19:00:00",themeSystem:"bootstrap",bootstrapFontAwesome:!1,buttonText:{today:"Today",month:"Month",week:"Week",day:"Day",list:"List",prev:"Prev",next:"Next"},initialView:"dayGridMonth",handleWindowResize:!0,height:l(window).height()-200,headerToolbar:{left:"prev,next today",center:"title",right:"dayGridMonth,timeGridWeek,timeGridDay,listMonth"},initialEvents:t,editable:!0,droppable:!0,selectable:!0,dateClick:function(e){a.onSelect(e)},eventClick:function(e){a.onEventClick(e)}}),a.$calendarObj.render(),a.$btnNewEvent.on("click",function(e){a.onSelect({date:new Date,allDay:!0})}),a.$formEvent.on("submit",function(e){e.preventDefault();var t,n=a.$formEvent[0];n.checkValidity()?(a.$selectedEvent?(a.$selectedEvent.setProp("title",l("#event-title").val()),a.$selectedEvent.setProp("classNames",[l("#event-category").val()])):(t={title:l("#event-title").val(),start:a.$newEventData.date,allDay:a.$newEventData.allDay,className:l("#event-category").val()},a.$calendarObj.addEvent(t)),a.$modal.hide()):(e.stopPropagation(),n.classList.add("was-validated"))}),l(a.$btnDeleteEvent.on("click",function(e){a.$selectedEvent&&(a.$selectedEvent.remove(),a.$selectedEvent=null,a.$modal.hide())}))},l.CalendarApp=new e,l.CalendarApp.Constructor=e}(window.jQuery),function(){"use strict";window.jQuery.CalendarApp.init()}();
             
                </script>
+            <!-- bundle -->
+            <script src="{% static 'assets/js/vendor.min.js'%}"></script>
+            <script src="{% static 'assets/js/app.min.js'%}"></script>
+
+
+
+
+        <!-- third party js ends -->
+
         {% endblock %}

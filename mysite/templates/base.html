@@ -103,12 +103,31 @@
                                 <span> Calendar </span>
                             </a>
                         </li>
-                        <li class="side-nav-item">
-                            <a href="javascript:void(0)" class="side-nav-link disabled">
-                                <i class="uil-package"></i>
-                                <span> Tasks </span>
+  <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarContact" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span> Contacts </span>
+                                <span class="menu-arrow"></span>
                             </a>
-                        </li>                        
+                            <div class="collapse" id="sidebarContact">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'contacts:adminmessagelist_' %}">Inbox</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'contacts:newcontact_' %}">New Message</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Outbox</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Archive</a>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </li>
                         <li class="side-nav-item">
                             <a href="apps-chat.html" onclick="return false;" class="side-nav-link disabled">
                                 <i class="dripicons-graduation"></i>

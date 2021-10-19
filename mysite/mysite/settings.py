@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'adminpanel',
     'tescalendar',
     'map',
+    'contacts',
     
     
 ]
