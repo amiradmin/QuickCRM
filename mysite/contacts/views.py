@@ -4,6 +4,7 @@ from django.views.generic import View,TemplateView
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from contacts.models import Contact
+from  authorization.sidebarmixin import SidebarMixin
 # Create your views here.
 
 class NewContactView(LoginRequiredMixin,TemplateView):
@@ -36,11 +37,20 @@ class MessageListView(LoginRequiredMixin,TemplateView):
 
         return context
 
-class AdminMessageListView(LoginRequiredMixin,TemplateView):
+class AdminMessageListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "contact/admin_message_list.html"
 
     def get_context_data(self):
         context = super(AdminMessageListView, self).get_context_data()
         message_list = Contact.objects.filter(type="Candidate").order_by('-id')
+        context['message_list'] = message_list
+        return context
+
+class AdminOutboxView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "contact/admin_message_list.html"
+
+    def get_context_data(self):
+        context = super(AdminOutboxView, self).get_context_data()
+        message_list = Contact.objects.filter(type="Admin").order_by('-id')
         context['message_list'] = message_list
         return context
