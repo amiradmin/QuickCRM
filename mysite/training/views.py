@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
-from forms.models import General,FormList
+from forms.models import General,FormList,TwiEnrolmentForm
 import datetime
 import json
 from django.http import JsonResponse
@@ -521,11 +521,13 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
       
         if request.method == 'POST':
             # print( request.POST.get('page_contents[]', None))
-            
             event = Event.objects.filter(id=self.kwargs['id'] ).first()
             event.candidate.clear()
             canList =request.POST['temp']
-            catID =request.POST['catID']
+            catID = request.POST['catID']
+            category = Category.objects.filter(id=catID).first()
+            print(category.form.all)
+
 
             if canList :
                 for item in canList.split('--'):
@@ -535,13 +537,44 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                     if candidate :
                         event.candidate.add(candidate)
                     # event.save()
-                    contactObj =Contact()
-                    contactObj.type="Admin"
-                    contactObj.messageType="Form"
-                    contactObj.department="Registration"
-                    contactObj.message="Please fill following form:"
-                    contactObj.candidate = candidate
-                    contactObj.save()
+
+                        print('Test HEre')
+                        for item in category.form.all():
+                            print("======")
+                            print(item.name)
+                            print("======")
+                            if item.name == 'TWI Enrolment Form':
+                                obj = TwiEnrolmentForm()
+                                print("Inside")
+                                print(candidate)
+                                obj.candidiate = candidate
+                                obj.firstName = candidate.first_name
+                                obj.middleName = candidate.middleName
+                                obj.lastName = candidate.last_name
+                                obj.event=event
+                                obj.save()
+                                print(obj.id)
+
+
+                            # formListObj = FormList()
+                            # formListObj.name = obj.__class__.__name__
+                            # formListObj.event = event
+                            # formListObj.candidate = candidate
+                            # formListObj.category = category
+                            # formListObj.guideline = guideline
+                            # formListObj.FormID = obj.id
+                            # formListObj.save()
+
+
+                            contactObj =Contact()
+                            contactObj.type="Admin"
+                            contactObj.messageType="Form"
+                            contactObj.department="Registration"
+                            contactObj.message="Please fill following form:"
+                            contactObj.candidate = candidate
+                            contactObj.save()
+
+
 
             
         return redirect('training:event_')

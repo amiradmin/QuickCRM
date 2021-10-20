@@ -44,7 +44,7 @@ class FormList(models.Model):
 
 class TwiEnrolmentForm(models.Model):
     eventID = models.CharField(max_length=256, null=True, blank=True )
-    candidate = models.ForeignKey(TesCandidate,related_name="candidate", on_delete=models.CASCADE)
+    candidate = models.ForeignKey(TesCandidate,related_name="candidate", on_delete=models.CASCADE, null=True, blank=True )
     twiCandidateID = models.CharField(max_length=1024, null=True, blank=True )
     eventName = models.CharField(max_length=1024, null=True, blank=True )
     eventDate = models.DateField( null=True, blank=True )
