@@ -10,6 +10,7 @@ from training.models import CandidateProfile, Lecturer,Event,TesCandidate
 from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
 from django.contrib.auth.mixins import LoginRequiredMixin
+from contacts.models import Contact
 import datetime
 
 # Create your views here.
@@ -91,10 +92,12 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         print(self.kwargs['id'])
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         events = Event.objects.filter(candidate = candidate)
+        contact = Contact.objects.filter(candidate=candidate).order_by("-id")
         now = datetime.datetime.now()
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
+        context['contact'] = contact
         return context
 
 

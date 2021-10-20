@@ -61,6 +61,17 @@ class MessageDetailView(LoginRequiredMixin,TemplateView):
     def get_context_data(self,id):
         context = super(MessageDetailView, self).get_context_data()
         message = Contact.objects.filter(id=self.kwargs['id']).first()
+        message.archived=True
+        message.save()
         context['message'] = message
 
+        return context
+
+class AdminArchivedView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "contact/admin_message_list.html"
+
+    def get_context_data(self):
+        context = super(AdminArchivedView, self).get_context_data()
+        message_list = Contact.objects.filter(archived=True).order_by('-id')
+        context['message_list'] = message_list
         return context

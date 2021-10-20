@@ -42,6 +42,7 @@
     <textarea class="form-control" name="message" placeholder="Leave a comment here" id="floatingTextarea" style="height: 300px;">{{message.message}}</textarea>
     <label for="floatingTextarea">Message</label>
 </div>
+                                        {{message.created_at|date:"m/d/Y H:i"}}
 
 
 

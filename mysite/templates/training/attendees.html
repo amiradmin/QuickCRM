@@ -97,7 +97,7 @@
                                 <div class="page-title-right">
                             
                                 </div>
-                                <h4 class="page-title">Attendees for event : {{eventName}}</h4>
+                                <h4 class="page-title">Attendees for event : {{event.name}}</h4>
                                 
                             </div>
                         </div>
@@ -111,20 +111,26 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="header-title"> </h4>
-  
-                                 
+
 
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
                                        
                                         </div> <!-- end preview-->
                                         <br>
-                                        <br>
+
                                         
                             
                                <form method="POST">
                            
-                              {% csrf_token %} 
+                              {% csrf_token %}
+                                     <select name="catID" class="form-select mb-3">
+
+      {% for item in event.formCategory.all %}
+    <option value="{{item.id}}">{{item.name}}</option>
+{% endfor %}
+</select>
+
                                   <input type="hidden" id="input1"  name="temp" class="form-control" id="validationCustom04" placeholder="country" >
                                   <input type="text" name="candidates" data-options='{{can_list}}'                                      
                                       

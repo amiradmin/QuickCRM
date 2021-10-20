@@ -12,6 +12,7 @@ from django.http import JsonResponse
 from  authorization.sidebarmixin import SidebarMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from contacts.models import Contact
 # Create your views here.
 
 
@@ -20,7 +21,6 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(CandidatelListView, self).get_context_data()
-        # can_list = TesCandidate.objects.all().order_by("-id")
         can_list = TesCandidate.objects.filter(user__groups__name__in=['candidates',] )
         context['can_list'] = can_list
 
@@ -465,12 +465,13 @@ class LecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
 class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/attendees.html"
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self,id, *args, **kwargs):
         selectedList = []
         context = super(NewAttendeesView, self).get_context_data()
         event = Event.objects.filter(id=self.kwargs['id']).first()
         can_list = TesCandidate.objects.order_by('first_name')
         print("Here Amir")
+        print(event)
         selCan='{'
      
         
@@ -512,7 +513,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
         
         context['selectedList'] = values
         context['can_list'] = can
-        context['eventName'] = event.name
+        context['event'] = event
 
         return context
     
@@ -524,7 +525,8 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
             event = Event.objects.filter(id=self.kwargs['id'] ).first()
             event.candidate.clear()
             canList =request.POST['temp']
-            
+            catID =request.POST['catID']
+
             if canList :
                 for item in canList.split('--'):
                     can_id =item.split(' ')[0]
@@ -533,8 +535,14 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                     if candidate :
                         event.candidate.add(candidate)
                     # event.save()
-                    
-                
+                    contactObj =Contact()
+                    contactObj.type="Admin"
+                    contactObj.messageType="Form"
+                    contactObj.department="Registration"
+                    contactObj.message="Please fill following form:"
+                    contactObj.candidate = candidate
+                    contactObj.save()
+
             
         return redirect('training:event_')
 
