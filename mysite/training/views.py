@@ -526,53 +526,58 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
             canList =request.POST['temp']
             catID = request.POST['catID']
             category = Category.objects.filter(id=catID).first()
-            print(category.form.all)
+            guidelineID = 1
+            guideline = Guideline.objects.filter(id=guidelineID).first()
+
 
 
             if canList :
                 for item in canList.split('--'):
                     can_id =item.split(' ')[0]
-                    print('Now: '+can_id)
+
                     candidate = TesCandidate.objects.filter(tes_candidate_id__exact =can_id).first()
                     if candidate :
                         event.candidate.add(candidate)
                     # event.save()
 
-                        print('Test HEre')
+
                         for item in category.form.all():
                             print("======")
                             print(item.name)
                             print("======")
+                            twiEnrolForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
+
                             if item.name == 'TWI Enrolment Form':
-                                obj = TwiEnrolmentForm()
-                                print("Inside")
-                                print(candidate)
-                                obj.candidiate = candidate
-                                obj.firstName = candidate.first_name
-                                obj.middleName = candidate.middleName
-                                obj.lastName = candidate.last_name
-                                obj.event=event
-                                obj.save()
-                                print(obj.id)
+                                if not twiEnrolForm:
+                                    obj = TwiEnrolmentForm()
+                                    print("Inside")
+                                    print(candidate.first_name)
+                                    obj.candidate = candidate
+                                    obj.firstName = candidate.first_name
+                                    obj.middleName = candidate.middleName
+                                    obj.lastName = candidate.last_name
+                                    obj.event=event
+                                    obj.save()
+                                    print(obj.id)
 
 
-                            # formListObj = FormList()
-                            # formListObj.name = obj.__class__.__name__
-                            # formListObj.event = event
-                            # formListObj.candidate = candidate
-                            # formListObj.category = category
-                            # formListObj.guideline = guideline
-                            # formListObj.FormID = obj.id
-                            # formListObj.save()
+                                    formListObj = FormList()
+                                    formListObj.name = obj.__class__.__name__
+                                    formListObj.event = event
+                                    formListObj.candidate = candidate
+                                    formListObj.category = category
+                                    formListObj.guideline = guideline
+                                    formListObj.FormID = obj.id
+                                    formListObj.save()
 
 
-                            contactObj =Contact()
-                            contactObj.type="Admin"
-                            contactObj.messageType="Form"
-                            contactObj.department="Registration"
-                            contactObj.message="Please fill following form:"
-                            contactObj.candidate = candidate
-                            contactObj.save()
+                                    contactObj =Contact()
+                                    contactObj.type="Admin"
+                                    contactObj.messageType="Form"
+                                    contactObj.department="Registration"
+                                    contactObj.message="Please fill following form:" + formListObj.name
+                                    contactObj.candidate = candidate
+                                    contactObj.save()
 
 
 

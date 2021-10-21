@@ -94,8 +94,8 @@ admin.site.register(PSL30InitialForm,PSL30InitialFormAdmin)
 
 class TwiEnrolmentFormAdmin(admin.ModelAdmin):
     
-    list_display = ['id','twiCandidateID','eventID','firstName','lastName','confirmation','uploadedForm','uploadedSign','created_at','updated_at']
-    list_filter =['id','twiCandidateID','eventID','firstName','lastName','created_at','updated_at']
+    list_display = ['id','candidate','eventID','firstName','lastName','confirmation','uploadedForm','uploadedSign','created_at','updated_at']
+    list_filter =['id','candidate','eventID','firstName','lastName','created_at','updated_at']
 
 admin.site.register(TwiEnrolmentForm,TwiEnrolmentFormAdmin)
 
