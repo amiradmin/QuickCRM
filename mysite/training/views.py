@@ -576,6 +576,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                                     contactObj.messageType="Form"
                                     contactObj.department="Registration"
                                     contactObj.message="Please fill following form:" + formListObj.name
+                                    contactObj.objID=obj.id
                                     contactObj.candidate = candidate
                                     contactObj.save()
 

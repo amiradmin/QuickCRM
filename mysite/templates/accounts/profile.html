@@ -96,17 +96,32 @@
 
                                     <div style="max-height: 230px;" data-simplebar>
                                         <!-- item-->
-                                        {% for item in contact %}
-                                        <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                             {% for item in contact %}
+                                        {% if item.messageType == "Form" %}
+                                        <a href="{% if item.objID %}{% url 'forms:updatetwienroment_' id=item.objID %}{% endif%}" class="dropdown-item notify-item">
                                             <div class="notify-icon bg-primary">
-                                              {% if item.messageType == "Form" %}<img style="height:40px;" src="{% static 'assets/images/users/avatar-2.jpg'%}" class="img-fluid rounded-circle" alt="" />
-                                                {% else %}<i style="font-size:24px;" class="mdi mdi-email-outline"></i>{% endif %}
+                                              <img style="height:40px;" src="{% static 'assets/images/users/avatar-2.jpg'%}" class="img-fluid rounded-circle" alt="" />
+
                                             </div>
                                             <p class="notify-details">{{item.message}}
                                                 <small class="text-muted">{{item.created_at|date:"m/d/Y H:i"}}</small>
                                             </p>
                                         </a>
+                                        {% else %}
+                                       <a href="{% url 'contacts:messagedetails_' id=item.id %}" class="dropdown-item notify-item">
+                                            <div class="notify-icon bg-primary">
+                                         <i style="font-size:24px;" class="mdi mdi-email-outline"></i>
+                                            </div>
+                                            <p class="notify-details">{{item.message}}
+                                                <small class="text-muted">{{item.created_at|date:"m/d/Y H:i"}}</small>
+                                            </p>
+                                        </a>
+                                        {% endif %}
                                         {% endfor %}
+
+
+
+
 
 
                                         <!-- item-->
@@ -188,7 +203,7 @@
                                 <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                                     aria-expanded="false">
                                     <span class="account-user-avatar">
-                                        <img src="{% static 'assets/images/users/avatar-1.jpg'%}" alt="user-image" class="rounded-circle">
+                                        <img src="{% if candidate.photo %}{{candidate.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="user-image" class="rounded-circle">
                                     </span>
                                     <span>
                                         <span style="padding:8px 0;" class="account-user-name">{% if user.is_authenticated %}
