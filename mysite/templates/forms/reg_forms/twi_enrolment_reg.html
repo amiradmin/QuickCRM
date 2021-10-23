@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
- 
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"></script>
@@ -13,8 +13,8 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-body">
-                                     
-                 
+
+
 
                                         <div class="tab-content">
 
@@ -257,9 +257,9 @@ body{padding:0px; margin:0px;  }
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaJSAPI.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
 
-<div id="formviewer" style=" overflow: hidden;">
- <form method="POST">                       
-{% csrf_token %}    
+<div id="formviewer" style=" overflow: hidden;overflow-x: auto;">
+ <form method="POST">
+{% csrf_token %}
 {{id}}
 <input type="hidden" value="{{candidate.id}} " value="{{id}}" name="mainCanID"/>
 <input type="hidden" value="{{event.id}} " value=""  name="eventID"/>
@@ -268,7 +268,7 @@ body{padding:0px; margin:0px;  }
 <div id="overlay"></div>
 
 <div id="contentContainer">
-<div id="page1" style="width: 935px; height: 1210px; margin-top:20px;" class="page">
+<div id="page1" style="width: 935px; height: 1210px; margin-top:20px;overflow-x: auto;" class="page">
 <div class="page-inner" style="width: 935px; height: 1210px;">
 
 <div id="p1" class="pageArea" style="overflow: hidden; position: relative; width: 935px; height: 1210px; margin-top:auto; margin-left:auto; margin-right:auto; background-color: white;">
@@ -859,7 +859,7 @@ function checkOver(i) {
 <input id="form17_1" type="text" tabindex="17" value="" data-objref="2126 0 R" title="Permanent private address [3]" data-field-name="Permanent private address 3"/>
 <input id="form18_1" name="form18_1" type="text" tabindex="18" value="{{candidate.postal_code}}" data-objref="2127 0 R" title="Postcode" data-field-name="Postcode"  >
 <input id="form19_1" name="form19_1" type="text" tabindex="19" value="" data-objref="2128 0 R" title="Car Reg. No" data-field-name="Car Reg No"/>
-<input id="form20_1" name="form20_1" type="text" tabindex="20" value="{{candidate.contact_number}}" data-objref="2129 0 R" title="Private Tel" data-field-name="Private Tel"  /> 
+<input id="form20_1" name="form20_1" type="text" tabindex="20" value="{{candidate.contact_number}}" data-objref="2129 0 R" title="Private Tel" data-field-name="Private Tel"  />
 <input id="form21_1" name="form21_1" type="text" tabindex="21" value="" data-objref="2130 0 R" title="Tel" data-field-name="Tel"  >
 <input id="form22_1" name="form22_1" type="text" tabindex="22" value="{{candidate.email}}" data-objref="2131 0 R" title="E-mail" data-field-name="Email"  >
 <input id="form23_1" name="form23_1" type="checkbox" tabindex="23" data-objref="2132 0 R" data-field-name="Check Box15" imageName="{% static 'assets/forms/Jaeger_TOFDL2/1/form/2132 0 R' %}"  imagesT="110100"/>
@@ -2278,7 +2278,7 @@ function checkOver(i) {
                 <a href="{% if candidate %}{% url 'forms:uploadform_' id=candidate.id %}{% endif %}" class="aLink"  id="cmd">Upload </a>
                                 <button name="enrolment" class="BUTTON_MZQ" style="height:34px;" type="submit">Submit</button>
                 <button class="BUTTON_MZQ" onClick="printFunction()" style="height:34px;" id="cmd">Print</button>
-                          </div> 
+                          </div>
 </form>
 </div>
 
@@ -2303,42 +2303,42 @@ JVBERi0xLjYNJeLjz9MNCjE5NDIgMCBvYmoNPDwvTGluZWFyaXplZCAxL0wgOTkyMTE4L08gMTk0NS9F
 </script>
 <script>
   function myFunVenue(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('venue')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
-  }  
-  
+  }
+
   function examType(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('examTy')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
-  }  
+  }
   function examBody(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('examBo')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
-  } 
+  }
   function productName(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('proName')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
-  }  
+  }
   function expName(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('exName')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
   }
- 
+
   function myFun(checkbox) {
    var checkBox = document.getElementById("form50_1");
    var checkBoxCompany = document.getElementById("form51_1");
@@ -2356,7 +2356,7 @@ JVBERi0xLjYNJeLjz9MNCjE5NDIgMCBvYmoNPDwvTGluZWFyaXplZCAxL0wgOTkyMTE4L08gMTk0NS9F
         document.getElementById("form43_1").required = false;
 
         form44_1.style.backgroundColor = "white";
-        document.getElementById("form44_1").required = false;    
+        document.getElementById("form44_1").required = false;
 
         form45_1.style.backgroundColor = "white";
         document.getElementById("form45_1").required = false;
@@ -2378,18 +2378,18 @@ function myFunction() {
   var form44_1 = document.getElementById("form44_1");
   var form45_1 = document.getElementById("form45_1");
   var form47_1 = document.getElementById("form47_1");
-  
-  
- 
+
+
+
   if (checkBox.checked == true){
     form40_1.style.backgroundColor = "yellow";
     document.getElementById("form40_1").required = true;
 
     form43_1.style.backgroundColor = "yellow";
     document.getElementById("form43_1").required = true;
-    
+
     form44_1.style.backgroundColor = "yellow";
-    document.getElementById("form44_1").required = true;    
+    document.getElementById("form44_1").required = true;
 
     form45_1.style.backgroundColor = "yellow";
     document.getElementById("form45_1").required = true;
@@ -2398,14 +2398,14 @@ function myFunction() {
     document.getElementById("form47_1").required = true;
 
     checkBoxSelf.checked =  false
-  } 
+  }
 }
 
 
 </script>
     <script>
-      function printFunction() { 
-        window.print(); 
+      function printFunction() {
+        window.print();
       }
     </script>
 

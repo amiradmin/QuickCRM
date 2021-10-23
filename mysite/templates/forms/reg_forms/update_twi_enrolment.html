@@ -280,7 +280,7 @@ body{padding:0px; margin:0px;  }
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaJSAPI.js' %}"></script>
 <script type="text/javascript" src="{% static 'assets/forms/Jaeger_TOFDL2js/EcmaParser.js' %}"></script>
 
-<div id="formviewer" style=" overflow: hidden;">
+<div id="formviewer" style=" overflow: hidden;overflow-x: auto;">
     <form method="POST" name="formvalidate" onsubmit="return validate();">
         {% csrf_token %}
 
@@ -294,7 +294,7 @@ body{padding:0px; margin:0px;  }
         <div id="overlay"></div>
 
         <div id="contentContainer">
-            <div id="page1" style="width: 935px; height: 1210px; margin-top:20px;" class="page">
+            <div id="page1" style="width: 935px; height: 1210px; margin-top:20px;overflow-x: auto;" class="page">
                 <div class="page-inner" style="width: 935px; height: 1210px;">
 
                     <div id="p1" class="pageArea"
@@ -2802,42 +2802,42 @@ function checkOver(i) {
 
 <script>
   function myFunVenue(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('venue')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
-  }  
-  
+  }
+
   function examType(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('examTy')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
-  }  
+  }
   function examBody(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('examBo')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
-  } 
+  }
   function productName(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('proName')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
-  }  
+  }
   function expName(checkbox) {
-    
+
     var checkboxes = document.getElementsByName('exName')
     checkboxes.forEach((item) => {
       if (item !== checkbox) item.checked =  false
     })
   }
- 
+
   function myFun(checkbox) {
    var checkBox = document.getElementById("form50_1");
    var checkBoxCompany = document.getElementById("form51_1");
@@ -2855,7 +2855,7 @@ function checkOver(i) {
         document.getElementById("form43_1").  = false;
 
         form44_1.style.backgroundColor = "white";
-        document.getElementById("form44_1").  = false;    
+        document.getElementById("form44_1").  = false;
 
         form45_1.style.backgroundColor = "white";
         document.getElementById("form45_1").  = false;
@@ -2878,18 +2878,18 @@ function myFunction() {
   var form44_1 = document.getElementById("form44_1");
   var form45_1 = document.getElementById("form45_1");
   var form47_1 = document.getElementById("form47_1");
-  
-  
- 
+
+
+
   if (checkBox.checked == true){
     form40_1.style.backgroundColor = "yellow";
     document.getElementById("form40_1").  = true;
 
     form43_1.style.backgroundColor = "yellow";
     document.getElementById("form43_1").  = true;
-    
+
     form44_1.style.backgroundColor = "yellow";
-    document.getElementById("form44_1").  = true;    
+    document.getElementById("form44_1").  = true;
 
     form45_1.style.backgroundColor = "yellow";
     document.getElementById("form45_1").  = true;
@@ -2898,15 +2898,15 @@ function myFunction() {
     document.getElementById("form47_1").  = true;
 
     checkBoxSelf.checked =  false
-  } 
+  }
 }
 
 
 
 </script>
 <script>
-      function printFunction() { 
-        window.print(); 
+      function printFunction() {
+        window.print();
       }
 
 </script>
