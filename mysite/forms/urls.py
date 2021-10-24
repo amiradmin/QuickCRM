@@ -97,4 +97,7 @@ urlpatterns = [
     path('deletetwiexamfeed/<int:pk>/delete/', views.DeleteTWIExamFeedback.as_view(), name='deletetwiexamfeed_'),
     path('updatetwiexamfeed/<int:id>', views.UpdateTWIExamFeedback.as_view(), name='updatetwiexamfeed_'),
     path('viewtwiexamfeed/<int:id>', views.ViewTWIExamFeedback.as_view(), name='viewtwiexamfeed_'),
+
+    path('deletepsl3logexp/<int:pk>/delete/', views.DeletePSL30LogExperienceForm.as_view(), name='deletepsl3logexp_'),
+    path('updatepsl3logexp/<int:id>', views.UpdatePSL30LogExperienceForm.as_view(), name='updatepsl3logexp_'),
 ]
