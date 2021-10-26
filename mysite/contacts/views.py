@@ -1,10 +1,13 @@
 from django.shortcuts import render,redirect
 from contacts.models import Contact
 from django.views.generic import View,TemplateView
-from training.models import TesCandidate
+from training.models import TesCandidate,Event
 from django.contrib.auth.mixins import LoginRequiredMixin
 from contacts.models import Contact
 from  authorization.sidebarmixin import SidebarMixin
+from django.db.models import Q
+import datetime
+
 # Create your views here.
 
 class NewContactView(LoginRequiredMixin,TemplateView):
@@ -29,10 +32,20 @@ class NewContactView(LoginRequiredMixin,TemplateView):
 class MessageListView(LoginRequiredMixin,TemplateView):
     template_name = "contact/message_list.html"
 
-    def get_context_data(self):
+    def get_context_data(self,id):
         context = super(MessageListView, self).get_context_data()
-        candidate = TesCandidate.objects.filter(id=1054237).first()
-        message_list = Contact.objects.filter(candidate=candidate )
+
+        candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
+        events = Event.objects.filter(candidate = candidate)
+        contact = Contact.objects.filter(candidate=candidate).order_by("-id")
+        contactRead = Contact.objects.filter(Q(candidate=candidate)|Q(readFlag=True)).count()
+        message_list = Contact.objects.filter(candidate=candidate)
+        now = datetime.datetime.now()
+        context['candidate'] = candidate
+        context['events'] = events
+        context['now'] = now
+        context['contact'] = contact
+        context['contactRead'] = contactRead
         context['message_list'] = message_list
 
         return context

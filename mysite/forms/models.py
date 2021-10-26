@@ -212,8 +212,8 @@ class PSL30LogExp(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.fullName
+    # def __str__(self):
+    #     return self.candidate.first_name
 
 
 class PSL30InitialForm(models.Model):

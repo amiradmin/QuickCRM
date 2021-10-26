@@ -6,6 +6,7 @@ class Contact(models.Model):
     MESSAGE_TYPE_CHOICES = (('Form', 'Form'), ('Message', 'Message'))
     candidate = models.ForeignKey(TesCandidate, on_delete=models.CASCADE, null=True, blank=True)
     department = models.CharField(max_length=256, null=True, blank=True)
+    formName = models.CharField(default=None,max_length=256, null=True, blank=True)
     message = models.CharField(max_length=4092, null=True, blank=True)
     type = models.CharField(choices=TYPE_CHOICES,max_length=10, null=True, blank=True)
     objID = models.IntegerField( null=True, blank=True)
@@ -16,5 +17,5 @@ class Contact(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.candidate.first_name
+    # def __str__(self):
+    #     return self.candidate.first_name

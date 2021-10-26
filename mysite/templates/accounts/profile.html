@@ -78,8 +78,11 @@
 
                             <li class="dropdown notification-list">
                                 <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+
                                     <i class="dripicons-bell noti-icon"></i>
+                                  {% if contactRead > 0 %}
                                     <span class="noti-icon-badge"></span>
+                                       {% endif %}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
 
@@ -98,7 +101,7 @@
                                         <!-- item-->
                                              {% for item in contact %}
                                         {% if item.messageType == "Form" %}
-                                        <a href="{% if item.objID %}{% url 'forms:updatetwienroment_' id=item.objID %}{% endif%}" class="dropdown-item notify-item">
+                                        <a href="{% if item.objID and item.formName == 'TwiEnrolmentForm' %}{% url 'forms:updatetwienroment_' id=item.objID %}{% elif item.objID and item.formName == 'PSL30LogExp' %}{% url 'forms:msgupdatepsl3logexp_' id=item.objID msgID=item.id %}{% endif%}" class="dropdown-item notify-item">
                                             <div class="notify-icon bg-primary">
                                               <img style="height:40px;" src="{% static 'assets/images/users/avatar-2.jpg'%}" class="img-fluid rounded-circle" alt="" />
 
@@ -119,20 +122,12 @@
                                         {% endif %}
                                         {% endfor %}
 
-
-
-
-
-
                                         <!-- item-->
-
-
-
 
                                     </div>
 
                                     <!-- All-->
-                                    <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                                    <a href="{% url 'contacts:messagelist_' id=candidate.id %}" class="dropdown-item text-center text-primary notify-item notify-all">
                                         View All
                                     </a>
 
@@ -220,7 +215,7 @@
                                     </div>
 
                                     <!-- item-->
-                                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <a href="{% url 'accounting:canprofile_' id=candidate.id %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle me-1"></i>
                                         <span>My Account</span>
                                     </a>
