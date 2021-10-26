@@ -100,4 +100,5 @@ urlpatterns = [
 
     path('deletepsl3logexp/<int:pk>/delete/', views.DeletePSL30LogExperienceForm.as_view(), name='deletepsl3logexp_'),
     path('updatepsl3logexp/<int:id>', views.UpdatePSL30LogExperienceForm.as_view(), name='updatepsl3logexp_'),
+    path('viewpsl3logexp/<int:id>', views.ViewPSL30LogExperienceForm.as_view(), name='viewpsl3logexp_'),
 ]

@@ -64,7 +64,7 @@
 
             <td><p  >{{item.event}} </p></td>
             <td><p  >{{item.event.start_date|date:"m/d/Y"}} </p></td>
-            <td><a  href=""><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+            <td><a  href="{% url 'forms:viewpsl3logexp_' id=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'forms:updatepsl3logexp_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
             <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'forms:deletepsl3logexp_' pk=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
 

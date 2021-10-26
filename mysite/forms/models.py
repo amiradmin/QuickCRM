@@ -198,6 +198,7 @@ class PSL30LogExp(models.Model):
     fullName = models.CharField(max_length=1024, null=True, blank=True )
     pslNumber = models.CharField(max_length=1024, null=True, blank=True )
     ndtMethod = models.CharField(max_length=1024, null=True, blank=True )
+    totalHours = models.IntegerField(max_length=1024, null=True, blank=True )
     employingOrganisation = models.CharField(max_length=1024, null=True, blank=True )
     reviewerName = models.CharField(max_length=1024, null=True, blank=True )
     finalEmployerDeclarationName = models.CharField(max_length=1024, null=True, blank=True )

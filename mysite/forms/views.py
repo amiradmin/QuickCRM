@@ -1724,14 +1724,14 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 canID = request.POST['canID']
-                eventID = request.POST['eventID']
                 # eventID = request.POST['eventID']
-                print("Form")
+                # eventID = request.POST['eventID']
+                print("Form Today")
                 candidate = TesCandidate.objects.filter(id=canID).first()
-                event = Event.objects.filter(id=eventID).first()
-                pslObj = PSL30LogExp()
-                pslObj.candidate =candidate
-                pslObj.event =event
+                # event = Event.objects.filter(id=eventID).first()
+                pslObj = PSL30LogExp.objects.filter(id=self.kwargs['id']).first()
+                # pslObj.candidate =candidate
+                # pslObj.event =event
                 pslObj.fullName =request.POST['canName']
                 pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
                 pslObj.dateTo = datetime.datetime.strptime(request.POST['dateTo'], '%m/%d/%Y')
@@ -1933,6 +1933,16 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
 
 
                 return redirect('forms:allpslform_')
+
+class ViewPSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView):
+    template_name = "forms/reg_forms/update_PSL_30_log_exper.html"
+
+    def get_context_data(self,id):
+        context = super(ViewPSL30LogExperienceForm, self).get_context_data()
+        form = PSL30LogExp.objects.filter(id=self.kwargs['id']).first()
+        context['form'] = form
+
+        return context
 
 
 class AllFormsList(SidebarMixin,TemplateView):
