@@ -210,7 +210,9 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                                           <form method="POST" onsubmit="return topFormValidate();">
+       <form method="POST" onsubmit="return topFormValidate();">
+
+
                         {% csrf_token %}
                              <br>
 
@@ -276,7 +278,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 
 
                         <div class="mb-3 col-md-12 text-center">
-                            <button class="BUTTON_MZQ" type="submit">Generate</button>
+                            <button class="BUTTON_MZQ" name="selector" type="submit">Generate</button>
                         </div>
 
 
@@ -292,6 +294,8 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
                                         {%  csrf_token %}
 <input type="hidden" name="canID" value="{{candidate.id}}" />
 <input type="hidden" name="eventID" value="{{event.id}}" />
+<input type="hidden" name="categoryID" value="{{category.id}}" />
+<input type="hidden" name="guidelineID" value="{{guideline.id}}" />
 <div style="position:relative;margin:auto;top:20px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
 <div style="position:absolute;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_initial/background01.jpg' %}" width=595 height=841></div>
@@ -423,14 +427,14 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:274.56px;top:249.52px" class="cls_009"><span class="cls_009">when issued, is to be sent.</span><br><input name="pslCerAddres"  style="margin-left:0px;width:235px;height:50px;" /></div>
 <div style="position:absolute;left:42.60px;top:324.64px" class="cls_019"><span class="cls_019">CANDIDATE’S SIGNATURE AUTHORISING CERTIFICATE TO BE SENT TO</span></div>
 <div style="position:absolute;left:42.60px;top:336.88px" class="cls_019"><span class="cls_019">ABOVE ADDRESS:</span></div>
-<div style="position:absolute;left:42.60px;top:358.12px" class="cls_009"><span class="cls_009">Telephone</span><input name="phone"  style="margin-left:50px;width:190px;" /></div>
+<div style="position:absolute;left:42.60px;top:358.12px" class="cls_009"><span class="cls_009">Telephone</span><input name="phone"  value="{{candidate.contact_number}}" style="margin-left:50px;width:190px;" /></div>
 <div style="position:absolute;left:338.52px;top:358.12px" class="cls_009"><span class="cls_009">PCN number:</span><input name="pslNumber"  style="margin-left:30px;width:90px;" /></div>
 <div style="position:absolute;left:42.60px;top:372.36px" class="cls_009"><span class="cls_009">number include</span></div>
 <div style="position:absolute;left:42.60px;top:382.60px" class="cls_009"><span class="cls_009">area</span></div>
 <div style="position:absolute;left:42.60px;top:394.84px" class="cls_009"><span class="cls_009">code/internation</span></div>
 <div style="position:absolute;left:42.60px;top:406.96px" class="cls_009"><span class="cls_009">al area code:</span></div>
-<div style="position:absolute;left:42.60px;top:421.12px" class="cls_009"><span class="cls_009">Personal email</span><input name="email"  style="margin-left:35px;width:190px;" /></div>
-<div style="position:absolute;left:338.52px;top:421.12px" class="cls_009"><span class="cls_009">Date of birth</span><input name="birthDay"  style="margin-left:30px;width:90px;" /></div>
+<div style="position:absolute;left:42.60px;top:421.12px" class="cls_009"><span class="cls_009">Personal email</span><input name="email"  value="{{candidate.email}}" style="margin-left:35px;width:190px;" /></div>
+<div style="position:absolute;left:338.52px;top:421.12px" class="cls_009"><span class="cls_009">Date of birth</span><input name="birthDay"  value="{{candidate.birth_date}}" style="margin-left:30px;width:90px;" /></div>
 <div style="position:absolute;left:42.60px;top:435.36px" class="cls_009"><span class="cls_009">address (for issue</span></div>
 <div style="position:absolute;left:338.52px;top:433.36px" class="cls_009"><span class="cls_009">(dd/mm/yyyy):</span></div>
 <div style="position:absolute;left:42.60px;top:445.48px" class="cls_009"><span class="cls_009">of e-certificate):</span></div>

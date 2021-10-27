@@ -1328,29 +1328,31 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                canID = request.POST['canID']
                 eventID = request.POST['eventID']
-                # eventID = request.POST['eventID']
-                print("Form")
-                print(canID)
-                print(eventID)
-                candidate = TesCandidate.objects.filter(id=canID).first()
-                event = Event.objects.filter(id=eventID).first()
-                event.candidate.add(candidate)
+                categoryID = request.POST['categoryID']
+                print("===> here")
+                guidelineID = request.POST['guidelineID']
+                print(guidelineID)
+                category = Category.objects.filter(id =categoryID).first()
+                guideline = Guideline.objects.filter(id =guidelineID).first()
+                event = Event.objects.filter(id = eventID).first()
+                candidate = TesCandidate.objects.filter(id=request.POST['canID']).first()
 
                 mainObj =PSL57A()
                 mainObj.candidate =candidate
                 mainObj.event =event
+                mainObj.category =category
+                mainObj.guideline =guideline
                 mainObj.cerAddres =request.POST['cerAddres']
                 mainObj.pslCerAddres =request.POST['pslCerAddres']
                 mainObj.phone =request.POST['phone']
                 mainObj.pslNumber =request.POST['pslNumber']
                 mainObj.email =request.POST['email']
-                mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
+                mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
                 mainObj.currentEmploymentPosition =request.POST['currentEmploymentPosition']
                 mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
                 mainObj.preCerTraining =request.POST['preCerTraining']
-                mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
+                mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%m/%d/%Y')
                 # mainObj.preCerTraining = request.POST['preCerTraining']
 
                 if not request.POST.get('et', None) == None:
@@ -1400,6 +1402,9 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 formObj.name = "PSL-57A Initial exam application"
                 formObj.candidate = candidate
                 formObj.event = event
+                formObj.category = category
+                formObj.guideline = guideline
+
                 if not request.POST.get('comfirmation', None) == None:
                     formObj.status = True
 
@@ -1409,22 +1414,24 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
             elif 'selector' in request.POST:
-                print('Here')
+                print('Here SA')
                 # if request.FILES.get('file', False):
                 canID = request.POST['canID']
                 eventID = request.POST['eventID']
-                print(canID)
-                print(eventID)
-
+                guidelineID = request.POST['guidelineID']
+                categoryID = request.POST['categoryID']
+                print(guidelineID)
+                category = Category.objects.filter(id =categoryID).first()
+                guideline = Guideline.objects.filter(id =guidelineID).first()
+                event = Event.objects.filter(id = eventID).first()
                 candidate = TesCandidate.objects.filter(id=canID).first()
-                print(candidate.first_name)
-                event = Event.objects.filter(id=eventID).first()
-                self.candidateID = candidate.id
-                twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
+
                 context = super(PSL57AFOrmView, self).get_context_data()
                 context['candidate'] = candidate
                 context['event'] = event
-                context['twiEnrolmentForm'] = twiEnrolmentForm
+                context['guideline'] = guideline
+                context['category'] = category
+
 
             # return redirect('forms:jaegertofdl2_' ,context)
                 return render(request, 'forms/reg_forms/PSL-57A_Initial_exam_application.html', context)
