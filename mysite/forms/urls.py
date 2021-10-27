@@ -31,7 +31,8 @@ urlpatterns = [
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
     path('psl30log/', views.PSL30LogExperienceForm.as_view(), name='psl30log_'),
     path('bgasexpform/', views.BGASExperienceForm.as_view(), name='bgasexpform_'),
-    path('bgasinitailform/', views.BGASinitialForm.as_view(), name='bgasinitailform_'),
+
+
     path('formmap/', views.formMap.as_view(), name='formmap_'),
     path('formmapbyid/<slug:id>', views.FormMapByCatID.as_view(), name='formmapbyid_'),
     path('evensummary/<int:id>', views.EventSummary.as_view(), name='evensummary_'),
@@ -103,6 +104,8 @@ urlpatterns = [
     path('viewpsl3logexp/<int:id>', views.ViewPSL30LogExperienceForm.as_view(), name='viewpsl3logexp_'),
     path('msgupdatepsl3logexp/<int:id>/<int:msgID>', views.MessagePSL30LogExperienceForm.as_view(), name='msgupdatepsl3logexp_'),
 
+    path('newpsl57A/', views.PSL57AFOrmView.as_view(), name='newpsl57A_'),
+    path('allpsl57A/', views.AllPSL57AFOrmView.as_view(), name='allpsl57A_'),
     path('updatepsl3logexp/<int:id>', views.UpdatePSL57AForm.as_view(), name='updatepsl3logexp_'),
 
 ]

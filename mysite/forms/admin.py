@@ -1,6 +1,6 @@
 from django.contrib import admin
 from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
-                          PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,VisionTest,TesFrmCandidate,
+                          PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,PSL57A,VisionTest,TesFrmCandidate,
                           TesFrmExaminationAttendance,TesLecFeedbackFrom,TesAttCandidate,TrainingAttendance,
                           TwiTrainingFeedback,TwiExamFeedback)
 
@@ -56,6 +56,12 @@ class PSL57BAdmin(admin.ModelAdmin):
     list_filter = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
 
 admin.site.register(PSL57B, PSL57BAdmin)
+
+class PSL57AAdmin(admin.ModelAdmin):
+    list_display = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
+    list_filter = ['id', 'event', 'candidate','category', 'created_at', 'updated_at']
+
+admin.site.register(PSL57A, PSL57AAdmin)
 
 class NDTCovid19Admin(admin.ModelAdmin):
     list_display = ['id', 'event', 'candidate','category','fillingDate', 'created_at', 'updated_at']

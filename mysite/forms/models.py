@@ -362,6 +362,80 @@ class empHistory(models.Model):
         return self.organisation
 
 
+class PSL57A(models.Model):
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Femail')
+        ]
+
+    event = models.ForeignKey(Event, related_name="event_psl_57a", on_delete=models.CASCADE)
+    candidate = models.ForeignKey(TesCandidate, related_name="candidate_psl_57a", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="category_psl_57a", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_psl_57a", on_delete=models.CASCADE)
+    contactMe = models.BooleanField(null=True, blank=True)
+    cerAddress = models.CharField(max_length=2048, null=True, blank=True )
+    pslCerAddress = models.CharField(max_length=2048, null=True, blank=True )
+    phone = models.CharField(max_length=256, null=True, blank=True )
+    email = models.EmailField( null=True, blank=True )
+    gender = models.CharField(max_length=1,choices=GENDER_CHOICES, null=True, blank=True)
+    pclNumber = models.CharField(max_length=1024, null=True, blank=True )
+    birthDay = models.DateField(null=True, blank=True)
+    emphistory = models.ManyToManyField(empHistory, null=True, blank=True)
+    currentEmploymentDetails = models.CharField(max_length=1024, null=True, blank=True)
+    candidatePosition = models.CharField(max_length=512, null=True, blank=True)
+    employmentStatus  = models.CharField(max_length=512, null=True, blank=True)
+    examinationType   = models.CharField(max_length=512, null=True, blank=True)
+    trainingOrg   = models.CharField(max_length=512, null=True, blank=True)
+    dateOfCourse = models.DateField(null=True, blank=True)
+    iroductsIndustrySector = models.CharField(max_length=1024, null=True, blank=True)
+    NDTMethod    = models.CharField(max_length=256, null=True, blank=True)
+    NDTLevel    = models.CharField(max_length=256, null=True, blank=True)
+    ifLevel3    = models.CharField(max_length=256, null=True, blank=True)
+    radiationSafety    = models.CharField(max_length=256, null=True, blank=True)
+    radiationProtectionSup    = models.CharField(max_length=256, null=True, blank=True)
+    categoriesOfCertification = models.CharField(max_length=256, null=True, blank=True)
+    preferredExaminationDateVenu = models.CharField(max_length=1024, null=True, blank=True)
+    claimDuration = models.CharField(max_length=256, null=True, blank=True)
+    verClaimAddress = models.CharField(max_length=1024, null=True, blank=True)
+    dateOfSign = models.DateField(null=True, blank=True)
+    sponsorName = models.CharField(max_length=256, null=True, blank=True)
+    sponsorCompany = models.CharField(max_length=256, null=True, blank=True)
+    sponsorPhone = models.CharField(max_length=256, null=True, blank=True)
+    sponsorSign = models.CharField(max_length=256, null=True, blank=True)
+    testCenterExamDate = models.DateField(null=True, blank=True)
+    testCenterVenue = models.CharField(max_length=256, null=True, blank=True)
+    testCenterExaminer = models.CharField(max_length=256, null=True, blank=True)
+    testCenterModerator = models.CharField(max_length=256, null=True, blank=True)
+    testCenterPaymentReceived = models.CharField(max_length=256, null=True, blank=True)
+    testCenterResultRef = models.CharField(max_length=256, null=True, blank=True)
+    testCenterExamCompleteColsed = models.CharField(max_length=256, null=True, blank=True)
+    nameAddressInvoice = models.CharField(max_length=1024, null=True, blank=True)
+    accommodation = models.CharField(max_length=1024, null=True, blank=True)
+    paymentMethod = models.CharField(max_length=1024, null=True, blank=True)
+    cheque = models.BooleanField(null=True, blank=True)
+    nameResponsible = models.CharField(max_length=256, null=True, blank=True)
+    companyOrderReference = models.CharField(max_length=1024, null=True, blank=True)
+    creditCardPayment = models.CharField(max_length=256, null=True, blank=True)
+    issueExpiryDates = models.DateField(null=True, blank=True)
+    NameOnCard = models.CharField(max_length=256, null=True, blank=True)
+    cardNumber = models.CharField(max_length=256, null=True, blank=True)
+    securityCode  = models.CharField(max_length=256, null=True, blank=True)
+    addressCreditCardHolder = models.CharField(max_length=256, null=True, blank=True)
+    debit = models.CharField(max_length=256, null=True, blank=True)
+
+
+
+
+
+    confirmation = models.BooleanField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.candidate.last_name
+
+
+
 class PSL57B(models.Model):
     GENDER_CHOICES = [
         ('M', 'Male'),

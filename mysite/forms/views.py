@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView
 from forms.models import ( Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,
                            PSL30InitialForm,NDT15AExperienceVerification, CurrentFormerCertification,
-                           ExperienceClaimed,NDTCovid19,PSL57B,empHistory,VisionTest,TesFrmExaminationAttendance,
+                           ExperienceClaimed,NDTCovid19,PSL57B,PSL57A,empHistory,VisionTest,TesFrmExaminationAttendance,
                             TesLecFeedbackFrom,TrainingAttendance,TwiTrainingFeedback,TwiExamFeedback
                            )
 from django.db.models import Count
@@ -1309,15 +1309,18 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
 
-class BGASinitialForm(SidebarMixin,LoginRequiredMixin,TemplateView):
+class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/reg_forms/PSL-57A_Initial_exam_application.html"
 
     def get_context_data(self):
-        context = super(BGASinitialForm, self).get_context_data()
-        candidates = TesCandidate.objects.all().order_by('first_name')
+        context = super(PSL57AFOrmView, self).get_context_data()
+        candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
         events = Event.objects.all()
+        categories = Category.objects.all()
+        guidelines = Guideline.objects.all()
 
-
+        context['categories'] = categories
+        context['guidelines'] = guidelines
         context['candidates'] = candidates
         context['events'] = events
         return context
@@ -1335,7 +1338,7 @@ class BGASinitialForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 event = Event.objects.filter(id=eventID).first()
                 event.candidate.add(candidate)
 
-                mainObj =PSL30InitialForm()
+                mainObj =PSL57A()
                 mainObj.candidate =candidate
                 mainObj.event =event
                 mainObj.cerAddres =request.POST['cerAddres']
@@ -1402,7 +1405,7 @@ class BGASinitialForm(SidebarMixin,LoginRequiredMixin,TemplateView):
 
                 formObj.save()
 
-                return redirect('forms:allpslinitialform_')
+                return redirect('forms:allpsl57A_')
 
 
             elif 'selector' in request.POST:
@@ -1418,13 +1421,24 @@ class BGASinitialForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 event = Event.objects.filter(id=eventID).first()
                 self.candidateID = candidate.id
                 twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
-                context = super(BGASinitialForm, self).get_context_data()
+                context = super(PSL57AFOrmView, self).get_context_data()
                 context['candidate'] = candidate
                 context['event'] = event
                 context['twiEnrolmentForm'] = twiEnrolmentForm
 
             # return redirect('forms:jaegertofdl2_' ,context)
                 return render(request, 'forms/reg_forms/PSL-57A_Initial_exam_application.html', context)
+
+
+class AllPSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "forms/all_psl_57a.html"
+
+    def get_context_data(self):
+        context = super(AllPSL57AFOrmView, self).get_context_data()
+        forms = PSL57A.objects.all()
+
+        context['forms'] = forms
+        return context
 
 
 class AllBGASinitialForms(SidebarMixin,LoginRequiredMixin,TemplateView):

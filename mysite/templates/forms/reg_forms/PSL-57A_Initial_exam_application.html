@@ -210,43 +210,80 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-body">
-                                        <form  method="POST"  >
-{% csrf_token %}
-<div class="row g-2">
-<div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Candidate</label>
-                                                    <select name="canID" id="inputState" class="form-select" >
-    <option value="{{candidate.id}} ">{{candidate.first_name}}  {{candidate.middleName}}   {{candidate.last_name}}</option>
-                        {% for item in candidates %}
-                            <option value="{{item.id}}">{{item.first_name}}  {{item.middleName}}  {{item.last_name}}</option>
-                        {% endfor %}
+                                                           <form method="POST" onsubmit="return topFormValidate();">
+                        {% csrf_token %}
+                             <br>
 
-                                                    </select>
- </div>
+<div  style="visibility:hidden; text-align:center;"><span style="width:300px;" id="topFormError" class="alert alert-danger"></span></div>
+                            <br>
+                            <br>
+                        <div class="row g-2">
 
-
-<div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Event</label>
-                                                    <select name="eventID" id="inputState" class="form-select" >
-                                                <option value="">{{event.name}}  </option>
-                                    {% for item in events %}
-                                        <option value="{{item.id}}">{{item.name}}</option>
+                            <div class="mb-3 col-md-6">
+                                <label for="inputState" class="form-label">Candidate</label>
+                                <select name="canID" id="canID" class="form-select">
+                                    <option value="{{candidate.id}} ">{{candidate.first_name}} {{candidate.middleName}}
+                                        {{candidate.last_name}}
+                                    </option>
+                                    {% for item in candidates %}
+                                    <option value="{{item.id}}">{{item.first_name}} {{item.middleName}}
+                                        {{item.last_name}}
+                                    </option>
                                     {% endfor %}
 
-                                                    </select>
- </div>
- </div>
-
-                          <div class="mb-3 col-md-12 text-center">
-                                <button class="BUTTON_MZQ" name="selector" type="submit">Generate</button>
-                                                    </div>
+                                </select>
+                                <div><span id="mainCanIDError" class="text-danger"></span></div>
+                            </div>
 
 
+                            <div class="mb-3 col-md-6">
+                                <label for="inputState" class="form-label">Event</label>
+                                <select name="eventID" id="eventID" class="form-select">
+                                    <option value="">{{event.name}}</option>
+                                    {% for item in events %}
+                                    <option value="{{item.id}}">{{item.name}}</option>
+                                    {% endfor %}
 
-</div>
-</div>
-</div>
-</div>
+                                </select>
+                            </div>
+                            <div><span id="eventIDError" class="text-danger"></span></div>
+                        </div>
+
+
+                        <div class="row g-2">
+                            <div class="mb-3 col-md-6">
+                                <label for="inputState" class="form-label">Category</label>
+                                <select name="categoryID" id="inputState" class="form-select">
+                                    <option value="{{category.id}} ">{{category.name}}</option>
+                                    {% for item in categories %}
+                                    <option value="{{item.id}}">{{item.name}}</option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-6">
+                                <label for="inputState" class="form-label">Guideline Form</label>
+                                <select name="guidelineID" id="inputState2" class="form-select">
+                                    <option value="{{guideline.id}} ">{{guideline.name}}</option>
+                                    {% for item in guidelines %}
+                                    <option value="{{item.id}}">{{item.name}}</option>
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3 col-md-12 text-center">
+                            <button class="BUTTON_MZQ" type="submit">Generate</button>
+                        </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </form>
                                       
