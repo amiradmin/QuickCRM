@@ -1,0 +1,813 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+.drop-zone {
+  max-width: 100%%;
+  height: 300px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  color: #cccccc;
+  border: 4px dashed #009578;
+  border-radius: 10px;
+}
+
+.drop-zone--over {
+  border-style: solid;
+}
+
+.drop-zone__input {
+  display: none;
+}
+
+.drop-zone__thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #cccccc;
+  background-size: cover;
+  position: relative;
+}
+
+.drop-zone__thumb::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  text-align: center;
+}
+
+
+.BUTTON_MZQ {
+   background: #3D94F6;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 3px 15px;
+   margin:20px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+
+.BUTTON_MZQ:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+}
+
+.aLink {
+   background:#337FED ;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 16px 15px;
+   margin:5px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+.aLink:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+   color:white;
+}
+
+
+
+span.cls_004{font-family:"Calibri Bold",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_004{font-family:"Calibri Bold",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_005{font-family:"Calibri Bold",serif;font-size:9.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_005{font-family:"Calibri Bold",serif;font-size:9.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_006{font-family:"Calibri",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_006{font-family:"Calibri",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_026{font-family:"Calibri",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: underline}
+div.cls_026{font-family:"Calibri",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_008{font-family:"Calibri Bold",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_008{font-family:"Calibri Bold",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_009{font-family:"Calibri",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_009{font-family:"Calibri",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_002{font-family:"Calibri Bold",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_002{font-family:"Calibri Bold",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_027{font-family:"Calibri Bold",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
+div.cls_027{font-family:"Calibri Bold",serif;font-size:11.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_028{font-family:"Calibri Bold",serif;font-size:7.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
+div.cls_028{font-family:"Calibri Bold",serif;font-size:7.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_011{font-family:Arial,serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_011{font-family:Arial,serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_012{font-family:Arial,serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_012{font-family:Arial,serif;font-size:11.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_013{font-family:"Calibri Bold",serif;font-size:11.1px;color:rgb(255,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_013{font-family:"Calibri Bold",serif;font-size:11.1px;color:rgb(255,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_014{font-family:"Calibri",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_014{font-family:"Calibri",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_015{font-family:"Calibri Bold",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_015{font-family:"Calibri Bold",serif;font-size:8.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_017{font-family:"Calibri Bold",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_017{font-family:"Calibri Bold",serif;font-size:12.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_016{font-family:"Calibri",serif;font-size:6.5px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_016{font-family:"Calibri",serif;font-size:6.5px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_018{font-family:"Calibri Italic",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:italic;text-decoration: none}
+div.cls_018{font-family:"Calibri Italic",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:italic;text-decoration: none}
+span.cls_019{font-family:"Calibri",serif;font-size:10.0px;color:rgb(255,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_019{font-family:"Calibri",serif;font-size:10.0px;color:rgb(255,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_020{font-family:"Calibri Bold",serif;font-size:10.0px;color:rgb(255,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+div.cls_020{font-family:"Calibri Bold",serif;font-size:10.0px;color:rgb(255,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_029{font-family:"Calibri Bold",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: underline}
+div.cls_029{font-family:"Calibri Bold",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
+span.cls_030{font-family:"Calibri",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: underline}
+div.cls_030{font-family:"Calibri",serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_022{font-family:Arial,serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_022{font-family:Arial,serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_003{font-family:Arial,serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_003{font-family:Arial,serif;font-size:10.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_031{font-family:"Calibri",serif;font-size:10.0px;color:rgb(5,98,193);font-weight:normal;font-style:normal;text-decoration: underline}
+div.cls_031{font-family:"Calibri",serif;font-size:10.0px;color:rgb(5,98,193);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_021{font-family:"Calibri",serif;font-size:9.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_021{font-family:"Calibri",serif;font-size:9.1px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+span.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-weight:normal;font-style:normal;text-decoration: none}
+</style>
+<!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+                                        <ol class="breadcrumb m-0">
+                                 
+                                        </ol>
+                                    </div>
+                                    <h4 class="page-title">PSL57A Form</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end page title -->
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                      
+                                        <div class="tab-content" style="overflow-x: auto;">
+                                        <form method="POST"  enctype="multipart/form-data">
+                                        {%  csrf_token %}
+<input type="hidden" name="canID" value="{{form.candidate.id}}" />
+<input type="hidden" name="eventID" value="{{event.id}}" />
+<input type="hidden" name="categoryID" value="{{category.id}}" />
+<input type="hidden" name="guidelineID" value="{{guideline.id}}" />
+<div style="position:relative;margin:auto;top:20px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background01.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:42.60px;top:139.12px" class="cls_004"><span class="cls_004">PSL 57A</span></div>
+<div style="position:absolute;left:42.60px;top:156.16px" class="cls_004"><span class="cls_004">ISSUE 17 DATED 1</span><span class="cls_005"><sup>st </sup></span><span class="cls_004">April 2021</span></div>
+<div style="position:absolute;left:42.59px;top:173.32px" class="cls_004"><span class="cls_004">IMPLEMENTATION 1</span><span class="cls_005"><sup>st </sup></span><span class="cls_004">May 2021</span></div>
+<div style="position:absolute;left:42.60px;top:190.48px" class="cls_006"><span class="cls_006">APPLICATION OF </span><span class="cls_026">INITIAL</span><span class="cls_006"> examination</span></div>
+<div style="position:absolute;left:42.60px;top:203.92px" class="cls_006"><span class="cls_006">COMPLETED APPLICATIONS MUST BE SUBMITTED DIRECTLY TO THE AQB (PSL4)</span></div>
+<div style="position:absolute;left:42.61px;top:216.40px" class="cls_006"><span class="cls_006">DO NOT SEND TO BINDT</span></div>
+<div style="position:absolute;left:42.60px;top:244.23px" class="cls_008"><span class="cls_008">CONTENTS</span></div>
+<div style="position:absolute;left:42.60px;top:257.67px" class="cls_006"><span class="cls_006">CP27 CODE OF ETHICS</span></div>
+<div style="position:absolute;left:526.09px;top:256.72px" class="cls_009"><span class="cls_009">1</span></div>
+<div style="position:absolute;left:42.60px;top:271.00px" class="cls_006"><span class="cls_006">PRESSURE EQUIPMENT DIRECTIVE 2014/68/EU</span></div>
+<div style="position:absolute;left:526.08px;top:270.04px" class="cls_009"><span class="cls_009">1</span></div>
+<div style="position:absolute;left:42.60px;top:284.44px" class="cls_006"><span class="cls_006">GENERAL INFORMATION (please read carefully before completing application)</span></div>
+<div style="position:absolute;left:526.07px;top:283.48px" class="cls_009"><span class="cls_009">2</span></div>
+<div style="position:absolute;left:42.60px;top:297.88px" class="cls_006"><span class="cls_006">GENERAL DATA PROTECTION REGULATION (GDPR) -</span></div>
+<div style="position:absolute;left:526.08px;top:296.92px" class="cls_009"><span class="cls_009">3</span></div>
+<div style="position:absolute;left:42.60px;top:311.32px" class="cls_006"><span class="cls_006">APPLICATION FORM</span></div>
+<div style="position:absolute;left:526.08px;top:310.36px" class="cls_009"><span class="cls_009">3</span></div>
+<div style="position:absolute;left:42.60px;top:324.76px" class="cls_006"><span class="cls_006">Summary of changes</span></div>
+<div style="position:absolute;left:408.96px;top:323.80px" class="cls_002"><span class="cls_002">Error! Bookmark not defined.</span></div>
+<div style="position:absolute;left:42.60px;top:363.16px" class="cls_008"><span class="cls_008">CP27 CODE OF ETHICS</span></div>
+<div style="position:absolute;left:42.60px;top:388.00px" class="cls_006"><span class="cls_006">It is a condition of PCN certification that certificate holders are expected, as a minimum to understand,</span></div>
+<div style="position:absolute;left:42.60px;top:401.44px" class="cls_006"><span class="cls_006">acknowledge and abide by the CP27 code of ethics and the principles contained herein. It is a requirement</span></div>
+<div style="position:absolute;left:42.59px;top:414.87px" class="cls_006"><span class="cls_006">that all PCN applicants and certificate holders acknowledge, by signature, that they have read, understood</span></div>
+<div style="position:absolute;left:42.59px;top:428.31px" class="cls_006"><span class="cls_006">and acknowledge this code of ethics and agree to abide by them at all times whilst engaged in PCN certified</span></div>
+<div style="position:absolute;left:42.59px;top:441.74px" class="cls_006"><span class="cls_006">NDT and/or CM activities</span><span class="cls_008">.</span></div>
+<div style="position:absolute;left:42.59px;top:467.18px" class="cls_008"><span class="cls_008">PRESSURE EQUIPMENT DIRECTIVE 2014/68/EU</span></div>
+<div style="position:absolute;left:42.60px;top:497.08px" class="cls_027"><span class="cls_027">Existing, valid certificates up to 30</span><span class="cls_028"><sup>th</sup></span><span class="cls_027"> April 2021</span></div>
+<div style="position:absolute;left:60.60px;top:511.00px" class="cls_011"><span class="cls_011">•</span><span class="cls_012"> </span><span class="cls_006">  In order for the certification to be validated, the holder simply has to complete a form on the WQ-iC</span></div>
+<div style="position:absolute;left:78.61px;top:524.44px" class="cls_006"><span class="cls_006">website (as per press release previously issued) before the end of April 2021.</span><span class="cls_013"> Failure to do so by 30</span></div>
+<div style="position:absolute;left:78.60px;top:537.87px" class="cls_013"><span class="cls_013">April 2021 will invalidate the approval.</span></div>
+<div style="position:absolute;left:60.60px;top:551.91px" class="cls_011"><span class="cls_011">•</span><span class="cls_012"> </span><span class="cls_006">  There will be no charge for existing valid certificates up to 30 April 2021; BINDT has decided to cover</span></div>
+<div style="position:absolute;left:78.61px;top:565.35px" class="cls_006"><span class="cls_006">the costs incurred in setting up this process.</span></div>
+<div style="position:absolute;left:60.61px;top:579.39px" class="cls_011"><span class="cls_011">•</span><span class="cls_012"> </span><span class="cls_006">  Once validated for EU PED, approval will continue until the certificate has expired.</span></div>
+<div style="position:absolute;left:42.60px;top:606.16px" class="cls_027"><span class="cls_027">Initial certificates 1</span><span class="cls_028"><sup>st</sup></span><span class="cls_027"> May 2021</span></div>
+<div style="position:absolute;left:60.60px;top:620.20px" class="cls_011"><span class="cls_011">•</span><span class="cls_012"> </span><span class="cls_006">  As of 1st May 2021, examinations for those sector/methods eligible for PED recognition (see below</span></div>
+<div style="position:absolute;left:78.60px;top:633.64px" class="cls_006"><span class="cls_006">table 1) will include a charge of £45.00 plus VAT, this will be charged as a PCN PED administration</span></div>
+<div style="position:absolute;left:78.61px;top:647.07px" class="cls_006"><span class="cls_006">fee.</span></div>
+<div style="position:absolute;left:60.60px;top:661.11px" class="cls_011"><span class="cls_011">•</span><span class="cls_012"> </span><span class="cls_006">  The AQB shall implement this charge in addition to the PCN administration fee for relevant</span></div>
+<div style="position:absolute;left:78.60px;top:674.55px" class="cls_006"><span class="cls_006">examinations (see below table 1).</span></div>
+<div style="position:absolute;left:60.59px;top:688.59px" class="cls_011"><span class="cls_011">•</span><span class="cls_012"> </span><span class="cls_006">  PCN holders will receive automatic recognition to the Pressure Equipment Directive and be visible on</span></div>
+<div style="position:absolute;left:78.60px;top:701.92px" class="cls_006"><span class="cls_006">the WQ-iC verification page. They will be issued with a certificate showing compliance with PED.</span></div>
+<div style="position:absolute;left:60.58px;top:715.96px" class="cls_011"><span class="cls_011">•</span><span class="cls_012"> </span><span class="cls_006">  Approval will continue until the certificate has expired.</span></div>
+<div style="position:absolute;left:67.08px;top:780.40px" class="cls_014"><span class="cls_014">The British Institute of Non-Destructive Testing is an accredited certification body offering personnel and quality management systems</span></div>
+<div style="position:absolute;left:72.23px;top:790.12px" class="cls_014"><span class="cls_014">assessment and certification against criteria set out in international and European standards through the PCN Certification Scheme.</span></div>
+<div style="position:absolute;left:159.60px;top:799.84px" class="cls_015"><span class="cls_015">© </span><span class="cls_014">2021 The British Institute of Non-Destructive Testing. All Rights Reserved.</span></div>
+<div style="position:absolute;left:111.72px;top:809.68px" class="cls_014"><span class="cls_014">This document is protected by UK and international copyright laws and remains the intellectual property of BINDT.</span></div>
+<div style="position:absolute;left:117.00px;top:819.40px" class="cls_014"><span class="cls_014">Reproduction and distribution of the document without the written permission of BINDT is strictly prohibited</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background02.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:42.60px;top:27.16px" class="cls_008"><span class="cls_008">Table 1</span></div>
+<div style="position:absolute;left:42.60px;top:47.08px" class="cls_008"><span class="cls_008">Sectors</span></div>
+<div style="position:absolute;left:292.44px;top:47.08px" class="cls_008"><span class="cls_008">Methods</span></div>
+<div style="position:absolute;left:42.60px;top:67.00px" class="cls_006"><span class="cls_006">2 Pre and in-service</span></div>
+<div style="position:absolute;left:292.44px;top:67.00px" class="cls_006"><span class="cls_006">20 Eddy Current</span></div>
+<div style="position:absolute;left:42.60px;top:80.44px" class="cls_006"><span class="cls_006">6 Welds</span></div>
+<div style="position:absolute;left:292.44px;top:80.44px" class="cls_006"><span class="cls_006">21 Magnetic Particle Testing</span></div>
+<div style="position:absolute;left:292.44px;top:93.77px" class="cls_006"><span class="cls_006">22 Liquid Penetrant Testing</span></div>
+<div style="position:absolute;left:292.44px;top:107.20px" class="cls_006"><span class="cls_006">23 Visual testing</span></div>
+<div style="position:absolute;left:292.44px;top:120.64px" class="cls_006"><span class="cls_006">24 Ultrasonic Testing</span></div>
+<div style="position:absolute;left:292.44px;top:134.07px" class="cls_006"><span class="cls_006">25 Radiography</span></div>
+<div style="position:absolute;left:292.44px;top:147.51px" class="cls_006"><span class="cls_006">27 TOFD</span></div>
+<div style="position:absolute;left:292.44px;top:160.94px" class="cls_006"><span class="cls_006">28 Phased Array</span></div>
+<div style="position:absolute;left:292.44px;top:174.38px" class="cls_006"><span class="cls_006">29 Computer Radiographic Testing</span></div>
+<div style="position:absolute;left:292.44px;top:187.82px" class="cls_006"><span class="cls_006">34 Radiographic Interpreter</span></div>
+<div style="position:absolute;left:292.44px;top:201.28px" class="cls_006"><span class="cls_006">35 Computer Radiographic Interpreter</span></div>
+<div style="position:absolute;left:42.60px;top:227.20px" class="cls_017"><span class="cls_017">GENERAL INFORMATION (please read carefully before completing application).</span></div>
+<div style="position:absolute;left:42.60px;top:244.84px" class="cls_006"><span class="cls_006">This form is to be used for candidates for initial examination in any PCN designated NDT method and industry</span></div>
+<div style="position:absolute;left:42.60px;top:258.28px" class="cls_006"><span class="cls_006">or product sector. Form PSL/57B is to be used for recertification and supplementary examinations, or a retest</span></div>
+<div style="position:absolute;left:42.60px;top:271.71px" class="cls_006"><span class="cls_006">of previously failed initial examinations.</span></div>
+<div style="position:absolute;left:42.60px;top:298.47px" class="cls_006"><span class="cls_006">All candidates for PCN examination and certification are required to fulfill the conditions for eligibility</span></div>
+<div style="position:absolute;left:42.60px;top:311.91px" class="cls_006"><span class="cls_006">specified in the current edition of the PCN General Requirements for Certification of NDT Personnel.</span></div>
+<div style="position:absolute;left:42.59px;top:338.78px" class="cls_006"><span class="cls_006">Eligibility is defined in terms of visual acuity and colour perception, training, and experience. Attention is</span></div>
+<div style="position:absolute;left:42.59px;top:352.22px" class="cls_006"><span class="cls_006">drawn to opportunities for mature candidates who may satisfy special eligibility criteria (PCN General</span></div>
+<div style="position:absolute;left:42.59px;top:365.65px" class="cls_006"><span class="cls_006">Requirements refer). Candidates will be required to supply verifiable evidence of satisfying all eligibility</span></div>
+<div style="position:absolute;left:42.59px;top:379.09px" class="cls_006"><span class="cls_006">criteria and PCN publishes the following documents, all of which are available free of charge, for use in</span></div>
+<div style="position:absolute;left:42.59px;top:392.52px" class="cls_006"><span class="cls_006">recording and providing such information in an acceptable format.</span></div>
+<div style="position:absolute;left:42.59px;top:419.28px" class="cls_006"><span class="cls_006">Candidates shall supply, to the AQB, verifiable evidence of satisfying all eligibility criteria i.e. valid visual</span></div>
+<div style="position:absolute;left:42.60px;top:432.72px" class="cls_006"><span class="cls_006">acuity and experience prior to booking an examination, in the event that BINDT discovers that the required</span></div>
+<div style="position:absolute;left:42.60px;top:446.15px" class="cls_006"><span class="cls_006">evidence of eligibility is not submitted, any examination results or certification awarded will be null and void.</span></div>
+<div style="position:absolute;left:42.60px;top:473.08px" class="cls_008"><span class="cls_008">PSL/30</span><span class="cls_006"> mandatory form for recording certification experience </span><span class="cls_027">See Part 5</span></div>
+<div style="position:absolute;left:42.60px;top:486.52px" class="cls_008"><span class="cls_008">PSL/44</span><span class="cls_006"> PCN Vision Requirements, including optional form for recording results of tests</span></div>
+<div style="position:absolute;left:42.60px;top:513.39px" class="cls_006"><span class="cls_006">Initial enquiries for examination appointments should be made to the PCN Test Centre by telephone.</span></div>
+<div style="position:absolute;left:42.60px;top:526.83px" class="cls_006"><span class="cls_006">However, no examination appointment can be considered confirmed until a correctly completed application</span></div>
+<div style="position:absolute;left:42.60px;top:540.26px" class="cls_006"><span class="cls_006">form and supporting information has been received. Applications should be legibly completed.</span></div>
+<div style="position:absolute;left:42.60px;top:567.02px" class="cls_006"><span class="cls_006">Once completed, this form and supporting information should be sent to the PCN AQB together with</span></div>
+<div style="position:absolute;left:42.60px;top:580.46px" class="cls_006"><span class="cls_006">relevant payment information or examination fees. One application form is to be submitted in respect of</span></div>
+<div style="position:absolute;left:42.60px;top:593.90px" class="cls_006"><span class="cls_006">each examination applied for. Candidates not already having a PCN identity card will need to provide one</span></div>
+<div style="position:absolute;left:42.60px;top:607.33px" class="cls_006"><span class="cls_006">passport photograph on the day of examination. Please enquire beforehand whether photographic facilities</span></div>
+<div style="position:absolute;left:42.60px;top:620.77px" class="cls_006"><span class="cls_006">are available at the examination centre.</span></div>
+<div style="position:absolute;left:42.60px;top:647.64px" class="cls_006"><span class="cls_006">Applications dependent upon the individual holding (or having held) appropriate certification must be</span></div>
+<div style="position:absolute;left:42.60px;top:661.07px" class="cls_006"><span class="cls_006">supported by acceptable evidence of such certification. If a photocopy is attached to this application as</span></div>
+<div style="position:absolute;left:42.60px;top:674.51px" class="cls_006"><span class="cls_006">evidence, the candidate will be required to show the original on the day of the examination.</span></div>
+<div style="position:absolute;left:42.60px;top:701.27px" class="cls_006"><span class="cls_006">Where marks from earlier examinations are to be included in the weighted composite grade, the candidate</span></div>
+<div style="position:absolute;left:42.60px;top:714.71px" class="cls_006"><span class="cls_006">should supply the relevant examination result notice (or, where unavailable, verifiable information from</span></div>
+<div style="position:absolute;left:42.60px;top:728.14px" class="cls_006"><span class="cls_006">which the date and scope of the examination and the PCN Test Centre where the examination took place can</span></div>
+<div style="position:absolute;left:42.60px;top:741.58px" class="cls_006"><span class="cls_006">be ascertained).  Failure to comply with this requirement may result in a refusal to examine.</span></div>
+<div style="position:absolute;left:42.60px;top:768.76px" class="cls_002"><span class="cls_002">Applications shall only be completed by the candidate seeking PCN certification.</span></div>
+<div style="position:absolute;left:42.60px;top:780.88px" class="cls_009"><span class="cls_009">If uncertain of the requirements for this application, please consult the Test Centre or PCN before proceeding.</span></div>
+<div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
+<div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 2 of 8</span></div>
+<div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background03.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:42.60px;top:27.16px" class="cls_017"><span class="cls_017">GENERAL DATA PROTECTION REGULATION (GDPR) -</span></div>
+<div style="position:absolute;left:42.60px;top:44.92px" class="cls_009"><span class="cls_009">BINDT will store and use the information given on this form only for the purpose for which it has been provided. Your</span></div>
+<div style="position:absolute;left:42.60px;top:57.16px" class="cls_009"><span class="cls_009">personal details and any other data you provide to BINDT will not be passed on to a third-party without your</span></div>
+<div style="position:absolute;left:42.60px;top:69.40px" class="cls_009"><span class="cls_009">permission.</span></div>
+<div style="position:absolute;left:42.60px;top:81.64px" class="cls_009"><span class="cls_009">BINDT would like to contact you from time to time to let you know about its other services that may be of interest, such</span></div>
+<div style="position:absolute;left:42.60px;top:93.76px" class="cls_009"><span class="cls_009">as special offers and discounts, events and new products. If you are happy to be contacted by BINDT, please indicate by</span></div>
+<div style="position:absolute;left:42.61px;top:106.00px" class="cls_009"><span class="cls_009">ticking the box below:</span></div>
+<div style="position:absolute;left:63.97px;top:118.25px" class="cls_009"><span class="cls_009">I AM HAPPY FOR BINDT TO CONTACT ME WITH INFORMATION THAT MAY BE OF INTEREST</span></div>
+<div style="position:absolute;left:63.97px;top:130.49px" class="cls_018"><span class="cls_018">You can subscribe or unsubscribe at any time, simply let us know.</span></div>
+<div style="position:absolute;left:42.60px;top:166.84px" class="cls_017"><span class="cls_017">APPLICATION FORM</span></div>
+<div style="position:absolute;left:42.60px;top:184.72px" class="cls_002"><span class="cls_002">PART 1. CANDIDATE'S PERSONAL DETAILS</span></div>
+<div style="position:absolute;left:42.60px;top:198.76px" class="cls_009"><span class="cls_009" >Family</span><input name="lastyName" value="{{form.candidate.first_name}}" style="margin-left:10px;width:170px;border:none;" /></div>
+<div style="position:absolute;left:274.56px;top:198.76px" class="cls_009"><span class="cls_009">Given</span><input name="firstName" value="{{form.candidate.last_name}}" style="margin-left:25px;width:170px;border:none;" /></div>
+<div style="position:absolute;left:42.60px;top:214.00px" class="cls_009"><span class="cls_009">name:</span></div>
+<div style="position:absolute;left:274.56px;top:214.00px" class="cls_009"><span class="cls_009">names:</span></div>
+<div style="position:absolute;left:42.60px;top:237.28px" class="cls_009"><span class="cls_009">Candidate’s usual residence, including post code</span></div>
+<div style="position:absolute;left:274.56px;top:237.28px" class="cls_009"><span class="cls_009">Address, including postcode, to which the PCN certificate,</span></div>
+<div style="position:absolute;left:42.60px;top:249.52px" class="cls_009"><span class="cls_009">(address that will be shown on the certificate):</span><br><input name="cerAddres"  style="margin-left:0px;width:220px;height:50px;" /></div>
+<div style="position:absolute;left:274.56px;top:249.52px" class="cls_009"><span class="cls_009">when issued, is to be sent.</span><br><input name="pslCerAddres"  style="margin-left:0px;width:235px;height:50px;" /></div>
+<div style="position:absolute;left:42.60px;top:324.64px" class="cls_019"><span class="cls_019">CANDIDATE’S SIGNATURE AUTHORISING CERTIFICATE TO BE SENT TO</span></div>
+<div style="position:absolute;left:42.60px;top:336.88px" class="cls_019"><span class="cls_019">ABOVE ADDRESS:</span></div>
+<div style="position:absolute;left:42.60px;top:358.12px" class="cls_009"><span class="cls_009">Telephone</span><input name="phone"  value="{{form.candidate.contact_number}}" style="margin-left:50px;width:190px;" /></div>
+<div style="position:absolute;left:338.52px;top:358.12px" class="cls_009"><span class="cls_009">PCN number:</span><input name="pslNumber"  style="margin-left:30px;width:90px;" /></div>
+<div style="position:absolute;left:42.60px;top:372.36px" class="cls_009"><span class="cls_009">number include</span></div>
+<div style="position:absolute;left:42.60px;top:382.60px" class="cls_009"><span class="cls_009">area</span></div>
+<div style="position:absolute;left:42.60px;top:394.84px" class="cls_009"><span class="cls_009">code/internation</span></div>
+<div style="position:absolute;left:42.60px;top:406.96px" class="cls_009"><span class="cls_009">al area code:</span></div>
+<div style="position:absolute;left:42.60px;top:421.12px" class="cls_009"><span class="cls_009">Personal email</span><input name="email"  value="{{form.candidate.email}}" style="margin-left:35px;width:190px;" /></div>
+<div style="position:absolute;left:338.52px;top:421.12px" class="cls_009"><span class="cls_009">Date of birth</span><input name="birthDay"  value="{{form.candidate.birth_date}}" style="margin-left:30px;width:90px;" /></div>
+<div style="position:absolute;left:42.60px;top:435.36px" class="cls_009"><span class="cls_009">address (for issue</span></div>
+<div style="position:absolute;left:338.52px;top:433.36px" class="cls_009"><span class="cls_009">(dd/mm/yyyy):</span></div>
+<div style="position:absolute;left:42.60px;top:445.48px" class="cls_009"><span class="cls_009">of e-certificate):</span></div>
+<div style="position:absolute;left:42.60px;top:459.64px" class="cls_009"><span class="cls_009">Gender</span><input name="gender"  style="margin-left:50px;width:190px;" /></div>
+<div style="position:absolute;left:42.60px;top:471.88px" class="cls_009"><span class="cls_009">(optional):</span></div>
+<div style="position:absolute;left:42.60px;top:485.92px" class="cls_009"><span class="cls_009">It may be possible to make provision in PCN examinations for disabled candidates. If you are disabled please bring</span></div>
+<div style="position:absolute;left:42.60px;top:498.16px" class="cls_009"><span class="cls_009">this fact to the attention of the examining body.</span></div>
+<div style="position:absolute;left:42.60px;top:535.24px" class="cls_002"><span class="cls_002">PART 2. CURRENT EMPLOYMENT DETAILS</span></div>
+<div style="position:absolute;left:42.60px;top:549.40px" class="cls_009"><span class="cls_009">Employer's name and address (including telephone number, email address and post code):</span><input name="currentEmploymentDetails"  style="margin-left:2px;width:90%;height:25px;" /></div>
+<div style="position:absolute;left:42.60px;top:600.16px" class="cls_009"><span class="cls_009">Candidate's position in the organisation:</span><br><input name="currentEmploymentPosition"  style="margin-left:2px;width:100%;" /></div>
+<div style="position:absolute;left:253.56px;top:600.16px" class="cls_009"><span class="cls_009">Employment status (employed or self employed):</span><br><input name="currentEmploymentStatus"  style="margin-left:2px;width:100%;" /></div>
+<div style="position:absolute;left:42.60px;top:649.48px" class="cls_002"><span class="cls_002">PART 3. PRE-CERTIFICATION TRAINING</span></div>
+<div style="position:absolute;left:42.60px;top:661.60px" class="cls_009"><span class="cls_009">Attach evidence of satisfactory completion of PCN approved training course or provide the following details for</span></div>
+<div style="position:absolute;left:42.60px;top:673.84px" class="cls_009"><span class="cls_009">classroom training;</span></div>
+<div style="position:absolute;left:48.00px;top:688.00px" class="cls_009"><span class="cls_009">Name of training organisation and</span><input name="preCerTraining"  style="margin-left:150px;width:70%;height:30px;" /></div>
+<div style="position:absolute;left:48.00px;top:700.12px" class="cls_009"><span class="cls_009">title/reference of relevant training</span></div>
+<div style="position:absolute;left:48.00px;top:712.36px" class="cls_009"><span class="cls_009">course:</span></div>
+<div style="position:absolute;left:48.00px;top:734.68px" class="cls_009"><span class="cls_009">Dates of course (from/to):</span><input name="preCerTrainingDate"  style="margin-left:150px;width:80%;height:30px;" /></div>
+<div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
+<div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 3 of 8</span></div>
+<div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background04.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:42.59px;top:27.40px" class="cls_002"><span class="cls_002">PART 4. EXAMINATION APPLIED FOR </span><span class="cls_009">(must be completed - check availability with the Test Centre before completing)</span></div>
+<div style="position:absolute;left:42.60px;top:47.44px" class="cls_009"><span class="cls_009">Products or industry sector in which certification is sought (castings, welds, forgings/wrought products, pre & in-</span></div>
+<div style="position:absolute;left:42.60px;top:59.68px" class="cls_009"><span class="cls_009">service inspection, railway or aerospace):</span></div>
+<div style="position:absolute;left:42.60px;top:105.76px" class="cls_009"><span class="cls_009">NDT method</span></div>
+<div style="position:absolute;left:183.36px;top:105.76px" class="cls_009"><span class="cls_009">ET</span><br><input style="margin-left:15px;" type="checkbox" name="et"></div>
+<div style="position:absolute;left:238.80px;top:105.76px" class="cls_009"><span class="cls_009">MT</span><br><input style="margin-left:15px;" type="checkbox" name="mt"></div>
+<div style="position:absolute;left:294.36px;top:105.76px" class="cls_009"><span class="cls_009">PT</span><br><input style="margin-left:15px;" type="checkbox" name="pt"></div>
+<div style="position:absolute;left:341.88px;top:105.76px" class="cls_009"><span class="cls_009">RT</span><br><input style="margin-left:15px;" type="checkbox" name="rt"></div>
+<div style="position:absolute;left:389.40px;top:105.76px" class="cls_009"><span class="cls_009">RI</span><br><input style="margin-left:15px;" type="checkbox" name="ri"></div>
+<div style="position:absolute;left:437.04px;top:105.76px" class="cls_009"><span class="cls_009">UT</span><br><input style="margin-left:15px;" type="checkbox" name="ut"></div>
+<div style="position:absolute;left:484.56px;top:105.76px" class="cls_009"><span class="cls_009">VT</span><br><input style="margin-left:15px;" type="checkbox" name="vt"></div>
+<div style="position:absolute;left:42.60px;top:118.00px" class="cls_009"><span class="cls_009">(tick only ONE NDT method):</span></div>
+<div style="position:absolute;left:183.36px;top:143.80px" class="cls_009"><span class="cls_009">CRT</span><br><input style="margin-left:15px;" type="checkbox" name="crt"></div>
+<div style="position:absolute;left:238.80px;top:143.80px" class="cls_009"><span class="cls_009">TOFD</span><br><input style="margin-left:15px;" type="checkbox" name="tofd"></div>
+<div style="position:absolute;left:294.36px;top:143.80px" class="cls_009"><span class="cls_009">PAUT</span><br><input style="margin-left:15px;" type="checkbox" name="paut"></div>
+<div style="position:absolute;left:341.88px;top:143.80px" class="cls_009"><span class="cls_009">Other please state:</span><input style="width:100px;" type="text" name="ndtOther" /></div>
+<div style="position:absolute;left:42.60px;top:181.84px" class="cls_009"><span class="cls_009">Level (tick one box).</span></div>
+<div style="position:absolute;left:183.36px;top:181.84px" class="cls_009"><span class="cls_009">1</span><br><input style="margin-left:15px;" type="checkbox" name="levelOne"></div>
+<div style="position:absolute;left:238.80px;top:181.84px" class="cls_009"><span class="cls_009">2</span><br><input style="margin-left:15px;" type="checkbox" name="levelTwo"></div>
+<div style="position:absolute;left:294.36px;top:181.84px" class="cls_009"><span class="cls_009">3</span><br><input style="margin-left:15px;" type="checkbox" name="levelThree"></div>
+<div style="position:absolute;left:42.60px;top:194.08px" class="cls_009"><span class="cls_009">note: RI is level 2 only</span></div>
+<div style="position:absolute;left:42.60px;top:218.20px" class="cls_009"><span class="cls_009">If level 3, state which exam</span><input style="margin-left:25px; width:300px;height:30px;" type="text" name="ifLevel3" /></div>
+<div style="position:absolute;left:42.60px;top:234.44px" class="cls_009"><span class="cls_009">part(s);</span></div>
+<div style="position:absolute;left:42.60px;top:254.56px" class="cls_020"><span class="cls_020">Sector/methods applicable to PED recognition and administration charge</span></div>
+<div style="position:absolute;left:42.60px;top:270.76px" class="cls_009"><span class="cls_009">2 Pre and in-service</span></div>
+<div style="position:absolute;left:183.36px;top:270.76px" class="cls_009"><span class="cls_009">20 Eddy Current</span></div>
+<div style="position:absolute;left:42.60px;top:283.00px" class="cls_009"><span class="cls_009">6 Welds</span></div>
+<div style="position:absolute;left:183.36px;top:283.00px" class="cls_009"><span class="cls_009">21 Magnetic Particle Testing</span></div>
+<div style="position:absolute;left:183.36px;top:295.24px" class="cls_009"><span class="cls_009">22 Liquid Penetrant Testing</span></div>
+<div style="position:absolute;left:183.36px;top:307.36px" class="cls_009"><span class="cls_009">23 Visual testing</span></div>
+<div style="position:absolute;left:183.36px;top:319.60px" class="cls_009"><span class="cls_009">24 Ultrasonic Testing</span></div>
+<div style="position:absolute;left:183.36px;top:331.84px" class="cls_009"><span class="cls_009">25 Radiography</span></div>
+<div style="position:absolute;left:183.36px;top:344.08px" class="cls_009"><span class="cls_009">27 TOFD</span></div>
+<div style="position:absolute;left:183.36px;top:356.21px" class="cls_009"><span class="cls_009">28 Phased Array</span></div>
+<div style="position:absolute;left:183.36px;top:368.45px" class="cls_009"><span class="cls_009">29 Computer Radiographic Testing</span></div>
+<div style="position:absolute;left:183.36px;top:380.69px" class="cls_009"><span class="cls_009">34 Radiographic Interpreter</span></div>
+<div style="position:absolute;left:183.36px;top:392.80px" class="cls_009"><span class="cls_009">35 Computer Radiographic Interpreter</span></div>
+<div style="position:absolute;left:42.60px;top:406.96px" class="cls_009"><span class="cls_009">Radiation safety (tick only one box, and</span></div>
+<div style="position:absolute;left:238.80px;top:406.96px" class="cls_009"><span class="cls_009">Basic radiation safety</span><br><input style="margin-left:2px; width:120px;" type="text" name="basicRadiationSafty" /></div>
+<div style="position:absolute;left:381.60px;top:406.96px" class="cls_009"><span class="cls_009">Radiation protection supervisor</span><br><input style="margin-left:2px; width:120px;" type="text" name="radiationProtectionSupervisor" /></div>
+<div style="position:absolute;left:42.60px;top:419.20px" class="cls_009"><span class="cls_009">ignore sector, NDT method, level and</span></div>
+<div style="position:absolute;left:42.60px;top:431.32px" class="cls_009"><span class="cls_009">categories)</span></div>
+<div style="position:absolute;left:42.60px;top:445.48px" class="cls_009"><span class="cls_009">State in the space below the categories of certification that you seek to attain (see relevant appendix to PCN/GEN).</span></div>
+<div style="position:absolute;left:42.60px;top:457.72px" class="cls_009"><span class="cls_009">Note that there may be limitations upon the number of categories that may be attempted at any one sitting - consult</span></div>
+<div style="position:absolute;left:42.61px;top:469.84px" class="cls_009"><span class="cls_009">PCN or the Test Centre for further advice.</span><br><input style="margin-left:2px; width:350px;height:50px;" type="text" name="cerCategory" /></div>
+<div style="position:absolute;left:42.60px;top:554.44px" class="cls_009"><span class="cls_009">Preferred examination date and</span></div>
+<div style="position:absolute;left:42.60px;top:566.68px" class="cls_009"><span class="cls_009">venue:</span><input style="margin-left:120px; width:250px;" type="text" name="preferredExaminationDateVenue" /></div>
+<div style="position:absolute;left:42.60px;top:620.44px" class="cls_002"><span class="cls_002">PART 5. PRE-CERTIFICATION EXPERIENCE</span></div>
+<div style="position:absolute;left:42.60px;top:644.80px" class="cls_009"><span class="cls_009">Experience is not an essential pre-requisite for level 1 and 2 examinations only. However, if such evidence is available at</span></div>
+<div style="position:absolute;left:42.59px;top:657.04px" class="cls_009"><span class="cls_009">the time of examination, and it is a </span><span class="cls_029">mandatory</span><span class="cls_009"> requirement that this be provided direct to the AQB on the PSL 30</span></div>
+<div style="position:absolute;left:42.60px;top:669.28px" class="cls_009"><span class="cls_009">Attached.</span></div>
+<div style="position:absolute;left:42.60px;top:693.64px" class="cls_002"><span class="cls_002">Industrial NDT Experience</span><span class="cls_009"> - the experience needed to acquire the skill and knowledge to fulfil the provisions of</span></div>
+<div style="position:absolute;left:42.60px;top:705.88px" class="cls_009"><span class="cls_009">qualification in the appropriate sector, and which is gained under the supervision of Appropriately Qualified Personnel,</span></div>
+<div style="position:absolute;left:42.60px;top:718.00px" class="cls_009"><span class="cls_009">in the application of the NDT method in the sector concerned.</span></div>
+<div style="position:absolute;left:42.60px;top:742.48px" class="cls_002"><span class="cls_002">Qualified supervision </span><span class="cls_009">- supervision of candidates gaining experience by NDT personnel certificated under the PCN</span></div>
+<div style="position:absolute;left:42.62px;top:754.73px" class="cls_009"><span class="cls_009">Scheme or by non-certificated personnel who, in the opinion of BINDT, possess the knowledge, skill, training and</span></div>
+<div style="position:absolute;left:42.62px;top:766.85px" class="cls_009"><span class="cls_009">experience required to properly perform such supervision.</span></div>
+<div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
+<div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 4 of 8</span></div>
+<div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background05.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:42.59px;top:27.28px" class="cls_002"><span class="cls_002">Appropriately Qualified Personnel </span><span class="cls_009">-</span><span class="cls_002"> </span><span class="cls_009">Individuals carrying out supervision of candidates for PCN certification holding</span></div>
+<div style="position:absolute;left:42.61px;top:39.52px" class="cls_009"><span class="cls_009">relevant certification issued by a BINDT recognised certification body meeting the requirements of ISO/IEC 17024.</span></div>
+<div style="position:absolute;left:42.60px;top:64.00px" class="cls_002"><span class="cls_002">NOTE</span><span class="cls_009">: The Supervisors’ certificate(s) </span><span class="cls_030">must</span><span class="cls_009"> be verified as the same level, sector and method and must be valid at the</span></div>
+<div style="position:absolute;left:42.60px;top:76.12px" class="cls_009"><span class="cls_009">time the experience was gained.</span></div>
+<div style="position:absolute;left:42.60px;top:88.36px" class="cls_009"><span class="cls_009">This may include certification schemes other than ISO 9712, such as EN 4179 and SNT-TC-1A providing that this</span></div>
+<div style="position:absolute;left:42.59px;top:100.60px" class="cls_009"><span class="cls_009">certification has been gained using external training/examination support provided by a BINDT approved organisation.</span></div>
+<div style="position:absolute;left:42.59px;top:112.72px" class="cls_009"><span class="cls_009">The organisation must be a BINDT approved ATO, AQB and/or OA status. Please contact </span><A HREF="mailto:pcn@bindt.org">pcn@bindt.org</A> </span><span class="cls_009"> if clarification</span></div>
+<div style="position:absolute;left:42.60px;top:124.96px" class="cls_009"><span class="cls_009">on this is required.</span></div>
+<div style="position:absolute;left:42.60px;top:149.44px" class="cls_009"><span class="cls_009">Experience may be gained following </span><span class="cls_030">level 1 and 2</span><span class="cls_009"> examinations only and recorded on Form PSL/30. Once evidence of</span></div>
+<div style="position:absolute;left:42.60px;top:161.56px" class="cls_009"><span class="cls_009">experience satisfying the above definitions has been accumulated, it is provided direct to PCN, together with an</span></div>
+<div style="position:absolute;left:42.60px;top:173.80px" class="cls_009"><span class="cls_009">application for certification using form PSL/57C.</span><span class="cls_002"> </span><span class="cls_019"> </span><span class="cls_009">Level 3 candidates - </span><span class="cls_030">must</span><span class="cls_009"> have the required amount of NDT</span></div>
+<div style="position:absolute;left:42.60px;top:186.04px" class="cls_009"><span class="cls_009">experience prior to taking any examination.</span></div>
+<div style="position:absolute;left:42.60px;top:200.08px" class="cls_009"><span class="cls_009">Claimed duration of experience in applying the NDT method under qualified</span><input style="width:130px;margin-left:37px;" type="text" name="ndtDuration" /></div>
+<div style="position:absolute;left:42.60px;top:212.32px" class="cls_009"><span class="cls_009">supervision (enter number of months or weeks):</span></div>
+<div style="position:absolute;left:42.60px;top:224.56px" class="cls_019"><span class="cls_019">PSL 30 to be completed with details:</span></div>
+<div style="position:absolute;left:42.60px;top:250.84px" class="cls_009"><span class="cls_009">Name, address and</span><input style="width:130px;margin-left:45px;" type="text" name="expVerifierDetails" /></div>
+<div style="position:absolute;left:42.60px;top:263.08px" class="cls_009"><span class="cls_009">telephone number or email</span></div>
+<div style="position:absolute;left:42.60px;top:275.32px" class="cls_009"><span class="cls_009">address of person who can</span></div>
+<div style="position:absolute;left:42.60px;top:287.44px" class="cls_009"><span class="cls_009">verify experience claimed:</span></div>
+<div style="position:absolute;left:42.60px;top:312.40px" class="cls_002"><span class="cls_002">PART 7.  CANDIDATE’S STATEMENT CONFIRMING ELIGIBILITY FOR EXAMINATION</span></div>
+<div style="position:absolute;left:42.60px;top:342.76px" class="cls_009"><span class="cls_009">CANDIDATE’S FULL NAME: <input type="text" name="candidateEligibilityName" /></span></div>
+<div style="position:absolute;left:380.63px;top:342.76px" class="cls_009"><span class="cls_009">………</span></div>
+<div style="position:absolute;left:42.60px;top:373.24px" class="cls_009"><span class="cls_009">PCN NUMBER (if existing PCN certificate holder): ………………………</span></div>
+<div style="position:absolute;left:42.60px;top:385.48px" class="cls_009"><span class="cls_009">I have read and understand PCN General Requirements for the certification of personnel engaged in NDT, particularly</span></div>
+<div style="position:absolute;left:42.59px;top:397.60px" class="cls_009"><span class="cls_009">the criteria for eligibility, and hereby confirm that I satisfy those criteria covering vision, training and experience</span></div>
+<div style="position:absolute;left:42.59px;top:409.84px" class="cls_009"><span class="cls_009">applicable to the level and NDT method for which I am seeking certification. In the event that I should be awarded PCN</span></div>
+<div style="position:absolute;left:42.59px;top:422.08px" class="cls_009"><span class="cls_009">certification. I agree to comply with the PCN Code of Ethics (published as PCN document </span><span class="cls_002">CP27</span><span class="cls_009">).</span></div>
+<div style="position:absolute;left:42.59px;top:434.20px" class="cls_009"><span class="cls_009">I understand that, in the event of a false statement being discovered, any certification awarded as a result of the</span></div>
+<div style="position:absolute;left:42.60px;top:446.44px" class="cls_009"><span class="cls_009">examination will be null and void. I accept responsibility for payment of examination fees in the event of non-payment</span></div>
+<div style="position:absolute;left:42.59px;top:457.60px" class="cls_009"><span class="cls_009">by the sponsor.</span></div>
+<div style="position:absolute;left:42.60px;top:489.04px" class="cls_009"><span class="cls_009">SIGNATURE: ……………………………………………………</span></div>
+<div style="position:absolute;left:260.28px;top:489.04px" class="cls_009"><span class="cls_009">DATE: <input type="text" name="candidateEligibilityDate" /></span></div>
+<div style="position:absolute;left:42.60px;top:513.52px" class="cls_002"><span class="cls_002">Attach</span></div>
+<div style="position:absolute;left:78.61px;top:525.76px" class="cls_009"><span class="cls_009">a.</span></div>
+<div style="position:absolute;left:99.24px;top:525.76px" class="cls_009"><span class="cls_009">Evidence of vision test (PCN PSL/44 may be used) unless vision test arranged at Test Centre</span></div>
+<div style="position:absolute;left:78.61px;top:537.89px" class="cls_009"><span class="cls_009">b.</span></div>
+<div style="position:absolute;left:99.24px;top:537.89px" class="cls_009"><span class="cls_009">Evidence of training</span></div>
+<div style="position:absolute;left:78.61px;top:550.13px" class="cls_009"><span class="cls_009">c.</span></div>
+<div style="position:absolute;left:99.25px;top:550.13px" class="cls_009"><span class="cls_009">Evidence of experience (PCN document PSL/30)</span></div>
+<div style="position:absolute;left:78.62px;top:562.37px" class="cls_009"><span class="cls_009">d.</span></div>
+<div style="position:absolute;left:99.25px;top:562.37px" class="cls_009"><span class="cls_009">Correct examination fee (unless part 6 of this form is appropriately completed); details of fees are</span></div>
+<div style="position:absolute;left:99.25px;top:574.49px" class="cls_009"><span class="cls_009">available from the test or examination centre.</span></div>
+<div style="position:absolute;left:42.61px;top:586.73px" class="cls_002"><span class="cls_002">Bring</span></div>
+<div style="position:absolute;left:78.62px;top:598.97px" class="cls_009"><span class="cls_009">e.</span></div>
+<div style="position:absolute;left:99.25px;top:598.97px" class="cls_009"><span class="cls_009">1 passport photo (unless already a holder of a current and valid PCN identity card, or if photo is to be</span></div>
+<div style="position:absolute;left:99.24px;top:611.21px" class="cls_009"><span class="cls_009">supplied directly to PCN please check with Test Centre)</span></div>
+<div style="position:absolute;left:78.61px;top:623.33px" class="cls_009"><span class="cls_009">f.</span></div>
+<div style="position:absolute;left:99.24px;top:623.33px" class="cls_009"><span class="cls_009">Your PCN record of certification and PCN identity card (if already a PCN certificate holder)</span></div>
+<div style="position:absolute;left:78.61px;top:635.57px" class="cls_009"><span class="cls_009">g.</span></div>
+<div style="position:absolute;left:99.24px;top:635.57px" class="cls_009"><span class="cls_009">Your own NDT instrument if desired (information on acceptable instruments is available from the Test</span></div>
+<div style="position:absolute;left:99.24px;top:647.81px" class="cls_009"><span class="cls_009">Centre), together with a valid calibration certificate.</span></div>
+<div style="position:absolute;left:42.60px;top:672.16px" class="cls_002"><span class="cls_002">PART 8. VERIFICATION OF CANDIDATE’S STATEMENT BY THE SPONSOR, EMPLOYER OR, IF THE CANDIDATE IS SELF-</span></div>
+<div style="position:absolute;left:42.60px;top:684.40px" class="cls_002"><span class="cls_002">EMPLOYED, A REFEREE.</span></div>
+<div style="position:absolute;left:42.60px;top:708.76px" class="cls_009"><span class="cls_009">To the best of my belief, the candidate's statement given above is correct at the time of signing.</span></div>
+<div style="position:absolute;left:42.60px;top:739.24px" class="cls_009"><span class="cls_009">NAME: …………………………………………………………………………………………</span></div>
+<div style="position:absolute;left:228.96px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:260.40px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:291.96px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:323.40px;top:739.24px" class="cls_009"><span class="cls_009">SIGNATURE: ……………………………………..……</span></div>
+<div style="position:absolute;left:42.61px;top:769.60px" class="cls_009"><span class="cls_009">COMPANY: …………………………………………………………………………………………</span></div>
+<div style="position:absolute;left:254.29px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:285.85px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:317.29px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:343.69px;top:769.60px" class="cls_009"><span class="cls_009">TELEPHONE: ……………….……………..……</span></div>
+<div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
+<div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 5 of 8</span></div>
+<div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background06.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:42.59px;top:27.28px" class="cls_002"><span class="cls_002">PART 9. FOR OPTIONAL USE BY THE TEST CENTRE</span></div>
+<div style="position:absolute;left:42.59px;top:51.76px" class="cls_009"><span class="cls_009">EXAMINATION DATE : .……………………………………………</span></div>
+<div style="position:absolute;left:167.40px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:198.84px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:230.28px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:261.84px;top:51.76px" class="cls_009"><span class="cls_009">  EXAMINATION VENUE:</span></div>
+<div style="position:absolute;left:356.60px;top:51.76px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
+<div style="position:absolute;left:42.59px;top:76.13px" class="cls_009"><span class="cls_009">EXAMINER:</span></div>
+<div style="position:absolute;left:90.75px;top:76.13px" class="cls_009"><span class="cls_009">……………………………………………………………………</span></div>
+<div style="position:absolute;left:244.43px;top:76.13px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:273.12px;top:76.13px" class="cls_009"><span class="cls_009">MODERATOR:</span></div>
+<div style="position:absolute;left:331.16px;top:76.13px" class="cls_009"><span class="cls_009">………………………………………………………………</span></div>
+<div style="position:absolute;left:42.60px;top:100.61px" class="cls_009"><span class="cls_009">PAYMENT RECEIVED:</span></div>
+<div style="position:absolute;left:128.28px;top:100.61px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
+<div style="position:absolute;left:234.84px;top:100.61px" class="cls_009"><span class="cls_009"></span></div>
+<div style="position:absolute;left:273.49px;top:100.61px" class="cls_009"><span class="cls_009">RESULT REFERENCE:</span></div>
+<div style="position:absolute;left:356.84px;top:100.61px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
+<div style="position:absolute;left:42.60px;top:124.97px" class="cls_009"><span class="cls_009">EXAMINATION FILE COMPLETE AND CLOSED (initials/date):</span></div>
+<div style="position:absolute;left:282.97px;top:124.97px" class="cls_009"><span class="cls_009">…………………………………………………………………………………</span></div>
+<div style="position:absolute;left:42.60px;top:149.45px" class="cls_009"><span class="cls_009">REMARKS (if any verification sought and obtained, record details below or on a separate page and keep with candidate</span></div>
+<div style="position:absolute;left:42.59px;top:161.57px" class="cls_009"><span class="cls_009">exam pack):</span></div>
+<div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
+<div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 6 of 8</span></div>
+<div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background07.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:42.59px;top:27.28px" class="cls_002"><span class="cls_002">PART 6. PAYMENT</span><span class="cls_009"> (complete applicable sections only)</span></div>
+<div style="position:absolute;left:42.60px;top:41.44px" class="cls_009"><span class="cls_009">Name and address for invoice (if different from candidate's), including telephone/fax number:</span></div>
+<div style="position:absolute;left:42.60px;top:141.04px" class="cls_009"><span class="cls_009">Some Test Centres provide accommodation or information on the availability of local</span></div>
+<div style="position:absolute;left:42.60px;top:153.16px" class="cls_009"><span class="cls_009">accommodation. If you wish to receive assistance with accommodation, please tick here:</span></div>
+<div style="position:absolute;left:42.60px;top:167.32px" class="cls_009"><span class="cls_009">Preferred method of payment (bank</span></div>
+<div style="position:absolute;left:402.12px;top:167.32px" class="cls_009"><span class="cls_009">Tick box if cheque</span></div>
+<div style="position:absolute;left:42.60px;top:179.56px" class="cls_009"><span class="cls_009">draft, BACS, cheque, credit card):</span></div>
+<div style="position:absolute;left:402.12px;top:179.56px" class="cls_009"><span class="cls_009">enclosed:</span></div>
+<div style="position:absolute;left:42.60px;top:193.60px" class="cls_009"><span class="cls_009">Name of senior responsible official of the organisation paying</span></div>
+<div style="position:absolute;left:42.60px;top:205.84px" class="cls_009"><span class="cls_009">examination fees (not the candidate - unless self employed):</span></div>
+<div style="position:absolute;left:42.60px;top:219.88px" class="cls_009"><span class="cls_009">Company order reference:</span></div>
+<div style="position:absolute;left:42.60px;top:245.80px" class="cls_009"><span class="cls_009">For credit card payment, tick</span></div>
+<div style="position:absolute;left:182.52px;top:245.80px" class="cls_009"><span class="cls_009">Visa</span></div>
+<div style="position:absolute;left:217.92px;top:245.80px" class="cls_009"><span class="cls_009">MasterCard</span></div>
+<div style="position:absolute;left:281.64px;top:245.80px" class="cls_009"><span class="cls_009">Amex</span></div>
+<div style="position:absolute;left:324.24px;top:245.80px" class="cls_009"><span class="cls_009">Switch</span></div>
+<div style="position:absolute;left:374.04px;top:245.80px" class="cls_009"><span class="cls_009">Issue and expiry dates:</span></div>
+<div style="position:absolute;left:42.60px;top:258.04px" class="cls_009"><span class="cls_009">the relevant box and provide</span></div>
+<div style="position:absolute;left:42.60px;top:270.28px" class="cls_009"><span class="cls_009">issue and expiry dates:</span></div>
+<div style="position:absolute;left:42.60px;top:284.32px" class="cls_009"><span class="cls_009">Name on card:</span></div>
+<div style="position:absolute;left:42.60px;top:310.24px" class="cls_009"><span class="cls_009">Card number:</span></div>
+<div style="position:absolute;left:317.28px;top:310.24px" class="cls_009"><span class="cls_009">Security code (last 3 figures</span></div>
+<div style="position:absolute;left:317.28px;top:322.48px" class="cls_009"><span class="cls_009">on the security strip on the</span></div>
+<div style="position:absolute;left:317.28px;top:334.72px" class="cls_009"><span class="cls_009">reverse of the card)</span></div>
+<div style="position:absolute;left:42.60px;top:348.76px" class="cls_009"><span class="cls_009">Signature of above named</span></div>
+<div style="position:absolute;left:42.60px;top:361.00px" class="cls_009"><span class="cls_009">individual</span></div>
+<div style="position:absolute;left:42.60px;top:375.04px" class="cls_009"><span class="cls_009">Address of credit card holder:</span></div>
+<div style="position:absolute;left:42.60px;top:425.80px" class="cls_009"><span class="cls_009">Debit the above credit/debit card for the amount shown in respect of exam fees</span></div>
+<div style="position:absolute;left:394.44px;top:425.80px" class="cls_009"><span class="cls_009">£</span></div>
+<div style="position:absolute;left:435.84px;top:425.80px" class="cls_009"><span class="cls_009">:</span></div>
+<div style="position:absolute;left:42.60px;top:438.04px" class="cls_009"><span class="cls_009">(check with Test Centre to confirm that credit card payment is available)</span>
+<h5 style="color: red;">
+  This page is not required to be filled for those who registered with TES Canada.</h5></div>
+<div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
+<div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 7 of 8</span></div>
+<div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background08.jpg' %}" width=595 height=841></div>
+<div style="position:absolute;left:42.60px;top:39.16px" class="cls_017"><span class="cls_017">Summary of changes</span></div>
+<div style="position:absolute;left:42.60px;top:63.52px" class="cls_002"><span class="cls_002">Issue</span></div>
+<div style="position:absolute;left:193.55px;top:63.52px" class="cls_002"><span class="cls_002">Issue date</span></div>
+<div style="position:absolute;left:344.64px;top:63.52px" class="cls_002"><span class="cls_002">Summary of changes</span></div>
+<div style="position:absolute;left:42.60px;top:85.24px" class="cls_009"><span class="cls_009">14</span></div>
+<div style="position:absolute;left:193.56px;top:85.24px" class="cls_009"><span class="cls_009">01.04.2018</span></div>
+<div style="position:absolute;left:344.64px;top:85.24px" class="cls_009"><span class="cls_009">GDPR included</span></div>
+<div style="position:absolute;left:42.60px;top:106.96px" class="cls_009"><span class="cls_009">15</span></div>
+<div style="position:absolute;left:193.56px;top:106.96px" class="cls_009"><span class="cls_009">01.07.2018</span></div>
+<div style="position:absolute;left:347.40px;top:107.44px" class="cls_022"><span class="cls_022">•</span><span class="cls_003"> </span><span class="cls_009">  GDPR statement moved to start of</span></div>
+<div style="position:absolute;left:361.44px;top:119.68px" class="cls_009"><span class="cls_009">application</span></div>
+<div style="position:absolute;left:347.40px;top:135.40px" class="cls_022"><span class="cls_022">•</span><span class="cls_003"> </span><span class="cls_009">  Removed sentence (CP16 Annex D1 should</span></div>
+<div style="position:absolute;left:361.44px;top:147.52px" class="cls_009"><span class="cls_009">be used to record past employment.) from</span></div>
+<div style="position:absolute;left:361.44px;top:159.76px" class="cls_009"><span class="cls_009">Part 2.</span></div>
+<div style="position:absolute;left:347.41px;top:178.48px" class="cls_022"><span class="cls_022">•</span><span class="cls_003"> </span><span class="cls_009">  Contents section added</span></div>
+<div style="position:absolute;left:42.60px;top:203.32px" class="cls_009"><span class="cls_009">16</span></div>
+<div style="position:absolute;left:193.56px;top:203.32px" class="cls_009"><span class="cls_009">01.07.2020</span></div>
+<div style="position:absolute;left:361.44px;top:203.20px" class="cls_009"><span class="cls_009">Clauses 7a and 7e changed to reflect</span></div>
+<div style="position:absolute;left:361.45px;top:215.44px" class="cls_009"><span class="cls_009">current process</span></div>
+<div style="position:absolute;left:42.60px;top:237.16px" class="cls_009"><span class="cls_009">17</span></div>
+<div style="position:absolute;left:193.56px;top:237.16px" class="cls_009"><span class="cls_009">01.04.2021</span></div>
+<div style="position:absolute;left:361.44px;top:237.16px" class="cls_009"><span class="cls_009">Updated to include new PED requirements</span></div>
+<div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
+<div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 8 of 8</span></div>
+<div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background09.jpg' %}" width=595 height=842></div>
+<div style="position:absolute;left:57.60px;top:19.76px" class="cls_002"><span class="cls_002">Certification Services Department</span></div>
+<div style="position:absolute;left:57.60px;top:31.88px" class="cls_002"><span class="cls_002">Midsummer House</span></div>
+<div style="position:absolute;left:57.60px;top:44.12px" class="cls_002"><span class="cls_002">Riverside Way, Bedford Road</span></div>
+<div style="position:absolute;left:57.60px;top:56.36px" class="cls_002"><span class="cls_002">Northampton, NN1 5NX</span></div>
+<div style="position:absolute;left:57.60px;top:68.60px" class="cls_002"><span class="cls_002">United Kingdom</span></div>
+<div style="position:absolute;left:57.60px;top:92.97px" class="cls_009"><span class="cls_009">Tel: +44(0)1604-438-300.</span></div>
+<div style="position:absolute;left:57.60px;top:105.20px" class="cls_009"><span class="cls_009">Email: </span><A HREF="mailto:pcn@bindt.org">pcn@bindt.org</A> </span></div>
+<div style="position:absolute;left:57.60px;top:129.08px" class="cls_004"><span class="cls_004">CP27 ISSUE 2 DATED 1</span><span class="cls_005"><sup>st</sup></span><span class="cls_004"> APRIL 2021</span></div>
+<div style="position:absolute;left:57.59px;top:164.12px" class="cls_004"><span class="cls_004">CODE OF ETHICS FOR PCN CERTIFICATE HOLDERS</span></div>
+<div style="position:absolute;left:57.60px;top:193.52px" class="cls_009"><span class="cls_009">Individuals certified within the PCN Scheme must recognise that personal integrity and professional competence are</span></div>
+<div style="position:absolute;left:57.60px;top:205.76px" class="cls_009"><span class="cls_009">the fundamental principles on which their testing activities are founded. Consequently, it is required that all PCN</span></div>
+<div style="position:absolute;left:57.58px;top:218.00px" class="cls_009"><span class="cls_009">certified NDT personnel subscribe to a “Code of Ethics” designed to protect the integrity of any NDT processes and</span></div>
+<div style="position:absolute;left:57.58px;top:230.24px" class="cls_009"><span class="cls_009">inspections in which they may become involved.</span></div>
+<div style="position:absolute;left:57.58px;top:248.36px" class="cls_009"><span class="cls_009">The integrity of NDT and CM processes and the people performing those processes is a fundamental requirement in</span></div>
+<div style="position:absolute;left:57.58px;top:260.60px" class="cls_009"><span class="cls_009">ensuring that the inspections performed remain at the highest possible level in terms of quality and reliability.</span></div>
+<div style="position:absolute;left:57.58px;top:272.84px" class="cls_009"><span class="cls_009">Consequently, BINDT and industry at large expect all PCN certified NDT and CM personnel to conduct themselves in</span></div>
+<div style="position:absolute;left:57.57px;top:284.96px" class="cls_009"><span class="cls_009">an ethical and morally acceptable manner at all times whilst performing their NDT/CM duties.</span></div>
+<div style="position:absolute;left:57.57px;top:309.44px" class="cls_009"><span class="cls_009">It is a condition of PCN certification that certificate holders are expected, as a minimum to understand, acknowledge</span></div>
+<div style="position:absolute;left:57.56px;top:321.69px" class="cls_009"><span class="cls_009">and abide by this code of ethics and the principles contained herein. It is a requirement that all PCN applicants and</span></div>
+<div style="position:absolute;left:57.55px;top:333.81px" class="cls_009"><span class="cls_009">certificate holders acknowledge, by signature below, that they have read, understood and acknowledge this code of</span></div>
+<div style="position:absolute;left:57.55px;top:346.05px" class="cls_009"><span class="cls_009">ethics and hereby agree to abide by them at all times whilst engaged in PCN certified NDT and/or CM activities.</span></div>
+<div style="position:absolute;left:57.56px;top:364.28px" class="cls_009"><span class="cls_009">I, the undersigned, undertake to:</span></div>
+<div style="position:absolute;left:75.56px;top:382.52px" class="cls_009"><span class="cls_009">1.   comply with this code of ethics;</span></div>
+<div style="position:absolute;left:75.56px;top:400.64px" class="cls_009"><span class="cls_009">2.   apply themselves correctly and to maintain high levels of integrity, honesty, skill and proficiency in the</span></div>
+<div style="position:absolute;left:93.56px;top:412.88px" class="cls_009"><span class="cls_009">conducting of NDT</span></div>
+<div style="position:absolute;left:75.55px;top:431.12px" class="cls_009"><span class="cls_009">3.   undertake only those non-destructive testing assignments for which they are competent by virtue of their</span></div>
+<div style="position:absolute;left:93.54px;top:443.36px" class="cls_009"><span class="cls_009">training, qualification and experience. i.e. to only perform inspections commensurate with their level of</span></div>
+<div style="position:absolute;left:93.55px;top:455.60px" class="cls_009"><span class="cls_009">certification in the applicable test disciplines.</span></div>
+<div style="position:absolute;left:75.54px;top:473.71px" class="cls_009"><span class="cls_009">4.   perform all inspections to the best of one’s ability at all times and to resist any outside pressures that they</span></div>
+<div style="position:absolute;left:93.54px;top:485.96px" class="cls_009"><span class="cls_009">consider may have the potential to affect the integrity, honesty, quality or outcome of any testing</span></div>
+<div style="position:absolute;left:93.54px;top:498.20px" class="cls_009"><span class="cls_009">performed. Any such undue pressures should be reported to the employing management/supervision and</span></div>
+<div style="position:absolute;left:93.53px;top:510.44px" class="cls_009"><span class="cls_009">BINDT.</span></div>
+<div style="position:absolute;left:75.53px;top:528.55px" class="cls_009"><span class="cls_009">5.   only sign documents for work of which they have personal professional knowledge and/or direct supervisory</span></div>
+<div style="position:absolute;left:93.53px;top:540.80px" class="cls_009"><span class="cls_009">control;</span></div>
+<div style="position:absolute;left:75.53px;top:558.91px" class="cls_009"><span class="cls_009">6.   engage, or advise the engagement of, such specialists as are required to enable assignments to be properly</span></div>
+<div style="position:absolute;left:93.53px;top:571.15px" class="cls_009"><span class="cls_009">completed;</span></div>
+<div style="position:absolute;left:75.53px;top:589.39px" class="cls_009"><span class="cls_009">7.   conduct themselves in a responsible manner and utilize fair and equitable business practices in dealing with</span></div>
+<div style="position:absolute;left:93.53px;top:601.63px" class="cls_009"><span class="cls_009">colleagues, clients and associates;</span></div>
+<div style="position:absolute;left:75.52px;top:619.75px" class="cls_009"><span class="cls_009">8.   at all times, be aware of and uphold the provisions/ requirements of codes, regulations and standards under</span></div>
+<div style="position:absolute;left:93.52px;top:631.99px" class="cls_009"><span class="cls_009">which they are working;</span></div>
+<div style="position:absolute;left:75.52px;top:650.23px" class="cls_009"><span class="cls_009">9.   immediately  report  to  their  supervisor/employer  any  perceived  violation(s)  of  codes,  regulations  or</span></div>
+<div style="position:absolute;left:93.52px;top:662.47px" class="cls_009"><span class="cls_009">standards. In the event that their supervisor/employer provides no satisfactory explanation or takes no</span></div>
+<div style="position:absolute;left:93.52px;top:674.71px" class="cls_009"><span class="cls_009">corrective action, the certified individual shall report the situation direct to the British Institute of NDT;</span></div>
+<div style="position:absolute;left:75.51px;top:692.82px" class="cls_009"><span class="cls_009">10. perform their professional duties with proper regard for the physical environment and the safety, health and</span></div>
+<div style="position:absolute;left:93.51px;top:705.07px" class="cls_009"><span class="cls_009">well-being of the public;</span></div>
+<div style="position:absolute;left:75.51px;top:723.30px" class="cls_009"><span class="cls_009">11. protect to the fullest extent possible, consistent with the well being of the public and the provisions of this</span></div>
+<div style="position:absolute;left:93.51px;top:735.42px" class="cls_009"><span class="cls_009">code of ethics, any information given to them in confidence by an employer, colleague or member of the</span></div>
+<div style="position:absolute;left:93.51px;top:747.66px" class="cls_009"><span class="cls_009">public;</span></div>
+<div style="position:absolute;left:77.52px;top:770.36px" class="cls_014"><span class="cls_014">The British Institute of Non-Destructive Testing is an accredited certification body offering personnel and quality management systems</span></div>
+<div style="position:absolute;left:82.67px;top:780.20px" class="cls_014"><span class="cls_014">assessment and certification against criteria set out in international and European standards through the PCN Certification Scheme.</span></div>
+<div style="position:absolute;left:174.59px;top:789.92px" class="cls_014"><span class="cls_014">© 2021 The British Institute of Non-Destructive Testing. All Rights Reserved.</span></div>
+<div style="position:absolute;left:122.14px;top:799.64px" class="cls_014"><span class="cls_014">This document is protected by UK and international copyright laws and remains the intellectual property of BINDT.</span></div>
+<div style="position:absolute;left:126.46px;top:809.48px" class="cls_014"><span class="cls_014">Reproduction and distribution of the document without the written permission of BINDT is strictly prohibited.</span></div>
+</div>
+<div style="position:relative;margin:auto;top:40px;width:627px;height:841px;border-style:outset;overflow:hidden;background-color:white;">
+<div style="position:absolute;left:0px;top:0px">
+<img src="{% static 'images/forms/psl_initial/background10.jpg' %}" width=595 height=842></div>
+<div style="position:absolute;left:75.60px;top:19.76px" class="cls_009"><span class="cls_009">12. avoid conflicts of interest with the employer or client, but when unavoidable, forthwith disclose the</span></div>
+<div style="position:absolute;left:93.60px;top:32.00px" class="cls_009"><span class="cls_009">circumstances to the employer or client;</span></div>
+<div style="position:absolute;left:75.60px;top:50.12px" class="cls_009"><span class="cls_009">13. strive to maintain their proficiency by updating their technical knowledge as required to properly practice</span></div>
+<div style="position:absolute;left:93.60px;top:62.36px" class="cls_009"><span class="cls_009">NDT in the certified methods and levels.</span></div>
+<div style="position:absolute;left:75.59px;top:80.60px" class="cls_009"><span class="cls_009">14. indicate to the employer or client any adverse consequences which may result from an overruling of their</span></div>
+<div style="position:absolute;left:93.58px;top:92.84px" class="cls_009"><span class="cls_009">technical judgment by a non-technical authority;</span></div>
+<div style="position:absolute;left:75.58px;top:110.95px" class="cls_009"><span class="cls_009">15. not  falsify nor  permit  misrepresentation  of  their  own  or  their  associate’s  academic  or  professional</span></div>
+<div style="position:absolute;left:93.58px;top:123.19px" class="cls_009"><span class="cls_009">qualifications, training, experience or work responsibilities;</span></div>
+<div style="position:absolute;left:75.57px;top:141.43px" class="cls_009"><span class="cls_009">16. refrain from making unjustified statements or from performing unethical acts which would discredit the PCN</span></div>
+<div style="position:absolute;left:93.57px;top:153.67px" class="cls_009"><span class="cls_009">scheme;</span></div>
+<div style="position:absolute;left:75.57px;top:171.79px" class="cls_009"><span class="cls_009">17. immediately report to the British Institute of NDT any perceived or known fraudulent use of PCN</span></div>
+<div style="position:absolute;left:93.57px;top:184.03px" class="cls_009"><span class="cls_009">certification, including the use of forged or false PCN certification.</span></div>
+<div style="position:absolute;left:75.56px;top:202.27px" class="cls_009"><span class="cls_009">18. immediately report to the British Institute of NDT any perceived violation(s) of this code of ethics;</span></div>
+<div style="position:absolute;left:75.56px;top:220.38px" class="cls_009"><span class="cls_009">19. immediately report to the British Institute of NDT any attempt to pressure or force an individual certified</span></div>
+<div style="position:absolute;left:93.56px;top:232.63px" class="cls_009"><span class="cls_009">under the PCN Scheme to violate this code of ethics;</span></div>
+<div style="position:absolute;left:75.55px;top:250.86px" class="cls_009"><span class="cls_009">20. inform their employer in the event that their PCN certificate is suspended, cancelled or withdrawn.</span></div>
+<div style="position:absolute;left:57.54px;top:269.10px" class="cls_009"><span class="cls_009">Failure to comply with the above code of ethics will be dealt with under arrangements for handling complaints and</span></div>
+<div style="position:absolute;left:57.54px;top:281.34px" class="cls_009"><span class="cls_009">appeals (PCN document CP21 refers).</span></div>
+<div style="position:absolute;left:57.54px;top:299.46px" class="cls_002"><span class="cls_002">REMINDER:</span><span class="cls_009"> PCN certificate holders are reminded that they should be aware of the consequences that may arise from</span></div>
+<div style="position:absolute;left:57.53px;top:311.70px" class="cls_009"><span class="cls_009">any failure to comply with this code of ethics including the consequences of in-service failures and any ongoing effect</span></div>
+<div style="position:absolute;left:57.53px;top:323.94px" class="cls_009"><span class="cls_009">on the health and safety of persons, plant, equipment and the environment.</span></div>
+<div style="position:absolute;left:57.53px;top:360.29px" class="cls_018"><span class="cls_018">I acknowledge I have read and understand the PCN “Code of Ethics” and hereby give my commitment to abide by</span></div>
+<div style="position:absolute;left:57.53px;top:372.53px" class="cls_018"><span class="cls_018">those principles in the performance of my NDT duties whilst certified by PCN.</span></div>
+<div style="position:absolute;left:57.53px;top:390.77px" class="cls_002"><span class="cls_002">Name (Print):</span></div>
+<div style="position:absolute;left:57.53px;top:427.12px" class="cls_002"><span class="cls_002">Signed:</span></div>
+<div style="position:absolute;left:57.53px;top:463.60px" class="cls_002"><span class="cls_002">Date:</span></div>
+
+
+    <input style="position:absolute;top:745.12px;left:10px;" type="checkbox" id="vehicle1" name="comfirmation" />
+<label style="position:absolute;top:744.12px;left:24px;" for="vehicle1"> Confirmed by Training Staff</label><br>
+
+
+                                        <div style="position:absolute;top:765.12px" class="mb-3 col-md-12 text-center">
+                                <button class="BUTTON_MZQ" name="mainForm" type="submit">Submit</button>
+                                 </div>
+</div>
+
+                                     </form>   
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+ <br>
+                                            <br>
+                                        </div> <!-- end tab-content-->
+                                    </div>
+                                    <!-- end card-body -->
+                                </div>
+                                <!-- end card-->
+                            </div>
+                            <!-- end col-->
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+        <!-- bundle -->
+        <script src="{% static 'assets/js/vendor.min.js' %}"></script>
+        <script src="{% static 'assets/js/app.min.js' %}"></script>
+
+<script>
+document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+  const dropZoneElement = inputElement.closest(".drop-zone");
+
+  dropZoneElement.addEventListener("click", (e) => {
+    inputElement.click();
+  });
+
+  inputElement.addEventListener("change", (e) => {
+    if (inputElement.files.length) {
+      updateThumbnail(dropZoneElement, inputElement.files[0]);
+    }
+  });
+
+  dropZoneElement.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZoneElement.classList.add("drop-zone--over");
+  });
+
+  ["dragleave", "dragend"].forEach((type) => {
+    dropZoneElement.addEventListener(type, (e) => {
+      dropZoneElement.classList.remove("drop-zone--over");
+    });
+  });
+
+  dropZoneElement.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    if (e.dataTransfer.files.length) {
+      inputElement.files = e.dataTransfer.files;
+      updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+    }
+
+    dropZoneElement.classList.remove("drop-zone--over");
+  });
+});
+
+/**
+ * Updates the thumbnail on a drop zone element.
+ *
+ * @param {HTMLElement} dropZoneElement
+ * @param {File} file
+ */
+function updateThumbnail(dropZoneElement, file) {
+  let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+  // First time - remove the prompt
+  if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+    dropZoneElement.querySelector(".drop-zone__prompt").remove();
+  }
+
+  // First time - there is no thumbnail element, so lets create it
+  if (!thumbnailElement) {
+    thumbnailElement = document.createElement("div");
+    thumbnailElement.classList.add("drop-zone__thumb");
+    dropZoneElement.appendChild(thumbnailElement);
+  }
+
+  thumbnailElement.dataset.label = file.name;
+
+  // Show thumbnail for image files
+  if (file.type.startsWith("image/")) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+    };
+  } else {
+    thumbnailElement.style.backgroundImage = null;
+  }
+}
+</script>
+
+                {% endblock %}

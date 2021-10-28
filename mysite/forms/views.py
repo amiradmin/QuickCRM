@@ -1447,6 +1447,9 @@ class AllPSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['forms'] = forms
         return context
 
+class DeletePSL57AForm(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = PSL57A
+    success_url = reverse_lazy('forms:allpsl57A_')
 
 class AllBGASinitialForms(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "forms/all_psl30_inintal_forms.html"
@@ -1460,32 +1463,19 @@ class AllBGASinitialForms(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
 class UpdatePSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
-    template_name = "forms/reg_forms/PSL-57A_Initial_exam_application.html"
+    template_name = "forms/reg_forms/update_PSL-57A_Initial.html"
 
-    def get_context_data(self):
+    def get_context_data(self, *args, **kwargs):
         context = super(UpdatePSL57AForm, self).get_context_data()
-        candidates = TesCandidate.objects.all().order_by('first_name')
-        events = Event.objects.all()
-
-
-        context['candidates'] = candidates
-        context['events'] = events
+        form = PSL57A.objects.filter(id=self.kwargs['id']).first()
+        context['form'] = form
         return context
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                canID = request.POST['canID']
-                eventID = request.POST['eventID']
-                # eventID = request.POST['eventID']
-                print("Form")
-                print(canID)
-                print(eventID)
-                candidate = TesCandidate.objects.filter(id=canID).first()
-                event = Event.objects.filter(id=eventID).first()
-                event.candidate.add(candidate)
 
-                mainObj =PSL30InitialForm()
+                mainObj =PSL57A.objects.filter(id=self.kwargs['id']).first()
                 mainObj.candidate =candidate
                 mainObj.event =event
                 mainObj.cerAddres =request.POST['cerAddres']
@@ -1543,17 +1533,114 @@ class UpdatePSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 mainObj.save()
 
 
-                formObj = FormList()
-                formObj.name = "PSL-57A Initial exam application"
-                formObj.candidate = candidate
-                formObj.event = event
-                if not request.POST.get('comfirmation', None) == None:
-                    formObj.status = True
+                # formObj = FormList()
+                # formObj.name = "PSL-57A Initial exam application"
+                # formObj.candidate = candidate
+                # formObj.event = event
+                # if not request.POST.get('comfirmation', None) == None:
+                #     formObj.status = True
+                #
+                # formObj.save()
 
-                formObj.save()
+                return redirect('forms:allpsl57A_')
 
-                return redirect('forms:allpslinitialform_')
 
+
+class MessageUpdatePSL57AForm(LoginRequiredMixin,TemplateView):
+    template_name = "forms/reg_forms/update_PSL-57A_Initial.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(MessageUpdatePSL57AForm, self).get_context_data()
+        form = PSL57A.objects.filter(id=self.kwargs['id']).first()
+        contactObj = Contact.objects.filter(id=self.kwargs['msgID']).first()
+        contactObj.readFlag=True
+        contactObj.save()
+        context['form'] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+
+                mainObj =PSL57A.objects.filter(id=self.kwargs['id']).first()
+                mainObj.candidate =candidate
+                mainObj.event =event
+                mainObj.cerAddres =request.POST['cerAddres']
+                mainObj.pslCerAddres =request.POST['pslCerAddres']
+                mainObj.phone =request.POST['phone']
+                mainObj.pslNumber =request.POST['pslNumber']
+                mainObj.email =request.POST['email']
+                mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
+                mainObj.currentEmploymentPosition =request.POST['currentEmploymentPosition']
+                mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
+                mainObj.preCerTraining =request.POST['preCerTraining']
+                mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
+                # mainObj.preCerTraining = request.POST['preCerTraining']
+
+                if not request.POST.get('et', None) == None:
+                    mainObj.ndtMethod = 'ET'
+
+                if not request.POST.get('mt', None) == None:
+                    mainObj.ndtMethod = 'MT'
+
+                if not request.POST.get('pt', None) == None:
+                    mainObj.ndtMethod = 'PT'
+
+                if not request.POST.get('rt', None) == None:
+                    mainObj.ndtMethod = 'RT'
+
+                if not request.POST.get('ri', None) == None:
+                    mainObj.ndtMethod = 'RI'
+                if not request.POST.get('ut', None) == None:
+                    mainObj.ndtMethod = 'UT'
+                if not request.POST.get('vt', None) == None:
+                    mainObj.ndtMethod = 'VT'
+                if not request.POST.get('crt', None) == None:
+                    mainObj.ndtMethod = 'CRT'
+                if not request.POST.get('tofd', None) == None:
+                    mainObj.ndtMethod = 'TOFD'
+                if not request.POST.get('paut', None) == None:
+                    mainObj.ndtMethod = 'PAUT'
+
+
+                if not request.POST.get('levelOne', None) == None:
+                    mainObj.level = 'level 1'
+                if not request.POST.get('levelTwo', None) == None:
+                    mainObj.level = 'level 2'
+                if not request.POST.get('levelThree', None) == None:
+                    mainObj.level = 'level 3'
+
+                # mainObj.ndtMethod = request.POST['ndtOther']
+                mainObj.level3State = request.POST['ifLevel3']
+                mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
+                mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
+                mainObj.cerCategory = request.POST['cerCategory']
+                mainObj.preferredExaminationDateVenue = request.POST['preferredExaminationDateVenue']
+
+                mainObj.save()
+
+
+                # formObj = FormList()
+                # formObj.name = "PSL-57A Initial exam application"
+                # formObj.candidate = candidate
+                # formObj.event = event
+                # if not request.POST.get('comfirmation', None) == None:
+                #     formObj.status = True
+                #
+                # formObj.save()
+
+                return redirect('forms:allpsl57A_')
+
+
+
+class ViewPSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "forms/reg_forms/view_PSL-57A_Initial.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ViewPSL57AForm, self).get_context_data()
+        form = PSL57A.objects.filter(id=self.kwargs['id']).first()
+        context['form'] = form
+        return context
 
 
 class MessagePSL30LogExperienceForm(LoginRequiredMixin,TemplateView):

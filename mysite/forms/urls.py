@@ -106,6 +106,10 @@ urlpatterns = [
 
     path('newpsl57A/', views.PSL57AFOrmView.as_view(), name='newpsl57A_'),
     path('allpsl57A/', views.AllPSL57AFOrmView.as_view(), name='allpsl57A_'),
-    path('updatepsl3logexp/<int:id>', views.UpdatePSL57AForm.as_view(), name='updatepsl3logexp_'),
+    path('updatepsl57A/<int:id>', views.UpdatePSL57AForm.as_view(), name='updatepsl57A_'),
+    path('messageupdatepsl57A/<int:id>/<int:msgID>', views.MessageUpdatePSL57AForm.as_view(), name='messageupdatepsl57A'),
+    path('viewpsl57A/<int:id>', views.ViewPSL57AForm.as_view(), name='viewpsl57A_'),
+    path('deletepsl57A/<int:pk>/delete/', views.DeletePSL57AForm.as_view(), name='deletepsl57A_'),
+
 
 ]

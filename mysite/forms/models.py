@@ -370,8 +370,8 @@ class PSL57A(models.Model):
 
     event = models.ForeignKey(Event, related_name="event_psl_57a", on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate, related_name="candidate_psl_57a", on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, related_name="category_psl_57a", on_delete=models.CASCADE)
-    guideline = models.ForeignKey(Guideline, related_name="guideline_psl_57a", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="category_psl_57a", on_delete=models.CASCADE, null=True, blank=True )
+    guideline = models.ForeignKey(Guideline, related_name="guideline_psl_57a", on_delete=models.CASCADE, null=True, blank=True )
     contactMe = models.BooleanField(null=True, blank=True)
     cerAddress = models.CharField(max_length=2048, null=True, blank=True )
     pslCerAddress = models.CharField(max_length=2048, null=True, blank=True )

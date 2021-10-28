@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
-from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp
+from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A
 import datetime
 import json
 from django.http import JsonResponse
@@ -548,6 +548,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                             twiEnrolForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
                             # bgasinitialForm = BGASinitialForm.objects.filter(candidate=candidate).first()
                             psl30LogExp = PSL30LogExp.objects.filter(candidate=candidate).first()
+                            psl57A = PSL57A.objects.filter(candidate=candidate).first()
 
                             if item.name == 'TWI Enrolment Form':
                                 if not twiEnrolForm:
@@ -584,36 +585,38 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                                     contactObj.save()
 
 
-                            # if item.name == 'PSL-57A Initial exam application':
-                            #     if not bgasinitialForm:
-                            #         obj = BGASinitialForm()
-                            #         print("Inside 57A")
-                            #         print(candidate.first_name)
-                            #         obj.candidate = candidate
-                            #         obj.event=event
-                            #         obj.save()
-                            #         print(obj.id)
-                            #
-                            #
-                            #         formListObj = FormList()
-                            #         formListObj.name = obj.__class__.__name__
-                            #         formListObj.event = event
-                            #         formListObj.candidate = candidate
-                            #         formListObj.category = category
-                            #         formListObj.guideline = guideline
-                            #         formListObj.FormID = obj.id
-                            #         formListObj.save()
-                            #
-                            #
-                            #         contactObj =Contact()
-                            #         contactObj.type="Admin"
-                            #         contactObj.messageType="Form"
-                            #         contactObj.department="Registration"
-                            #         contactObj.message="Please fill following form:" + formListObj.name
-                            #         contactObj.formName=formListObj.name
-                            #         contactObj.objID=obj.id
-                            #         contactObj.candidate = candidate
-                            #         contactObj.save()
+                            if item.name == 'PSL-57A Initial exam application':
+                                if not psl57A:
+                                    obj = PSL57A()
+                                    print("Inside 57A")
+                                    print(candidate.first_name)
+                                    obj.candidate = candidate
+                                    obj.event=event
+                                    obj.category=category
+                                    obj.guideline=guideline
+                                    obj.save()
+                                    print(obj.id)
+
+
+                                    formListObj = FormList()
+                                    formListObj.name = obj.__class__.__name__
+                                    formListObj.event = event
+                                    formListObj.candidate = candidate
+                                    formListObj.category = category
+                                    formListObj.guideline = guideline
+                                    formListObj.FormID = obj.id
+                                    formListObj.save()
+
+
+                                    contactObj =Contact()
+                                    contactObj.type="Admin"
+                                    contactObj.messageType="Form"
+                                    contactObj.department="Registration"
+                                    contactObj.message="Please fill following form: " + formListObj.name
+                                    contactObj.formName=formListObj.name
+                                    contactObj.objID=obj.id
+                                    contactObj.candidate = candidate
+                                    contactObj.save()
 
 
                             if item.name == 'PSL-30_Log of experience':

@@ -94,7 +94,8 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         events = Event.objects.filter(candidate = candidate)
         contact = Contact.objects.filter(candidate=candidate).order_by("-id")
-        contactRead = Contact.objects.filter(Q(candidate=candidate)|Q(readFlag=True)).count()
+        contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        print(contactRead)
         now = datetime.datetime.now()
         context['candidate'] = candidate
         context['events'] = events
