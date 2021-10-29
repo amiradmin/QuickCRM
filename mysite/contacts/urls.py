@@ -5,7 +5,7 @@ app_name ="contacts"
 urlpatterns = [
 
 
-    path('newcontact', views.NewContactView.as_view(), name='newcontact_'),
+    path('newcontact/<int:id>', views.NewContactView.as_view(), name='newcontact_'),
     path('adminnewcontact', views.AdminNewContactView.as_view(), name='adminnewcontact_'),
     path('messagelist/<int:id>', views.MessageListView.as_view(), name='messagelist_'),
     path('adminmessagelist', views.AdminMessageListView.as_view(), name='adminmessagelist_'),

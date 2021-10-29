@@ -7,7 +7,7 @@ from contacts.models import Contact
 from  authorization.sidebarmixin import SidebarMixin
 from django.db.models import Q
 import datetime
-
+from mailer.views import sendMail
 # Create your views here.
 
 class NewContactView(LoginRequiredMixin,TemplateView):
@@ -15,18 +15,18 @@ class NewContactView(LoginRequiredMixin,TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
+            candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
             obj = Contact()
-            candidate = TesCandidate.objects.filter(id=1054237).first()
+            candidate = TesCandidate.objects.filter(id=candidate.id).first()
             obj.candidate = candidate
             obj.type = 'Candidate'
             obj.messageType = 'Message'
             obj.department = request.POST['department']
             obj.message = request.POST['message']
-
-            # lecturer = Lecturer.objects.filter(id=self.kwargs['id']).first()
-            # lecturer.aboutMe = aboutMe
             obj.save()
-            return redirect('accounting:canprofile_',id=1054237)
+            sendMail("amirbehvandi747@gmail.com")
+
+            return redirect('accounting:canprofile_',id=candidate.id)
 
 
 

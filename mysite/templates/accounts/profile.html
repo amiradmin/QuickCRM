@@ -367,9 +367,9 @@
                          alt="profile-image">
 
                     <h4 class="mb-0 mt-2">{{candidate.first_name}} {{candidate.last_name}}</h4>
-                    <p class="text-muted font-14">Student</p>
+                    <p class="text-muted font-14">Candidate</p>
 
-                    <a href="{% url 'contacts:newcontact_' %}" class="btn btn-success btn-sm mb-2">Contact
+                    <a href="{% url 'contacts:newcontact_' id=candidate.id %}" class="btn btn-success btn-sm mb-2">Contact
                         Administration</a>
 
 
