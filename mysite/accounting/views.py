@@ -11,6 +11,7 @@ from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from contacts.models import Contact
+from training.models import TesCandidate
 from django.db.models import Q
 import datetime
 
@@ -43,7 +44,8 @@ class LoginView(TemplateView):
                 elif group_name == 'candidates':
 
                     print('can')
-                    return redirect('accounting:canprofile_', id =user.id)
+                    candidate = TesCandidate.objects.filter(user=user).first()
+                    return redirect('accounting:canprofile_', id =candidate.id)
 
             else:
                 return HttpResponse("Inactive user.")
@@ -93,7 +95,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         print(self.kwargs['id'])
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         events = Event.objects.filter(candidate = candidate)
-        contact = Contact.objects.filter(candidate=candidate).order_by("-id")
+        contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
         contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
         print(contactRead)
         now = datetime.datetime.now()

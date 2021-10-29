@@ -29,6 +29,31 @@ class NewContactView(LoginRequiredMixin,TemplateView):
             return redirect('accounting:canprofile_',id=1054237)
 
 
+
+
+class AdminNewContactView(LoginRequiredMixin,TemplateView):
+    template_name = "contact/admin_new_contact.html"
+
+    def get_context_data(self):
+        context = super(AdminNewContactView, self).get_context_data()
+        candidates = TesCandidate.objects.all().order_by('first_name')
+        context['candidates'] = candidates
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            obj = Contact()
+            candidate = TesCandidate.objects.filter(id=request.POST['candidateID']).first()
+            obj.candidate = candidate
+            obj.type = 'Admin'
+            obj.messageType = 'Message'
+            obj.department = request.POST['department']
+            obj.message = request.POST['message']
+            obj.save()
+            return redirect('training:trainpanel_')
+
+
 class MessageListView(LoginRequiredMixin,TemplateView):
     template_name = "contact/message_list.html"
 
@@ -74,7 +99,7 @@ class MessageDetailView(LoginRequiredMixin,TemplateView):
     def get_context_data(self,id):
         context = super(MessageDetailView, self).get_context_data()
         message = Contact.objects.filter(id=self.kwargs['id']).first()
-        message.archived=True
+        message.readFlag=True
         message.save()
         context['message'] = message
 
