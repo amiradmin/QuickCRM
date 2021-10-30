@@ -82,7 +82,7 @@
 <table id="basic-datatable" class="table dt-responsive nowrap w-100">
     <thead>
         <tr>
-            <th  ></th>
+
             
             <th >Tcket Number</th>
             <th  >Candidate </th>
@@ -101,18 +101,18 @@
         {% for item in tickets %}
         <tr>
             
-            <td  ><img  style="min-width: 50px;" src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="image" class="img-fluid avatar-sm rounded-circle"></td>
+
             <td><p style="margin:0px; padding:0px; ">{{item.TicketNumber}}</p></td>
             <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a   href="{% url 'accounting:canprofile_' id=item.id %}">{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.last_name}}</a></p></td>
 
-            <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.status}}</p></td>
+            <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{% if item.status == 'Done' %}<span class="badge badge-success-lighten">Done</span> {% elif item.status == 'OnProcess' %} <span class="badge badge-danger-lighten">{{item.status}}</span> {% else %}<span class="badge badge-info-lighten">{{item.status}}</span> {% endif %}</p></td>
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.asignedTo}}</p></td>
             <td><p style="margin:0px; padding:0px; ">{% if item.candidate.contact_number %}{{item.candidate.contact_number|phone_number}} {% endif %}</p></td>
             <td><p style="margin:0px; padding:0px; ">{{item.candidate.email}}</p></td>
             <td><p style="margin:0px; padding:0px; "><a style="color:{{item2.colorCode}}"  href="{% url 'forms:formbyid_' id=item.id %}">{{item.closeDate|date:'m/d/Y'}}</a></p></td>
 
           
-            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:usermonitor_' id=item.id %}"><i class="fa fa-desktop" aria-hidden="true" style="font-size:20px;"></i></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'ticket:tickethistory_' id=item.id %}"><span class="badge badge-warning-lighten">History</span></a></td>
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatecan_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
             <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:delcan_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
             
