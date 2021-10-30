@@ -29,6 +29,8 @@ urlpatterns = [
     path('', include("accounting.urls",namespace="accounting")),
     path('contacts/', include("contacts.urls",namespace="contacts")),
     path('mailer/', include("mailer.urls",namespace="mailer")),
+    path('ticket/', include("ticket.urls",namespace="ticket")),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

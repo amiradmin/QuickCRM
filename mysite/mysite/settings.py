@@ -60,8 +60,9 @@ INSTALLED_APPS = [
     'tescalendar',
     'map',
     'contacts',
-    'mailer',
-    
+    'ticket',
+
+
     
 ]
 
