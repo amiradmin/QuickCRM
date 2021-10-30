@@ -315,6 +315,16 @@ document.getElementById('candidateHomePhone').addEventListener('keyup',function(
 // We need to manually format the phone number on page load
 document.getElementById('candidateHomePhone').value = phoneFormat(document.getElementById('candidateHomePhone').value);
 
+// Format the phone number as the user types it
+document.getElementById('candidateMobileNo').addEventListener('keyup',function(evt){
+        var phoneNumber = document.getElementById('candidateMobileNo');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('candidateMobileNo').value = phoneFormat(document.getElementById('candidateMobileNo').value);
+
 // A function to determine if the pressed key is an integer
 function numberPressed(evt){
         var charCode = (evt.which) ? evt.which : evt.keyCode;
@@ -323,6 +333,15 @@ function numberPressed(evt){
         }
         return true;
 }
+
+document.getElementById('phone').addEventListener('keyup', function (evt) {
+        var phoneNumber = document.getElementById('phone');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('phone').value = phoneFormat(document.getElementById('phone').value);
 
 // A function to format text to look like a phone number
 function phoneFormat(input){

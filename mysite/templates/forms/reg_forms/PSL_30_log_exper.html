@@ -1154,8 +1154,8 @@ input {
 				<TD class="tr5 td39">
 					<P class="p15 ft10">&nbsp;</P>
 				</TD>
-				<TD class="tr5 td57" style="width:80px">
-					<P class="p15 ft21">Candidate's name:<input
+				<TD class="tr5 td57" style="width:300px">
+					<P class="p15 ft21" style="text-align: left;width: 300px;margin-top: 10px;">Candidate's name:<input
 							style="margin-left:2px;width:170px;;background: transparent;	border: none;"
 							value="{{candidate.first_name}} {{candidate.last_name}}" type="text" name="canName" /> </P>
 				</TD>
@@ -1180,8 +1180,8 @@ input {
 				<TD class="tr15 td39">
 					<P class="p15 ft10">&nbsp;</P>
 				</TD>
-				<TD class="tr15 td57">
-					<P class="p15 ft21">Candidates Email:<input
+				<TD class="tr15 td57"style="width:300px">
+					<P class="p15 ft21" style="width: 300px;margin-top: 10px;">Candidates Email:<input
 							style="width:170px;background: transparent;	border: none;" value="{{candidate.email}}"
 							type="text" name="canEmail" /> </P>
 				</TD>
@@ -1248,7 +1248,7 @@ input {
 				<TD class="tr10 td72" style="width:10px;backgrond-color:yellow;"></TD>
 
 				<TD colspan=4 class="tr10 td74" style="padding:0;margin:0;">
-					<P class="p15 ft38" style="text-align:left;margin:0;padding:0;"><SPAN class="ft37"
+					<P class="p15 ft38" style="text-align:left;margin:0;padding:0 5px;"><SPAN class="ft37"
 							style="">Industrial Experience Employer declaration: </SPAN>The employer shall attest to the
 						candidate having</P>
 				</TD>
@@ -1266,7 +1266,7 @@ input {
 				</TD>
 
 				<TD colspan=4 class="tr13 td74">
-					<P class="p15 ft13">successfully achieved the minimum number of industrial experience hours required
+					<P class="p15 ft13" style="padding: 0 5px;">successfully achieved the minimum number of industrial experience hours required
 						for the NDT</P>
 				</TD>
 			</TR>
@@ -1282,7 +1282,7 @@ input {
 				</TD>
 
 				<TD colspan=5 class="tr16 td74">
-					<P class="p15 ft15">method as per the requirements contained within Table 2 herein, and BS EN ISO
+					<P class="p15 ft15" style="padding: 0 5px;">method as per the requirements contained within Table 2 herein, and BS EN ISO
 						9712.</P>
 				</TD>
 			</TR>
@@ -1299,7 +1299,7 @@ input {
 				</TD>
 
 				<TD colspan=4 class="tr17 td74">
-					<P class="p15 ft13">The employer representative shall review all evidence of industrial experience
+					<P class="p15 ft13" style="padding: 0 5px;">The employer representative shall review all evidence of industrial experience
 						supplied ensuring:</P>
 				</TD>
 			</TR>
@@ -1343,7 +1343,7 @@ input {
 				</TD>
 
 				<TD colspan=5 class="tr16 td76">
-					<P class="p15 ft15">in the correct application of the NDT method on the employer’s product.</P>
+					<P class="p15 ft15" style="padding: 0 5px;">in the correct application of the NDT method on the employer’s product.</P>
 				</TD>
 			</TR>
 			<TR>
@@ -1359,7 +1359,7 @@ input {
 					<P class="p15 ft10">&nbsp;</P>
 				</TD>
 				<TD colspan=5 rowspan=2 class="tr5 td74">
-					<P class="p16 ft22">&nbsp;All candidate industrial experience records shall be made available to PCN
+					<P class="p16 ft22" style="padding: 0 5px;">&nbsp;All candidate industrial experience records shall be made available to PCN
 						where</P>
 				</TD>
 			</TR>
@@ -1895,7 +1895,8 @@ input {
 		</DIV>
 	</DIV>
 	<DIV id="id7_44" style="padding:0; margin-left: auto; margin-right: auto;">
-		<TABLE cellpadding=10 cellspacing=10 class="t88" style="margin:20px 10px;">
+		<TABLE cellpadding=10 cellspacing=10 class="t88" id="dynamicTable" style="margin:20px 10px;position: relative;">
+			<span onclick="addTableRow()" style="cursor: pointer;border-radius: 50%;width: 25px;height: 25px;background-color: #009578;color: white;position: absolute;top: 417px;right: 8px;text-align: center;z-index: 1;line-height: 25px;">+</span>
 			<TR style="padding: 10px;">
 				<TD class="tr3 td13"><input type="text"
 						style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR0" />
@@ -2211,6 +2212,32 @@ function updateThumbnail(dropZoneElement, file) {
   } else {
     thumbnailElement.style.backgroundImage = null;
   }
+}
+function addTableRow(){
+	var table = document.getElementById('dynamicTable');
+	i =table.rows.length;
+	var tr = `
+				<td class="tr3 td13" style="border:1px solid #000"><input type="text"
+						style="width:245px;height:32px;margin-bottom:8px;margin-right:5px; " name="techniqueCodeR${i}" />
+				</td>
+				<td class="tr3 td13" style="border:1px solid #000"><input type="text"
+						style="width:245px;height:32px;margin-bottom:8px;margin-right:13px;"
+						name="employerComponentR${i}" /></td>
+				<td class="tr3 td13" style="border:1px solid #000"><input type="text" style="width:110px;height:32px;margin-bottom:8px;"
+						name="ndtTaskR${i}" /></td>
+				<td class="tr3 td13" style="border:1px solid #000"><input type="text" style="width:110px;height:32px;margin-bottom:8px;"
+						name="experienceHoursR${i}" /></td>
+				<td class="tr3 td13" style="border:1px solid #000"><input type="text" style="width:220px;height:32px;margin-bottom:8px;"
+						name="experienceConfirmedR${i}" /></td>
+
+	`;
+	var tbody = table.getElementsByTagName('tbody')[0];
+	var html = document.createElement("tr");
+	html.style.padding = '10px'
+	html.innerHTML = tr;
+	tbody.append(html);
+	var div = document.getElementById('id7_4');
+	div.style.marginTop = (353 - (i - 7) * 40) + 'px'
 }
 </script>
 
