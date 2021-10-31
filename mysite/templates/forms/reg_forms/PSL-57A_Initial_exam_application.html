@@ -2,6 +2,10 @@
 {% load static %}
 {% block content %}
 <style>
+  input{
+    border: none !important;
+    background: transparent !important;
+  }
 .drop-zone {
   max-width: 100%;
   height: 300px;
@@ -423,11 +427,11 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:274.56px;top:214.00px" class="cls_009"><span class="cls_009">names:</span></div>
 <div style="position:absolute;left:42.60px;top:237.28px" class="cls_009"><span class="cls_009">Candidate’s usual residence, including post code</span></div>
 <div style="position:absolute;left:274.56px;top:237.28px" class="cls_009"><span class="cls_009">Address, including postcode, to which the PCN certificate,</span></div>
-<div style="position:absolute;left:42.60px;top:249.52px" class="cls_009"><span class="cls_009">(address that will be shown on the certificate):</span><br><input name="cerAddres"  style="margin-left:0px;width:220px;height:50px;" /></div>
-<div style="position:absolute;left:274.56px;top:249.52px" class="cls_009"><span class="cls_009">when issued, is to be sent.</span><br><input name="pslCerAddres"  style="margin-left:0px;width:235px;height:50px;" /></div>
+<div style="position:absolute;left:42.60px;top:249.52px" class="cls_009"><span class="cls_009">(address that will be shown on the certificate):</span><br><input name="cerAddres"  style="margin-left:0px;width:220px;height:50px;border: none;" /></div>
+<div style="position:absolute;left:274.56px;top:249.52px" class="cls_009"><span class="cls_009">when issued, is to be sent.</span><br><input name="pslCerAddres"  style="margin-left:0px;width:235px;height:50px;border: none;" /></div>
 <div style="position:absolute;left:42.60px;top:324.64px" class="cls_019"><span class="cls_019">CANDIDATE’S SIGNATURE AUTHORISING CERTIFICATE TO BE SENT TO</span></div>
 <div style="position:absolute;left:42.60px;top:336.88px" class="cls_019"><span class="cls_019">ABOVE ADDRESS:</span></div>
-<div style="position:absolute;left:42.60px;top:358.12px" class="cls_009"><span class="cls_009">Telephone</span><input name="phone"  value="{{candidate.contact_number}}" style="margin-left:50px;width:190px;" /></div>
+<div style="position:absolute;left:42.60px;top:358.12px" class="cls_009"><span class="cls_009">Telephone</span><input name="phone"  value="{{candidate.contact_number}}"  onkeypress="return numberPressed(event);" style="margin-left:50px;width:190px;" /></div>
 <div style="position:absolute;left:338.52px;top:358.12px" class="cls_009"><span class="cls_009">PCN number:</span><input name="pslNumber"  style="margin-left:30px;width:90px;" /></div>
 <div style="position:absolute;left:42.60px;top:372.36px" class="cls_009"><span class="cls_009">number include</span></div>
 <div style="position:absolute;left:42.60px;top:382.60px" class="cls_009"><span class="cls_009">area</span></div>
@@ -578,16 +582,16 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:42.60px;top:672.16px" class="cls_002"><span class="cls_002">PART 8. VERIFICATION OF CANDIDATE’S STATEMENT BY THE SPONSOR, EMPLOYER OR, IF THE CANDIDATE IS SELF-</span></div>
 <div style="position:absolute;left:42.60px;top:684.40px" class="cls_002"><span class="cls_002">EMPLOYED, A REFEREE.</span></div>
 <div style="position:absolute;left:42.60px;top:708.76px" class="cls_009"><span class="cls_009">To the best of my belief, the candidate's statement given above is correct at the time of signing.</span></div>
-<div style="position:absolute;left:42.60px;top:739.24px" class="cls_009"><span class="cls_009">NAME: …………………………………………………………………………………………</span></div>
+<div style="position:absolute;left:42.60px;top:739.24px" class="cls_009"><span class="cls_009">NAME: <input type="text" name="part8_name"> </span></div>
 <div style="position:absolute;left:228.96px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:260.40px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:291.96px;top:739.24px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:323.40px;top:739.24px" class="cls_009"><span class="cls_009">SIGNATURE: ……………………………………..……</span></div>
-<div style="position:absolute;left:42.61px;top:769.60px" class="cls_009"><span class="cls_009">COMPANY: …………………………………………………………………………………………</span></div>
+<div style="position:absolute;left:42.61px;top:769.60px" class="cls_009"><span class="cls_009">COMPANY: <input type="text" name="part8_name"></span></div>
 <div style="position:absolute;left:254.29px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:285.85px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:317.29px;top:769.60px" class="cls_009"><span class="cls_009"></span></div>
-<div style="position:absolute;left:343.69px;top:769.60px" class="cls_009"><span class="cls_009">TELEPHONE: ……………….……………..……</span></div>
+<div style="position:absolute;left:343.69px;top:769.60px" class="cls_009"><span class="cls_009">TELEPHONE: <input type="text" name="part8_phone" onkeypress="return numberPressed(event);"></span></div>
 <div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
 <div style="position:absolute;left:269.40px;top:817.12px" class="cls_009"><span class="cls_009">Page 5 of 8</span></div>
 <div style="position:absolute;left:438.60px;top:817.12px" class="cls_009"><span class="cls_009">dated 1</span><span class="cls_016"><sup>st</sup></span><span class="cls_009"> April 2021</span></div>
@@ -596,24 +600,24 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_initial/background06.jpg' %}" width=595 height=841></div>
 <div style="position:absolute;left:42.59px;top:27.28px" class="cls_002"><span class="cls_002">PART 9. FOR OPTIONAL USE BY THE TEST CENTRE</span></div>
-<div style="position:absolute;left:42.59px;top:51.76px" class="cls_009"><span class="cls_009">EXAMINATION DATE : .……………………………………………</span></div>
+<div style="position:absolute;left:42.59px;top:51.76px" class="cls_009"><span class="cls_009">EXAMINATION DATE : <input type="text" name="examinationDate"></span></div>
 <div style="position:absolute;left:167.40px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:198.84px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:230.28px;top:51.76px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:261.84px;top:51.76px" class="cls_009"><span class="cls_009">  EXAMINATION VENUE:</span></div>
-<div style="position:absolute;left:356.60px;top:51.76px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
+<div style="position:absolute;left:356.60px;top:51.76px" class="cls_009"><span class="cls_009"><input type="text" name="examinationVenue"></span></div>
 <div style="position:absolute;left:42.59px;top:76.13px" class="cls_009"><span class="cls_009">EXAMINER:</span></div>
-<div style="position:absolute;left:90.75px;top:76.13px" class="cls_009"><span class="cls_009">……………………………………………………………………</span></div>
+<div style="position:absolute;left:90.75px;top:76.13px" class="cls_009"><span class="cls_009"><input type="text" name="examiner"></span></div>
 <div style="position:absolute;left:244.43px;top:76.13px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:273.12px;top:76.13px" class="cls_009"><span class="cls_009">MODERATOR:</span></div>
-<div style="position:absolute;left:331.16px;top:76.13px" class="cls_009"><span class="cls_009">………………………………………………………………</span></div>
+<div style="position:absolute;left:331.16px;top:76.13px" class="cls_009"><span class="cls_009"><input type="text" name="moderator"></span></div>
 <div style="position:absolute;left:42.60px;top:100.61px" class="cls_009"><span class="cls_009">PAYMENT RECEIVED:</span></div>
-<div style="position:absolute;left:128.28px;top:100.61px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
+<div style="position:absolute;left:128.28px;top:100.61px" class="cls_009"><span class="cls_009"><input type="text" name="paymentReceived"></span></div>
 <div style="position:absolute;left:234.84px;top:100.61px" class="cls_009"><span class="cls_009"></span></div>
 <div style="position:absolute;left:273.49px;top:100.61px" class="cls_009"><span class="cls_009">RESULT REFERENCE:</span></div>
-<div style="position:absolute;left:356.84px;top:100.61px" class="cls_009"><span class="cls_009">……………………………………………………</span></div>
+<div style="position:absolute;left:356.84px;top:100.61px" class="cls_009"><span class="cls_009"><input type="text" name="resultReference"></span></div>
 <div style="position:absolute;left:42.60px;top:124.97px" class="cls_009"><span class="cls_009">EXAMINATION FILE COMPLETE AND CLOSED (initials/date):</span></div>
-<div style="position:absolute;left:282.97px;top:124.97px" class="cls_009"><span class="cls_009">…………………………………………………………………………………</span></div>
+<div style="position:absolute;left:282.97px;top:124.97px" class="cls_009"><span class="cls_009"><input type="text" name="examinationComplete"></span></div>
 <div style="position:absolute;left:42.60px;top:149.45px" class="cls_009"><span class="cls_009">REMARKS (if any verification sought and obtained, record details below or on a separate page and keep with candidate</span></div>
 <div style="position:absolute;left:42.59px;top:161.57px" class="cls_009"><span class="cls_009">exam pack):</span></div>
 <div style="position:absolute;left:42.60px;top:817.12px" class="cls_009"><span class="cls_009">PSL 57A Issue 17</span></div>
@@ -624,34 +628,44 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_initial/background07.jpg' %}" width=595 height=841></div>
 <div style="position:absolute;left:42.59px;top:27.28px" class="cls_002"><span class="cls_002">PART 6. PAYMENT</span><span class="cls_009"> (complete applicable sections only)</span></div>
-<div style="position:absolute;left:42.60px;top:41.44px" class="cls_009"><span class="cls_009">Name and address for invoice (if different from candidate's), including telephone/fax number:</span></div>
-<div style="position:absolute;left:42.60px;top:141.04px" class="cls_009"><span class="cls_009">Some Test Centres provide accommodation or information on the availability of local</span></div>
+<div style="position:absolute;left:42.60px;top:41.44px" class="cls_009"><span class="cls_009">Name and address for invoice (if different from candidate's), including telephone/fax number:</span><br><input type="text" name="nameAddressInvoice" value=""
+  style="margin-left:4px;border:none;width:460px;height: 45px;" /></div>
+<div style="position:absolute;left:42.60px;top:141.04px" class="cls_009"><span class="cls_009">Some Test Centres provide accommodation or information on the availability of local</span>
+<input type="text" name="accommodation" value=""
+  style="margin-left:62px;border:none;width:68px;height: 25px;position:absolute;" /></div>
 <div style="position:absolute;left:42.60px;top:153.16px" class="cls_009"><span class="cls_009">accommodation. If you wish to receive assistance with accommodation, please tick here:</span></div>
-<div style="position:absolute;left:42.60px;top:167.32px" class="cls_009"><span class="cls_009">Preferred method of payment (bank</span></div>
-<div style="position:absolute;left:402.12px;top:167.32px" class="cls_009"><span class="cls_009">Tick box if cheque</span></div>
+<div style="position:absolute;left:42.60px;top:167.32px" class="cls_009"><span class="cls_009">Preferred method of payment (bank</span><input type="text" name="paymentMethod" value=""
+  style="margin-left:32px;border:none;width:170px;position: absolute;height: 25px;" /></div>
+<div style="position:absolute;left:402.12px;top:167.32px" class="cls_009"><span class="cls_009">Tick box if cheque</span><input style="margin-left:15px;margin-top:5px;position: absolute;" type="checkbox" name="cheque" /></div>
 <div style="position:absolute;left:42.60px;top:179.56px" class="cls_009"><span class="cls_009">draft, BACS, cheque, credit card):</span></div>
 <div style="position:absolute;left:402.12px;top:179.56px" class="cls_009"><span class="cls_009">enclosed:</span></div>
-<div style="position:absolute;left:42.60px;top:193.60px" class="cls_009"><span class="cls_009">Name of senior responsible official of the organisation paying</span></div>
+<div style="position:absolute;left:42.60px;top:193.60px" class="cls_009"><span class="cls_009">Name of senior responsible official of the organisation paying</span><input type="text" name="nameResponsible" value=""
+  style="margin-left:32px;border:none;width:192px;height: 25px;position:absolute" /></div>
 <div style="position:absolute;left:42.60px;top:205.84px" class="cls_009"><span class="cls_009">examination fees (not the candidate - unless self employed):</span></div>
-<div style="position:absolute;left:42.60px;top:219.88px" class="cls_009"><span class="cls_009">Company order reference:</span></div>
+<div style="position:absolute;left:42.60px;top:219.88px" class="cls_009"><span class="cls_009">Company order reference:</span><input type="text" name="companyOrderReference" value=""
+  style="margin-left:32px;border:none;width:334px;height: 25px;" /></div>
 <div style="position:absolute;left:42.60px;top:245.80px" class="cls_009"><span class="cls_009">For credit card payment, tick</span></div>
-<div style="position:absolute;left:182.52px;top:245.80px" class="cls_009"><span class="cls_009">Visa</span></div>
-<div style="position:absolute;left:217.92px;top:245.80px" class="cls_009"><span class="cls_009">MasterCard</span></div>
-<div style="position:absolute;left:281.64px;top:245.80px" class="cls_009"><span class="cls_009">Amex</span></div>
-<div style="position:absolute;left:324.24px;top:245.80px" class="cls_009"><span class="cls_009">Switch</span></div>
-<div style="position:absolute;left:374.04px;top:245.80px" class="cls_009"><span class="cls_009">Issue and expiry dates:</span></div>
+<div style="position:absolute;left:182.52px;top:245.80px" class="cls_009"><span class="cls_009">Visa</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="visa" /></div>
+<div style="position:absolute;left:217.92px;top:245.80px" class="cls_009"><span class="cls_009">MasterCard</span><br><input style="margin-left:20px;margin-top:0px;" type="checkbox" name="masterCard" /></div>
+<div style="position:absolute;left:281.64px;top:245.80px" class="cls_009"><span class="cls_009">Amex</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="amex" /></div>
+<div style="position:absolute;left:324.24px;top:245.80px" class="cls_009"><span class="cls_009">Switch</span><br><input style="margin-left:3px;margin-top:0px;" type="checkbox" name="switch" /></div>
+<div style="position:absolute;left:374.04px;top:245.80px" class="cls_009"><span class="cls_009">Issue and expiry dates:</span><input type="text" id="issueExpiryDates" name="issueExpiryDates" value=""
+  style="margin-left:2px;border:none;width:140px;" /></div>
 <div style="position:absolute;left:42.60px;top:258.04px" class="cls_009"><span class="cls_009">the relevant box and provide</span></div>
 <div style="position:absolute;left:42.60px;top:270.28px" class="cls_009"><span class="cls_009">issue and expiry dates:</span></div>
-<div style="position:absolute;left:42.60px;top:284.32px" class="cls_009"><span class="cls_009">Name on card:</span></div>
-<div style="position:absolute;left:42.60px;top:310.24px" class="cls_009"><span class="cls_009">Card number:</span></div>
-<div style="position:absolute;left:317.28px;top:310.24px" class="cls_009"><span class="cls_009">Security code (last 3 figures</span></div>
+<div style="position:absolute;left:42.60px;top:284.32px" class="cls_009"><span class="cls_009">Name on card:</span><input type="text" name="NameOnCard" value="" style="margin-left:80px;border:none;width:333px;height: 25px;" /></div>
+<div style="position:absolute;left:42.60px;top:310.24px" class="cls_009"><span class="cls_009">Card number:</span><input type="text" name="cardNumber" value="" style="margin-left:85px;border:none;width:100px; height: 35px;" /></div>
+<div style="position:absolute;left:317.28px;top:310.24px" class="cls_009"><span class="cls_009">Security code (last 3 figures</span><input type="text" name="securityCode" value=""
+  style="margin-left:20px;border:none;width:60px;height: 35px; position: absolute;" /></div>
 <div style="position:absolute;left:317.28px;top:322.48px" class="cls_009"><span class="cls_009">on the security strip on the</span></div>
 <div style="position:absolute;left:317.28px;top:334.72px" class="cls_009"><span class="cls_009">reverse of the card)</span></div>
-<div style="position:absolute;left:42.60px;top:348.76px" class="cls_009"><span class="cls_009">Signature of above named</span></div>
+<div style="position:absolute;left:42.60px;top:348.76px" class="cls_009"><span class="cls_009">Signature of above named</span><input type="text" name="signitureIndividual" value=""
+  style="margin-left:33px;border:none;width:333px;height: 25px;position: absolute;" /></div>
 <div style="position:absolute;left:42.60px;top:361.00px" class="cls_009"><span class="cls_009">individual</span></div>
-<div style="position:absolute;left:42.60px;top:375.04px" class="cls_009"><span class="cls_009">Address of credit card holder:</span></div>
+<div style="position:absolute;left:42.60px;top:375.04px" class="cls_009"><span class="cls_009">Address of credit card holder:</span><input type="text" name="addressCreditCardHolder" value=""
+  style="margin-left:20px;border:none;width:333px; height: 37px;" /></div>
 <div style="position:absolute;left:42.60px;top:425.80px" class="cls_009"><span class="cls_009">Debit the above credit/debit card for the amount shown in respect of exam fees</span></div>
-<div style="position:absolute;left:394.44px;top:425.80px" class="cls_009"><span class="cls_009">£</span></div>
+<div style="position:absolute;left:394.44px;top:425.80px" class="cls_009"><span class="cls_009">£</span><input type="text" name="debit" value="" style="margin-left:61px;border:none;width:60px;height:20px;" /></div>
 <div style="position:absolute;left:435.84px;top:425.80px" class="cls_009"><span class="cls_009">:</span></div>
 <div style="position:absolute;left:42.60px;top:438.04px" class="cls_009"><span class="cls_009">(check with Test Centre to confirm that credit card payment is available)</span>
 <h5 style="color: red;">
@@ -812,6 +826,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
         <!-- bundle -->
         <script src="{% static 'assets/js/vendor.min.js' %}"></script>
         <script src="{% static 'assets/js/app.min.js' %}"></script>
+        <script src="{% static 'js/forms/covid19/regex.js' %}" type="text/javascript"></script>
 
 <script>
 document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
