@@ -34,7 +34,9 @@ class NewTicketView(LoginRequiredMixin,TemplateView):
                 obj.fileTwo = request.FILES['file2']
             obj.status='new'
             obj.save()
-            # sendMail("amirbehvandi747@gmail.com")
+            fullname=candidate.first_name + " " + candidate.last_name
+            msg="your ticket wih number "+ obj.TicketNumber +" has been created!"
+            sendMail("amirbehvandi747@gmail.com",fullname,msg)
 
             return redirect('accounting:canprofile_',id=candidate.id)
 

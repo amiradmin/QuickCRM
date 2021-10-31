@@ -6,7 +6,7 @@ import smtplib
 
 
 
-def sendMail(targetEmail,fullname=None,mmg=None):
+def sendMail(targetEmail,fullname=None,message=None):
 
     print("Start Mailing")
     msg = EmailMessage()
@@ -155,7 +155,7 @@ def sendMail(targetEmail,fullname=None,mmg=None):
         <tbody>
           <tr>
             <td style="padding:18px 30px 18px 30px; line-height:22px; text-align:inherit; background-color:#4d5171;" height="100%" valign="top" bgcolor="#4d5171" role="module-content"><div><div style="font-family: inherit; text-align: inherit"><span style="color: #ffffff; font-size: 15px">
-                """ + msg + """"<br>
+                """ + message + """"<br>
                 Kind Regards<br><br>
                 TES Canada Customer Support<br>
                 This is an automated email sent by the TES Canada Booking System. Please do not reply To this email. For assistance please contact TES Canada Customer Support
