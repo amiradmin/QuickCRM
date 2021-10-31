@@ -9,6 +9,7 @@ urlpatterns = [
     path('allticket', views.TicketListView.as_view(), name='allticket_'),
     path('tickethistory/<int:id>', views.HistoryTicketView.as_view(), name='tickethistory_'),
     path('answerticket/<int:id>', views.AnswerTicketView.as_view(), name='answerticket_'),
+    path('canallticket/<int:id>', views.CandidateAllTicketView.as_view(), name='canallticket_'),
 
 
 

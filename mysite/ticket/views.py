@@ -5,6 +5,7 @@ from django.views.generic import View,TemplateView
 from training.models import TesCandidate,Event
 from mailer.views import sendMail
 from  authorization.sidebarmixin import SidebarMixin
+from training.models import TesCandidate
 # Create your views here.
 
 class NewTicketView(LoginRequiredMixin,TemplateView):
@@ -49,7 +50,16 @@ class TicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
         return context
 
+class CandidateAllTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "ticket/candidate_all_ticket.html"
 
+    def get_context_data(self,id):
+        context = super(CandidateAllTicketView, self).get_context_data()
+        candidate=TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        tickets = Ticket.objects.filter(candidate=candidate).order_by('-id')
+        context['tickets'] = tickets
+
+        return context
 
 class HistoryTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "ticket/history.html"

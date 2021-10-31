@@ -6,7 +6,7 @@ import smtplib
 
 
 
-def sendMail(targetEmail):
+def sendMail(targetEmail,fullname=None,mmg=None):
 
     print("Start Mailing")
     msg = EmailMessage()
@@ -148,14 +148,14 @@ def sendMail(targetEmail):
                                               <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="080768f5-7b16-4756-a254-88cfe5138113">
         <tbody>
           <tr>
-            <td style="padding:30px 30px 0px 30px; line-height:36px; text-align:inherit; background-color:#4d5171;" height="100%" valign="top" bgcolor="#4d5171" role="module-content"><div><div style="font-family: inherit; text-align: left"><span style="color: #ffffff; font-size: 18px; font-family: inherit">Dear Test</span></div><div></div></div></td>
+            <td style="padding:30px 30px 0px 30px; line-height:36px; text-align:inherit; background-color:#4d5171;" height="100%" valign="top" bgcolor="#4d5171" role="module-content"><div><div style="font-family: inherit; text-align: left"><span style="color: #ffffff; font-size: 18px; font-family: inherit">Dear """ +fullname+""""</span></div><div></div></div></td>
           </tr>
         </tbody>
       </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="cddc0490-36ba-4b27-8682-87881dfbcc14">
         <tbody>
           <tr>
             <td style="padding:18px 30px 18px 30px; line-height:22px; text-align:inherit; background-color:#4d5171;" height="100%" valign="top" bgcolor="#4d5171" role="module-content"><div><div style="font-family: inherit; text-align: inherit"><span style="color: #ffffff; font-size: 15px">
-                Thank you for registering with the TES Canada Booking System.<br>
+                """ + msg + """"<br>
                 Kind Regards<br><br>
                 TES Canada Customer Support<br>
                 This is an automated email sent by the TES Canada Booking System. Please do not reply To this email. For assistance please contact TES Canada Customer Support
