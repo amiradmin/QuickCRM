@@ -1,4 +1,4 @@
-# template_filters.py
+# order_filters.py
 from django import template
 register = template.Library()
 

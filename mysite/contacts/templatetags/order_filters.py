@@ -10,3 +10,8 @@ def phone_number(number):
     third = number[6:10]
     return '(' + first + ')' + ' ' + second + '-' + third
 
+@register.filter
+def order_by(queryset,name='order_by'):
+    return queryset.order_by('-id')
+
+

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-
+{% load order_filters %}
                     <!-- Start Content-->
                     <div class="container-fluid">
 
@@ -31,22 +31,31 @@
 
                                         </div> <!-- end preview-->
  <form method="post">{% csrf_token %}
-    {% csrf_token %}
+
+
   <div class="tab-pane" id="aboutme">
-
-                                                <h5 class="text-uppercase"><i class="mdi mdi-briefcase me-1"></i>
-                                                    {{ticket.TicketNumber}}</h5>
-{{ticket.title}}<br>
+<div class="card ribbon-box">
+    <div class="card-body border border-warning" style="border-radius: 5px;">
+        <div class="ribbon ribbon-warning float-start"><i class="mdi mdi-access-point me-1"></i> {{ticket.TicketNumber}}</div>
+        <h5 class="text-warning float-end mt-0">{{ticket.created_at|date:"m/d/Y H:i"}}</h5>
+        <div class="ribbon-content">
+     <h5 class="mt-0 mb-1">{{ticket.title}}</h5>
 {{ticket.message}}<br>
-      {{ticket.created_at|date:"m/d/Y"}}<br>
+                  <br>
 
-            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'ticket:answerticket_' id=ticket.id %}"><span class="badge badge-warning-lighten">Answer</span></a></td>
+            <td style="width:35px;"><a style="margin:0px; padding:4px; font-size:14px; " href="{% url 'ticket:answerticket_' id=ticket.id %}"><span class="badge badge-warning-lighten border border-warning" style="margin:0px; padding:4px; font-size:14px; ">Answer</span></a></td>
       <br>
+        </div>
+    </div> <!-- end card-body -->
+</div> <!-- end card-->
+
+
+
       <br>
                                                 <div class="timeline-alt pb-0">
-                                                    {% for item in ticket.answer.all %}
+                                                    {% for item in ticket.answer.all|order_by:"id" %}
                                                     <div class="timeline-item">
-                                                        <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
+                                                        <i class="mdi mdi-circle bg-info-lighten text-primary timeline-icon"></i>
                                                         <div class="timeline-item-info">
                                                             <h5 class="mt-0 mb-1">{{item.title}}</h5>
                                                             <p class="font-14"><span class="ms-2 font-12"> {{item.created_at|date:'m/d/Y H:i'}}</span></p>
@@ -54,30 +63,7 @@
                                                         </div>
                                                     </div>
 {% endfor %}
-                                                    <div class="timeline-item">
-                                                        <i class="mdi mdi-circle bg-primary-lighten text-primary timeline-icon"></i>
-                                                        <div class="timeline-item-info">
-                                                            <h5 class="mt-0 mb-1">Senior Graphic Designer</h5>
-                                                            <p class="font-14">Software Inc. <span class="ms-2 font-12">Year: 2012 - 15</span></p>
-                                                            <p class="text-muted mt-2 mb-0 pb-3">If several languages coalesce, the grammar
-                                                                of the resulting language is more simple and regular than that of
-                                                                the individual languages. The new common language will be more
-                                                                simple and regular than the existing European languages.</p>
 
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="timeline-item">
-                                                        <i class="mdi mdi-circle bg-info-lighten text-info timeline-icon"></i>
-                                                        <div class="timeline-item-info">
-                                                            <h5 class="mt-0 mb-1">Graphic Designer</h5>
-                                                            <p class="font-14">Coderthemes Design LLP <span class="ms-2 font-12">Year: 2010 - 12</span></p>
-                                                            <p class="text-muted mt-2 mb-0 pb-2">The European languages are members of
-                                                                the same family. Their separate existence is a myth. For science
-                                                                music sport etc, Europe uses the same vocabulary. The languages
-                                                                only differ in their grammar their pronunciation.</p>
-                                                        </div>
-                                                    </div>
 
                                                 </div>
 </form>
