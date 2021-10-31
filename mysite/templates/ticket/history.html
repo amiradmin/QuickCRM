@@ -40,10 +40,17 @@
         <h5 class="text-warning float-end mt-0">{{ticket.created_at|date:"m/d/Y H:i"}}</h5>
         <div class="ribbon-content">
      <h5 class="mt-0 mb-1">{{ticket.title}}</h5>
+     <h5 class="mt-0 mb-1">{{ticket.asignedTo}}</h5>
 {{ticket.message}}<br>
+
+
+                  <br>
+           {% if ticket.fileOne %} <a style="margin:0px; padding:4px; font-size:14px;" target="_blank" href="{{ticket.fileOne.url}}"><span class="badge badge-primary-lighten border border-primary" style="margin:0px; padding:4px; font-size:14px; ">{{ticket.fileOne.name}}</span></a>{% endif %}
+            {% if ticket.fileTwo %}<a style="margin:0px; padding:4px; font-size:14px;" target="_blank" href="{{ticket.fileTwo.url}}"><span class="badge badge-primary-lighten border border-primary" style="margin:0px; padding:4px; font-size:14px; ">{{ticket.fileTwo.name}}</span></a>{% endif %}
+                  <br>
                   <br>
 
-            <td style="width:35px;"><a style="margin:0px; padding:4px; font-size:14px; " href="{% url 'ticket:answerticket_' id=ticket.id %}"><span class="badge badge-warning-lighten border border-warning" style="margin:0px; padding:4px; font-size:14px; ">Answer</span></a></td>
+       <a style="margin:0px; padding:4px; font-size:14px; " href="{% url 'ticket:answerticket_' id=ticket.id %}"><span class="badge badge-warning-lighten border border-warning" style="margin:0px; padding:4px; font-size:14px; ">Answer</span></a>
       <br>
         </div>
     </div> <!-- end card-body -->
@@ -58,10 +65,16 @@
                                                         <i class="mdi mdi-circle bg-info-lighten text-primary timeline-icon"></i>
                                                         <div class="timeline-item-info">
                                                             <h5 class="mt-0 mb-1">{{item.title}}</h5>
+                                                            <h6 class="mt-0 mb-1">Assiged To: {{item.asignedTo}}</h6>
                                                             <p class="font-14"><span class="ms-2 font-12"> {{item.created_at|date:'m/d/Y H:i'}}</span></p>
-                                                            <p class="text-muted mt-2 mb-0 pb-3">{{item.message}}</p>
+                                                            <p class="text-muted ">{{item.message}}</p>
+            {% if item.fileOne %}<a style="margin:0px; padding:4px; font-size:14px;" target="_blank" href="{{item.fileOne.url}}"><span class="badge badge-primary-lighten border border-primary" style="margin:0px; padding:4px; font-size:14px; ">{{ticket.fileOne.name}}</span></a>{% endif %}
+            {% if item.fileTwo %}<a style="margin:0px; padding:4px; font-size:14px;" target="_blank" href="{{item.fileTwo.url}}"><span class="badge badge-primary-lighten border border-primary" style="margin:0px; padding:4px; font-size:14px; ">{{ticket.fileTwo.name}}</span></a>{% endif %}
+
                                                         </div>
                                                     </div>
+                                                    <br>
+                                                    <br>
 {% endfor %}
 
 

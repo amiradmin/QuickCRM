@@ -12,9 +12,10 @@ class TicketAnswer(models.Model):
     status = models.CharField(choices=TYPE_STATUS,max_length=10, null=True, blank=True)
     readFlag = models.BooleanField(default=False,null=True, blank=True)
     archived = models.BooleanField(default=False,null=True, blank=True)
-    fileOne = models.FileField(default=False,null=True, blank=True)
-    fileTwo = models.FileField(default=False,null=True, blank=True)
+    fileOne = models.FileField(upload_to='tickets',null=True, blank=True)
+    fileTwo = models.FileField(upload_to='tickets',null=True, blank=True)
     closeDate = models.DateField(auto_now_add=True)
+    asignedTo = models.CharField(max_length=256, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -28,7 +29,8 @@ class Ticket(models.Model):
 
     TicketNumber = models.CharField(default='TESTIK-0',max_length=256, null=True, blank=True)
     candidate = models.ForeignKey(TesCandidate, related_name="ticke_can", on_delete=models.CASCADE)
-    asignedTo = models.ForeignKey(TesCandidate, related_name="ticket_asignedTO", on_delete=models.CASCADE, null=True, blank=True)
+    # asignedTo = models.ForeignKey(TesCandidate, related_name="ticket_asignedTO", on_delete=models.CASCADE, null=True, blank=True)
+    asignedTo = models.CharField(max_length=256, null=True, blank=True)
     title = models.CharField(max_length=256, null=True, blank=True)
     department = models.CharField(max_length=256, null=True, blank=True)
     message = models.CharField(max_length=4092, null=True, blank=True)

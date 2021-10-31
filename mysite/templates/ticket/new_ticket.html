@@ -34,7 +34,9 @@
                                         <div class="tab-pane show active" id="basic-datatable-preview">
 
                                         </div> <!-- end preview-->
- <form method="post">{% csrf_token %}
+ <form method="post" enctype="multipart/form-data">
+
+     {% csrf_token %}
     {% csrf_token %}
      <div class="mb-3">
     <label for="simpleinput" class="form-label">Title</label>
@@ -57,12 +59,12 @@
  <div class="row g-12">
     <div class="col-sm-6">
             <label class="form-label">File input</label>
-            <input class="form-control" type="file" id="inputGroupFile04">
+            <input class="form-control" type="file" name="file1" id="inputGroupFile04">
         </div>
 
     <div class="col-sm-6">
             <label class="form-label">File input</label>
-            <input class="form-control" type="file" id="inputGroupFile05">
+            <input class="form-control" type="file" name="file2" id="inputGroupFile05">
         </div>
 </div>
 </div>

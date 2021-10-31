@@ -27,6 +27,10 @@ class NewTicketView(LoginRequiredMixin,TemplateView):
             obj.TicketNumber ="TESTIK-"+ str(ticketNumber)
             obj.department = request.POST['department']
             obj.message = request.POST['message']
+            if request.FILES.get('file1', False):
+                obj.fileOne = request.FILES['file1']
+            if request.FILES.get('file2', False):
+                obj.fileTwo = request.FILES['file2']
             obj.status='new'
             obj.save()
             # sendMail("amirbehvandi747@gmail.com")
@@ -66,12 +70,18 @@ class AnswerTicketView(LoginRequiredMixin,TemplateView):
             obj = TicketAnswer()
             obj.title = request.POST['title']
             obj.message = request.POST['message']
+            obj.asignedTo = request.POST['asignedTo']
             obj.status='new'
+            if request.FILES.get('file1', False):
+                obj.fileOne = request.FILES['file1']
+            if request.FILES.get('file2', False):
+                obj.fileTwo = request.FILES['file2']
             obj.save()
 
             ticketObj = Ticket.objects.filter(id=self.kwargs['id']).first()
             ticketObj.answer.add(obj)
-
+            ticketObj.asignedTo = request.POST['asignedTo']
+            ticketObj.save()
             # sendMail("amirbehvandi747@gmail.com")
 
             return redirect('ticket:allticket_')
