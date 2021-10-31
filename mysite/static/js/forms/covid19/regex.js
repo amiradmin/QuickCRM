@@ -343,6 +343,15 @@ document.getElementById('phone').addEventListener('keyup', function (evt) {
 // We need to manually format the phone number on page load
 document.getElementById('phone').value = phoneFormat(document.getElementById('phone').value);
 
+document.getElementById('part8_phone').addEventListener('keyup', function (evt) {
+        var phoneNumber = document.getElementById('part8_phone');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('part8_phone').value = phoneFormat(document.getElementById('part8_phone').value);
+
 // A function to format text to look like a phone number
 function phoneFormat(input){
         // Strip all characters from the input except digits
