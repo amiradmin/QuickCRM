@@ -6,7 +6,32 @@ from training.models import TesCandidate,Event
 from mailer.views import sendMail
 from  authorization.sidebarmixin import SidebarMixin
 from training.models import TesCandidate
+from django.views.generic import UpdateView
+from django.shortcuts import render,redirect
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
+from django.urls import reverse
 # Create your views here.
+
+
+class ArticleUpdateView(UpdateView):
+    model = Ticket
+    template_name = 'ticket/update_ticket.html'
+    success_message = 'Ticket has archived successfully'
+    fields = ()
+
+    def get_success_url(self):
+        return reverse('ticket:archivedtickets_')
+
+
+    def get_object(self, queryset=None):
+        obj = super(ArticleUpdateView, self).get_object(queryset)
+        obj.archived = True
+        obj.save()
+
+        return obj
+
+
 
 class NewTicketView(LoginRequiredMixin,TemplateView):
     template_name = "ticket/new_ticket.html"
@@ -34,12 +59,22 @@ class NewTicketView(LoginRequiredMixin,TemplateView):
                 obj.fileTwo = request.FILES['file2']
             obj.status='new'
             obj.save()
+            if candidate.email:
+                print(candidate.email)
+                fullname=candidate.first_name + " " + candidate.last_name
+                msg="Your ticket with number "+ obj.TicketNumber +" has been created!"
+                sendMail(candidate.email,fullname,msg)
+
             fullname=candidate.first_name + " " + candidate.last_name
-            msg="your ticket wih number "+ obj.TicketNumber +" has been created!"
-            sendMail("amirbehvandi747@gmail.com",fullname,msg)
+            msg="ticket with number "+ obj.TicketNumber +" has been created!"
+            sendMail('registration@tescan.ca',fullname,msg)
 
             return redirect('accounting:canprofile_',id=candidate.id)
 
+
+class DeleteTicketView(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = Ticket
+    success_url = reverse_lazy('ticket:allticket_')
 
 
 class TicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
@@ -47,7 +82,7 @@ class TicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(TicketListView, self).get_context_data()
-        tickets = Ticket.objects.all().order_by('-id')
+        tickets = Ticket.objects.filter(archived=False).order_by('-id')
         context['tickets'] = tickets
 
         return context
@@ -97,3 +132,13 @@ class AnswerTicketView(LoginRequiredMixin,TemplateView):
             # sendMail("amirbehvandi747@gmail.com")
 
             return redirect('ticket:allticket_')
+
+class ArchivedTicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "ticket/all_ticket.html"
+
+    def get_context_data(self):
+        context = super(ArchivedTicketListView, self).get_context_data()
+        tickets = Ticket.objects.filter(archived=True)
+        context['tickets'] = tickets
+
+        return context
