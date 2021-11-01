@@ -12,6 +12,7 @@ urlpatterns = [
     path('canallticket/<int:id>', views.CandidateAllTicketView.as_view(), name='canallticket_'),
     path('archivedtickets', views.ArchivedTicketListView.as_view(), name='archivedtickets_'),
     path('achivedupdate/<int:pk>/update/', views.ArticleUpdateView.as_view(),name="achivedupdate_"),
+    path('assignupdate/<int:id>', views.AssignToUpdateView.as_view(),name="assignupdate_"),
     path('delticket/<int:pk>/delete/', views.DeleteTicketView.as_view(), name='delticket_'),
 
 

@@ -16,7 +16,7 @@
                                         <li class="breadcrumb-item active">Data Tables</li>
                                     </ol>
                                 </div>
-                                <h4 class="page-title">New Ticket</h4>
+                                <h4 class="page-title">Assign  Ticket</h4>
                             </div>
                         </div>
                     </div>
@@ -34,42 +34,15 @@
                                         <div class="tab-pane show active" id="basic-datatable-preview">
 
                                         </div> <!-- end preview-->
- <form method="post" enctype="multipart/form-data">
+                                         <h5 class="page-title">Archive the ticket by pressing archive button</h5>
+ <form action="" method="post">{% csrf_token %}
 
-     {% csrf_token %}
-    {% csrf_token %}
-     <div class="mb-3">
-    <label for="simpleinput" class="form-label">Title</label>
-    <input type="text" id="simpleinput" name="title" class="form-control">
-</div>
-
-
-
-     <select name="department" class="form-select mb-3">
-    <option selected>Please choose a departement</option>
-    <option value="Training">Training</option>
-    <option value="Certificates">Certificates</option>
-    <option value="Administration">Administration</option>
-    <option value="Registration">Registration</option>
-    <option value="Finicanial">Finicanial</option>
+     <select name="staff" class="form-select mb-3">
+    <option selected>Please choose a person</option>
+         {% for item in staffs %}
+    <option value="{{item.id}}">{{item.first_name}} {{item.last_name}}</option>
+{% endfor %}
 </select>
-<div class="form-floating">
-    <textarea name="message" class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"></textarea>
-    <label for="floatingTextarea">Message</label>
-    <br>
- <div class="row g-12">
-    <div class="col-sm-6">
-            <label class="form-label">File input</label>
-            <input class="form-control" type="file" name="file1" id="inputGroupFile04">
-        </div>
-
-    <div class="col-sm-6">
-            <label class="form-label">File input</label>
-            <input class="form-control" type="file" name="file2" id="inputGroupFile05">
-        </div>
-</div>
-</div>
-    <br>
     <div class="mb-3 col-md-12 text-center">
       <button type="submit" class="btn btn-primary">Submit</button>
 </div>

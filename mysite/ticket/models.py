@@ -1,5 +1,6 @@
 from django.db import models
 from training.models import TesCandidate
+from staff.models import Staff
 # Create your models here.
 
 
@@ -29,8 +30,8 @@ class Ticket(models.Model):
 
     TicketNumber = models.CharField(default='TESTIK-0',max_length=256, null=True, blank=True)
     candidate = models.ForeignKey(TesCandidate, related_name="ticke_can", on_delete=models.CASCADE)
-    # asignedTo = models.ForeignKey(TesCandidate, related_name="ticket_asignedTO", on_delete=models.CASCADE, null=True, blank=True)
-    asignedTo = models.CharField(max_length=256, null=True, blank=True)
+    asignedTo = models.ForeignKey(Staff, related_name="ticket_asignedTO", on_delete=models.CASCADE, null=True, blank=True)
+    # asignedTo = models.CharField(max_length=256, null=True, blank=True)
     title = models.CharField(max_length=256, null=True, blank=True)
     department = models.CharField(max_length=256, null=True, blank=True)
     message = models.CharField(max_length=4092, null=True, blank=True)

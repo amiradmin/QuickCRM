@@ -11,6 +11,7 @@ from django.shortcuts import render,redirect
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from django.urls import reverse
+from staff.models import Staff
 # Create your views here.
 
 
@@ -31,6 +32,33 @@ class ArticleUpdateView(UpdateView):
 
         return obj
 
+
+
+
+class AssignToUpdateView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = 'ticket/asigned_ticket.html'
+
+    def get_context_data(self,id):
+        context = super(AssignToUpdateView, self).get_context_data()
+        staffs = Staff.objects.all()
+        context['staffs'] = staffs
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            staff=Staff.objects.filter(id=request.POST['staff']).first()
+            obj = Ticket.objects.filter(id=self.kwargs['id']).first()
+            obj.asignedTo = staff
+            obj.save()
+
+            # if staff.email:
+            print(staff.email)
+            fullname=staff.first_name + " " + staff.last_name
+            msg="The ticket with number "+ obj.TicketNumber + " has been assigned to you!"
+            sendMail(staff.email,fullname,msg)
+
+
+            return redirect('ticket:allticket_')
 
 
 class NewTicketView(LoginRequiredMixin,TemplateView):
