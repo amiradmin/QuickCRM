@@ -113,6 +113,9 @@
                     <a href="{% if item.objID and item.formName == 'TwiEnrolmentForm' %}{% url 'forms:updatetwienroment_' id=item.objID %}
                     {% elif item.objID and item.formName == 'PSL30LogExp' %}{% url 'forms:msgupdatepsl3logexp_' id=item.objID msgID=item.id %}
                     {% elif item.objID and item.formName == 'PSL57A' %}{% url 'forms:messageupdatepsl57A' id=item.objID msgID=item.id %}
+                    {% elif item.objID and item.formName == 'NDTCovid19' %}{% url 'forms:msgupdatecovid19_' id=item.objID msgID=item.id %}
+
+                    {% else %}
                     {% url 'contacts:messagelist_' id=item.id %}
                     {% endif%}"
                        class="dropdown-item notify-item">

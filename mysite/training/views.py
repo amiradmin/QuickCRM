@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
-from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A
+from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A,NDTCovid19
 import datetime
 import json
 from django.http import JsonResponse
@@ -13,6 +13,7 @@ from  authorization.sidebarmixin import SidebarMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from contacts.models import Contact
+from mailer.views import sendMail
 # Create your views here.
 
 
@@ -356,7 +357,7 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
         categoryList = Category.objects.all()
 
         categorylist = Category.objects.order_by('name')
-        print("Here Amir")
+        print("Hello Amir")
         selForms = '{'
 
         counter = 0
@@ -398,7 +399,7 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
            
-
+            print("Hello Radin")
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
             location = Location.objects.get(id = request.POST['location'])
@@ -410,13 +411,13 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.location = location
             obj.country = location.country
             # obj.start_date = request.POST['start_date']
-            obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
-            if not request.POST.get('practicalDate', None) == '':
-                obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
+            # obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
+            # if not request.POST.get('practicalDate', None) == '':
+            #     obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
             obj.save()
 
             categoryList = request.POST['catList']
-            print(categoryList)
+            obj.formCategory.clear()
             if categoryList:
                 for item in categoryList.split('--'):
                     cat_name = item.split('--')[0]
@@ -549,6 +550,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                             # bgasinitialForm = BGASinitialForm.objects.filter(candidate=candidate).first()
                             psl30LogExp = PSL30LogExp.objects.filter(candidate=candidate).first()
                             psl57A = PSL57A.objects.filter(candidate=candidate).first()
+                            covid = NDTCovid19.objects.filter(candidate=candidate).first()
 
                             if item.name == 'TWI Enrolment Form':
                                 if not twiEnrolForm:
@@ -584,6 +586,9 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                                     contactObj.candidate = candidate
                                     contactObj.save()
 
+                                    fullname = candidate.first_name + " " + candidate.last_name
+                                    msg = "Please login to your panel and fill the form :" + formListObj.name
+                                    sendMail(candidate.email, fullname, msg)
 
                             if item.name == 'PSL-57A Initial exam application':
                                 if not psl57A:
@@ -618,6 +623,9 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                                     contactObj.candidate = candidate
                                     contactObj.save()
 
+                                    fullname = candidate.first_name + " " + candidate.last_name
+                                    msg = "Please login to your panel and fill the form :" + formListObj.name
+                                    sendMail(candidate.email, fullname, msg)
 
                             if item.name == 'PSL-30_Log of experience':
                                 if not psl30LogExp:
@@ -650,9 +658,47 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                                     contactObj.candidate = candidate
                                     contactObj.save()
 
+                                    fullname = candidate.first_name + " " + candidate.last_name
+                                    msg = "Please login to your panel and fill the form :" + formListObj.name
+                                    sendMail(candidate.email, fullname, msg)
 
+                            if item.name == 'COVID-19':
+                                if not covid:
+                                    obj = NDTCovid19()
+                                    print("COVID-19")
+                                    print("Inside Covid")
+                                    print(candidate.first_name)
+                                    obj.candidate = candidate
+                                    obj.category = category
+                                    obj.guideline = guideline
+                                    obj.event = event
+                                    obj.save()
+                                    print(obj.id)
 
-            
+                                    formListObj = FormList()
+                                    formListObj.name = obj.__class__.__name__
+                                    formListObj.event = event
+                                    formListObj.candidate = candidate
+                                    formListObj.category = category
+                                    formListObj.guideline = guideline
+                                    formListObj.FormID = obj.id
+                                    formListObj.save()
+
+                                    print(candidate.email)
+                                    contactObj = Contact()
+                                    contactObj.type = "Admin"
+                                    contactObj.messageType = "Form"
+                                    contactObj.department = "Registration"
+                                    contactObj.message = "Please fill following form: " + formListObj.name
+                                    contactObj.formName = formListObj.name
+                                    contactObj.objID = obj.id
+                                    contactObj.candidate = candidate
+                                    contactObj.save()
+
+                                    fullname = candidate.first_name + " " + candidate.last_name
+                                    msg = "Please login to your panel and fill the form :" + formListObj.name
+                                    sendMail(candidate.email, fullname, msg)
+
         return redirect('training:event_')
 
 

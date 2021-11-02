@@ -3040,6 +3040,100 @@ class UpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
             return render(request, 'forms/ndt/covid_19.html', context)
 
 
+class MSGUpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/ndt/covid_19_update.html"
+
+    def get_context_data(self,id, *args, **kwargs):
+        context = super(MSGUpdateNDTCovid19View, self).get_context_data()
+        print("here")
+        formID = self.kwargs['id']
+        form = NDTCovid19.objects.filter(id=formID).first()
+        context['form'] = form
+        return context
+
+
+    def post(self, request,id, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                print("Here")
+
+                obj =NDTCovid19.objects.filter(id=id).first()
+                obj.candidateID = request.POST['candidateID']
+                obj.candidateAdress = request.POST['candidateAddress']
+                obj.candidateHomePhone = request.POST['candidateHomePhone']
+                obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
+
+                if not  request.POST.get('case1yes', None) == None:
+                    obj.confirmCase1 =True
+                if not  request.POST.get('case1No', None) == None:
+                    obj.confirmCase1 =False
+
+                if not  request.POST.get('case2yes', None) == None:
+                    obj.confirmCase2 =True
+                if not  request.POST.get('case2No', None) == None:
+                    obj.confirmCase2 =False
+
+                if not  request.POST.get('case3yes', None) == None:
+                    obj.confirmCase3 =True
+                if not  request.POST.get('case3No', None) == None:
+                    obj.confirmCase3 =False
+
+                if not  request.POST.get('case4yes', None) == None:
+                    obj.confirmCase4 =True
+                if not  request.POST.get('case4No', None) == None:
+                    obj.confirmCase4 =False
+
+                if not  request.POST.get('case5yes', None) == None:
+                    obj.confirmCase5 =True
+                if not  request.POST.get('case5No', None) == None:
+                    obj.confirmCase5 =False
+
+                if not  request.POST.get('case6yes', None) == None:
+                    obj.confirmCase6 =True
+                if not  request.POST.get('case6No', None) == None:
+                    obj.confirmCase6 =False
+
+
+                if not  request.POST.get('medicalTravelCase1Yes', None) == None:
+                    obj.medicalTravelCase1 =True
+                if not  request.POST.get('medicalTravelCase1No', None) == None:
+                    obj.medicalTravelCase1 =False
+                obj.medicalHistory = request.POST['medicalHistory']
+
+
+                if not  request.POST.get('medicalTravelCase2Yes', None) == None:
+                    obj.medicalTravelCase2 =True
+                if not  request.POST.get('medicalTravelCase2No', None) == None:
+                    obj.medicalTravelCase2 =False
+                obj.temperature = request.POST['temperature']
+
+                if not  request.POST.get('medicalTravelCase3Yes', None) == None:
+                    obj.medicalTravelCase3 =True
+                if not  request.POST.get('medicalTravelCase3No', None) == None:
+                    obj.medicalTravelCase3 =False
+
+
+                if not  request.POST.get('medicalTravelCase4Yes', None) == None:
+                    obj.medicalTravelCase4 =True
+                if not  request.POST.get('medicalTravelCase4No', None) == None:
+                    obj.medicalTravelCase4 =False
+
+                obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
+
+                obj.save()
+
+
+
+
+                return redirect('forms:allndtcovid19_')
+
+
+
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/ndt/covid_19.html', context)
+
+
 
 class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/psl_57B.html"

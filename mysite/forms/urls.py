@@ -46,10 +46,7 @@ urlpatterns = [
     path('allndt15expver/', views.AllNDT15AExpVerView.as_view(), name='allndt15expver_'),
     path('getndt15byid/<int:id>', views.ViewNDT15FormByID.as_view(), name='getndt15byid_'),
     path('updatendt15/<int:id>', views.UpdateNDT15AExpVerView.as_view(), name='updatendt15_'),
-    path('ndtcovid/', views.NDTCovid19View.as_view(), name='ndtcovid_'),
-    path('allndtcovid19/', views.AllNDT15Covid19View.as_view(), name='allndtcovid19_'),
-    path('covidbyid/<int:id>', views.ViewNDTCovid19FormByID.as_view(), name='covidbyid_'),
-    path('updatecovid19/<int:id>', views.UpdateNDTCovid19View.as_view(), name='updatecovid19_'),
+
 
 
     path('psl57b/', views.NewPSL57B.as_view(), name='psl57b_'),
@@ -112,4 +109,9 @@ urlpatterns = [
     path('deletepsl57A/<int:pk>/delete/', views.DeletePSL57AForm.as_view(), name='deletepsl57A_'),
 
 
+    path('ndtcovid/', views.NDTCovid19View.as_view(), name='ndtcovid_'),
+    path('allndtcovid19/', views.AllNDT15Covid19View.as_view(), name='allndtcovid19_'),
+    path('covidbyid/<int:id>', views.ViewNDTCovid19FormByID.as_view(), name='covidbyid_'),
+    path('updatecovid19/<int:id>', views.UpdateNDTCovid19View.as_view(), name='updatecovid19_'),
+    path('msgupdatecovid19/<int:id>/<int:msgID>', views.MSGUpdateNDTCovid19View.as_view(),name='msgupdatecovid19_'),
 ]
