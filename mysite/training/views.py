@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
-from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A,NDTCovid19
+from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A,NDTCovid19,NDT15AExperienceVerification,BGAsExperienceForm
 import datetime
 import json
 from django.http import JsonResponse
@@ -551,6 +551,8 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                             psl30LogExp = PSL30LogExp.objects.filter(candidate=candidate).first()
                             psl57A = PSL57A.objects.filter(candidate=candidate).first()
                             covid = NDTCovid19.objects.filter(candidate=candidate).first()
+                            ndt15A = NDT15AExperienceVerification.objects.filter(candidate=candidate).first()
+                            bgas = BGAsExperienceForm.objects.filter(candidate=candidate).first()
 
                             if item.name == 'TWI Enrolment Form':
                                 if not twiEnrolForm:
@@ -629,7 +631,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
                             if item.name == 'PSL-30_Log of experience':
                                 if not psl30LogExp:
-                                    obj = PSL30LogExp()
+                                    obj = BGAsExperienceForm()
                                     print("Inside PSL-30-Log Experience")
                                     print(candidate.first_name)
                                     obj.candidate = candidate
@@ -667,6 +669,81 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                                     obj = NDTCovid19()
                                     print("COVID-19")
                                     print("Inside Covid")
+                                    print(candidate.first_name)
+                                    obj.candidate = candidate
+                                    obj.category = category
+                                    obj.guideline = guideline
+                                    obj.event = event
+                                    obj.save()
+                                    print(obj.id)
+
+                                    formListObj = FormList()
+                                    formListObj.name = obj.__class__.__name__
+                                    formListObj.event = event
+                                    formListObj.candidate = candidate
+                                    formListObj.category = category
+                                    formListObj.guideline = guideline
+                                    formListObj.FormID = obj.id
+                                    formListObj.save()
+
+                                    print(candidate.email)
+                                    contactObj = Contact()
+                                    contactObj.type = "Admin"
+                                    contactObj.messageType = "Form"
+                                    contactObj.department = "Registration"
+                                    contactObj.message = "Please fill following form: " + formListObj.name
+                                    contactObj.formName = formListObj.name
+                                    contactObj.objID = obj.id
+                                    contactObj.candidate = candidate
+                                    contactObj.save()
+
+                                    fullname = candidate.first_name + " " + candidate.last_name
+                                    msg = "Please login to your panel and fill the form :" + formListObj.name
+                                    sendMail(candidate.email, fullname, msg)
+
+
+                            if item.name == 'NDT 15A':
+                                if not ndt15A:
+                                    obj = NDT15AExperienceVerification()
+                                    print("NDT 15A")
+                                    print("Inside ")
+                                    print(candidate.first_name)
+                                    obj.candidate = candidate
+                                    obj.category = category
+                                    obj.guideline = guideline
+                                    obj.event = event
+                                    obj.save()
+                                    print(obj.id)
+
+                                    formListObj = FormList()
+                                    formListObj.name = obj.__class__.__name__
+                                    formListObj.event = event
+                                    formListObj.candidate = candidate
+                                    formListObj.category = category
+                                    formListObj.guideline = guideline
+                                    formListObj.FormID = obj.id
+                                    formListObj.save()
+
+                                    print(candidate.email)
+                                    contactObj = Contact()
+                                    contactObj.type = "Admin"
+                                    contactObj.messageType = "Form"
+                                    contactObj.department = "Registration"
+                                    contactObj.message = "Please fill following form: " + formListObj.name
+                                    contactObj.formName = formListObj.name
+                                    contactObj.objID = obj.id
+                                    contactObj.candidate = candidate
+                                    contactObj.save()
+
+                                    fullname = candidate.first_name + " " + candidate.last_name
+                                    msg = "Please login to your panel and fill the form :" + formListObj.name
+                                    sendMail(candidate.email, fullname, msg)
+
+                            if item.name == 'BGAS_Experience_Form':
+                                if not bgas:
+                                    obj = BGAsExperienceForm()
+                                    print("bgas")
+                                    print("Inside bgas")
                                     print(candidate.first_name)
                                     obj.candidate = candidate
                                     obj.category = category
