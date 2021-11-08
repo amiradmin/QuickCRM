@@ -205,9 +205,9 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
 
             <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
                  class="card">
-                <div style="position:relative;left:0px;top:0px">
+                <div style="position:relative;left:-10px;top:0px">
 
-<img src="{% static 'images/forms/ndt/covid19/background1.jpg' %}" width=595 height=841></div>
+<img src="{% static 'images/forms/ndt/covid19/background1.jpg' %}" width=615 height=846></div>
 <div style="position:absolute;left:165.80px;top:89.01px" class="cls_002"><span class="cls_002">TRAINING / EXAMINATION CANDIDATE CONSENT</span></div>
 <div style="position:absolute;left:212.50px;top:101.71px" class="cls_002"><span class="cls_002">TO PARTICIPATE IN THE EVENT</span></div>
 <div style="position:absolute;left:205.80px;top:114.31px" class="cls_002"><span class="cls_002">DURING THE COVID-19 PANDEMIC</span></div>
@@ -221,7 +221,7 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
 <div style="position:absolute;left:77.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Title:</span><input style="border:none;width:140px;" type="type" value="{{form.event.name}}" /></div>
 <div style="position:absolute;left:359.50px;top:214.41px" class="cls_004"><span class="cls_004">Event Date:</span><input style="border:none;height:15px;background: transparent;width:80px;" type="type" value="{{form.event.start_date|date}}" /></div>
 <div style="position:absolute;left:77.50px;top:232.91px" class="cls_004"><span class="cls_004">Date of Filling the Form:</span><input  id="fillingDate" style="border:none;height:15px;" type="type" name="fillingDate" value="{{form.fillingDate|date}}"  /></div>
-<div style="position:absolute;left:77.50px;top:247.51px" class="cls_014"><span class="cls_014">Before the Event:</span></div>
+<div style="position:absolute;left:77.50px;top:254.51px" class="cls_014"><span class="cls_014">Before the Event:</span></div>
 <div style="position:absolute;left:77.50px;top:270.51px" class="cls_004"><span class="cls_004">I hereby confirm:</span></div>
 <div style="position:absolute;left:77.50px;top:286.41px" class="cls_004"><span id="case1Text" class="cls_004">1.  that I agree without contest to attend the event at my own risk among COVID-19</span></div>
 <div style="position:absolute;left:458.30px;top:286.41px" class="cls_006"><span  class="cls_006"><input type="checkbox" name="case1yes"  class="case1Class" {% if form.confirmCase1 %} checked {% endif %} /></span><span class="cls_004"> Yes </span><span class="cls_006"><input type="checkbox" name="case1No" class="case1Class" {% if form.confirmCase1 == False %}checked{% endif %} /></span><span class="cls_004"> No</span></div>
@@ -245,7 +245,7 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
 <div style="position:absolute;left:91.70px;top:459.81px" class="cls_004"><span class="cls_004">of  illness  occurred  during  and  after  the  duration  of  course  at  TES  CANADA</span></div>
 <div style="position:absolute;left:91.70px;top:471.31px" class="cls_004"><span class="cls_004">premises.</span></div>
 <div style="position:absolute;left:77.50px;top:491.01px" class="cls_004"><span class="cls_004">Agent (if applicable):</span></div>
-<div style="position:absolute;left:77.50px;top:512.81px" class="cls_005"><span class="cls_005">Appendix A : Medical and Travel History</span></div>
+<div style="position:absolute;left:77.50px;top:519.81px" class="cls_005"><span class="cls_005">Appendix A : Medical and Travel History</span></div>
 <div style="position:absolute;left:77.50px;top:532.81px" class="cls_004"><span id="medicalTravelCase1Text" class="cls_004">1.  Do you have any known medical history?</span></div>
 <div style="position:absolute;left:451.70px;top:532.61px" class="cls_007"><span class="cls_007"><input type="checkbox" name="medicalTravelCase1Yes"  {% if form.medicalTravelCase1 %} checked {% endif %}  class="medicalTravelCase1Class"   /> Yes <input type="checkbox" name="medicalTravelCase1No" class="medicalTravelCase1Class"   {% if form.medicalTravelCase1 == False %}checked{% endif %} /> No</span></div>
 <div style="position:absolute;left:77.50px;top:544.31px" class="cls_004"><span class="cls_004">If Yes, please advise: <input type="text" name="medicalHistory" style="width:180px;height:15px; border:none;" /></span></div>
@@ -304,16 +304,16 @@ div.cls_013{font-family:Arial,serif;font-size:10.1px;color:rgb(0,0,0);font-weigh
 <div style="position:absolute;left:77.50px;top:430.91px" class="cls_013"><span class="cls_013">-</span><span class="cls_004">  Clean  and  disinfect  frequently  touched  surfaces  daily.  This  includes  tables,  doorknobs,  light</span></div>
 <div style="position:absolute;left:91.70px;top:442.51px" class="cls_004"><span class="cls_004">switches,  handles,  desks,  computers,  phones,  keyboards,  sinks,  toilets,  faucets  and</span></div>
 <div style="position:absolute;left:91.70px;top:454.01px" class="cls_004"><span class="cls_004">countertops.</span></div>
-<div style="position:absolute;left:77.50px;top:469.61px" class="cls_004"><span class="cls_004">Candidate Name and Signature:</span></div>
-<div style="position:absolute;left:77.50px;top:504.91px" class="cls_014"><span class="cls_014">After the Event</span></div>
+<div style="position:absolute;left:77.50px;top:481.61px" class="cls_004"><span class="cls_004">Candidate Name and Signature:</span></div>
+<div style="position:absolute;left:77.50px;top:510.91px" class="cls_014"><span class="cls_014">After the Event</span></div>
 <div style="position:absolute;left:77.50px;top:527.91px" class="cls_004"><span class="cls_004">I hereby confirmed that I fully understood the health & safety briefing as explained by TES</span></div>
 <div style="position:absolute;left:77.50px;top:539.41px" class="cls_004"><span class="cls_004">CANADA personnel. I am satisfied with safety precautionary measures taken by the management</span></div>
 <div style="position:absolute;left:77.50px;top:550.91px" class="cls_004"><span class="cls_004">of TES CANADA to make sure that the class room is properly sanitized as per National Standards</span></div>
 <div style="position:absolute;left:77.50px;top:562.41px" class="cls_004"><span class="cls_004">and with sufficient hand hygiene for all.</span></div>
-<div style="position:absolute;left:77.50px;top:581.81px" class="cls_004"><span class="cls_004">Candidate Name and Signature:</span></div>
-<div style="position:absolute;left:417.80px;top:581.81px" class="cls_004"><span class="cls_004">Date:<input type="text" name="afterEventDate" id="afterEventDate"  style="margin-top:3px;width:80px;height:15px; border:none;" /> </span></div>
-<div style="position:absolute;left:276.00px;top:808.71px" class="cls_009"><span class="cls_009">Page </span><span class="cls_010">2</span><span class="cls_009"> of </span><span class="cls_010">2</span></div>
-<div style="position:absolute;left:460.70px;top:808.71px" class="cls_009"><span class="cls_009">Rev. 0, Jan. 2021</span></div>
+<div style="position:absolute;left:77.50px;top:592.81px" class="cls_004"><span class="cls_004">Candidate Name and Signature:</span></div>
+<div style="position:absolute;left:417.80px;top:590.81px" class="cls_004"><span class="cls_004">Date:<input type="text" name="afterEventDate" id="afterEventDate"  style="margin-top:3px;width:80px;height:15px; border:none;" /> </span></div>
+<div style="position:absolute;left:276.00px;top:871.71px" class="cls_009"><span class="cls_009">Page </span><span class="cls_010">2</span><span class="cls_009"> of </span><span class="cls_010">2</span></div>
+<div style="position:absolute;left:460.70px;top:871.71px" class="cls_009"><span class="cls_009">Rev. 0, Jan. 2021</span></div>
 </div>
 </div>
 
