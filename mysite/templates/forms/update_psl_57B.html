@@ -3,8 +3,12 @@
 {% load template_filters %}
 {% block content %}
 <style>
+      input[type=text] {
+    background-color: transparent !important;
+    border:none !important
+}
 .drop-zone {
-  max-width: 100%%;
+  max-width: 100%;
   height: 300px;
   padding: 25px;
   display: flex;
@@ -223,10 +227,10 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
             <input type="hidden" value="{{category.id}}" name="categoryID"/>
             <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
 
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
-                <div style="position:relative;left:0px;top:0px">
-<img src="{% static 'images/forms/psl_50b/background01.jpg' %}" width=595 height=842></div>
+                <div style="position:relative;left:-10px;top:0px">
+<img src="{% static 'images/forms/psl_50b/background01.jpg' %}" width=615 height=842></div>
 <div style="position:absolute;left:70.92px;top:131.36px" class="cls_004"><span class="cls_004">PSL 57B</span></div>
 <div style="position:absolute;left:70.92px;top:148.52px" class="cls_004"><span class="cls_004">ISSUE 16 DATED 1</span><span class="cls_005"><sup>st </sup></span><span class="cls_004">April 2021</span></div>
 <div style="position:absolute;left:70.91px;top:165.56px" class="cls_004"><span class="cls_004">IMPLEMENTATION 1</span><span class="cls_005"><sup>st </sup></span><span class="cls_004">May 2021</span></div>
@@ -283,7 +287,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:129.35px;top:805.64px" class="cls_012"><span class="cls_012">This document is protected by UK and international copyright laws and remains the intellectual property of BINDT.</span></div>
 <div style="position:absolute;left:134.63px;top:815.36px" class="cls_012"><span class="cls_012">Reproduction and distribution of the document without the written permission of BINDT is strictly prohibited</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background02.jpg' %}" width=595 height=842></div>
@@ -331,7 +335,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 2 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background03.jpg' %}" width=595 height=842></div>
@@ -378,7 +382,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 3 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background04.jpg' %}" width=595 height=842></div>
@@ -435,7 +439,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 4 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background05.jpg' %}" width=595 height=842></div>
@@ -494,7 +498,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 5 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background06.jpg' %}" width=595 height=842></div>
@@ -533,7 +537,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 6 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background07.jpg' %}" width=595 height=842></div>
@@ -594,7 +598,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 7 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background08.jpg' %}" width=595 height=842></div>
@@ -655,7 +659,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 8 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background09.jpg' %}" width=595 height=842></div>
@@ -701,7 +705,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:264.48px;top:812.96px" class="cls_010"><span class="cls_010">Page 9 of 9</span></div>
 <div style="position:absolute;left:444.96px;top:812.96px" class="cls_010"><span class="cls_010">dated 1</span><span class="cls_014"><sup>st</sup></span><span class="cls_010"> April 2021</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background10.jpg' %}" width=595 height=842></div>
@@ -759,7 +763,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
 <div style="position:absolute;left:122.14px;top:799.64px" class="cls_012"><span class="cls_012">This document is protected by UK and international copyright laws and remains the intellectual property of BINDT.</span></div>
 <div style="position:absolute;left:126.46px;top:809.48px" class="cls_012"><span class="cls_012">Reproduction and distribution of the document without the written permission of BINDT is strictly prohibited.</span></div>
 </div>
-            <div style="position:relative;top:0px;margin:5px auto; width:595px;height:841px;border-style:outset;overflow:hidden"
+            <div style="position:relative;top:0px;margin:5px auto; width:619px;height:852px;border-style:outset;overflow:hidden"
                  class="card">
                 <div style="position:relative;left:0px;top:0px">
 <img src="{% static 'images/forms/psl_50b/background11.jpg' %}" width=595 height=842></div>
