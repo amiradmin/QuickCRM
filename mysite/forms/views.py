@@ -1747,7 +1747,7 @@ class MessagePSL30LogExperienceForm(LoginRequiredMixin,TemplateView):
 
 
 class PSL30LogExperienceForm(TemplateView):
-    template_name = "forms/reg_forms/PSL_30_log_exper.html"
+    template_name = "forms/reg_forms/PSL_30_log_exper_S.html"
 
     def get_context_data(self):
         context = super(PSL30LogExperienceForm, self).get_context_data()
@@ -4344,7 +4344,7 @@ class ViewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/twi_Training_Feedback.html"
+    template_name = "forms/general/training_feedback.html"
 
     def get_context_data(self):
         context = super(NewTWITrainingFeedback, self).get_context_data()

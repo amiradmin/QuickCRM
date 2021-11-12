@@ -29,7 +29,7 @@ urlpatterns = [
 
     path('jaegertofdl2/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
-    path('psl30log/', views.PSL30LogExperienceForm.as_view(), name='psl30log_'),
+
     path('bgasexpform/', views.BGASExperienceForm.as_view(), name='bgasexpform_'),
 
 
@@ -96,6 +96,7 @@ urlpatterns = [
     path('updatetwiexamfeed/<int:id>', views.UpdateTWIExamFeedback.as_view(), name='updatetwiexamfeed_'),
     path('viewtwiexamfeed/<int:id>', views.ViewTWIExamFeedback.as_view(), name='viewtwiexamfeed_'),
 
+    path('psl30log/', views.PSL30LogExperienceForm.as_view(), name='psl30log_'),
     path('deletepsl3logexp/<int:pk>/delete/', views.DeletePSL30LogExperienceForm.as_view(), name='deletepsl3logexp_'),
     path('updatepsl3logexp/<int:id>', views.UpdatePSL30LogExperienceForm.as_view(), name='updatepsl3logexp_'),
     path('viewpsl3logexp/<int:id>', views.ViewPSL30LogExperienceForm.as_view(), name='viewpsl3logexp_'),
