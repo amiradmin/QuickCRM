@@ -21,7 +21,7 @@ from contacts.models import Contact
 # Create your views here.
 
 class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
-    template_name = "forms/reg_forms/twi_enrolment.html"
+    template_name = "forms/reg_forms/twi_enrolment_S.html"
     candidateID = None
 
     def get_context_data(self):
