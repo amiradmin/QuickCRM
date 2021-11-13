@@ -1310,7 +1310,7 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
 class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
-    template_name = "forms/reg_forms/PSL-57A_Initial_exam_application.html"
+    template_name = "forms/reg_forms/PSL-57A_Initial_exam_application_S.html"
 
     def get_context_data(self):
         context = super(PSL57AFOrmView, self).get_context_data()
@@ -2548,7 +2548,7 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
 
 
 class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/ndt/ndt_15.html"
+    template_name = "forms/ndt/ndt_15_S.html"
 
     def get_context_data(self):
         context = super(NDT15AExperienceVerificationView, self).get_context_data()
@@ -3136,7 +3136,7 @@ class MSGUpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/psl_57B.html"
+    template_name = "forms/reg_forms/psl_57B_S.html"
 
     def get_context_data(self):
         context = super(NewPSL57B, self).get_context_data()
