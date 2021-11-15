@@ -2775,7 +2775,7 @@ class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/ndt/covid_19.html"
+    template_name = "forms/ndt/covid_19_S.html"
 
     def get_context_data(self):
         context = super(NDTCovid19View, self).get_context_data()
@@ -3698,7 +3698,7 @@ class updateVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/TES-TES-FRM-008_examination_attendance.html"
+    template_name = "forms/general/examination_attendance.html"
 
     def get_context_data(self):
         context = super(NewTesFrmExaminationAttendance, self).get_context_data()
@@ -4144,7 +4144,7 @@ class ViewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class NewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
+    template_name = "forms/general/training_attendance.html"
 
     def get_context_data(self):
         context = super(NewTrainingAttendance, self).get_context_data()
@@ -4544,7 +4544,7 @@ class ViewTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class NewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/twi_exam_Feedback.html"
+    template_name = "forms/twi_exam_Feedback_S.html"
 
     def get_context_data(self):
         context = super(NewTWIExamFeedback, self).get_context_data()
