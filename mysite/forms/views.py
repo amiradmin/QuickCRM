@@ -1226,7 +1226,7 @@ class NewForm(TemplateView):
         return redirect('forms:all_')  
 
 class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
-    template_name = "forms/reg_forms/BGAS_experience_form.html"
+    template_name = "forms/general/bgas.html"
 
     def get_context_data(self):
         context = super(BGASExperienceForm, self).get_context_data()
@@ -3920,7 +3920,7 @@ class ViewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, Template
 
 
 class NewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/lect_feedback_form.html"
+    template_name = "forms/general/lecturer_feedback.html"
 
     def get_context_data(self):
         context = super(NewLecFeedbackForm, self).get_context_data()
