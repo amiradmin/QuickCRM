@@ -58,7 +58,137 @@
     margin: 0px 0;
 
 }
+.drop-zone {
+  max-width: 100%%;
+  height: 300px;
+  padding: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  cursor: pointer;
+  color: #cccccc;
+  border: 4px dashed #009578;
+  border-radius: 10px;
+}
+
+.drop-zone--over {
+  border-style: solid;
+}
+
+.drop-zone__input {
+  display: none;
+}
+
+.drop-zone__thumb {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #cccccc;
+  background-size: cover;
+  position: relative;
+}
+
+.drop-zone__thumb::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  text-align: center;
+}
+
+.BUTTON_MZQ {
+   background: #3D94F6;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 5px 15px;
+   margin:20px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+
+.BUTTON_MZQ:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+}
+
+.aLink {
+   background:#337FED ;
+   background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
+   background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-family: Brush Script MT;
+   font-size: 20px;
+   font-weight: 100;
+   padding: 16px 15px;
+   margin:5px 5px 10px 5px;
+   -webkit-box-shadow: 1px 1px 10px 0 #000000;
+   -moz-box-shadow: 1px 1px 10px 0 #000000;
+   box-shadow: 1px 1px 10px 0 #000000;
+   text-shadow: 1px 1px 10px #000000;
+   border: solid #337FED 1px;
+   text-decoration: none;
+   display: inline-block;
+   cursor: pointer;
+   text-align: center;
+}
+.aLink:hover {
+   border: solid #337FED 1px;
+   background: #1E62D0;
+   background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
+   background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
+   -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+   text-decoration: none;
+   color:white;
+}
 </style>
+<div style="overflow-y: scroll; overflow-y: hidden;">
 <div id="page1-div" style="position:relative;width:976px;height:1263px;">
 <img width="976" height="1263" src="{% static 'images/forms/exam_feedback/Roger Fourny Exam Feedback001.png' %}" alt="background image"/>
 <p style="position:absolute;top:1015px;left:73px;white-space:nowrap" class="ft10">How would&#160;you rate&#160;TWI&#160;in&#160;</p>
@@ -169,6 +299,7 @@
 <p style="position:absolute;top:173px;left:235px;white-space:nowrap" class="ft117">with TWI UK) at Mistras&#160;</p>
 <p style="position:absolute;top:185px;left:256px;white-space:nowrap" class="ft117">Group., Alberta</p>
 </div>
+</div>
 <!-- Page 2 -->
 <a name="2"></a>
 <style type="text/css">
@@ -180,6 +311,7 @@
 	.ft224{font-size:13px;line-height:18px;font-family:BCDGEE+Calibri;color:#000000;}
 -->
 </style>
+<div style="overflow-y: scroll; overflow-y: hidden;">
 <div id="page2-div" style="position:relative;width:976px;height:1263px;">
 <img width="976" height="1263" src="{% static 'images/forms/exam_feedback/Roger Fourny Exam Feedback002.png' %}" alt="background image"/>
 <p style="position:absolute;top:47px;left:307px;white-space:nowrap" class="ft28">TRAINING&#160;AND&#160;EXAMINATION&#160;SERVICES</p>
@@ -206,5 +338,6 @@
 <p style="position:absolute;top:152px;left:222px;white-space:nowrap" class="ft217">TES Canada(In partnership&#160;</p>
 <p style="position:absolute;top:164px;left:230px;white-space:nowrap" class="ft217">with TWI UK) at Mistras&#160;</p>
 <p style="position:absolute;top:176px;left:251px;white-space:nowrap" class="ft217">Group., Alberta</p>
+</div>
 </div>
 {% endblock %}
