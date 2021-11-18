@@ -6,32 +6,66 @@ var cursorFocus = function(elem) {
   window.scrollTo(x, y);
 }
 
-function topFormValidate(){
+function topFormFirstValidate(){
 
     canID = document.getElementById("canID");
     eventID = document.getElementById("eventID");
 
-    if(canID.value == "" || canID.value == null  ){
-          msg = "Please choose candidate first!";
-          mainCanIDError.style.visibility = "visible";
-          mainCanIDError.innerHTML = msg;
-          canID.focus();
-          canID.style.backgroundColor = "#ffabab";
-          window.scrollTo(100,canID.offsetTop);
-          return false;
-        }
+//    if(canID.value == "" || canID.value == null  ){
+//          msg = "Please choose candidate first!";
+//          topFormError.style.visibility = "visible";
+//          topFormError.innerHTML = msg;
+//          canID.focus();
+//          canID.style.backgroundColor = "#ffabab";
+//          window.scrollTo(100,canID.offsetTop);
+//          return false;
+//        }
 
     if(eventID.value == "" || eventID.value == null  ){
-          msg = "Please choose event!";
-          eventIDError.style.visibility = "visible";
-          eventIDError.innerHTML = msg;
-          eventID.focus();
-          eventID.style.backgroundColor = "#ffabab";
+          msg = "Please fill this section first!";
+          topFormError.style.visibility = "visible";
+          topFormError.innerHTML = msg;
+          topFormError.focus();
           window.scrollTo(100,eventID.offsetTop);
           return false;
         }
 
 }
+
+
+
+function topFormValidate(){
+
+    canID = document.getElementById("candiID");
+    eventID = document.getElementById("eventID");
+    categoryID = document.getElementById("categoryID");
+
+    if(canID.value == "" || canID.value == null  ){
+          canID.style.backgroundColor = "#ffabab";
+//          window.scrollTo(100,canID.offsetTop);
+          return false;
+        }
+//
+    else if(eventID.value == "" || eventID.value == null  ){
+          eventID.style.backgroundColor = "#ffabab";
+//          window.scrollTo(100,eventID.offsetTop);
+          return false;
+        }
+
+    else if(categoryID.value == "" || categoryID.value == null  ){
+          categoryID.style.backgroundColor = "#ffabab";
+//          window.scrollTo(100,categoryID.offsetTop);
+          return false;
+        }
+
+}
+
+
+
+
+
+
+//==============
 function controllerMani(id,msg) {
         element = document.getElementById(id);
         if(element.value == "" || element.value == null ){

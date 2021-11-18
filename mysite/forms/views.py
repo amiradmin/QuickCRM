@@ -59,7 +59,7 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')
                 obj.firstName = request.POST['form4_1']
                 obj.middleName = request.POST['form5_1']
-                obj.lastName = request.POST['form6_1']
+                obj.lastName = request.POST['lastName']
                 day = request.POST['form7_1'] 
                 month = request.POST['form8_1'] 
                 year = request.POST['form9_1'] 
@@ -408,7 +408,7 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 context['guideline'] = guideline
 
         # return redirect('forms:jaegertofdl2_' ,context)  
-            return render(request, 'forms/reg_forms/twi_enrolment.html', context)
+            return render(request, 'forms/reg_forms/twi_enrolment_S.html', context)
 
 class DeleteTwiEnrolment(SidebarMixin, LoginRequiredMixin,DeleteView):
     model = TwiEnrolmentForm
