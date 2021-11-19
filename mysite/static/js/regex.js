@@ -1,4 +1,13 @@
 
+function abilityChange(obj) {
+    alert("Here");
+    var cbs = document.getElementsByClassName("ability");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
 
 var cursorFocus = function(elem) {
   var x = window.scrollX, y = window.scrollY;
@@ -36,15 +45,15 @@ function topFormFirstValidate(){
 
 function topFormValidate(){
 
-    canID = document.getElementById("candiID");
+    canID = document.getElementById("canID");
     eventID = document.getElementById("eventID");
     categoryID = document.getElementById("categoryID");
 
-    if(canID.value == "" || canID.value == null  ){
-          canID.style.backgroundColor = "#ffabab";
-//          window.scrollTo(100,canID.offsetTop);
-          return false;
-        }
+//    if(canID.value == "" || canID.value == null  ){
+//          canID.style.backgroundColor = "#ffabab";
+////          window.scrollTo(100,canID.offsetTop);
+//          return false;
+//        }
 //
     else if(eventID.value == "" || eventID.value == null  ){
           eventID.style.backgroundColor = "#ffabab";
@@ -78,13 +87,7 @@ function controllerMani(id,msg) {
 }
 
 
-function abilityChange(obj) {
-    var cbs = document.getElementsByClassName("ability");
-    for (var i = 0; i < cbs.length; i++) {
-        cbs[i].checked = false;
-    }
-    obj.checked = true;
-}
+
 
 function venueChange(obj) {
     var cbs = document.getElementsByClassName("venueCh");

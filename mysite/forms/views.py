@@ -65,8 +65,8 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 year = request.POST['form9_1'] 
                 birdDay = month + '/' + day + '/' + year
                 obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
-                obj.permanentPrivateAddress = request.POST['form15_1']
-                obj.Postcode = request.POST['form18_1']
+                obj.permanentPrivateAddress = request.POST['permanentPrivateAddress']
+                obj.Postcode = request.POST['Postcode']
                 obj.CarRegNo = request.POST['form19_1']
                 obj.privateTel = request.POST['form20_1']
                 obj.emergencyTel = request.POST['form21_1']
