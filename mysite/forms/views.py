@@ -73,7 +73,7 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 obj.email = request.POST['form22_1']
                 obj.correspondenceAddress = request.POST['form28_1']
                 obj.invoiceAddress = request.POST['form38_1']
-                obj.sponsoringCompanyAndaddress = request.POST['form40_1']
+                obj.sponsoringCompanyAndaddress = request.POST['sponsoringCompanyAndaddress']
                 obj.sponsorPostcode = request.POST['form43_1']
                 obj.sponsorContactName = request.POST['form44_1']
                 obj.sponsorTel = request.POST['form45_1']
