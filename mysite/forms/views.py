@@ -80,17 +80,17 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 obj.sponsorFax = request.POST['form46_1']
                 obj.sponsorEmail = request.POST['form47_1']
                 obj.PCN_BGASApprovalNumber = request.POST['form11_2']
-                obj.currentCSWIPQualifications = request.POST['form12_2']
-                obj.plantInspectionRequirements = request.POST['form47_3']
-                obj.VerifierName = request.POST['form1_4']
-                obj.VerifierCompanyPosition = request.POST['form2_4']
-                obj.VerifierProfessionalRelation = request.POST['form3_4']
-                obj.VerifierTelephone = request.POST['form4_4']
-                obj.VerifierEmail = request.POST['form5_4']
-                obj.experienceRequirements = request.POST['form34_2']
-                obj.otherExaminationsTitle = request.POST['form51_3']
+                obj.currentCSWIPQualifications = request.POST['currentCSWIPQualifications']
+                obj.plantInspectionRequirements = request.POST['plantInspectionRequirements']
+                obj.VerifierName = request.POST['VerifierName']
+                obj.VerifierCompanyPosition = request.POST['VerifierCompanyPosition']
+                obj.VerifierProfessionalRelation = request.POST['VerifierProfessionalRelation']
+                obj.VerifierTelephone = request.POST['VerifierTelephone']
+                obj.VerifierEmail = request.POST['VerifierEmail']
+                obj.experienceRequirements = request.POST['experienceRequirements']
+                obj.otherExaminationsTitle = request.POST['otherExaminationsTitle']
                 # obj.VerifierDate = request.POST['form6_4']
-                obj.VerifierDate = datetime.datetime.strptime(request.POST['form6_4'], '%m/%d/%Y')
+                obj.VerifierDate = datetime.datetime.strptime(request.POST['VerifierDate'], '%m/%d/%Y')
 
                 # obj.GDPRstatement = request.POST['form37_1']
                 
