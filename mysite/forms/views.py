@@ -124,20 +124,20 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 # if not request.POST.get('form14_1', None) == None:
                 #     obj.venue ='New Brunswick'
                 #
-                # if not request.POST.get('diabilityYes', None) == None:
-                #     obj.disability =True
-                # if request.POST.get('diabilityNo', None) == None:
-                #     obj.disability =False
+                if not request.POST.get('diabilityYes', None) == None:
+                    obj.disability =True
+                if request.POST.get('diabilityNo', None) == None:
+                    obj.disability =False
                 #
                 # if not  request.POST.get('form58_1', None) == None:
                 #     obj.weldingSociety =True
                 # if not request.POST.get('form59_1', None) == None:
                 #     obj.twiEmployee =True
                 #
-                # if not request.POST.get('compSponser', None) == None:
-                #     obj.sponsorStatus =True
-                # if not request.POST.get('selfSponser', None) == None:
-                #     obj.sponsorStatus =True
+                if not request.POST.get('compSponser', None) == None:
+                    obj.sponsorStatus =True
+                if not request.POST.get('selfSponser', None) == None:
+                    obj.sponsorStatus =True
                 #
                 # if not request.POST.get('form37_1', None) == None:
                 #     obj.GDPRstatement =True
