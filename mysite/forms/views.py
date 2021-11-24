@@ -78,7 +78,7 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 obj.sponsorContactName = request.POST['sponsorContactName']
                 obj.sponsorTel = request.POST['sponsorTel']
                 obj.sponsorFax = request.POST['sponsorFax']
-                # obj.sponsorEmail = request.POST['form47_1']
+                obj.sponsorEmail = request.POST['sponsorEmail']
                 # obj.PCN_BGASApprovalNumber = request.POST['form11_2']
                 obj.currentCSWIPQualifications = request.POST['currentCSWIPQualifications']
                 obj.plantInspectionRequirements = request.POST['plantInspectionRequirements']
@@ -129,43 +129,43 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 if request.POST.get('diabilityNo', None) == None:
                     obj.disability =False
                 #
-                # if not  request.POST.get('form58_1', None) == None:
-                #     obj.weldingSociety =True
-                # if not request.POST.get('form59_1', None) == None:
-                #     obj.twiEmployee =True
+                if not  request.POST.get('weldingSociety', None) == None:
+                    obj.weldingSociety =True
+                if not request.POST.get('twiEmployee', None) == None:
+                    obj.twiEmployee =True
                 #
                 if not request.POST.get('compSponser', None) == None:
                     obj.sponsorStatus =True
                 if not request.POST.get('selfSponser', None) == None:
                     obj.sponsorStatus =True
                 #
-                # if not request.POST.get('form37_1', None) == None:
-                #     obj.GDPRstatement =True
+                if not request.POST.get('GDPRstatement', None) == None:
+                    obj.GDPRstatement =True
                 #
-                # tempTearAbout=''
-                # if not request.POST.get('form29_1', None) == None:
-                #     tempTearAbout = 'TWI Corporate Website '
-                # if not request.POST.get('form30_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+ 'CSWIP Website'
-                # if not request.POST.get('form31_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+  'Email marketing '
-                # if not request.POST.get('form32_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+  'Bulletin / Connect '
-                # if not request.POST.get('form33_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+  'Google search'
-                # if not request.POST.get('form34_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+  'Other (please specify)'
-                # if not request.POST.get('form23_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+ 'LinkedIn'
-                # if not request.POST.get('form24_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+  'Facebook'
-                # if not request.POST.get('form25_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+  'NDT News / Insight'
-                # if not request.POST.get('form26_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+  'Exhibitions / Events'
-                # if not request.POST.get('form27_1', None) == None:
-                #     tempTearAbout =tempTearAbout +' - '+  'Word of Mouth'
-                # obj.hearAbout =tempTearAbout
+                tempTearAbout=''
+                if not request.POST.get('twiWebsite', None) == None:
+                    tempTearAbout = 'TWI Corporate Website '
+                if not request.POST.get('CSWIPweb', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+ 'CSWIP Website'
+                if not request.POST.get('emailMarketing', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+  'Email marketing '
+                if not request.POST.get('Bulletin', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+  'Bulletin / Connect '
+                if not request.POST.get('Google', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+  'Google search'
+                if not request.POST.get('Other', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+  'Other (please specify)'
+                if not request.POST.get('Linkedin', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+ 'LinkedIn'
+                if not request.POST.get('Facebook', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+  'Facebook'
+                if not request.POST.get('NDTnews', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+  'NDT News / Insight'
+                if not request.POST.get('Exhib', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+  'Exhibitions / Events'
+                if not request.POST.get('WorkOfMouth', None) == None:
+                    tempTearAbout =tempTearAbout +' - '+  'Word of Mouth'
+                obj.hearAbout =tempTearAbout
                 #
                 # if not request.POST.get('form1_2', None) == None:
                 #     obj.examinationType ='Initial'
