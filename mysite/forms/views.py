@@ -251,117 +251,117 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                     obj.underwaterInspectionExam ='Concrete'
 
                 #
-                # if not request.POST.get('form1_3', None) == None:
-                #     obj.NDTexamination ='PT'
-                # if not request.POST.get('form2_3', None) == None:
-                #     obj.NDTexamination ='MT'
-                # if not request.POST.get('form3_3', None) == None:
-                #     obj.NDTexamination ='VT'
-                # if not request.POST.get('form4_3', None) == None:
-                #     obj.NDTexamination ='ET'
-                # if not request.POST.get('form5_3', None) == None:
-                #     obj.NDTexamination ='ACFM'
+                if not request.POST.get('PT', None) == None:
+                    obj.NDTexamination ='PT'
+                if not request.POST.get('MT', None) == None:
+                    obj.NDTexamination ='MT'
+                if not request.POST.get('VT', None) == None:
+                    obj.NDTexamination ='VT'
+                if not request.POST.get('ET', None) == None:
+                    obj.NDTexamination ='ET'
+                if not request.POST.get('ACFM', None) == None:
+                    obj.NDTexamination ='ACFM'
                 #
-                # if not request.POST.get('form6_3', None) == None:
-                #     obj.NDTexamination ='RT'
-                # if not request.POST.get('form7_3', None) == None:
-                #     obj.NDTexamination ='Rad Interpret'
-                # if not request.POST.get('form8_3', None) == None:
-                #     obj.NDTexamination ='CR/DR'
-                # if not request.POST.get('form9_3', None) == None:
-                #     obj.NDTexamination ='CRI/DRI'
-                # if not request.POST.get('form10_3', None) == None:
-                #     obj.NDTexamination ='BRS'
-                # if not request.POST.get('form11_3', None) == None:
-                #     obj.NDTexamination ='RPS'
+                if not request.POST.get('RT', None) == None:
+                    obj.NDTexamination ='RT'
+                if not request.POST.get('Rad', None) == None:
+                    obj.NDTexamination ='Rad Interpret'
+                if not request.POST.get('CR', None) == None:
+                    obj.NDTexamination ='CR/DR'
+                if not request.POST.get('CRI', None) == None:
+                    obj.NDTexamination ='CRI/DRI'
+                if not request.POST.get('BRS', None) == None:
+                    obj.NDTexamination ='BRS'
+                if not request.POST.get('RPS', None) == None:
+                    obj.NDTexamination ='RPS'
+
+                if not request.POST.get('UT', None) == None:
+                    obj.NDTexamination ='UT'
+                if not request.POST.get('PAUT', None) == None:
+                    obj.NDTexamination ='PAUT'
+                if not request.POST.get('TOFD', None) == None:
+                    obj.NDTexamination ='TOFD'
+                if not request.POST.get('AUT', None) == None:
+                    obj.NDTexamination ='AUT'
+                if not request.POST.get('UTCM', None) == None:
+                    obj.NDTexamination ='UTCM'
+                if not request.POST.get('PACM', None) == None:
+                    obj.NDTexamination ='PACM'
                 #
-                # if not request.POST.get('form12_3', None) == None:
-                #     obj.NDTexamination ='UT'
-                # if not request.POST.get('form13_3', None) == None:
-                #     obj.NDTexamination ='PAUT'
-                # if not request.POST.get('form14_3', None) == None:
-                #     obj.NDTexamination ='TOFD'
-                # if not request.POST.get('form15_3', None) == None:
-                #     obj.NDTexamination ='AUT'
-                # if not request.POST.get('form16_3', None) == None:
-                #     obj.NDTexamination ='UTCM'
-                # if not request.POST.get('form17_3', None) == None:
-                #     obj.NDTexamination ='PACM'
+                if not request.POST.get('Appreciation', None) == None:
+                    obj.NDTexamination ='Appreciation'
+                if not request.POST.get('Basic', None) == None:
+                    obj.NDTexamination ='Basic'
+                if not request.POST.get('Phasor', None) == None:
+                    obj.NDTexamination ='Phasor DM'
                 #
-                # if not request.POST.get('form18_3', None) == None:
-                #     obj.NDTexamination ='Appreciation'
-                # if not request.POST.get('form19_3', None) == None:
-                #     obj.NDTexamination ='Basic'
-                # if not request.POST.get('form20_3', None) == None:
-                #     obj.NDTexamination ='Phasor DM'
+                if not request.POST.get('Level1', None) == None:
+                    obj.NDTexaminationLevel ='Level 1'
+                if not request.POST.get('Level2', None) == None:
+                    obj.NDTexaminationLevel ='Level 2'
+                if not request.POST.get('Level3', None) == None:
+                    obj.NDTexaminationLevel ='Level 3'
                 #
-                # if not request.POST.get('form21_3', None) == None:
-                #     obj.NDTexaminationLevel ='Level 1'
-                # if not request.POST.get('form22_3', None) == None:
-                #     obj.NDTexaminationLevel ='Level 2'
-                # if not request.POST.get('form23_3', None) == None:
-                #     obj.NDTexaminationLevel ='Level 3'
-                #
-                # if not request.POST.get('form24_3', None) == None:
-                #     obj.NDTIndustrySector ='General'
-                # if not request.POST.get('form25_3', None) == None:
-                #     obj.NDTIndustrySector ='Welds'
-                # if not request.POST.get('form26_3', None) == None:
-                #     obj.NDTIndustrySector ='Castings'
-                # if not request.POST.get('form27_3', None) == None:
-                #     obj.NDTIndustrySector ='Wrought'
-                # if not request.POST.get('form28_3', None) == None:
-                #     obj.NDTIndustrySector ='Forgings'
-                # if not request.POST.get('form29_3', None) == None:
-                #     obj.NDTIndustrySector ='Tubes & Pipes'
-                # if not request.POST.get('form30_3', None) == None:
-                #     obj.NDTIndustrySector ='Aero'
-                #
-                #
-                # if not request.POST.get('form31_3', None) == None:
-                #     obj.NDTexaminationCategories ='3.1'
-                # if not request.POST.get('form32_3', None) == None:
-                #     obj.NDTexaminationCategories ='3.2'
-                # if not request.POST.get('form33_3', None) == None:
-                #     obj.NDTexaminationCategories ='3.7'
-                # if not request.POST.get('form34_3', None) == None:
-                #     obj.NDTexaminationCategories ='3.8'
-                # if not request.POST.get('form35_3', None) == None:
-                #     obj.NDTexaminationCategories ='3.9'
-                # if not request.POST.get('form36_3', None) == None:
-                #     obj.NDTexaminationCategories ='Critical sizing'
+                if not request.POST.get('General', None) == None:
+                    obj.NDTIndustrySector ='General'
+                if not request.POST.get('Welds', None) == None:
+                    obj.NDTIndustrySector ='Welds'
+                if not request.POST.get('Castings', None) == None:
+                    obj.NDTIndustrySector ='Castings'
+                if not request.POST.get('Wrought', None) == None:
+                    obj.NDTIndustrySector ='Wrought'
+                if not request.POST.get('Forgings', None) == None:
+                    obj.NDTIndustrySector ='Forgings'
+                if not request.POST.get('Tubes', None) == None:
+                    obj.NDTIndustrySector ='Tubes & Pipes'
+                if not request.POST.get('Aero', None) == None:
+                    obj.NDTIndustrySector ='Aero'
                 #
                 #
-                # if not request.POST.get('form37_3', None) == None:
-                #     obj.plantInspectionLevel ='Level 1'
-                # if not request.POST.get('form38_3', None) == None:
-                #     obj.plantInspectionLevel ='Level 2'
-                # if not request.POST.get('form39_3', None) == None:
-                #     obj.plantInspectionLevel ='Level 3'
-                # if not request.POST.get('form40_3', None) == None:
-                #     obj.plantInspectionLevel ='Endorsement'
-                #
-                # if not request.POST.get('form41_3', None) == None:
-                #     obj.plantInspectionLevel1 ='I hold current approved NDT Level 2 (ACCP, CSWIP, PCN or ASNT) in two methods, one of which must be Ultrasonic'
-                # if not request.POST.get('form42_3', None) == None:
-                #     obj.plantInspectionLevel1 ='I hold CSWIP Welding Inspector or higher'
-                # if not request.POST.get('form43_3', None) == None:
-                #     obj.plantInspectionLevel1 ='I hold HNC in Mechanical Engineering or equivalent'
-                # if not request.POST.get('form44_3', None) == None:
-                #     obj.plantInspectionLevel1 ='I have a minimum of Five years, assessed and authenticated industry experience in this field (Mature Entry Route), a verified CV can be supplied – Must be Authenticated by Line Manager'
-                #
-                # if not request.POST.get('form45_3', None) == None:
-                #     obj.plantInspectionLevel2 ='I hold a valid Level 1 Plant Inspector approval'
-                # if not request.POST.get('form46_3', None) == None:
-                #     obj.plantInspectionLevel2 ='I have successfully completed the Level 1 exams as a pre entry requirement'
+                if not request.POST.get('31', None) == None:
+                    obj.NDTexaminationCategories ='3.1'
+                if not request.POST.get('32', None) == None:
+                    obj.NDTexaminationCategories ='3.2'
+                if not request.POST.get('37', None) == None:
+                    obj.NDTexaminationCategories ='3.7'
+                if not request.POST.get('37', None) == None:
+                    obj.NDTexaminationCategories ='3.8'
+                if not request.POST.get('39', None) == None:
+                    obj.NDTexaminationCategories ='3.9'
+                if not request.POST.get('Critical', None) == None:
+                    obj.NDTexaminationCategories ='Critical sizing'
                 #
                 #
-                # if not request.POST.get('form48_3', None) == None:
-                #    obj.otherExaminationsTitleRequired ='Plastic welding'
-                # if not request.POST.get('form49_3', None) == None:
-                #     obj.otherExaminationsTitleRequired ='Offshore visual Inspector'
-                # if not request.POST.get('form50_3', None) == None:
-                #     obj.otherExaminationsTitleRequired ='BGAS'
+                if not request.POST.get('plantLevel1', None) == None:
+                    obj.plantInspectionLevel ='Level 1'
+                if not request.POST.get('plantLevel2', None) == None:
+                    obj.plantInspectionLevel ='Level 2'
+                if not request.POST.get('plantLevel3', None) == None:
+                    obj.plantInspectionLevel ='Level 3'
+                if not request.POST.get('Endorsement', None) == None:
+                    obj.plantInspectionLevel ='Endorsement'
+                #
+                if not request.POST.get('IHoldCurrent', None) == None:
+                    obj.plantInspectionLevel1 ='I hold current approved NDT Level 2 (ACCP, CSWIP, PCN or ASNT) in two methods, one of which must be Ultrasonic'
+                if not request.POST.get('IholdCSWIP', None) == None:
+                    obj.plantInspectionLevel1 ='I hold CSWIP Welding Inspector or higher'
+                if not request.POST.get('IholdHNC', None) == None:
+                    obj.plantInspectionLevel1 ='I hold HNC in Mechanical Engineering or equivalent'
+                if not request.POST.get('Ihaveminimum', None) == None:
+                    obj.plantInspectionLevel1 ='I have a minimum of Five years, assessed and authenticated industry experience in this field (Mature Entry Route), a verified CV can be supplied – Must be Authenticated by Line Manager'
+
+                if not request.POST.get('IholdvalidLevel', None) == None:
+                    obj.plantInspectionLevel2 ='I hold a valid Level 1 Plant Inspector approval'
+                if not request.POST.get('IHaveSuccessfully', None) == None:
+                    obj.plantInspectionLevel2 ='I have successfully completed the Level 1 exams as a pre entry requirement'
+
+
+                if not request.POST.get('Plastic', None) == None:
+                   obj.otherExaminationsTitleRequired ='Plastic welding'
+                if not request.POST.get('Offshore', None) == None:
+                    obj.otherExaminationsTitleRequired ='Offshore visual Inspector'
+                if not request.POST.get('BGAS', None) == None:
+                    obj.otherExaminationsTitleRequired ='BGAS'
 
 
 
