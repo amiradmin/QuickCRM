@@ -79,7 +79,7 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 obj.sponsorTel = request.POST['sponsorTel']
                 obj.sponsorFax = request.POST['sponsorFax']
                 obj.sponsorEmail = request.POST['sponsorEmail']
-                # obj.PCN_BGASApprovalNumber = request.POST['form11_2']
+                obj.PCN_BGASApprovalNumber = request.POST['PCN_BGASApprovalNumber']
                 obj.currentCSWIPQualifications = request.POST['currentCSWIPQualifications']
                 obj.plantInspectionRequirements = request.POST['plantInspectionRequirements']
                 obj.VerifierName = request.POST['VerifierName']
@@ -167,74 +167,74 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                     tempTearAbout =tempTearAbout +' - '+  'Word of Mouth'
                 obj.hearAbout =tempTearAbout
                 #
-                # if not request.POST.get('form1_2', None) == None:
-                #     obj.examinationType ='Initial'
-                # if not request.POST.get('form2_2', None) == None:
-                #     obj.examinationType ='supplementary'
-                # if not request.POST.get('form3_2', None) == None:
-                #     obj.examinationType ='renewal'
-                # if not request.POST.get('form4_2', None) == None:
-                #     obj.examinationType ='bridging'
-                # if not request.POST.get('form5_2', None) == None:
-                #     obj.examinationType ='retest of a previously failed examination'
+                if not request.POST.get('Initial', None) == None:
+                    obj.examinationType ='Initial'
+                if not request.POST.get('supplementary', None) == None:
+                    obj.examinationType ='supplementary'
+                if not request.POST.get('renewal', None) == None:
+                    obj.examinationType ='renewal'
+                if not request.POST.get('bridging', None) == None:
+                    obj.examinationType ='bridging'
+                if not request.POST.get('retest', None) == None:
+                    obj.examinationType ='retest of a previously failed examination'
                 #
-                # if not request.POST.get('form6_2', None) == None:
-                #     obj.examinationBody ='CSWIP'
-                # if not request.POST.get('form7_2', None) == None:
-                #     obj.examinationBody ='PCN'
-                # if not request.POST.get('form8_2', None) == None:
-                #     obj.examinationBody ='AWS'
-                # if not request.POST.get('form9_2', None) == None:
-                #     obj.examinationBody ='BGAS'
-                # if not request.POST.get('form10_2', None) == None:
-                #     obj.examinationBody ='ASNT'
+                if not request.POST.get('CSWIP', None) == None:
+                    obj.examinationBody ='CSWIP'
+                if not request.POST.get('PCN', None) == None:
+                    obj.examinationBody ='PCN'
+                if not request.POST.get('AWS', None) == None:
+                    obj.examinationBody ='AWS'
+                if not request.POST.get('BGAS', None) == None:
+                    obj.examinationBody ='BGAS'
+                if not request.POST.get('ASNT', None) == None:
+                    obj.examinationBody ='ASNT'
+
                 #
+                if not request.POST.get('VWI', None) == None:
+                    obj.CSWIPWeldingexamination ='VWI (3.0)'
+                if not request.POST.get('WI', None) == None:
+                    obj.CSWIPWeldingexamination ='WI (3.1)'
+                if not request.POST.get('SWI', None) == None:
+                    obj.CSWIPWeldingexamination ='SWI (3.2.1)'
+                if not request.POST.get('SWI3', None) == None:
+                    obj.CSWIPWeldingexamination ='SWI (3.2.2) '
+                if not request.POST.get('AWSCSWIP', None) == None:
+                    obj.CSWIPWeldingexamination ='AWSCSWIP'
                 #
-                # if not request.POST.get('form13_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='VWI (3.0)'
-                # if not request.POST.get('form14_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='WI (3.1)'
-                # if not request.POST.get('form15_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='SWI (3.2.1)'
-                # if not request.POST.get('form16_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='SWI (3.2.2) '
-                # if not request.POST.get('form17_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='AWSCSWIP'
+                if not request.POST.get('Endorsement', None) == None:
+                    obj.CSWIPWeldingexamination ='Endorsement'
+                if not request.POST.get('Instructor', None) == None:
+                    obj.CSWIPWeldingexamination ='Instructor'
+                if not request.POST.get('Supervisor', None) == None:
+                    obj.CSWIPWeldingexamination ='Supervisor'
+                if not request.POST.get('QC', None) == None:
+                    obj.CSWIPWeldingexamination ='QC Coordinator '
+                if not request.POST.get('ASME', None) == None:
+                    obj.CSWIPWeldingexamination ='ASME IX'
                 #
-                # if not request.POST.get('form18_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='Endorsement'
-                # if not request.POST.get('form19_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='Instructor'
-                # if not request.POST.get('form20_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='Supervisor'
-                # if not request.POST.get('form21_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='QC Coordinator '
-                # if not request.POST.get('form22_2', None) == None:
-                #     obj.CSWIPWeldingexamination ='ASME IX'
-                #
-                # if not request.POST.get('form23_2', None) == None:
-                #     obj.experience ='WI(3.1) - Welding Inspector for a minimum of 3 years with experience related to the duties and responsibilities listed in Clause 1.2.2 under qualified supervision, independently verified.'
-                # if not request.POST.get('form24_2', None) == None:
-                #     obj.experience ='WI (3.1) - Certified Visual Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1 and 1.2.2.'
-                # if not request.POST.get('form25_2', None) == None:
-                #     obj.experience ='WI (3.1) - Welding Instructor or Welding Foreman/Supervisor for a minimum of 1 year.'
-                # if not request.POST.get('form26_2', None) == None:
-                #     obj.experience ='SWI (3.2.1 & 3.2.2) - Certified Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1, 1.2.2 and 1.2.3. '
-                # if not request.POST.get('form27_2', None) == None:
-                #     obj.experience ='SWI (3.2.1 & 3.2.2) - 5 years\' authenticated experience related to the duties and responsibilities listed in Clause 1.2.3, independently verified.'
-                #
-                # if not request.POST.get('form28_2', None) == None:
-                #     obj.experience ='Welding QC coordinator - A current valid CSWIP 3.2 Senior Welding Inspector certification plus three years documented experience related to the duties and responsibilities or an international equivalent.'
-                # if not request.POST.get('form29_2', None) == None:
-                #     obj.experience ='Welding QC coordinator - A current valid CSWIP 3.1 Welding Inspector with 10 year’s documented experience related to the duties and responsibilities or an international equivalent. '
-                # if not request.POST.get('form30_2', None) == None:
-                #     obj.experience ='ASME IX - Hold current valid Senior Welding Inspector or international equivalent.'
-                # if not request.POST.get('form31_2', None) == None:
-                #     obj.experience ='ASME IX - Certified Welding Inspector with five years relevant verified work experience or international equivalent '
-                # if not request.POST.get('form32_2', None) == None:
-                #     obj.experience ='ASME IX - A HNC in Welding Fabrication'
-                # if not request.POST.get('form33_2', None) == None:
-                #     obj.experience ='ASME IX - Working in quality control function related to welding activities with five years of verified working experience (this could relate to a CSWIP WI (3.1) holder'
+                if not request.POST.get('WI31weld', None) == None:
+                    obj.experience ='WI(3.1) - Welding Inspector for a minimum of 3 years with experience related to the duties and responsibilities listed in Clause 1.2.2 under qualified supervision, independently verified.'
+                if not request.POST.get('WI31Visual', None) == None:
+                    obj.experience ='WI (3.1) - Certified Visual Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1 and 1.2.2.'
+                if not request.POST.get('WIWeldingInspector', None) == None:
+                    obj.experience ='WI (3.1) - Welding Instructor or Welding Foreman/Supervisor for a minimum of 1 year.'
+                if not request.POST.get('SWIcertificate', None) == None:
+                    obj.experience ='SWI (3.2.1 & 3.2.2) - Certified Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1, 1.2.2 and 1.2.3. '
+                if not request.POST.get('SWI5year', None) == None:
+                    obj.experience ='SWI (3.2.1 & 3.2.2) - 5 years\' authenticated experience related to the duties and responsibilities listed in Clause 1.2.3, independently verified.'
+
+                if not request.POST.get('WeldingQC', None) == None:
+                    obj.experience ='Welding QC coordinator - A current valid CSWIP 3.2 Senior Welding Inspector certification plus three years documented experience related to the duties and responsibilities or an international equivalent.'
+                if not request.POST.get('CurrentValid', None) == None:
+                    obj.experience ='Welding QC coordinator - A current valid CSWIP 3.1 Welding Inspector with 10 year’s documented experience related to the duties and responsibilities or an international equivalent. '
+                if not request.POST.get('HoldCurrent', None) == None:
+                    obj.experience ='ASME IX - Hold current valid Senior Welding Inspector or international equivalent.'
+                if not request.POST.get('ASMECer', None) == None:
+                    obj.experience ='ASME IX - Certified Welding Inspector with five years relevant verified work experience or international equivalent '
+                if not request.POST.get('ASMEhnc', None) == None:
+                    obj.experience ='ASME IX - A HNC in Welding Fabrication'
+                if not request.POST.get('ASMEWorking', None) == None:
+                    obj.experience ='ASME IX - Working in quality control function related to welding activities with five years of verified working experience (this could relate to a CSWIP WI (3.1) holder'
                 #
                 #
                 # if not request.POST.get('form35_2', None) == None:
@@ -464,8 +464,8 @@ class UpdateTwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
             # obj.sponsorTel = request.POST['form45_1']
             # obj.sponsorFax = request.POST['form46_1']
             # obj.sponsorEmail = request.POST['form47_1']
-            # obj.PCN_BGASApprovalNumber = request.POST['form11_2']
-            # obj.currentCSWIPQualifications = request.POST['form12_2']
+            obj.PCN_BGASApprovalNumber = request.POST['PCN_BGASApprovalNumber']
+            obj.currentCSWIPQualifications = request.POST['currentCSWIPQualifications']
             # obj.plantInspectionRequirements = request.POST['form47_3']
             # obj.VerifierName = request.POST['form1_4']
             # obj.VerifierCompanyPosition = request.POST['form2_4']
