@@ -237,19 +237,19 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                     obj.experience ='ASME IX - Working in quality control function related to welding activities with five years of verified working experience (this could relate to a CSWIP WI (3.1) holder'
                 #
                 #
-                # if not request.POST.get('form35_2', None) == None:
-                #     obj.underwaterInspectionExam ='3.1U'
-                # if not request.POST.get('form36_2', None) == None:
-                #     obj.underwaterInspectionExam ='3.2U'
-                # if not request.POST.get('form37_2', None) == None:
-                #     obj.underwaterInspectionExam ='3.3U'
-                # if not request.POST.get('form38_2', None) == None:
-                #     obj.underwaterInspectionExam ='3.4U'
-                # if not request.POST.get('form39_2', None) == None:
-                #     obj.underwaterInspectionExam ='A-SCAN '
-                # if not request.POST.get('form40_2', None) == None:
-                #     obj.underwaterInspectionExam ='Concrete'
-                #
+                if not request.POST.get('31U', None) == None:
+                    obj.underwaterInspectionExam ='3.1U'
+                if not request.POST.get('32U', None) == None:
+                    obj.underwaterInspectionExam ='3.2U'
+                if not request.POST.get('33U', None) == None:
+                    obj.underwaterInspectionExam ='3.3U'
+                if not request.POST.get('34U', None) == None:
+                    obj.underwaterInspectionExam ='3.4U'
+                if not request.POST.get('A-SCAN', None) == None:
+                    obj.underwaterInspectionExam ='A-SCAN'
+                if not request.POST.get('Concrete', None) == None:
+                    obj.underwaterInspectionExam ='Concrete'
+
                 #
                 # if not request.POST.get('form1_3', None) == None:
                 #     obj.NDTexamination ='PT'
