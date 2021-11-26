@@ -2815,7 +2815,7 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.candidateID = request.POST['cancanID']
                 obj.candidateAdress = request.POST['candidateAddress']
                 obj.candidateHomePhone = request.POST['candidateHomePhone']
-                # obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
+                obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
 
                 if not  request.POST.get('case1yes', None) == None:
                     obj.confirmCase1 =True
@@ -2872,7 +2872,7 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if not  request.POST.get('medicalTravelCase4No', None) == None:
                     obj.medicalTravelCase4 =False
 
-                # obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
+                obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
 
                 obj.save()
 
