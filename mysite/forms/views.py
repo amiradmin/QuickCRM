@@ -2803,6 +2803,8 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 category = Category.objects.filter(id=categoryID).first()
                 guideline = Guideline.objects.filter(id=guidelineID).first()
                 event = Event.objects.filter(id=eventID).first()
+                print("Here")
+                print(request.POST['mainCanID'])
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
                 obj =NDTCovid19()
@@ -2810,10 +2812,10 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.category =category
                 obj.guideline =guideline
                 obj.event =event
-                obj.candidateID = request.POST['candidateID']
+                obj.candidateID = request.POST['cancanID']
                 obj.candidateAdress = request.POST['candidateAddress']
                 obj.candidateHomePhone = request.POST['candidateHomePhone']
-                obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
+                # obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
 
                 if not  request.POST.get('case1yes', None) == None:
                     obj.confirmCase1 =True
@@ -2850,14 +2852,14 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                     obj.medicalTravelCase1 =True
                 if not  request.POST.get('medicalTravelCase1No', None) == None:
                     obj.medicalTravelCase1 =False
-                obj.medicalHistory = request.POST['medicalHistory']
+                # obj.medicalHistory = request.POST['medicalHistory']
 
 
                 if not  request.POST.get('medicalTravelCase2Yes', None) == None:
                     obj.medicalTravelCase2 =True
                 if not  request.POST.get('medicalTravelCase2No', None) == None:
                     obj.medicalTravelCase2 =False
-                obj.temperature = request.POST['temperature']
+                # obj.temperature = request.POST['temperature']
 
                 if not  request.POST.get('medicalTravelCase3Yes', None) == None:
                     obj.medicalTravelCase3 =True
@@ -2870,7 +2872,7 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if not  request.POST.get('medicalTravelCase4No', None) == None:
                     obj.medicalTravelCase4 =False
 
-                obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
+                # obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
 
                 obj.save()
 
@@ -2888,13 +2890,13 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
             else:
-                print('Here')
+                print('Here55')
                 # if request.FILES.get('file', False):
                 canID = request.POST['canID']
-                eventID = request.POST['eventID']
-                categoryID = request.POST['categoryID']
-                guidelineID = request.POST['guidelineID']
-                print(canID)
+                eventID = request.POST['selectedEventID']
+                categoryID = request.POST['selectedCategoryID']
+                guidelineID = request.POST['seletedGuidelineID']
+                print(guidelineID)
 
                 candidate = TesCandidate.objects.filter(id=canID).first()
                 event = Event.objects.filter(id=eventID).first()
@@ -2909,7 +2911,7 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['guideline'] = guideline
 
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/ndt/covid_19.html', context)
+            return render(request, 'forms/ndt/covid_19_S.html', context)
 
 
 class AllNDT15Covid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
