@@ -324,6 +324,7 @@ class NDTCovid19(models.Model):
     candidateID = models.CharField(max_length=512, null=True, blank=True)
     candidateAdress = models.CharField(max_length=512, null=True, blank=True)
     candidateHomePhone = models.CharField(max_length=512, null=True, blank=True)
+    employeer = models.CharField(max_length=512, null=True, blank=True)
     fillingDate = models.DateField(null=True, blank=True)
 
     confirmCase1 = models.BooleanField(null=True, blank=True)
