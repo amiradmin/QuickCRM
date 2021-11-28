@@ -2589,6 +2589,7 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 obj.companyName = request.POST['companyName']
                 obj.supervisionActivity = request.POST['supervisionActivity']
                 obj.verEmail = request.POST['verEmail']
+
                 obj.verDate = datetime.datetime.strptime(request.POST['verDate'], '%m/%d/%Y')
                 obj.save()
 
@@ -2636,6 +2637,12 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                     objClaimed.save()
                     obj.experienceClaimed.add(objClaimed)
 
+                obj.descriptionOfExperience = request.POST['descriptionOfExperience']
+                obj.date = request.POST['date']
+                obj.nameJobTitle = request.POST['nameJobTitle']
+                obj.companyName = request.POST['companyName']
+                obj.supervisionActivity = request.POST['supervisionActivity']
+                obj.verEmail = request.POST['verEmail']
 
                 formListObj = FormList()
                 formListObj.name = objClaimed.__class__.__name__
