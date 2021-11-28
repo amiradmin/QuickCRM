@@ -3522,11 +3522,11 @@ class NewVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
                 # if not  request.POST.get('contactMe', None) == None:
                 #     objPSL57.contactMe =False
 
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
+                visionObj.address = request.POST['candidateAdress']
+                visionObj.phone = request.POST['candidateHomePhone']
                 visionObj.email = request.POST['email']
                 visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
+                visionObj.employer = request.POST['employeer']
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:

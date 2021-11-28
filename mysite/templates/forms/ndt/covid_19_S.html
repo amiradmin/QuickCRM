@@ -629,8 +629,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 </div>
                             <form method="POST" onsubmit="return mainFormValidate();">
                             {% csrf_token %}
-                                         <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="mainCanID"/>
-
+        <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="mainCanID"/>
         <input type="hidden" id="mainEventID" value="{{event.id}}" name="eventID"/>
         <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
         <input type="hidden" value="{{category.id}}" name="categoryID"/>
