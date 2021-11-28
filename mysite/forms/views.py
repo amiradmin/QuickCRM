@@ -3952,54 +3952,158 @@ class NewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 event = Event.objects.filter(id=eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
-                visionObj = VisionTest()
-                visionObj.candidate =candidate
-                visionObj.category =category
-                visionObj.guideline =guideline
-                visionObj.event =event
-                #
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =True
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =False
+                lecObj = TesLecFeedbackFrom()
+                lecObj.candidate =candidate
+                lecObj.category =category
+                lecObj.guideline =guideline
+                lecObj.event =event
 
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
-                visionObj.email = request.POST['email']
-                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
-                visionObj.tumbling = request.POST['tumbling']
-
-                if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
-
-                if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
-
-                if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                lecObj.courseName = event
+                lecObj.lecturerName = request.POST['lecName']
+                lecObj.location = request.POST['location']
+                lecObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
 
 
-                if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                if not request.POST.get('case11', None) == None:
+                    lecObj.knowledge ='1'
+                if not request.POST.get('case12', None) == None:
+                    lecObj.knowledge ='2'
+                if not request.POST.get('case13', None) == None:
+                    lecObj.knowledge ='3'
+                if not request.POST.get('case14', None) == None:
+                    lecObj.knowledge ='4'
+                if not request.POST.get('case15', None) == None:
+                    lecObj.knowledge ='5'
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
+                if not request.POST.get('case21', None) == None:
+                    lecObj.teachingMethod ='1'
+                if not request.POST.get('case22', None) == None:
+                    lecObj.teachingMethod ='2'
+                if not request.POST.get('case23', None) == None:
+                    lecObj.teachingMethod ='3'
+                if not request.POST.get('case24', None) == None:
+                    lecObj.teachingMethod ='4'
+                if not request.POST.get('case25', None) == None:
+                    lecObj.teachingMethod ='5'
+
+                if not request.POST.get('case31', None) == None:
+                    lecObj.abilityToAnswer ='1'
+                if not request.POST.get('case32', None) == None:
+                    lecObj.abilityToAnswer ='2'
+                if not request.POST.get('case33', None) == None:
+                    lecObj.abilityToAnswer ='3'
+                if not request.POST.get('case34', None) == None:
+                    lecObj.abilityToAnswer ='4'
+                if not request.POST.get('case35', None) == None:
+                    lecObj.abilityToAnswer ='5'
+
+                if not request.POST.get('case41', None) == None:
+                    lecObj.usefulExample ='1'
+                if not request.POST.get('case42', None) == None:
+                    lecObj.usefulExample ='2'
+                if not request.POST.get('case43', None) == None:
+                    lecObj.usefulExample ='3'
+                if not request.POST.get('case44', None) == None:
+                    lecObj.usefulExample ='4'
+                if not request.POST.get('case45', None) == None:
+                    lecObj.usefulExample ='5'
+
+                if not request.POST.get('case51', None) == None:
+                    lecObj.industrialExperience ='1'
+                if not request.POST.get('case52', None) == None:
+                    lecObj.industrialExperience ='2'
+                if not request.POST.get('case53', None) == None:
+                    lecObj.industrialExperience ='3'
+                if not request.POST.get('case54', None) == None:
+                    lecObj.industrialExperience ='4'
+                if not request.POST.get('case55', None) == None:
+                    lecObj.industrialExperience ='5'
+
+                if not request.POST.get('case61', None) == None:
+                    lecObj.appropriateAids ='1'
+                if not request.POST.get('case62', None) == None:
+                    lecObj.appropriateAids ='2'
+                if not request.POST.get('case63', None) == None:
+                    lecObj.appropriateAids ='3'
+                if not request.POST.get('case64', None) == None:
+                    lecObj.appropriateAids ='4'
+                if not request.POST.get('case65', None) == None:
+                    lecObj.appropriateAids ='5'
 
 
-                if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                if not request.POST.get('case71', None) == None:
+                    lecObj.transposition ='1'
+                if not request.POST.get('case72', None) == None:
+                    lecObj.transposition ='2'
+                if not request.POST.get('case73', None) == None:
+                    lecObj.transposition ='3'
+                if not request.POST.get('case74', None) == None:
+                    lecObj.transposition ='4'
+                if not request.POST.get('case75', None) == None:
+                    lecObj.transposition ='5'
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                if not request.POST.get('case81', None) == None:
+                    lecObj.participantsAttraction ='1'
+                if not request.POST.get('case82', None) == None:
+                    lecObj.participantsAttraction ='2'
+                if not request.POST.get('case83', None) == None:
+                    lecObj.participantsAttraction ='3'
+                if not request.POST.get('case84', None) == None:
+                    lecObj.participantsAttraction ='4'
+                if not request.POST.get('case85', None) == None:
+                    lecObj.participantsAttraction ='5'
 
-                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
-                visionObj.recognisedName = request.POST['recognisedName']
-                visionObj.recognisedPhone = request.POST['recognisedPhone']
-                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
-                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+                if not request.POST.get('case91', None) == None:
+                    lecObj.ControllingTheClass ='1'
+                if not request.POST.get('case92', None) == None:
+                    lecObj.ControllingTheClass ='2'
+                if not request.POST.get('case93', None) == None:
+                    lecObj.ControllingTheClass ='3'
+                if not request.POST.get('case94', None) == None:
+                    lecObj.ControllingTheClass ='4'
+                if not request.POST.get('case95', None) == None:
+                    lecObj.ControllingTheClass ='5'
 
-                visionObj.save()
+                if not request.POST.get('case101', None) == None:
+                    lecObj.punctuality ='1'
+                if not request.POST.get('case102', None) == None:
+                    lecObj.punctuality ='2'
+                if not request.POST.get('case103', None) == None:
+                    lecObj.punctuality ='3'
+                if not request.POST.get('case104', None) == None:
+                    lecObj.punctuality ='4'
+                if not request.POST.get('case105', None) == None:
+                    lecObj.punctuality ='5'
+
+                if not request.POST.get('case111', None) == None:
+                    lecObj.generalBehaviour ='1'
+                if not request.POST.get('case112', None) == None:
+                    lecObj.generalBehaviour ='2'
+                if not request.POST.get('case113', None) == None:
+                    lecObj.generalBehaviour ='3'
+                if not request.POST.get('case114', None) == None:
+                    lecObj.generalBehaviour ='4'
+                if not request.POST.get('case115', None) == None:
+                    lecObj.generalBehaviour ='5'
+
+                lecObj.knowledgeComment = request.POST['comment1']
+                lecObj.teachingMethodComment = request.POST['comment2']
+                lecObj.abilityToAnswerComment = request.POST['comment3']
+                lecObj.usefulExampleComment = request.POST['comment4']
+                lecObj.industrialExperienceComment = request.POST['comment5']
+                lecObj.appropriateAidsComment = request.POST['comment6']
+                lecObj.transpositionComment = request.POST['comment7']
+                lecObj.participantsAttractionComment = request.POST['comment8']
+                lecObj.ControllingTheClassComment = request.POST['comment9']
+                lecObj.punctualityComment = request.POST['comment10']
+                lecObj.generalBehaviourComment = request.POST['comment11']
+
+                lecObj.anyComments = request.POST['comment']
+
+
+
+
+                lecObj.save()
 
 
 
@@ -4009,12 +4113,12 @@ class NewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
                 formListObj = FormList()
-                formListObj.name = visionObj.__class__.__name__
+                formListObj.name = lecObj.__class__.__name__
                 formListObj.event = event
                 formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
-                formListObj.FormID = visionObj.id
+                formListObj.FormID = lecObj.id
                 formListObj.save()
 
                 return redirect('forms:allisiontest_')
@@ -4035,14 +4139,14 @@ class NewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 guideline = Guideline.objects.filter(id=guidelineID).first()
                 self.candidateID = candidate.id
                 print(self.candidateID)
-                context = super(NewVisionTest, self).get_context_data()
+                context = super(NewLecFeedbackForm, self).get_context_data()
                 context['candidate'] = candidate
                 context['category'] = category
                 context['event'] = event
                 context['guideline'] = guideline
 
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/vision_test.html', context)
+            return render(request, "forms/general/lecturer_feedback.html", context)
 
 
 class AllLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
