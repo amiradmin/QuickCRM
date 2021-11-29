@@ -3,7 +3,7 @@ from django.views.generic import View,TemplateView
 from forms.models import ( Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,
                            PSL30InitialForm,NDT15AExperienceVerification, CurrentFormerCertification,
                            ExperienceClaimed,NDTCovid19,PSL57B,PSL57A,empHistory,VisionTest,TesFrmExaminationAttendance,
-                            TesLecFeedbackFrom,TrainingAttendance,TwiTrainingFeedback,TwiExamFeedback
+                            TesLecFeedbackFrom,TrainingAttendance,TwiTrainingFeedback,TwiExamFeedback,TesFrmCandidate
                            )
 from django.db.models import Count
 from classes.db import FormDb
@@ -1247,7 +1247,8 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                canID = request.POST['canID']
+                print("Post Here")
+                canID = request.POST['mainCanID']
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
                 guidelineID = request.POST['guidelineID']
@@ -1259,11 +1260,15 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
 
                 bgasObj = BGAsExperienceForm()
                 bgasObj.candidate =candidate
+                bgasObj.event =event
                 # bgasObj.evenID =event.id
                 bgasObj.firstName =candidate.first_name
                 bgasObj.lastName =candidate.last_name
                 bgasObj.middleName =candidate.middleName
-                # bgasObj.twiCandidateID = request.POST['canID']
+
+                bgasObj.sponsorCcmpany = request.POST['sponsorCcmpany']
+                bgasObj.sponsorName = request.POST['sponsorName']
+                bgasObj.sponsorAddress = request.POST['sponsorAddress']
                 bgasObj.VerifierName = request.POST['verifierName']
                 bgasObj.VerifierCompany = request.POST['verifierCompany']
                 bgasObj.VerifierPosition = request.POST['verifierPosition']
@@ -1308,7 +1313,7 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 context['twiEnrolmentForm'] = twiEnrolmentForm
 
             # return redirect('forms:jaegertofdl2_' ,context)
-                return render(request, 'forms/reg_forms/BGAS_experience_form.html', context)
+                return render(request, 'forms/general/bgas.html', context)
 
 
 
@@ -1437,7 +1442,7 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
             # return redirect('forms:jaegertofdl2_' ,context)
-                return render(request, 'forms/reg_forms/PSL-57A_Initial_exam_application.html', context)
+                return render(request, "forms/reg_forms/PSL-57A_Initial_exam_application_S.html", context)
 
 
 class AllPSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
@@ -2645,7 +2650,7 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 obj.verEmail = request.POST['verEmail']
 
                 formListObj = FormList()
-                formListObj.name = objClaimed.__class__.__name__
+                formListObj.name = obj.__class__.__name__
                 formListObj.event = event
                 formListObj.candidate = candidate
                 formListObj.category = category
@@ -2678,7 +2683,7 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 context['guideline'] = guideline
 
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/ndt/ndt_15.html', context)
+            return render(request, 'forms/ndt/ndt_15_S.html', context)
 
 class DeleteNdt15A(SidebarMixin, LoginRequiredMixin,DeleteView):
     model = NDT15AExperienceVerification
@@ -3737,11 +3742,11 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 event = Event.objects.filter(id=eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
-                visionObj = VisionTest()
-                visionObj.candidate =candidate
-                visionObj.category =category
-                visionObj.guideline =guideline
-                visionObj.event =event
+                examObj = TesFrmExaminationAttendance()
+                examObj.candidate =candidate
+                examObj.category =category
+                examObj.guideline =guideline
+                examObj.event =event
                 #
                 # if not  request.POST.get('contactMe', None) == None:
                 #     objPSL57.contactMe =True
@@ -3784,7 +3789,7 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
                 visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
 
-                visionObj.save()
+                examObj.save()
 
 
 
@@ -3827,7 +3832,7 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 context['guideline'] = guideline
 
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/vision_test.html', context)
+            return render(request, 'forms/general/examination_attendance.html', context)
 
 
 class AllTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):

@@ -2,9 +2,15 @@ from django.contrib import admin
 from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
                           PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,PSL57A,VisionTest,TesFrmCandidate,
                           TesFrmExaminationAttendance,TesLecFeedbackFrom,TesAttCandidate,TrainingAttendance,
-                          TwiTrainingFeedback,TwiExamFeedback)
+                          TwiTrainingFeedback,TwiExamFeedback,BGAsExperienceForm)
 
 # Register your models here.
+class BGAsExperienceFormAdmin(admin.ModelAdmin):
+    list_display = ['id', 'candidate', 'eventID', 'created_at', 'updated_at']
+    list_filter =['id', 'candidate', 'eventID', 'created_at', 'updated_at']
+admin.site.register(BGAsExperienceForm, BGAsExperienceFormAdmin)
+
+
 class TwiExamFeedbackAdmin(admin.ModelAdmin):
     list_display = ['id', 'candidate', 'venue','startDate','invigilator', 'created_at', 'updated_at']
     list_filter =['id', 'candidate', 'venue','startDate','invigilator', 'created_at', 'updated_at']
