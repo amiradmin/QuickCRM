@@ -531,7 +531,7 @@ class TesFrmCandidate(models.Model):
     testSequence= models.CharField(max_length=1024, null=True, blank=True)
     scheme= models.CharField(max_length=1024, null=True, blank=True)
     methodOfExam= models.CharField(max_length=1024, null=True, blank=True)
-    methodOfExam= models.CharField(max_length=1024, null=True, blank=True)
+    # methodOfExam= models.CharField(max_length=1024, null=True, blank=True)
     remark= models.CharField(max_length=1024, null=True, blank=True)
 
 

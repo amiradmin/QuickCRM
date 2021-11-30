@@ -30,7 +30,8 @@ urlpatterns = [
     path('contacts/', include("contacts.urls",namespace="contacts")),
     path('mailer/', include("mailer.urls",namespace="mailer")),
     path('ticket/', include("ticket.urls",namespace="ticket")),
-
+    path('api/', include("api.urls",namespace="api")),
+    path('api-auth/', include('rest_framework.urls'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

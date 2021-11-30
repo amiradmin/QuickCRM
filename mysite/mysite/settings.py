@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'map',
     'contacts',
     'ticket',
+    'rest_framework',
 
 
     
@@ -190,3 +191,10 @@ EMAIL_PORT = 26
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL: False
 EMAIL_HOST_PASSWORD = 'A^f[Xoi+)ngh'
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+}

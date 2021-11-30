@@ -3740,56 +3740,36 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 category = Category.objects.filter(id=categoryID).first()
                 guideline = Guideline.objects.filter(id=guidelineID).first()
                 event = Event.objects.filter(id=eventID).first()
-                candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
+                candidate = TesCandidate.objects.filter(id=request.POST['CanID']).first()
 
                 examObj = TesFrmExaminationAttendance()
                 examObj.candidate =candidate
                 examObj.category =category
                 examObj.guideline =guideline
                 examObj.event =event
-                #
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =True
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =False
-
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
-                visionObj.email = request.POST['email']
-                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
-                visionObj.tumbling = request.POST['tumbling']
-
-                if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
-
-                if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
-
-                if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
 
 
-                if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
-
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
-
-                if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
-
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
-
-                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
-                visionObj.recognisedName = request.POST['recognisedName']
-                visionObj.recognisedPhone = request.POST['recognisedPhone']
-                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
-                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+                examObj.examTitleCode = request.POST['examTitleCode']
+                examObj.venue = request.POST['venue']
+                examObj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                examObj.invigilatorName = request.POST['invigilatorName']
 
                 examObj.save()
+
+                #
+                fullName = request.POST.get('canName', False)
+                print(fullName)
+                # candidate = TesCandidate.objects.filter(Q(first_name=fullName[0]) & Q(last_name=fullName[2])).first()
+                # if candidate:
+                #     canObj = TesFrmCandidate()
+                #     canObj.candidate = candidate
+                #     canObj.testSequence = request.POST['testSequence1']
+                #     canObj.scheme = request.POST['scheme1']
+                #     canObj.remark = request.POST['remark1']
+                #     canObj.save()
+                #     examObj.tesFrmCandidate.add(canObj)
+
+
 
 
 
@@ -3799,25 +3779,26 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
 
 
                 formListObj = FormList()
-                formListObj.name = visionObj.__class__.__name__
+                formListObj.name = examObj.__class__.__name__
                 formListObj.event = event
                 formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
-                formListObj.FormID = visionObj.id
+                formListObj.FormID = examObj.id
                 formListObj.save()
 
-                return redirect('forms:allisiontest_')
+                return redirect('forms:alltesfrmexamattend_')
 
 
             else:
-                print('Here')
+                print('Here now')
                 # if request.FILES.get('file', False):
                 canID = request.POST['canID']
-                eventID = request.POST['eventID']
-                categoryID = request.POST['categoryID']
-                guidelineID = request.POST['guidelineID']
-                print(canID)
+                eventID = request.POST['eventId']
+                print(eventID)
+                categoryID = request.POST['categoryId']
+                guidelineID = request.POST['guidelineId']
+                # print(canID)
 
                 candidate = TesCandidate.objects.filter(id=canID).first()
                 event = Event.objects.filter(id=eventID).first()
@@ -3825,7 +3806,7 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 guideline = Guideline.objects.filter(id=guidelineID).first()
                 self.candidateID = candidate.id
                 print(self.candidateID)
-                context = super(NewVisionTest, self).get_context_data()
+                context = super(NewTesFrmExaminationAttendance, self).get_context_data()
                 context['candidate'] = candidate
                 context['category'] = category
                 context['event'] = event
