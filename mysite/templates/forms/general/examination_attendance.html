@@ -433,18 +433,27 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <div style="position:absolute;top: 202px;left: 697px; z-index: 1;"> <input type="text" name="venue" value="{{ event.location.city }}"  style="border:none;width: 175px;height: 25px;font-size: 15px;"/></div>
     <div style="position:absolute;top: 202px;left: 916px; z-index: 1;"> <input type="text" name="date" value="{{event.start_date|date:'m/d/Y'}}"  style="border:none;width: 105px;height: 25px;font-size: 15px;"/></div>
     <div style="position: absolute; top: 640px; left: 212px; z-index: 2;"> <input type="text" name="invigilatorName" value=""  style="border:none;background: transparent;width: 809px;height: 25px;font-size: 15px;"/></div>
-<div id="divSelections" style="position:absolute;top: 287px;left: 58px; z-index: 1;"></div>
 
 
-      <script type="text/javascript">
-function textBox(selections) {//from  w w  w .j  ava2  s . co m
-    for (var i=1; i <= selections; i++) {
-        document.getElementById('divSelections').innerHTML += '<input type="text"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" name="canName' + i + '" id=""><input type="text"  style="background: transparent;border:none;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence' + i + '" id=""><input type="text"  style="background: transparent;border:none;width: 133px;height: 43px;font-size: 15px;margin:1px;" name="scheme' + i + '" id=""><input type="text"  style="background: transparent;border:none;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam' + i + '" id=""><input type="text"  style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;" name="sign' + i + '" id=""><input type="text"  style="background: transparent;border:none;width: 206px;height: 43px;font-size: 15px;margin:1px;" name="remark' + i + '" id=""><br>';
-    }
-}
-textBox(8) ;
-
-      </script>
+<div style="position:absolute;top: 287px;left: 58px; z-index: 1;">
+<input type="text"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;"      name="canName1" id="">
+</div>
+<div style="position:absolute;top: 287px;left: 279px; z-index: 1;">
+<input type="text"  style="background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence1" id="">
+</div>
+<div style="position:absolute;top: 287px;left: 393px; z-index: 1;">
+<input type="text"  style="background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme1" id="">
+</div>
+<div style="position:absolute;top: 287px;left: 529px; z-index: 1;">
+<input type="text"  style="background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam1" id="">
+</div>
+<div style="position:absolute;top: 287px;left: 643px; z-index: 1;">
+<input type="text"  style="width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign1" id="">
+</div>
+<div style="position:absolute;top: 287px;left: 816px; z-index: 1;">
+<input type="text"  style="background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark1" id="">
+</div>
+    <br>
 
     <div class="t m0 x5 h2 y5 ff2 fs0 fc0 sc0 ls0 ws0">Exam Title / Code:<span class="_ _2"> </span>V<span class="_ _1"></span>enue:<span class="_ _3"> </span>Date:</div><div class="t m0 x6 h5 y6 ff2 fs2 fc0 sc0 ls0 ws0">No.<span class="_ _4"> </span>Candidate Full Name</div><div class="t m0 x7 h6 y7 ff2 fs3 fc0 sc0 ls0 ws0">T<span class="_ _1"></span>est Sequence</div><div class="t m0 x8 h6 y8 ff2 fs3 fc0 sc0 ls0 ws0">(First / Retest)</div><div class="t m0 x9 h6 y7 ff2 fs3 fc0 sc0 ls0 ws0">Scheme</div><div class="t m0 xa h6 y8 ff2 fs3 fc0 sc0 ls0 ws0">(CSWIP/ASNT/Other)</div><div class="t m0 xb h5 y6 ff2 fs2 fc0 sc0 ls0 ws0">Method of Exam<span class="_ _5"> </span>Candidate Signature<span class="_ _6"> </span>Remark</div><div class="t m0 xc h2 y9 ff1 fs0 fc0 sc0 ls0 ws0">1</div><div class="t m0 xc h2 ya ff1 fs0 fc0 sc0 ls0 ws0">2</div><div class="t m0 xc h2 yb ff1 fs0 fc0 sc0 ls0 ws0">3</div><div class="t m0 xc h2 yc ff1 fs0 fc0 sc0 ls0 ws0">4</div><div class="t m0 xc h2 yd ff1 fs0 fc0 sc0 ls0 ws0">5</div><div class="t m0 xc h2 ye ff1 fs0 fc0 sc0 ls0 ws0">6</div><div class="t m0 xc h2 yf ff1 fs0 fc0 sc0 ls0 ws0">7</div><div class="t m0 xc h2 y10 ff1 fs0 fc0 sc0 ls0 ws0">8</div><div class="t m0 x5 h2 y11 ff2 fs0 fc0 sc0 ls0 ws0">Invigilator Name &amp; Signature:</div></div></div><div class="pi" data-data='{"ctm":[1.500000,0.000000,0.000000,1.500000,0.000000,0.000000]}'></div></div>
 </div>

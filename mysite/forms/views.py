@@ -3757,17 +3757,19 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 examObj.save()
 
                 #
-                fullName = request.POST.get('canName', False)
+                fullName = request.POST['canName1'].split(' ')
                 print(fullName)
-                # candidate = TesCandidate.objects.filter(Q(first_name=fullName[0]) & Q(last_name=fullName[2])).first()
-                # if candidate:
-                #     canObj = TesFrmCandidate()
-                #     canObj.candidate = candidate
-                #     canObj.testSequence = request.POST['testSequence1']
-                #     canObj.scheme = request.POST['scheme1']
-                #     canObj.remark = request.POST['remark1']
-                #     canObj.save()
-                #     examObj.tesFrmCandidate.add(canObj)
+                candidate = TesCandidate.objects.filter(Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
+                print(candidate.first_name)
+                if candidate:
+                    canObj = TesFrmCandidate()
+                    canObj.candidate = candidate
+                    canObj.testSequence = request.POST['testSequence1']
+                    canObj.methodOfExam = request.POST['methodOfExam1']
+                    canObj.scheme = request.POST['scheme1']
+                    canObj.remark = request.POST['remark1']
+                    canObj.save()
+                    examObj.tesFrmCandidate.add(canObj)
 
 
 
