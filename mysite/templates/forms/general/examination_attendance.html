@@ -348,24 +348,9 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
                             <br>
                             <div class="row g-2">
 
-                                <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Candidate</label>
-                                    <input list="candiList" value="{{candidate.id}}"  id="canID" name="canID" placeholder="type here..." class="form-control" />
-
-                                        <datalist id="candiList"  >
-
-                                        {% for item in candidates %}
-                                        <option value="{{item.id}}">{{item.first_name}} {{item.middleName}}
-                                            {{item.last_name}}
-                                        </option>
-                                        {% endfor %}
-
-                                    </datalist>
-                                    <div><span id="mainCanIDError" class="text-danger"></span></div>
-                                </div>
 
 
-                                <div class="mb-3 col-md-6">
+                                <div class="mb-3 col-md-12">
                                     <label for="inputState" class="form-label">Event</label>
                                     <select name="eventId" id="eventId" class="form-select">
                                         <option value="">{{event.name}}</option>
@@ -420,9 +405,9 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 </div>
                                 <form method="POST" onsubmit="return mainFormValidate();">
                             {% csrf_token %}
-        <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="CanID"/>
-        <input type="hidden" id="mainEventID" value="{{event.id}}" name="eventID"/>
-        <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
+
+        <input type="hidden" id="mainEventID" value="{{event.id}}" name="mainEventID"/>
+
         <input type="hidden" value="{{category.id}}" name="categoryID"/>
         <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
 <div id="page-container1" >
@@ -435,25 +420,73 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <div style="position: absolute; top: 640px; left: 212px; z-index: 2;"> <input type="text" name="invigilatorName" value=""  style="border:none;background: transparent;width: 809px;height: 25px;font-size: 15px;"/></div>
 
 
-<div style="position:absolute;top: 287px;left: 58px; z-index: 1;">
-<input type="text"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;"      name="canName1" id="">
-</div>
-<div style="position:absolute;top: 287px;left: 279px; z-index: 1;">
-<input type="text"  style="background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence1" id="">
-</div>
-<div style="position:absolute;top: 287px;left: 393px; z-index: 1;">
-<input type="text"  style="background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme1" id="">
-</div>
-<div style="position:absolute;top: 287px;left: 529px; z-index: 1;">
-<input type="text"  style="background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam1" id="">
-</div>
-<div style="position:absolute;top: 287px;left: 643px; z-index: 1;">
-<input type="text"  style="width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign1" id="">
-</div>
-<div style="position:absolute;top: 287px;left: 816px; z-index: 1;">
-<input type="text"  style="background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark1" id="">
-</div>
-    <br>
+<div style="position:absolute;top: 287px;left: 58px; z-index: 1;"><input type="text"                     name="canName1"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" id=""></div>
+<div style="position:absolute;top: 287px;left: 279px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence1" id=""></div>
+<div style="position:absolute;top: 287px;left: 393px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme1" id=""></div>
+<div style="position:absolute;top: 287px;left: 529px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam1" id=""></div>
+<div style="position:absolute;top: 287px;left: 643px; z-index: 1;"><input type="text"   style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign1" id=""></div>
+<div style="position:absolute;top: 287px;left: 816px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark1" id=""></div>
+<br>
+
+<div style="position:absolute;top: 330px;left: 58px; z-index: 1;"><input type="text"                     name="canName2"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" id=""></div>
+<div style="position:absolute;top: 330px;left: 279px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence2" id=""></div>
+<div style="position:absolute;top: 330px;left: 393px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme2" id=""></div>
+<div style="position:absolute;top: 330px;left: 529px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam2" id=""></div>
+<div style="position:absolute;top: 330px;left: 643px; z-index: 1;"><input type="text"   style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign2" id=""></div>
+<div style="position:absolute;top: 330px;left: 816px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark2" id=""></div>
+<br>
+
+
+<div style="position:absolute;top: 376px;left: 58px; z-index: 1;"><input type="text"                     name="canName3"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" id=""></div>
+<div style="position:absolute;top: 376px;left: 279px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence3" id=""></div>
+<div style="position:absolute;top: 376px;left: 393px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme3" id=""></div>
+<div style="position:absolute;top: 376px;left: 529px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam3" id=""></div>
+<div style="position:absolute;top: 376px;left: 643px; z-index: 1;"><input type="text"   style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign3" id=""></div>
+<div style="position:absolute;top: 376px;left: 816px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark3" id=""></div>
+<br>
+
+<div style="position:absolute;top: 421px;left: 58px; z-index: 1;"><input type="text"                     name="canName4"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" id=""></div>
+<div style="position:absolute;top: 421px;left: 279px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence4" id=""></div>
+<div style="position:absolute;top: 421px;left: 393px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme4" id=""></div>
+<div style="position:absolute;top: 421px;left: 529px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam4" id=""></div>
+<div style="position:absolute;top: 421px;left: 643px; z-index: 1;"><input type="text"   style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign4" id=""></div>
+<div style="position:absolute;top: 421px;left: 816px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark4" id=""></div>
+<br>
+
+<div style="position:absolute;top: 466px;left: 58px; z-index: 1;"><input type="text"                     name="canName5"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" id=""></div>
+<div style="position:absolute;top: 466px;left: 279px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence5" id=""></div>
+<div style="position:absolute;top: 466px;left: 393px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme5" id=""></div>
+<div style="position:absolute;top: 466px;left: 529px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam5" id=""></div>
+<div style="position:absolute;top: 466px;left: 643px; z-index: 1;"><input type="text"   style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign5" id=""></div>
+<div style="position:absolute;top: 466px;left: 816px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark5" id=""></div>
+<br>
+
+<div style="position:absolute;top: 511px;left: 58px; z-index: 1;"><input type="text"                     name="canName6"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" id=""></div>
+<div style="position:absolute;top: 511px;left: 279px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence6" id=""></div>
+<div style="position:absolute;top: 511px;left: 393px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme6" id=""></div>
+<div style="position:absolute;top: 511px;left: 529px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam6" id=""></div>
+<div style="position:absolute;top: 511px;left: 643px; z-index: 1;"><input type="text"   style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign6" id=""></div>
+<div style="position:absolute;top: 511px;left: 816px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark6" id=""></div>
+<br>
+
+<div style="position:absolute;top: 556px;left: 58px; z-index: 1;"><input type="text"                     name="canName7"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" id=""></div>
+<div style="position:absolute;top: 556px;left: 279px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence7" id=""></div>
+<div style="position:absolute;top: 556px;left: 393px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme7" id=""></div>
+<div style="position:absolute;top: 556px;left: 529px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam7" id=""></div>
+<div style="position:absolute;top: 556px;left: 643px; z-index: 1;"><input type="text"   style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign7" id=""></div>
+<div style="position:absolute;top: 556px;left: 816px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark7" id=""></div>
+<br>
+
+
+<div style="position:absolute;top: 600px;left: 58px; z-index: 1;"><input type="text"                     name="canName7"  style="width: 219px;height: 43px;font-size: 15px;margin:1px;border:none;background: transparent;" id=""></div>
+<div style="position:absolute;top: 600px;left: 279px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="testSequence7" id=""></div>
+<div style="position:absolute;top: 600px;left: 393px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 133px;height: 43px;font-size: 15px;margin:1px;"       name="scheme7" id=""></div>
+<div style="position:absolute;top: 600px;left: 529px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 112px;height: 43px;font-size: 15px;margin:1px;" name="methodOfExam7" id=""></div>
+<div style="position:absolute;top: 600px;left: 643px; z-index: 1;"><input type="text"   style="border:none;width: 172px;height: 43px;font-size: 15px;margin:1px;background: transparent;"         name="sign7" id=""></div>
+<div style="position:absolute;top: 600px;left: 816px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 206px;height: 43px;font-size: 15px;margin:1px;"       name="remark7" id=""></div>
+<br>
+
+
 
     <div class="t m0 x5 h2 y5 ff2 fs0 fc0 sc0 ls0 ws0">Exam Title / Code:<span class="_ _2"> </span>V<span class="_ _1"></span>enue:<span class="_ _3"> </span>Date:</div><div class="t m0 x6 h5 y6 ff2 fs2 fc0 sc0 ls0 ws0">No.<span class="_ _4"> </span>Candidate Full Name</div><div class="t m0 x7 h6 y7 ff2 fs3 fc0 sc0 ls0 ws0">T<span class="_ _1"></span>est Sequence</div><div class="t m0 x8 h6 y8 ff2 fs3 fc0 sc0 ls0 ws0">(First / Retest)</div><div class="t m0 x9 h6 y7 ff2 fs3 fc0 sc0 ls0 ws0">Scheme</div><div class="t m0 xa h6 y8 ff2 fs3 fc0 sc0 ls0 ws0">(CSWIP/ASNT/Other)</div><div class="t m0 xb h5 y6 ff2 fs2 fc0 sc0 ls0 ws0">Method of Exam<span class="_ _5"> </span>Candidate Signature<span class="_ _6"> </span>Remark</div><div class="t m0 xc h2 y9 ff1 fs0 fc0 sc0 ls0 ws0">1</div><div class="t m0 xc h2 ya ff1 fs0 fc0 sc0 ls0 ws0">2</div><div class="t m0 xc h2 yb ff1 fs0 fc0 sc0 ls0 ws0">3</div><div class="t m0 xc h2 yc ff1 fs0 fc0 sc0 ls0 ws0">4</div><div class="t m0 xc h2 yd ff1 fs0 fc0 sc0 ls0 ws0">5</div><div class="t m0 xc h2 ye ff1 fs0 fc0 sc0 ls0 ws0">6</div><div class="t m0 xc h2 yf ff1 fs0 fc0 sc0 ls0 ws0">7</div><div class="t m0 xc h2 y10 ff1 fs0 fc0 sc0 ls0 ws0">8</div><div class="t m0 x5 h2 y11 ff2 fs0 fc0 sc0 ls0 ws0">Invigilator Name &amp; Signature:</div></div></div><div class="pi" data-data='{"ctm":[1.500000,0.000000,0.000000,1.500000,0.000000,0.000000]}'></div></div>
 </div>

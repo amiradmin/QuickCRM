@@ -1357,6 +1357,7 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 mainObj.pslNumber =request.POST['pslNumber']
                 mainObj.email =request.POST['email']
                 mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                mainObj.currentEmploymentDetails =request.POST['currentEmploymentDetails']
                 mainObj.currentEmploymentPosition =request.POST['currentEmploymentPosition']
                 mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
                 mainObj.preCerTraining =request.POST['preCerTraining']
@@ -3734,16 +3735,18 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                eventID = request.POST['eventID']
+                print("LOOK")
+                eventID = request.POST['mainEventID']
+                print(eventID)
                 categoryID = request.POST['categoryID']
                 guidelineID = request.POST['guidelineID']
                 category = Category.objects.filter(id=categoryID).first()
                 guideline = Guideline.objects.filter(id=guidelineID).first()
                 event = Event.objects.filter(id=eventID).first()
-                candidate = TesCandidate.objects.filter(id=request.POST['CanID']).first()
+                # candidate = TesCandidate.objects.filter(id=request.POST['CanID']).first()
 
                 examObj = TesFrmExaminationAttendance()
-                examObj.candidate =candidate
+                # examObj.candidate =candidate
                 examObj.category =category
                 examObj.guideline =guideline
                 examObj.event =event
@@ -3757,19 +3760,29 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 examObj.save()
 
                 #
-                fullName = request.POST['canName1'].split(' ')
-                print(fullName)
-                candidate = TesCandidate.objects.filter(Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
-                print(candidate.first_name)
-                if candidate:
-                    canObj = TesFrmCandidate()
-                    canObj.candidate = candidate
-                    canObj.testSequence = request.POST['testSequence1']
-                    canObj.methodOfExam = request.POST['methodOfExam1']
-                    canObj.scheme = request.POST['scheme1']
-                    canObj.remark = request.POST['remark1']
-                    canObj.save()
-                    examObj.tesFrmCandidate.add(canObj)
+
+                for idx, item in enumerate(range(0,2)):
+                    print(idx)
+                    fullName = request.POST["canName" + str(idx+1) ].split(' ')
+                    print(fullName)
+                    if len(fullName) == 2:
+                        candidate = TesCandidate.objects.filter(Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
+                        print(candidate.first_name)
+
+                    elif len(fullName) == 3:
+                        candidate = TesCandidate.objects.filter(Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
+                        print(candidate.first_name)
+
+                    if candidate:
+                        canObj = TesFrmCandidate()
+                        canObj.candidate = candidate
+                        canObj.testSequence = request.POST['testSequence'+ str(idx+1) ]
+                        canObj.methodOfExam = request.POST['methodOfExam'+ str(idx+1) ]
+                        canObj.scheme = request.POST['scheme'+ str(idx+1) ]
+                        canObj.remark = request.POST['remark'+ str(idx+1) ]
+                        canObj.save()
+                        examObj.tesFrmCandidate.add(canObj)
+
 
 
 
@@ -3783,7 +3796,7 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 formListObj = FormList()
                 formListObj.name = examObj.__class__.__name__
                 formListObj.event = event
-                formListObj.candidate = candidate
+                # formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
                 formListObj.FormID = examObj.id
@@ -3795,21 +3808,21 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
             else:
                 print('Here now')
                 # if request.FILES.get('file', False):
-                canID = request.POST['canID']
+                # canID = request.POST['canID']
                 eventID = request.POST['eventId']
                 print(eventID)
                 categoryID = request.POST['categoryId']
                 guidelineID = request.POST['guidelineId']
                 # print(canID)
 
-                candidate = TesCandidate.objects.filter(id=canID).first()
+                # candidate = TesCandidate.objects.filter(id=canID).first()
                 event = Event.objects.filter(id=eventID).first()
                 category = Category.objects.filter(id=categoryID).first()
                 guideline = Guideline.objects.filter(id=guidelineID).first()
-                self.candidateID = candidate.id
-                print(self.candidateID)
+                # self.candidateID = candidate.id
+                # print(self.candidateID)
                 context = super(NewTesFrmExaminationAttendance, self).get_context_data()
-                context['candidate'] = candidate
+                # context['candidate'] = candidate
                 context['category'] = category
                 context['event'] = event
                 context['guideline'] = guideline

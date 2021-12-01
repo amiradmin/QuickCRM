@@ -27,7 +27,7 @@ class Forms(models.Model):
 
 class FormList(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True)
-    candidate = models.ForeignKey(TesCandidate, related_name="candidate_form", on_delete=models.CASCADE)
+    candidate = models.ForeignKey(TesCandidate, related_name="candidate_form", on_delete=models.CASCADE, null=True, blank=True)
     event = models.ForeignKey(Event, related_name="event_form", on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, related_name="category_form", on_delete=models.CASCADE, null=True, blank=True)
     guideline = models.ForeignKey(Guideline, related_name="guideline_form", on_delete=models.CASCADE, null=True, blank=True)
