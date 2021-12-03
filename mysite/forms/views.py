@@ -1336,6 +1336,7 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
+
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
                 print("===> here")
@@ -1344,7 +1345,7 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 category = Category.objects.filter(id =categoryID).first()
                 guideline = Guideline.objects.filter(id =guidelineID).first()
                 event = Event.objects.filter(id = eventID).first()
-                candidate = TesCandidate.objects.filter(id=request.POST['canID']).first()
+                candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
                 mainObj =PSL57A()
                 mainObj.candidate =candidate
@@ -1398,66 +1399,67 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                     mainObj.level = 'level 3'
 
                 mainObj.ndtMethod = request.POST['ndtOther']
-                mainObj.level3State = request.POST['ifLevel3']
-                mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
-                mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
+                # mainObj.level3State = request.POST['ifLevel3']
+                # mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
+                # mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
                 mainObj.cerCategory = request.POST['cerCategory']
                 mainObj.preferredExaminationDateVenue = request.POST['preferredExaminationDateVenue']
 
                 mainObj.claimDuration = request.POST['claimDuration']
                 mainObj.verClaimAddress = request.POST['verClaimAddress']
-                mainObj.dateOfSign = request.POST['dateOfSign']
+                # mainObj.dateOfSign = request.POST['dateOfSign']
                 mainObj.sponsorName = request.POST['sponsorName']
                 mainObj.sponsorCompany = request.POST['sponsorCompany']
                 mainObj.sponsorPhone = request.POST['sponsorPhone']
 
-                mainObj.testCenterExamDate = request.POST['testCenterExamDate']
-                mainObj.testCenterExaminer = request.POST['testCenterExaminer']
-                mainObj.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
-                mainObj.testCenterVenue = request.POST['testCenterVenue']
+                # mainObj.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
+                # mainObj.testCenterExaminer = request.POST['testCenterExaminer']
+                # mainObj.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
+                # mainObj.testCenterVenue = request.POST['testCenterVenue']
                 mainObj.testCenterResultRef = request.POST['testCenterResultRef']
                 mainObj.testCenterExamCompleteColsed = request.POST['testCenterExamCompleteColsed']
 
                 mainObj.nameAddressInvoice = request.POST['nameAddressInvoice']
                 mainObj.accommodation = request.POST['accommodation']
                 mainObj.paymentMethod = request.POST['paymentMethod']
-                mainObj.nameResponsible = request.POST['nameResponsible']
-                mainObj.companyOrderReference = request.POST['companyOrderReference']
-                mainObj.issueExpiryDates = request.POST['issueExpiryDates']
+                # mainObj.nameResponsible = request.POST['nameResponsible']
+                # mainObj.companyOrderReference = request.POST['companyOrderReference']
+                mainObj.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
                 mainObj.NameOnCard = request.POST['NameOnCard']
-                mainObj.cardNumber = request.POST['cardNumber']
+                # mainObj.cardNumber = request.POST['cardNumber']
                 mainObj.securityCode = request.POST['securityCode']
                 mainObj.addressCreditCardHolder = request.POST['addressCreditCardHolder']
                 mainObj.debit = request.POST['debit']
 
-                mainObj.creditCardPayment = request.POST['creditCardPayment']
+                # mainObj.creditCardPayment = request.POST['creditCardPayment']
 
 
                 mainObj.save()
 
 
-                formObj = FormList()
-                formObj.name = "PSL-57A Initial exam application"
-                formObj.candidate = candidate
-                formObj.event = event
-                formObj.category = category
-                formObj.guideline = guideline
+                # formObj = FormList()
+                # formObj.name = "PSL-57A Initial exam application"
+                # formObj.candidate = candidate
+                # formObj.event = event
+                # formObj.category = category
+                # formObj.guideline = guideline
 
                 if not request.POST.get('comfirmation', None) == None:
                     formObj.status = True
 
-                formObj.save()
+                # formObj.save()
 
                 return redirect('forms:allpsl57A_')
 
 
             elif 'selector' in request.POST:
-                print('Here SA')
+                print('Here SA Here')
                 # if request.FILES.get('file', False):
-                canID = request.POST['canID']
-                eventID = request.POST['eventID']
-                guidelineID = request.POST['guidelineID']
-                categoryID = request.POST['categoryID']
+                canID = request.POST['canCanID']
+                eventID = request.POST['eventEvID']
+
+                guidelineID = request.POST['guidelineGID']
+                categoryID = request.POST['categoryCatID']
                 print(guidelineID)
                 category = Category.objects.filter(id =categoryID).first()
                 guideline = Guideline.objects.filter(id =guidelineID).first()
@@ -1562,7 +1564,7 @@ class UpdatePSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                     mainObj.level = 'level 3'
 
                 # mainObj.ndtMethod = request.POST['ndtOther']
-                mainObj.level3State = request.POST['ifLevel3']
+                # mainObj.level3State = request.POST['ifLevel3']
                 mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
                 mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
                 mainObj.cerCategory = request.POST['cerCategory']
