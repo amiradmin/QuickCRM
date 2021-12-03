@@ -1362,7 +1362,7 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
                 mainObj.preCerTraining =request.POST['preCerTraining']
                 mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%m/%d/%Y')
-                # mainObj.preCerTraining = request.POST['preCerTraining']
+                mainObj.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
                 if not request.POST.get('et', None) == None:
                     mainObj.ndtMethod = 'ET'
@@ -1397,7 +1397,7 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 if not request.POST.get('levelThree', None) == None:
                     mainObj.level = 'level 3'
 
-                # mainObj.ndtMethod = request.POST['ndtOther']
+                mainObj.ndtMethod = request.POST['ndtOther']
                 mainObj.level3State = request.POST['ifLevel3']
                 mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
                 mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
