@@ -1404,6 +1404,35 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 mainObj.cerCategory = request.POST['cerCategory']
                 mainObj.preferredExaminationDateVenue = request.POST['preferredExaminationDateVenue']
 
+                mainObj.claimDuration = request.POST['claimDuration']
+                mainObj.verClaimAddress = request.POST['verClaimAddress']
+                mainObj.dateOfSign = request.POST['dateOfSign']
+                mainObj.sponsorName = request.POST['sponsorName']
+                mainObj.sponsorCompany = request.POST['sponsorCompany']
+                mainObj.sponsorPhone = request.POST['sponsorPhone']
+
+                mainObj.testCenterExamDate = request.POST['testCenterExamDate']
+                mainObj.testCenterExaminer = request.POST['testCenterExaminer']
+                mainObj.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
+                mainObj.testCenterVenue = request.POST['testCenterVenue']
+                mainObj.testCenterResultRef = request.POST['testCenterResultRef']
+                mainObj.testCenterExamCompleteColsed = request.POST['testCenterExamCompleteColsed']
+
+                mainObj.nameAddressInvoice = request.POST['nameAddressInvoice']
+                mainObj.accommodation = request.POST['accommodation']
+                mainObj.paymentMethod = request.POST['paymentMethod']
+                mainObj.nameResponsible = request.POST['nameResponsible']
+                mainObj.companyOrderReference = request.POST['companyOrderReference']
+                mainObj.issueExpiryDates = request.POST['issueExpiryDates']
+                mainObj.NameOnCard = request.POST['NameOnCard']
+                mainObj.cardNumber = request.POST['cardNumber']
+                mainObj.securityCode = request.POST['securityCode']
+                mainObj.addressCreditCardHolder = request.POST['addressCreditCardHolder']
+                mainObj.debit = request.POST['debit']
+
+                mainObj.creditCardPayment = request.POST['creditCardPayment']
+
+
                 mainObj.save()
 
 
