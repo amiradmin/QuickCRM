@@ -369,7 +369,7 @@ class empHistory(models.Model):
 class PSL57A(models.Model):
     GENDER_CHOICES = [
         ('M', 'Male'),
-        ('F', 'Femail')
+        ('F', 'Female')
         ]
 
     event = models.ForeignKey(Event, related_name="event_psl_57a", on_delete=models.CASCADE)

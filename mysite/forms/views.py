@@ -1352,54 +1352,79 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 mainObj.event =event
                 mainObj.category =category
                 mainObj.guideline =guideline
-                mainObj.cerAddres =request.POST['cerAddres']
-                mainObj.pslCerAddres =request.POST['pslCerAddres']
+                mainObj.cerAddress =request.POST['cerAddress']
+                mainObj.pslCerAddress =request.POST['pslCerAddress']
                 mainObj.phone =request.POST['phone']
-                mainObj.pslNumber =request.POST['pslNumber']
+                mainObj.pclNumber =request.POST['pclNumber']
                 mainObj.email =request.POST['email']
                 mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
                 mainObj.currentEmploymentDetails =request.POST['currentEmploymentDetails']
-                mainObj.currentEmploymentPosition =request.POST['currentEmploymentPosition']
-                mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
+                mainObj.candidatePosition =request.POST['currentEmploymentPosition']
+                mainObj.employmentStatus =request.POST['currentEmploymentStatus']
                 mainObj.preCerTraining =request.POST['preCerTraining']
-                mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%m/%d/%Y')
+                mainObj.preCerTrainingDate =request.POST['preCerTrainingDate']
                 mainObj.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
+                if not request.POST.get('contactMe', None) == None:
+                    mainObj.contactMe = True
+                else:
+                    mainObj.contactMe = True
+
+                if  request.POST.get('gender', None) == 'Male':
+                    mainObj.gender = 'M'
+                elif request.POST.get('gender', None) == 'Female':
+                    mainObj.gender = 'M'
+
                 if not request.POST.get('et', None) == None:
-                    mainObj.ndtMethod = 'ET'
+                    mainObj.NDTMethod = 'ET'
 
                 if not request.POST.get('mt', None) == None:
-                    mainObj.ndtMethod = 'MT'
+                    mainObj.NDTMethod = 'MT'
 
                 if not request.POST.get('pt', None) == None:
-                    mainObj.ndtMethod = 'PT'
+                    mainObj.NDTMethod = 'PT'
 
                 if not request.POST.get('rt', None) == None:
-                    mainObj.ndtMethod = 'RT'
+                    mainObj.NDTMethod = 'RT'
 
                 if not request.POST.get('ri', None) == None:
-                    mainObj.ndtMethod = 'RI'
+                    mainObj.NDTMethod = 'RI'
                 if not request.POST.get('ut', None) == None:
-                    mainObj.ndtMethod = 'UT'
+                    mainObj.NDTMethod = 'UT'
                 if not request.POST.get('vt', None) == None:
-                    mainObj.ndtMethod = 'VT'
+                    mainObj.NDTMethod = 'VT'
                 if not request.POST.get('crt', None) == None:
-                    mainObj.ndtMethod = 'CRT'
+                    mainObj.NDTMethod = 'CRT'
                 if not request.POST.get('tofd', None) == None:
-                    mainObj.ndtMethod = 'TOFD'
+                    mainObj.NDTMethod = 'TOFD'
                 if not request.POST.get('paut', None) == None:
-                    mainObj.ndtMethod = 'PAUT'
+                    mainObj.NDTMethod = 'PAUT'
 
 
                 if not request.POST.get('levelOne', None) == None:
-                    mainObj.level = 'level 1'
+                    mainObj.NDTLevel = 'level 1'
                 if not request.POST.get('levelTwo', None) == None:
-                    mainObj.level = 'level 2'
+                    mainObj.NDTLevel = 'level 2'
                 if not request.POST.get('levelThree', None) == None:
-                    mainObj.level = 'level 3'
+                    mainObj.NDTLevel = 'level 3'
+
+                if not request.POST.get('basicRadio', None) == None:
+                    mainObj.radiationSafety = 'Basic Radiation Safety'
+                if not request.POST.get('supervisorProtection', None) == None:
+                    mainObj.radiationProtectionSup = 'Radiation protection supervisor'
+
+
+                if not request.POST.get('visa', None) == None:
+                    mainObj.creditCardPayment = 'Visa'
+                if not request.POST.get('masterCard', None) == None:
+                    mainObj.creditCardPayment = 'Master Card'
+                if not request.POST.get('amex', None) == None:
+                    mainObj.creditCardPayment = 'Amex'
+                if not request.POST.get('switch', None) == None:
+                    mainObj.creditCardPayment = 'Switch'
 
                 mainObj.ndtMethod = request.POST['ndtOther']
-                # mainObj.level3State = request.POST['ifLevel3']
+                mainObj.ifLevel3 = request.POST['ifLevel3']
                 # mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
                 # mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
                 mainObj.cerCategory = request.POST['cerCategory']
@@ -1407,28 +1432,31 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
                 mainObj.claimDuration = request.POST['claimDuration']
                 mainObj.verClaimAddress = request.POST['verClaimAddress']
-                # mainObj.dateOfSign = request.POST['dateOfSign']
+                # mainObj.dateOfCourse  = request.POST['dateOfCourse']
                 mainObj.sponsorName = request.POST['sponsorName']
                 mainObj.sponsorCompany = request.POST['sponsorCompany']
                 mainObj.sponsorPhone = request.POST['sponsorPhone']
 
-                # mainObj.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
-                # mainObj.testCenterExaminer = request.POST['testCenterExaminer']
-                # mainObj.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
-                # mainObj.testCenterVenue = request.POST['testCenterVenue']
+                mainObj.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
+                mainObj.testCenterExaminer = request.POST['testCenterExaminer']
+                mainObj.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
+                mainObj.testCenterVenue = request.POST['testCenterVenue']
+                mainObj.testCenterModerator = request.POST['testCenterModerator']
                 mainObj.testCenterResultRef = request.POST['testCenterResultRef']
                 mainObj.testCenterExamCompleteColsed = request.POST['testCenterExamCompleteColsed']
 
                 mainObj.nameAddressInvoice = request.POST['nameAddressInvoice']
                 mainObj.accommodation = request.POST['accommodation']
                 mainObj.paymentMethod = request.POST['paymentMethod']
-                # mainObj.nameResponsible = request.POST['nameResponsible']
-                # mainObj.companyOrderReference = request.POST['companyOrderReference']
+                mainObj.nameResponsible = request.POST['nameResponsible']
+                mainObj.companyOrderReference = request.POST['companyOrderReference']
                 mainObj.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
                 mainObj.NameOnCard = request.POST['NameOnCard']
-                # mainObj.cardNumber = request.POST['cardNumber']
+                mainObj.cardNumber = request.POST['cardNumber']
                 mainObj.securityCode = request.POST['securityCode']
                 mainObj.addressCreditCardHolder = request.POST['addressCreditCardHolder']
+                mainObj.categoriesOfCertification = request.POST['cerCategory']
+                mainObj.preferredExaminationDateVenu = request.POST['preferredExaminationDateVenue']
                 mainObj.debit = request.POST['debit']
 
                 # mainObj.creditCardPayment = request.POST['creditCardPayment']
