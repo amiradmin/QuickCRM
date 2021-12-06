@@ -4414,6 +4414,31 @@ class NewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 return redirect('forms:allisiontest_')
 
+            else:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                print(canID)
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                self.candidateID = candidate.id
+                print(self.candidateID)
+                context = super(NewPSL57B, self).get_context_data()
+                context['candidate'] = candidate
+                context['category'] = category
+                context['event'] = event
+                context['guideline'] = guideline
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/psl_57B.html', context)
+
+
 
 class AllTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/All-TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
@@ -4538,6 +4563,7 @@ class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
+            print("Test Hello")
             if 'mainForm' in request.POST:
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
@@ -4547,54 +4573,484 @@ class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
                 event = Event.objects.filter(id=eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
-                visionObj = VisionTest()
-                visionObj.candidate =candidate
-                visionObj.category =category
-                visionObj.guideline =guideline
-                visionObj.event =event
-                #
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =True
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =False
+                trainingObj = TwiTrainingFeedback()
+                trainingObj.candidate =candidate
+                # trainingObj.category =category
+                # trainingObj.guideline =guideline
+                trainingObj.event =event
 
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
-                visionObj.email = request.POST['email']
-                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
-                visionObj.tumbling = request.POST['tumbling']
+                trainingObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
+                trainingObj.lecturerName = request.POST['lecturerName']
+                trainingObj.programme = request.POST['programme']
+                trainingObj.venue = request.POST['venue']
+                trainingObj.region = request.POST['region']
+                trainingObj.howWeDid = request.POST['howWeDid']
+                trainingObj.email = request.POST['email']
 
-                if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                if not request.POST.get('bookingProcess1', None) == None:
+                    trainingObj.bookingProcess ='1'
+                if not request.POST.get('bookingProcess2', None) == None:
+                    trainingObj.bookingProcess ='2'
+                if not request.POST.get('bookingProcess3', None) == None:
+                    trainingObj.bookingProcess ='3'
+                if not request.POST.get('bookingProcess4', None) == None:
+                    trainingObj.bookingProcess ='4'
+                if not request.POST.get('bookingProcess5', None) == None:
+                    trainingObj.bookingProcess ='5'
+                if not request.POST.get('bookingProcess6', None) == None:
+                    trainingObj.bookingProcess ='6'
+                if not request.POST.get('bookingProcess7', None) == None:
+                    trainingObj.bookingProcess ='7'
+                if not request.POST.get('bookingProcess8', None) == None:
+                    trainingObj.bookingProcess ='8'
+                if not request.POST.get('bookingProcess9', None) == None:
+                    trainingObj.bookingProcess ='9'
+                if not request.POST.get('bookingProcess10', None) == None:
+                    trainingObj.bookingProcess ='10'
 
-                if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
 
-                if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                if not request.POST.get('joiningInstructions1', None) == None:
+                    trainingObj.joiningInstructions ='1'
+                if not request.POST.get('joiningInstructions2', None) == None:
+                    trainingObj.joiningInstructions ='2'
+                if not request.POST.get('joiningInstructions1', None) == None:
+                    trainingObj.joiningInstructions ='3'
+                if not request.POST.get('joiningInstructions4', None) == None:
+                    trainingObj.joiningInstructions ='4'
+                if not request.POST.get('joiningInstructions5', None) == None:
+                    trainingObj.joiningInstructions ='5'
+                if not request.POST.get('joiningInstructions6', None) == None:
+                    trainingObj.joiningInstructions ='6'
+                if not request.POST.get('joiningInstructions7', None) == None:
+                    trainingObj.joiningInstructions ='7'
+                if not request.POST.get('joiningInstructions8', None) == None:
+                    trainingObj.joiningInstructions ='8'
+                if not request.POST.get('joiningInstructions9', None) == None:
+                    trainingObj.joiningInstructions ='9'
+                if not request.POST.get('joiningInstructions10', None) == None:
+                    trainingObj.joiningInstructions ='10'
 
 
-                if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                if not request.POST.get('trainingEnvironment1', None) == None:
+                    trainingObj.trainingEnvironment ='1'
+                if not request.POST.get('trainingEnvironment2', None) == None:
+                    trainingObj.trainingEnvironment ='2'
+                if not request.POST.get('trainingEnvironment3', None) == None:
+                    trainingObj.trainingEnvironment ='3'
+                if not request.POST.get('trainingEnvironment4', None) == None:
+                    trainingObj.trainingEnvironment ='4'
+                if not request.POST.get('trainingEnvironment5', None) == None:
+                    trainingObj.trainingEnvironment ='5'
+                if not request.POST.get('trainingEnvironment6', None) == None:
+                    trainingObj.trainingEnvironment ='6'
+                if not request.POST.get('trainingEnvironment7', None) == None:
+                    trainingObj.trainingEnvironment ='7'
+                if not request.POST.get('trainingEnvironment8', None) == None:
+                    trainingObj.trainingEnvironment ='8'
+                if not request.POST.get('trainingEnvironment9', None) == None:
+                    trainingObj.trainingEnvironment ='9'
+                if not request.POST.get('trainingEnvironment10', None) == None:
+                    trainingObj.trainingEnvironment ='10'
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
+
+                if not request.POST.get('objectivesCourse1', None) == None:
+                    trainingObj.objectivesCourse ='1'
+                if not request.POST.get('objectivesCourse2', None) == None:
+                    trainingObj.objectivesCourse ='2'
+                if not request.POST.get('objectivesCourse3', None) == None:
+                    trainingObj.objectivesCourse ='3'
+                if not request.POST.get('objectivesCourse4', None) == None:
+                    trainingObj.objectivesCourse ='4'
+                if not request.POST.get('objectivesCourse5', None) == None:
+                    trainingObj.objectivesCourse ='5'
+                if not request.POST.get('objectivesCourse6', None) == None:
+                    trainingObj.objectivesCourse ='6'
+                if not request.POST.get('objectivesCourse7', None) == None:
+                    trainingObj.objectivesCourse ='7'
+                if not request.POST.get('objectivesCourse8', None) == None:
+                    trainingObj.objectivesCourse ='8'
+                if not request.POST.get('objectivesCourse9', None) == None:
+                    trainingObj.objectivesCourse ='9'
+                if not request.POST.get('objectivesCourse10', None) == None:
+                    trainingObj.objectivesCourse ='10'
 
 
-                if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                if not request.POST.get('tutorLecturer1', None) == None:
+                    trainingObj.tutorLecturer ='1'
+                if not request.POST.get('tutorLecturer2', None) == None:
+                    trainingObj.tutorLecturer ='2'
+                if not request.POST.get('tutorLecturer3', None) == None:
+                    trainingObj.tutorLecturer ='3'
+                if not request.POST.get('tutorLecturer4', None) == None:
+                    trainingObj.tutorLecturer ='4'
+                if not request.POST.get('tutorLecturer5', None) == None:
+                    trainingObj.tutorLecturer ='5'
+                if not request.POST.get('tutorLecturer6', None) == None:
+                    trainingObj.tutorLecturer ='6'
+                if not request.POST.get('tutorLecturer7', None) == None:
+                    trainingObj.tutorLecturer ='7'
+                if not request.POST.get('tutorLecturer8', None) == None:
+                    trainingObj.tutorLecturer ='8'
+                if not request.POST.get('tutorLecturer9', None) == None:
+                    trainingObj.tutorLecturer ='9'
+                if not request.POST.get('tutorLecturer10', None) == None:
+                    trainingObj.tutorLecturer ='10'
 
-                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
-                visionObj.recognisedName = request.POST['recognisedName']
-                visionObj.recognisedPhone = request.POST['recognisedPhone']
-                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
-                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
 
-                visionObj.save()
+
+                if not request.POST.get('principlesExplained1', None) == None:
+                    trainingObj.principlesExplained ='1'
+                if not request.POST.get('principlesExplained2', None) == None:
+                    trainingObj.principlesExplained ='2'
+                if not request.POST.get('principlesExplained3', None) == None:
+                    trainingObj.principlesExplained ='3'
+                if not request.POST.get('principlesExplained4', None) == None:
+                    trainingObj.principlesExplained ='4'
+                if not request.POST.get('principlesExplained5', None) == None:
+                    trainingObj.principlesExplained ='5'
+                if not request.POST.get('principlesExplained6', None) == None:
+                    trainingObj.principlesExplained ='6'
+                if not request.POST.get('principlesExplained7', None) == None:
+                    trainingObj.principlesExplained ='7'
+                if not request.POST.get('principlesExplained8', None) == None:
+                    trainingObj.principlesExplained ='8'
+                if not request.POST.get('principlesExplained9', None) == None:
+                    trainingObj.principlesExplained ='9'
+                if not request.POST.get('principlesExplained10', None) == None:
+                    trainingObj.principlesExplained ='10'
+
+
+
+                if not request.POST.get('questionsAnswered1', None) == None:
+                    trainingObj.questionsAnswered ='1'
+                if not request.POST.get('questionsAnswered2', None) == None:
+                    trainingObj.questionsAnswered ='2'
+                if not request.POST.get('questionsAnswered3', None) == None:
+                    trainingObj.questionsAnswered ='3'
+                if not request.POST.get('questionsAnswered4', None) == None:
+                    trainingObj.questionsAnswered ='4'
+                if not request.POST.get('questionsAnswered5', None) == None:
+                    trainingObj.questionsAnswered ='5'
+                if not request.POST.get('questionsAnswered6', None) == None:
+                    trainingObj.questionsAnswered ='6'
+                if not request.POST.get('questionsAnswered7', None) == None:
+                    trainingObj.questionsAnswered ='7'
+                if not request.POST.get('questionsAnswered8', None) == None:
+                    trainingObj.questionsAnswered ='8'
+                if not request.POST.get('questionsAnswered9', None) == None:
+                    trainingObj.questionsAnswered ='9'
+                if not request.POST.get('questionsAnswered10', None) == None:
+                    trainingObj.questionsAnswered ='10'
+
+
+                if not request.POST.get('audience1', None) == None:
+                    trainingObj.audience ='1'
+                if not request.POST.get('audience2', None) == None:
+                    trainingObj.audience ='2'
+                if not request.POST.get('audience3', None) == None:
+                    trainingObj.audience ='3'
+                if not request.POST.get('audience4', None) == None:
+                    trainingObj.audience ='4'
+                if not request.POST.get('audience5', None) == None:
+                    trainingObj.audience ='5'
+                if not request.POST.get('audience6', None) == None:
+                    trainingObj.audience ='6'
+                if not request.POST.get('audience7', None) == None:
+                    trainingObj.audience ='7'
+                if not request.POST.get('audience8', None) == None:
+                    trainingObj.audience ='8'
+                if not request.POST.get('audience9', None) == None:
+                    trainingObj.audience ='9'
+                if not request.POST.get('audience10', None) == None:
+                    trainingObj.audience ='10'
+
+
+                if not request.POST.get('atmosphere1', None) == None:
+                    trainingObj.atmosphere ='1'
+                if not request.POST.get('atmosphere2', None) == None:
+                    trainingObj.atmosphere ='2'
+                if not request.POST.get('atmosphere3', None) == None:
+                    trainingObj.atmosphere ='3'
+                if not request.POST.get('atmosphere4', None) == None:
+                    trainingObj.atmosphere ='4'
+                if not request.POST.get('atmosphere5', None) == None:
+                    trainingObj.atmosphere ='5'
+                if not request.POST.get('atmosphere6', None) == None:
+                    trainingObj.atmosphere ='6'
+                if not request.POST.get('atmosphere7', None) == None:
+                    trainingObj.atmosphere ='7'
+                if not request.POST.get('atmosphere8', None) == None:
+                    trainingObj.atmosphere ='8'
+                if not request.POST.get('atmosphere9', None) == None:
+                    trainingObj.atmosphere ='9'
+                if not request.POST.get('atmosphere10', None) == None:
+                    trainingObj.atmosphere ='10'
+
+
+                if not request.POST.get('practicalSessions1', None) == None:
+                    trainingObj.practicalSessions ='1'
+                if not request.POST.get('practicalSessions2', None) == None:
+                    trainingObj.practicalSessions ='2'
+                if not request.POST.get('practicalSessions3', None) == None:
+                    trainingObj.practicalSessions ='3'
+                if not request.POST.get('practicalSessions4', None) == None:
+                    trainingObj.practicalSessions ='4'
+                if not request.POST.get('practicalSessions5', None) == None:
+                    trainingObj.practicalSessions ='5'
+                if not request.POST.get('practicalSessions6', None) == None:
+                    trainingObj.practicalSessions ='6'
+                if not request.POST.get('practicalSessions7', None) == None:
+                    trainingObj.practicalSessions ='7'
+                if not request.POST.get('practicalSessions8', None) == None:
+                    trainingObj.practicalSessions ='8'
+                if not request.POST.get('practicalSessions9', None) == None:
+                    trainingObj.practicalSessions ='9'
+                if not request.POST.get('practicalSessions10', None) == None:
+                    trainingObj.practicalSessions ='10'
+
+
+                if not request.POST.get('notes1', None) == None:
+                    trainingObj.notes ='1'
+                if not request.POST.get('notes2', None) == None:
+                    trainingObj.notes ='2'
+                if not request.POST.get('notes3', None) == None:
+                    trainingObj.notes ='3'
+                if not request.POST.get('notes4', None) == None:
+                    trainingObj.notes ='4'
+                if not request.POST.get('notes5', None) == None:
+                    trainingObj.notes ='5'
+                if not request.POST.get('notes6', None) == None:
+                    trainingObj.notes ='6'
+                if not request.POST.get('notes7', None) == None:
+                    trainingObj.notes ='7'
+                if not request.POST.get('notes8', None) == None:
+                    trainingObj.notes ='8'
+                if not request.POST.get('notes9', None) == None:
+                    trainingObj.notes ='9'
+                if not request.POST.get('notes10', None) == None:
+                    trainingObj.notes ='10'
+
+
+                if not request.POST.get('equipment1', None) == None:
+                    trainingObj.equipment ='1'
+                if not request.POST.get('equipment2', None) == None:
+                    trainingObj.equipment ='2'
+                if not request.POST.get('equipment3', None) == None:
+                    trainingObj.equipment ='3'
+                if not request.POST.get('equipment4', None) == None:
+                    trainingObj.equipment ='4'
+                if not request.POST.get('equipment5', None) == None:
+                    trainingObj.equipment ='5'
+                if not request.POST.get('equipment6', None) == None:
+                    trainingObj.equipment ='6'
+                if not request.POST.get('equipment7', None) == None:
+                    trainingObj.equipment ='7'
+                if not request.POST.get('equipment8', None) == None:
+                    trainingObj.equipment ='8'
+                if not request.POST.get('equipment9', None) == None:
+                    trainingObj.equipment ='9'
+                if not request.POST.get('equipment10', None) == None:
+                    trainingObj.equipment ='10'
+
+                if not request.POST.get('overallQuality1', None) == None:
+                    trainingObj.overallQuality ='1'
+                if not request.POST.get('overallQuality2', None) == None:
+                    trainingObj.overallQuality ='2'
+                if not request.POST.get('overallQuality3', None) == None:
+                    trainingObj.overallQuality ='3'
+                if not request.POST.get('overallQuality4', None) == None:
+                    trainingObj.overallQuality ='4'
+                if not request.POST.get('overallQuality5', None) == None:
+                    trainingObj.overallQuality ='5'
+                if not request.POST.get('overallQuality6', None) == None:
+                    trainingObj.overallQuality ='6'
+                if not request.POST.get('overallQuality7', None) == None:
+                    trainingObj.overallQuality ='7'
+                if not request.POST.get('overallQuality8', None) == None:
+                    trainingObj.overallQuality ='8'
+                if not request.POST.get('overallQuality9', None) == None:
+                    trainingObj.overallQuality ='9'
+                if not request.POST.get('overallQuality10', None) == None:
+                    trainingObj.overallQuality ='10'
+
+
+                if not request.POST.get('expectations1', None) == None:
+                    trainingObj.expectations ='1'
+                if not request.POST.get('expectations2', None) == None:
+                    trainingObj.expectations ='2'
+                if not request.POST.get('expectations3', None) == None:
+                    trainingObj.expectations ='3'
+                if not request.POST.get('expectations4', None) == None:
+                    trainingObj.expectations ='4'
+                if not request.POST.get('expectations5', None) == None:
+                    trainingObj.expectations ='5'
+                if not request.POST.get('expectations6', None) == None:
+                    trainingObj.expectations ='6'
+                if not request.POST.get('expectations7', None) == None:
+                    trainingObj.expectations ='7'
+                if not request.POST.get('expectations8', None) == None:
+                    trainingObj.expectations ='8'
+                if not request.POST.get('expectations9', None) == None:
+                    trainingObj.expectations ='9'
+                if not request.POST.get('expectations10', None) == None:
+                    trainingObj.expectations ='10'
+
+                if not request.POST.get('penetrantTesting', None) == None:
+                    trainingObj.penetrantTesting =True
+                else:
+                    trainingObj.penetrantTesting = False
+
+                if not request.POST.get('magneticTesting', None) == None:
+                    trainingObj.magneticTesting =True
+                else:
+                    trainingObj.magneticTesting = False
+
+                if not request.POST.get('radioTesting', None) == None:
+                    trainingObj.radioTesting =True
+                else:
+                    trainingObj.radioTesting = False
+
+                if not request.POST.get('radioIntro', None) == None:
+                    trainingObj.radioIntro =True
+                else:
+                    trainingObj.radioIntro = False
+
+                if not request.POST.get('ultrasonicTesting', None) == None:
+                    trainingObj.ultrasonicTesting =True
+                else:
+                    trainingObj.ultrasonicTesting = False
+
+                if not request.POST.get('eddyCurrentTesting', None) == None:
+                    trainingObj.eddyCurrentTesting =True
+                else:
+                    trainingObj.eddyCurrentTesting = False
+
+                if not request.POST.get('timeFlightDiffraction', None) == None:
+                    trainingObj.timeFlightDiffraction =True
+                else:
+                    trainingObj.timeFlightDiffraction = False
+
+                if not request.POST.get('phasedArrayUltrasonic', None) == None:
+                    trainingObj.phasedArrayUltrasonic =True
+                else:
+                    trainingObj.phasedArrayUltrasonic = False
+
+                if not request.POST.get('ACFM', None) == None:
+                    trainingObj.ACFM =True
+                else:
+                    trainingObj.ACFM = False
+
+                if not request.POST.get('digitalComputedRadiography', None) == None:
+                    trainingObj.digitalComputedRadiography =True
+                else:
+                    trainingObj.digitalComputedRadiography = False
+
+                if not request.POST.get('automatedUltrasonicTesting', None) == None:
+                    trainingObj.automatedUltrasonicTesting =True
+                else:
+                    trainingObj.automatedUltrasonicTesting = False
+
+                if not request.POST.get('pulsedEddyCurrent', None) == None:
+                    trainingObj.pulsedEddyCurrent =True
+                else:
+                    trainingObj.pulsedEddyCurrent = False
+
+                if not request.POST.get('appreciationBasicNDTMethod', None) == None:
+                    trainingObj.appreciationBasicNDTMethod =True
+                else:
+                    trainingObj.appreciationBasicNDTMethod = False
+
+                if not request.POST.get('appreciationAdvancedNDTmethods', None) == None:
+                    trainingObj.appreciationAdvancedNDTmethods =True
+                else:
+                    trainingObj.appreciationAdvancedNDTmethods = False
+
+
+                if not request.POST.get('cathodicProtection', None) == None:
+                    trainingObj.cathodicProtection =True
+                else:
+                    trainingObj.cathodicProtection = False
+
+
+                if not request.POST.get('introNDT', None) == None:
+                    trainingObj.introNDT =True
+                else:
+                    trainingObj.introNDT = False
+
+                if not request.POST.get('visualWeldingInspection', None) == None:
+                    trainingObj.visualWeldingInspection =True
+                else:
+                    trainingObj.visualWeldingInspection = False
+
+                if not request.POST.get('weldingInspection', None) == None:
+                    trainingObj.weldingInspection =True
+                else:
+                    trainingObj.weldingInspection = False
+
+                if not request.POST.get('seniorWeldingInspection', None) == None:
+                    trainingObj.seniorWeldingInspection =True
+                else:
+                    trainingObj.seniorWeldingInspection = False
+
+                if not request.POST.get('weldingQuality', None) == None:
+                    trainingObj.weldingQuality =True
+                else:
+                    trainingObj.weldingQuality = False
+
+                if not request.POST.get('partialWelder', None) == None:
+                    trainingObj.partialWelder =True
+                else:
+                    trainingObj.partialWelder = False
+
+                if not request.POST.get('introASME', None) == None:
+                    trainingObj.introASME =True
+                else:
+                    trainingObj.introASME = False
+
+                if not request.POST.get('introErupeanStandard', None) == None:
+                    trainingObj.introErupeanStandard =True
+                else:
+                    trainingObj.introErupeanStandard = False
+
+                if not request.POST.get('reviewAsmeXI', None) == None:
+                    trainingObj.reviewAsmeXI =True
+                else:
+                    trainingObj.reviewAsmeXI = False
+
+                if not request.POST.get('siteCoating', None) == None:
+                    trainingObj.siteCoating =True
+                else:
+                    trainingObj.siteCoating = False
+
+                if not request.POST.get('paitingInspector', None) == None:
+                    trainingObj.paitingInspector =True
+                else:
+                    trainingObj.paitingInspector = False
+
+                if not request.POST.get('weldingInspector', None) == None:
+                    trainingObj.weldingInspector =True
+                else:
+                    trainingObj.weldingInspector = False
+
+                if not request.POST.get('IIWDiploma', None) == None:
+                    trainingObj.IIWDiploma =True
+                else:
+                    trainingObj.IIWDiploma = False
+
+                if not request.POST.get('plantInspector', None) == None:
+                    trainingObj.plantInspector =True
+                else:
+                    trainingObj.plantInspector = False
+
+                if not request.POST.get('underWater', None) == None:
+                    trainingObj.underWater =True
+                else:
+                    trainingObj.underWater = False
+
+
+
+                trainingObj.save()
 
 
 
@@ -4604,23 +5060,45 @@ class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
                 formListObj = FormList()
-                formListObj.name = visionObj.__class__.__name__
+                formListObj.name = trainingObj.__class__.__name__
                 formListObj.event = event
                 formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
-                formListObj.FormID = visionObj.id
+                formListObj.FormID = trainingObj.id
                 formListObj.save()
 
-                return redirect('forms:allisiontest_')
+                return redirect('forms:alltwitrainingfeed_')
+            else:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canID']
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                print(canID)
 
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                self.candidateID = candidate.id
+                print(self.candidateID)
+                context = super(NewTWITrainingFeedback, self).get_context_data()
+                context['candidate'] = candidate
+                context['category'] = category
+                context['event'] = event
+                context['guideline'] = guideline
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/general/training_feedback.html', context)
 
 class AllTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_twi_training_feedback.html"
 
     def get_context_data(self):
         context = super(AllTWITrainingFeedback, self).get_context_data()
-        forms = TwiTrainingFeedback.objects.all()
+        forms = TwiTrainingFeedback.objects.all().order_by('-id')
         context['forms'] = forms
         return context
 
