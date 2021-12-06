@@ -948,28 +948,28 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <div style="position:absolute; top: 155px; left: 487px; z-index: 1;"><textarea   style="border:none;background: transparent;width: 90px; height: 45px; font-size: 10px;margin:1px;" name="startDate" id="">{{event.start_date|date:'m/d/Y'}}</textarea></div>
     <div style="position:absolute; top: 155px; left: 641px; z-index: 1;"><textarea   style="border:none;background: transparent;width: 133px; height: 45px; font-size: 10px;margin:1px;" name="lecturerName" id="">{{event.lecturers}}</textarea></div>
 
-<div style="position:absolute; top: 314px; left: 466px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess1" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 502px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess2" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 539px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess3" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess4" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess5" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess6" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess7" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess8" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess9" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 314px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess10" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 466px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess1" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 502px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess2" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 539px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess3" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess4" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess5" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess6" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess7" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess8" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess9" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 314px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="bookingProcess10" onclick="compValidation();" class="bookingProcess" onchange="bookingProcessChange(this);"  /></div>
 
 
-<div style="position:absolute; top: 379px; left: 466px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions1" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 502px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions2" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 539px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions3" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions4" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions5" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions6" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions7" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions8" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions9" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions10" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 466px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions1" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 502px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions2" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 539px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions3" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions4" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions5" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions6" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions7" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions8" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions9" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="joiningInstructions10" onclick="compValidation();" class="joiningInstructions" onchange="joiningInstructionsChange(this);"  /></div>
 
 
 <div style="position:absolute; top: 444px; left: 466px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="trainingEnvironment1" onclick="compValidation();" class="cheque" onchange="chequeChange(this);"  /></div>
@@ -1181,4 +1181,28 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="{% static 'js/regex.js' %}" type="text/javascript"></script>
+
+
+<script>
+
+        function bookingProcessChange(obj) {
+<!--    alert("Here");-->
+    var cbs = document.getElementsByClassName("bookingProcess");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function joiningInstructionsChange(obj) {
+<!--    alert("Here");-->
+    var cbs = document.getElementsByClassName("joiningInstructions");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+</script>
 {% endblock %}
