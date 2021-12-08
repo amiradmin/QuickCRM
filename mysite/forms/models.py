@@ -623,19 +623,17 @@ class TesAttCandidate(models.Model):
     dayOneSec2= models.BooleanField( null=True, blank=True)
     dayOneSec3= models.BooleanField( null=True, blank=True)
     dayOneSec4= models.BooleanField( null=True, blank=True)
-    dayOneSec5= models.BooleanField( null=True, blank=True)
+
 
     dayTwoSec1= models.BooleanField( null=True, blank=True)
     dayTwoSec2= models.BooleanField( null=True, blank=True)
     dayTwoSec3= models.BooleanField( null=True, blank=True)
     dayTwoSec4= models.BooleanField( null=True, blank=True)
-    dayTwoSec5= models.BooleanField( null=True, blank=True)
 
     dayThreeSec1= models.BooleanField( null=True, blank=True)
     dayThreeSec2= models.BooleanField( null=True, blank=True)
     dayThreeSec3= models.BooleanField( null=True, blank=True)
     dayThreeSec4= models.BooleanField( null=True, blank=True)
-    dayThreeSec5= models.BooleanField( null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
