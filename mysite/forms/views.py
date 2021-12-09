@@ -1,26 +1,29 @@
-from django.shortcuts import render,redirect
-from django.views.generic import View,TemplateView
-from forms.models import ( Forms,TwiEnrolmentForm,General,BGAsExperienceForm,PSL30LogExp,NdtTechnique,FormList,
-                           PSL30InitialForm,NDT15AExperienceVerification, CurrentFormerCertification,
-                           ExperienceClaimed,NDTCovid19,PSL57B,PSL57A,empHistory,VisionTest,TesFrmExaminationAttendance,
-                            TesLecFeedbackFrom,TrainingAttendance,TwiTrainingFeedback,TwiExamFeedback,TesFrmCandidate
-                           )
+from django.shortcuts import render, redirect
+from django.views.generic import View, TemplateView
+from forms.models import (Forms, TwiEnrolmentForm, General, BGAsExperienceForm, PSL30LogExp, NdtTechnique, FormList,
+                          PSL30InitialForm, NDT15AExperienceVerification, CurrentFormerCertification,
+                          ExperienceClaimed, NDTCovid19, PSL57B, PSL57A, empHistory, VisionTest,
+                          TesFrmExaminationAttendance,TesAttCandidate,
+                          TesLecFeedbackFrom, TrainingAttendance, TwiTrainingFeedback, TwiExamFeedback, TesFrmCandidate
+                          )
 from django.db.models import Count
 from classes.db import FormDb
-from training.models import FormsList, TesCandidate,Event,Category,FormsList as Guideline
+from training.models import FormsList, TesCandidate, Event, Category, FormsList as Guideline
 from django.contrib.auth.mixins import LoginRequiredMixin
 import smtplib
 from email.message import EmailMessage
 from email.utils import make_msgid
 from django.db.models import Q
 import datetime
-from  authorization.sidebarmixin import SidebarMixin
+from authorization.sidebarmixin import SidebarMixin
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from contacts.models import Contact
+
+
 # Create your views here.
 
-class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
+class TwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_S.html"
     candidateID = None
 
@@ -38,18 +41,17 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
 
         self.candidateID = 50
         return context
-    
 
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             if 'enrolment' in request.POST:
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
                 guidelineID = request.POST['guidelineID']
-                category = Category.objects.filter(id =categoryID).first()
-                guideline = Guideline.objects.filter(id =guidelineID).first()
-                event = Event.objects.filter(id = eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                event = Event.objects.filter(id=eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
                 obj = TwiEnrolmentForm()
                 obj.eventID = eventID
@@ -93,8 +95,7 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 obj.VerifierDate = datetime.datetime.strptime(request.POST['VerifierDate'], '%m/%d/%Y')
 
                 # obj.GDPRstatement = request.POST['form37_1']
-                
-      
+
                 #
                 #
                 # if not request.POST.get('form54_1', None) == None:
@@ -125,255 +126,252 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 #     obj.venue ='New Brunswick'
                 #
                 if not request.POST.get('diabilityYes', None) == None:
-                    obj.disability =True
+                    obj.disability = True
                 if request.POST.get('diabilityNo', None) == None:
-                    obj.disability =False
+                    obj.disability = False
                 #
-                if not  request.POST.get('weldingSociety', None) == None:
-                    obj.weldingSociety =True
+                if not request.POST.get('weldingSociety', None) == None:
+                    obj.weldingSociety = True
                 if not request.POST.get('twiEmployee', None) == None:
-                    obj.twiEmployee =True
+                    obj.twiEmployee = True
                 #
                 if not request.POST.get('compSponser', None) == None:
-                    obj.sponsorStatus =True
+                    obj.sponsorStatus = True
                 if not request.POST.get('selfSponser', None) == None:
-                    obj.sponsorStatus =True
+                    obj.sponsorStatus = True
                 #
                 if not request.POST.get('GDPRstatement', None) == None:
-                    obj.GDPRstatement =True
+                    obj.GDPRstatement = True
                 #
-                tempTearAbout=''
+                tempTearAbout = ''
                 if not request.POST.get('twiWebsite', None) == None:
                     tempTearAbout = 'TWI Corporate Website '
                 if not request.POST.get('CSWIPweb', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+ 'CSWIP Website'
+                    tempTearAbout = tempTearAbout + ' - ' + 'CSWIP Website'
                 if not request.POST.get('emailMarketing', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+  'Email marketing '
+                    tempTearAbout = tempTearAbout + ' - ' + 'Email marketing '
                 if not request.POST.get('Bulletin', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+  'Bulletin / Connect '
+                    tempTearAbout = tempTearAbout + ' - ' + 'Bulletin / Connect '
                 if not request.POST.get('Google', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+  'Google search'
+                    tempTearAbout = tempTearAbout + ' - ' + 'Google search'
                 if not request.POST.get('Other', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+  'Other (please specify)'
+                    tempTearAbout = tempTearAbout + ' - ' + 'Other (please specify)'
                 if not request.POST.get('Linkedin', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+ 'LinkedIn'
+                    tempTearAbout = tempTearAbout + ' - ' + 'LinkedIn'
                 if not request.POST.get('Facebook', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+  'Facebook'
+                    tempTearAbout = tempTearAbout + ' - ' + 'Facebook'
                 if not request.POST.get('NDTnews', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+  'NDT News / Insight'
+                    tempTearAbout = tempTearAbout + ' - ' + 'NDT News / Insight'
                 if not request.POST.get('Exhib', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+  'Exhibitions / Events'
+                    tempTearAbout = tempTearAbout + ' - ' + 'Exhibitions / Events'
                 if not request.POST.get('WorkOfMouth', None) == None:
-                    tempTearAbout =tempTearAbout +' - '+  'Word of Mouth'
-                obj.hearAbout =tempTearAbout
+                    tempTearAbout = tempTearAbout + ' - ' + 'Word of Mouth'
+                obj.hearAbout = tempTearAbout
                 #
                 if not request.POST.get('Initial', None) == None:
-                    obj.examinationType ='Initial'
+                    obj.examinationType = 'Initial'
                 if not request.POST.get('supplementary', None) == None:
-                    obj.examinationType ='supplementary'
+                    obj.examinationType = 'supplementary'
                 if not request.POST.get('renewal', None) == None:
-                    obj.examinationType ='renewal'
+                    obj.examinationType = 'renewal'
                 if not request.POST.get('bridging', None) == None:
-                    obj.examinationType ='bridging'
+                    obj.examinationType = 'bridging'
                 if not request.POST.get('retest', None) == None:
-                    obj.examinationType ='retest of a previously failed examination'
+                    obj.examinationType = 'retest of a previously failed examination'
                 #
                 if not request.POST.get('CSWIP', None) == None:
-                    obj.examinationBody ='CSWIP'
+                    obj.examinationBody = 'CSWIP'
                 if not request.POST.get('PCN', None) == None:
-                    obj.examinationBody ='PCN'
+                    obj.examinationBody = 'PCN'
                 if not request.POST.get('AWS', None) == None:
-                    obj.examinationBody ='AWS'
+                    obj.examinationBody = 'AWS'
                 if not request.POST.get('BGAS', None) == None:
-                    obj.examinationBody ='BGAS'
+                    obj.examinationBody = 'BGAS'
                 if not request.POST.get('ASNT', None) == None:
-                    obj.examinationBody ='ASNT'
+                    obj.examinationBody = 'ASNT'
 
                 #
                 if not request.POST.get('VWI', None) == None:
-                    obj.CSWIPWeldingexamination ='VWI (3.0)'
+                    obj.CSWIPWeldingexamination = 'VWI (3.0)'
                 if not request.POST.get('WI', None) == None:
-                    obj.CSWIPWeldingexamination ='WI (3.1)'
+                    obj.CSWIPWeldingexamination = 'WI (3.1)'
                 if not request.POST.get('SWI', None) == None:
-                    obj.CSWIPWeldingexamination ='SWI (3.2.1)'
+                    obj.CSWIPWeldingexamination = 'SWI (3.2.1)'
                 if not request.POST.get('SWI3', None) == None:
-                    obj.CSWIPWeldingexamination ='SWI (3.2.2) '
+                    obj.CSWIPWeldingexamination = 'SWI (3.2.2) '
                 if not request.POST.get('AWSCSWIP', None) == None:
-                    obj.CSWIPWeldingexamination ='AWSCSWIP'
+                    obj.CSWIPWeldingexamination = 'AWSCSWIP'
                 #
                 if not request.POST.get('Endorsement', None) == None:
-                    obj.CSWIPWeldingexamination ='Endorsement'
+                    obj.CSWIPWeldingexamination = 'Endorsement'
                 if not request.POST.get('Instructor', None) == None:
-                    obj.CSWIPWeldingexamination ='Instructor'
+                    obj.CSWIPWeldingexamination = 'Instructor'
                 if not request.POST.get('Supervisor', None) == None:
-                    obj.CSWIPWeldingexamination ='Supervisor'
+                    obj.CSWIPWeldingexamination = 'Supervisor'
                 if not request.POST.get('QC', None) == None:
-                    obj.CSWIPWeldingexamination ='QC Coordinator '
+                    obj.CSWIPWeldingexamination = 'QC Coordinator '
                 if not request.POST.get('ASME', None) == None:
-                    obj.CSWIPWeldingexamination ='ASME IX'
+                    obj.CSWIPWeldingexamination = 'ASME IX'
                 #
                 if not request.POST.get('WI31weld', None) == None:
-                    obj.experience ='WI(3.1) - Welding Inspector for a minimum of 3 years with experience related to the duties and responsibilities listed in Clause 1.2.2 under qualified supervision, independently verified.'
+                    obj.experience = 'WI(3.1) - Welding Inspector for a minimum of 3 years with experience related to the duties and responsibilities listed in Clause 1.2.2 under qualified supervision, independently verified.'
                 if not request.POST.get('WI31Visual', None) == None:
-                    obj.experience ='WI (3.1) - Certified Visual Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1 and 1.2.2.'
+                    obj.experience = 'WI (3.1) - Certified Visual Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1 and 1.2.2.'
                 if not request.POST.get('WIWeldingInspector', None) == None:
-                    obj.experience ='WI (3.1) - Welding Instructor or Welding Foreman/Supervisor for a minimum of 1 year.'
+                    obj.experience = 'WI (3.1) - Welding Instructor or Welding Foreman/Supervisor for a minimum of 1 year.'
                 if not request.POST.get('SWIcertificate', None) == None:
-                    obj.experience ='SWI (3.2.1 & 3.2.2) - Certified Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1, 1.2.2 and 1.2.3. '
+                    obj.experience = 'SWI (3.2.1 & 3.2.2) - Certified Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1, 1.2.2 and 1.2.3. '
                 if not request.POST.get('SWI5year', None) == None:
-                    obj.experience ='SWI (3.2.1 & 3.2.2) - 5 years\' authenticated experience related to the duties and responsibilities listed in Clause 1.2.3, independently verified.'
+                    obj.experience = 'SWI (3.2.1 & 3.2.2) - 5 years\' authenticated experience related to the duties and responsibilities listed in Clause 1.2.3, independently verified.'
 
                 if not request.POST.get('WeldingQC', None) == None:
-                    obj.experience ='Welding QC coordinator - A current valid CSWIP 3.2 Senior Welding Inspector certification plus three years documented experience related to the duties and responsibilities or an international equivalent.'
+                    obj.experience = 'Welding QC coordinator - A current valid CSWIP 3.2 Senior Welding Inspector certification plus three years documented experience related to the duties and responsibilities or an international equivalent.'
                 if not request.POST.get('CurrentValid', None) == None:
-                    obj.experience ='Welding QC coordinator - A current valid CSWIP 3.1 Welding Inspector with 10 year’s documented experience related to the duties and responsibilities or an international equivalent. '
+                    obj.experience = 'Welding QC coordinator - A current valid CSWIP 3.1 Welding Inspector with 10 year’s documented experience related to the duties and responsibilities or an international equivalent. '
                 if not request.POST.get('HoldCurrent', None) == None:
-                    obj.experience ='ASME IX - Hold current valid Senior Welding Inspector or international equivalent.'
+                    obj.experience = 'ASME IX - Hold current valid Senior Welding Inspector or international equivalent.'
                 if not request.POST.get('ASMECer', None) == None:
-                    obj.experience ='ASME IX - Certified Welding Inspector with five years relevant verified work experience or international equivalent '
+                    obj.experience = 'ASME IX - Certified Welding Inspector with five years relevant verified work experience or international equivalent '
                 if not request.POST.get('ASMEhnc', None) == None:
-                    obj.experience ='ASME IX - A HNC in Welding Fabrication'
+                    obj.experience = 'ASME IX - A HNC in Welding Fabrication'
                 if not request.POST.get('ASMEWorking', None) == None:
-                    obj.experience ='ASME IX - Working in quality control function related to welding activities with five years of verified working experience (this could relate to a CSWIP WI (3.1) holder'
+                    obj.experience = 'ASME IX - Working in quality control function related to welding activities with five years of verified working experience (this could relate to a CSWIP WI (3.1) holder'
                 #
                 #
                 if not request.POST.get('31U', None) == None:
-                    obj.underwaterInspectionExam ='3.1U'
+                    obj.underwaterInspectionExam = '3.1U'
                 if not request.POST.get('32U', None) == None:
-                    obj.underwaterInspectionExam ='3.2U'
+                    obj.underwaterInspectionExam = '3.2U'
                 if not request.POST.get('33U', None) == None:
-                    obj.underwaterInspectionExam ='3.3U'
+                    obj.underwaterInspectionExam = '3.3U'
                 if not request.POST.get('34U', None) == None:
-                    obj.underwaterInspectionExam ='3.4U'
+                    obj.underwaterInspectionExam = '3.4U'
                 if not request.POST.get('A-SCAN', None) == None:
-                    obj.underwaterInspectionExam ='A-SCAN'
+                    obj.underwaterInspectionExam = 'A-SCAN'
                 if not request.POST.get('Concrete', None) == None:
-                    obj.underwaterInspectionExam ='Concrete'
+                    obj.underwaterInspectionExam = 'Concrete'
 
                 #
                 if not request.POST.get('PT', None) == None:
-                    obj.NDTexamination ='PT'
+                    obj.NDTexamination = 'PT'
                 if not request.POST.get('MT', None) == None:
-                    obj.NDTexamination ='MT'
+                    obj.NDTexamination = 'MT'
                 if not request.POST.get('VT', None) == None:
-                    obj.NDTexamination ='VT'
+                    obj.NDTexamination = 'VT'
                 if not request.POST.get('ET', None) == None:
-                    obj.NDTexamination ='ET'
+                    obj.NDTexamination = 'ET'
                 if not request.POST.get('ACFM', None) == None:
-                    obj.NDTexamination ='ACFM'
+                    obj.NDTexamination = 'ACFM'
                 #
                 if not request.POST.get('RT', None) == None:
-                    obj.NDTexamination ='RT'
+                    obj.NDTexamination = 'RT'
                 if not request.POST.get('Rad', None) == None:
-                    obj.NDTexamination ='Rad Interpret'
+                    obj.NDTexamination = 'Rad Interpret'
                 if not request.POST.get('CR', None) == None:
-                    obj.NDTexamination ='CR/DR'
+                    obj.NDTexamination = 'CR/DR'
                 if not request.POST.get('CRI', None) == None:
-                    obj.NDTexamination ='CRI/DRI'
+                    obj.NDTexamination = 'CRI/DRI'
                 if not request.POST.get('BRS', None) == None:
-                    obj.NDTexamination ='BRS'
+                    obj.NDTexamination = 'BRS'
                 if not request.POST.get('RPS', None) == None:
-                    obj.NDTexamination ='RPS'
+                    obj.NDTexamination = 'RPS'
 
                 if not request.POST.get('UT', None) == None:
-                    obj.NDTexamination ='UT'
+                    obj.NDTexamination = 'UT'
                 if not request.POST.get('PAUT', None) == None:
-                    obj.NDTexamination ='PAUT'
+                    obj.NDTexamination = 'PAUT'
                 if not request.POST.get('TOFD', None) == None:
-                    obj.NDTexamination ='TOFD'
+                    obj.NDTexamination = 'TOFD'
                 if not request.POST.get('AUT', None) == None:
-                    obj.NDTexamination ='AUT'
+                    obj.NDTexamination = 'AUT'
                 if not request.POST.get('UTCM', None) == None:
-                    obj.NDTexamination ='UTCM'
+                    obj.NDTexamination = 'UTCM'
                 if not request.POST.get('PACM', None) == None:
-                    obj.NDTexamination ='PACM'
+                    obj.NDTexamination = 'PACM'
                 #
                 if not request.POST.get('Appreciation', None) == None:
-                    obj.NDTexamination ='Appreciation'
+                    obj.NDTexamination = 'Appreciation'
                 if not request.POST.get('Basic', None) == None:
-                    obj.NDTexamination ='Basic'
+                    obj.NDTexamination = 'Basic'
                 if not request.POST.get('Phasor', None) == None:
-                    obj.NDTexamination ='Phasor DM'
+                    obj.NDTexamination = 'Phasor DM'
                 #
                 if not request.POST.get('Level1', None) == None:
-                    obj.NDTexaminationLevel ='Level 1'
+                    obj.NDTexaminationLevel = 'Level 1'
                 if not request.POST.get('Level2', None) == None:
-                    obj.NDTexaminationLevel ='Level 2'
+                    obj.NDTexaminationLevel = 'Level 2'
                 if not request.POST.get('Level3', None) == None:
-                    obj.NDTexaminationLevel ='Level 3'
+                    obj.NDTexaminationLevel = 'Level 3'
                 #
                 if not request.POST.get('General', None) == None:
-                    obj.NDTIndustrySector ='General'
+                    obj.NDTIndustrySector = 'General'
                 if not request.POST.get('Welds', None) == None:
-                    obj.NDTIndustrySector ='Welds'
+                    obj.NDTIndustrySector = 'Welds'
                 if not request.POST.get('Castings', None) == None:
-                    obj.NDTIndustrySector ='Castings'
+                    obj.NDTIndustrySector = 'Castings'
                 if not request.POST.get('Wrought', None) == None:
-                    obj.NDTIndustrySector ='Wrought'
+                    obj.NDTIndustrySector = 'Wrought'
                 if not request.POST.get('Forgings', None) == None:
-                    obj.NDTIndustrySector ='Forgings'
+                    obj.NDTIndustrySector = 'Forgings'
                 if not request.POST.get('Tubes', None) == None:
-                    obj.NDTIndustrySector ='Tubes & Pipes'
+                    obj.NDTIndustrySector = 'Tubes & Pipes'
                 if not request.POST.get('Aero', None) == None:
-                    obj.NDTIndustrySector ='Aero'
+                    obj.NDTIndustrySector = 'Aero'
                 #
                 #
                 if not request.POST.get('31', None) == None:
-                    obj.NDTexaminationCategories ='3.1'
+                    obj.NDTexaminationCategories = '3.1'
                 if not request.POST.get('32', None) == None:
-                    obj.NDTexaminationCategories ='3.2'
+                    obj.NDTexaminationCategories = '3.2'
                 if not request.POST.get('37', None) == None:
-                    obj.NDTexaminationCategories ='3.7'
+                    obj.NDTexaminationCategories = '3.7'
                 if not request.POST.get('37', None) == None:
-                    obj.NDTexaminationCategories ='3.8'
+                    obj.NDTexaminationCategories = '3.8'
                 if not request.POST.get('39', None) == None:
-                    obj.NDTexaminationCategories ='3.9'
+                    obj.NDTexaminationCategories = '3.9'
                 if not request.POST.get('Critical', None) == None:
-                    obj.NDTexaminationCategories ='Critical sizing'
+                    obj.NDTexaminationCategories = 'Critical sizing'
                 #
                 #
                 if not request.POST.get('plantLevel1', None) == None:
-                    obj.plantInspectionLevel ='Level 1'
+                    obj.plantInspectionLevel = 'Level 1'
                 if not request.POST.get('plantLevel2', None) == None:
-                    obj.plantInspectionLevel ='Level 2'
+                    obj.plantInspectionLevel = 'Level 2'
                 if not request.POST.get('plantLevel3', None) == None:
-                    obj.plantInspectionLevel ='Level 3'
+                    obj.plantInspectionLevel = 'Level 3'
                 if not request.POST.get('Endorsement', None) == None:
-                    obj.plantInspectionLevel ='Endorsement'
+                    obj.plantInspectionLevel = 'Endorsement'
                 #
                 if not request.POST.get('IHoldCurrent', None) == None:
-                    obj.plantInspectionLevel1 ='I hold current approved NDT Level 2 (ACCP, CSWIP, PCN or ASNT) in two methods, one of which must be Ultrasonic'
+                    obj.plantInspectionLevel1 = 'I hold current approved NDT Level 2 (ACCP, CSWIP, PCN or ASNT) in two methods, one of which must be Ultrasonic'
                 if not request.POST.get('IholdCSWIP', None) == None:
-                    obj.plantInspectionLevel1 ='I hold CSWIP Welding Inspector or higher'
+                    obj.plantInspectionLevel1 = 'I hold CSWIP Welding Inspector or higher'
                 if not request.POST.get('IholdHNC', None) == None:
-                    obj.plantInspectionLevel1 ='I hold HNC in Mechanical Engineering or equivalent'
+                    obj.plantInspectionLevel1 = 'I hold HNC in Mechanical Engineering or equivalent'
                 if not request.POST.get('Ihaveminimum', None) == None:
-                    obj.plantInspectionLevel1 ='I have a minimum of Five years, assessed and authenticated industry experience in this field (Mature Entry Route), a verified CV can be supplied – Must be Authenticated by Line Manager'
+                    obj.plantInspectionLevel1 = 'I have a minimum of Five years, assessed and authenticated industry experience in this field (Mature Entry Route), a verified CV can be supplied – Must be Authenticated by Line Manager'
 
                 if not request.POST.get('IholdvalidLevel', None) == None:
-                    obj.plantInspectionLevel2 ='I hold a valid Level 1 Plant Inspector approval'
+                    obj.plantInspectionLevel2 = 'I hold a valid Level 1 Plant Inspector approval'
                 if not request.POST.get('IHaveSuccessfully', None) == None:
-                    obj.plantInspectionLevel2 ='I have successfully completed the Level 1 exams as a pre entry requirement'
-
+                    obj.plantInspectionLevel2 = 'I have successfully completed the Level 1 exams as a pre entry requirement'
 
                 if not request.POST.get('Plastic', None) == None:
-                   obj.otherExaminationsTitleRequired ='Plastic welding'
+                    obj.otherExaminationsTitleRequired = 'Plastic welding'
                 if not request.POST.get('Offshore', None) == None:
-                    obj.otherExaminationsTitleRequired ='Offshore visual Inspector'
+                    obj.otherExaminationsTitleRequired = 'Offshore visual Inspector'
                 if not request.POST.get('BGAS', None) == None:
-                    obj.otherExaminationsTitleRequired ='BGAS'
-
-
+                    obj.otherExaminationsTitleRequired = 'BGAS'
 
                 obj.save()
                 formObj = FormsList.objects.filter(id=1).first()
-                
+
                 # mainCanID = request.POST['mainCanID']
                 # print(mainCanID)
                 # candidateObj = TesCandidate.objects.filter(id = 1050896).first()
                 # print(candidateObj.first_name)
                 candidate.forms.add(formObj)
-                
+
                 formListObj = FormList()
                 formListObj.name = obj.__class__.__name__
                 formListObj.event = event
@@ -382,11 +380,11 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 formListObj.guideline = guideline
                 formListObj.FormID = obj.id
                 formListObj.save()
-                
-                return redirect('forms:allenrolmentform_')  
 
-                 
-            else :
+                return redirect('forms:allenrolmentform_')
+
+
+            else:
                 print('Here')
                 # if request.FILES.get('file', False):
                 canID = request.POST['canID']
@@ -394,11 +392,11 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 categoryID = request.POST['categoryID']
                 guidelineID = request.POST['guidelineID']
                 print(canID)
-                
-                candidate= TesCandidate.objects.filter(id = canID).first()
-                event= Event.objects.filter(id = eventID).first()
-                category= Category.objects.filter(id = categoryID).first()
-                guideline= Guideline.objects.filter(id = guidelineID).first()
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
                 self.candidateID = candidate.id
                 print(self.candidateID)
                 context = super(TwiEnrolment, self).get_context_data()
@@ -407,10 +405,11 @@ class TwiEnrolment(SidebarMixin,LoginRequiredMixin,TemplateView):
                 context['event'] = event
                 context['guideline'] = guideline
 
-        # return redirect('forms:jaegertofdl2_' ,context)  
+            # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/reg_forms/twi_enrolment_S.html', context)
 
-class DeleteTwiEnrolment(SidebarMixin, LoginRequiredMixin,DeleteView):
+
+class DeleteTwiEnrolment(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = TwiEnrolmentForm
     success_url = reverse_lazy('forms:allenrolmentform_')
 
@@ -418,14 +417,14 @@ class DeleteTwiEnrolment(SidebarMixin, LoginRequiredMixin,DeleteView):
 class UpdateTwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/update_twi_enrolment.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateTwiEnrolment, self).get_context_data()
         id = self.kwargs['id']
         form = TwiEnrolmentForm.objects.filter(id=id).first()
         context['form'] = form
         return context
 
-    def post(self, request,id , *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
 
         if request.method == 'POST':
 
@@ -710,26 +709,24 @@ class UpdateTwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
             return redirect('forms:allenrolmentform_')
 
 
-
-
 class TwiEnrolmentReg(TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_reg.html"
     candidateID = None
 
-    def get_context_data(self,id, *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(TwiEnrolmentReg, self).get_context_data()
         self.candidateID = self.kwargs['id']
-        print("Get : "+ str(id))
+        print("Get : " + str(id))
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
 
         if request.method == 'POST':
             if 'enrolment' in request.POST:
-                print("Post: "+ str(id))
+                print("Post: " + str(id))
                 print("Amir")
                 # eventID = request.POST['eventID']
-                candidate = TesCandidate.objects.filter(id=	id).first()
+                candidate = TesCandidate.objects.filter(id=id).first()
                 obj = TwiEnrolmentForm()
                 # obj.eventID = eventID
                 obj.candidate = candidate
@@ -762,8 +759,6 @@ class TwiEnrolmentReg(TemplateView):
                 # obj.currentCSWIPQualifications = request.POST['form12_2']
                 obj.VerifierDate = request.POST['VerifierDate']
                 # # obj.GDPRstatement = request.POST['form37_1']
-
-
 
                 # if not request.POST.get('form54_1', None) == None:
                 #     obj.venue = 'Calgary'
@@ -864,7 +859,6 @@ class TwiEnrolmentReg(TemplateView):
                 formObj.name = "TWI Enrolment Form"
                 formObj.candidate = candidate
                 formObj.save()
-
 
                 print("Start Mailing")
                 msg = EmailMessage()
@@ -998,7 +992,7 @@ class TwiEnrolmentReg(TemplateView):
               </tr>
             </tbody>
           </table>
-          
+
         </td>
       </tr>
     </tbody>
@@ -1006,7 +1000,7 @@ class TwiEnrolmentReg(TemplateView):
                                           <table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="080768f5-7b16-4756-a254-88cfe5138113">
     <tbody>
       <tr>
-        <td style="padding:30px 30px 0px 30px; line-height:36px; text-align:inherit; background-color:#4d5171;" height="100%" valign="top" bgcolor="#4d5171" role="module-content"><div><div style="font-family: inherit; text-align: left"><span style="color: #ffffff; font-size: 18px; font-family: inherit">Dear """ + candidate.first_name+ """ """ + candidate.last_name + """</span></div><div></div></div></td>
+        <td style="padding:30px 30px 0px 30px; line-height:36px; text-align:inherit; background-color:#4d5171;" height="100%" valign="top" bgcolor="#4d5171" role="module-content"><div><div style="font-family: inherit; text-align: left"><span style="color: #ffffff; font-size: 18px; font-family: inherit">Dear """ + candidate.first_name + """ """ + candidate.last_name + """</span></div><div></div></div></td>
       </tr>
     </tbody>
   </table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="cddc0490-36ba-4b27-8682-87881dfbcc14">
@@ -1080,8 +1074,8 @@ class TwiEnrolmentReg(TemplateView):
           </tbody></table>
         </div>
       </center>
-    
-  
+
+
 </body>
 
 
@@ -1104,9 +1098,6 @@ class TwiEnrolmentReg(TemplateView):
                 s.login(fromEmail, 'A^f[Xoi+)ngh')
                 s.send_message(msg)
                 s.quit()
-
-
-
 
                 # email = EmailMessage(
                 #     'Tescan Registration Dept.',
@@ -1139,7 +1130,8 @@ class TwiEnrolmentReg(TemplateView):
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/reg_forms/twi_enrolment.html', context)
 
-class AllEnrolmentForm(SidebarMixin,LoginRequiredMixin,TemplateView):
+
+class AllEnrolmentForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_forms_enrolment.html"
 
     def get_context_data(self):
@@ -1147,13 +1139,14 @@ class AllEnrolmentForm(SidebarMixin,LoginRequiredMixin,TemplateView):
         forms = TwiEnrolmentForm.objects.all()
         adminStatus = False
         for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
-                adminStatus=True
+            if g.name == 'super_admin' or g.name == 'training_admin':
+                adminStatus = True
         context['adminStatus'] = adminStatus
         context['forms'] = forms
-        return context   
-    
-class AllBGASForm(SidebarMixin,LoginRequiredMixin,TemplateView):
+        return context
+
+
+class AllBGASForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_bgas_form.html"
 
     def get_context_data(self):
@@ -1161,11 +1154,12 @@ class AllBGASForm(SidebarMixin,LoginRequiredMixin,TemplateView):
         forms = BGAsExperienceForm.objects.all()
         adminStatus = False
         for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
-                adminStatus=True
+            if g.name == 'super_admin' or g.name == 'training_admin':
+                adminStatus = True
         context['adminStatus'] = adminStatus
         context['forms'] = forms
         return context
+
 
 class NewForm(TemplateView):
     template_name = "forms/new_form.html"
@@ -1175,10 +1169,9 @@ class NewForm(TemplateView):
         # form = MedicineForm()
         # context['form'] = form
         return context
-    
-    
+
     # def post(self, request, *args, **kwargs):
-        
+
     #     if request.method == 'POST':
 
     #         formName =request.POST['formName']
@@ -1186,15 +1179,15 @@ class NewForm(TemplateView):
     #         formNameDb = formName.replace(' ','_')
     #         data = json.loads(jsonCode)
     #         fields = []
-            
+
     #         obj = Forms()
     #         obj.name=formName
     #         obj.dbName = 'tesform_'+formNameDb
     #         obj.save()
-            
+
     #         for item in data:
     #             if item['type'] == 'text' :
-                    
+
     #                 name = item['name']
     #                 label = item['label']
     #                 required = item['required']
@@ -1203,32 +1196,32 @@ class NewForm(TemplateView):
     #                 tempDict['label']=label
     #                 tempDict['required']=required
     #                 fields.append(tempDict)
-                    
+
     #                 fieldObj = Field()
     #                 fieldObj.name = name
     #                 fieldObj.type = 'VARCHAR(256)'
     #                 fieldObj.require = required
     #                 fieldObj.label = label
     #                 fieldObj.save()
-                    
+
     #                 obj.fields.add(fieldObj)
-                    
-                    
+
     #         formObj = FormDb()
     #         formObj.TableGenerator(formNameDb,fields)
 
-    #     return redirect('forms:all_')  
+    #     return redirect('forms:all_')
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             print('Here')
             if request.FILES.get('file', False):
-               pdfFile = request.FILES['file']
-               print(pdfFile)
-            
-        return redirect('forms:all_')  
+                pdfFile = request.FILES['file']
+                print(pdfFile)
 
-class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
+        return redirect('forms:all_')
+
+
+class BGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/general/bgas.html"
 
     def get_context_data(self):
@@ -1252,19 +1245,18 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
                 guidelineID = request.POST['guidelineID']
-                category = Category.objects.filter(id =categoryID).first()
-                guideline = Guideline.objects.filter(id =guidelineID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
                 candidate = TesCandidate.objects.filter(id=canID).first()
                 event = Event.objects.filter(id=eventID).first()
 
-
                 bgasObj = BGAsExperienceForm()
-                bgasObj.candidate =candidate
-                bgasObj.event =event
+                bgasObj.candidate = candidate
+                bgasObj.event = event
                 # bgasObj.evenID =event.id
-                bgasObj.firstName =candidate.first_name
-                bgasObj.lastName =candidate.last_name
-                bgasObj.middleName =candidate.middleName
+                bgasObj.firstName = candidate.first_name
+                bgasObj.lastName = candidate.last_name
+                bgasObj.middleName = candidate.middleName
 
                 bgasObj.sponsorCcmpany = request.POST['sponsorCcmpany']
                 bgasObj.sponsorName = request.POST['sponsorName']
@@ -1298,8 +1290,8 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
                 guidelineID = request.POST['guidelineID']
-                category = Category.objects.filter(id =categoryID).first()
-                guideline = Guideline.objects.filter(id =guidelineID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
                 candidate = TesCandidate.objects.filter(id=canID).first()
 
                 event = Event.objects.filter(id=eventID).first()
@@ -1312,12 +1304,11 @@ class BGASExperienceForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 context['guideline'] = guideline
                 context['twiEnrolmentForm'] = twiEnrolmentForm
 
-            # return redirect('forms:jaegertofdl2_' ,context)
+                # return redirect('forms:jaegertofdl2_' ,context)
                 return render(request, 'forms/general/bgas.html', context)
 
 
-
-class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
+class PSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/PSL-57A_Initial_exam_application_S.html"
 
     def get_context_data(self):
@@ -1342,27 +1333,27 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 print("===> here")
                 guidelineID = request.POST['guidelineID']
                 print(guidelineID)
-                category = Category.objects.filter(id =categoryID).first()
-                guideline = Guideline.objects.filter(id =guidelineID).first()
-                event = Event.objects.filter(id = eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                event = Event.objects.filter(id=eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
-                mainObj =PSL57A()
-                mainObj.candidate =candidate
-                mainObj.event =event
-                mainObj.category =category
-                mainObj.guideline =guideline
-                mainObj.cerAddress =request.POST['cerAddress']
-                mainObj.pslCerAddress =request.POST['pslCerAddress']
-                mainObj.phone =request.POST['phone']
-                mainObj.pclNumber =request.POST['pclNumber']
-                mainObj.email =request.POST['email']
-                mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                mainObj.currentEmploymentDetails =request.POST['currentEmploymentDetails']
-                mainObj.candidatePosition =request.POST['currentEmploymentPosition']
-                mainObj.employmentStatus =request.POST['currentEmploymentStatus']
-                mainObj.preCerTraining =request.POST['preCerTraining']
-                mainObj.preCerTrainingDate =request.POST['preCerTrainingDate']
+                mainObj = PSL57A()
+                mainObj.candidate = candidate
+                mainObj.event = event
+                mainObj.category = category
+                mainObj.guideline = guideline
+                mainObj.cerAddress = request.POST['cerAddress']
+                mainObj.pslCerAddress = request.POST['pslCerAddress']
+                mainObj.phone = request.POST['phone']
+                mainObj.pclNumber = request.POST['pclNumber']
+                mainObj.email = request.POST['email']
+                mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                mainObj.currentEmploymentDetails = request.POST['currentEmploymentDetails']
+                mainObj.candidatePosition = request.POST['currentEmploymentPosition']
+                mainObj.employmentStatus = request.POST['currentEmploymentStatus']
+                mainObj.preCerTraining = request.POST['preCerTraining']
+                mainObj.preCerTrainingDate = request.POST['preCerTrainingDate']
                 mainObj.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
                 if not request.POST.get('contactMe', None) == None:
@@ -1370,7 +1361,7 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 else:
                     mainObj.contactMe = True
 
-                if  request.POST.get('gender', None) == 'Male':
+                if request.POST.get('gender', None) == 'Male':
                     mainObj.gender = 'M'
                 elif request.POST.get('gender', None) == 'Female':
                     mainObj.gender = 'M'
@@ -1400,7 +1391,6 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 if not request.POST.get('paut', None) == None:
                     mainObj.NDTMethod = 'PAUT'
 
-
                 if not request.POST.get('levelOne', None) == None:
                     mainObj.NDTLevel = 'level 1'
                 if not request.POST.get('levelTwo', None) == None:
@@ -1412,7 +1402,6 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                     mainObj.radiationSafety = 'Basic Radiation Safety'
                 if not request.POST.get('supervisorProtection', None) == None:
                     mainObj.radiationProtectionSup = 'Radiation protection supervisor'
-
 
                 if not request.POST.get('visa', None) == None:
                     mainObj.creditCardPayment = 'Visa'
@@ -1461,9 +1450,7 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
                 # mainObj.creditCardPayment = request.POST['creditCardPayment']
 
-
                 mainObj.save()
-
 
                 # formObj = FormList()
                 # formObj.name = "PSL-57A Initial exam application"
@@ -1489,9 +1476,9 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 guidelineID = request.POST['guidelineGID']
                 categoryID = request.POST['categoryCatID']
                 print(guidelineID)
-                category = Category.objects.filter(id =categoryID).first()
-                guideline = Guideline.objects.filter(id =guidelineID).first()
-                event = Event.objects.filter(id = eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                event = Event.objects.filter(id=eventID).first()
                 candidate = TesCandidate.objects.filter(id=canID).first()
 
                 context = super(PSL57AFOrmView, self).get_context_data()
@@ -1500,12 +1487,11 @@ class PSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 context['guideline'] = guideline
                 context['category'] = category
 
-
-            # return redirect('forms:jaegertofdl2_' ,context)
+                # return redirect('forms:jaegertofdl2_' ,context)
                 return render(request, "forms/reg_forms/PSL-57A_Initial_exam_application_S.html", context)
 
 
-class AllPSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
+class AllPSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_psl_57a.html"
 
     def get_context_data(self):
@@ -1515,11 +1501,13 @@ class AllPSL57AFOrmView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['forms'] = forms
         return context
 
-class DeletePSL57AForm(SidebarMixin, LoginRequiredMixin,DeleteView):
+
+class DeletePSL57AForm(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = PSL57A
     success_url = reverse_lazy('forms:allpsl57A_')
 
-class AllBGASinitialForms(SidebarMixin,LoginRequiredMixin,TemplateView):
+
+class AllBGASinitialForms(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_psl30_inintal_forms.html"
 
     def get_context_data(self):
@@ -1530,7 +1518,7 @@ class AllBGASinitialForms(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
 
-class UpdatePSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
+class UpdatePSL57AForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/update_PSL-57A_Initial.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -1543,19 +1531,19 @@ class UpdatePSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
 
-                mainObj =PSL57A.objects.filter(id=self.kwargs['id']).first()
-                mainObj.candidate =candidate
-                mainObj.event =event
-                mainObj.cerAddres =request.POST['cerAddres']
-                mainObj.pslCerAddres =request.POST['pslCerAddres']
-                mainObj.phone =request.POST['phone']
-                mainObj.pslNumber =request.POST['pslNumber']
-                mainObj.email =request.POST['email']
-                mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
-                mainObj.currentEmploymentPosition =request.POST['currentEmploymentPosition']
-                mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
-                mainObj.preCerTraining =request.POST['preCerTraining']
-                mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
+                mainObj = PSL57A.objects.filter(id=self.kwargs['id']).first()
+                mainObj.candidate = candidate
+                mainObj.event = event
+                mainObj.cerAddres = request.POST['cerAddres']
+                mainObj.pslCerAddres = request.POST['pslCerAddres']
+                mainObj.phone = request.POST['phone']
+                mainObj.pslNumber = request.POST['pslNumber']
+                mainObj.email = request.POST['email']
+                mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
+                mainObj.currentEmploymentPosition = request.POST['currentEmploymentPosition']
+                mainObj.currentEmploymentStatus = request.POST['currentEmploymentStatus']
+                mainObj.preCerTraining = request.POST['preCerTraining']
+                mainObj.preCerTrainingDate = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
                 # mainObj.preCerTraining = request.POST['preCerTraining']
 
                 if not request.POST.get('et', None) == None:
@@ -1582,7 +1570,6 @@ class UpdatePSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                     mainObj.ndtMethod = 'TOFD'
                 if not request.POST.get('paut', None) == None:
                     mainObj.ndtMethod = 'PAUT'
-
 
                 if not request.POST.get('levelOne', None) == None:
                     mainObj.level = 'level 1'
@@ -1600,7 +1587,6 @@ class UpdatePSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
 
                 mainObj.save()
 
-
                 # formObj = FormList()
                 # formObj.name = "PSL-57A Initial exam application"
                 # formObj.candidate = candidate
@@ -1613,15 +1599,14 @@ class UpdatePSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
                 return redirect('forms:allpsl57A_')
 
 
-
-class MessageUpdatePSL57AForm(LoginRequiredMixin,TemplateView):
+class MessageUpdatePSL57AForm(LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/update_PSL-57A_Initial.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(MessageUpdatePSL57AForm, self).get_context_data()
         form = PSL57A.objects.filter(id=self.kwargs['id']).first()
         contactObj = Contact.objects.filter(id=self.kwargs['msgID']).first()
-        contactObj.readFlag=True
+        contactObj.readFlag = True
         contactObj.save()
         context['form'] = form
         return context
@@ -1630,19 +1615,19 @@ class MessageUpdatePSL57AForm(LoginRequiredMixin,TemplateView):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
 
-                mainObj =PSL57A.objects.filter(id=self.kwargs['id']).first()
-                mainObj.candidate =candidate
-                mainObj.event =event
-                mainObj.cerAddres =request.POST['cerAddres']
-                mainObj.pslCerAddres =request.POST['pslCerAddres']
-                mainObj.phone =request.POST['phone']
-                mainObj.pslNumber =request.POST['pslNumber']
-                mainObj.email =request.POST['email']
-                mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
-                mainObj.currentEmploymentPosition =request.POST['currentEmploymentPosition']
-                mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
-                mainObj.preCerTraining =request.POST['preCerTraining']
-                mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
+                mainObj = PSL57A.objects.filter(id=self.kwargs['id']).first()
+                mainObj.candidate = candidate
+                mainObj.event = event
+                mainObj.cerAddres = request.POST['cerAddres']
+                mainObj.pslCerAddres = request.POST['pslCerAddres']
+                mainObj.phone = request.POST['phone']
+                mainObj.pslNumber = request.POST['pslNumber']
+                mainObj.email = request.POST['email']
+                mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
+                mainObj.currentEmploymentPosition = request.POST['currentEmploymentPosition']
+                mainObj.currentEmploymentStatus = request.POST['currentEmploymentStatus']
+                mainObj.preCerTraining = request.POST['preCerTraining']
+                mainObj.preCerTrainingDate = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
                 # mainObj.preCerTraining = request.POST['preCerTraining']
 
                 if not request.POST.get('et', None) == None:
@@ -1670,7 +1655,6 @@ class MessageUpdatePSL57AForm(LoginRequiredMixin,TemplateView):
                 if not request.POST.get('paut', None) == None:
                     mainObj.ndtMethod = 'PAUT'
 
-
                 if not request.POST.get('levelOne', None) == None:
                     mainObj.level = 'level 1'
                 if not request.POST.get('levelTwo', None) == None:
@@ -1687,7 +1671,6 @@ class MessageUpdatePSL57AForm(LoginRequiredMixin,TemplateView):
 
                 mainObj.save()
 
-
                 # formObj = FormList()
                 # formObj.name = "PSL-57A Initial exam application"
                 # formObj.candidate = candidate
@@ -1700,8 +1683,7 @@ class MessageUpdatePSL57AForm(LoginRequiredMixin,TemplateView):
                 return redirect('forms:allpsl57A_')
 
 
-
-class ViewPSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
+class ViewPSL57AForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/view_PSL-57A_Initial.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -1711,19 +1693,18 @@ class ViewPSL57AForm(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
 
-class MessagePSL30LogExperienceForm(LoginRequiredMixin,TemplateView):
+class MessagePSL30LogExperienceForm(LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/update_PSL_30_log_exper.html"
 
-    def get_context_data(self,id,msgID):
+    def get_context_data(self, id, msgID):
         context = super(MessagePSL30LogExperienceForm, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name')
         form = PSL30LogExp.objects.filter(id=self.kwargs['id']).first()
         events = Event.objects.all()
         print("Here Now one")
         contactObj = Contact.objects.filter(id=self.kwargs['msgID']).first()
-        contactObj.readFlag=True
+        contactObj.readFlag = True
         contactObj.save()
-
 
         context['candidates'] = candidates
         context['events'] = events
@@ -1743,19 +1724,19 @@ class MessagePSL30LogExperienceForm(LoginRequiredMixin,TemplateView):
                 event = Event.objects.filter(id=eventID).first()
                 event.candidate.add(candidate)
 
-                mainObj =PSL30InitialForm()
-                mainObj.candidate =candidate
-                mainObj.event =event
-                mainObj.cerAddres =request.POST['cerAddres']
-                mainObj.pslCerAddres =request.POST['pslCerAddres']
-                mainObj.phone =request.POST['phone']
-                mainObj.pslNumber =request.POST['pslNumber']
-                mainObj.email =request.POST['email']
-                mainObj.birthDay =datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
-                mainObj.currentEmploymentPosition =request.POST['currentEmploymentPosition']
-                mainObj.currentEmploymentStatus =request.POST['currentEmploymentStatus']
-                mainObj.preCerTraining =request.POST['preCerTraining']
-                mainObj.preCerTrainingDate =datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
+                mainObj = PSL30InitialForm()
+                mainObj.candidate = candidate
+                mainObj.event = event
+                mainObj.cerAddres = request.POST['cerAddres']
+                mainObj.pslCerAddres = request.POST['pslCerAddres']
+                mainObj.phone = request.POST['phone']
+                mainObj.pslNumber = request.POST['pslNumber']
+                mainObj.email = request.POST['email']
+                mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
+                mainObj.currentEmploymentPosition = request.POST['currentEmploymentPosition']
+                mainObj.currentEmploymentStatus = request.POST['currentEmploymentStatus']
+                mainObj.preCerTraining = request.POST['preCerTraining']
+                mainObj.preCerTrainingDate = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
                 # mainObj.preCerTraining = request.POST['preCerTraining']
 
                 if not request.POST.get('et', None) == None:
@@ -1783,7 +1764,6 @@ class MessagePSL30LogExperienceForm(LoginRequiredMixin,TemplateView):
                 if not request.POST.get('paut', None) == None:
                     mainObj.ndtMethod = 'PAUT'
 
-
                 if not request.POST.get('levelOne', None) == None:
                     mainObj.level = 'level 1'
                 if not request.POST.get('levelTwo', None) == None:
@@ -1800,7 +1780,6 @@ class MessagePSL30LogExperienceForm(LoginRequiredMixin,TemplateView):
 
                 mainObj.save()
 
-
                 formObj = FormList()
                 formObj.name = "PSL-57A Initial exam application"
                 formObj.candidate = candidate
@@ -1813,7 +1792,6 @@ class MessagePSL30LogExperienceForm(LoginRequiredMixin,TemplateView):
                 return redirect('forms:allpslinitialform_')
 
 
-
 class PSL30LogExperienceForm(TemplateView):
     template_name = "forms/reg_forms/PSL_30_log_exper_S.html"
 
@@ -1823,8 +1801,8 @@ class PSL30LogExperienceForm(TemplateView):
         events = Event.objects.all()
         adminStatus = False
         for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
-                adminStatus=True
+            if g.name == 'super_admin' or g.name == 'training_admin':
+                adminStatus = True
         context['adminStatus'] = adminStatus
         context['candidates'] = candidates
         context['events'] = events
@@ -1841,18 +1819,19 @@ class PSL30LogExperienceForm(TemplateView):
                 candidate = TesCandidate.objects.filter(id=canID).first()
                 event = Event.objects.filter(id=eventID).first()
                 pslObj = PSL30LogExp()
-                pslObj.candidate =candidate
-                pslObj.event =event
-                pslObj.fullName =request.POST['canName']
+                pslObj.candidate = candidate
+                pslObj.event = event
+                pslObj.fullName = request.POST['canName']
                 pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
                 pslObj.dateTo = datetime.datetime.strptime(request.POST['dateTo'], '%m/%d/%Y')
-                pslObj.ndtMethod =request.POST['NDTmethod']
-                pslObj.totalHours =request.POST['totalHours']
-                pslObj.employingOrganisation =request.POST['employingOrganisation']
-                pslObj.reviewerName =request.POST['reviewerName']
-                pslObj.reviewerDate =datetime.datetime.strptime(request.POST['reviewerDate'], '%m/%d/%Y')
-                pslObj.finalEmployerDeclarationName =request.POST['finalEmployerDeclarationName']
-                pslObj.dateCandidateDeclaration =datetime.datetime.strptime(request.POST['dateCandidateDeclaration'], '%m/%d/%Y')
+                pslObj.ndtMethod = request.POST['NDTmethod']
+                pslObj.totalHours = request.POST['totalHours']
+                pslObj.employingOrganisation = request.POST['employingOrganisation']
+                pslObj.reviewerName = request.POST['reviewerName']
+                pslObj.reviewerDate = datetime.datetime.strptime(request.POST['reviewerDate'], '%m/%d/%Y')
+                pslObj.finalEmployerDeclarationName = request.POST['finalEmployerDeclarationName']
+                pslObj.dateCandidateDeclaration = datetime.datetime.strptime(request.POST['dateCandidateDeclaration'],
+                                                                             '%m/%d/%Y')
                 pslObj.save()
 
                 if not request.POST.get('techniqueCodeR0', None) == None:
@@ -1876,7 +1855,6 @@ class PSL30LogExperienceForm(TemplateView):
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
                 if not request.POST.get('techniqueCodeR1', None) == None:
                     NdtTechniqueObj = NdtTechnique()
                     NdtTechniqueObj.candidate = candidate
@@ -1898,8 +1876,6 @@ class PSL30LogExperienceForm(TemplateView):
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
-
                 if not request.POST.get('techniqueCodeR2', None) == None:
                     NdtTechniqueObj = NdtTechnique()
                     NdtTechniqueObj.candidate = candidate
@@ -1919,7 +1895,6 @@ class PSL30LogExperienceForm(TemplateView):
                 if not request.POST.get('techniqueCodeR2', None) == None:
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
-
 
                 if not request.POST.get('techniqueCodeR3', None) == None:
                     NdtTechniqueObj = NdtTechnique()
@@ -1941,7 +1916,6 @@ class PSL30LogExperienceForm(TemplateView):
                 if not request.POST.get('techniqueCodeR3', None) == None:
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
-
 
                 if not request.POST.get('techniqueCodeR4', None) == None:
                     NdtTechniqueObj = NdtTechnique()
@@ -1968,7 +1942,6 @@ class PSL30LogExperienceForm(TemplateView):
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
                 if not request.POST.get('techniqueCodeR5', None) == None:
                     NdtTechniqueObj = NdtTechnique()
                     NdtTechniqueObj.candidate = candidate
@@ -1989,7 +1962,6 @@ class PSL30LogExperienceForm(TemplateView):
                 if not request.POST.get('techniqueCodeR5', None) == None:
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
-
 
                 if not request.POST.get('techniqueCodeR6', None) == None:
                     NdtTechniqueObj = NdtTechnique()
@@ -2016,7 +1988,6 @@ class PSL30LogExperienceForm(TemplateView):
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
                 if not request.POST.get('techniqueCodeR7', None) == None:
                     NdtTechniqueObj = NdtTechnique()
                     NdtTechniqueObj.candidate = candidate
@@ -2042,10 +2013,9 @@ class PSL30LogExperienceForm(TemplateView):
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
                 return redirect('forms:allpslform_')
 
-            else :
+            else:
                 print('Here')
                 context = super(PSL30LogExperienceForm, self).get_context_data()
                 canID = request.POST['canID']
@@ -2068,30 +2038,31 @@ class PSL30LogExperienceForm(TemplateView):
                 return render(request, 'forms/reg_forms/PSL_30_log_exper.html', context)
 
 
-class AllPSL30LogForm(SidebarMixin,LoginRequiredMixin,TemplateView):
+class AllPSL30LogForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_psl30log_forms.html"
 
     def get_context_data(self):
         context = super(AllPSL30LogForm, self).get_context_data()
         pslForms = PSL30LogExp.objects.all()
-        adminStatus =False
+        adminStatus = False
         for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
-                adminStatus=True
+            if g.name == 'super_admin' or g.name == 'training_admin':
+                adminStatus = True
         context['adminStatus'] = adminStatus
         context['pslForms'] = pslForms
 
         return context
 
-class DeletePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,DeleteView):
+
+class DeletePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = PSL30LogExp
     success_url = reverse_lazy('forms:allpslform_')
 
 
-class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView):
+class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/update_PSL_30_log_exper.html"
 
-    def get_context_data(self,id):
+    def get_context_data(self, id):
         context = super(UpdatePSL30LogExperienceForm, self).get_context_data()
         form = PSL30LogExp.objects.filter(id=self.kwargs['id']).first()
         context['form'] = form
@@ -2110,16 +2081,17 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                 pslObj = PSL30LogExp.objects.filter(id=self.kwargs['id']).first()
                 # pslObj.candidate =candidate
                 # pslObj.event =event
-                pslObj.fullName =request.POST['canName']
+                pslObj.fullName = request.POST['canName']
                 pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
                 pslObj.dateTo = datetime.datetime.strptime(request.POST['dateTo'], '%m/%d/%Y')
-                pslObj.ndtMethod =request.POST['NDTmethod']
-                pslObj.totalHours =request.POST['totalHours']
-                pslObj.employingOrganisation =request.POST['employingOrganisation']
-                pslObj.reviewerName =request.POST['reviewerName']
-                pslObj.reviewerDate =datetime.datetime.strptime(request.POST['reviewerDate'], '%m/%d/%Y')
-                pslObj.finalEmployerDeclarationName =request.POST['finalEmployerDeclarationName']
-                pslObj.dateCandidateDeclaration =datetime.datetime.strptime(request.POST['dateCandidateDeclaration'], '%m/%d/%Y')
+                pslObj.ndtMethod = request.POST['NDTmethod']
+                pslObj.totalHours = request.POST['totalHours']
+                pslObj.employingOrganisation = request.POST['employingOrganisation']
+                pslObj.reviewerName = request.POST['reviewerName']
+                pslObj.reviewerDate = datetime.datetime.strptime(request.POST['reviewerDate'], '%m/%d/%Y')
+                pslObj.finalEmployerDeclarationName = request.POST['finalEmployerDeclarationName']
+                pslObj.dateCandidateDeclaration = datetime.datetime.strptime(request.POST['dateCandidateDeclaration'],
+                                                                             '%m/%d/%Y')
                 pslObj.save()
 
                 if not request.POST.get('techniqueCodeR0', None) == None:
@@ -2143,7 +2115,6 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
                 if not request.POST.get('techniqueCodeR1', None) == None:
                     NdtTechniqueObj = NdtTechnique()
                     NdtTechniqueObj.candidate = candidate
@@ -2165,8 +2136,6 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
-
                 if not request.POST.get('techniqueCodeR2', None) == None:
                     NdtTechniqueObj = NdtTechnique()
                     NdtTechniqueObj.candidate = candidate
@@ -2186,7 +2155,6 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                 if not request.POST.get('techniqueCodeR2', None) == None:
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
-
 
                 if not request.POST.get('techniqueCodeR3', None) == None:
                     NdtTechniqueObj = NdtTechnique()
@@ -2208,7 +2176,6 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                 if not request.POST.get('techniqueCodeR3', None) == None:
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
-
 
                 if not request.POST.get('techniqueCodeR4', None) == None:
                     NdtTechniqueObj = NdtTechnique()
@@ -2235,7 +2202,6 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
                 if not request.POST.get('techniqueCodeR5', None) == None:
                     NdtTechniqueObj = NdtTechnique()
                     NdtTechniqueObj.candidate = candidate
@@ -2256,7 +2222,6 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                 if not request.POST.get('techniqueCodeR5', None) == None:
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
-
 
                 if not request.POST.get('techniqueCodeR6', None) == None:
                     NdtTechniqueObj = NdtTechnique()
@@ -2283,7 +2248,6 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
                 if not request.POST.get('techniqueCodeR7', None) == None:
                     NdtTechniqueObj = NdtTechnique()
                     NdtTechniqueObj.candidate = candidate
@@ -2309,13 +2273,13 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView
                     NdtTechniqueObj.save()
                     pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-
                 return redirect('forms:allpslform_')
 
-class ViewPSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView):
+
+class ViewPSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/update_PSL_30_log_exper.html"
 
-    def get_context_data(self,id):
+    def get_context_data(self, id):
         context = super(ViewPSL30LogExperienceForm, self).get_context_data()
         form = PSL30LogExp.objects.filter(id=self.kwargs['id']).first()
         context['form'] = form
@@ -2323,7 +2287,7 @@ class ViewPSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView):
         return context
 
 
-class AllFormsList(SidebarMixin,TemplateView):
+class AllFormsList(SidebarMixin, TemplateView):
     template_name = "forms/all_forms_view.html"
 
     def get_context_data(self):
@@ -2331,7 +2295,7 @@ class AllFormsList(SidebarMixin,TemplateView):
         forms = Forms.objects.all()
         context['forms'] = forms
         return context
-    
+
 
 class AllForms(TemplateView):
     template_name = "forms/all_forms.html"
@@ -2342,7 +2306,7 @@ class AllForms(TemplateView):
         context['forms'] = forms
         return context
 
-    
+
 class ViewForm(TemplateView):
     template_name = "forms/view_form.html"
 
@@ -2350,8 +2314,7 @@ class ViewForm(TemplateView):
         context = super(ViewForm, self).get_context_data()
         form = Forms.objects.filter(id=self.kwargs['id']).first()
         context['form'] = form
-        return context    
-
+        return context
 
 
 class ViewFormByID(TemplateView):
@@ -2369,14 +2332,15 @@ class ViewFormByID(TemplateView):
         """
         context = super(ViewFormByID, self).get_context_data()
         canID = self.kwargs['id']
-        candidate = TesCandidate.objects.filter(id =canID).first()
+        candidate = TesCandidate.objects.filter(id=canID).first()
         print(canID)
         print(candidate.id)
         form = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
         context['form'] = form
-        return context    
+        return context
 
-class ViewFormByFormID(SidebarMixin,TemplateView):
+
+class ViewFormByFormID(SidebarMixin, TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_by_id.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -2390,7 +2354,7 @@ class ViewFormByFormID(SidebarMixin,TemplateView):
         return context
 
 
-class ViewFormByFormIDSum(SidebarMixin,TemplateView):
+class ViewFormByFormIDSum(SidebarMixin, TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_by_id.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -2411,7 +2375,8 @@ class ViewFormByFormIDSum(SidebarMixin,TemplateView):
         print(guideID)
         print(catID)
         #
-        formList =FormList.objects.filter(Q(event=event) & Q(guideline=guideline) & Q(category=category) & Q(candidate=candidate)).last()
+        formList = FormList.objects.filter(
+            Q(event=event) & Q(guideline=guideline) & Q(category=category) & Q(candidate=candidate)).last()
         model_name = formList.name
         app_name = 'forms'
         from django.apps import apps
@@ -2420,7 +2385,6 @@ class ViewFormByFormIDSum(SidebarMixin,TemplateView):
 
         context['form'] = form
         return context
-
 
 
 class AllFormsFromPostgres(TemplateView):
@@ -2432,29 +2396,28 @@ class AllFormsFromPostgres(TemplateView):
         tList = formObj.TableLists()
         context['tList'] = tList
         return context
-    
 
-class sigDrawer(SidebarMixin,TemplateView):
+
+class sigDrawer(SidebarMixin, TemplateView):
     template_name = "forms/draw_sig.html"
     candidateID = None
 
     def get_context_data(self, *args, **kwargs):
         context = super(sigDrawer, self).get_context_data()
- 
 
         return context
 
 
-class uploadSignature(SidebarMixin,TemplateView):
+class uploadSignature(SidebarMixin, TemplateView):
     template_name = "forms/uploud_sig.html"
     candidateID = None
 
-    def get_context_data(self, id,*args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(uploadSignature, self).get_context_data()
         print(self.kwargs['id'])
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
 
         if request.method == 'POST':
             if request.FILES.get('imageFile', False):
@@ -2465,15 +2428,17 @@ class uploadSignature(SidebarMixin,TemplateView):
 
         return redirect('forms:allenrolmentform_')
 
+
 class formMap(TemplateView):
     template_name = "forms/form_map.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(formMap, self).get_context_data()
         tags = Category.objects.all()
-        
+
         context['tags'] = tags
         return context
+
 
 class FormMapByCatID(TemplateView):
     template_name = "forms/form_map_by_id.html"
@@ -2482,12 +2447,12 @@ class FormMapByCatID(TemplateView):
         context = super(FormMapByCatID, self).get_context_data()
         catID = self.kwargs['id']
         print(catID)
-        tag = Category.objects.filter(id=catID).first()      
+        tag = Category.objects.filter(id=catID).first()
         context['tag'] = tag
         return context
-    
-    
-class UploadForm(SidebarMixin,TemplateView):
+
+
+class UploadForm(SidebarMixin, TemplateView):
     template_name = "forms/uploud_form.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -2496,18 +2461,18 @@ class UploadForm(SidebarMixin,TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             formID = request.POST['formID']
             if request.FILES.get('myFile', False):
-               print(formID)
-               formObj = TwiEnrolmentForm.objects.filter(id = formID).first()
-               formObj.uploadedForm = request.FILES['myFile']
-               formObj.save()
-            
-        return redirect('forms:allenrolmentform_')  
-    
-    
+                print(formID)
+                formObj = TwiEnrolmentForm.objects.filter(id=formID).first()
+                formObj.uploadedForm = request.FILES['myFile']
+                formObj.save()
+
+        return redirect('forms:allenrolmentform_')
+
+
 class EachFormMemebr(TemplateView):
     template_name = "forms/categoried_form.html"
 
@@ -2515,15 +2480,16 @@ class EachFormMemebr(TemplateView):
         context = super(EachFormMemebr, self).get_context_data()
         eventID = self.kwargs['id']
         event = Event.objects.filter(id=eventID).first()
-        general= General.objects.filter(event = event).first()
+        general = General.objects.filter(event=event).first()
         form = TwiEnrolmentForm.objects.all()
         # canList = TesCandidate.objects.filter(forms=form)
         # context['canList'] = canList
         context['form'] = form
         context['general'] = general
-        return context 
-    
-class EventSummary(SidebarMixin,LoginRequiredMixin,TemplateView):
+        return context
+
+
+class EventSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/event_summary.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -2539,12 +2505,12 @@ class EventSummary(SidebarMixin,LoginRequiredMixin,TemplateView):
 
         candidateList = event.candidate.all()
         # submitedList = generalObj.twiEnrolmentForm.all()
-        list1=[]
-        list2=[]
+        list1 = []
+        list2 = []
         for item in candidateList:
             print(item.tes_candidate_id)
             list1.append(item.tes_candidate_id)
-        
+
         # print("====")
         # for item in submitedList:
         #     print(item.candidate.tes_candidate_id)
@@ -2560,12 +2526,10 @@ class EventSummary(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['eventConfirm'] = eventConfirm
         # context['generalObj'] = generalObj
         context['unsubmited'] = unsubmited
-        return context 
+        return context
 
 
-
-
-class EventSummaryByFormId(SidebarMixin,TemplateView):
+class EventSummaryByFormId(SidebarMixin, TemplateView):
     template_name = "forms/event_summary.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -2576,26 +2540,25 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
         guideID = self.kwargs['guideID']
         # canID = self.kwargs['canID']
         print("Now")
-        submitedList=None
+        submitedList = None
 
         event = Event.objects.filter(id=eventID).first()
         category = Category.objects.filter(id=catID).first()
-        guideline = Guideline.objects.filter(id = guideID).first()
+        guideline = Guideline.objects.filter(id=guideID).first()
 
         eventSubmit = FormList.objects.filter(Q(event=event) & Q(guideline=guideline) & Q(category=category))
         eventConfirm = FormList.objects.filter(
             Q(event=event) & Q(guideline=guideline) & Q(category=category) & Q(status=True))
 
-        
         # tag = Category.objects.filter(id=catID).first()
         candidateList = event.candidate.all()
-        
-        submittedList1=[]
-        allList=[]
+
+        submittedList1 = []
+        allList = []
         for item in candidateList:
             print(item.tes_candidate_id)
             allList.append(item.tes_candidate_id)
-        
+
         print("====")
         for item in eventSubmit:
             print(item.candidate.tes_candidate_id)
@@ -2603,7 +2566,6 @@ class EventSummaryByFormId(SidebarMixin,TemplateView):
 
         resultList = list(set(allList).difference(submittedList1))
         unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
-
 
         # context['tag'] = tag
         context['event'] = event
@@ -2631,7 +2593,6 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
         context['events'] = events
         return context
 
-
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
@@ -2643,11 +2604,11 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 event = Event.objects.filter(id=eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
-                obj =NDT15AExperienceVerification()
-                obj.candidate =candidate
-                obj.category =category
-                obj.guideline =guideline
-                obj.event =event
+                obj = NDT15AExperienceVerification()
+                obj.candidate = candidate
+                obj.category = category
+                obj.guideline = guideline
+                obj.event = event
                 obj.descriptionOfExperience = request.POST['descriptionOfExperience']
                 obj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 obj.nameJobTitle = request.POST['nameJobTitle']
@@ -2660,45 +2621,47 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
 
                 if request.POST['methodLevel']:
                     objCurrent = CurrentFormerCertification()
-                    objCurrent.methodLevel =request.POST['methodLevel']
-                    objCurrent.SchemeCertifyingAuthority =request.POST['SchemeCertifyingAuthority']
-                    objCurrent.ExpiryDate =datetime.datetime.strptime(request.POST['ExpiryDate'], '%m/%d/%Y')
+                    objCurrent.methodLevel = request.POST['methodLevel']
+                    objCurrent.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority']
+                    objCurrent.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate'], '%m/%d/%Y')
                     objCurrent.save()
                     obj.currentFormerCertification.add(objCurrent)
 
                 if request.POST['methodLevel2']:
                     objCurrent = CurrentFormerCertification()
-                    objCurrent.methodLevel =request.POST['methodLevel2']
-                    objCurrent.SchemeCertifyingAuthority =request.POST['SchemeCertifyingAuthority2']
-                    objCurrent.ExpiryDate =datetime.datetime.strptime(request.POST['ExpiryDate2'], '%m/%d/%Y')
+                    objCurrent.methodLevel = request.POST['methodLevel2']
+                    objCurrent.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority2']
+                    objCurrent.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate2'], '%m/%d/%Y')
                     objCurrent.save()
                     obj.currentFormerCertification.add(objCurrent)
 
-
                 if request.POST['claimedMethodLevel']:
                     objClaimed = ExperienceClaimed()
-                    objClaimed.methodLevel =request.POST['claimedMethodLevel']
-                    objClaimed.ExperienceClaimedSince =request.POST['ExperienceClaimedSince']
-                    objClaimed.NumberOfNonths =request.POST['NumberOfNonths']
-                    objClaimed.DateOfExamination =datetime.datetime.strptime(request.POST['DateOfExamination'], '%m/%d/%Y')
+                    objClaimed.methodLevel = request.POST['claimedMethodLevel']
+                    objClaimed.ExperienceClaimedSince = request.POST['ExperienceClaimedSince']
+                    objClaimed.NumberOfNonths = request.POST['NumberOfNonths']
+                    objClaimed.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExamination'],
+                                                                              '%m/%d/%Y')
                     objClaimed.save()
                     obj.experienceClaimed.add(objClaimed)
 
                 if request.POST['claimedMethodLevel2']:
                     objClaimed = ExperienceClaimed()
-                    objClaimed.methodLevel =request.POST['claimedMethodLevel2']
-                    objClaimed.ExperienceClaimedSince =request.POST['ExperienceClaimedSince2']
-                    objClaimed.NumberOfNonths =request.POST['NumberOfNonths2']
-                    objClaimed.DateOfExamination =datetime.datetime.strptime(request.POST['DateOfExamination2'], '%m/%d/%Y')
+                    objClaimed.methodLevel = request.POST['claimedMethodLevel2']
+                    objClaimed.ExperienceClaimedSince = request.POST['ExperienceClaimedSince2']
+                    objClaimed.NumberOfNonths = request.POST['NumberOfNonths2']
+                    objClaimed.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExamination2'],
+                                                                              '%m/%d/%Y')
                     objClaimed.save()
                     obj.experienceClaimed.add(objClaimed)
 
                 if request.POST['claimedMethodLevel3']:
                     objClaimed = ExperienceClaimed()
-                    objClaimed.methodLevel =request.POST['claimedMethodLevel3']
-                    objClaimed.ExperienceClaimedSince =request.POST['ExperienceClaimedSince3']
-                    objClaimed.NumberOfNonths =request.POST['NumberOfNonths3']
-                    objClaimed.DateOfExamination =datetime.datetime.strptime(request.POST['DateOfExamination3'], '%m/%d/%Y')
+                    objClaimed.methodLevel = request.POST['claimedMethodLevel3']
+                    objClaimed.ExperienceClaimedSince = request.POST['ExperienceClaimedSince3']
+                    objClaimed.NumberOfNonths = request.POST['NumberOfNonths3']
+                    objClaimed.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExamination3'],
+                                                                              '%m/%d/%Y')
                     objClaimed.save()
                     obj.experienceClaimed.add(objClaimed)
 
@@ -2745,11 +2708,10 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/ndt_15_S.html', context)
 
-class DeleteNdt15A(SidebarMixin, LoginRequiredMixin,DeleteView):
+
+class DeleteNdt15A(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = NDT15AExperienceVerification
     success_url = reverse_lazy('forms:allndt15expver_')
-
-
 
 
 class AllNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -2761,7 +2723,8 @@ class AllNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['forms'] = forms
         return context
 
-class ViewNDT15FormByID(SidebarMixin, LoginRequiredMixin,TemplateView):
+
+class ViewNDT15FormByID(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/ndt/ndt_15_byid.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -2781,23 +2744,21 @@ class ViewNDT15FormByID(SidebarMixin, LoginRequiredMixin,TemplateView):
         return context
 
 
-
 class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/ndt/update_ndt_15.html"
 
-    def get_context_data(self,id, *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateNDT15AExpVerView, self).get_context_data()
         formID = self.kwargs['id']
         form = NDT15AExperienceVerification.objects.filter(id=formID).last()
         context['form'] = form
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
 
-
-                obj =NDT15AExperienceVerification.objects.filter(id=id).last()
+                obj = NDT15AExperienceVerification.objects.filter(id=id).last()
                 obj.descriptionOfExperience = request.POST['descriptionOfExperience']
                 obj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 obj.nameJobTitle = request.POST['nameJobTitle']
@@ -2809,26 +2770,22 @@ class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 if request.POST['methodLevel']:
                     objCurrent = CurrentFormerCertification()
-                    objCurrent.methodLevel =request.POST['methodLevel']
-                    objCurrent.SchemeCertifyingAuthority =request.POST['SchemeCertifyingAuthority']
-                    objCurrent.ExpiryDate =datetime.datetime.strptime(request.POST['ExpiryDate'], '%m/%d/%Y')
+                    objCurrent.methodLevel = request.POST['methodLevel']
+                    objCurrent.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority']
+                    objCurrent.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate'], '%m/%d/%Y')
                     objCurrent.save()
                     obj.currentFormerCertification.add(objCurrent)
 
-
-
-
                 if request.POST['claimedMethodLevel']:
                     objClaimed = ExperienceClaimed()
-                    objClaimed.methodLevel =request.POST['claimedMethodLevel']
-                    objClaimed.ExperienceClaimedSince =request.POST['ExperienceClaimedSince']
-                    objClaimed.NumberOfNonths =request.POST['NumberOfNonths']
-                    objClaimed.DateOfExamination =request.POST['DateOfExamination']
-                    objClaimed.DateOfExamination =datetime.datetime.strptime(request.POST['DateOfExamination'], '%m/%d/%Y')
+                    objClaimed.methodLevel = request.POST['claimedMethodLevel']
+                    objClaimed.ExperienceClaimedSince = request.POST['ExperienceClaimedSince']
+                    objClaimed.NumberOfNonths = request.POST['NumberOfNonths']
+                    objClaimed.DateOfExamination = request.POST['DateOfExamination']
+                    objClaimed.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExamination'],
+                                                                              '%m/%d/%Y')
                     objClaimed.save()
                     obj.experienceClaimed.add(objClaimed)
-
-
 
                 # formListObj = FormList()
                 # formListObj.name = obj.__class__.__name__
@@ -2841,12 +2798,8 @@ class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 return redirect('forms:allndt15expver_')
 
-
-
-
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/ndt_15.html', context)
-
 
 
 class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -2865,7 +2818,6 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['events'] = events
         return context
 
-
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
@@ -2879,75 +2831,71 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 print(request.POST['mainCanID'])
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
-                obj =NDTCovid19()
-                obj.candidate =candidate
-                obj.category =category
-                obj.guideline =guideline
-                obj.event =event
+                obj = NDTCovid19()
+                obj.candidate = candidate
+                obj.category = category
+                obj.guideline = guideline
+                obj.event = event
                 obj.candidateID = request.POST['cancanID']
                 obj.candidateAdress = request.POST['candidateAddress']
                 obj.candidateHomePhone = request.POST['candidateHomePhone']
                 obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
 
-                if not  request.POST.get('case1yes', None) == None:
-                    obj.confirmCase1 =True
-                if not  request.POST.get('case1No', None) == None:
-                    obj.confirmCase1 =False
+                if not request.POST.get('case1yes', None) == None:
+                    obj.confirmCase1 = True
+                if not request.POST.get('case1No', None) == None:
+                    obj.confirmCase1 = False
 
-                if not  request.POST.get('case2yes', None) == None:
-                    obj.confirmCase2 =True
-                if not  request.POST.get('case2No', None) == None:
-                    obj.confirmCase2 =False
+                if not request.POST.get('case2yes', None) == None:
+                    obj.confirmCase2 = True
+                if not request.POST.get('case2No', None) == None:
+                    obj.confirmCase2 = False
 
-                if not  request.POST.get('case3yes', None) == None:
-                    obj.confirmCase3 =True
-                if not  request.POST.get('case3No', None) == None:
-                    obj.confirmCase3 =False
+                if not request.POST.get('case3yes', None) == None:
+                    obj.confirmCase3 = True
+                if not request.POST.get('case3No', None) == None:
+                    obj.confirmCase3 = False
 
-                if not  request.POST.get('case4yes', None) == None:
-                    obj.confirmCase4 =True
-                if not  request.POST.get('case4No', None) == None:
-                    obj.confirmCase4 =False
+                if not request.POST.get('case4yes', None) == None:
+                    obj.confirmCase4 = True
+                if not request.POST.get('case4No', None) == None:
+                    obj.confirmCase4 = False
 
-                if not  request.POST.get('case5yes', None) == None:
-                    obj.confirmCase5 =True
-                if not  request.POST.get('case5No', None) == None:
-                    obj.confirmCase5 =False
+                if not request.POST.get('case5yes', None) == None:
+                    obj.confirmCase5 = True
+                if not request.POST.get('case5No', None) == None:
+                    obj.confirmCase5 = False
 
-                if not  request.POST.get('case6yes', None) == None:
-                    obj.confirmCase6 =True
-                if not  request.POST.get('case6No', None) == None:
-                    obj.confirmCase6 =False
+                if not request.POST.get('case6yes', None) == None:
+                    obj.confirmCase6 = True
+                if not request.POST.get('case6No', None) == None:
+                    obj.confirmCase6 = False
 
-
-                if not  request.POST.get('medicalTravelCase1Yes', None) == None:
-                    obj.medicalTravelCase1 =True
-                if not  request.POST.get('medicalTravelCase1No', None) == None:
-                    obj.medicalTravelCase1 =False
+                if not request.POST.get('medicalTravelCase1Yes', None) == None:
+                    obj.medicalTravelCase1 = True
+                if not request.POST.get('medicalTravelCase1No', None) == None:
+                    obj.medicalTravelCase1 = False
                 # obj.medicalHistory = request.POST['medicalHistory']
 
-
-                if not  request.POST.get('medicalTravelCase2Yes', None) == None:
-                    obj.medicalTravelCase2 =True
-                if not  request.POST.get('medicalTravelCase2No', None) == None:
-                    obj.medicalTravelCase2 =False
+                if not request.POST.get('medicalTravelCase2Yes', None) == None:
+                    obj.medicalTravelCase2 = True
+                if not request.POST.get('medicalTravelCase2No', None) == None:
+                    obj.medicalTravelCase2 = False
                 # obj.temperature = request.POST['temperature']
 
-                if not  request.POST.get('medicalTravelCase3Yes', None) == None:
-                    obj.medicalTravelCase3 =True
-                if not  request.POST.get('medicalTravelCase3No', None) == None:
-                    obj.medicalTravelCase3 =False
+                if not request.POST.get('medicalTravelCase3Yes', None) == None:
+                    obj.medicalTravelCase3 = True
+                if not request.POST.get('medicalTravelCase3No', None) == None:
+                    obj.medicalTravelCase3 = False
 
-
-                if not  request.POST.get('medicalTravelCase4Yes', None) == None:
-                    obj.medicalTravelCase4 =True
-                if not  request.POST.get('medicalTravelCase4No', None) == None:
-                    obj.medicalTravelCase4 =False
+                if not request.POST.get('medicalTravelCase4Yes', None) == None:
+                    obj.medicalTravelCase4 = True
+                if not request.POST.get('medicalTravelCase4No', None) == None:
+                    obj.medicalTravelCase4 = False
 
                 obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
 
                 obj.save()
-
 
                 formListObj = FormList()
                 formListObj.name = obj.__class__.__name__
@@ -2996,12 +2944,12 @@ class AllNDT15Covid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-class DeleteCovid19(SidebarMixin, LoginRequiredMixin,DeleteView):
+class DeleteCovid19(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = NDTCovid19
     success_url = reverse_lazy('forms:allndtcovid19_')
 
 
-class ViewNDTCovid19FormByID(SidebarMixin, LoginRequiredMixin,TemplateView):
+class ViewNDTCovid19FormByID(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/ndt/covid_19_by_id.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -3021,12 +2969,10 @@ class ViewNDTCovid19FormByID(SidebarMixin, LoginRequiredMixin,TemplateView):
         return context
 
 
-
-
 class UpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/ndt/covid_19_update.html"
 
-    def get_context_data(self,id, *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateNDTCovid19View, self).get_context_data()
         print("here")
         formID = self.kwargs['id']
@@ -3034,84 +2980,74 @@ class UpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['form'] = form
         return context
 
-
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Here")
 
-                obj =NDTCovid19.objects.filter(id=id).first()
+                obj = NDTCovid19.objects.filter(id=id).first()
                 obj.candidateID = request.POST['candidateID']
                 obj.candidateAdress = request.POST['candidateAddress']
                 obj.candidateHomePhone = request.POST['candidateHomePhone']
                 obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
 
-                if not  request.POST.get('case1yes', None) == None:
-                    obj.confirmCase1 =True
-                if not  request.POST.get('case1No', None) == None:
-                    obj.confirmCase1 =False
+                if not request.POST.get('case1yes', None) == None:
+                    obj.confirmCase1 = True
+                if not request.POST.get('case1No', None) == None:
+                    obj.confirmCase1 = False
 
-                if not  request.POST.get('case2yes', None) == None:
-                    obj.confirmCase2 =True
-                if not  request.POST.get('case2No', None) == None:
-                    obj.confirmCase2 =False
+                if not request.POST.get('case2yes', None) == None:
+                    obj.confirmCase2 = True
+                if not request.POST.get('case2No', None) == None:
+                    obj.confirmCase2 = False
 
-                if not  request.POST.get('case3yes', None) == None:
-                    obj.confirmCase3 =True
-                if not  request.POST.get('case3No', None) == None:
-                    obj.confirmCase3 =False
+                if not request.POST.get('case3yes', None) == None:
+                    obj.confirmCase3 = True
+                if not request.POST.get('case3No', None) == None:
+                    obj.confirmCase3 = False
 
-                if not  request.POST.get('case4yes', None) == None:
-                    obj.confirmCase4 =True
-                if not  request.POST.get('case4No', None) == None:
-                    obj.confirmCase4 =False
+                if not request.POST.get('case4yes', None) == None:
+                    obj.confirmCase4 = True
+                if not request.POST.get('case4No', None) == None:
+                    obj.confirmCase4 = False
 
-                if not  request.POST.get('case5yes', None) == None:
-                    obj.confirmCase5 =True
-                if not  request.POST.get('case5No', None) == None:
-                    obj.confirmCase5 =False
+                if not request.POST.get('case5yes', None) == None:
+                    obj.confirmCase5 = True
+                if not request.POST.get('case5No', None) == None:
+                    obj.confirmCase5 = False
 
-                if not  request.POST.get('case6yes', None) == None:
-                    obj.confirmCase6 =True
-                if not  request.POST.get('case6No', None) == None:
-                    obj.confirmCase6 =False
+                if not request.POST.get('case6yes', None) == None:
+                    obj.confirmCase6 = True
+                if not request.POST.get('case6No', None) == None:
+                    obj.confirmCase6 = False
 
-
-                if not  request.POST.get('medicalTravelCase1Yes', None) == None:
-                    obj.medicalTravelCase1 =True
-                if not  request.POST.get('medicalTravelCase1No', None) == None:
-                    obj.medicalTravelCase1 =False
+                if not request.POST.get('medicalTravelCase1Yes', None) == None:
+                    obj.medicalTravelCase1 = True
+                if not request.POST.get('medicalTravelCase1No', None) == None:
+                    obj.medicalTravelCase1 = False
                 obj.medicalHistory = request.POST['medicalHistory']
 
-
-                if not  request.POST.get('medicalTravelCase2Yes', None) == None:
-                    obj.medicalTravelCase2 =True
-                if not  request.POST.get('medicalTravelCase2No', None) == None:
-                    obj.medicalTravelCase2 =False
+                if not request.POST.get('medicalTravelCase2Yes', None) == None:
+                    obj.medicalTravelCase2 = True
+                if not request.POST.get('medicalTravelCase2No', None) == None:
+                    obj.medicalTravelCase2 = False
                 obj.temperature = request.POST['temperature']
 
-                if not  request.POST.get('medicalTravelCase3Yes', None) == None:
-                    obj.medicalTravelCase3 =True
-                if not  request.POST.get('medicalTravelCase3No', None) == None:
-                    obj.medicalTravelCase3 =False
+                if not request.POST.get('medicalTravelCase3Yes', None) == None:
+                    obj.medicalTravelCase3 = True
+                if not request.POST.get('medicalTravelCase3No', None) == None:
+                    obj.medicalTravelCase3 = False
 
-
-                if not  request.POST.get('medicalTravelCase4Yes', None) == None:
-                    obj.medicalTravelCase4 =True
-                if not  request.POST.get('medicalTravelCase4No', None) == None:
-                    obj.medicalTravelCase4 =False
+                if not request.POST.get('medicalTravelCase4Yes', None) == None:
+                    obj.medicalTravelCase4 = True
+                if not request.POST.get('medicalTravelCase4No', None) == None:
+                    obj.medicalTravelCase4 = False
 
                 obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
 
                 obj.save()
 
-
-
-
                 return redirect('forms:allndtcovid19_')
-
-
-
 
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/covid_19.html', context)
@@ -3120,7 +3056,7 @@ class UpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
 class MSGUpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/ndt/covid_19_update.html"
 
-    def get_context_data(self,id, *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(MSGUpdateNDTCovid19View, self).get_context_data()
         print("here")
         formID = self.kwargs['id']
@@ -3128,88 +3064,77 @@ class MSGUpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['form'] = form
         return context
 
-
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Here")
 
-                obj =NDTCovid19.objects.filter(id=id).first()
+                obj = NDTCovid19.objects.filter(id=id).first()
                 obj.candidateID = request.POST['candidateID']
                 obj.candidateAdress = request.POST['candidateAddress']
                 obj.candidateHomePhone = request.POST['candidateHomePhone']
                 obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')
 
-                if not  request.POST.get('case1yes', None) == None:
-                    obj.confirmCase1 =True
-                if not  request.POST.get('case1No', None) == None:
-                    obj.confirmCase1 =False
+                if not request.POST.get('case1yes', None) == None:
+                    obj.confirmCase1 = True
+                if not request.POST.get('case1No', None) == None:
+                    obj.confirmCase1 = False
 
-                if not  request.POST.get('case2yes', None) == None:
-                    obj.confirmCase2 =True
-                if not  request.POST.get('case2No', None) == None:
-                    obj.confirmCase2 =False
+                if not request.POST.get('case2yes', None) == None:
+                    obj.confirmCase2 = True
+                if not request.POST.get('case2No', None) == None:
+                    obj.confirmCase2 = False
 
-                if not  request.POST.get('case3yes', None) == None:
-                    obj.confirmCase3 =True
-                if not  request.POST.get('case3No', None) == None:
-                    obj.confirmCase3 =False
+                if not request.POST.get('case3yes', None) == None:
+                    obj.confirmCase3 = True
+                if not request.POST.get('case3No', None) == None:
+                    obj.confirmCase3 = False
 
-                if not  request.POST.get('case4yes', None) == None:
-                    obj.confirmCase4 =True
-                if not  request.POST.get('case4No', None) == None:
-                    obj.confirmCase4 =False
+                if not request.POST.get('case4yes', None) == None:
+                    obj.confirmCase4 = True
+                if not request.POST.get('case4No', None) == None:
+                    obj.confirmCase4 = False
 
-                if not  request.POST.get('case5yes', None) == None:
-                    obj.confirmCase5 =True
-                if not  request.POST.get('case5No', None) == None:
-                    obj.confirmCase5 =False
+                if not request.POST.get('case5yes', None) == None:
+                    obj.confirmCase5 = True
+                if not request.POST.get('case5No', None) == None:
+                    obj.confirmCase5 = False
 
-                if not  request.POST.get('case6yes', None) == None:
-                    obj.confirmCase6 =True
-                if not  request.POST.get('case6No', None) == None:
-                    obj.confirmCase6 =False
+                if not request.POST.get('case6yes', None) == None:
+                    obj.confirmCase6 = True
+                if not request.POST.get('case6No', None) == None:
+                    obj.confirmCase6 = False
 
-
-                if not  request.POST.get('medicalTravelCase1Yes', None) == None:
-                    obj.medicalTravelCase1 =True
-                if not  request.POST.get('medicalTravelCase1No', None) == None:
-                    obj.medicalTravelCase1 =False
+                if not request.POST.get('medicalTravelCase1Yes', None) == None:
+                    obj.medicalTravelCase1 = True
+                if not request.POST.get('medicalTravelCase1No', None) == None:
+                    obj.medicalTravelCase1 = False
                 obj.medicalHistory = request.POST['medicalHistory']
 
-
-                if not  request.POST.get('medicalTravelCase2Yes', None) == None:
-                    obj.medicalTravelCase2 =True
-                if not  request.POST.get('medicalTravelCase2No', None) == None:
-                    obj.medicalTravelCase2 =False
+                if not request.POST.get('medicalTravelCase2Yes', None) == None:
+                    obj.medicalTravelCase2 = True
+                if not request.POST.get('medicalTravelCase2No', None) == None:
+                    obj.medicalTravelCase2 = False
                 obj.temperature = request.POST['temperature']
 
-                if not  request.POST.get('medicalTravelCase3Yes', None) == None:
-                    obj.medicalTravelCase3 =True
-                if not  request.POST.get('medicalTravelCase3No', None) == None:
-                    obj.medicalTravelCase3 =False
+                if not request.POST.get('medicalTravelCase3Yes', None) == None:
+                    obj.medicalTravelCase3 = True
+                if not request.POST.get('medicalTravelCase3No', None) == None:
+                    obj.medicalTravelCase3 = False
 
-
-                if not  request.POST.get('medicalTravelCase4Yes', None) == None:
-                    obj.medicalTravelCase4 =True
-                if not  request.POST.get('medicalTravelCase4No', None) == None:
-                    obj.medicalTravelCase4 =False
+                if not request.POST.get('medicalTravelCase4Yes', None) == None:
+                    obj.medicalTravelCase4 = True
+                if not request.POST.get('medicalTravelCase4No', None) == None:
+                    obj.medicalTravelCase4 = False
 
                 obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
 
                 obj.save()
 
-
-
-
                 return redirect('forms:allndtcovid19_')
-
-
-
 
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/covid_19.html', context)
-
 
 
 class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -3228,7 +3153,6 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['events'] = events
         return context
 
-
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
@@ -3241,15 +3165,15 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
                 objPSL57 = PSL57B()
-                objPSL57.candidate =candidate
-                objPSL57.category =category
-                objPSL57.guideline =guideline
-                objPSL57.event =event
+                objPSL57.candidate = candidate
+                objPSL57.category = category
+                objPSL57.guideline = guideline
+                objPSL57.event = event
 
-                if not  request.POST.get('contactMe', None) == None:
-                    objPSL57.contactMe =True
-                if not  request.POST.get('contactMe', None) == None:
-                    objPSL57.contactMe =False
+                if not request.POST.get('contactMe', None) == None:
+                    objPSL57.contactMe = True
+                if not request.POST.get('contactMe', None) == None:
+                    objPSL57.contactMe = False
 
                 objPSL57.cerAddress = request.POST['cerAddress']
                 objPSL57.pslCerAddress = request.POST['pslCerAddress']
@@ -3263,64 +3187,62 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
                 if not request.POST.get('MT', None) == None:
-                    objPSL57.NDTMethod ='MT'
+                    objPSL57.NDTMethod = 'MT'
 
                 if not request.POST.get('PT', None) == None:
-                    objPSL57.NDTMethod ='PT'
+                    objPSL57.NDTMethod = 'PT'
 
                 if not request.POST.get('RT', None) == None:
-                    objPSL57.NDTMethod ='RT'
+                    objPSL57.NDTMethod = 'RT'
 
                 if not request.POST.get('RI', None) == None:
-                    objPSL57.NDTMethod ='RI'
+                    objPSL57.NDTMethod = 'RI'
 
                 if not request.POST.get('UI', None) == None:
-                    objPSL57.NDTMethod ='UI'
+                    objPSL57.NDTMethod = 'UI'
 
                 if not request.POST.get('VT', None) == None:
-                    objPSL57.NDTMethod ='VT'
+                    objPSL57.NDTMethod = 'VT'
 
                 if not request.POST.get('CRT', None) == None:
-                    objPSL57.NDTMethod ='CRT'
+                    objPSL57.NDTMethod = 'CRT'
 
                 if not request.POST.get('TOFD', None) == None:
-                    objPSL57.NDTMethod ='TOFD'
+                    objPSL57.NDTMethod = 'TOFD'
 
                 if not request.POST.get('PAUT', None) == None:
-                    objPSL57.NDTMethod ='PAUT'
-
+                    objPSL57.NDTMethod = 'PAUT'
 
                 if not request.POST.get('one', None) == None:
-                    objPSL57.NDTLevel ='Level 1'
+                    objPSL57.NDTLevel = 'Level 1'
 
                 if not request.POST.get('two', None) == None:
-                    objPSL57.NDTLevel ='Level 2'
+                    objPSL57.NDTLevel = 'Level 2'
 
                 if not request.POST.get('three', None) == None:
-                    objPSL57.NDTLevel ='Level 3'
+                    objPSL57.NDTLevel = 'Level 3'
 
                 objPSL57.ifLevel3 = request.POST['ifLevel3']
                 objPSL57.categoriesOfCertification = request.POST['categoriesOfCertification']
                 objPSL57.recertification = request.POST['recertification']
                 objPSL57.preferredExaminationDateVenu = request.POST['preferredExaminationDateVenu']
 
-
                 objPSL57.nameAddressInvoice = request.POST['nameAddressInvoice']
                 objPSL57.paymentMethod = request.POST['paymentMethod']
                 if not request.POST.get('cheque', None) == None:
-                    objPSL57.cheque =True
+                    objPSL57.cheque = True
                 objPSL57.nameResponsible = request.POST['nameResponsible']
                 objPSL57.accommodation = request.POST['accommodation']
                 objPSL57.companyOrderReference = request.POST['companyOrderReference']
 
                 if not request.POST.get('visa', None) == None:
-                    objPSL57.creditCardPayment ='Visa'
+                    objPSL57.creditCardPayment = 'Visa'
                 if not request.POST.get('masterCard', None) == None:
-                    objPSL57.creditCardPayment ='MasterCard'
+                    objPSL57.creditCardPayment = 'MasterCard'
                 if not request.POST.get('amex', None) == None:
-                    objPSL57.creditCardPayment ='Amex'
+                    objPSL57.creditCardPayment = 'Amex'
                 if not request.POST.get('switch', None) == None:
-                    objPSL57.creditCardPayment ='Switch'
+                    objPSL57.creditCardPayment = 'Switch'
 
                 objPSL57.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
                 objPSL57.NameOnCard = request.POST['NameOnCard']
@@ -3391,7 +3313,6 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
             return render(request, 'forms/psl_57B.html', context)
 
 
-
 class AllPSL57BView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_psl_57b.html"
 
@@ -3401,32 +3322,31 @@ class AllPSL57BView(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['forms'] = forms
         return context
 
-class DeletePSL57B(SidebarMixin, LoginRequiredMixin,DeleteView):
+
+class DeletePSL57B(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = PSL57B
     success_url = reverse_lazy('forms:allpsl57b_')
-
 
 
 class UpdatePSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/update_psl_57B.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdatePSL57B, self).get_context_data()
         id = self.kwargs['id']
         form = PSL57B.objects.filter(id=id).first()
         context['form'] = form
         return context
 
-
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
 
                 objPSL57 = PSL57B.objects.filter(id=id).first()
-                if not  request.POST.get('contactMe', None) == None:
-                    objPSL57.contactMe =True
-                if not  request.POST.get('contactMe', None) == None:
-                    objPSL57.contactMe =False
+                if not request.POST.get('contactMe', None) == None:
+                    objPSL57.contactMe = True
+                if not request.POST.get('contactMe', None) == None:
+                    objPSL57.contactMe = False
 
                 objPSL57.cerAddress = request.POST['cerAddress']
                 objPSL57.pslCerAddress = request.POST['pslCerAddress']
@@ -3440,64 +3360,62 @@ class UpdatePSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
                 if not request.POST.get('MT', None) == None:
-                    objPSL57.NDTMethod ='MT'
+                    objPSL57.NDTMethod = 'MT'
 
                 if not request.POST.get('PT', None) == None:
-                    objPSL57.NDTMethod ='PT'
+                    objPSL57.NDTMethod = 'PT'
 
                 if not request.POST.get('RT', None) == None:
-                    objPSL57.NDTMethod ='RT'
+                    objPSL57.NDTMethod = 'RT'
 
                 if not request.POST.get('RI', None) == None:
-                    objPSL57.NDTMethod ='RI'
+                    objPSL57.NDTMethod = 'RI'
 
                 if not request.POST.get('UI', None) == None:
-                    objPSL57.NDTMethod ='UI'
+                    objPSL57.NDTMethod = 'UI'
 
                 if not request.POST.get('VT', None) == None:
-                    objPSL57.NDTMethod ='VT'
+                    objPSL57.NDTMethod = 'VT'
 
                 if not request.POST.get('CRT', None) == None:
-                    objPSL57.NDTMethod ='CRT'
+                    objPSL57.NDTMethod = 'CRT'
 
                 if not request.POST.get('TOFD', None) == None:
-                    objPSL57.NDTMethod ='TOFD'
+                    objPSL57.NDTMethod = 'TOFD'
 
                 if not request.POST.get('PAUT', None) == None:
-                    objPSL57.NDTMethod ='PAUT'
-
+                    objPSL57.NDTMethod = 'PAUT'
 
                 if not request.POST.get('one', None) == None:
-                    objPSL57.NDTLevel ='Level 1'
+                    objPSL57.NDTLevel = 'Level 1'
 
                 if not request.POST.get('two', None) == None:
-                    objPSL57.NDTLevel ='Level 2'
+                    objPSL57.NDTLevel = 'Level 2'
 
                 if not request.POST.get('three', None) == None:
-                    objPSL57.NDTLevel ='Level 3'
+                    objPSL57.NDTLevel = 'Level 3'
 
                 objPSL57.ifLevel3 = request.POST['ifLevel3']
                 objPSL57.categoriesOfCertification = request.POST['categoriesOfCertification']
                 objPSL57.recertification = request.POST['recertification']
                 objPSL57.preferredExaminationDateVenu = request.POST['preferredExaminationDateVenu']
 
-
                 objPSL57.nameAddressInvoice = request.POST['nameAddressInvoice']
                 objPSL57.paymentMethod = request.POST['paymentMethod']
                 if not request.POST.get('cheque', None) == None:
-                    objPSL57.cheque =True
+                    objPSL57.cheque = True
                 objPSL57.nameResponsible = request.POST['nameResponsible']
                 objPSL57.accommodation = request.POST['accommodation']
                 objPSL57.companyOrderReference = request.POST['companyOrderReference']
 
                 if not request.POST.get('visa', None) == None:
-                    objPSL57.creditCardPayment ='Visa'
+                    objPSL57.creditCardPayment = 'Visa'
                 if not request.POST.get('masterCard', None) == None:
-                    objPSL57.creditCardPayment ='MasterCard'
+                    objPSL57.creditCardPayment = 'MasterCard'
                 if not request.POST.get('amex', None) == None:
-                    objPSL57.creditCardPayment ='Amex'
+                    objPSL57.creditCardPayment = 'Amex'
                 if not request.POST.get('switch', None) == None:
-                    objPSL57.creditCardPayment ='Switch'
+                    objPSL57.creditCardPayment = 'Switch'
 
                 objPSL57.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
                 objPSL57.NameOnCard = request.POST['NameOnCard']
@@ -3531,28 +3449,21 @@ class UpdatePSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                     historyObj.save()
                     objPSL57.emphistory.add(historyObj)
 
-
                 return redirect('forms:allpsl57b_')
-
-
 
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/psl_57B.html', context)
 
 
-
-
 class ViewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/view_psl_57B.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(ViewPSL57B, self).get_context_data()
         id = self.kwargs['id']
         form = PSL57B.objects.filter(id=id).first()
         context['form'] = form
         return context
-
-
 
 
 class NewVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -3571,7 +3482,6 @@ class NewVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['events'] = events
         return context
 
-
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
@@ -3584,10 +3494,10 @@ class NewVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
                 visionObj = VisionTest()
-                visionObj.candidate =candidate
-                visionObj.category =category
-                visionObj.guideline =guideline
-                visionObj.event =event
+                visionObj.candidate = candidate
+                visionObj.category = category
+                visionObj.guideline = guideline
+                visionObj.event = event
                 #
                 # if not  request.POST.get('contactMe', None) == None:
                 #     objPSL57.contactMe =True
@@ -3602,27 +3512,25 @@ class NewVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
 
                 if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    visionObj.nearVisionAcuity = 'CORRECTED'
 
                 if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
-
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
                 if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                    visionObj.colourPerception = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
+                    visionObj.colourPerception = 'REJECT'
 
                 if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                    visionObj.shadesOfGrey = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                    visionObj.shadesOfGrey = 'shageReject'
 
                 visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
                 visionObj.recognisedName = request.POST['recognisedName']
@@ -3631,13 +3539,6 @@ class NewVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
 
                 visionObj.save()
-
-
-
-
-
-
-
 
                 formListObj = FormList()
                 formListObj.name = visionObj.__class__.__name__
@@ -3685,16 +3586,16 @@ class AllVisionTestView(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['forms'] = forms
         return context
 
-class DeleteVisionTest(SidebarMixin, LoginRequiredMixin,DeleteView):
+
+class DeleteVisionTest(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = VisionTest
     success_url = reverse_lazy('forms:allisiontest_')
-
 
 
 class ViewVitionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/vision_test_view.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(ViewVitionTest, self).get_context_data()
         id = self.kwargs['id']
         form = VisionTest.objects.filter(id=id).first()
@@ -3702,18 +3603,17 @@ class ViewVitionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-
 class updateVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/vision_test_update.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(updateVisionTest, self).get_context_data()
         id = self.kwargs['id']
         form = VisionTest.objects.filter(id=id).first()
         context['form'] = form
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Git Test")
@@ -3730,26 +3630,25 @@ class updateVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
 
                 if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    visionObj.nearVisionAcuity = 'CORRECTED'
 
                 if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
                 if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                    visionObj.colourPerception = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
+                    visionObj.colourPerception = 'REJECT'
 
                 if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                    visionObj.shadesOfGrey = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                    visionObj.shadesOfGrey = 'shageReject'
 
                 visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
                 visionObj.recognisedName = request.POST['recognisedName']
@@ -3759,19 +3658,9 @@ class updateVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 visionObj.save()
 
-
-
-
-
-
-
-
                 return redirect('forms:allisiontest_')
 
-
-
             return render(request, 'forms/vision_test.html', context)
-
 
 
 class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -3790,7 +3679,6 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
         context['events'] = events
         return context
 
-
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
@@ -3806,10 +3694,9 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
 
                 examObj = TesFrmExaminationAttendance()
                 # examObj.candidate =candidate
-                examObj.category =category
-                examObj.guideline =guideline
-                examObj.event =event
-
+                examObj.category = category
+                examObj.guideline = guideline
+                examObj.event = event
 
                 examObj.examTitleCode = request.POST['examTitleCode']
                 examObj.venue = request.POST['venue']
@@ -3820,37 +3707,29 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
 
                 #
 
-                for idx, item in enumerate(range(0,2)):
+                for idx, item in enumerate(range(0, 2)):
                     print(idx)
-                    fullName = request.POST["canName" + str(idx+1) ].split(' ')
+                    fullName = request.POST["canName" + str(idx + 1)].split(' ')
                     print(fullName)
                     if len(fullName) == 2:
-                        candidate = TesCandidate.objects.filter(Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
+                        candidate = TesCandidate.objects.filter(
+                            Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
                         print(candidate.first_name)
 
                     elif len(fullName) == 3:
-                        candidate = TesCandidate.objects.filter(Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
+                        candidate = TesCandidate.objects.filter(
+                            Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
                         print(candidate.first_name)
 
                     if candidate:
                         canObj = TesFrmCandidate()
                         canObj.candidate = candidate
-                        canObj.testSequence = request.POST['testSequence'+ str(idx+1) ]
-                        canObj.methodOfExam = request.POST['methodOfExam'+ str(idx+1) ]
-                        canObj.scheme = request.POST['scheme'+ str(idx+1) ]
-                        canObj.remark = request.POST['remark'+ str(idx+1) ]
+                        canObj.testSequence = request.POST['testSequence' + str(idx + 1)]
+                        canObj.methodOfExam = request.POST['methodOfExam' + str(idx + 1)]
+                        canObj.scheme = request.POST['scheme' + str(idx + 1)]
+                        canObj.remark = request.POST['remark' + str(idx + 1)]
                         canObj.save()
                         examObj.tesFrmCandidate.add(canObj)
-
-
-
-
-
-
-
-
-
-
 
                 formListObj = FormList()
                 formListObj.name = examObj.__class__.__name__
@@ -3900,24 +3779,22 @@ class AllTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
         return context
 
 
-class DeleteTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin,DeleteView):
+class DeleteTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = TesFrmExaminationAttendance
     success_url = reverse_lazy('forms:alltesfrmexamattend_')
-
-
 
 
 class UpdateTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/update_TES-TES-FRM-008_examination_attendance.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateTesFrmExaminationAttendance, self).get_context_data()
         id = self.kwargs['id']
         form = TesFrmExaminationAttendance.objects.filter(id=id).first()
         context['form'] = form
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Git Test")
@@ -3934,26 +3811,25 @@ class UpdateTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, Templa
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
 
                 if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    visionObj.nearVisionAcuity = 'CORRECTED'
 
                 if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
                 if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                    visionObj.colourPerception = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
+                    visionObj.colourPerception = 'REJECT'
 
                 if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                    visionObj.shadesOfGrey = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                    visionObj.shadesOfGrey = 'shageReject'
 
                 visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
                 visionObj.recognisedName = request.POST['recognisedName']
@@ -3963,32 +3839,20 @@ class UpdateTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, Templa
 
                 visionObj.save()
 
-
-
-
-
-
-
-
                 return redirect('forms:allisiontest_')
 
-
-
             return render(request, 'forms/vision_test.html', context)
-
-
 
 
 class ViewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/view_TES-TES-FRM-008_examination_attendance.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(ViewTesFrmExaminationAttendance, self).get_context_data()
         id = self.kwargs['id']
         form = VisionTest.objects.filter(id=id).first()
         context['form'] = form
         return context
-
 
 
 class NewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -4007,7 +3871,6 @@ class NewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['events'] = events
         return context
 
-
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
@@ -4020,138 +3883,136 @@ class NewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
                 lecObj = TesLecFeedbackFrom()
-                lecObj.candidate =candidate
-                lecObj.category =category
-                lecObj.guideline =guideline
-                lecObj.event =event
+                lecObj.candidate = candidate
+                lecObj.category = category
+                lecObj.guideline = guideline
+                lecObj.event = event
 
                 lecObj.courseName = event
                 lecObj.lecturerName = request.POST['lecName']
                 lecObj.location = request.POST['location']
                 lecObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
 
-
                 if not request.POST.get('case11', None) == None:
-                    lecObj.knowledge ='1'
+                    lecObj.knowledge = '1'
                 if not request.POST.get('case12', None) == None:
-                    lecObj.knowledge ='2'
+                    lecObj.knowledge = '2'
                 if not request.POST.get('case13', None) == None:
-                    lecObj.knowledge ='3'
+                    lecObj.knowledge = '3'
                 if not request.POST.get('case14', None) == None:
-                    lecObj.knowledge ='4'
+                    lecObj.knowledge = '4'
                 if not request.POST.get('case15', None) == None:
-                    lecObj.knowledge ='5'
+                    lecObj.knowledge = '5'
 
                 if not request.POST.get('case21', None) == None:
-                    lecObj.teachingMethod ='1'
+                    lecObj.teachingMethod = '1'
                 if not request.POST.get('case22', None) == None:
-                    lecObj.teachingMethod ='2'
+                    lecObj.teachingMethod = '2'
                 if not request.POST.get('case23', None) == None:
-                    lecObj.teachingMethod ='3'
+                    lecObj.teachingMethod = '3'
                 if not request.POST.get('case24', None) == None:
-                    lecObj.teachingMethod ='4'
+                    lecObj.teachingMethod = '4'
                 if not request.POST.get('case25', None) == None:
-                    lecObj.teachingMethod ='5'
+                    lecObj.teachingMethod = '5'
 
                 if not request.POST.get('case31', None) == None:
-                    lecObj.abilityToAnswer ='1'
+                    lecObj.abilityToAnswer = '1'
                 if not request.POST.get('case32', None) == None:
-                    lecObj.abilityToAnswer ='2'
+                    lecObj.abilityToAnswer = '2'
                 if not request.POST.get('case33', None) == None:
-                    lecObj.abilityToAnswer ='3'
+                    lecObj.abilityToAnswer = '3'
                 if not request.POST.get('case34', None) == None:
-                    lecObj.abilityToAnswer ='4'
+                    lecObj.abilityToAnswer = '4'
                 if not request.POST.get('case35', None) == None:
-                    lecObj.abilityToAnswer ='5'
+                    lecObj.abilityToAnswer = '5'
 
                 if not request.POST.get('case41', None) == None:
-                    lecObj.usefulExample ='1'
+                    lecObj.usefulExample = '1'
                 if not request.POST.get('case42', None) == None:
-                    lecObj.usefulExample ='2'
+                    lecObj.usefulExample = '2'
                 if not request.POST.get('case43', None) == None:
-                    lecObj.usefulExample ='3'
+                    lecObj.usefulExample = '3'
                 if not request.POST.get('case44', None) == None:
-                    lecObj.usefulExample ='4'
+                    lecObj.usefulExample = '4'
                 if not request.POST.get('case45', None) == None:
-                    lecObj.usefulExample ='5'
+                    lecObj.usefulExample = '5'
 
                 if not request.POST.get('case51', None) == None:
-                    lecObj.industrialExperience ='1'
+                    lecObj.industrialExperience = '1'
                 if not request.POST.get('case52', None) == None:
-                    lecObj.industrialExperience ='2'
+                    lecObj.industrialExperience = '2'
                 if not request.POST.get('case53', None) == None:
-                    lecObj.industrialExperience ='3'
+                    lecObj.industrialExperience = '3'
                 if not request.POST.get('case54', None) == None:
-                    lecObj.industrialExperience ='4'
+                    lecObj.industrialExperience = '4'
                 if not request.POST.get('case55', None) == None:
-                    lecObj.industrialExperience ='5'
+                    lecObj.industrialExperience = '5'
 
                 if not request.POST.get('case61', None) == None:
-                    lecObj.appropriateAids ='1'
+                    lecObj.appropriateAids = '1'
                 if not request.POST.get('case62', None) == None:
-                    lecObj.appropriateAids ='2'
+                    lecObj.appropriateAids = '2'
                 if not request.POST.get('case63', None) == None:
-                    lecObj.appropriateAids ='3'
+                    lecObj.appropriateAids = '3'
                 if not request.POST.get('case64', None) == None:
-                    lecObj.appropriateAids ='4'
+                    lecObj.appropriateAids = '4'
                 if not request.POST.get('case65', None) == None:
-                    lecObj.appropriateAids ='5'
-
+                    lecObj.appropriateAids = '5'
 
                 if not request.POST.get('case71', None) == None:
-                    lecObj.transposition ='1'
+                    lecObj.transposition = '1'
                 if not request.POST.get('case72', None) == None:
-                    lecObj.transposition ='2'
+                    lecObj.transposition = '2'
                 if not request.POST.get('case73', None) == None:
-                    lecObj.transposition ='3'
+                    lecObj.transposition = '3'
                 if not request.POST.get('case74', None) == None:
-                    lecObj.transposition ='4'
+                    lecObj.transposition = '4'
                 if not request.POST.get('case75', None) == None:
-                    lecObj.transposition ='5'
+                    lecObj.transposition = '5'
 
                 if not request.POST.get('case81', None) == None:
-                    lecObj.participantsAttraction ='1'
+                    lecObj.participantsAttraction = '1'
                 if not request.POST.get('case82', None) == None:
-                    lecObj.participantsAttraction ='2'
+                    lecObj.participantsAttraction = '2'
                 if not request.POST.get('case83', None) == None:
-                    lecObj.participantsAttraction ='3'
+                    lecObj.participantsAttraction = '3'
                 if not request.POST.get('case84', None) == None:
-                    lecObj.participantsAttraction ='4'
+                    lecObj.participantsAttraction = '4'
                 if not request.POST.get('case85', None) == None:
-                    lecObj.participantsAttraction ='5'
+                    lecObj.participantsAttraction = '5'
 
                 if not request.POST.get('case91', None) == None:
-                    lecObj.ControllingTheClass ='1'
+                    lecObj.ControllingTheClass = '1'
                 if not request.POST.get('case92', None) == None:
-                    lecObj.ControllingTheClass ='2'
+                    lecObj.ControllingTheClass = '2'
                 if not request.POST.get('case93', None) == None:
-                    lecObj.ControllingTheClass ='3'
+                    lecObj.ControllingTheClass = '3'
                 if not request.POST.get('case94', None) == None:
-                    lecObj.ControllingTheClass ='4'
+                    lecObj.ControllingTheClass = '4'
                 if not request.POST.get('case95', None) == None:
-                    lecObj.ControllingTheClass ='5'
+                    lecObj.ControllingTheClass = '5'
 
                 if not request.POST.get('case101', None) == None:
-                    lecObj.punctuality ='1'
+                    lecObj.punctuality = '1'
                 if not request.POST.get('case102', None) == None:
-                    lecObj.punctuality ='2'
+                    lecObj.punctuality = '2'
                 if not request.POST.get('case103', None) == None:
-                    lecObj.punctuality ='3'
+                    lecObj.punctuality = '3'
                 if not request.POST.get('case104', None) == None:
-                    lecObj.punctuality ='4'
+                    lecObj.punctuality = '4'
                 if not request.POST.get('case105', None) == None:
-                    lecObj.punctuality ='5'
+                    lecObj.punctuality = '5'
 
                 if not request.POST.get('case111', None) == None:
-                    lecObj.generalBehaviour ='1'
+                    lecObj.generalBehaviour = '1'
                 if not request.POST.get('case112', None) == None:
-                    lecObj.generalBehaviour ='2'
+                    lecObj.generalBehaviour = '2'
                 if not request.POST.get('case113', None) == None:
-                    lecObj.generalBehaviour ='3'
+                    lecObj.generalBehaviour = '3'
                 if not request.POST.get('case114', None) == None:
-                    lecObj.generalBehaviour ='4'
+                    lecObj.generalBehaviour = '4'
                 if not request.POST.get('case115', None) == None:
-                    lecObj.generalBehaviour ='5'
+                    lecObj.generalBehaviour = '5'
 
                 lecObj.knowledgeComment = request.POST['comment1']
                 lecObj.teachingMethodComment = request.POST['comment2']
@@ -4167,17 +4028,7 @@ class NewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 lecObj.anyComments = request.POST['comment']
 
-
-
-
                 lecObj.save()
-
-
-
-
-
-
-
 
                 formListObj = FormList()
                 formListObj.name = lecObj.__class__.__name__
@@ -4226,26 +4077,22 @@ class AllLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-
-class DeleteLecFeedbackForm(SidebarMixin, LoginRequiredMixin,DeleteView):
+class DeleteLecFeedbackForm(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = TesLecFeedbackFrom
     success_url = reverse_lazy('forms:alllecfedform_')
-
-
-
 
 
 class UpdateLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/update_lect_feedback_form.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateLecFeedbackForm, self).get_context_data()
         id = self.kwargs['id']
         form = TesFrmExaminationAttendance.objects.filter(id=id).first()
         context['form'] = form
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Git Test")
@@ -4262,26 +4109,25 @@ class UpdateLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
 
                 if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    visionObj.nearVisionAcuity = 'CORRECTED'
 
                 if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
                 if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                    visionObj.colourPerception = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
+                    visionObj.colourPerception = 'REJECT'
 
                 if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                    visionObj.shadesOfGrey = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                    visionObj.shadesOfGrey = 'shageReject'
 
                 visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
                 visionObj.recognisedName = request.POST['recognisedName']
@@ -4291,26 +4137,15 @@ class UpdateLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 visionObj.save()
 
-
-
-
-
-
-
-
                 return redirect('forms:allisiontest_')
 
-
-
             return render(request, 'forms/vision_test.html', context)
-
-
 
 
 class ViewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/update_lect_feedback_form.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(ViewLecFeedbackForm, self).get_context_data()
         id = self.kwargs['id']
         form = VisionTest.objects.filter(id=id).first()
@@ -4318,23 +4153,19 @@ class ViewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-
 class NewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/general/training_attendance.html"
 
     def get_context_data(self):
         context = super(NewTrainingAttendance, self).get_context_data()
-        candidates = TesCandidate.objects.all().order_by('first_name', 'last_name')
         events = Event.objects.all()
         categories = Category.objects.all()
         guidelines = Guideline.objects.all()
 
         context['categories'] = categories
         context['guidelines'] = guidelines
-        context['candidates'] = candidates
         context['events'] = events
         return context
-
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
@@ -4345,99 +4176,102 @@ class NewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
                 category = Category.objects.filter(id=categoryID).first()
                 guideline = Guideline.objects.filter(id=guidelineID).first()
                 event = Event.objects.filter(id=eventID).first()
-                candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
-                visionObj = VisionTest()
-                visionObj.candidate =candidate
-                visionObj.category =category
-                visionObj.guideline =guideline
-                visionObj.event =event
+                attObj = TrainingAttendance()
+                attObj.category = category
+                attObj.guideline = guideline
+                attObj.event = event
+
+                attObj.examTitleCode =  request.POST['examTitleCode']
+                attObj.venue =  request.POST['venue']
+                attObj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                attObj.lecturerName =   request.POST['lecturerName']
+
                 #
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =True
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =False
+                # if not request.POST.get('uncorrected', None) == None:
+                #     visionObj.nearVisionAcuity = 'UNCORRECTED'
 
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
-                visionObj.email = request.POST['email']
-                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
-                visionObj.tumbling = request.POST['tumbling']
+                attObj.save()
 
-                if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                for idx, item in enumerate(range(0, 8)):
+                    print(idx)
+                    fullName = request.POST["canName" + str(idx + 1)].split(' ')
+                    print(fullName)
+                    if len(fullName) == 2:
+                        candidate = TesCandidate.objects.filter(
+                            Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
+                        print(candidate.first_name)
 
-                if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    elif len(fullName) == 3:
+                        candidate = TesCandidate.objects.filter(
+                            Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
+                        print(candidate.first_name)
 
-                if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                    if len(fullName) > 1:
+                        canObj = TesAttCandidate()
+                        canObj.candidate = candidate
+                        canObj.testSequence = request.POST['testSequence' + str(idx + 1)]
+                        if not request.POST.get('dayOneSec1'+ str(idx + 1), None) == None:
+                            canObj.dayOneSec1 = True
+                        if not request.POST.get('dayOneSec2'+ str(idx + 1), None) == None:
+                            canObj.dayOneSec2 = True
+                        if not request.POST.get('dayOneSec3'+ str(idx + 1), None) == None:
+                            canObj.dayOneSec3 = True
+                        if not request.POST.get('dayOneSec4'+ str(idx + 1), None) == None:
+                            canObj.dayOneSec4 = True
 
+                        if not request.POST.get('dayTwoSec1'+ str(idx + 1), None) == None:
+                            canObj.dayTwoSec1 = True
+                        if not request.POST.get('dayTwoSec2'+ str(idx + 1), None) == None:
+                            canObj.dayTwoSec2 = True
+                        if not request.POST.get('dayTwoSec3'+ str(idx + 1), None) == None:
+                            canObj.dayTwoSec3 = True
+                        if not request.POST.get('dayTwoSec1'+ str(idx + 1), None) == None:
+                            canObj.dayTwoSec1 = True
 
-                if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
-
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
-
-                if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
-
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
-
-                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
-                visionObj.recognisedName = request.POST['recognisedName']
-                visionObj.recognisedPhone = request.POST['recognisedPhone']
-                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
-                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
-
-                visionObj.save()
-
-
-
-
-
-
+                        if not request.POST.get('dayThreeSec1'+ str(idx + 1), None) == None:
+                            canObj.dayThreeSec1 = True
+                        if not request.POST.get('dayThreeSec2'+ str(idx + 1), None) == None:
+                            canObj.dayThreeSec2 = True
+                        if not request.POST.get('dayThreeSec3'+ str(idx + 1), None) == None:
+                            canObj.dayThreeSec3 = True
+                        if not request.POST.get('dayThreeSec4'+ str(idx + 1), None) == None:
+                            canObj.dayThreeSec4 = True
+                        canObj.save()
+                        attObj.attCandidate.add(canObj)
 
 
                 formListObj = FormList()
-                formListObj.name = visionObj.__class__.__name__
+                formListObj.name = attObj.__class__.__name__
                 formListObj.event = event
-                formListObj.candidate = candidate
+                # formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
-                formListObj.FormID = visionObj.id
+                formListObj.FormID = attObj.id
                 formListObj.save()
 
-                return redirect('forms:allisiontest_')
+                return redirect('forms:alltrainingatt_')
 
             else:
-                print('Here')
+                print('Here Friday')
                 # if request.FILES.get('file', False):
-                canID = request.POST['canID']
+
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
                 guidelineID = request.POST['guidelineID']
-                print(canID)
 
-                candidate = TesCandidate.objects.filter(id=canID).first()
                 event = Event.objects.filter(id=eventID).first()
                 category = Category.objects.filter(id=categoryID).first()
                 guideline = Guideline.objects.filter(id=guidelineID).first()
-                self.candidateID = candidate.id
-                print(self.candidateID)
-                context = super(NewPSL57B, self).get_context_data()
-                context['candidate'] = candidate
+
+                context = super(NewTrainingAttendance, self).get_context_data()
+
                 context['category'] = category
                 context['event'] = event
                 context['guideline'] = guideline
 
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/psl_57B.html', context)
-
+            return render(request, 'forms/general/training_attendance.html', context)
 
 
 class AllTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -4450,26 +4284,22 @@ class AllTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-
-class DeleteTrainingAttendance(SidebarMixin, LoginRequiredMixin,DeleteView):
+class DeleteTrainingAttendance(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = TrainingAttendance
     success_url = reverse_lazy('forms:alltrainingatt_')
-
-
-
 
 
 class UpdateTrainingAttendancem(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/update_TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateTrainingAttendancem, self).get_context_data()
         id = self.kwargs['id']
         form = TesFrmExaminationAttendance.objects.filter(id=id).first()
         context['form'] = form
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Git Test")
@@ -4486,26 +4316,25 @@ class UpdateTrainingAttendancem(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
 
                 if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    visionObj.nearVisionAcuity = 'CORRECTED'
 
                 if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
                 if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                    visionObj.colourPerception = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
+                    visionObj.colourPerception = 'REJECT'
 
                 if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                    visionObj.shadesOfGrey = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                    visionObj.shadesOfGrey = 'shageReject'
 
                 visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
                 visionObj.recognisedName = request.POST['recognisedName']
@@ -4515,26 +4344,15 @@ class UpdateTrainingAttendancem(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 visionObj.save()
 
-
-
-
-
-
-
-
                 return redirect('forms:allisiontest_')
 
-
-
             return render(request, 'forms/vision_test.html', context)
-
-
 
 
 class ViewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/view_TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(ViewTrainingAttendance, self).get_context_data()
         id = self.kwargs['id']
         form = VisionTest.objects.filter(id=id).first()
@@ -4542,9 +4360,7 @@ class ViewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-
-
-class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/general/training_feedback.html"
 
     def get_context_data(self):
@@ -4560,7 +4376,6 @@ class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
         context['events'] = events
         return context
 
-
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             print("Test Hello")
@@ -4574,10 +4389,10 @@ class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
                 trainingObj = TwiTrainingFeedback()
-                trainingObj.candidate =candidate
+                trainingObj.candidate = candidate
                 # trainingObj.category =category
                 # trainingObj.guideline =guideline
-                trainingObj.event =event
+                trainingObj.event = event
 
                 trainingObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
                 trainingObj.lecturerName = request.POST['lecturerName']
@@ -4588,476 +4403,450 @@ class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
                 trainingObj.email = request.POST['email']
 
                 if not request.POST.get('bookingProcess1', None) == None:
-                    trainingObj.bookingProcess ='1'
+                    trainingObj.bookingProcess = '1'
                 if not request.POST.get('bookingProcess2', None) == None:
-                    trainingObj.bookingProcess ='2'
+                    trainingObj.bookingProcess = '2'
                 if not request.POST.get('bookingProcess3', None) == None:
-                    trainingObj.bookingProcess ='3'
+                    trainingObj.bookingProcess = '3'
                 if not request.POST.get('bookingProcess4', None) == None:
-                    trainingObj.bookingProcess ='4'
+                    trainingObj.bookingProcess = '4'
                 if not request.POST.get('bookingProcess5', None) == None:
-                    trainingObj.bookingProcess ='5'
+                    trainingObj.bookingProcess = '5'
                 if not request.POST.get('bookingProcess6', None) == None:
-                    trainingObj.bookingProcess ='6'
+                    trainingObj.bookingProcess = '6'
                 if not request.POST.get('bookingProcess7', None) == None:
-                    trainingObj.bookingProcess ='7'
+                    trainingObj.bookingProcess = '7'
                 if not request.POST.get('bookingProcess8', None) == None:
-                    trainingObj.bookingProcess ='8'
+                    trainingObj.bookingProcess = '8'
                 if not request.POST.get('bookingProcess9', None) == None:
-                    trainingObj.bookingProcess ='9'
+                    trainingObj.bookingProcess = '9'
                 if not request.POST.get('bookingProcess10', None) == None:
-                    trainingObj.bookingProcess ='10'
-
+                    trainingObj.bookingProcess = '10'
 
                 if not request.POST.get('joiningInstructions1', None) == None:
-                    trainingObj.joiningInstructions ='1'
+                    trainingObj.joiningInstructions = '1'
                 if not request.POST.get('joiningInstructions2', None) == None:
-                    trainingObj.joiningInstructions ='2'
+                    trainingObj.joiningInstructions = '2'
                 if not request.POST.get('joiningInstructions1', None) == None:
-                    trainingObj.joiningInstructions ='3'
+                    trainingObj.joiningInstructions = '3'
                 if not request.POST.get('joiningInstructions4', None) == None:
-                    trainingObj.joiningInstructions ='4'
+                    trainingObj.joiningInstructions = '4'
                 if not request.POST.get('joiningInstructions5', None) == None:
-                    trainingObj.joiningInstructions ='5'
+                    trainingObj.joiningInstructions = '5'
                 if not request.POST.get('joiningInstructions6', None) == None:
-                    trainingObj.joiningInstructions ='6'
+                    trainingObj.joiningInstructions = '6'
                 if not request.POST.get('joiningInstructions7', None) == None:
-                    trainingObj.joiningInstructions ='7'
+                    trainingObj.joiningInstructions = '7'
                 if not request.POST.get('joiningInstructions8', None) == None:
-                    trainingObj.joiningInstructions ='8'
+                    trainingObj.joiningInstructions = '8'
                 if not request.POST.get('joiningInstructions9', None) == None:
-                    trainingObj.joiningInstructions ='9'
+                    trainingObj.joiningInstructions = '9'
                 if not request.POST.get('joiningInstructions10', None) == None:
-                    trainingObj.joiningInstructions ='10'
-
+                    trainingObj.joiningInstructions = '10'
 
                 if not request.POST.get('trainingEnvironment1', None) == None:
-                    trainingObj.trainingEnvironment ='1'
+                    trainingObj.trainingEnvironment = '1'
                 if not request.POST.get('trainingEnvironment2', None) == None:
-                    trainingObj.trainingEnvironment ='2'
+                    trainingObj.trainingEnvironment = '2'
                 if not request.POST.get('trainingEnvironment3', None) == None:
-                    trainingObj.trainingEnvironment ='3'
+                    trainingObj.trainingEnvironment = '3'
                 if not request.POST.get('trainingEnvironment4', None) == None:
-                    trainingObj.trainingEnvironment ='4'
+                    trainingObj.trainingEnvironment = '4'
                 if not request.POST.get('trainingEnvironment5', None) == None:
-                    trainingObj.trainingEnvironment ='5'
+                    trainingObj.trainingEnvironment = '5'
                 if not request.POST.get('trainingEnvironment6', None) == None:
-                    trainingObj.trainingEnvironment ='6'
+                    trainingObj.trainingEnvironment = '6'
                 if not request.POST.get('trainingEnvironment7', None) == None:
-                    trainingObj.trainingEnvironment ='7'
+                    trainingObj.trainingEnvironment = '7'
                 if not request.POST.get('trainingEnvironment8', None) == None:
-                    trainingObj.trainingEnvironment ='8'
+                    trainingObj.trainingEnvironment = '8'
                 if not request.POST.get('trainingEnvironment9', None) == None:
-                    trainingObj.trainingEnvironment ='9'
+                    trainingObj.trainingEnvironment = '9'
                 if not request.POST.get('trainingEnvironment10', None) == None:
-                    trainingObj.trainingEnvironment ='10'
-
+                    trainingObj.trainingEnvironment = '10'
 
                 if not request.POST.get('objectivesCourse1', None) == None:
-                    trainingObj.objectivesCourse ='1'
+                    trainingObj.objectivesCourse = '1'
                 if not request.POST.get('objectivesCourse2', None) == None:
-                    trainingObj.objectivesCourse ='2'
+                    trainingObj.objectivesCourse = '2'
                 if not request.POST.get('objectivesCourse3', None) == None:
-                    trainingObj.objectivesCourse ='3'
+                    trainingObj.objectivesCourse = '3'
                 if not request.POST.get('objectivesCourse4', None) == None:
-                    trainingObj.objectivesCourse ='4'
+                    trainingObj.objectivesCourse = '4'
                 if not request.POST.get('objectivesCourse5', None) == None:
-                    trainingObj.objectivesCourse ='5'
+                    trainingObj.objectivesCourse = '5'
                 if not request.POST.get('objectivesCourse6', None) == None:
-                    trainingObj.objectivesCourse ='6'
+                    trainingObj.objectivesCourse = '6'
                 if not request.POST.get('objectivesCourse7', None) == None:
-                    trainingObj.objectivesCourse ='7'
+                    trainingObj.objectivesCourse = '7'
                 if not request.POST.get('objectivesCourse8', None) == None:
-                    trainingObj.objectivesCourse ='8'
+                    trainingObj.objectivesCourse = '8'
                 if not request.POST.get('objectivesCourse9', None) == None:
-                    trainingObj.objectivesCourse ='9'
+                    trainingObj.objectivesCourse = '9'
                 if not request.POST.get('objectivesCourse10', None) == None:
-                    trainingObj.objectivesCourse ='10'
-
-
+                    trainingObj.objectivesCourse = '10'
 
                 if not request.POST.get('tutorLecturer1', None) == None:
-                    trainingObj.tutorLecturer ='1'
+                    trainingObj.tutorLecturer = '1'
                 if not request.POST.get('tutorLecturer2', None) == None:
-                    trainingObj.tutorLecturer ='2'
+                    trainingObj.tutorLecturer = '2'
                 if not request.POST.get('tutorLecturer3', None) == None:
-                    trainingObj.tutorLecturer ='3'
+                    trainingObj.tutorLecturer = '3'
                 if not request.POST.get('tutorLecturer4', None) == None:
-                    trainingObj.tutorLecturer ='4'
+                    trainingObj.tutorLecturer = '4'
                 if not request.POST.get('tutorLecturer5', None) == None:
-                    trainingObj.tutorLecturer ='5'
+                    trainingObj.tutorLecturer = '5'
                 if not request.POST.get('tutorLecturer6', None) == None:
-                    trainingObj.tutorLecturer ='6'
+                    trainingObj.tutorLecturer = '6'
                 if not request.POST.get('tutorLecturer7', None) == None:
-                    trainingObj.tutorLecturer ='7'
+                    trainingObj.tutorLecturer = '7'
                 if not request.POST.get('tutorLecturer8', None) == None:
-                    trainingObj.tutorLecturer ='8'
+                    trainingObj.tutorLecturer = '8'
                 if not request.POST.get('tutorLecturer9', None) == None:
-                    trainingObj.tutorLecturer ='9'
+                    trainingObj.tutorLecturer = '9'
                 if not request.POST.get('tutorLecturer10', None) == None:
-                    trainingObj.tutorLecturer ='10'
-
-
+                    trainingObj.tutorLecturer = '10'
 
                 if not request.POST.get('principlesExplained1', None) == None:
-                    trainingObj.principlesExplained ='1'
+                    trainingObj.principlesExplained = '1'
                 if not request.POST.get('principlesExplained2', None) == None:
-                    trainingObj.principlesExplained ='2'
+                    trainingObj.principlesExplained = '2'
                 if not request.POST.get('principlesExplained3', None) == None:
-                    trainingObj.principlesExplained ='3'
+                    trainingObj.principlesExplained = '3'
                 if not request.POST.get('principlesExplained4', None) == None:
-                    trainingObj.principlesExplained ='4'
+                    trainingObj.principlesExplained = '4'
                 if not request.POST.get('principlesExplained5', None) == None:
-                    trainingObj.principlesExplained ='5'
+                    trainingObj.principlesExplained = '5'
                 if not request.POST.get('principlesExplained6', None) == None:
-                    trainingObj.principlesExplained ='6'
+                    trainingObj.principlesExplained = '6'
                 if not request.POST.get('principlesExplained7', None) == None:
-                    trainingObj.principlesExplained ='7'
+                    trainingObj.principlesExplained = '7'
                 if not request.POST.get('principlesExplained8', None) == None:
-                    trainingObj.principlesExplained ='8'
+                    trainingObj.principlesExplained = '8'
                 if not request.POST.get('principlesExplained9', None) == None:
-                    trainingObj.principlesExplained ='9'
+                    trainingObj.principlesExplained = '9'
                 if not request.POST.get('principlesExplained10', None) == None:
-                    trainingObj.principlesExplained ='10'
-
-
+                    trainingObj.principlesExplained = '10'
 
                 if not request.POST.get('questionsAnswered1', None) == None:
-                    trainingObj.questionsAnswered ='1'
+                    trainingObj.questionsAnswered = '1'
                 if not request.POST.get('questionsAnswered2', None) == None:
-                    trainingObj.questionsAnswered ='2'
+                    trainingObj.questionsAnswered = '2'
                 if not request.POST.get('questionsAnswered3', None) == None:
-                    trainingObj.questionsAnswered ='3'
+                    trainingObj.questionsAnswered = '3'
                 if not request.POST.get('questionsAnswered4', None) == None:
-                    trainingObj.questionsAnswered ='4'
+                    trainingObj.questionsAnswered = '4'
                 if not request.POST.get('questionsAnswered5', None) == None:
-                    trainingObj.questionsAnswered ='5'
+                    trainingObj.questionsAnswered = '5'
                 if not request.POST.get('questionsAnswered6', None) == None:
-                    trainingObj.questionsAnswered ='6'
+                    trainingObj.questionsAnswered = '6'
                 if not request.POST.get('questionsAnswered7', None) == None:
-                    trainingObj.questionsAnswered ='7'
+                    trainingObj.questionsAnswered = '7'
                 if not request.POST.get('questionsAnswered8', None) == None:
-                    trainingObj.questionsAnswered ='8'
+                    trainingObj.questionsAnswered = '8'
                 if not request.POST.get('questionsAnswered9', None) == None:
-                    trainingObj.questionsAnswered ='9'
+                    trainingObj.questionsAnswered = '9'
                 if not request.POST.get('questionsAnswered10', None) == None:
-                    trainingObj.questionsAnswered ='10'
-
+                    trainingObj.questionsAnswered = '10'
 
                 if not request.POST.get('audience1', None) == None:
-                    trainingObj.audience ='1'
+                    trainingObj.audience = '1'
                 if not request.POST.get('audience2', None) == None:
-                    trainingObj.audience ='2'
+                    trainingObj.audience = '2'
                 if not request.POST.get('audience3', None) == None:
-                    trainingObj.audience ='3'
+                    trainingObj.audience = '3'
                 if not request.POST.get('audience4', None) == None:
-                    trainingObj.audience ='4'
+                    trainingObj.audience = '4'
                 if not request.POST.get('audience5', None) == None:
-                    trainingObj.audience ='5'
+                    trainingObj.audience = '5'
                 if not request.POST.get('audience6', None) == None:
-                    trainingObj.audience ='6'
+                    trainingObj.audience = '6'
                 if not request.POST.get('audience7', None) == None:
-                    trainingObj.audience ='7'
+                    trainingObj.audience = '7'
                 if not request.POST.get('audience8', None) == None:
-                    trainingObj.audience ='8'
+                    trainingObj.audience = '8'
                 if not request.POST.get('audience9', None) == None:
-                    trainingObj.audience ='9'
+                    trainingObj.audience = '9'
                 if not request.POST.get('audience10', None) == None:
-                    trainingObj.audience ='10'
-
+                    trainingObj.audience = '10'
 
                 if not request.POST.get('atmosphere1', None) == None:
-                    trainingObj.atmosphere ='1'
+                    trainingObj.atmosphere = '1'
                 if not request.POST.get('atmosphere2', None) == None:
-                    trainingObj.atmosphere ='2'
+                    trainingObj.atmosphere = '2'
                 if not request.POST.get('atmosphere3', None) == None:
-                    trainingObj.atmosphere ='3'
+                    trainingObj.atmosphere = '3'
                 if not request.POST.get('atmosphere4', None) == None:
-                    trainingObj.atmosphere ='4'
+                    trainingObj.atmosphere = '4'
                 if not request.POST.get('atmosphere5', None) == None:
-                    trainingObj.atmosphere ='5'
+                    trainingObj.atmosphere = '5'
                 if not request.POST.get('atmosphere6', None) == None:
-                    trainingObj.atmosphere ='6'
+                    trainingObj.atmosphere = '6'
                 if not request.POST.get('atmosphere7', None) == None:
-                    trainingObj.atmosphere ='7'
+                    trainingObj.atmosphere = '7'
                 if not request.POST.get('atmosphere8', None) == None:
-                    trainingObj.atmosphere ='8'
+                    trainingObj.atmosphere = '8'
                 if not request.POST.get('atmosphere9', None) == None:
-                    trainingObj.atmosphere ='9'
+                    trainingObj.atmosphere = '9'
                 if not request.POST.get('atmosphere10', None) == None:
-                    trainingObj.atmosphere ='10'
-
+                    trainingObj.atmosphere = '10'
 
                 if not request.POST.get('practicalSessions1', None) == None:
-                    trainingObj.practicalSessions ='1'
+                    trainingObj.practicalSessions = '1'
                 if not request.POST.get('practicalSessions2', None) == None:
-                    trainingObj.practicalSessions ='2'
+                    trainingObj.practicalSessions = '2'
                 if not request.POST.get('practicalSessions3', None) == None:
-                    trainingObj.practicalSessions ='3'
+                    trainingObj.practicalSessions = '3'
                 if not request.POST.get('practicalSessions4', None) == None:
-                    trainingObj.practicalSessions ='4'
+                    trainingObj.practicalSessions = '4'
                 if not request.POST.get('practicalSessions5', None) == None:
-                    trainingObj.practicalSessions ='5'
+                    trainingObj.practicalSessions = '5'
                 if not request.POST.get('practicalSessions6', None) == None:
-                    trainingObj.practicalSessions ='6'
+                    trainingObj.practicalSessions = '6'
                 if not request.POST.get('practicalSessions7', None) == None:
-                    trainingObj.practicalSessions ='7'
+                    trainingObj.practicalSessions = '7'
                 if not request.POST.get('practicalSessions8', None) == None:
-                    trainingObj.practicalSessions ='8'
+                    trainingObj.practicalSessions = '8'
                 if not request.POST.get('practicalSessions9', None) == None:
-                    trainingObj.practicalSessions ='9'
+                    trainingObj.practicalSessions = '9'
                 if not request.POST.get('practicalSessions10', None) == None:
-                    trainingObj.practicalSessions ='10'
-
+                    trainingObj.practicalSessions = '10'
 
                 if not request.POST.get('notes1', None) == None:
-                    trainingObj.notes ='1'
+                    trainingObj.notes = '1'
                 if not request.POST.get('notes2', None) == None:
-                    trainingObj.notes ='2'
+                    trainingObj.notes = '2'
                 if not request.POST.get('notes3', None) == None:
-                    trainingObj.notes ='3'
+                    trainingObj.notes = '3'
                 if not request.POST.get('notes4', None) == None:
-                    trainingObj.notes ='4'
+                    trainingObj.notes = '4'
                 if not request.POST.get('notes5', None) == None:
-                    trainingObj.notes ='5'
+                    trainingObj.notes = '5'
                 if not request.POST.get('notes6', None) == None:
-                    trainingObj.notes ='6'
+                    trainingObj.notes = '6'
                 if not request.POST.get('notes7', None) == None:
-                    trainingObj.notes ='7'
+                    trainingObj.notes = '7'
                 if not request.POST.get('notes8', None) == None:
-                    trainingObj.notes ='8'
+                    trainingObj.notes = '8'
                 if not request.POST.get('notes9', None) == None:
-                    trainingObj.notes ='9'
+                    trainingObj.notes = '9'
                 if not request.POST.get('notes10', None) == None:
-                    trainingObj.notes ='10'
-
+                    trainingObj.notes = '10'
 
                 if not request.POST.get('equipment1', None) == None:
-                    trainingObj.equipment ='1'
+                    trainingObj.equipment = '1'
                 if not request.POST.get('equipment2', None) == None:
-                    trainingObj.equipment ='2'
+                    trainingObj.equipment = '2'
                 if not request.POST.get('equipment3', None) == None:
-                    trainingObj.equipment ='3'
+                    trainingObj.equipment = '3'
                 if not request.POST.get('equipment4', None) == None:
-                    trainingObj.equipment ='4'
+                    trainingObj.equipment = '4'
                 if not request.POST.get('equipment5', None) == None:
-                    trainingObj.equipment ='5'
+                    trainingObj.equipment = '5'
                 if not request.POST.get('equipment6', None) == None:
-                    trainingObj.equipment ='6'
+                    trainingObj.equipment = '6'
                 if not request.POST.get('equipment7', None) == None:
-                    trainingObj.equipment ='7'
+                    trainingObj.equipment = '7'
                 if not request.POST.get('equipment8', None) == None:
-                    trainingObj.equipment ='8'
+                    trainingObj.equipment = '8'
                 if not request.POST.get('equipment9', None) == None:
-                    trainingObj.equipment ='9'
+                    trainingObj.equipment = '9'
                 if not request.POST.get('equipment10', None) == None:
-                    trainingObj.equipment ='10'
+                    trainingObj.equipment = '10'
 
                 if not request.POST.get('overallQuality1', None) == None:
-                    trainingObj.overallQuality ='1'
+                    trainingObj.overallQuality = '1'
                 if not request.POST.get('overallQuality2', None) == None:
-                    trainingObj.overallQuality ='2'
+                    trainingObj.overallQuality = '2'
                 if not request.POST.get('overallQuality3', None) == None:
-                    trainingObj.overallQuality ='3'
+                    trainingObj.overallQuality = '3'
                 if not request.POST.get('overallQuality4', None) == None:
-                    trainingObj.overallQuality ='4'
+                    trainingObj.overallQuality = '4'
                 if not request.POST.get('overallQuality5', None) == None:
-                    trainingObj.overallQuality ='5'
+                    trainingObj.overallQuality = '5'
                 if not request.POST.get('overallQuality6', None) == None:
-                    trainingObj.overallQuality ='6'
+                    trainingObj.overallQuality = '6'
                 if not request.POST.get('overallQuality7', None) == None:
-                    trainingObj.overallQuality ='7'
+                    trainingObj.overallQuality = '7'
                 if not request.POST.get('overallQuality8', None) == None:
-                    trainingObj.overallQuality ='8'
+                    trainingObj.overallQuality = '8'
                 if not request.POST.get('overallQuality9', None) == None:
-                    trainingObj.overallQuality ='9'
+                    trainingObj.overallQuality = '9'
                 if not request.POST.get('overallQuality10', None) == None:
-                    trainingObj.overallQuality ='10'
-
+                    trainingObj.overallQuality = '10'
 
                 if not request.POST.get('expectations1', None) == None:
-                    trainingObj.expectations ='1'
+                    trainingObj.expectations = '1'
                 if not request.POST.get('expectations2', None) == None:
-                    trainingObj.expectations ='2'
+                    trainingObj.expectations = '2'
                 if not request.POST.get('expectations3', None) == None:
-                    trainingObj.expectations ='3'
+                    trainingObj.expectations = '3'
                 if not request.POST.get('expectations4', None) == None:
-                    trainingObj.expectations ='4'
+                    trainingObj.expectations = '4'
                 if not request.POST.get('expectations5', None) == None:
-                    trainingObj.expectations ='5'
+                    trainingObj.expectations = '5'
                 if not request.POST.get('expectations6', None) == None:
-                    trainingObj.expectations ='6'
+                    trainingObj.expectations = '6'
                 if not request.POST.get('expectations7', None) == None:
-                    trainingObj.expectations ='7'
+                    trainingObj.expectations = '7'
                 if not request.POST.get('expectations8', None) == None:
-                    trainingObj.expectations ='8'
+                    trainingObj.expectations = '8'
                 if not request.POST.get('expectations9', None) == None:
-                    trainingObj.expectations ='9'
+                    trainingObj.expectations = '9'
                 if not request.POST.get('expectations10', None) == None:
-                    trainingObj.expectations ='10'
+                    trainingObj.expectations = '10'
 
                 if not request.POST.get('penetrantTesting', None) == None:
-                    trainingObj.penetrantTesting =True
+                    trainingObj.penetrantTesting = True
                 else:
                     trainingObj.penetrantTesting = False
 
                 if not request.POST.get('magneticTesting', None) == None:
-                    trainingObj.magneticTesting =True
+                    trainingObj.magneticTesting = True
                 else:
                     trainingObj.magneticTesting = False
 
                 if not request.POST.get('radioTesting', None) == None:
-                    trainingObj.radioTesting =True
+                    trainingObj.radioTesting = True
                 else:
                     trainingObj.radioTesting = False
 
                 if not request.POST.get('radioIntro', None) == None:
-                    trainingObj.radioIntro =True
+                    trainingObj.radioIntro = True
                 else:
                     trainingObj.radioIntro = False
 
                 if not request.POST.get('ultrasonicTesting', None) == None:
-                    trainingObj.ultrasonicTesting =True
+                    trainingObj.ultrasonicTesting = True
                 else:
                     trainingObj.ultrasonicTesting = False
 
                 if not request.POST.get('eddyCurrentTesting', None) == None:
-                    trainingObj.eddyCurrentTesting =True
+                    trainingObj.eddyCurrentTesting = True
                 else:
                     trainingObj.eddyCurrentTesting = False
 
                 if not request.POST.get('timeFlightDiffraction', None) == None:
-                    trainingObj.timeFlightDiffraction =True
+                    trainingObj.timeFlightDiffraction = True
                 else:
                     trainingObj.timeFlightDiffraction = False
 
                 if not request.POST.get('phasedArrayUltrasonic', None) == None:
-                    trainingObj.phasedArrayUltrasonic =True
+                    trainingObj.phasedArrayUltrasonic = True
                 else:
                     trainingObj.phasedArrayUltrasonic = False
 
                 if not request.POST.get('ACFM', None) == None:
-                    trainingObj.ACFM =True
+                    trainingObj.ACFM = True
                 else:
                     trainingObj.ACFM = False
 
                 if not request.POST.get('digitalComputedRadiography', None) == None:
-                    trainingObj.digitalComputedRadiography =True
+                    trainingObj.digitalComputedRadiography = True
                 else:
                     trainingObj.digitalComputedRadiography = False
 
                 if not request.POST.get('automatedUltrasonicTesting', None) == None:
-                    trainingObj.automatedUltrasonicTesting =True
+                    trainingObj.automatedUltrasonicTesting = True
                 else:
                     trainingObj.automatedUltrasonicTesting = False
 
                 if not request.POST.get('pulsedEddyCurrent', None) == None:
-                    trainingObj.pulsedEddyCurrent =True
+                    trainingObj.pulsedEddyCurrent = True
                 else:
                     trainingObj.pulsedEddyCurrent = False
 
                 if not request.POST.get('appreciationBasicNDTMethod', None) == None:
-                    trainingObj.appreciationBasicNDTMethod =True
+                    trainingObj.appreciationBasicNDTMethod = True
                 else:
                     trainingObj.appreciationBasicNDTMethod = False
 
                 if not request.POST.get('appreciationAdvancedNDTmethods', None) == None:
-                    trainingObj.appreciationAdvancedNDTmethods =True
+                    trainingObj.appreciationAdvancedNDTmethods = True
                 else:
                     trainingObj.appreciationAdvancedNDTmethods = False
 
-
                 if not request.POST.get('cathodicProtection', None) == None:
-                    trainingObj.cathodicProtection =True
+                    trainingObj.cathodicProtection = True
                 else:
                     trainingObj.cathodicProtection = False
 
-
                 if not request.POST.get('introNDT', None) == None:
-                    trainingObj.introNDT =True
+                    trainingObj.introNDT = True
                 else:
                     trainingObj.introNDT = False
 
                 if not request.POST.get('visualWeldingInspection', None) == None:
-                    trainingObj.visualWeldingInspection =True
+                    trainingObj.visualWeldingInspection = True
                 else:
                     trainingObj.visualWeldingInspection = False
 
                 if not request.POST.get('weldingInspection', None) == None:
-                    trainingObj.weldingInspection =True
+                    trainingObj.weldingInspection = True
                 else:
                     trainingObj.weldingInspection = False
 
                 if not request.POST.get('seniorWeldingInspection', None) == None:
-                    trainingObj.seniorWeldingInspection =True
+                    trainingObj.seniorWeldingInspection = True
                 else:
                     trainingObj.seniorWeldingInspection = False
 
                 if not request.POST.get('weldingQuality', None) == None:
-                    trainingObj.weldingQuality =True
+                    trainingObj.weldingQuality = True
                 else:
                     trainingObj.weldingQuality = False
 
                 if not request.POST.get('partialWelder', None) == None:
-                    trainingObj.partialWelder =True
+                    trainingObj.partialWelder = True
                 else:
                     trainingObj.partialWelder = False
 
                 if not request.POST.get('introASME', None) == None:
-                    trainingObj.introASME =True
+                    trainingObj.introASME = True
                 else:
                     trainingObj.introASME = False
 
                 if not request.POST.get('introErupeanStandard', None) == None:
-                    trainingObj.introErupeanStandard =True
+                    trainingObj.introErupeanStandard = True
                 else:
                     trainingObj.introErupeanStandard = False
 
                 if not request.POST.get('reviewAsmeXI', None) == None:
-                    trainingObj.reviewAsmeXI =True
+                    trainingObj.reviewAsmeXI = True
                 else:
                     trainingObj.reviewAsmeXI = False
 
                 if not request.POST.get('siteCoating', None) == None:
-                    trainingObj.siteCoating =True
+                    trainingObj.siteCoating = True
                 else:
                     trainingObj.siteCoating = False
 
                 if not request.POST.get('paitingInspector', None) == None:
-                    trainingObj.paitingInspector =True
+                    trainingObj.paitingInspector = True
                 else:
                     trainingObj.paitingInspector = False
 
                 if not request.POST.get('weldingInspector', None) == None:
-                    trainingObj.weldingInspector =True
+                    trainingObj.weldingInspector = True
                 else:
                     trainingObj.weldingInspector = False
 
                 if not request.POST.get('IIWDiploma', None) == None:
-                    trainingObj.IIWDiploma =True
+                    trainingObj.IIWDiploma = True
                 else:
                     trainingObj.IIWDiploma = False
 
                 if not request.POST.get('plantInspector', None) == None:
-                    trainingObj.plantInspector =True
+                    trainingObj.plantInspector = True
                 else:
                     trainingObj.plantInspector = False
 
                 if not request.POST.get('underWater', None) == None:
-                    trainingObj.underWater =True
+                    trainingObj.underWater = True
                 else:
                     trainingObj.underWater = False
 
-
-
                 trainingObj.save()
-
-
-
-
-
-
-
 
                 formListObj = FormList()
                 formListObj.name = trainingObj.__class__.__name__
@@ -5093,6 +4882,7 @@ class NewTWITrainingFeedback (SidebarMixin, LoginRequiredMixin, TemplateView):
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/general/training_feedback.html', context)
 
+
 class AllTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_twi_training_feedback.html"
 
@@ -5103,25 +4893,22 @@ class AllTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-class DeleteTWITrainingFeedback(SidebarMixin, LoginRequiredMixin,DeleteView):
+class DeleteTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = TwiTrainingFeedback
     success_url = reverse_lazy('forms:alltwitrainingfeed_')
-
-
-
 
 
 class UpdateTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/update_twi_Training_Feedback.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateTWITrainingFeedback, self).get_context_data()
         id = self.kwargs['id']
         form = TesFrmExaminationAttendance.objects.filter(id=id).first()
         context['form'] = form
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Git Test")
@@ -5138,26 +4925,25 @@ class UpdateTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
 
                 if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    visionObj.nearVisionAcuity = 'CORRECTED'
 
                 if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
                 if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                    visionObj.colourPerception = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
+                    visionObj.colourPerception = 'REJECT'
 
                 if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                    visionObj.shadesOfGrey = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                    visionObj.shadesOfGrey = 'shageReject'
 
                 visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
                 visionObj.recognisedName = request.POST['recognisedName']
@@ -5167,34 +4953,20 @@ class UpdateTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 visionObj.save()
 
-
-
-
-
-
-
-
                 return redirect('forms:allisiontest_')
 
-
-
             return render(request, 'forms/vision_test.html', context)
-
-
 
 
 class ViewTWITrainingFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/new_twi_Training_Feedback.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(ViewTWITrainingFeedback, self).get_context_data()
         id = self.kwargs['id']
         form = VisionTest.objects.filter(id=id).first()
         context['form'] = form
         return context
-
-
-
 
 
 class NewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -5213,7 +4985,6 @@ class NewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['events'] = events
         return context
 
-
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
@@ -5226,10 +4997,10 @@ class NewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
                 visionObj = VisionTest()
-                visionObj.candidate =candidate
-                visionObj.category =category
-                visionObj.guideline =guideline
-                visionObj.event =event
+                visionObj.candidate = candidate
+                visionObj.category = category
+                visionObj.guideline = guideline
+                visionObj.event = event
                 #
                 # if not  request.POST.get('contactMe', None) == None:
                 #     objPSL57.contactMe =True
@@ -5244,27 +5015,25 @@ class NewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
 
                 if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    visionObj.nearVisionAcuity = 'CORRECTED'
 
                 if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
-
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
                 if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                    visionObj.colourPerception = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
+                    visionObj.colourPerception = 'REJECT'
 
                 if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                    visionObj.shadesOfGrey = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                    visionObj.shadesOfGrey = 'shageReject'
 
                 visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
                 visionObj.recognisedName = request.POST['recognisedName']
@@ -5273,13 +5042,6 @@ class NewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
 
                 visionObj.save()
-
-
-
-
-
-
-
 
                 formListObj = FormList()
                 formListObj.name = visionObj.__class__.__name__
@@ -5303,27 +5065,22 @@ class AllTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-
-
-class DeleteTWIExamFeedback(SidebarMixin, LoginRequiredMixin,DeleteView):
+class DeleteTWIExamFeedback(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = TwiExamFeedback
     success_url = reverse_lazy('forms:alltwiexamfeed_')
-
-
-
 
 
 class UpdateTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/update_twi_exam_Feedback.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateTWIExamFeedback, self).get_context_data()
         id = self.kwargs['id']
         form = TesFrmExaminationAttendance.objects.filter(id=id).first()
         context['form'] = form
         return context
 
-    def post(self, request,id, *args, **kwargs):
+    def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("Git Test")
@@ -5340,26 +5097,25 @@ class UpdateTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity ='UNCORRECTED'
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
 
                 if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity ='CORRECTED'
+                    visionObj.nearVisionAcuity = 'CORRECTED'
 
                 if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity ='IS NOT ABLE'
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
                 if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception ='ACCEPT'
+                    visionObj.colourPerception = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception ='REJECT'
-
+                    visionObj.colourPerception = 'REJECT'
 
                 if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey ='ACCEPT'
+                    visionObj.shadesOfGrey = 'ACCEPT'
 
                 if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey ='shageReject'
+                    visionObj.shadesOfGrey = 'shageReject'
 
                 visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
                 visionObj.recognisedName = request.POST['recognisedName']
@@ -5369,26 +5125,15 @@ class UpdateTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 visionObj.save()
 
-
-
-
-
-
-
-
                 return redirect('forms:allisiontest_')
 
-
-
             return render(request, 'forms/vision_test.html', context)
-
-
 
 
 class ViewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/view_twi_exam_Feedback.html"
 
-    def get_context_data(self,id , *args, **kwargs):
+    def get_context_data(self, id, *args, **kwargs):
         context = super(ViewTWIExamFeedback, self).get_context_data()
         id = self.kwargs['id']
         form = VisionTest.objects.filter(id=id).first()

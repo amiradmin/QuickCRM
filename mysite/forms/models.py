@@ -644,6 +644,9 @@ class TesAttCandidate(models.Model):
 
 
 class TrainingAttendance(models.Model):
+    event = models.ForeignKey(Event, related_name="event_att_train", on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name="category_att_train", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_att_train", on_delete=models.CASCADE)
     examTitleCode= models.CharField(max_length=2048, null=True, blank=True)
     venue= models.CharField(max_length=2048, null=True, blank=True)
     date = models.DateField(null=True, blank=True)
