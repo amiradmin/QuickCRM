@@ -1699,7 +1699,7 @@ class MessagePSL30LogExperienceForm(LoginRequiredMixin, TemplateView):
     def get_context_data(self, id, msgID):
         context = super(MessagePSL30LogExperienceForm, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name')
-        form = PSL30LogExp.objects.filter(id=self.kwargs['id']).first()
+
         events = Event.objects.all()
         print("Here Now one")
         contactObj = Contact.objects.filter(id=self.kwargs['msgID']).first()
@@ -1799,12 +1799,16 @@ class PSL30LogExperienceForm(TemplateView):
         context = super(PSL30LogExperienceForm, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name')
         events = Event.objects.all()
+        categories = Category.objects.all()
+        guidelines = Guideline.objects.all()
         adminStatus = False
         for g in self.request.user.groups.all():
             if g.name == 'super_admin' or g.name == 'training_admin':
                 adminStatus = True
         context['adminStatus'] = adminStatus
         context['candidates'] = candidates
+        context['guidelines'] = guidelines
+        context['categories'] = categories
         context['events'] = events
 
         return context
@@ -1812,7 +1816,7 @@ class PSL30LogExperienceForm(TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                canID = request.POST['canID']
+                canID = request.POST['mainCanID']
                 eventID = request.POST['eventID']
                 # eventID = request.POST['eventID']
                 print("Form")
@@ -1821,10 +1825,10 @@ class PSL30LogExperienceForm(TemplateView):
                 pslObj = PSL30LogExp()
                 pslObj.candidate = candidate
                 pslObj.event = event
-                pslObj.fullName = request.POST['canName']
+                # pslObj.fullName = request.POST['canName']
                 pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
                 pslObj.dateTo = datetime.datetime.strptime(request.POST['dateTo'], '%m/%d/%Y')
-                pslObj.ndtMethod = request.POST['NDTmethod']
+                pslObj.ndtMethod = request.POST['ndtMethod']
                 pslObj.totalHours = request.POST['totalHours']
                 pslObj.employingOrganisation = request.POST['employingOrganisation']
                 pslObj.reviewerName = request.POST['reviewerName']
@@ -1833,194 +1837,33 @@ class PSL30LogExperienceForm(TemplateView):
                 pslObj.dateCandidateDeclaration = datetime.datetime.strptime(request.POST['dateCandidateDeclaration'],
                                                                              '%m/%d/%Y')
                 pslObj.save()
+                for idx, item in enumerate(range(0, 7)):
+                    if not request.POST.get('techniqueCodeR'+str(idx), None) == None:
+                        print(idx)
+                        NdtTechniqueObj = NdtTechnique()
+                        NdtTechniqueObj.candidate = candidate
+                        NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR'+str(idx)]
+                        NdtTechniqueObj.employerComponent = request.POST['employerComponentR'+str(idx)]
+                        NdtTechniqueObj.ndtTask = request.POST['ndtTaskR'+str(idx)]
+                        NdtTechniqueObj.experienceHours = request.POST['experienceHoursR'+str(idx)]
+                        NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR'+str(idx)]
+                        NdtTechniqueObj.save()
+                        pslObj.ndtTechnique.add(NdtTechniqueObj)
 
-                if not request.POST.get('techniqueCodeR0', None) == None:
-                    NdtTechniqueObj = NdtTechnique()
-                    NdtTechniqueObj.candidate = candidate
-                    NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR0']
 
-                if not request.POST.get('employerComponentR0', None) == None:
-                    NdtTechniqueObj.employerComponent = request.POST['employerComponentR0']
 
-                if not request.POST.get('ndtTaskR0', None) == None:
-                    NdtTechniqueObj.ndtTask = request.POST['ndtTaskR0']
-
-                if not request.POST.get('experienceHoursR0', None) == None:
-                    NdtTechniqueObj.experienceHours = request.POST['experienceHoursR0']
-
-                if not request.POST.get('experienceConfirmedR0', None) == None:
-                    NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR0']
-
-                if not request.POST.get('techniqueCodeR0', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR1', None) == None:
-                    NdtTechniqueObj = NdtTechnique()
-                    NdtTechniqueObj.candidate = candidate
-                    NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR1']
-
-                if not request.POST.get('employerComponentR1', None) == None:
-                    NdtTechniqueObj.employerComponent = request.POST['employerComponentR1']
-
-                if not request.POST.get('ndtTaskR1', None) == None:
-                    NdtTechniqueObj.ndtTask = request.POST['ndtTaskR1']
-
-                if not request.POST.get('experienceHoursR1', None) == None:
-                    NdtTechniqueObj.experienceHours = request.POST['experienceHoursR1']
-
-                if not request.POST.get('experienceConfirmedR1', None) == None:
-                    NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR1']
-
-                if not request.POST.get('techniqueCodeR1', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR2', None) == None:
-                    NdtTechniqueObj = NdtTechnique()
-                    NdtTechniqueObj.candidate = candidate
-                    NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR2']
-
-                if not request.POST.get('employerComponentR2', None) == None:
-                    NdtTechniqueObj.employerComponent = request.POST['employerComponentR2']
-
-                if not request.POST.get('ndtTaskR2', None) == None:
-                    NdtTechniqueObj.ndtTask = request.POST['ndtTaskR2']
-
-                if not request.POST.get('experienceHoursR2', None) == None:
-                    NdtTechniqueObj.experienceHours = request.POST['experienceHoursR2']
-                if not request.POST.get('experienceConfirmedR2', None) == None:
-                    NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR2']
-
-                if not request.POST.get('techniqueCodeR2', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR3', None) == None:
-                    NdtTechniqueObj = NdtTechnique()
-                    NdtTechniqueObj.candidate = candidate
-                    NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR3']
-
-                if not request.POST.get('employerComponent3', None) == None:
-                    NdtTechniqueObj.employerComponent = request.POST['employerComponentR3']
-
-                if not request.POST.get('ndtTaskR3', None) == None:
-                    NdtTechniqueObj.ndtTask = request.POST['ndtTaskR3']
-
-                if not request.POST.get('experienceHoursR3', None) == None:
-                    NdtTechniqueObj.experienceHours = request.POST['experienceHoursR3']
-
-                if not request.POST.get('experienceConfirmedR3', None) == None:
-                    NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR3']
-
-                if not request.POST.get('techniqueCodeR3', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR4', None) == None:
-                    NdtTechniqueObj = NdtTechnique()
-                    NdtTechniqueObj.candidate = candidate
-                    NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR4']
-
-                if not request.POST.get('employerComponent4', None) == None:
-                    NdtTechniqueObj.employerComponent = request.POST['employerComponentR4']
-
-                if not request.POST.get('ndtTaskR4', None) == None:
-                    NdtTechniqueObj.ndtTask = request.POST['ndtTaskR4']
-
-                if not request.POST.get('experienceHoursR4', None) == None:
-                    NdtTechniqueObj.experienceHours = request.POST['experienceHoursR4']
-
-                if not request.POST.get('experienceConfirmedR4', None) == None:
-                    NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR4']
-
-                if not request.POST.get('techniqueCodeR4', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR4', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR5', None) == None:
-                    NdtTechniqueObj = NdtTechnique()
-                    NdtTechniqueObj.candidate = candidate
-                    NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR5']
-
-                if not request.POST.get('employerComponentR5', None) == None:
-                    NdtTechniqueObj.employerComponent = request.POST['employerComponentR5']
-
-                if not request.POST.get('ndtTaskR5', None) == None:
-                    NdtTechniqueObj.ndtTask = request.POST['ndtTaskR5']
-
-                if not request.POST.get('experienceHoursR5', None) == None:
-                    NdtTechniqueObj.experienceHours = request.POST['experienceHoursR5']
-
-                if not request.POST.get('experienceConfirmedR5', None) == None:
-                    NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR5']
-
-                if not request.POST.get('techniqueCodeR5', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR6', None) == None:
-                    NdtTechniqueObj = NdtTechnique()
-                    NdtTechniqueObj.candidate = candidate
-                    NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR6']
-
-                if not request.POST.get('employerComponent6', None) == None:
-                    NdtTechniqueObj.employerComponent = request.POST['employerComponentR6']
-
-                if not request.POST.get('ndtTaskR6', None) == None:
-                    NdtTechniqueObj.ndtTask = request.POST['ndtTaskR6']
-
-                if not request.POST.get('experienceHoursR6', None) == None:
-                    NdtTechniqueObj.experienceHours = request.POST['experienceHoursR6']
-
-                if not request.POST.get('experienceConfirmedR6', None) == None:
-                    NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR6']
-
-                if not request.POST.get('techniqueCodeR6', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR6', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR7', None) == None:
-                    NdtTechniqueObj = NdtTechnique()
-                    NdtTechniqueObj.candidate = candidate
-                    NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR7']
-
-                if not request.POST.get('employerComponent7', None) == None:
-                    NdtTechniqueObj.employerComponent = request.POST['employerComponentR7']
-
-                if not request.POST.get('ndtTaskR7', None) == None:
-                    NdtTechniqueObj.ndtTask = request.POST['ndtTaskR7']
-
-                if not request.POST.get('experienceHoursR7', None) == None:
-                    NdtTechniqueObj.experienceHours = request.POST['experienceHoursR7']
-
-                if not request.POST.get('experienceConfirmedR7', None) == None:
-                    NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmedR7']
-
-                if not request.POST.get('techniqueCodeR7', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
-
-                if not request.POST.get('techniqueCodeR7', None) == None:
-                    NdtTechniqueObj.save()
-                    pslObj.ndtTechnique.add(NdtTechniqueObj)
 
                 return redirect('forms:allpslform_')
 
             else:
-                print('Here')
+                print('Here Today Now')
                 context = super(PSL30LogExperienceForm, self).get_context_data()
-                canID = request.POST['canID']
-                eventID = request.POST['eventID']
-
+                canID = request.POST['cancanID']
+                eventID = request.POST['eventEvID']
+                categoryID = request.POST['categoryCatID']
+                guidelineID = request.POST['guidelineLINID']
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
                 print(canID)
                 print(eventID)
 
@@ -2030,12 +1873,14 @@ class PSL30LogExperienceForm(TemplateView):
                 self.candidateID = candidate.id
                 twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
 
+                context['category'] = category
+                context['guideline'] = guideline
                 context['candidate'] = candidate
                 context['event'] = event
                 context['twiEnrolmentForm'] = twiEnrolmentForm
 
                 # return redirect('forms:jaegertofdl2_' ,context)
-                return render(request, 'forms/reg_forms/PSL_30_log_exper.html', context)
+                return render(request, 'forms/reg_forms/PSL_30_log_exper_S.html', context)
 
 
 class AllPSL30LogForm(SidebarMixin, LoginRequiredMixin, TemplateView):
