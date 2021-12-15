@@ -3026,54 +3026,56 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.email = request.POST['email']
                 objPSL57.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
                 objPSL57.currentEmploymentDetails = request.POST['currentEmploymentDetails']
-                objPSL57.candidatePosition = request.POST['candidatePosition']
-                objPSL57.employmentStatus = request.POST['employmentStatus']
+                objPSL57.candidatePosition = request.POST['currentEmploymentPosition']
+                objPSL57.employmentStatus = request.POST['currentEmploymentStatus']
                 objPSL57.examinationType = request.POST['examinationType']
                 objPSL57.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
-                if not request.POST.get('MT', None) == None:
+                if not request.POST.get('mt', None) == None:
                     objPSL57.NDTMethod = 'MT'
 
-                if not request.POST.get('PT', None) == None:
+                if not request.POST.get('pt', None) == None:
                     objPSL57.NDTMethod = 'PT'
 
-                if not request.POST.get('RT', None) == None:
+                if not request.POST.get('rt', None) == None:
                     objPSL57.NDTMethod = 'RT'
 
-                if not request.POST.get('RI', None) == None:
+                if not request.POST.get('ri', None) == None:
                     objPSL57.NDTMethod = 'RI'
 
-                if not request.POST.get('UI', None) == None:
+                if not request.POST.get('ui', None) == None:
                     objPSL57.NDTMethod = 'UI'
 
-                if not request.POST.get('VT', None) == None:
+                if not request.POST.get('vt', None) == None:
                     objPSL57.NDTMethod = 'VT'
 
-                if not request.POST.get('CRT', None) == None:
+                if not request.POST.get('crt', None) == None:
                     objPSL57.NDTMethod = 'CRT'
 
-                if not request.POST.get('TOFD', None) == None:
+                if not request.POST.get('tofd', None) == None:
                     objPSL57.NDTMethod = 'TOFD'
 
-                if not request.POST.get('PAUT', None) == None:
+                if not request.POST.get('puat', None) == None:
                     objPSL57.NDTMethod = 'PAUT'
 
-                if not request.POST.get('one', None) == None:
+                if not request.POST.get('levelOne', None) == None:
                     objPSL57.NDTLevel = 'Level 1'
 
-                if not request.POST.get('two', None) == None:
+                if not request.POST.get('levelTwo', None) == None:
                     objPSL57.NDTLevel = 'Level 2'
 
-                if not request.POST.get('three', None) == None:
+                if not request.POST.get('levelThree', None) == None:
                     objPSL57.NDTLevel = 'Level 3'
 
                 objPSL57.ifLevel3 = request.POST['ifLevel3']
                 objPSL57.categoriesOfCertification = request.POST['categoriesOfCertification']
                 objPSL57.recertification = request.POST['recertification']
-                objPSL57.preferredExaminationDateVenu = request.POST['preferredExaminationDateVenu']
+                objPSL57.preferredExaminationDateVenu = request.POST['preferredExaminationDateVenue']
 
                 objPSL57.nameAddressInvoice = request.POST['nameAddressInvoice']
                 objPSL57.paymentMethod = request.POST['paymentMethod']
+
+
                 if not request.POST.get('cheque', None) == None:
                     objPSL57.cheque = True
                 objPSL57.nameResponsible = request.POST['nameResponsible']
@@ -3097,29 +3099,7 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.debit = request.POST['debit']
                 objPSL57.save()
 
-                if not request.POST.get('organisation1', None) == None:
-                    historyObj = empHistory()
-                    historyObj.organisation = request.POST['organisation1']
-                    historyObj.period = request.POST['period1']
-                    historyObj.contactNamePhone = request.POST['contactNamePhone1']
-                    historyObj.save()
-                    objPSL57.emphistory.add(historyObj)
 
-                if not request.POST.get('organisation2', None) == None:
-                    historyObj = empHistory()
-                    historyObj.organisation = request.POST['organisation2']
-                    historyObj.period = request.POST['period2']
-                    historyObj.contactNamePhone = request.POST['contactNamePhone2']
-                    historyObj.save()
-                    objPSL57.emphistory.add(historyObj)
-
-                if not request.POST.get('organisation3', None) == None:
-                    historyObj = empHistory()
-                    historyObj.organisation = request.POST['organisation3']
-                    historyObj.period = request.POST['period3']
-                    historyObj.contactNamePhone = request.POST['contactNamePhone3']
-                    historyObj.save()
-                    objPSL57.emphistory.add(historyObj)
 
                 formListObj = FormList()
                 formListObj.name = objPSL57.__class__.__name__
@@ -3130,16 +3110,26 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 formListObj.FormID = objPSL57.id
                 formListObj.save()
 
+                for idx,item in enumerate(range(0,4)):
+                    if not request.POST.get('organisation'+str(idx), None) == None:
+                        obj = empHistory()
+                        obj.organisation = request.POST['organisation'+str(idx)]
+                        obj.period = request.POST['period'+str(idx)]
+                        obj.contactNamePhone = request.POST['contactNamePhone'+str(idx)]
+                        obj.save()
+                        objPSL57.emphistory.add(obj)
+
+
                 return redirect('forms:allpsl57b_')
 
 
             else:
                 print('Here')
                 # if request.FILES.get('file', False):
-                canID = request.POST['canID']
-                eventID = request.POST['eventID']
-                categoryID = request.POST['categoryID']
-                guidelineID = request.POST['guidelineID']
+                canID = request.POST['cancanID']
+                eventID = request.POST['eventٍEvID']
+                categoryID = request.POST['categoryCatID']
+                guidelineID = request.POST['guidelineGuiID']
                 print(canID)
 
                 candidate = TesCandidate.objects.filter(id=canID).first()
@@ -3155,7 +3145,7 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['guideline'] = guideline
 
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/psl_57B.html', context)
+            return render(request, 'forms/reg_forms/psl_57B_S.html', context)
 
 
 class AllPSL57BView(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -3199,8 +3189,8 @@ class UpdatePSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.email = request.POST['email']
                 objPSL57.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
                 objPSL57.currentEmploymentDetails = request.POST['currentEmploymentDetails']
-                objPSL57.candidatePosition = request.POST['candidatePosition']
-                objPSL57.employmentStatus = request.POST['employmentStatus']
+                objPSL57.candidatePosition = request.POST['currentEmploymentPosition']
+                objPSL57.employmentStatus = request.POST['currentEmploymentStatus']
                 objPSL57.examinationType = request.POST['examinationType']
                 objPSL57.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
