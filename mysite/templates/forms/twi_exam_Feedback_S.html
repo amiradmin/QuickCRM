@@ -337,172 +337,172 @@ input[type = checkbox]:checked {
     <div style="position:absolute; top: 155px; left: 487px; z-index: 1;"><textarea   style="border:none;background: transparent;width: 90px; height: 45px; font-size: 10px;margin:1px;" name="startDate" id="">{{event.start_date|date:'m/d/Y'}}</textarea></div>
     <div style="position:absolute; top: 155px; left: 641px; z-index: 1;"><textarea   style="border:none;background: transparent;width: 133px; height: 45px; font-size: 10px;margin:1px;" name="lecturerName" id="">{{event.lecturers}}</textarea></div>
 
-<div style="position:absolute; top: 315px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff1" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff2" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff3" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff4" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff5" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff6" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff7" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff8" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff9" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 315px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff10" onclick="compValidation();" class="administrativeStaff" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff1"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff2"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff3"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff4"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff5"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff6"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff7"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff8"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff9"   class="administrativeStaff" onchange="adminValidation(this);"  /></div>
+<div style="position:absolute; top: 315px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="administrativeStaff10"  class="administrativeStaff" onchange="adminValidation(this);"  /></div>
 
 
-<div style="position:absolute; top: 379px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom1" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom2" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom3" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom4" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom5" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom6" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom7" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom8" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom9" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 379px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom10" onclick="compValidation();" class="examinationRoom" onchange="bookingProcessChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom1" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom2" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom3" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom4" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom5" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom6" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom7" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom8" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom9" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
+<div style="position:absolute; top: 379px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="examinationRoom10" onclick="compValidation();" class="examinationRoom" onchange="examinationRoomChange(this);"  /></div>
 
 
-<div style="position:absolute; top: 444px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable1" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable2" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable3" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable4" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable5" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable6" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable7" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable8" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable9" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-<div style="position:absolute; top: 444px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable10" onclick="compValidation();" class="feltComfortable" onchange="bookingProcessChange(this);"  /></div>
-
-
-
-<div style="position:absolute; top: 509px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator1" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator2" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator3" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator4" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator5" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator6" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator7" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator8" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator9" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
-<div style="position:absolute; top: 509px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator10" onclick="compValidation();" class="explanationInvigilator" onchange="objectivesCourseChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable1" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable2" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable3" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable4" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable5" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable6" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable7" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable8" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable9" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
+<div style="position:absolute; top: 444px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="feltComfortable10" onclick="compValidation();" class="feltComfortable" onchange="feltComfortableChange(this);"  /></div>
 
 
 
-<div style="position:absolute; top: 572px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination1" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination2" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination3" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination4" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination5" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination6" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination7" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination8" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination9" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
-<div style="position:absolute; top: 572px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination10" onclick="compValidation();" class="writtenExamination" onchange="tutorLecturerChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator1" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator2" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator3" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator4" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator5" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator6" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator7" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator8" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator9" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
+<div style="position:absolute; top: 509px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="explanationInvigilator10" onclick="compValidation();" class="explanationInvigilator" onchange="explanationInvigilatorChange(this);"  /></div>
 
 
 
-<div style="position:absolute; top: 637px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent1" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent2" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent3" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent4" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent5" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent6" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent7" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent8" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent9" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
-<div style="position:absolute; top: 637px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent10" onclick="compValidation();" class="courseContent" onchange="principlesExplainedChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination1" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination2" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination3" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination4" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination5" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination6" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination7" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination8" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination9" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
+<div style="position:absolute; top: 572px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="writtenExamination10" onclick="compValidation();" class="writtenExamination" onchange="writtenExaminationChange(this);"  /></div>
 
 
-<div style="position:absolute; top: 701px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment1" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment2" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment3" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment4" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment5" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment6" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment7" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment8" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment9" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
-<div style="position:absolute; top: 701px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment10" onclick="compValidation();" class="equipment" onchange="questionsAnsweredChange(this);"  /></div>
+
+<div style="position:absolute; top: 637px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent1" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent2" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent3" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent4" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent5" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent6" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent7" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent8" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent9" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
+<div style="position:absolute; top: 637px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="courseContent10" onclick="compValidation();" class="courseContent" onchange="courseContentChange(this);"  /></div>
 
 
-<div style="position:absolute; top: 765px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples1" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples2" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples3" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples4" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples5" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples6" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples7" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples8" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples9" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
-<div style="position:absolute; top: 765px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples10" onclick="compValidation();" class="samples" onchange="audienceChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment1" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment2" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment3" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment4" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment5" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment6" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment7" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment8" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment9" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 701px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="equipment10" onclick="compValidation();" class="equipment" onchange="equipmentChange(this);"  /></div>
 
 
-<div style="position:absolute; top: 830px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection1" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection2" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection3" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection4" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection5" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection6" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection7" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection8" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection9" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
-<div style="position:absolute; top: 830px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection10" onclick="compValidation();" class="reflection" onchange="atmosphereChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples1" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples2" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples3" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples4" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples5" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples6" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples7" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples8" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples9" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
+<div style="position:absolute; top: 765px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="samples10" onclick="compValidation();" class="samples" onchange="samplesChange(this);"  /></div>
 
 
-<div style="position:absolute; top: 893px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples1" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples2" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples3" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples4" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples5" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples6" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples7" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples8" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples9" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
-<div style="position:absolute; top: 893px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples10" onclick="compValidation();" class="practicalSamples" onchange="practicalSessionsChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection1" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection2" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection3" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection4" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection5" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection6" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection7" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection8" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection9" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
+<div style="position:absolute; top: 830px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="reflection10" onclick="compValidation();" class="reflection" onchange="reflectionChange(this);"  /></div>
 
 
-<div style="position:absolute; top: 958px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend1" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend2" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend3" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend4" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend5" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend6" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend7" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend8" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend9" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
-<div style="position:absolute; top: 958px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend10" onclick="compValidation();" class="recommend" onchange="notesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples1" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples2" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples3" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples4" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples5" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples6" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples7" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples8" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples9" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
+<div style="position:absolute; top: 893px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="practicalSamples10" onclick="compValidation();" class="practicalSamples" onchange="practicalSamplesChange(this);"  /></div>
 
 
-<div style="position:absolute; top: 1022px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo1" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo2" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo3" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo4" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo5" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo6" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo7" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo8" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo9" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
-<div style="position:absolute; top: 1022px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo10" onclick="compValidation();" class="comparisonTo" onchange="equipmentChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend1" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend2" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend3" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend4" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend5" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend6" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend7" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend8" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend9" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
+<div style="position:absolute; top: 958px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="recommend10" onclick="compValidation();" class="recommend" onchange="recommendChange(this);"  /></div>
 
-<div style="position:absolute; top: 1087px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience1" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience2" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience3" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience4" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience5" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience6" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience7" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience8" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience9" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1087px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience10" onclick="compValidation();" class="afterYourExperience" onchange="expectationsChange(this);"  /></div>
 
-<div style="position:absolute; top: 1151px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering1" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1151px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering2" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1151px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering3" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1151px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering4" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1151px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering5" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1151px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering6" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1151px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering7" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1151px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering8" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
-<div style="position:absolute; top: 1151px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering9" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo1" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo2" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo3" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo4" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo5" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo6" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo7" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo8" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo9" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+<div style="position:absolute; top: 1022px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="comparisonTo10" onclick="compValidation();" class="comparisonTo" onchange="comparisonToChange(this);"  /></div>
+
+<div style="position:absolute; top: 1087px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience1" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience2" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience3" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience4" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience5" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience6" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience7" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience8" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience9" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+<div style="position:absolute; top: 1087px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="afterYourExperience10" onclick="compValidation();" class="afterYourExperience" onchange="afterYourExperienceChange(this);"  /></div>
+
+<div style="position:absolute; top: 1151px; left: 468px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering1" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
+<div style="position:absolute; top: 1151px; left: 504px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering2" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
+<div style="position:absolute; top: 1151px; left: 541px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering3" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
+<div style="position:absolute; top: 1151px; left: 576px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering4" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
+<div style="position:absolute; top: 1151px; left: 612px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering5" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
+<div style="position:absolute; top: 1151px; left: 648px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering6" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
+<div style="position:absolute; top: 1151px; left: 684px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering7" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
+<div style="position:absolute; top: 1151px; left: 721px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering8" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
+<div style="position:absolute; top: 1151px; left: 757px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering9" onclick="compValidation();" class="catering" onchange="cateringChange(this);"  /></div>
 <div style="position:absolute; top: 1151px; left: 793px; z-index: 1;"><input type="checkbox"  style="margin:1px -14px 0 2px;" name="catering10" onclick="compValidation();" class="catering" onchange="expectationsChange(this);"  /></div>
 
 
@@ -677,5 +677,125 @@ input[type = checkbox]:checked {
             </div>
                     </form>
 
+<script>
+function adminValidation(obj) {
+    var cbs = document.getElementsByClassName("administrativeStaff");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function examinationRoomChange(obj) {
+    var cbs = document.getElementsByClassName("examinationRoom");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function feltComfortableChange(obj) {
+    var cbs = document.getElementsByClassName("feltComfortable");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function explanationInvigilatorChange(obj) {
+    var cbs = document.getElementsByClassName("explanationInvigilator");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function writtenExaminationChange(obj) {
+    var cbs = document.getElementsByClassName("writtenExamination");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function courseContentChange(obj) {
+    var cbs = document.getElementsByClassName("courseContent");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function equipmentChange(obj) {
+    var cbs = document.getElementsByClassName("equipment");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function samplesChange(obj) {
+    var cbs = document.getElementsByClassName("samples");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function reflectionChange(obj) {
+    var cbs = document.getElementsByClassName("reflection");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function practicalSamplesChange(obj) {
+    var cbs = document.getElementsByClassName("practicalSamples");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function recommendChange(obj) {
+    var cbs = document.getElementsByClassName("recommend");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function comparisonToChange(obj) {
+    var cbs = document.getElementsByClassName("comparisonTo");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+
+function afterYourExperienceChange(obj) {
+    var cbs = document.getElementsByClassName("afterYourExperience");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+function cateringChange(obj) {
+    var cbs = document.getElementsByClassName("catering");
+
+    for (var i = 0; i < cbs.length; i++) {
+        cbs[i].checked = false;
+    }
+    obj.checked = true;
+}
+</script>
 
 {% endblock %}
