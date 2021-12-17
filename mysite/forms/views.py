@@ -4831,64 +4831,112 @@ class NewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
                 event = Event.objects.filter(id=eventID).first()
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
-                visionObj = VisionTest()
-                visionObj.candidate = candidate
-                visionObj.category = category
-                visionObj.guideline = guideline
-                visionObj.event = event
-                #
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =True
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =False
+                examObj = TwiExamFeedback()
+                examObj.candidate =candidate
+                examObj.event = event
+                examObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
+                examObj.invigilator = request.POST['lecturerName']
+                examObj.programme = request.POST['programme']
+                examObj.venue = request.POST['venue']
+                examObj.region = request.POST['region']
+                examObj.howWeDid = request.POST['howWeDid']
+                examObj.candidateOpinion = request.POST['candidateOpinion']
 
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
-                visionObj.email = request.POST['email']
-                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
-                visionObj.tumbling = request.POST['tumbling']
 
-                if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity = 'UNCORRECTED'
+                for idx,item in enumerate(range(0,10)):
+                    print(idx+1)
+                    if not request.POST.get('administrativeStaff'+str(idx+1), None) == None:
+                        examObj.administrativeStaff = str(idx+1)
 
-                if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity = 'CORRECTED'
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('examinationRoom'+str(idx+1), None) == None:
+                        examObj.examinationRoom = str(idx+1)
 
-                if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('feltComfortable'+str(idx+1), None) == None:
+                        examObj.feltComfortable = str(idx+1)
 
-                if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception = 'ACCEPT'
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('explanationInvigilator'+str(idx+1), None) == None:
+                        examObj.explanationInvigilator = str(idx+1)
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception = 'REJECT'
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('writtenExamination'+str(idx+1), None) == None:
+                        examObj.writtenExamination = str(idx+1)
 
-                if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey = 'ACCEPT'
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('courseContent'+str(idx+1), None) == None:
+                        examObj.courseContent = str(idx+1)
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey = 'shageReject'
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('equipment'+str(idx+1), None) == None:
+                        examObj.equipment = str(idx+1)
 
-                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
-                visionObj.recognisedName = request.POST['recognisedName']
-                visionObj.recognisedPhone = request.POST['recognisedPhone']
-                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
-                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('samples'+str(idx+1), None) == None:
+                        examObj.samples = str(idx+1)
 
-                visionObj.save()
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('reflection'+str(idx+1), None) == None:
+                        examObj.reflection = str(idx+1)
+
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('practicalSamples'+str(idx+1), None) == None:
+                        examObj.practicalSamples = str(idx+1)
+
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('recommend'+str(idx+1), None) == None:
+                        examObj.recommend = str(idx+1)
+
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('comparisonTo'+str(idx+1), None) == None:
+                        examObj.comparisonTo = str(idx+1)
+
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('afterYourExperience'+str(idx+1), None) == None:
+                        examObj.afterYourExperience = str(idx+1)
+
+                for idx,item in enumerate(range(0,10)):
+                    if not request.POST.get('catering'+str(idx+1), None) == None:
+                        examObj.catering = str(idx+1)
+
+
+
+                examObj.save()
 
                 formListObj = FormList()
-                formListObj.name = visionObj.__class__.__name__
+                formListObj.name = examObj.__class__.__name__
                 formListObj.event = event
                 formListObj.candidate = candidate
                 formListObj.category = category
                 formListObj.guideline = guideline
-                formListObj.FormID = visionObj.id
+                formListObj.FormID = examObj.id
                 formListObj.save()
 
-                return redirect('forms:allisiontest_')
+                return redirect('forms:alltwiexamfeed_')
+            else:
+                print('Here')
+                # if request.FILES.get('file', False):
+                canID = request.POST['canCanID']
+                eventID = request.POST['eventEvID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+                print(canID)
 
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                self.candidateID = candidate.id
+                print(self.candidateID)
+                context = super(NewTWIExamFeedback, self).get_context_data()
+                context['candidate'] = candidate
+                context['category'] = category
+                context['event'] = event
+                context['guideline'] = guideline
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/twi_exam_Feedback_S.html', context)
 
 class AllTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_twi_exam_feedback.html"
