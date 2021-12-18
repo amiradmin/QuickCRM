@@ -2672,7 +2672,6 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 category = Category.objects.filter(id=categoryID).first()
                 guideline = Guideline.objects.filter(id=guidelineID).first()
                 event = Event.objects.filter(id=eventID).first()
-                print("Here")
                 print(request.POST['mainCanID'])
                 candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
 
@@ -2753,7 +2752,30 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 return redirect('forms:allndtcovid19_')
 
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
 
+                file = request.FILES['file']
+                print(file)
+
+                canID = request.POST['mainCanID']
+                eventID = request.POST['eventID']
+                categoryID = request.POST['categoryID']
+                guidelineID = request.POST['guidelineID']
+
+
+                candidate = TesCandidate.objects.filter(id=canID).first()
+                event = Event.objects.filter(id=eventID).first()
+                category = Category.objects.filter(id=categoryID).first()
+                guideline = Guideline.objects.filter(id=guidelineID).first()
+                context = super(NDTCovid19View, self).get_context_data()
+                context['candidate'] = candidate
+                context['category'] = category
+                context['event'] = event
+                context['guideline'] = guideline
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+                return render(request, 'forms/ndt/covid_19_S.html', context)
             else:
                 print('Here55')
                 # if request.FILES.get('file', False):
