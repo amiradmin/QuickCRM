@@ -2750,7 +2750,8 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 formListObj.FormID = obj.id
                 formListObj.save()
 
-                return redirect('forms:allndtcovid19_')
+
+                return redirect('forms:updatecovid19_', id=obj.id)
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
@@ -2916,6 +2917,17 @@ class UpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 return redirect('forms:allndtcovid19_')
 
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = NDTCovid19.objects.filter(id=id).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                # print(pdfFile)
+
+
+
+                return redirect('forms:allndtcovid19_')
+                # return render(request, 'forms/ndt/covid_19_S.html', context)
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/covid_19.html', context)
 
