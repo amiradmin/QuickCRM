@@ -342,6 +342,7 @@ class NDTCovid19(models.Model):
     medicalTravelCase2 = models.BooleanField(null=True, blank=True)
     temperature = models.CharField(max_length=512, null=True, blank=True)
     medicalTravelCase3 = models.BooleanField(null=True, blank=True)
+    outsideCountry = models.CharField(max_length=1024, null=True, blank=True)
     medicalTravelCase4 = models.BooleanField(null=True, blank=True)
 
     afterEventDate = models.DateField(null=True, blank=True)
