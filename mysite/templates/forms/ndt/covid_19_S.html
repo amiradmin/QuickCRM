@@ -592,17 +592,19 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
         <div style="position:absolute;top: 664px; left: 687px; z-index: 1;"> <input type="checkbox" id="case6yes" name="case6yes"  class="clase6" onchange="case6Change(this);"  value=" "  style=""/></div>
         <div style="position:absolute;top: 664px; left: 734px; z-index: 1;"> <input type="checkbox" id="case6No" name="case6No"  class="clase6"  onchange="case6Change(this);"  value=" "  style=""/></div>
 
-        <div style="position:absolute;top: 791px; left: 679px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase1Yes" name="medicalTravelCase1Yes" onchange="case7Change(this);"  class="clase7"  value=" "  style=""/></div>
-        <div style="position:absolute;top: 791px; left: 733px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase1No"  name="medicalTravelCase1No"  onchange="case7Change(this);"  class="clase7"  value=" "  style=""/></div>
-
+        <div style="position:absolute;top: 792px; left: 679px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase1Yes" name="medicalTravelCase1Yes" onchange="case7Change(this);"  class="clase7"  value=" "  style=""/></div>
+        <div style="position:absolute;top: 792px; left: 733px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase1No"  name="medicalTravelCase1No"  onchange="case7Change(this);"  class="clase7"  value=" "  style=""/></div>
+        <div style="position:absolute;top: 807px; left: 261px; z-index: 1;"> <input type="text" id="" name="medicalHistory"    value="{% if not  form.medicalHistory == None %}{{form.medicalHistory}} {% endif %} "  style="width: 360px; height: 20px; font-size: 15px; background: transparent; border: none;"/></div>
         <div style="position:absolute;top: 834px; left: 679px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase2Yes" name="medicalTravelCase2Yes" onchange="case8Change(this);"  class="clase8"  value=" "  style=""/></div>
         <div style="position:absolute;top: 834px; left: 733px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase2No"  name="medicalTravelCase2No"  onchange="case8Change(this);"  class="clase8"  value=" "  style=""/></div>
+        <div style="position:absolute;top: 847px; left: 516px; z-index: 1;"> <input type="text" id="" name="temperature"    value="{% if not  form.temperature == None %}{{form.temperature}} {% endif %} "  style="width: 50px; height: 20px; font-size: 15px; background: transparent;border:none; "/></div>
 
         <div style="position:absolute;top: 877px; left: 679px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase3Yes" name="medicalTravelCase3Yes" onchange="case9Change(this);"  class="clase9"  value=" "  style=""/></div>
         <div style="position:absolute;top: 877px; left: 733px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase3No"  name="medicalTravelCase3No" onchange="case9Change(this);"  class="clase9"  value=" "  style=""/></div>
 
         <div style="position:absolute;top: 940px; left: 679px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase4Yes" name="medicalTravelCase4Yes"  onchange="case10Change(this);"  class="clase10"  value=" "  style=""/></div>
         <div style="position:absolute;top: 940px; left: 733px; z-index: 1;"> <input type="checkbox" id="medicalTravelCase4No"  name="medicalTravelCase4No"   onchange="case10Change(this);"  class="clase10"  value=" "  style=""/></div>
+        <div style="position:absolute;top: 891px; left: 209px; z-index: 1;"> <input type="text" id="" name="outsideCountry"    value="{% if not  form.outsideCountry == None %}{{form.outsideCountry}} {% endif %}"  style="width: 416px; height: 20px; font-size: 15px;border:none; background: transparent; "/></div>
 
 
 
@@ -638,21 +640,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
                             </form>
 
 
-<div class="uploadForm" id="dialog-form" title="Upload file">
 
-  <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-        <input type="hidden"  value="{{candidate.id}}" name="mainCanID"/>
-        <input type="hidden"  value="{{event.id}}" name="eventID"/>
-        <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
-        <input type="hidden" value="{{category.id}}" name="categoryID"/>
-        <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
-  <input type="file" name="file" >
-
-  <p>Drag your files here or click in this area.</p>
-  <button class="btn btn-outline-primary" name="uploadFormBack" type="submit">Upload</button>
-</form>
-</div>
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="{% static 'js/regex.js' %}" type="text/javascript"></script>

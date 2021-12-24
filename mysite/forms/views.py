@@ -91,39 +91,39 @@ class TwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.VerifierEmail = request.POST['VerifierEmail']
                 # obj.experienceRequirements = request.POST['experienceRequirements']
                 obj.otherExaminationsTitle = request.POST['otherExaminationsTitle']
-                # obj.VerifierDate = request.POST['form6_4']
+                obj.bookingRef = request.POST['bookingRef']
                 obj.VerifierDate = datetime.datetime.strptime(request.POST['VerifierDate'], '%m/%d/%Y')
 
                 # obj.GDPRstatement = request.POST['form37_1']
 
                 #
                 #
-                # if not request.POST.get('form54_1', None) == None:
-                #     obj.venue ='Calgary'
-                #
-                # if not request.POST.get('form56_1', None) == None:
-                #     obj.venue ='Edmonton'
-                #
-                # if not request.POST.get('form12_1', None) == None:
-                #     obj.venue ='Brazil'
-                #
-                # if not request.POST.get('form55_1', None) == None:
-                #     obj.venue ='Toronto'
-                #
-                # if not request.POST.get('form57_1', None) == None:
-                #    obj.venue ='Fort Erie'
-                #
-                # if not request.POST.get('form13_1', None) == None:
-                #     obj.venue ='USA'
-                #
-                # if not request.POST.get('form10_1', None) == None:
-                #     obj.venue ='Quebec'
-                #
-                # if not request.POST.get('form11_1', None) == None:
-                #     obj.venue ='Vancouver'
-                #
-                # if not request.POST.get('form14_1', None) == None:
-                #     obj.venue ='New Brunswick'
+                if not request.POST.get('Calgary', None) == None:
+                    obj.venue ='Calgary'
+
+                if not request.POST.get('Edmonton', None) == None:
+                    obj.venue ='Edmonton'
+
+                if not request.POST.get('Brazil', None) == None:
+                    obj.venue ='Brazil'
+
+                if not request.POST.get('Toronto', None) == None:
+                    obj.venue ='Toronto'
+
+                if not request.POST.get('FortErie', None) == None:
+                   obj.venue ='Fort Erie'
+
+                if not request.POST.get('USA', None) == None:
+                    obj.venue ='USA'
+
+                if not request.POST.get('Quebec', None) == None:
+                    obj.venue ='Quebec'
+
+                if not request.POST.get('Vancouver', None) == None:
+                    obj.venue ='Vancouver'
+
+                if not request.POST.get('New Brunswick', None) == None:
+                    obj.venue ='New Brunswick'
                 #
                 if not request.POST.get('diabilityYes', None) == None:
                     obj.disability = True
@@ -145,13 +145,13 @@ class TwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
                 #
                 tempTearAbout = ''
                 if not request.POST.get('twiWebsite', None) == None:
-                    tempTearAbout = 'TWI Corporate Website '
+                    tempTearAbout = 'TWI Corporate Website'
                 if not request.POST.get('CSWIPweb', None) == None:
                     tempTearAbout = tempTearAbout + ' - ' + 'CSWIP Website'
                 if not request.POST.get('emailMarketing', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Email marketing '
+                    tempTearAbout = tempTearAbout + ' - ' + 'Email marketing'
                 if not request.POST.get('Bulletin', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Bulletin / Connect '
+                    tempTearAbout = tempTearAbout + ' - ' + 'Bulletin / Connect'
                 if not request.POST.get('Google', None) == None:
                     tempTearAbout = tempTearAbout + ' - ' + 'Google search'
                 if not request.POST.get('Other', None) == None:
@@ -209,7 +209,7 @@ class TwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if not request.POST.get('Supervisor', None) == None:
                     obj.CSWIPWeldingexamination = 'Supervisor'
                 if not request.POST.get('QC', None) == None:
-                    obj.CSWIPWeldingexamination = 'QC Coordinator '
+                    obj.CSWIPWeldingexamination = 'QC Coordinator'
                 if not request.POST.get('ASME', None) == None:
                     obj.CSWIPWeldingexamination = 'ASME IX'
                 #
@@ -381,7 +381,7 @@ class TwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
                 formListObj.FormID = obj.id
                 formListObj.save()
 
-                return redirect('forms:allenrolmentform_')
+                return redirect('forms:updatetwienroment_' , id=obj.id)
 
 
             else:
@@ -2666,6 +2666,7 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
+                print("mainFOrm")
                 eventID = request.POST['eventID']
                 categoryID = request.POST['categoryID']
                 guidelineID = request.POST['guidelineID']
@@ -2737,6 +2738,9 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if not request.POST.get('medicalTravelCase4No', None) == None:
                     obj.medicalTravelCase4 = False
 
+                obj.outsideCountry = request.POST['outsideCountry']
+                obj.temperature = request.POST['temperature']
+                obj.medicalHistory = request.POST['medicalHistory']
                 obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
 
                 obj.save()
@@ -2753,30 +2757,30 @@ class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 return redirect('forms:updatecovid19_', id=obj.id)
 
-            if 'uploadFormBack' in request.POST:
-                print('uploadFormBack')
-
-                file = request.FILES['file']
-                print(file)
-
-                canID = request.POST['mainCanID']
-                eventID = request.POST['eventID']
-                categoryID = request.POST['categoryID']
-                guidelineID = request.POST['guidelineID']
-
-
-                candidate = TesCandidate.objects.filter(id=canID).first()
-                event = Event.objects.filter(id=eventID).first()
-                category = Category.objects.filter(id=categoryID).first()
-                guideline = Guideline.objects.filter(id=guidelineID).first()
-                context = super(NDTCovid19View, self).get_context_data()
-                context['candidate'] = candidate
-                context['category'] = category
-                context['event'] = event
-                context['guideline'] = guideline
-
-            # return redirect('forms:jaegertofdl2_' ,context)
-                return render(request, 'forms/ndt/covid_19_S.html', context)
+            # if 'uploadFormBack' in request.POST:
+            #     print('uploadFormBack')
+            #
+            #     file = request.FILES['file']
+            #     print(file)
+            #
+            #     canID = request.POST['mainCanID']
+            #     eventID = request.POST['eventID']
+            #     categoryID = request.POST['categoryID']
+            #     guidelineID = request.POST['guidelineID']
+            #
+            #
+            #     candidate = TesCandidate.objects.filter(id=canID).first()
+            #     event = Event.objects.filter(id=eventID).first()
+            #     category = Category.objects.filter(id=categoryID).first()
+            #     guideline = Guideline.objects.filter(id=guidelineID).first()
+            #     context = super(NDTCovid19View, self).get_context_data()
+            #     context['candidate'] = candidate
+            #     context['category'] = category
+            #     context['event'] = event
+            #     context['guideline'] = guideline
+            #
+            # # return redirect('forms:jaegertofdl2_' ,context)
+            #     return render(request, 'forms/ndt/covid_19_S.html', context)
             else:
                 print('Here55')
                 # if request.FILES.get('file', False):

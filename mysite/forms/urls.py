@@ -12,8 +12,7 @@ urlpatterns = [
     path('newform/', views.NewForm.as_view(), name='newform_'),
     path('all/', views.AllForms.as_view(), name='all_'),
     path('allformlist/', views.AllFormsList.as_view(), name='allformlist_'),
-    path('allenrolmentform/', views.AllEnrolmentForm.as_view(), name='allenrolmentform_'),
-    path('updatetwienroment/<int:id>', views.UpdateTwiEnrolment.as_view(), name='updatetwienroment_'),
+
     path('allbgasform/', views.AllBGASForm.as_view(), name='allbgasform_'),
     path('alldb/', views.AllFormsFromPostgres.as_view(), name='alldb_'),
     path('viewform/<int:id>', views.ViewForm.as_view(), name='viewform_'),
@@ -28,6 +27,9 @@ urlpatterns = [
     path('allpslinitialform/', views.AllBGASinitialForms.as_view(), name='allpslinitialform_'),
 
     path('newtwienrolment/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
+    path('allenrolmentform/', views.AllEnrolmentForm.as_view(), name='allenrolmentform_'),
+    path('updatetwienroment/<int:id>', views.UpdateTwiEnrolment.as_view(), name='updatetwienroment_'),
+
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
 
     path('bgasexpform/', views.BGASExperienceForm.as_view(), name='bgasexpform_'),
