@@ -325,7 +325,7 @@ class TwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
                     obj.NDTexaminationCategories = '3.2'
                 if not request.POST.get('37', None) == None:
                     obj.NDTexaminationCategories = '3.7'
-                if not request.POST.get('37', None) == None:
+                if not request.POST.get('38', None) == None:
                     obj.NDTexaminationCategories = '3.8'
                 if not request.POST.get('39', None) == None:
                     obj.NDTexaminationCategories = '3.9'
