@@ -43,7 +43,7 @@
             <th  >Candidate</th>
             <th  >Contact Number</th>
             <th  >Email</th>
-            
+
             
             <th></th>
             <th></th>
@@ -63,8 +63,8 @@
             <td><p >{{item.candidate.first_name}} {{item.candidate.middleName}} {{item.candidate.last_name}}</p></td>
             <td><p >{% if  item.candidate.contact_number %} {{item.candidate.contact_number|phone_number}}{% endif %}</p></td>
             <td><p >{{item.candidate.email}}</p></td>
-            <td><a href="{% url 'forms:visionview_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
-                {% if item.uploadedForm %} <a target="_blank" href="{{item.uploadedForm.url}}" ><i class="fa fa-camera" aria-hidden="true"></i></a> {% endif %}
+            <td>
+                {% if item.file %} <a target="_blank" href="{{item.file.url}}" ><i class="fa fa-camera" aria-hidden="true"></i></a> {% endif %}
             </td>
            
  

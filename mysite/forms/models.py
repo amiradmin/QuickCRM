@@ -517,6 +517,7 @@ class VisionTest(models.Model):
     recognisedPhone = models.CharField(max_length=2048, null=True, blank=True)
     recognisedLicenceNumber = models.CharField(max_length=2048, null=True, blank=True)
     recognisedDate = models.DateField(null=True, blank=True)
+    file = models.FileField(null=True, blank=True)
 
 
     confirmation = models.BooleanField(null=True, blank=True)

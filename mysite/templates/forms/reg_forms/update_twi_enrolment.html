@@ -1639,26 +1639,27 @@ input[type = checkbox]:checked {
 
 @media print {
   body * {
-<!--    visibility: hidden;-->
+    visibility: hidden;
 
-
+}
 @page {
   size: A4;
+    margin:0;
+    padding:0px;
+<!--    -webkit-transform: scale(.95);-->
+
 }
 
 
-  }
-  #page-container1, #page-container1 * {
+
+  #tab-content, #tab-content * {
     visibility: visible;
-    transform: scaleY(0.5);
-    transform: scaleX(0.4);
-  }
-  #page-container1 {
-    position: absolute;
-    left: 0;
-    top: -140px;
+
+    width:900px;
+
 
   }
+
 }
 </style>
 <script>
@@ -1723,9 +1724,9 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="tab-content">
+                    <div id="tab-content">
 
-</div>
+
                     <form method="POST" onsubmit="return topFormFirstValidate();">
                         {% csrf_token %}
          <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="mainCanID"/>
@@ -1734,10 +1735,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
         <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
         <input type="hidden" value="{{category.id}}" name="categoryID"/>
         <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
-<div id="sidebar">
-<div id="outline">
-</div>
-</div>
+
 <div id="page-container10" >
 
     <div style="overflow-y: scroll; overflow-y: hidden;">
@@ -1770,6 +1768,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 </div>
 </div>
 </div>
+                </div>
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
@@ -1789,9 +1788,25 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
                             </div>
                             </div>
                             </div>
-                            </form>
+
                     </form>
 
+</div>
+
+<div class="uploadForm" id="dialog-form" title="Upload file">
+
+  <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        <input type="hidden"  value="{{candidate.id}}" name="mainCanID"/>
+        <input type="hidden"  value="{{event.id}}" name="eventID"/>
+        <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
+        <input type="hidden" value="{{category.id}}" name="categoryID"/>
+        <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
+  <input type="file" name="pdfFile" >
+
+  <p>Drag your files here or click in this area.</p>
+  <button class="btn btn-outline-primary" name="uploadFormBack" type="submit">Upload</button>
+</form>
 </div>
 
 
@@ -2122,6 +2137,61 @@ function compValidation() {
         element_5.style.backgroundColor = "#F9F77A";
     }
 }
+
+
+$(function() {
+  $(document).ready(function(){
+  $('form input').change(function () {
+    $('form p').text(this.files.length + " file(s) selected");
+  });
+});
+  var dialog, form,
+
+      // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+      emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+
+
+
+
+    dialog = $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 300,
+      width: 350,
+      modal: true,
+      buttons: {
+
+<!--        Cancel: function() {-->
+<!--          dialog.dialog( "close" );-->
+<!--        }-->
+      },
+      close: function() {
+        form[ 0 ].reset();
+        allFields.removeClass( "ui-state-error" );
+      }
+    });
+
+
+
+    $( "#create-user" ).button().on( "click", function() {
+      dialog.dialog( "open" );
+    });
+  });
+
+
 
 </script>
 {% endblock %}
