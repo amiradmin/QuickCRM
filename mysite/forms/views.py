@@ -3672,7 +3672,7 @@ class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateV
                 formListObj.FormID = examObj.id
                 formListObj.save()
 
-                return redirect('forms:alltesfrmexamattend_')
+                return redirect('forms:updatetesfrmexamattend_', id=examObj.id)
 
 
             else:
@@ -3729,49 +3729,54 @@ class UpdateTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, Templa
     def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                print("Git Test")
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =True
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =False
-                visionObj = VisionTest.objects.filter(id=id).first()
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
-                visionObj.email = request.POST['email']
-                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
-                visionObj.tumbling = request.POST['tumbling']
+                print("LOOK")
 
-                if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity = 'UNCORRECTED'
+                # candidate = TesCandidate.objects.filter(id=request.POST['CanID']).first()
 
-                if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity = 'CORRECTED'
+                examObj = TesFrmExaminationAttendance()
+                # examObj.candidate =candidate
 
-                if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
 
-                if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception = 'ACCEPT'
+                examObj.examTitleCode = request.POST['examTitleCode']
+                examObj.venue = request.POST['venue']
+                examObj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                examObj.invigilatorName = request.POST['invigilatorName']
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception = 'REJECT'
+                examObj.save()
 
-                if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey = 'ACCEPT'
+                #
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey = 'shageReject'
+                for idx, item in enumerate(range(0, 8)):
+                    print(str(idx+1))
+                    # print(request.POST.get('id', None))
+                    if not request.POST.get('id'+str(idx+1), None) == None:
+                        id = request.POST['id'+str(idx+1)]
+                        # print(id)
 
-                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
-                visionObj.recognisedName = request.POST['recognisedName']
-                visionObj.recognisedPhone = request.POST['recognisedPhone']
-                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
-                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+                        fullName = request.POST["canName" + str(idx+1)].split(' ')
+                        print(fullName)
+                        if len(fullName) == 2:
+                            candidate = TesCandidate.objects.filter(
+                                Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
+                            print(candidate.first_name)
 
-                visionObj.save()
+                        elif len(fullName) == 3:
+                            candidate = TesCandidate.objects.filter(
+                                Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
+                            # print(candidate.first_name)
+                        #
+                        if candidate:
+                            canObj = TesFrmCandidate.objects.filter(id=id).first()
+                            canObj.candidate = candidate
+                            canObj.testSequence = request.POST['testSequence' + str(idx + 1)]
+                            canObj.methodOfExam = request.POST['methodOfExam' + str(idx + 1)]
+                            canObj.scheme = request.POST['scheme' + str(idx + 1)]
+                            canObj.remark = request.POST['remark' + str(idx + 1)]
+                            canObj.save()
+                            examObj.tesFrmCandidate.add(canObj)
 
-                return redirect('forms:allisiontest_')
+
+                return redirect('forms:alltesfrmexamattend_')
 
             return render(request, 'forms/vision_test.html', context)
 
