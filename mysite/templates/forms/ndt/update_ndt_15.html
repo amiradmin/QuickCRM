@@ -939,21 +939,16 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
          <input type="checkbox" name="confirmation"       id="confirmation"        />
                             <hr>
 <h5>Scanned Form:</h5><a href="{% if form.file %}{{form.file.url}}{% endif %}" target="_blank">{{form.file}}</a>
-                            </div>
-                        <hr>
-                        <br>
-                        <button  class="btn btn-outline-primary" type="button" id="create-user">Upload files</button>
-                                <button class="btn btn-outline-primary" name="mainForm" type="submit">Update</button>
-                             <input type="button" class="btn btn-outline-primary"  onclick="window.print();return false;"  value="Print!" />
-                            </div>
-                            </div>
-                            </div>
-                            </div>
-
-                            </form>
+                            </div><hr><br><button  class="btn btn-outline-primary" type="button" id="create-user">Upload files</button>
+                        <button class="btn btn-outline-primary" name="mainForm" type="submit">Update</button>
+                        <input type="button" class="btn btn-outline-primary"  onclick="window.print();return false;"  value="Print!" />
+                    </div>
+                </div>
+            </div>
+         </div></form>
 
 
-      <div class="uploadForm" id="dialog-form" title="Upload file">
+<div class="uploadForm" id="dialog-form" title="Upload file">
 
   <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}

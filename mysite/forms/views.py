@@ -1202,11 +1202,6 @@ class AllBGASForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self):
         context = super(AllBGASForm, self).get_context_data()
         forms = BGAsExperienceForm.objects.all()
-        adminStatus = False
-        for g in self.request.user.groups.all():
-            if g.name == 'super_admin' or g.name == 'training_admin':
-                adminStatus = True
-        context['adminStatus'] = adminStatus
         context['forms'] = forms
         return context
 
@@ -1271,7 +1266,7 @@ class NewForm(TemplateView):
         return redirect('forms:all_')
 
 
-class BGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewBGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/general/bgas.html"
 
     def get_context_data(self):
@@ -1330,7 +1325,7 @@ class BGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 formListObj.FormID = bgasObj.id
                 formListObj.save()
 
-                return redirect('forms:allbgasform_')
+                return redirect('forms:updatebgasexpform_',id=bgasObj.id )
 
 
             elif 'selector' in request.POST:
@@ -1357,6 +1352,46 @@ class BGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 # return redirect('forms:jaegertofdl2_' ,context)
                 return render(request, 'forms/general/bgas.html', context)
 
+
+class UpdateBGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/general/update_bgas.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateBGASExperienceForm, self).get_context_data()
+        form = BGAsExperienceForm.objects.filter(id=self.kwargs['id']).first()
+        context['form'] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                print("Post Here")
+
+
+                bgasObj = BGAsExperienceForm.objects.filter(id = self.kwargs['id']).first()
+
+
+                # bgasObj.sponsorCcmpany = request.POST['fullName']
+                bgasObj.sponsorCcmpany = request.POST['sponsorCcmpany']
+                bgasObj.sponsorName = request.POST['sponsorName']
+                bgasObj.sponsorAddress = request.POST['sponsorAddress']
+                bgasObj.VerifierName = request.POST['verifierName']
+                bgasObj.VerifierCompany = request.POST['verifierCompany']
+                bgasObj.VerifierPosition = request.POST['verifierPosition']
+                bgasObj.VerifierTelephone = request.POST['verifierTel']
+                bgasObj.VerifierEmail = request.POST['verifiermail']
+                bgasObj.VerifierDate = datetime.datetime.strptime(request.POST['verifierDate'], '%m/%d/%Y')
+                bgasObj.PreCertificationExperience = request.POST['PreCertificationExperience']
+
+                bgasObj.save()
+
+                return redirect('forms:allbgasform_')
+
+
+
+
+                # return redirect('forms:jaegertofdl2_' ,context)
+        return render(request, 'forms/general/bgas.html')
 
 class PSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/PSL-57A_Initial_exam_application_S.html"

@@ -13,7 +13,7 @@ urlpatterns = [
     path('all/', views.AllForms.as_view(), name='all_'),
     path('allformlist/', views.AllFormsList.as_view(), name='allformlist_'),
 
-    path('allbgasform/', views.AllBGASForm.as_view(), name='allbgasform_'),
+
     path('alldb/', views.AllFormsFromPostgres.as_view(), name='alldb_'),
     path('viewform/<int:id>', views.ViewForm.as_view(), name='viewform_'),
     path('drawsig/<int:id>', views.sigDrawer.as_view(), name='drawsig_'),
@@ -32,8 +32,9 @@ urlpatterns = [
 
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
 
-    path('bgasexpform/', views.BGASExperienceForm.as_view(), name='bgasexpform_'),
-
+    path('bgasexpform/', views.NewBGASExperienceForm.as_view(), name='bgasexpform_'),
+    path('updatebgasexpform/<int:id>', views.UpdateBGASExperienceForm.as_view(), name='updatebgasexpform_'),
+    path('allbgasform/', views.AllBGASForm.as_view(), name='allbgasform_'),
 
     path('formmap/', views.formMap.as_view(), name='formmap_'),
     path('formmapbyid/<slug:id>', views.FormMapByCatID.as_view(), name='formmapbyid_'),
