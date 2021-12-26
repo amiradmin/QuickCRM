@@ -1205,6 +1205,10 @@ class AllBGASForm(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['forms'] = forms
         return context
 
+class DeleteBGAS(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = BGAsExperienceForm
+    success_url = reverse_lazy('forms:allbgasform_')
+
 
 class NewForm(TemplateView):
     template_name = "forms/new_form.html"
