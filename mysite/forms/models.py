@@ -309,6 +309,7 @@ class NDT15AExperienceVerification(models.Model):
     supervisionActivity =  models.CharField(max_length=512, null=True, blank=True)
     verEmail =  models.EmailField(null=True, blank=True)
     verDate = models.DateField(null=True, blank=True)
+    file = models.FileField(null=True, blank=True)
 
     confirmation = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

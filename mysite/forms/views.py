@@ -2686,35 +2686,13 @@ class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
                         objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' + str(idx + 1)], '%m/%d/%Y')
                         objExp.save()
 
-                #
-                # if request.POST['methodLevel']:
-                #     objCurrent = CurrentFormerCertification()
-                #     objCurrent.methodLevel = request.POST['methodLevel']
-                #     objCurrent.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority']
-                #     objCurrent.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate'], '%m/%d/%Y')
-                #     objCurrent.save()
-                #     obj.currentFormerCertification.add(objCurrent)
-                #
-                # if request.POST['claimedMethodLevel']:
-                #     objClaimed = ExperienceClaimed()
-                #     objClaimed.methodLevel = request.POST['claimedMethodLevel']
-                #     objClaimed.ExperienceClaimedSince = request.POST['ExperienceClaimedSince']
-                #     objClaimed.NumberOfNonths = request.POST['NumberOfNonths']
-                #     objClaimed.DateOfExamination = request.POST['DateOfExamination']
-                #     objClaimed.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExamination'],
-                #                                                               '%m/%d/%Y')
-                #     objClaimed.save()
-                #     obj.experienceClaimed.add(objClaimed)
+                return redirect('forms:allndt15expver_')
 
-                # formListObj = FormList()
-                # formListObj.name = obj.__class__.__name__
-                # formListObj.event = event
-                # formListObj.candidate = candidate
-                # formListObj.category = category
-                # formListObj.guideline = guideline
-                # formListObj.FormID = obj.id
-                # formListObj.save()
-
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = NDT15AExperienceVerification.objects.filter(id=id).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
                 return redirect('forms:allndt15expver_')
 
             # return redirect('forms:jaegertofdl2_' ,context)
