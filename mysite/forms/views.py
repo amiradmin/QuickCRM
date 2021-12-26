@@ -2976,11 +2976,8 @@ class UpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj = NDTCovid19.objects.filter(id=id).first()
                 obj.file = request.FILES['pdfFile']
                 obj.save()
-                # print(pdfFile)
-
-
-
                 return redirect('forms:allndtcovid19_')
+
                 # return render(request, 'forms/ndt/covid_19_S.html', context)
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/covid_19.html', context)
@@ -3733,7 +3730,7 @@ class UpdateTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, Templa
 
                 # candidate = TesCandidate.objects.filter(id=request.POST['CanID']).first()
 
-                examObj = TesFrmExaminationAttendance()
+                examObj = TesFrmExaminationAttendance.objects.filter(id=self.kwargs['id']).first()
                 # examObj.candidate =candidate
 
 
@@ -3776,6 +3773,13 @@ class UpdateTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, Templa
                             examObj.tesFrmCandidate.add(canObj)
 
 
+                return redirect('forms:alltesfrmexamattend_')
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = TesFrmExaminationAttendance.objects.filter(id=id).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
                 return redirect('forms:alltesfrmexamattend_')
 
             return render(request, 'forms/vision_test.html', context)

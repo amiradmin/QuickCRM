@@ -553,7 +553,7 @@ class TesFrmExaminationAttendance(models.Model):
     date = models.DateField(null=True, blank=True)
     invigilatorName = models.CharField(max_length=2048, null=True, blank=True)
     tesFrmCandidate = models.ManyToManyField(TesFrmCandidate, null=True, blank=True)
-
+    file = models.FileField(null=True, blank=True)
 
     confirmation = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
