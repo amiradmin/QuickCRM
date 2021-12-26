@@ -2576,7 +2576,7 @@ class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, Templat
                 formListObj.FormID = obj.id
                 formListObj.save()
 
-                return redirect('forms:allndt15expver_')
+                return redirect('forms:updatendt15_', id=obj.id)
 
 
             else:
