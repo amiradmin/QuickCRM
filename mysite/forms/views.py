@@ -2653,7 +2653,8 @@ class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
 
-                obj = NDT15AExperienceVerification.objects.filter(id=id).last()
+                obj = NDT15AExperienceVerification.objects.filter(id=id).first()
+                obj.candidateID = request.POST['cancanID']
                 obj.descriptionOfExperience = request.POST['descriptionOfExperience']
                 obj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 obj.nameJobTitle = request.POST['nameJobTitle']
@@ -2663,24 +2664,47 @@ class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.verDate = datetime.datetime.strptime(request.POST['verDate'], '%m/%d/%Y')
                 obj.save()
 
-                if request.POST['methodLevel']:
-                    objCurrent = CurrentFormerCertification()
-                    objCurrent.methodLevel = request.POST['methodLevel']
-                    objCurrent.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority']
-                    objCurrent.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate'], '%m/%d/%Y')
-                    objCurrent.save()
-                    obj.currentFormerCertification.add(objCurrent)
+                for idx, item in enumerate(range(0, 8)):
+                    if not request.POST.get('methodLevel'+ str(idx+1), None) == None:
+                        id = request.POST['id'+ str(idx+1)]
+                        print(id)
+                        print(request.POST['ExpiryDate' + str(idx + 1)])
+                        objCur = CurrentFormerCertification.objects.filter(id=id).first()
+                        objCur.methodLevel = request.POST['methodLevel'+ str(idx+1)]
+                        objCur.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority'+ str(idx+1)]
+                        objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate' + str(idx + 1)], '%m/%d/%Y')
+                        objCur.save()
 
-                if request.POST['claimedMethodLevel']:
-                    objClaimed = ExperienceClaimed()
-                    objClaimed.methodLevel = request.POST['claimedMethodLevel']
-                    objClaimed.ExperienceClaimedSince = request.POST['ExperienceClaimedSince']
-                    objClaimed.NumberOfNonths = request.POST['NumberOfNonths']
-                    objClaimed.DateOfExamination = request.POST['DateOfExamination']
-                    objClaimed.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExamination'],
-                                                                              '%m/%d/%Y')
-                    objClaimed.save()
-                    obj.experienceClaimed.add(objClaimed)
+                for idx, item in enumerate(range(0, 8)):
+                    if not request.POST.get('claimedMethodLevel'+ str(idx+1), None) == None:
+                        id = request.POST['expID'+ str(idx+1)]
+                        print(id)
+                        objExp = ExperienceClaimed.objects.filter(id=id).first()
+                        objExp.methodLevel = request.POST['claimedMethodLevel'+ str(idx+1)]
+                        objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSince'+ str(idx+1)]
+                        objExp.NumberOfNonths = request.POST['NumberOfNonths'+ str(idx+1)]
+                        objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' + str(idx + 1)], '%m/%d/%Y')
+                        objExp.save()
+
+                #
+                # if request.POST['methodLevel']:
+                #     objCurrent = CurrentFormerCertification()
+                #     objCurrent.methodLevel = request.POST['methodLevel']
+                #     objCurrent.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority']
+                #     objCurrent.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate'], '%m/%d/%Y')
+                #     objCurrent.save()
+                #     obj.currentFormerCertification.add(objCurrent)
+                #
+                # if request.POST['claimedMethodLevel']:
+                #     objClaimed = ExperienceClaimed()
+                #     objClaimed.methodLevel = request.POST['claimedMethodLevel']
+                #     objClaimed.ExperienceClaimedSince = request.POST['ExperienceClaimedSince']
+                #     objClaimed.NumberOfNonths = request.POST['NumberOfNonths']
+                #     objClaimed.DateOfExamination = request.POST['DateOfExamination']
+                #     objClaimed.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExamination'],
+                #                                                               '%m/%d/%Y')
+                #     objClaimed.save()
+                #     obj.experienceClaimed.add(objClaimed)
 
                 # formListObj = FormList()
                 # formListObj.name = obj.__class__.__name__
