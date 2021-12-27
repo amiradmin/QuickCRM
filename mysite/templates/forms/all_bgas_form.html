@@ -61,7 +61,9 @@
             <td><p ><a style="margin:0px; padding:0px;  " href="">{{item.candidate.tes_candidate_id}}</a></p></td>
             <td><p >{{item.firstName}}</p></td>
             <td><p >{{item.lastName}}</p></td>
-
+            <td>
+                {% if item.file %} <a target="_blank" href="{{item.file.url}}" ><i class="fa fa-camera" aria-hidden="true"></i></a> {% endif %}
+            </td>
  
           
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'forms:updatebgasexpform_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>

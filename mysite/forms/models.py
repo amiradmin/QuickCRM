@@ -139,6 +139,7 @@ class BGAsExperienceForm(models.Model):
     VerifierEmail = models.CharField(max_length=512, null=True, blank=True )
     VerifierDate = models.DateField( null=True, blank=True )
     birthOfDate = models.DateField( null=True, blank=True )
+    file = models.FileField(null=True, blank=True)
     confirmation = models.BooleanField( null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

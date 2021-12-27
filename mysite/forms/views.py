@@ -1391,8 +1391,12 @@ class UpdateBGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 return redirect('forms:allbgasform_')
 
-
-
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = BGAsExperienceForm.objects.filter(id=self.kwargs['id']).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:allbgasform_')
 
                 # return redirect('forms:jaegertofdl2_' ,context)
         return render(request, 'forms/general/bgas.html')
