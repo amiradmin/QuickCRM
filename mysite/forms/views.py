@@ -4236,7 +4236,7 @@ class NewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
                 formListObj.FormID = attObj.id
                 formListObj.save()
 
-                return redirect('forms:alltrainingatt_')
+                return redirect('forms:updatetrainingatt_' ,id=attObj.id )
 
             else:
                 print('Here Friday')
@@ -4276,61 +4276,125 @@ class DeleteTrainingAttendance(SidebarMixin, LoginRequiredMixin, DeleteView):
 
 
 class UpdateTrainingAttendancem(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/update_TRAINING-ATTENDANCE-FORM-TES-TES-FRM-007-01.html"
+    template_name = "forms/general/update_training_attendance.html"
 
     def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateTrainingAttendancem, self).get_context_data()
         id = self.kwargs['id']
-        form = TesFrmExaminationAttendance.objects.filter(id=id).first()
+        form = TrainingAttendance.objects.filter(id=id).first()
         context['form'] = form
         return context
 
     def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                print("Git Test")
+
                 # if not  request.POST.get('contactMe', None) == None:
                 #     objPSL57.contactMe =True
                 # if not  request.POST.get('contactMe', None) == None:
                 #     objPSL57.contactMe =False
-                visionObj = VisionTest.objects.filter(id=id).first()
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
-                visionObj.email = request.POST['email']
-                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
-                visionObj.tumbling = request.POST['tumbling']
+                attObj = TrainingAttendance.objects.filter(id=id).first()
+                attObj.examTitleCode = request.POST['examTitleCode']
+                attObj.venue = request.POST['venue']
+                attObj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                attObj.lecturerName = request.POST['lecturerName']
+                attObj.save()
 
-                if not request.POST.get('uncorrected', None) == None:
-                    visionObj.nearVisionAcuity = 'UNCORRECTED'
+                for idx, item in enumerate(range(0, 8)):
+                    print(idx)
+                    if not request.POST.get('canName' + str(idx + 1), None) == None:
+                        fullName = request.POST["canName" + str(idx + 1)].split(' ')
+                        print(fullName)
+                        if len(fullName) == 2:
+                            candidate = TesCandidate.objects.filter(
+                                Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
+                            print(candidate.first_name)
 
-                if not request.POST.get('corrected', None) == None:
-                    visionObj.nearVisionAcuity = 'CORRECTED'
+                        elif len(fullName) == 3:
+                            candidate = TesCandidate.objects.filter(
+                                Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
+                            print(candidate.first_name)
 
-                if not request.POST.get('isNotAble', None) == None:
-                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
+                        if len(fullName) > 1:
+                            print(request.POST['indexID'+ str(idx + 1)])
+                            canObj = TesAttCandidate.objects.filter(id=request.POST['indexID'+ str(idx + 1)]).first()
+                            canObj.candidate = candidate
+                            canObj.testSequence = request.POST['testSequence' + str(idx + 1)]
+                            if not request.POST.get('dayOneSec1' + str(idx + 1), None) == None:
+                                canObj.dayOneSec1 = True
+                            else:
+                                canObj.dayOneSec1 = False
 
-                if not request.POST.get('colorAccept', None) == None:
-                    visionObj.colourPerception = 'ACCEPT'
+                            if not request.POST.get('dayOneSec2' + str(idx + 1), None) == None:
+                                canObj.dayOneSec2 = True
+                            else:
+                                canObj.dayOneSec2 = False
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.colourPerception = 'REJECT'
+                            if not request.POST.get('dayOneSec3' + str(idx + 1), None) == None:
+                                canObj.dayOneSec3 = True
+                            else:
+                                canObj.dayOneSec3 = False
 
-                if not request.POST.get('shadeAccept', None) == None:
-                    visionObj.shadesOfGrey = 'ACCEPT'
+                            if not request.POST.get('dayOneSec4' + str(idx + 1), None) == None:
+                                canObj.dayOneSec4 = True
+                            else:
+                                canObj.dayOneSec4 = False
 
-                if not request.POST.get('colorReject', None) == None:
-                    visionObj.shadesOfGrey = 'shageReject'
 
-                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
-                visionObj.recognisedName = request.POST['recognisedName']
-                visionObj.recognisedPhone = request.POST['recognisedPhone']
-                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
-                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
 
-                visionObj.save()
+                            if not request.POST.get('dayTwoSec1' + str(idx + 1), None) == None:
+                                canObj.dayTwoSec1 = True
+                            else:
+                                canObj.dayTwoSec1 = False
 
-                return redirect('forms:allisiontest_')
+                            if not request.POST.get('dayTwoSec2' + str(idx + 1), None) == None:
+                                canObj.dayTwoSec2 = True
+                            else:
+                                canObj.dayTwoSec2 = False
+
+                            if not request.POST.get('dayTwoSec3' + str(idx + 1), None) == None:
+                                canObj.dayTwoSec3 = True
+                            else:
+                                canObj.dayTwoSec3 = False
+
+                            if not request.POST.get('dayTwoSec4' + str(idx + 1), None) == None:
+                                canObj.dayTwoSec4 = True
+                            else:
+                                canObj.dayTwoSec4 = False
+
+
+
+                            if not request.POST.get('dayThreeSec1' + str(idx + 1), None) == None:
+                                canObj.dayThreeSec1 = True
+                            else:
+                                canObj.dayThreeSec1 = False
+
+                            if not request.POST.get('daythreeSec2' + str(idx + 1), None) == None:
+                                canObj.daythreeSec2 = True
+                            else:
+                                canObj.daythreeSec2 = False
+
+                            if not request.POST.get('dayThreeSec3' + str(idx + 1), None) == None:
+                                canObj.dayThreeSec3 = True
+                            else:
+                                canObj.dayThreeSec3 = False
+
+                            if not request.POST.get('dayThreeSec4' + str(idx + 1), None) == None:
+                                canObj.dayThreeSec4 = True
+                            else:
+                                canObj.dayThreeSec4 = False
+
+                            canObj.save()
+
+                return redirect('forms:alltrainingatt_')
+
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = TrainingAttendance.objects.filter(id=id).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:alltrainingatt_')
 
             return render(request, 'forms/vision_test.html', context)
 

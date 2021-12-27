@@ -657,7 +657,7 @@ class TrainingAttendance(models.Model):
     date = models.DateField(null=True, blank=True)
     lecturerName = models.CharField(max_length=2048, null=True, blank=True)
     attCandidate = models.ManyToManyField(TesAttCandidate, null=True, blank=True)
-
+    file = models.FileField(null=True, blank=True)
     confirmation = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
