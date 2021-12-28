@@ -358,15 +358,37 @@ input[type = checkbox]:checked {
 }
 
 
+.ui-dialog-titlebar{
+background: grey;
+  width: 500px;
+  border: 1px dashed #343536;
+    height: 35px;
+  border-radius: 4px 4px 0 0 ;
+  padding:5px;
+}
+.ui-dialog-titlebar-close{
+height:25px;
+width:25px;
+float:right;
+}
 
+.ui-dialog-titlebar-close:after{
+  display: inline-block;
+  position: relative;
+  left: -7px;
+  top: -22px;
+  content: "\00d7"; /* This will render the 'X' */
+  color:black;
+  font-size:40px;
+}
 
+.ui-dialog-title{
+    color: white;
+
+}
 .uploadForm form{
   background: #e7e7e7;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -100px;
-  margin-left: -250px;
+
   width: 500px;
   height: 170px;
   border: 1px dashed #343536;
@@ -391,17 +413,19 @@ input[type = checkbox]:checked {
 .uploadForm form button{
   margin: 0;
   color: #fff;
-  background: #1FBBA7;
+  background: #EE6555;
   border: none;
-  width: 508px;
+  width: 500px;
   height: 35px;
+  border-radius:0 0 4px 4px;
   margin-top: -20px;
-  margin-left: -4px;
-  border-radius: 4px;
+  margin-left: -1px;
+
   outline: none;
 }
+
 .uploadForm form button:hover{
-  background: #1FBBD2;
+  background: #4CAF50;
 }
 .uploadForm form button:active{
   border:0;
@@ -563,7 +587,8 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
                             </form>
 
 
-<div class="uploadForm" id="dialog-form" title="Upload file">
+
+<div class="uploadForm tab-content text-center " style="backgroun-color:red;" id="dialog-form" title="Upload file">
 
   <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
@@ -578,6 +603,9 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
   <button class="btn btn-outline-primary" name="uploadFormBack" type="submit">Upload</button>
 </form>
 </div>
+
+
+
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="{% static 'js/regex.js' %}" type="text/javascript"></script>
