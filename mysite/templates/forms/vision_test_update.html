@@ -597,28 +597,94 @@ input[type = checkbox]:checked {
 
 
 
-@page {
+@media print {
+  body * {
+    visibility: hidden;
+
+  }
+  @page {
   size: A4;
   margin: 0;
 
+
 }
-@media print {
-  html, body {
-    width: 210mm;
-    height: 297mm;
-    position:relative;
-    top:-50px;
-    left:-20px;
+
+  #page-container1, #page-container1 * {
+    visibility: visible;
+<!--    margin-left:-35px;-->
+
+  }
+  #page-container1 {
+    position: absolute;
+    left: -165px;
+    top: -190px;
+    transform: scale(0.7,0.7);
+
   }
 
- #pf1 {
- position:relative;
- top:-120px;
- left:-120px;
-transform: scale(0.7, 0.7);
+  #topInfo1 {
+    position: relative;
+    left: 163px;
+    top: 97px;
 
- }
+
+  }
+
+  #topInfo2 {
+    position: relative;
+    left: 140px;
+    top: 57px;
+
+  }
+ #topInfo3 {
+    position: relative;
+    left: 170px;
+    top: 57px;
+
+  }
+ #topInfo4 {
+    position: relative;
+    left: 65px;
+    top: 140px;
+
+  }
+
+    #insideInfo1 {
+    position: relative;
+    left: 100px;
+    top: 72px;
+
+  }
+
+  #insideInfo2 {
+    position: relative;
+    left: 100px;
+    top: 72px;
+
+  }
+
+  #insideInfo3 {
+    position: relative;
+    left: 85px;
+    top: 72px;
+    padding:10px;
+  }
+
+    #insideInfo4 {
+    position: relative;
+    left: 117px;
+    top: 72px;
+    padding:10px;
+  }
+
+#insideInfo5 {
+    position: relative;
+    left: 144px;
+    top: 72px;
+    padding:10px;
+  }
 }
+
 
 
 
@@ -702,7 +768,9 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 
 
 
-    </div>    <input style="position: absolute; top: 164px; left: 127px; z-index: 1; width: 81%; height: 33px;border:none" type="text" name="fullname" value="{{form.candidate.first_name}} {% if form.candidate.middleName %}{{form.candidate.middleName}}{% endif%} {{form.candidate.last_name}}"/>
+    </div>
+<div id="topInfo1">
+    <input style="position: absolute; top: 164px; left: 127px; z-index: 1; width: 81%; height: 33px;border:none" id="" type="text" name="fullname" value="{{form.candidate.first_name}} {% if form.candidate.middleName %}{{form.candidate.middleName}}{% endif%} {{form.candidate.last_name}}"/>
     <input style="position: absolute; top: 211px; left: 143px; z-index: 1; width: 79%; height: 33px;border:none" type="text" name="candidateAdress" value="{{form.address}}" />
     <input style="position: absolute; top: 259px; left: 158px; z-index: 1; width: 34%; height: 33px;border:none" type="text" id="candidateHomePhone" name="candidateHomePhone" onkeypress="return NumberPressed(event);" value="{{form.candidate.contact_number}}"  />
     <input style="position: absolute; top: 259px; left: 559px; z-index: 1; width: 32%; height: 33px; border:none" type="text" placeholder="M/D/Y" name="birthDay" value="{{form.candidate.birth_date|date:'d/m/Y'}}"  />
@@ -727,7 +795,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <input style="position: absolute; bottom: 115px; left: 164px; z-index: 1; width: 14%; height: 33px;border:none;" placeholder="M/D/Y" type="text" name="recognisedDate"  value="{{form.recognisedDate|date:'m/d/Y'}}" />
 
     <div class="c x1 y15 wa ha"><div class="t m0 x15 hb y14 ff3 fs4 fc0 sc0 ls0 ws0">Address: </div></div><div class="c x1 y16 wb ha"><div class="t m0 x15 hb y14 ff3 fs4 fc0 sc0 ls0 ws0">Telephone: </div></div><div class="c x16 y16 wc ha"><div class="t m0 x15 hb y14 ff3 fs4 fc0 sc0 ls0 ws0">Date of Birth:  </div></div><div class="c x1 y17 wb ha"><div class="t m0 x15 hb y14 ff3 fs4 fc0 sc0 ls0 ws0">Email: </div></div><div class="c x16 y17 wc ha"><div class="t m0 x15 hb y14 ff3 fs4 fc0 sc0 ls0 ws0">Employer: </div></div><div class="c x1 y18 wa hc"><div class="t m0 x17 hd y19 ff5 fs4 fc0 sc0 ls0 ws0">These tests meet the requirements of <span class="_ _1"></span>EN ISO 9712, NAS 410, EN 4<span class="ls1">17<span class="_ _1"></span><span class="ls0">9 and SNT-<span class="ls2">TC</span>-1A  </span></span></div><div class="t m0 x18 h6 y1a ff5 fs4 fc0 sc0 ls0 ws0">These tests are suitable for <span class="_ _1"></span>BGAS, PCN <span class="ls1">and</span> CSWIP examinations.<span class="ff2 fs3"> </span></div></div><div class="c x1 y1b wa he"><div class="t m0 x15 h6 y1c ff2 fs3 fc0 sc0 ls0 ws0">Near Vision Acuity <span class="fs0">(To be carried out for all candidates<span class="_ _0"></span>).</span> </div><div class="t m0 x15 hf y1d ff3 fs4 fc0 sc0 ls0 ws0">Individual shall be ca<span class="_ _0"></span>pable of reading <span class="_ _0"></span><span class="ff2 ls3">N4<span class="ls4">.5<span class="ls0"> Times New<span class="_ _0"></span> Roman</span></span></span> or <span class="_ _0"></span><span class="ff2">Jaeger J1</span> on <span class="_ _0"></span>a standard reading test <span class="_ _0"></span>plate at a </div><div class="t m0 x15 hb y1e ff3 fs4 fc0 sc0 ls0 ws0">distance of not less <span class="_ _0"></span>than 30 cm unaided o<span class="_ _0"></span>r corrected in at <span class="_ _0"></span>least one eye or <span class="_ _0"></span>read at least 9 <span class="_ _0"></span>of 10 lines of <span class="_ _0"></span>tumbling E </div><div class="t m0 x15 hf y1f ff3 fs4 fc0 sc0 ls0 ws0">(as per <span class="ff2">EN ISO 18490</span>) at distan<span class="_ _1"></span>ce of 400 ± 25 mm by both eyes.<span class="_ _1"></span> </div><div class="t m0 x19 hb y20 ff3 fs4 fc0 sc0 ls0 ws0">Tumbling E result: . . .<span class="_ _1"></span> . . . . . . of 10 lines  </div></div><div class="c x1 y21 wd h10"><div class="t m0 x1a h11 y22 ff3 fs1 fc0 sc0 ls0 ws0">UNCORRECTED<span class="ff2 fs3"> </span></div></div><div class="c x1b y21 we h10"><div class="t m0 x15 h12 y23 ff6 fs5 fc0 sc0 ls0 ws0"><span class="ff2 fs3"> </span></div></div><div class="c x1c y21 wf h10"><div class="t m0 xa h11 y22 ff3 fs1 fc0 sc0 ls0 ws0">CORRECTED<span class="ff2 fs3"> </span></div></div><div class="c x1d y21 w10 h10"><div class="t m0 x15 h12 y23 ff6 fs5 fc0 sc0 ls0 ws0"><span class="ff2 fs3"> </span></div></div><div class="c x1e y21 w11 h10"><div class="t m0 x1f h11 y22 ff3 fs1 fc0 sc0 ls0 ws0">IS NOT ABLE<span class="ff2 fs3"> </span></div></div><div class="c x20 y21 w12 h10"><div class="t m0 x15 h12 y23 ff6 fs5 fc0 sc0 ls0 ws0"><span class="fs1"><span class="ff2 fs3"> </span></span></div></div><div class="c x1 y24 wa h13"><div class="t m0 x15 h6 y25 ff2 fs3 fc0 sc0 ls0 ws0">Colour Perception </div><div class="t m0 x15 h6 y26 ff2 fs0 fc0 sc0 ls0 ws0">To be carried out on candidates w<span class="_ _0"></span>ho are using colour perception in <span class="_ _0"></span>in the testing e.g. NDT, Pai<span class="_ _0"></span>nting inspection etc.<span class="fs3"> </span></div><div class="t m0 x15 hf y27 ff3 fs4 fc0 sc0 ls0 ws0">Colour <span class="_ _0"></span>perception<span class="_ _0"></span> <span class="_ _2"></span>shall <span class="_ _2"></span>be <span class="_ _0"></span>assessed <span class="_ _2"></span>by <span class="_ _2"></span>the <span class="_ _3"></span><span class="ff2">Ishihara</span> <span class="_ _0"></span>24 <span class="_ _2"></span>plate <span class="_ _2"></span>test. <span class="_ _2"></span>Individual <span class="_ _2"></span>shall <span class="_ _2"></span>be <span class="_ _2"></span>able <span class="_ _2"></span>to <span class="_ _2"></span>distinguish <span class="_ _2"></span>contrast </div><div class="t m0 x15 hb y28 ff3 fs4 fc0 sc0 ls0 ws0">between the <span class="_ _1"></span>colours used in <span class="_ _1"></span>the NDT method <span class="_ _1"></span>concerned as <span class="_ _1"></span>specified by the em<span class="_ _1"></span>ployer. If misreading any <span class="_ _1"></span>of the first<span class="_ _1"></span> </div><div class="t m0 x15 hb y8 ff3 fs4 fc0 sc0 ls0 ws0">17 plates is <span class="_ _1"></span>detected during <span class="_ _1"></span>the Ishih<span class="ff7">ara <span class="_ _1"></span>test, a <span class="_ _1"></span>further “trade test”<span class="ff3"> <span class="_ _1"></span>is to <span class="_ _1"></span>be carried <span class="ff7">out <span class="_ _1"></span>by candidate’s <span class="_ _1"></span>employer<span class="ff3 ls4">. <span class="ls0">The </span></span></span></span></span></div><div class="t m0 x15 hb y29 ff7 fs4 fc0 sc0 ls0 ws0">candidate’s employer shall be <span class="_ _1"></span>informed where any colour deficiency<span class="_ _1"></span> is recorded.<span class="ff3"> </span></div></div><div class="c x1 y2a w13 h14"><div class="t m0 xe h11 y2b ff3 fs1 fc0 sc0 ls0 ws0">ACCEPT  <span class="fc2 sc0"> </span><span class="ff2 fs3"><span class="fc2 sc0"> </span></span></div></div><div class="c x1b y2a w14 h14"><div class="t m0 x15 h12 y2c ff6 fs5 fc0 sc0 ls0 ws0"><span class="ff2 fs3"> </span></div></div><div class="c x1c y2a wf h14"><div class="t m0 x2 h11 y2b ff3 fs1 fc0 sc0 ls0 ws0">REJECT  <span class="fc2 sc0"> </span><span class="ff1 fs3"><span class="fc2 sc0"> </span><span class="ff2"><span class="fc2 sc0"> </span></span></span></div></div><div class="c x1d y2a w15 h14"><div class="t m0 x15 h12 y2c ff6 fs5 fc0 sc0 ls0 ws0"><span class="ff2 fs3"> </span></div></div><div class="c x1 y2d wa h15"><div class="t m0 x15 h6 y2e ff2 fs3 fc0 sc0 ls0 ws0">Shades of Grey Perception </div><div class="t m0 x15 h6 y2f ff2 fs0 fc0 sc0 ls0 ws0">To be carried out on candidates w<span class="_ _0"></span>ho are conducting tests using shades of <span class="_ _0"></span>grey e.g. Radio<span class="_ _0"></span>graphic Testing, TOFD etc.<span class="_ _0"></span><span class="fs3"> </span></div><div class="t m0 x15 hf y30 ff3 fs4 fc0 sc0 ls0 ws0">Shades <span class="_ _0"></span>of <span class="_ _2"></span>grey <span class="_ _0"></span>perception <span class="_ _0"></span>shall <span class="_ _2"></span>be <span class="_ _0"></span>assessed <span class="_ _2"></span>by <span class="_ _0"></span>the <span class="_ _2"></span><span class="ff2">Skerik <span class="_ _0"></span>grey <span class="_ _0"></span>scale<span class="_ _0"></span></span> <span class="_ _0"></span>test <span class="_ _2"></span>or <span class="_ _0"></span>equivalent.<span class="ff2"> <span class="_ _0"></span></span>Grey <span class="_ _2"></span>scale <span class="_ _0"></span>test <span class="_ _2"></span>can <span class="_ _0"></span>be </div><div class="t m0 x15 hb y31 ff3 fs4 fc0 sc0 ls0 ws0">downloaded from TWI web site. In specific cases the individual shall be able to differentiate shade<span class="_ _1"></span>s of grey used in </div><div class="t m0 x15 hb y7 ff3 fs4 fc0 sc0 ls0 ws0">the NDT <span class="_ _1"></span>method <span class="_ _1"></span>(e.g. <span class="_ _1"></span>radiography). <span class="ls4">If <span class="_ _1"></span><span class="ls0">any <span class="_ _1"></span>difficulty <span class="_ _1"></span>is observed, <span class="_ _1"></span>during <span class="_ _1"></span>this <span class="ff7">te<span class="_ _1"></span>st, a <span class="_ _1"></span>further <span class="_ _1"></span>“trade test”<span class="ff3"> <span class="_ _1"></span>is to<span class="_ _1"></span> be <span class="_ _1"></span>carried </span></span></span></span></div><div class="t m0 x15 hb y32 ff7 fs4 fc0 sc0 ls0 ws0">out by candidate’s employer<span class="ff3 ls4">. <span class="ls0">Any obser<span class="_ _1"></span>ved difficulty shall be reported to t<span class="_ _1"></span>he employer. </span></span></div><div class="t m0 x15 h7 ya ff3 fs0 fc0 sc0 ls0 ws0"> </div></div><div class="c x1 y33 w13 h16"><div class="t m0 xe h11 y34 ff3 fs1 fc0 sc0 ls0 ws0">ACCEPT  <span class="fc2 sc0"> </span><span class="ff2 fs3"><span class="fc2 sc0"> </span></span></div></div><div class="c x1b y33 w14 h16"><div class="t m0 x15 h12 y35 ff6 fs5 fc0 sc0 ls0 ws0"><span class="ff2 fs3"> </span></div></div><div class="c x1c y33 wf h16"><div class="t m0 x2 h11 y34 ff3 fs1 fc0 sc0 ls0 ws0">REJECT  <span class="fc2 sc0"> </span><span class="ff1 fs3"><span class="fc2 sc0"> </span><span class="ff2"><span class="fc2 sc0"> </span></span></span></div></div><div class="c x1d y33 w15 h16"><div class="t m0 x15 h12 y35 ff6 fs5 fc0 sc0 ls0 ws0"><span class="ff2 fs3"> </span></div></div><div class="c x1 y36 wa h17"><div class="t m0 x15 h6 y37 ff2 fs3 fc0 sc0 ls0 ws0">Details of Medically Recognised Person </div></div><div class="c x1 y38 w16 h18"><div class="t m0 x15 hb y39 ff3 fs4 fc0 sc0 ls0 ws0">Organisation:  </div></div><div class="c x1d y38 w17 h18"><div class="t m0 x15 hb y39 ff3 fs4 fc0 sc0 ls0 ws0">Telephone number: </div></div><div class="c x1 y3a w16 h19"><div class="t m0 x15 hb y3b ff3 fs4 fc0 sc0 ls0 ws0">Name:  </div></div><div class="c x1d y3a w17 h19"><div class="t m0 x15 hb y3b ff3 fs4 fc0 sc0 ls0 ws0">Registration or licence number: </div></div><div class="c x1 y3c w18 h19"><div class="t m0 x15 hb y3b ff3 fs4 fc0 sc0 ls0 ws0">Date of test: </div></div><div class="c x21 y3c w19 h19"><div class="t m0 x15 hb y3b ff3 fs4 fc0 sc0 ls0 ws0">Signature: </div></div><div class="c x1d y3c w17 h19"><div class="t m0 x15 hb y3b ff3 fs4 fc0 sc0 ls0 ws0">Official stamp: </div></div><div class="c x0 yb w5 h0"><div class="t m0 xe h1a y3d ff1 fs6 fc0 sc0 ls0 ws0"> </div></div></div><div class="pi" data-data='{"ctm":[1.500000,0.000000,0.000000,1.500000,0.000000,0.000000]}'></div></div>
-                                <br>
+         </div>                       <br>
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
