@@ -1885,7 +1885,7 @@ class MessagePSL30LogExperienceForm(LoginRequiredMixin, TemplateView):
                 return redirect('forms:allpslinitialform_')
 
 
-class PSL30LogExperienceForm(TemplateView):
+class PSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin,TemplateView):
     template_name = "forms/reg_forms/PSL_30_log_exper_S.html"
 
     def get_context_data(self):
@@ -1918,7 +1918,7 @@ class PSL30LogExperienceForm(TemplateView):
                 pslObj = PSL30LogExp()
                 pslObj.candidate = candidate
                 pslObj.event = event
-                # pslObj.fullName = request.POST['canName']
+                pslObj.pslNumber = request.POST['pcnNumber']
                 pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
                 pslObj.dateTo = datetime.datetime.strptime(request.POST['dateTo'], '%m/%d/%Y')
                 pslObj.ndtMethod = request.POST['ndtMethod']
@@ -1930,7 +1930,7 @@ class PSL30LogExperienceForm(TemplateView):
                 pslObj.dateCandidateDeclaration = datetime.datetime.strptime(request.POST['dateCandidateDeclaration'],
                                                                              '%m/%d/%Y')
                 pslObj.save()
-                for idx, item in enumerate(range(0, 7)):
+                for idx, item in enumerate(range(0, 3)):
                     if not request.POST.get('techniqueCodeR'+str(idx), None) == None:
                         print(idx)
                         NdtTechniqueObj = NdtTechnique()
@@ -1946,7 +1946,7 @@ class PSL30LogExperienceForm(TemplateView):
 
 
 
-                return redirect('forms:allpslform_')
+                return redirect('forms:updatepsl3logexp_' , id=pslObj.id )
 
             else:
                 print('Here Today Now')
