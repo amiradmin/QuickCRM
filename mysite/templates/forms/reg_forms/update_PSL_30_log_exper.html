@@ -1581,6 +1581,100 @@
     margin: 0px 0;
 
 }
+
+
+
+
+
+
+@media print {
+  body * {
+    visibility: hidden;
+
+  }
+  @page {
+  size: A4;
+  margin: 0;
+
+
+}
+
+  #page-container1, #page-container1 * {
+    visibility: visible;
+<!--    margin-left:-35px;-->
+
+  }
+  #page-container1 {
+    position: absolute;
+    left: -235px;
+    top: -140px;
+    transform: scaleX(0.8);
+
+  }
+
+  #topInfo1 {
+    position: relative;
+    left: 63px;
+    top: 57px;
+
+  }
+
+  #topInfo2 {
+    position: relative;
+    left: 140px;
+    top: 57px;
+
+  }
+ #topInfo3 {
+    position: relative;
+    left: 170px;
+    top: 57px;
+
+  }
+ #topInfo4 {
+    position: relative;
+    left: 65px;
+    top: 140px;
+
+  }
+
+    #insideInfo1 {
+    position: relative;
+    left: 100px;
+    top: 72px;
+
+  }
+
+  #insideInfo2 {
+    position: relative;
+    left: 100px;
+    top: 72px;
+
+  }
+
+  #insideInfo3 {
+    position: relative;
+    left: 85px;
+    top: 72px;
+    padding:10px;
+  }
+
+    #insideInfo4 {
+    position: relative;
+    left: 117px;
+    top: 72px;
+    padding:10px;
+  }
+
+#insideInfo5 {
+    position: relative;
+    left: 144px;
+    top: 72px;
+    padding:10px;
+  }
+}
+
+
 </style>
 <script>
 /*
@@ -1703,6 +1797,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 {% for item in form.ndtTechnique.all %}
 
 <div style="">
+    <input type="hidden" value="{{ item.id }}" name="insideID" />
 <input type="text"   style="border:none;background: transparent;width: 278px; height: 41px;font-size: 15px;margin:1px;" value="{{item.techniqueCode}}"     name="techniqueCode{{ forloop.counter }}" id="">
 <input type="text"   style="border:none;background: transparent;width: 278px; height: 41px;font-size: 15px;margin:1px;" value="{{item.employerComponent}}" name="employerComponent{{ forloop.counter }}" id="">
 <input type="text"   style="border:none;background: transparent;width: 143px; height: 41px;font-size: 15px;margin:1px;" value="{{item.ndtTask}}"           name="ndtTask{{ forloop.counter }}" id="">
@@ -1721,18 +1816,105 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <div id="pf8" class="pf w2 h9" data-page-no="8"><div class="pc pc8 w2 h9"><img class="bi x0 y0 w3 ha" alt="" src="data:image/png;base64,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QJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAETt7kzh+zVshgAAAAAQ0Slm4h0AAAAARPk2CwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3gEAAABAlHgHAAAAAFHiHQAAAABEiXcAAAAAECXeAQAAAECUeAcAAAAAUeIdAAAAAESJdwAAAAAQJd4BAAAAQJR4BwAAAABR4h0AAAAARIl3AAAAABAl3sFfO3ZMBAAAw0DoKiX+TdbGDyADAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlCmBUkgAAAJHSURBVLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABAlLwDAAAAgCh5BwAAAABR8g4AAAAAouQdAAAAAETJOwAAAACIkncAAAAAECXvAAAAACBK3gEAAABA2c7hAQAAAEDNA7UEbGFmFW9mAAAAAElFTkSuQmCC"/><div class="t m0 x1 h7 y115 ff1 fs3 fc0 sc0 ls11 ws4a">PSL/30<span class="_ _0"></span> Issue <span class="ls1 ws1">14 <span class="_ _38"> </span></span><span class="ws18">Page <span class="ls1 ws1">8 <span class="ls1d ws4b">of </span>8 <span class="_ _39"> </span> <span class="_ _3a"> </span> <span class="_ _17"> </span> <span class="_ _17"> </span> <span class="_ _17"> </span> <span class="_ _17"> </span>24</span></span></div><div class="t m0 x49 hb y116 ff1 fs4 fc0 sc0 ls26 ws89">th</div><div class="t m0 x4a h8 y115 ff1 fs3 fc0 sc0 ls1 ws1"> <span class="ls27 ws4a">February<span class="_ _0"></span></span> 2021<span class="ff4 fs1"> </span></div><div class="t m0 x1 h4 y117 ff2 fs1 fc0 sc0 ls7 wsb">Summary<span class="_ _3"></span> of change<span class="_ _3"></span>s<span class="ls1 ws1"> </span></div><div class="t m0 x1 h5 y118 ff1 fs1 fc0 sc0 ls18 ws2c">Issue<span class="_ _3"></span><span class="ls1 ws1"> <span class="_ _3b"> </span><span class="ls18 ws2c">Issue <span class="ls15 ws1b">date<span class="_ _3"></span><span class="ls1 ws1"> <span class="_ _3c"> </span><span class="lsb ws37">Summary<span class="_ _0"></span> of cha<span class="_ _0"></span><span class="wse">nges<span class="_ _0"></span></span></span> </span></span></span></span></div><div class="t m0 x1 h5 y119 ff1 fs1 fc0 sc0 lsa ws11">10<span class="ls1 ws1"> <span class="_ _3d"> </span></span>01<span class="ls1 ws1">/07/</span>2018<span class="ls1 ws1"> <span class="_ _19"> </span><span class="lsb ws37">NOTE chan<span class="_ _0"></span>ged to<span class="_ _0"></span> sta<span class="_ _0"></span>te sa<span class="_ _0"></span>me or HI<span class="_ _0"></span>GHER lev<span class="_ _0"></span>el, s<span class="_ _0"></span>ector a<span class="_ _0"></span>nd met<span class="_ _0"></span>hod<span class="_ _0"></span>.</span> </span></div><div class="t m0 x1 h5 y11a ff1 fs1 fc0 sc0 lsa ws11">11<span class="ls1 ws1"> <span class="_ _3d"> </span></span>01/<span class="ls1 ws1">10</span>/2019<span class="ls1 ws1"> <span class="_ _19"> </span><span class="ls6">Day, month</span> <span class="ls6 wsb">and</span> <span class="lsb wse">yea<span class="lsd ws1b">r added <span class="ls36 ws2d">to</span></span></span> <span class="lsb wse">experien<span class="_ _0"></span>ce </span></span>log<span class="ls1 ws1">.<span class="_ _0"></span> </span></div><div class="t m0 x1 h5 y11b ff1 fs1 fc0 sc0 lsa ws11">12<span class="ls1 ws1"> <span class="_ _3d"> </span>01/10</span>/2020<span class="ls1 ws1"> <span class="_ _19"> </span></span>Full <span class="lsd ws1b">docume<span class="_ _3"></span>nt review<span class="_ _3"></span> and re<span class="ls1 ws1">-<span class="lsa wse">write incorporat<span class="_ _0"></span>ing <span class="lsb">revi<span class="_ _0"></span>sed </span></span></span>ca<span class="_ _0"></span>ndidate and <span class="lsb wse">revised <span class="ls1 ws1">e</span>mpl<span class="_ _0"></span>oyer <span class="_ _0"></span></span><span class="ls15">attestation<span class="ls1 ws1"> r<span class="lsb wse">equ<span class="_ _0"></span>irements<span class="_ _0"></span>. </span> </span></span></span></div><div class="t m0 x1 h5 y11c ff1 fs1 fc0 sc0 lsa ws11">13<span class="ls1 ws1"> <span class="_ _3d"> </span></span>25/11/20<span class="ls1 ws1"> <span class="_ _3e"> </span><span class="ls6">Form 1 am<span class="lsd ws1b">ende<span class="_ _3"></span>d to include<span class="_ _3"></span> total hours gai<span class="_ _3"></span>ned<span class="ls1 ws1"> </span></span></span></span></div><div class="t m0 x1 h5 y11d ff1 fs1 fc0 sc0 lsa ws11">14<span class="ls1 ws1"> <span class="_ _3d"> </span></span>24/02/2021<span class="ls1 ws1"> <span class="_ _19"> </span></span><span class="wse">Table 2 revision to in<span class="_ _0"></span>clude Level 3 requ<span class="_ _0"></span>irements<span class="_ _0"></span><span class="ls1 ws1"> </span></span></div><div class="t m0 x1 h5 y11e ff1 fs1 fc0 sc0 ls1 ws1"> </div><div class="t m0 x47 h5 y11f ff1 fs1 fc0 sc0 ls1 ws1"> </div></div><div class="pi" data-data='{"ctm":[1.500000,0.000000,0.000000,1.500000,0.000000,0.000000]}'></div></div>
 </div>
     </div>
-<div class="loading-indicator">
-<img alt="" src="data:image/png;base64,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"/>
-      </div>
-             <div class="mb-3 col-md-12 text-center">
-                <button name="mainForm" class="BUTTON_MZQ" style="height:40px; width:150px;" type="submit">Submit
-                </button>
-            </div>
-
-        </form>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="tab-content text-center">
+                        <div class="tab-content text-left">
+         <label for="confirmation" >Confirmed:</label>
+         <input type="checkbox" name="confirmation"       id="confirmation"        />
+                            <hr>
+<h5>Scanned Form:</h5><a href="{% if form.file %}{{form.file.url}}{% endif %}" target="_blank">{{form.file}}</a>
+                            </div>
+                        <hr>
+                        <br>
+                        <button  class="btn btn-outline-primary" type="button" id="create-user">Upload files</button>
+                                <button class="btn btn-outline-primary" name="mainForm" type="submit">Update</button>
+                             <input type="button" class="btn btn-outline-primary"  onclick="window.print();return false;"  value="Print!" />
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </form>
 
    </div>
 
+
+
+    <div class="uploadForm" id="dialog-form" title="Upload file">
+
+  <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+        <input type="hidden"  value="{{candidate.id}}" name="mainCanID"/>
+        <input type="hidden"  value="{{event.id}}" name="eventID"/>
+        <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
+        <input type="hidden" value="{{category.id}}" name="categoryID"/>
+        <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
+  <input type="file" name="pdfFile" >
+
+  <p>Drag your files here or click in this area.</p>
+  <button class="btn btn-outline-primary" name="uploadFormBack" type="submit">Upload</button>
+</form>
+</div>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+
+       <script>
+        $(function() {
+  $(document).ready(function(){
+  $('form input').change(function () {
+    $('form p').text(this.files.length + " file(s) selected");
+  });
+});
+  var dialog, form,
+
+      // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+      emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+
+
+
+
+    dialog = $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 300,
+      width: 350,
+      modal: true,
+      buttons: {
+
+<!--        Cancel: function() {-->
+<!--          dialog.dialog( "close" );-->
+<!--        }-->
+      },
+      close: function() {
+        form[ 0 ].reset();
+        allFields.removeClass( "ui-state-error" );
+      }
+    });
+
+
+
+    $( "#create-user" ).button().on( "click", function() {
+      dialog.dialog( "open" );
+    });
+  });
+
+
+
+
+    </script>
 <script>
 
 // A function to format text to look like a phone number
