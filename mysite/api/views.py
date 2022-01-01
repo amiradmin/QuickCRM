@@ -2,23 +2,23 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from api.serializers import EventSerializer
+from api.serializers import EventSerializer,ProductSerializer
 from api.paginations import CustomPagination
-from training.models import Event
+from training.models import Event,Product
 # Create your views here.
 
 
 
 class GetEventList(APIView):
     pagination_class = CustomPagination
-    serializer_class = EventSerializer
+    serializer_class = ProductSerializer
 
     def get(self, request, format=None):
         result = {
             "status": False,
             "msg": "Done"
         }
-        eventList = Event.objects.all()
+        eventList = Product.objects.all()
         page = self.paginate_queryset(eventList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)

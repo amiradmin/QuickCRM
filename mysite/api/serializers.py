@@ -22,6 +22,26 @@ from training.models import Event,Category
 #
 
 
+
+class ProductSerializer(serializers.Serializer):
+
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    code = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    price = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    type = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    # code = serializers.SerializerMethodField()
+
+    # def get_subCategory(self, obj):
+    #     subCategory = obj.form.all()
+    #     subCatList=[]
+    #     for item in subCategory:
+    #         subCatList.append(item.name)
+    #     return subCatList
+
+
+
+
 class CategorySerializer(serializers.Serializer):
 
     id = serializers.IntegerField(read_only=True)
