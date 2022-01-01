@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from training.models import Event
+from training.models import Event,Category
 
 # class MessageListSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
@@ -22,9 +22,40 @@ from training.models import Event
 #
 
 
+class CategorySerializer(serializers.Serializer):
 
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
-        fields = '__all__'
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    subCategory = serializers.SerializerMethodField()
+
+    def get_subCategory(self, obj):
+        subCategory = obj.form.all()
+        subCatList=[]
+        for item in subCategory:
+            subCatList.append(item.name)
+        return subCatList
+
+
+class EventSerializer(serializers.Serializer):
+
+    id = serializers.IntegerField(read_only=True)
+    name = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    start_date = serializers.DateTimeField()
+    country = serializers.SerializerMethodField()
+    location = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+
+
+    def get_country(self, obj):
+
+        if obj.country:
+            return obj.country.name
+
+
+    def get_location(self, obj):
+        return obj.location.name
+
+    def get_category(self, obj):
+        categories = obj.formCategory.all()
+        return CategorySerializer(categories,many=True).data
 

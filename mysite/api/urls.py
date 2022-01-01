@@ -9,6 +9,6 @@ urlpatterns = [
 
 
   
-    path('getevents/', views.GetEventList.as_view(), name='getevents'),
+    path('getevents/', views.GetEventList.as_view(), name='getevents_'),
 
 ]
