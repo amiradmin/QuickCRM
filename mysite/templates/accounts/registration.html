@@ -210,14 +210,14 @@ li{
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom03">Contact Number</label>
-                                                        <input type="text" name="phone" class="form-control" id="validationCustom03" placeholder="Phone" >
+                                                        <input type="text" name="phone" class="form-control" id="contactNumber" onkeypress="return NumberPressed(event);"  placeholder="Phone" >
                                                         <div class="invalid-feedback">
                                                             Please provide a valid contact number.
                                                         </div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="validationCustom05">Emergenry Contact</label>
-                                                        <input type="text" name= "emergencyContact" class="form-control" id="validationCustom06" placeholder="Emergenry Contact" required>
+                                                        <input type="text" name= "emergencyContact" class="form-control" id="emergencyContact" onkeypress="return emergencyNumberPressed(event);"  placeholder="Emergency Contact" required>
                                                         <div class="invalid-feedback">
                                                             Please provide a valid Emergenry Cantact.
                                                         </div>
@@ -326,6 +326,70 @@ li{
 
 <script src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'></script>
 
+
+<script>
+
+// A function to format text to look like a phone number
+function phoneFormat(input){
+        // Strip all characters from the input except digits
+        input = input.replace(/\D/g,'');
+
+        // Trim the remaining input to ten characters, to preserve phone number format
+        input = input.substring(0,10);
+
+        // Based upon the length of the string, we add formatting as necessary
+        var size = input.length;
+        if(size == 0){
+                input = input;
+        }else if(size < 4){
+                input = '('+input;
+        }else if(size < 7){
+                input = '('+input.substring(0,3)+') '+input.substring(3,6);
+        }else{
+                input = '('+input.substring(0,3)+') '+input.substring(3,6)+' - '+input.substring(6,10);
+        }
+        return input;
+}
+
+
+document.getElementById('contactNumber').addEventListener('keyup',function(evt){
+        var phoneNumber = document.getElementById('contactNumber');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('contactNumber').value = phoneFormat(document.getElementById('contactNumber').value);
+
+// A function to determine if the pressed key is an integer
+function NumberPressed(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if(charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 36 || charCode > 40)){
+                return false;
+        }
+        return true;
+}
+
+document.getElementById('emergencyContact').addEventListener('keyup',function(evt){
+        var phoneNumber = document.getElementById('emergencyContact');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('emergencyContact').value = phoneFormat(document.getElementById('emergencyContact').value);
+
+// A function to determine if the pressed key is an integer
+function emergencyNumberPressed(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if(charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 36 || charCode > 40)){
+                return false;
+        }
+        return true;
+}
+
+
+</script>
 
         </body>
     </html>
