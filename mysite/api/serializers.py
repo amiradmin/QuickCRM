@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from training.models import Event,Category
-
+from exam_certification.models import Exam
 # class MessageListSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
 #     user = serializers.CharField(required=False, allow_blank=True, max_length=100)
@@ -79,3 +79,31 @@ class EventSerializer(serializers.Serializer):
         categories = obj.formCategory.all()
         return CategorySerializer(categories,many=True).data
 
+
+
+
+class ExamSerializer(serializers.Serializer):
+
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    code = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    venue = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    sequence = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    invigilator = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    # country = serializers.SerializerMethodField()
+    # location = serializers.SerializerMethodField()
+    # category = serializers.SerializerMethodField()
+
+    #
+    # def get_country(self, obj):
+    #
+    #     if obj.country:
+    #         return obj.country.name
+    #
+    #
+    # def get_location(self, obj):
+    #     return obj.location.name
+    #
+    # def get_category(self, obj):
+    #     categories = obj.formCategory.all()
+    #     return CategorySerializer(categories,many=True).data

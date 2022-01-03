@@ -14,6 +14,7 @@ from contacts.models import Contact
 from training.models import TesCandidate
 from django.db.models import Q
 import datetime
+from mailer.views import sendMail
 
 # Create your views here.
 
@@ -148,6 +149,7 @@ class RegisterView(TemplateView):
         context = super(RegisterView, self).get_context_data()
         # form = MedicineForm()
         # context['form'] = form
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -194,25 +196,9 @@ class RegisterView(TemplateView):
             user.save()
             group = Group.objects.get(name='candidates')
             group.user_set.add(user)
-            # user.note = request.POST['note']
 
-            # if request.FILES.get('doc_3', False):
-            #     user.document_3 = request.FILES['doc_3']
-            # if request.FILES.get('doc_4', False):
-            #     user.document_4 = request.FILES['doc_4']
-            # if request.FILES.get('doc_5', False):
-            #     user.document_5 = request.FILES['doc_5']
-            # if request.FILES.get('doc_6', False):
-            #     user.document_6 = request.FILES['doc_6']
-            # if request.FILES.get('doc_7', False):
-            #     user.document_7 = request.FILES['doc_7']
-            # if request.FILES.get('doc_8', False):
-            #     user.document_8 = request.FILES['doc_8']
-            # if request.FILES.get('doc_9', False):
-            #     user.document_9 = request.FILES['doc_9']
-            # if request.FILES.get('doc_10', False):
             #     user.document_9 = request.FILES['doc_10']
-            print("here")
+
             print(user.username)
             canObj = CandidateProfile()
             canObj.user = user
@@ -227,7 +213,12 @@ class RegisterView(TemplateView):
             canObj.save()
             print('End')
 
-        return redirect('forms:twienrolreg_',id=user.tescandidate.id)
+            fullName = canObj.first_name + ' ' + canObj.last_name
+            msg = 'Your account has been created successfully'
+            sendMail(request.POST['email'],fullName,msg)
+            print('Mail Sent')
+
+        return redirect('accounting:canprofile_',id=user.tescandidate.id)
 
 class RegSuccessView(TemplateView):
     template_name = "accounts/success.html"

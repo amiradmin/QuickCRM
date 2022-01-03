@@ -31,16 +31,18 @@ class Invigilator(models.Model):
 
 class Exam(models.Model):
     # TYPE_CHOICES = (('V', 'Virtual Accademy'), ('C', 'Class Rooom Based'),('O', 'Online Zoom'))
-    name = models.CharField(max_length=30, null=True, blank=True )
+    title = models.CharField(max_length=30, null=True, blank=True )
     code = models.CharField(max_length=30, null=True, blank=True )
+    venue = models.CharField(max_length=30, null=True, blank=True )
+    sequence = models.CharField(max_length=30, null=True, blank=True )
+    invigilator = models.CharField(max_length=30, null=True, blank=True )
 
-    # /type = models.CharField(max_length=1, choices=TYPE_CHOICES)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 class Event(models.Model):
     ANNOUNCMENT_CHOICES = (('S', 'SMS'), ('E', 'Email'))

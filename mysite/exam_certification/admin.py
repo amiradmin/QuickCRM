@@ -21,7 +21,7 @@ admin.site.register(Event,EventAdmin)
 
 class ExamAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
-    list_display = ['id','name','code','created_at','updated_at']
-    list_filter = ['id','name','code','created_at','updated_at']
+    list_display = ['id','title','code','created_at','updated_at']
+    list_filter = ['id','title','code','created_at','updated_at']
 
 admin.site.register(Exam,ExamAdmin)
