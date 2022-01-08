@@ -9,7 +9,7 @@ urlpatterns = [
 
 
   
-    path('getevents/', views.GetEventList.as_view(), name='getevents_'),
+    path('getproductlist/', views.GetProductList.as_view(), name='getproductlist_'),
     path('getexams/', views.GetExamList.as_view(), name='getexams_'),
 
 ]

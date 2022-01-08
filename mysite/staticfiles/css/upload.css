@@ -1,0 +1,75 @@
+
+
+.ui-dialog-titlebar{
+background: grey;
+  width: 500px;
+  border: 1px dashed #343536;
+    height: 35px;
+  border-radius: 4px 4px 0 0 ;
+  padding:5px;
+}
+.ui-dialog-titlebar-close{
+height:25px;
+width:25px;
+float:right;
+}
+
+.ui-dialog-titlebar-close:after{
+  display: inline-block;
+  position: relative;
+  left: -7px;
+  top: -22px;
+  content: "\00d7"; /* This will render the 'X' */
+  color:black;
+  font-size:40px;
+}
+
+.ui-dialog-title{
+    color: white;
+
+}
+.uploadForm form{
+  background: #e7e7e7;
+
+  width: 500px;
+  height: 170px;
+  border: 1px dashed #343536;
+}
+.uploadForm form p{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 170px;
+  color: #343536;
+  font-family: Roboto;
+}
+.uploadForm form input{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
+.uploadForm form button{
+  margin: 0;
+  color: #fff;
+  background: #EE6555;
+  border: none;
+  width: 500px;
+  height: 35px;
+  border-radius:0 0 4px 4px;
+  margin-top: -20px;
+  margin-left: -1px;
+
+  outline: none;
+}
+
+.uploadForm form button:hover{
+  background: #4CAF50;
+}
+.uploadForm form button:active{
+  border:0;
+}
+

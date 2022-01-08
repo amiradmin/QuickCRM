@@ -10,7 +10,7 @@ from exam_certification.models import Exam
 
 
 
-class GetEventList(APIView):
+class GetProductList(APIView):
     pagination_class = CustomPagination
     serializer_class = ProductSerializer
 
