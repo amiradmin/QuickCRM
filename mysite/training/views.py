@@ -22,7 +22,9 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(CandidatelListView, self).get_context_data()
-        can_list = TesCandidate.objects.filter(user__groups__name__in=['candidates',] )
+        # can_list = TesCandidate.objects.filter(user__groups__name__in=['candidates',] )
+        print("Here AMir!")
+        can_list = TesCandidate.objects.all()
         context['can_list'] = can_list
 
         return context
