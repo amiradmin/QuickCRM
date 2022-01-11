@@ -7,6 +7,7 @@ from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
 from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A,NDTCovid19,NDT15AExperienceVerification,BGAsExperienceForm
 import datetime
+from datetime import  timedelta,timezone
 import json
 from django.http import JsonResponse
 from  authorization.sidebarmixin import SidebarMixin
@@ -1125,12 +1126,22 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         canCount = TesCandidate.objects.count()
         lecCount = Lecturer.objects.count()
         product = Product.objects.all()
+        today = datetime.datetime.now()
+
+        canPerMonth = TesCandidate.objects.filter(created_at__month=today.month).count()
+        eventPerMonth = Event.objects.filter(created_at__month=today.month).count()
+        lecturerPerMonth = Lecturer.objects.filter(created_at__month=today.month).count()
+        productPerMonth = Product.objects.filter(created_at__month=today.month).count()
 
 
         context['event_list'] = event_list
         context['eventCount'] = event_list.count()
         context['canCount'] = canCount
+        context['canPerMonth'] = (canPerMonth/canCount) * 100
+        context['eventPerMonth'] = (eventPerMonth/event_list.count()) * 100
+        context['productPerMonth'] = (productPerMonth/product.count()) * 100
         context['lecCount'] = lecCount
+        context['lecturerPerMonth'] =  (lecturerPerMonth/lecCount) * 100
         context['product'] = product
         context['proCount'] = product.count()
         return context
