@@ -1557,7 +1557,7 @@ class PSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 # formObj.save()
 
-                return redirect('forms:allpsl57A_')
+                return redirect('forms:updatepsl57A_')
 
 
             elif 'selector' in request.POST:
@@ -1612,7 +1612,7 @@ class AllBGASinitialForms(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class UpdatePSL57AForm(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "forms/reg_forms/update_PSL-57A_Initial.html"
+    template_name = "forms/reg_forms/update_PSL-57A_Initial_exam_application_S.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdatePSL57AForm, self).get_context_data()
