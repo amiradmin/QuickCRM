@@ -26,6 +26,7 @@ from exam_certification.models import Exam
 class ProductSerializer(serializers.Serializer):
 
     id = serializers.IntegerField(read_only=True)
+    category = serializers.CharField(required=False, allow_blank=True, max_length=512)
     name = serializers.CharField(required=False, allow_blank=True, max_length=512)
     code = serializers.CharField(required=False, allow_blank=True, max_length=512)
     price = serializers.CharField(required=False, allow_blank=True, max_length=512)
