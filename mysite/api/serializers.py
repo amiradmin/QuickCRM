@@ -21,24 +21,25 @@ from exam_certification.models import Exam
 #         return targetUser
 #
 
+class ProductCatSerializer(serializers.Serializer):
+
+    id = serializers.IntegerField(read_only=True)
+    title = serializers.CharField(required=False, allow_blank=True, max_length=512)
 
 
 class ProductSerializer(serializers.Serializer):
 
     id = serializers.IntegerField(read_only=True)
-    category = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    # category = serializers.CharField(required=False, allow_blank=True, max_length=512)
     name = serializers.CharField(required=False, allow_blank=True, max_length=512)
     code = serializers.CharField(required=False, allow_blank=True, max_length=512)
     price = serializers.CharField(required=False, allow_blank=True, max_length=512)
     type = serializers.CharField(required=False, allow_blank=True, max_length=512)
-    # code = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
 
-    # def get_subCategory(self, obj):
-    #     subCategory = obj.form.all()
-    #     subCatList=[]
-    #     for item in subCategory:
-    #         subCatList.append(item.name)
-    #     return subCatList
+    def get_category(self, obj):
+        category =ProductCatSerializer(obj.category).data
+        return category
 
 
 

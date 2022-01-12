@@ -1,8 +1,17 @@
 from django.contrib import admin
-from training.models import CandidateProfile,TesCandidate,Product,FormsList,Category,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
+from training.models import  productCategory ,CandidateProfile,TesCandidate,Product,FormsList,Category,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
+
+class productCategoryAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+
+    list_display = ['id','title','created_at','updated_at']
+    list_filter =['id','title','created_at','updated_at']
+
+admin.site.register(productCategory,productCategoryAdmin)
+
+
 
 class CandidateProfileAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
@@ -41,7 +50,7 @@ admin.site.register(Lecturer,LecturerAdmin)
 
 class ProductAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
-    list_display = ['id','name','code','price','type','created_at','updated_at']
+    list_display = ['id','name','category','code','price','type','created_at','updated_at']
     list_filter =['id','name','code','price','type','created_at','updated_at']
 admin.site.register(Product,ProductAdmin)
     

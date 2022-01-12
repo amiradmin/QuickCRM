@@ -9,9 +9,20 @@ from django.dispatch import receiver
 # Create your models here.
 
 
+class productCategory(models.Model):
+    title = models.CharField(max_length=1024, null=True, blank=True )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+
 class Product(models.Model):
     # TYPE_CHOICES = (('B','Class Room Course'),('L','Online Live Zoom Course'),('W','Online Live Zoom Course Weekend '),('A','Online Virtual Academy Course'),('X','Blended Course'),('N','Non-Blended Course'),('T','Online Training Only'),('AP','Appreciation'),('R','Refresh Course'))
-    category = models.CharField(max_length=1024, null=True, blank=True )
+    # category = models.CharField(max_length=1024, null=True, blank=True )
+    category = models.ForeignKey(productCategory,related_name="product_cat",  null=True, blank=True , on_delete=models.CASCADE)
     name = models.CharField(max_length=1024, null=True, blank=True )
     code = models.CharField(max_length=1024, null=True, blank=True )
     price = models.CharField(max_length=1024, null=True, blank=True )
