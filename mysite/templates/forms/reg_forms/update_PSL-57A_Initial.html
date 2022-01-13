@@ -139,6 +139,32 @@
 
 
 
+@media print {
+  body * {
+    visibility: hidden;
+
+  }
+  @page {
+  size: A4;
+  margin: 0;
+
+
+}
+
+  #page-container1, #page-container1 * {
+    visibility: visible;
+<!--    margin-left:-35px;-->
+
+  }
+  #page-container1 {
+    position: absolute;
+    left: -150px;
+    top: -150px;
+    transform: scale(0.75,0.7);
+
+  }
+
+
 span.cls_004{font-family:"Calibri Bold",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
 div.cls_004{font-family:"Calibri Bold",serif;font-size:14.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
 span.cls_005{font-family:"Calibri Bold",serif;font-size:9.1px;color:rgb(0,0,0);font-weight:bold;font-style:normal;text-decoration: none}
@@ -204,7 +230,7 @@ div.cls_025{font-family:"Calibri",serif;font-size:6.0px;color:rgb(0,0,0);font-we
                                  
                                         </ol>
                                     </div>
-                                    <h4 class="page-title">PSL57A Form</h4>
+                                    <h4 class="page-title">Update PSL57A Form</h4>
                                 </div>
                             </div>
                         </div>

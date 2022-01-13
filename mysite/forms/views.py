@@ -1442,11 +1442,12 @@ class PSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
                 mainObj.pclNumber = request.POST['pclNumber']
                 mainObj.email = request.POST['email']
                 mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                mainObj.dateOfCourse = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%m/%d/%Y')
                 mainObj.currentEmploymentDetails = request.POST['currentEmploymentDetails']
                 mainObj.candidatePosition = request.POST['currentEmploymentPosition']
                 mainObj.employmentStatus = request.POST['currentEmploymentStatus']
-                mainObj.preCerTraining = request.POST['preCerTraining']
-                mainObj.preCerTrainingDate = request.POST['preCerTrainingDate']
+                mainObj.trainingOrg = request.POST['preCerTraining']
+                # mainObj.preCerTrainingDate = request.POST['preCerTrainingDate']
                 mainObj.iroductsIndustrySector = request.POST['iroductsIndustrySector']
 
                 if not request.POST.get('contactMe', None) == None:
@@ -1505,7 +1506,7 @@ class PSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if not request.POST.get('switch', None) == None:
                     mainObj.creditCardPayment = 'Switch'
 
-                mainObj.ndtMethod = request.POST['ndtOther']
+                mainObj.ndtOther = request.POST['ndtOther']
                 mainObj.ifLevel3 = request.POST['ifLevel3']
                 # mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
                 # mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
@@ -1514,7 +1515,7 @@ class PSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 mainObj.claimDuration = request.POST['claimDuration']
                 mainObj.verClaimAddress = request.POST['verClaimAddress']
-                # mainObj.dateOfCourse  = request.POST['dateOfCourse']
+                mainObj.dateOfSign  = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 mainObj.sponsorName = request.POST['sponsorName']
                 mainObj.sponsorCompany = request.POST['sponsorCompany']
                 mainObj.sponsorPhone = request.POST['sponsorPhone']
@@ -1557,7 +1558,7 @@ class PSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 # formObj.save()
 
-                return redirect('forms:updatepsl57A_')
+                return redirect('forms:updatepsl57A_' ,id=mainObj.id)
 
 
             elif 'selector' in request.POST:
@@ -1625,58 +1626,113 @@ class UpdatePSL57AForm(SidebarMixin, LoginRequiredMixin, TemplateView):
             if 'mainForm' in request.POST:
 
                 mainObj = PSL57A.objects.filter(id=self.kwargs['id']).first()
-                mainObj.candidate = candidate
-                mainObj.event = event
-                mainObj.cerAddres = request.POST['cerAddres']
-                mainObj.pslCerAddres = request.POST['pslCerAddres']
+                mainObj.cerAddress = request.POST['cerAddress']
+                mainObj.pslCerAddress = request.POST['pslCerAddress']
                 mainObj.phone = request.POST['phone']
-                mainObj.pslNumber = request.POST['pslNumber']
+                mainObj.pclNumber = request.POST['pclNumber']
                 mainObj.email = request.POST['email']
-                mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
-                mainObj.currentEmploymentPosition = request.POST['currentEmploymentPosition']
-                mainObj.currentEmploymentStatus = request.POST['currentEmploymentStatus']
-                mainObj.preCerTraining = request.POST['preCerTraining']
-                mainObj.preCerTrainingDate = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%d/%m/%Y')
-                # mainObj.preCerTraining = request.POST['preCerTraining']
+                mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                mainObj.dateOfCourse = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%m/%d/%Y')
+                mainObj.currentEmploymentDetails = request.POST['currentEmploymentDetails']
+                mainObj.candidatePosition = request.POST['currentEmploymentPosition']
+                mainObj.employmentStatus = request.POST['currentEmploymentStatus']
+                mainObj.trainingOrg = request.POST['preCerTraining']
+                # mainObj.preCerTrainingDate = request.POST['preCerTrainingDate']
+                mainObj.iroductsIndustrySector = request.POST['iroductsIndustrySector']
+
+                if not request.POST.get('contactMe', None) == None:
+                    mainObj.contactMe = True
+                else:
+                    mainObj.contactMe = True
+
+                if request.POST.get('gender', None) == 'Male':
+                    mainObj.gender = 'M'
+                elif request.POST.get('gender', None) == 'Female':
+                    mainObj.gender = 'M'
 
                 if not request.POST.get('et', None) == None:
-                    mainObj.ndtMethod = 'ET'
+                    mainObj.NDTMethod = 'ET'
 
                 if not request.POST.get('mt', None) == None:
-                    mainObj.ndtMethod = 'MT'
+                    mainObj.NDTMethod = 'MT'
 
                 if not request.POST.get('pt', None) == None:
-                    mainObj.ndtMethod = 'PT'
+                    mainObj.NDTMethod = 'PT'
 
                 if not request.POST.get('rt', None) == None:
-                    mainObj.ndtMethod = 'RT'
+                    mainObj.NDTMethod = 'RT'
 
                 if not request.POST.get('ri', None) == None:
-                    mainObj.ndtMethod = 'RI'
+                    mainObj.NDTMethod = 'RI'
                 if not request.POST.get('ut', None) == None:
-                    mainObj.ndtMethod = 'UT'
+                    mainObj.NDTMethod = 'UT'
                 if not request.POST.get('vt', None) == None:
-                    mainObj.ndtMethod = 'VT'
+                    mainObj.NDTMethod = 'VT'
                 if not request.POST.get('crt', None) == None:
-                    mainObj.ndtMethod = 'CRT'
+                    mainObj.NDTMethod = 'CRT'
                 if not request.POST.get('tofd', None) == None:
-                    mainObj.ndtMethod = 'TOFD'
+                    mainObj.NDTMethod = 'TOFD'
                 if not request.POST.get('paut', None) == None:
-                    mainObj.ndtMethod = 'PAUT'
+                    mainObj.NDTMethod = 'PAUT'
 
                 if not request.POST.get('levelOne', None) == None:
-                    mainObj.level = 'level 1'
+                    mainObj.NDTLevel = 'level 1'
                 if not request.POST.get('levelTwo', None) == None:
-                    mainObj.level = 'level 2'
+                    mainObj.NDTLevel = 'level 2'
                 if not request.POST.get('levelThree', None) == None:
-                    mainObj.level = 'level 3'
+                    mainObj.NDTLevel = 'level 3'
 
-                # mainObj.ndtMethod = request.POST['ndtOther']
-                # mainObj.level3State = request.POST['ifLevel3']
-                mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
-                mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
+                if not request.POST.get('basicRadio', None) == None:
+                    mainObj.radiationSafety = 'Basic Radiation Safety'
+                if not request.POST.get('supervisorProtection', None) == None:
+                    mainObj.radiationProtectionSup = 'Radiation protection supervisor'
+
+                if not request.POST.get('visa', None) == None:
+                    mainObj.creditCardPayment = 'Visa'
+                if not request.POST.get('masterCard', None) == None:
+                    mainObj.creditCardPayment = 'Master Card'
+                if not request.POST.get('amex', None) == None:
+                    mainObj.creditCardPayment = 'Amex'
+                if not request.POST.get('switch', None) == None:
+                    mainObj.creditCardPayment = 'Switch'
+
+                mainObj.ndtOther = request.POST['ndtOther']
+                mainObj.ifLevel3 = request.POST['ifLevel3']
+                # mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
+                # mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
                 mainObj.cerCategory = request.POST['cerCategory']
                 mainObj.preferredExaminationDateVenue = request.POST['preferredExaminationDateVenue']
+
+                mainObj.claimDuration = request.POST['claimDuration']
+                mainObj.verClaimAddress = request.POST['verClaimAddress']
+                mainObj.dateOfSign = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                mainObj.sponsorName = request.POST['sponsorName']
+                mainObj.sponsorCompany = request.POST['sponsorCompany']
+                mainObj.sponsorPhone = request.POST['sponsorPhone']
+
+                mainObj.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
+                mainObj.testCenterExaminer = request.POST['testCenterExaminer']
+                mainObj.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
+                mainObj.testCenterVenue = request.POST['testCenterVenue']
+                mainObj.testCenterModerator = request.POST['testCenterModerator']
+                mainObj.testCenterResultRef = request.POST['testCenterResultRef']
+                mainObj.testCenterExamCompleteColsed = request.POST['testCenterExamCompleteColsed']
+
+                mainObj.nameAddressInvoice = request.POST['nameAddressInvoice']
+                mainObj.accommodation = request.POST['accommodation']
+                mainObj.paymentMethod = request.POST['paymentMethod']
+                mainObj.nameResponsible = request.POST['nameResponsible']
+                mainObj.companyOrderReference = request.POST['companyOrderReference']
+                mainObj.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
+                mainObj.NameOnCard = request.POST['NameOnCard']
+                mainObj.cardNumber = request.POST['cardNumber']
+                mainObj.securityCode = request.POST['securityCode']
+                mainObj.addressCreditCardHolder = request.POST['addressCreditCardHolder']
+                mainObj.categoriesOfCertification = request.POST['cerCategory']
+                mainObj.preferredExaminationDateVenu = request.POST['preferredExaminationDateVenue']
+                mainObj.debit = request.POST['debit']
+
+                # mainObj.creditCardPayment = request.POST['creditCardPayment']
 
                 mainObj.save()
 
@@ -2992,7 +3048,7 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.candidatePosition = request.POST['currentEmploymentPosition']
                 objPSL57.employmentStatus = request.POST['currentEmploymentStatus']
                 objPSL57.examinationType = request.POST['examinationType']
-                objPSL57.iroductsIndustrySector = request.POST['iroductsIndustrySector']
+                objPSL57.productInductory = request.POST['iroductsIndustrySector']
 
                 if not request.POST.get('mt', None) == None:
                     objPSL57.NDTMethod = 'MT'
@@ -3083,7 +3139,7 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                         objPSL57.emphistory.add(obj)
 
 
-                return redirect('forms:allpsl57b_')
+                return redirect('forms:updatepsl57b_' ,id=objPSL57.id)
 
 
             else:

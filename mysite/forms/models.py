@@ -397,6 +397,7 @@ class PSL57A(models.Model):
     dateOfCourse = models.DateField(null=True, blank=True)
     iroductsIndustrySector = models.CharField(max_length=1024, null=True, blank=True)
     NDTMethod    = models.CharField(max_length=256, null=True, blank=True)
+    ndtOther    = models.CharField(max_length=256, null=True, blank=True)
     NDTLevel    = models.CharField(max_length=256, null=True, blank=True)
     ifLevel3    = models.CharField(max_length=256, null=True, blank=True)
     radiationSafety    = models.CharField(max_length=256, null=True, blank=True)
@@ -430,7 +431,7 @@ class PSL57A(models.Model):
     securityCode  = models.CharField(max_length=256, null=True, blank=True)
     addressCreditCardHolder = models.CharField(max_length=256, null=True, blank=True)
     debit = models.CharField(max_length=256, null=True, blank=True)
-
+    file = models.FileField(null=True, blank=True)
 
 
 
@@ -467,6 +468,7 @@ class PSL57B(models.Model):
     candidatePosition = models.CharField(max_length=512, null=True, blank=True)
     employmentStatus  = models.CharField(max_length=512, null=True, blank=True)
     examinationType   = models.CharField(max_length=512, null=True, blank=True)
+    ndtOther   = models.CharField(max_length=512, null=True, blank=True)
     iroductsIndustrySector    = models.CharField(max_length=1024, null=True, blank=True)
     NDTMethod    = models.CharField(max_length=256, null=True, blank=True)
     NDTLevel    = models.CharField(max_length=256, null=True, blank=True)
@@ -487,7 +489,18 @@ class PSL57B(models.Model):
     securityCode  = models.CharField(max_length=256, null=True, blank=True)
     addressCreditCardHolder = models.CharField(max_length=256, null=True, blank=True)
     debit = models.CharField(max_length=256, null=True, blank=True)
-
+    dateOfSign = models.DateField(null=True, blank=True)
+    sponsorName = models.CharField(max_length=256, null=True, blank=True)
+    sponsorCompany = models.CharField(max_length=256, null=True, blank=True)
+    sponsorPhone = models.CharField(max_length=256, null=True, blank=True)
+    sponsorSign = models.CharField(max_length=256, null=True, blank=True)
+    testCenterExamDate = models.DateField(null=True, blank=True)
+    testCenterVenue = models.CharField(max_length=256, null=True, blank=True)
+    testCenterExaminer = models.CharField(max_length=256, null=True, blank=True)
+    testCenterModerator = models.CharField(max_length=256, null=True, blank=True)
+    testCenterPaymentReceived = models.CharField(max_length=256, null=True, blank=True)
+    testCenterResultRef = models.CharField(max_length=256, null=True, blank=True)
+    testCenterExamCompleteColsed = models.CharField(max_length=256, null=True, blank=True)
 
     confirmation = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
