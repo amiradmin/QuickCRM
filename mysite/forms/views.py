@@ -3146,6 +3146,18 @@ class NewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 objPSL57.save()
 
+                for idx, item in enumerate(range(0, 2)):
+                    print(idx + 1)
+
+
+                    if not request.POST.get("organisation" + str(idx + 1), None) == None:
+                        print("Here")
+                        historyObj = empHistory()
+                        historyObj.organisation = request.POST['organisation' + str(idx + 1)]
+                        historyObj.period = request.POST['period' + str(idx + 1)]
+                        historyObj.contactNamePhone = request.POST['contactNamePhone' + str(idx + 1)]
+                        historyObj.save()
+                        objPSL57.emphistory.add(historyObj)
 
 
                 formListObj = FormList()
@@ -3333,29 +3345,25 @@ class UpdatePSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.testCenterResultRef = request.POST['testCenterResultRef']
                 objPSL57.testCenterExamCompleteColsed = request.POST['testCenterExamCompleteColsed']
                 objPSL57.save()
-                if not request.POST.get('organisation1', None) == None:
-                    historyObj = empHistory()
-                    historyObj.organisation = request.POST['organisation1']
-                    historyObj.period = request.POST['period1']
-                    historyObj.contactNamePhone = request.POST['contactNamePhone1']
-                    historyObj.save()
-                    objPSL57.emphistory.add(historyObj)
 
-                if not request.POST.get('organisation2', None) == None:
-                    historyObj = empHistory()
-                    historyObj.organisation = request.POST['organisation2']
-                    historyObj.period = request.POST['period2']
-                    historyObj.contactNamePhone = request.POST['contactNamePhone2']
-                    historyObj.save()
-                    objPSL57.emphistory.add(historyObj)
 
-                if not request.POST.get('organisation3', None) == None:
-                    historyObj = empHistory()
-                    historyObj.organisation = request.POST['organisation3']
-                    historyObj.period = request.POST['period3']
-                    historyObj.contactNamePhone = request.POST['contactNamePhone3']
-                    historyObj.save()
-                    objPSL57.emphistory.add(historyObj)
+
+                for idx, item in enumerate(range(1, 4)):
+                    # print(idx + 1)
+                    # if not request.POST.get("organisation" + str(idx + 1), None) == None:
+                    if not request.POST.get('organisation'+ str(idx), None) == None:
+                        print("Here")
+                        # print('organisation'+ str(idx ))
+                        historyObj = empHistory.objects.filter(id=request.POST["idIdex" + str(idx )]).first()
+                        historyObj.organisation = request.POST['organisation' + str(idx )]
+                        historyObj.period = request.POST['period' + str(idx)]
+                        historyObj.contactNamePhone = request.POST['contactNamePhone' + str(idx )]
+                        historyObj.save()
+
+
+
+
+
 
                 return redirect('forms:allpsl57b_')
 
