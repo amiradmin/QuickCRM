@@ -316,7 +316,8 @@ input[type = checkbox]:checked {
         </div>
     </div>
     </form>
-</div>
+
+<div class="mb-3 col-md-12 text-center" style="overflow-y: scroll; overflow-y: hidden;">
                     <form method="POST" onsubmit="return topFormFirstValidate();">
                         {% csrf_token %}
          <input type="hidden" id="mainCanID" value="{{candidate.id}}" name="mainCanID"/>
@@ -326,8 +327,8 @@ input[type = checkbox]:checked {
         <input type="hidden" value="{{category.id}}" name="categoryID"/>
         <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
 
-<div class="mb-3 col-md-12 text-center" style="overflow-y: scroll; overflow-y: hidden;margin-left:10%;">
-<div id="page1-div" style="position:relative;width:976px;height:1263px; ">
+
+<div id="page1-div" style="position:relative;width:976px;height:1263px; margin:0 auto;">
 <img width="976" height="1263" src="{% static 'images/forms/exam_feedback/Roger Fourny Exam Feedback001.png' %}" alt="background image"/>
 
     <div style="position:absolute; top: 155px; left: 56px; z-index: 1;"><textarea   style="border:none;background: transparent;width: 55px; height: 45px; font-size: 10px;margin:1px;" name="region" id=""></textarea></div>
@@ -631,7 +632,7 @@ input[type = checkbox]:checked {
 -->
 </style>
 <div style="overflow-y: scroll; overflow-y: hidden;">
-<div id="page2-div" style="position:relative;width:976px;height:1263px;color:#000000;">
+<div id="page2-div" style="position:relative;width:976px;height:1263px;color:#000000; margin:0 auto;">
 <img width="976" height="1263" src="{% static 'images/forms/exam_feedback/Roger Fourny Exam Feedback002.png' %}" alt="background image"/>
 
     <div style="position:absolute; top: 145px; left: 64px; z-index: 1;"><textarea    style="border:none; background: transparent;width: 55px; height: 45px; font-size: 10px;margin:1px;" name="region" id=""></textarea></div>
@@ -669,14 +670,14 @@ input[type = checkbox]:checked {
 <p style="position:absolute;top:152px;left:222px;white-space:nowrap" class="ft217"></p>
 <p style="position:absolute;top:164px;left:230px;white-space:nowrap" class="ft217"></p>
 <p style="position:absolute;top:176px;left:251px;white-space:nowrap" class="ft217"></p>
-</div>
+
 </div>
 
                                         <div class="mb-3 col-md-12 text-center">
                 <button name="mainForm" class="BUTTON_MZQ" style="height:40px;" type="submit">Submit</button>
             </div>
                     </form>
-
+</div>
 <script>
 function adminValidation(obj) {
     var cbs = document.getElementsByClassName("administrativeStaff");
