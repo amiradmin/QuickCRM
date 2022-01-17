@@ -10,6 +10,7 @@ urlpatterns = [
 
   
     path('getproductlist/', views.GetProductList.as_view(), name='getproductlist_'),
+    path('getproductbyID/<int:id>', views.GetProductByID.as_view(), name='getproductbyID_'),
     path('getexams/', views.GetExamList.as_view(), name='getexams_'),
 
 ]
