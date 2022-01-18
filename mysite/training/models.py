@@ -27,6 +27,7 @@ class Product(models.Model):
     code = models.CharField(max_length=1024, null=True, blank=True )
     price = models.CharField(max_length=1024, null=True, blank=True )
     type = models.CharField(max_length=512,  null=True, blank=True )
+    description = models.CharField(max_length=4096,  null=True, blank=True )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

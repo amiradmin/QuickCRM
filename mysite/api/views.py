@@ -74,6 +74,7 @@ class GetProductByID(APIView):
         result['type'] = product.type
         result['categoryID'] = product.category.id
         result['category'] = product.category.title
+        result['description'] = product.description
 
         return Response(result, status=status.HTTP_200_OK)
 
