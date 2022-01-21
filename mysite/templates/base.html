@@ -77,9 +77,9 @@ button, input {
                         <li class="side-nav-title side-nav-item">Navigation </li>
     
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                            <a data-bs-toggle="collapse" href="{% url 'training:trainpanel_' %}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
                                 <i class="uil-home-alt"></i>
-                                <span class="badge bg-success float-end">4</span>
+
                                 <span> Dashboards </span>
                             </a>
                             <div class="collapse" id="sidebarDashboards">
@@ -718,7 +718,7 @@ button, input {
                                 <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false"
                                     aria-expanded="false">
                                     <span class="account-user-avatar"> 
-                                        <img src="{% static 'assets/images/users/avatar-1.jpg'%}" alt="user-image" class="rounded-circle">
+                                        <img src="{% if candidate.photo %}{{candidate.photo.url}}{% endif %}" alt="user-image" class="rounded-circle">
                                     </span>
                                     <span>
                                         <span style="padding:8px 0;" class="account-user-name">{% if user.is_authenticated %}

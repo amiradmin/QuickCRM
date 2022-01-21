@@ -1122,25 +1122,28 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(TrainingPanelView, self).get_context_data()
-        event_list = Event.objects.all()
+        event_list = Event.objects.all()[:3]
+        eventCount = Event.objects.all().count()
         canCount = TesCandidate.objects.count()
         lecCount = Lecturer.objects.count()
         product = Product.objects.all()[:3]
+        productCount = Product.objects.all().count()
         today = datetime.datetime.now()
 
         canPerMonth = TesCandidate.objects.filter(created_at__month=today.month).count()
         eventPerMonth = Event.objects.filter(created_at__month=today.month).count()
         lecturerPerMonth = Lecturer.objects.filter(created_at__month=today.month).count()
         productPerMonth = Product.objects.filter(created_at__month=today.month).count()
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
 
         context['event_list'] = event_list
+        context['candidate'] = candidate
         context['eventCount'] = event_list.count()
         context['canCount'] = canCount
         context['canPerMonth'] = (canPerMonth/canCount) * 100
         if event_list.count() >0 :
-            context['eventPerMonth'] = (eventPerMonth/event_list.count()) * 100
-        context['productPerMonth'] = (productPerMonth/product.count()) * 100
+            context['eventPerMonth'] = (eventPerMonth/eventCount) * 100
+        context['productPerMonth'] = (productPerMonth/productCount) * 100
         context['lecCount'] = lecCount
         context['lecturerPerMonth'] =  (lecturerPerMonth/lecCount) * 100
         context['product'] = product
