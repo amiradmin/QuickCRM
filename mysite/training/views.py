@@ -1125,7 +1125,7 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         event_list = Event.objects.all()
         canCount = TesCandidate.objects.count()
         lecCount = Lecturer.objects.count()
-        product = Product.objects.all()
+        product = Product.objects.all()[:3]
         today = datetime.datetime.now()
 
         canPerMonth = TesCandidate.objects.filter(created_at__month=today.month).count()

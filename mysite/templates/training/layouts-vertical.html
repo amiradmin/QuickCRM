@@ -145,31 +145,31 @@
                                                         <th>ID</th>
                                                         <th>Name</th>
                                                         <th>Product</th>
-                                                        
-                                                      
-                                                      
+
+
+
                                                         <th>Start Date</th>
-                                          
-                                                      
+
+
                                                     </tr>
                                                 </thead>
-                                            
-                                            
+
+
                                                 <tbody>
                                                     {% for item in event_list %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.name}}</td>
-                                                  
+
                                                         <td>{{item.location}}</td>
                                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
-                                                      
-                                                    
-                                                       
+
+
+
                                                     </tr>
                                                     {%endfor%}
                                                 </tbody>
-                                            </table>     
+                                            </table>
                                         </div>
                                             
                                     </div> <!-- end card-body-->
@@ -194,7 +194,7 @@
 
 
                         <div class="row">
-                            <div class="col-xl-6 col-lg-12 order-lg-2 order-xl-1">
+                            <div class="col-xl-12 col-lg-12 order-lg-2 order-xl-1">
                                 <div class="card">
                                     <div class="card-body">
                                     
@@ -202,26 +202,38 @@
 
                                         <div class="table-responsive">
                                             <table class="table table-centered table-nowrap table-hover mb-0">
+                                 <thead>
+                                                    <tr>
+
+                                                        <th>Name</th>
+                                                        <th>Price</th>
+                                                        <th>Code</th>
+                                                        <th>Type</th>
+                                         
+
+
+                                                    </tr>
+                                                </thead>
                                                 <tbody>
                                                     <tr>
                                                     {% for item in product %}
                                                         <td>
-                                                            <h5 class="font-14 my-1 fw-normal">Name</h5>
+
                                                             <span class="text-muted font-13">{{item.name}}</span>
                                                         </td>
                                                     
                                                         <td>
-                                                            <h5 class="font-14 my-1 fw-normal">Price</h5>
+
                                                             <span class="text-muted font-13">{{item.price}}</span>
                                                         </td>
                                                         <td>
-                                                            <h5 class="font-14 my-1 fw-normal">Code</h5>
+
                                                             <span class="text-muted font-13">{{item.code}}</span>
                                                         </td>
                                                         <td>
-                                                            <h5 class="font-14 my-1 fw-normal">Type</h5>
-                                                            <span class="text-muted font-13">{{item.get_type_display}}</span>
+                                                            <span class="text-muted font-13">{{item.type}}</span>
                                                         </td>
+
                                                     </tr>
                                                     {% endfor %}
                                                    
