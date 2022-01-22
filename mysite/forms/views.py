@@ -1274,7 +1274,7 @@ class NewBGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/general/bgas.html"
 
     def get_context_data(self):
-        context = super(BGASExperienceForm, self).get_context_data()
+        context = super(NewBGASExperienceForm, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name')
         events = Event.objects.all()
         categories = Category.objects.all()
@@ -1346,7 +1346,7 @@ class NewBGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 event = Event.objects.filter(id=eventID).first()
                 self.candidateID = candidate.id
                 twiEnrolmentForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
-                context = super(BGASExperienceForm, self).get_context_data()
+                context = super(NewBGASExperienceForm, self).get_context_data()
                 context['candidate'] = candidate
                 context['event'] = event
                 context['category'] = category

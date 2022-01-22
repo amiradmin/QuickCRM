@@ -50,7 +50,7 @@ admin.site.register(Lecturer,LecturerAdmin)
 
 class ProductAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
-    list_display = ['id','name','category','code','price','type','created_at','updated_at']
+    list_display = ['id','name','category','code','pic','price','type','created_at','updated_at']
     list_filter =['id','name','code','price','type','created_at','updated_at']
 admin.site.register(Product,ProductAdmin)
     

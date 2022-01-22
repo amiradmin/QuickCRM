@@ -35,13 +35,19 @@ class ProductSerializer(serializers.Serializer):
     code = serializers.CharField(required=False, allow_blank=True, max_length=512)
     price = serializers.CharField(required=False, allow_blank=True, max_length=512)
     type = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    description = serializers.CharField(required=False, allow_blank=True, max_length=512)
     category = serializers.SerializerMethodField()
+    image = serializers.SerializerMethodField()
 
     def get_category(self, obj):
         category =ProductCatSerializer(obj.category).data
         return category
 
-
+    def get_image(self, obj):
+        if obj.pic:
+            return 'https://erp.tescan.ca' + obj.pic.url
+        else:
+            return None
 
 
 class CategorySerializer(serializers.Serializer):

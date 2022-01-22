@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['185.231.59.78','127.0.0.1','erp.tescan.ca','www.erp.tescan.ca','192.168.1.110']
 
-
+SITE_ID = 1
 # Application definition Test
 
 
