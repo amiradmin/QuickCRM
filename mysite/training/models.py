@@ -9,6 +9,13 @@ from django.dispatch import receiver
 # Create your models here.
 
 
+class CourseRequest(models.Model):
+    request = models.CharField(max_length=4096, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+
 class productCategory(models.Model):
     title = models.CharField(max_length=1024, null=True, blank=True )
     description = models.CharField(max_length=4096, null=True, blank=True)

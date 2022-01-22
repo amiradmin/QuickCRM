@@ -1,8 +1,15 @@
 from django.contrib import admin
-from training.models import  productCategory ,CandidateProfile,TesCandidate,Product,FormsList,Category,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
+from training.models import  productCategory ,CandidateProfile,CourseRequest,TesCandidate,Product,FormsList,Category,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
+
+class CourseRequestCategoryAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+
+    list_display = ['id','request','created_at','updated_at']
+    list_filter =['id','request','created_at','updated_at']
+
+admin.site.register(CourseRequest,CourseRequestCategoryAdmin)
 
 class productCategoryAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 

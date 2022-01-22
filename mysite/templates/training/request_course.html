@@ -33,9 +33,10 @@
 
                                         <form   method="POST" >
                                             {% csrf_token %}
+                                            <input type="hidden" name="userID" value="{{userID}}" />
                                             <div class="mb-3 col-md-12">
                                                 <label for="inputCity" class="form-label">Course Details</label>
-                                                <textarea type="text"  rows="5" name="description" class="form-control" id="inputCity"></textarea>
+                                                <textarea type="text"  rows="5" name="request" class="form-control" id="inputCity"></textarea>
                                             </div>
 
                                             <div class="mb-3 col-md-12 text-center">

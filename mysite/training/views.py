@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
-from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline
+from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline,CourseRequest
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
 from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A,NDTCovid19,NDT15AExperienceVerification,BGAsExperienceForm
@@ -32,28 +32,34 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
 
+class AllRequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "training/request_list.html"
+
+    def get_context_data(self):
+        context = super(AllRequestView, self).get_context_data()
+        requests = CourseRequest.objects.all()
+        context['requests'] =requests
+        return context
+
+
+
 class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/request_course.html"
 
     def get_context_data(self):
         context = super(RequestView, self).get_context_data()
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['userID'] =candidate.id
         return context
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             # country = Country.objects.get(id = request.POST['country'])
-            # obj = Location()
-            # obj.name = request.POST['name']
-            # obj.address = request.POST['address']
-            # obj.postalCode = request.POST['postalCode']
-            # obj.log = request.POST['longitude']
-            # obj.lat = request.POST['latitude']
-            # obj.city = request.POST['city']
-            # obj.country = country
-            # obj.save()
+            obj = CourseRequest()
+            obj.request = request.POST['request']
+            obj.save()
 
-            return redirect('training:location_')
+            return redirect('accounting:canprofile_',id=request.POST['userID'])
 
 
 class UserFormMonitor(SidebarMixin,LoginRequiredMixin,TemplateView):
