@@ -44,6 +44,7 @@ class ProductSerializer(serializers.Serializer):
         return category
 
     def get_image(self, obj):
+        print("Here")
         if obj.pic:
             return 'https://erp.tescan.ca' + obj.pic.url
         else:

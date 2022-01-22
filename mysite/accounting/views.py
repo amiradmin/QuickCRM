@@ -168,8 +168,9 @@ class RegisterView(TemplateView):
             #
             #     return render(request, 'training/errors.html')
             lastCan = TesCandidate.objects.last()
+            print(lastCan)
             tempID = int(lastCan.tes_candidate_id.split('-')[1]) + 1
-            tempID = 'TESN-' + str(tempID)
+            tempID = 'TESN-0' + str(tempID)
             user = User()
 
             # user.refresh_from_db()
@@ -178,7 +179,7 @@ class RegisterView(TemplateView):
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.save()
-            group = Group.objects.filter(id=2).first()
+            group = Group.objects.filter(id=1).first()
             user.groups.add(group)
             # user.tes_candidate_id = request.POST['tesCanID']
             user.tescandidate.first_name = request.POST['first_name']
@@ -194,8 +195,8 @@ class RegisterView(TemplateView):
             user.tescandidate.email = request.POST['email']
             user.tescandidate.contact_number = request.POST['phone']
             user.save()
-            group = Group.objects.get(name='candidates')
-            group.user_set.add(user)
+            # group = Group.objects.get(name='candidates')
+            # group.user_set.add(user)
 
             #     user.document_9 = request.FILES['doc_10']
 
