@@ -75,6 +75,7 @@ class GetProductByID(APIView):
         result['categoryID'] = product.category.id
         result['category'] = product.category.title
         result['description'] = product.description
+        result['image'] = 'https://erp.tescan.ca' + product.pic.url
 
         return Response(result, status=status.HTTP_200_OK)
 
