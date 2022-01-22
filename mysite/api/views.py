@@ -77,7 +77,8 @@ class GetProductByID(APIView):
         result['description'] = product.description
         if product.pic:
             result['image'] = 'https://erp.tescan.ca' + product.pic.url
-
+        else:
+            result['image'] = None
         return Response(result, status=status.HTTP_200_OK)
 
 

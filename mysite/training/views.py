@@ -31,6 +31,31 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
 
+
+class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "training/request_course.html"
+
+    def get_context_data(self):
+        context = super(RequestView, self).get_context_data()
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            # country = Country.objects.get(id = request.POST['country'])
+            # obj = Location()
+            # obj.name = request.POST['name']
+            # obj.address = request.POST['address']
+            # obj.postalCode = request.POST['postalCode']
+            # obj.log = request.POST['longitude']
+            # obj.lat = request.POST['latitude']
+            # obj.city = request.POST['city']
+            # obj.country = country
+            # obj.save()
+
+            return redirect('training:location_')
+
+
 class UserFormMonitor(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/user_form_monitor.html"
 

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+
+                                </div>
+                                <h4 class="page-title">Request a course</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title"> </h4>
+
+
+                                    <div class="tab-content">
+
+
+                                        <br>
+
+                                        <form   method="POST" >
+                                            {% csrf_token %}
+                                            <div class="mb-3 col-md-12">
+                                                <label for="inputCity" class="form-label">Course Details</label>
+                                                <textarea type="text"  rows="5" name="description" class="form-control" id="inputCity"></textarea>
+                                            </div>
+
+                                            <div class="mb-3 col-md-12 text-center">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                        </form>
+
+
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                                            <p>Please include following css file at <code>head</code> element</p>
+
+                                            <pre>
+                                                <span class="html escape">
+                                                    &lt;!-- Datatables css --&gt;
+                                                    &lt;link href=&quot;{% static 'assets/css/vendor/dataTables.bootstrap4.css'%} &quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+                                                    &lt;link href=&quot;{% static 'assets/css/vendor/responsive.bootstrap4.css'%}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+
+                                            <p>Make sure to include following js files at end of <code>body</code> element</p>
+
+                                            <pre class="mb-0">
+                                                <span class="html escape">
+                                                    &lt;!-- Datatables js --&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/jquery.dataTables.min.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.bootstrap4.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.responsive.min.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/responsive.bootstrap4.min.js'%}&quot;&gt;&lt;/script&gt;
+
+                                                    &lt;!-- Datatable Init js --&gt;
+                                                    &lt;script src=&quot;assets/js/pages/demo.datatable-init.js&quot;&gt;&lt;/script&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+
+                                            <pre class="mb-0">
+                                                <span class="html escape">
+                                                    &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;
+                                                        &lt;thead&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;th&gt;Name&lt;/th&gt;
+                                                                &lt;th&gt;Position&lt;/th&gt;
+                                                                &lt;th&gt;Office&lt;/th&gt;
+                                                                &lt;th&gt;Age&lt;/th&gt;
+                                                                &lt;th&gt;Start date&lt;/th&gt;
+                                                                &lt;th&gt;Salary&lt;/th&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/thead&gt;
+
+
+                                                        &lt;tbody&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;td&gt;Tiger Nixon&lt;/td&gt;
+                                                                &lt;td&gt;System Architect&lt;/td&gt;
+                                                                &lt;td&gt;Edinburgh&lt;/td&gt;
+                                                                &lt;td&gt;61&lt;/td&gt;
+                                                                &lt;td&gt;2011/04/25&lt;/td&gt;
+                                                                &lt;td&gt;$320,800&lt;/td&gt;
+                                                            &lt;/tr&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;td&gt;Garrett Winters&lt;/td&gt;
+                                                                &lt;td&gt;Accountant&lt;/td&gt;
+                                                                &lt;td&gt;Tokyo&lt;/td&gt;
+                                                                &lt;td&gt;63&lt;/td&gt;
+                                                                &lt;td&gt;2011/07/25&lt;/td&gt;
+                                                                &lt;td&gt;$170,750&lt;/td&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/tbody&gt;
+                                                    &lt;/table&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+                                        </div> <!-- end preview code-->
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+
+                {% endblock %}
