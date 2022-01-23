@@ -28,7 +28,7 @@ class ProductCatSerializer(serializers.Serializer):
     description = serializers.CharField(required=False, allow_blank=True, max_length=4096)
     image = serializers.SerializerMethodField()
 
-    
+
     def get_image(self, obj):
         print("Here")
         if obj.pic:
