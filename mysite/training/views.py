@@ -56,6 +56,7 @@ class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
         if request.method == 'POST':
             # country = Country.objects.get(id = request.POST['country'])
             obj = CourseRequest()
+            obj.candidate = self.request.user
             obj.request = request.POST['request']
             obj.save()
 

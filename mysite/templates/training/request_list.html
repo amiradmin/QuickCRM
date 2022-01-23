@@ -31,7 +31,8 @@
                                             <table id="basic-datatable" class="table dt-responsive  w-100">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
+                                                        <th>Row</th>
+                                                        <th>Candidate</th>
                                                         <th>Request</th>
 
                                           
@@ -46,6 +47,7 @@
                                                     {% for item in requests %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
+                                                        <td>{{item.candidate.first_name}}</td>
                                                         <td>{{item.request}}</td>
 
                                                        
