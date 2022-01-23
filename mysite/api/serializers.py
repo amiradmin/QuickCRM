@@ -25,7 +25,16 @@ class ProductCatSerializer(serializers.Serializer):
 
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    description = serializers.CharField(required=False, allow_blank=True, max_length=4096)
+    image = serializers.SerializerMethodField()
 
+    
+    def get_image(self, obj):
+        print("Here")
+        if obj.pic:
+            return 'https://erp.tescan.ca' + obj.pic.url
+        else:
+            return None
 
 class ProductSerializer(serializers.Serializer):
 
