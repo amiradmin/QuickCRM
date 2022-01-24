@@ -21,6 +21,7 @@ from exam_certification.models import Exam
 #         return targetUser
 #
 
+
 class ProductCatSerializer(serializers.Serializer):
 
     id = serializers.IntegerField(read_only=True)
@@ -78,10 +79,7 @@ class EventSerializer(serializers.Serializer):
 
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(required=False, allow_blank=True, max_length=512)
-    start_date = serializers.DateTimeField()
-    country = serializers.SerializerMethodField()
-    location = serializers.SerializerMethodField()
-    category = serializers.SerializerMethodField()
+
 
 
     def get_country(self, obj):
