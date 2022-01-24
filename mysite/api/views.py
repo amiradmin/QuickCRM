@@ -83,6 +83,26 @@ class GetProductByID(APIView):
 
 
 
+class GetEventByID(APIView):
+    pagination_class = CustomPagination
+
+
+    def get(self, request, *args,**kwargs):
+        result = {}
+        id = self.kwargs['id']
+        print(id)
+        product= Product.objects.filter(id=id).first()
+        event = Event.objects.filter(product=product)
+        result['id'] = product.id
+        result['name'] = product.name
+        result['code'] = product.code
+        result['price'] = product.price
+        result['type'] = product.type
+        result['categoryID'] = product.category.id
+        result['category'] = product.category.title
+
+        return Response(result, status=status.HTTP_200_OK)
+
 
 
 
