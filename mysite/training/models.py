@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from tinymce.models import HTMLField
 
 
 # Create your models here.
@@ -37,7 +38,7 @@ class Product(models.Model):
     code = models.CharField(max_length=1024, null=True, blank=True )
     price = models.CharField(max_length=1024, null=True, blank=True )
     type = models.CharField(max_length=512,  null=True, blank=True )
-    description = models.CharField(max_length=4096,  null=True, blank=True )
+    description = HTMLField()
     pic = models.ImageField(upload_to='products', null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
