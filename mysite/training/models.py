@@ -21,7 +21,7 @@ class CourseRequest(models.Model):
 
 class productCategory(models.Model):
     title = models.CharField(max_length=1024, null=True, blank=True )
-    description = models.CharField(max_length=4096, null=True, blank=True)
+    description = HTMLField()
     pic = models.ImageField(upload_to='products', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
