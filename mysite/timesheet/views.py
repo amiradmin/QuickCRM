@@ -21,6 +21,17 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
         return context
 
 
+class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
+
+    template_name = "timesheet/admin_timesheet_list.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AdminTimesheetList, self).get_context_data()
+        timesheets = Timesheet.objects.all()
+        context['timesheets'] = timesheets
+        return context
+
+
 
 
 class NewTimesheetForm(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -39,8 +50,8 @@ class NewTimesheetForm(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 obj = Timesheet()
                 obj.staff =User.objects.filter(id=request.POST['userID']).first()
-                obj.from_date = datetime.strptime(request.POST['from_date'], '%H:%M %p')
-                obj.to_date = datetime.strptime(request.POST['to_date'], '%H:%M %p')
+                obj.from_date = datetime.strptime(request.POST['from_date'], '%I:%M %p')
+                obj.to_date = datetime.strptime(request.POST['to_date'], '%I:%M %p')
                 obj.description = request.POST['description']
 
                 obj.save()

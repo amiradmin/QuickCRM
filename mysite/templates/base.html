@@ -511,13 +511,13 @@ button, input {
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
                                 <i class="uil-clipboard-alt"></i>
-                                <span> Administration </span>
+                                <span> Management </span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <div class="collapse" id="sidebarTasks">
                                 <ul class="side-nav-second-level">
                                     <li>
-                                        <a href="{% url 'forms:all_' %}">All Forms</a>
+                                        <a href="{% url 'timesheet:adminstafftimesheet_' %}">Timesheets</a>
                                     </li>
                                     <li>
                                         <a href="{% url 'forms:newform_' %}">New Form</a>

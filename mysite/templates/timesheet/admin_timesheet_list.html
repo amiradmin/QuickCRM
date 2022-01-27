@@ -32,6 +32,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
+                                                        <th>Staff</th>
                                                         <th>From</th>
                                                         <th>To</th>
                                                         <th>Description</th>
@@ -49,7 +50,8 @@
                                                     {% for item in timesheets %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
-                                                        <td>{{item.from_date|date:'P' }}</td>
+                                                        <td>{{item.staff.first_name}} {{item.staff.last_name}}</td>
+                                                        <td>{{item.from_date}}</td>
                                                         <td>{{item.to_date}}</td>
                                                         <td>{{item.description}}</td>
                                                         <td>{{item.created_at|date:'m/d/Y' }}</td>
