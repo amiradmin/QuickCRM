@@ -11,7 +11,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">New Form</h4>
+                                <h4 class="page-title">All Timesheet</h4>
                             </div>
                         </div>
                     </div>     
@@ -19,49 +19,62 @@
 
 
                     <div class="row">
+
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-body" style=" background: #f2f2f2 url('https://formbuilder.online/assets/img/noise.png'">
-          
+                                <a class="card-body" >
 
+<a href="{% url 'timesheet:newtimesheet_' %}" class="btn btn-outline-info" style="width:150px;margin-left:30px;" />New Timesheet</a>
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
                                                                      
                                         </div> <!-- end preview-->
-                                        <br>
-                                        <br>
-                                        <br>
-                                        
-                                        <form   method="POST" enctype="multipart/form-data">
-                                            {% csrf_token %}
-                 
-                                                        
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="validationCustom01">Form Name</label>
-                                                        <input type="text" name="formName" class="form-control" id="validationCustom01" placeholder="Name"  >
-                                                        <div class="valid-feedback">
-                                                            Looks good!
-                                                        </div>
-                                                    </div>
-<div id="build-wrap"></div>
-<input type="text" name="jsonCode" class="form-control" id="jsonCode"  >
-                 <div class="mb-3 col-md-12">
-  <label class="form-label">File</label>
-    <input class="form-control" name="file" type="file" id="inputGroupFile054">
-                                                    </div>
-                                    
-                                     
-                                        <br>
-                                      <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" type="submit">Submit</button>
-                                                    </div> 
-                                          
-                                        
-                                         
-                                    
-                                                                           
-                                        </form>
 
+
+
+<table id="basic-datatable" class="table dt-responsive  w-100">
+    <thead>
+        <tr>
+       
+            <th >ID</th>
+            <th >Staff</th>
+            <th  >From</th>
+            <th  >To</th>
+            <th  >Description</th>
+            <th  >Date</th>
+
+            
+      
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        {% for item in timesheets %}
+        <tr>
+
+
+
+            <td><p  >{{item.id}} </p></td>
+            <td><p >{{item.staff.first_name}} {{item.staff.last_name}}</p></td>
+            <td><p >{{item.from_date}}</p></td>
+            <td><p >{{item.to_date}}</p></td>
+            <td><p >{{item.description}}</p></td>
+            <td><p >{{item.created_at|date:"m/d/Y"}}</p></td>
+
+
+
+
+            <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:delcan_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
+            
+            
+           
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>
                                     
 
                                         <div class="tab-pane" id="basic-datatable-code">
@@ -89,47 +102,17 @@
                <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
-<script src="{% static 'js/builder.js'%}"></script>                      
+<script src='https://formbuilder.online/assets/js/form-builder.min.js'></script>
+                      
                
                 <script>
-
-var today = new Date();
-var minDate = today.setDate(today.getDate() + 1);
-
-$('#datePicker').datetimepicker({
-  useCurrent: false,
-  format: "MM/DD/YYYY",
-  minDate: minDate
-});
-
-var firstOpen = true;
-var time;
-
-$('#timePicker').datetimepicker({
-  useCurrent: false,
-  format: "hh:mm A"
-}).on('dp.show', function() {
-  if(firstOpen) {
-    time = moment().startOf('day');
-    firstOpen = false;
-  } else {
-    time = "01:00 PM"
-  }
-
-  $(this).data('DateTimePicker').date(time);
-});
-
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
 
 
                    jQuery($ => {
   const fbTemplate = document.getElementById('build-wrap');
   $(fbTemplate).formBuilder();
-  
 }); 
-
-
-
                     </script>
 
 

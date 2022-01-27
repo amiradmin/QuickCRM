@@ -115,6 +115,26 @@ button, input {
                                 <span> Requests </span>
                             </a>
                         </li>
+                 <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarContact" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span> Staff </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarContact">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'timesheet:stafftimesheetlist_' id=request.user.id %}">Timesheets</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'timesheet:newtimesheet_' %}">New Timesheet</a>
+                                    </li>
+
+
+
+                                </ul>
+                            </div>
+                        </li>
   <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarContact" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                                 <i class="uil-store"></i>

@@ -63,7 +63,8 @@ INSTALLED_APPS = [
     'ticket',
     'rest_framework',
     'tinymce_4',
-    # 'tinymce',
+    'timesheet',
+
 
 
     
