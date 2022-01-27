@@ -62,7 +62,8 @@ INSTALLED_APPS = [
     'contacts',
     'ticket',
     'rest_framework',
-    'tinymce',
+    'tinymce_4',
+    # 'tinymce',
 
 
     

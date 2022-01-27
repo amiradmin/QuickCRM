@@ -32,7 +32,7 @@ urlpatterns = [
     path('ticket/', include("ticket.urls",namespace="ticket")),
     path('api/', include("api.urls",namespace="api")),
     path('api-auth/', include('rest_framework.urls')),
-    path('tinymce/', include('tinymce.urls')),
+    # path('tinymce/', include('tinymce.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
