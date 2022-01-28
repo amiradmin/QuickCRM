@@ -43,12 +43,19 @@
                                
     
                                             </div> <!-- end col-->
+<form method="post" >
+    {% crsf_token %}
 
                                             <div class="col-lg-11">
                                                 <div class="mt-4 mt-lg-0">
                                                     <div id="calendar"></div>
                                                 </div>
                                             </div> <!-- end col -->
+                                        <br>
+                                      <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                                    </div>
+</form>
 
                                         </div>  <!-- end row -->
                                     </div> <!-- end card body-->
