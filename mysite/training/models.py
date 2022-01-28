@@ -8,7 +8,7 @@ from tinymce_4.fields import TinyMCEModelField
 # from tinymce import HTMLField
 
 
-# Create your models here.
+# Create your models here..
 
 
 class CourseRequest(models.Model):
