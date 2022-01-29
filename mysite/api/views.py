@@ -19,7 +19,7 @@ class GetProductList(APIView):
             "status": False,
             "msg": "Done"
         }
-        eventList = Product.objects.all()
+        eventList = Product.objects.all().order_by('id')
         page = self.paginate_queryset(eventList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)
