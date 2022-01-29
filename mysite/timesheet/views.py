@@ -53,7 +53,15 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                 # print(jsonDate)
 
                 for i in jsonDate:
-                    print(i)
+                    print(i['title'])
+                    obj = Timesheet()
+                    obj.staff = self.request.user
+                    obj.from_date = i['startDate']
+                    obj.to_date = i['startDate']
+                    obj.description = i['title']
+                    obj.save()
+
+
                 # for item in dateListObj:
                 #     print(item.title)
                 # obj = Timesheet()
