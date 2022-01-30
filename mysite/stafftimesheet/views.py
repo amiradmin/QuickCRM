@@ -4,6 +4,7 @@ from stafftimesheet.models import Timesheet
 from django.contrib.auth.models import User
 from authorization.sidebarmixin import SidebarMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from training.models import TesCandidate
 from datetime import datetime
 import json
 # Create your views here.
@@ -29,8 +30,26 @@ class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(AdminTimesheetList, self).get_context_data()
         timesheets = Timesheet.objects.all()
+        staffs =User.objects.all()
+        context['staffs'] = staffs
         context['timesheets'] = timesheets
         return context
+
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            context = super(AdminTimesheetList, self).get_context_data()
+            userID =request.POST['userID']
+            user = User.objects.filter(id=userID).first()
+            print(userID)
+            timesheets = Timesheet.objects.filter(staff=user)
+            staffs = User.objects.all()
+
+            return render(request, 'timesheet/admin_apps-calendar.html',
+                          {'timesheetList': timesheets, 'staffs':staffs } )
+
+
+
 
 
 class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
@@ -39,7 +58,7 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(TimesheetCalendarView, self).get_context_data()
-        timesheets = Timesheet.objects.all()
+        timesheets = Timesheet.objects.filter(staff=self.request.user)
         context['timesheets'] = timesheets
         return context
 
