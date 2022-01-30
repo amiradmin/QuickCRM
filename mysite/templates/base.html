@@ -124,13 +124,13 @@ button, input {
                             <div class="collapse" id="sidebarContact">
                                 <ul class="side-nav-second-level">
                                     <li>
-                                        <a href="{% url 'timesheet:stafftimesheetlist_' id=request.user.id %}">Timesheets</a>
+                                        <a href="{% url 'stafftimesheet:stafftimesheetlist_' id=request.user.id %}">Timesheets</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'timesheet:timesheetcal_'  %}">Calender View</a>
+                                        <a href="{% url 'stafftimesheet:timesheetcal_'  %}">Calender View</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'timesheet:newtimesheet_' %}">New Timesheet</a>
+                                        <a href="{% url 'stafftimesheet:newtimesheet_' %}">New Timesheet</a>
                                     </li>
 
 
@@ -520,11 +520,9 @@ button, input {
                             <div class="collapse" id="sidebarTasks">
                                 <ul class="side-nav-second-level">
                                     <li>
-                                        <a href="{% url 'timesheet:adminstafftimesheet_' %}">Timesheets</a>
+                                        <a href="{% url 'stafftimesheet:adminstafftimesheet_' %}">Timesheets</a>
                                     </li>
-                                    <li>
-                                        <a href="{% url 'forms:newform_' %}">New Form</a>
-                                    </li>
+
                               
                                 </ul>
                             </div>

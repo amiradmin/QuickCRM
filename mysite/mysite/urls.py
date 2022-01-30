@@ -30,7 +30,7 @@ urlpatterns = [
     path('contacts/', include("contacts.urls",namespace="contacts")),
     path('mailer/', include("mailer.urls",namespace="mailer")),
     path('ticket/', include("ticket.urls",namespace="ticket")),
-    path('timesheet/', include("timesheet.urls",namespace="timesheet")),
+    path('stafftimesheet/', include("stafftimesheet.urls",namespace="stafftimesheet_")),
     path('api/', include("api.urls",namespace="api")),
     path('api-auth/', include('rest_framework.urls')),
     # path('tinymce/', include('tinymce.urls')),

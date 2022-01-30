@@ -3,6 +3,7 @@
 {% block content %}
 
 
+
 <link href="{% static 'assets/css/vendor/fullcalendar.min.css'%}" rel="stylesheet" type="text/css" />
 <!-- third party css end -->
 
@@ -18,7 +19,7 @@
                                     <div class="page-title-right">
 
                                     </div>
-                                    <h4 class="page-title">Calendar11</h4>
+                                    <h4 class="page-title">Calendar</h4>
                                 </div>
                             </div>
                         </div>     
@@ -48,11 +49,11 @@
                                                 </div>
                                             </div> <!-- end col -->
                                             <br>
-    <input type="text" id="dateList" name="dateList" />
+    <input type="hidden" id="dateList" name="dateList" />
                                       <div class="mb-3 col-md-12 text-center">
                                                         <button onclick="myFunction()" class="btn btn-primary" type="submit">Submit</button>
                                                     </div>
-    <button onclick="myFunction()">Click me</button>
+
 </form>
                                         </div>  <!-- end row -->
                                     </div> <!-- end card body-->
@@ -137,12 +138,17 @@
                 }
             }
         });
+{% for item in timesheets %}
+console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
+{% endfor %}
+
         var t = [
         {% for item in timesheets %}
+
         {
                 title: "{{item.description}}",
-                start: new Date(l.now() + 158e6),
-                end: new Date(l.now() + 338e6),
+                start: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}") ,
+                end: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}"+ 338e6),
                 className: "bg-warning"
             },
 {% endfor %}

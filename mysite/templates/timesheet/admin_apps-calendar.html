@@ -1,0 +1,238 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<link href="{% static 'assets/css/vendor/fullcalendar.min.css'%}" rel="stylesheet" type="text/css" />
+<!-- third party css end -->
+
+
+                    
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                        <!-- start page title -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="page-title-box">
+                                    <div class="page-title-right">
+
+                                    </div>
+                                    <h4 class="page-title">Calendar</h4>
+                                </div>
+                            </div>
+                        </div>     
+                        <!-- end page title --> 
+
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-lg-0">
+                                            
+                                                <div id="external-events" class="m-t-20">
+                                 
+                                                </div>
+
+                               
+    
+                                            </div> <!-- end col-->
+<form method="post">
+    {% csrf_token %}
+
+                                            <div class="col-lg-11">
+                                                <div class="mt-4 mt-lg-0">
+                                                    <div id="calendar"></div>
+                                                </div>
+                                            </div> <!-- end col -->
+                                            <br>
+    <input type="hidden" id="dateList" name="dateList" />
+                                      <div class="mb-3 col-md-12 text-center">
+                                                        <button onclick="myFunction()" class="btn btn-primary" type="submit">Submit</button>
+                                                    </div>
+
+</form>
+                                        </div>  <!-- end row -->
+                                    </div> <!-- end card body-->
+                                </div> <!-- end card -->
+
+                                <!-- Add New Event MODAL -->
+                                <div class="modal fade" id="event-modal" tabindex="-1">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <form class="needs-validation" name="event-form" id="form-event" novalidate>
+                                                <div class="modal-header py-3 px-4 border-bottom-0">
+                                                    <h5 class="modal-title" id="modal-title">Event</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body px-4 pb-4 pt-0">
+                                                    <div class="row">
+                                                        <div class="col-12">
+             <div class="mb-3">
+                                                                <label class="control-label form-label">Staff</label>
+   <input class="form-control" placeholder="" type="text" name="title" id="event-staff" required />
+
+                                                            </div>
+
+                                                            <div class="mb-3">
+                                                                <label class="control-label form-label">Description</label>
+                               <textarea class="form-control" placeholder="" type="text" name="title" id="event-title" required ></textarea>
+
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <button type="button" class="btn btn-danger" id="btn-delete-event">Delete</button>
+                                                        </div>
+                                                        <div class="col-6 text-end">
+                                                            <button type="button" class="btn btn-light me-1" data-bs-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-success" id="btn-save-event">Save</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div> <!-- end modal-content-->
+                                    </div> <!-- end modal dialog-->
+                                </div>
+                                <!-- end modal-->
+                            </div>
+                            <!-- end col-12 -->
+                        </div> <!-- end row -->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+        <!-- bundle -->
+        <script src="{% static 'assets/js/vendor.min.js'%}"></script>
+        <script src="{% static 'assets/js/app.min.js'%}"></script>
+
+        <!-- third party js -->
+        <script src="{% static 'assets/js/vendor/jquery-ui.min.js'%}"></script>
+        <script src="{% static 'assets/js/vendor/fullcalendar.min.js'%}"></script>
+        <!-- third party js ends -->
+
+        <!-- demo app -->
+   <script>
+   var dateList = []
+! function(l) {
+    "use strict";
+
+    function e() {
+        this.$body = l("body"), this.$modal = new bootstrap.Modal(document.getElementById("event-modal"), {
+            backdrop: "static"
+        }), this.$calendar = l("#calendar"), this.$formEvent = l("#form-event"), this.$btnNewEvent = l("#btn-new-event"), this.$btnDeleteEvent = l("#btn-delete-event"), this.$btnSaveEvent = l("#btn-save-event"), this.$modalTitle = l("#modal-title"), this.$calendarObj = null, this.$selectedEvent = null, this.$newEventData = null
+    }
+    e.prototype.onEventClick = function(e) {
+        this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text("Edit Event"), this.$modal.show(), this.$selectedEvent = e.event, l("#event-title").val(this.$selectedEvent.title.split("-")[1]), l("#event-staff").val(this.$selectedEvent.title.split("-")[0]), l("#event-category").val(this.$selectedEvent.classNames[0])
+    }, e.prototype.onSelect = function(e) {
+        this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$selectedEvent = null, this.$newEventData = e, this.$btnDeleteEvent.hide(), this.$modalTitle.text("Add New Event"), this.$modal.show(), this.$calendarObj.unselect()
+    }, e.prototype.init = function() {
+        var e = new Date(l.now());
+        new FullCalendar.Draggable(document.getElementById("external-events"), {
+            itemSelector: ".external-event",
+            eventData: function(e) {
+                return {
+                    title: e.innerText,
+                    className: l(e).data("class")
+                }
+            }
+        });
+{% for item in timesheets %}
+console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
+{% endfor %}
+
+        var t = [
+        {% for item in timesheets %}
+
+        {
+                title: "{{item.staff.first_name}} {{item.staff.last_name}}-\n{{item.description}}",
+                start: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}") ,
+                end: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}"+ 338e6),
+                className: "bg-primary"
+            },
+{% endfor %}
+            ],
+
+            a = this;
+        a.$calendarObj = new FullCalendar.Calendar(a.$calendar[0], {
+            slotDuration: "00:15:00",
+            slotMinTime: "08:00:00",
+            slotMaxTime: "19:00:00",
+            themeSystem: "bootstrap",
+            bootstrapFontAwesome: !1,
+            buttonText: {
+                today: "Today",
+                month: "Month",
+                week: "Week",
+                day: "Day",
+                list: "List",
+                prev: "Prev",
+                next: "Next"
+            },
+            initialView: "dayGridMonth",
+            handleWindowResize: !0,
+            height: l(window).height() - 200,
+            headerToolbar: {
+                left: "prev,next today",
+                center: "title",
+                right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+            },
+            initialEvents: t,
+            editable: !0,
+            droppable: !0,
+            selectable: !0,
+            dateClick: function(e) {
+                a.onSelect(e)
+            },
+            eventClick: function(e) {
+                a.onEventClick(e)
+            }
+        }), a.$calendarObj.render(), a.$btnNewEvent.on("click", function(e) {
+            a.onSelect({
+                date: new Date,
+                allDay: !0
+            })
+        }), a.$formEvent.on("submit", function(e) {
+            e.preventDefault();
+            var t, n = a.$formEvent[0];
+            var dict = {
+                title: l("#event-title").val(),
+                "startDate": a.$newEventData.date,
+
+               };
+
+
+            dateList.push(dict);
+
+
+            n.checkValidity() ? (a.$selectedEvent ? (a.$selectedEvent.setProp("title", l("#event-title").val()), a.$selectedEvent.setProp("classNames", [l("#event-category").val()])) : (t = {
+                title: l("#event-title").val(),
+                start: a.$newEventData.date,
+                allDay: a.$newEventData.allDay,
+                className: l("#event-category").val()
+            }, a.$calendarObj.addEvent(t)), a.$modal.hide()) : (e.stopPropagation(), n.classList.add("was-validated"))
+        }), l(a.$btnDeleteEvent.on("click", function(e) {
+            a.$selectedEvent && (a.$selectedEvent.remove(), a.$selectedEvent = null, a.$modal.hide())
+        }))
+    }, l.CalendarApp = new e, l.CalendarApp.Constructor = e
+}(window.jQuery),
+function() {
+    "use strict";
+    window.jQuery.CalendarApp.init()
+}();
+
+function myFunction(){
+            var dateListEl = document.getElementById('dateList');
+            var dateListJason = JSON.stringify(dateList);
+            dateListEl.value =dateListJason;
+}
+   </script>
+        <!-- end demo js-->
+                {% endblock %}
