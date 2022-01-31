@@ -8,7 +8,7 @@
 <!-- third party css end -->
 
 
-                    
+
                     <!-- Start Content-->
                     <div class="container-fluid">
 
@@ -22,7 +22,7 @@
                                     <h4 class="page-title">Calendar</h4>
                                 </div>
                             </div>
-                        </div>     
+                        </div>
                         <!-- end page title -->
 
       <form method="post">
@@ -51,10 +51,15 @@
                                 </div>
                            </div>
                      <div class="mb-3 col-md-12 text-center">
-                                    <button onclick="myFunction()" class="btn btn-primary" type="submit">Update</button>
+                                    <button onclick="myFunction()" class="btn btn-primary" name="userSelection" type="submit">Update</button>
                      </div>
                      </div>
                  </div>
+                                  </form>
+
+
+ <form method="post">
+      {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
 
@@ -62,13 +67,13 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-lg-0">
-                                            
+
                                                 <div id="external-events" class="m-t-20">
-                                 
+
                                                 </div>
 
-                               
-    
+
+
                                             </div> <!-- end col-->
 
 
@@ -81,11 +86,14 @@
     <input type="hidden" id="dateList" name="dateList" />
                                             <br>
 
+                     <div class="mb-3 col-md-12 text-center">
+                                    <button onclick="myFunctionButtom()" class="btn btn-primary" name="calUpdate" type="submit">Update</button>
+                     </div>
 
-</form>
                                         </div>  <!-- end row -->
                                     </div> <!-- end card body-->
                                 </div> <!-- end card -->
+</form>
 
                                 <!-- Add New Event MODAL -->
                                 <div class="modal fade" id="event-modal" tabindex="-1">
@@ -102,7 +110,7 @@
              <div class="mb-3">
                                                                 <label class="control-label form-label">Staff</label>
    <input class="form-control" placeholder="" type="text" name="title" id="event-staff" required />
-
+   <input class="form-control" placeholder="" type="hidden" name="timesheetID" id="timesheetID" required />
                                                             </div>
 
                                                             <div class="mb-3">
@@ -110,6 +118,20 @@
                                <textarea class="form-control" placeholder="" type="text" name="title" id="event-title" required ></textarea>
 
                                                             </div>
+
+                                                        <div class="col-12">
+                                                            <div class="mb-3">
+                                                                <label class="control-label form-label">Category</label>
+                                                                <select class="form-select" name="category" id="event-category" required>
+                                                                    <option value="pending" selected>Pending</option>
+                                                                    <option value="approve">Approve</option>
+                                                                    <option value="reject">Reject</option>
+
+                                                                </select>
+                                                                <div class="invalid-feedback">Please select a valid event category</div>
+                                                            </div>
+                                                        </div>
+
                                                         </div>
 
                                                     </div>
@@ -123,7 +145,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </form>
+
                                         </div> <!-- end modal-content-->
                                     </div> <!-- end modal dialog-->
                                 </div>
@@ -158,7 +180,7 @@
         }), this.$calendar = l("#calendar"), this.$formEvent = l("#form-event"), this.$btnNewEvent = l("#btn-new-event"), this.$btnDeleteEvent = l("#btn-delete-event"), this.$btnSaveEvent = l("#btn-save-event"), this.$modalTitle = l("#modal-title"), this.$calendarObj = null, this.$selectedEvent = null, this.$newEventData = null
     }
     e.prototype.onEventClick = function(e) {
-        this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text("Edit Event"), this.$modal.show(), this.$selectedEvent = e.event, l("#event-title").val(this.$selectedEvent.title.split("-")[1]), l("#event-staff").val(this.$selectedEvent.title.split("-")[0]), l("#event-category").val(this.$selectedEvent.classNames[0])
+        this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text("Edit Event"), this.$modal.show(), this.$selectedEvent = e.event, l("#event-title").val(this.$selectedEvent.title.split("-")[1]), l("#event-staff").val(this.$selectedEvent.title.split("-")[0]), l("#event-category").val(this.$selectedEvent.classNames[0],l("#timesheetID").val(this.$selectedEvent.title.split("--")[1]))
     }, e.prototype.onSelect = function(e) {
         this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$selectedEvent = null, this.$newEventData = e, this.$btnDeleteEvent.hide(), this.$modalTitle.text("Add New Event"), this.$modal.show(), this.$calendarObj.unselect()
     }, e.prototype.init = function() {
@@ -180,10 +202,10 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
         {% for item in timesheets %}
 
         {
-                title:"{{item.staff.first_name}} {{item.staff.last_name}} -{{item.description}}",
+                title:"{{item.staff.first_name}} {{item.staff.last_name}} -{{item.description}}--{{item.id}}",
                 start: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}") ,
                 end: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}"+ 338e6),
-                className: "bg-warning"
+                className:{% if item.approved %} "bg-success" {% else %}"bg-warning" {% endif %}
             },
 {% endfor %}
             ],
@@ -232,13 +254,15 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
             var t, n = a.$formEvent[0];
             var dict = {
                 title: l("#event-title").val(),
-                "startDate": a.$newEventData.date,
+                approved:  l("#event-category").val(),
+                timesheetID: l("#timesheetID").val()
+
+
+
 
                };
-
-
             dateList.push(dict);
-
+            console.log(dateList);
 
             n.checkValidity() ? (a.$selectedEvent ? (a.$selectedEvent.setProp("title", l("#event-title").val()), a.$selectedEvent.setProp("classNames", [l("#event-category").val()])) : (t = {
                 title: l("#event-title").val(),
@@ -249,6 +273,10 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
         }), l(a.$btnDeleteEvent.on("click", function(e) {
             a.$selectedEvent && (a.$selectedEvent.remove(), a.$selectedEvent = null, a.$modal.hide())
         }))
+
+
+
+
     }, l.CalendarApp = new e, l.CalendarApp.Constructor = e
 }(window.jQuery),
 function() {
@@ -257,6 +285,11 @@ function() {
 }();
 
 function myFunction(){
+            var dateListEl = document.getElementById('dateList');
+            var dateListJason = JSON.stringify(dateList);
+            dateListEl.value =dateListJason;
+}
+function myFunctionButtom(){
             var dateListEl = document.getElementById('dateList');
             var dateListJason = JSON.stringify(dateList);
             dateListEl.value =dateListJason;

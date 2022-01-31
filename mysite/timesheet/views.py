@@ -33,6 +33,38 @@ class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
         return context
 
 
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+
+                dateListObj = request.POST['dateList']
+
+                # for item in dateListObj:
+                jsonDate =json.loads(dateListObj)
+                print(jsonDate)
+                print("Here Today")
+                # for i in jsonDate:
+                #     print(i['title'])
+                #     obj = Timesheet()
+                #     obj.staff = self.request.user
+                #     obj.from_temp = i['startDate']
+                #     # obj.to_date = i['startDate']
+                #     obj.description = i['title']
+                #     obj.save()
+
+
+                # for item in dateListObj:
+                #     print(item.title)
+                # obj = Timesheet()
+                # obj.staff =User.objects.filter(id=request.POST['userID']).first()
+                # obj.from_date = datetime.strptime(request.POST['from_date'], '%I:%M %p')
+                # obj.to_date = datetime.strptime(request.POST['to_date'], '%I:%M %p')
+                # obj.description = request.POST['description']
+                #
+                # obj.save()
+
+                return redirect('timesheet:adminstafftimesheet_')
+
+
 class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
 
     template_name = "timesheet/apps-calendar.html"

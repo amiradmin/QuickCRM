@@ -124,7 +124,7 @@
         }), this.$calendar = l("#calendar"), this.$formEvent = l("#form-event"), this.$btnNewEvent = l("#btn-new-event"), this.$btnDeleteEvent = l("#btn-delete-event"), this.$btnSaveEvent = l("#btn-save-event"), this.$modalTitle = l("#modal-title"), this.$calendarObj = null, this.$selectedEvent = null, this.$newEventData = null
     }
     e.prototype.onEventClick = function(e) {
-        this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text("Edit Event"), this.$modal.show(), this.$selectedEvent = e.event, l("#event-title").val(this.$selectedEvent.title), l("#event-category").val(this.$selectedEvent.classNames[0])
+        this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$newEventData = null, this.$btnDeleteEvent.show(), this.$modalTitle.text("Timesheet"), this.$modal.show(), this.$selectedEvent = e.event, l("#event-title").val(this.$selectedEvent.title),l("#event-approved").val(this.$selectedEvent.title), l("#event-category").val(this.$selectedEvent.classNames[0])
     }, e.prototype.onSelect = function(e) {
         this.$formEvent[0].reset(), this.$formEvent.removeClass("was-validated"), this.$selectedEvent = null, this.$newEventData = e, this.$btnDeleteEvent.hide(), this.$modalTitle.text("Add New Event"), this.$modal.show(), this.$calendarObj.unselect()
     }, e.prototype.init = function() {
@@ -149,7 +149,7 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
                 title: "{{item.description}}",
                 start: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}") ,
                 end: new Date("{{item.to_date|date:'Y/m/d H:i:s'}}") ,
-                className: "bg-warning"
+                 className:{% if item.approved %} "bg-success" {% else %}"bg-warning" {% endif %}
             },
 {% endfor %}
             ],

@@ -11,7 +11,7 @@ from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from contacts.models import Contact
-from training.models import TesCandidate
+from training.models import TesCandidate,StaffProfile
 from django.db.models import Q
 import datetime
 from mailer.views import sendMail
@@ -94,6 +94,7 @@ class StaffProfileView(LoginRequiredMixin, TemplateView):
         context = super(StaffProfileView, self).get_context_data()
         id = self.kwargs['id']
         user = User.objects.filter(id=id).first()
+        staff_profile = StaffProfile.objects.filter(user=user).first()
         print(user.first_name)
         # candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         # events = Event.objects.filter(candidate=candidate)
@@ -102,6 +103,7 @@ class StaffProfileView(LoginRequiredMixin, TemplateView):
         print('Staff Profile')
         now = datetime.datetime.now()
         context['user'] = user
+        context['staff_profile'] = staff_profile
         # context['events'] = events
         # context['now'] = now
         # context['contact'] = contact

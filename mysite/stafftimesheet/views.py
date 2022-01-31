@@ -39,18 +39,37 @@ class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-            context = super(AdminTimesheetList, self).get_context_data()
-            userID =request.POST['userID']
-            user = User.objects.filter(id=userID).first()
-            timesheets = Timesheet.objects.filter(staff=user)
-            staffs = User.objects.all()
-            print(timesheets)
+            if 'userSelection' in request.POST:
+                context = super(AdminTimesheetList, self).get_context_data()
+                userID =request.POST['userID']
+                user = User.objects.filter(id=userID).first()
+                timesheets = Timesheet.objects.filter(staff=user)
+                staffs = User.objects.all()
+                print(timesheets)
 
-            return render(request, 'timesheet/admin_apps-calendar.html',
+                return render(request, 'timesheet/admin_apps-calendar.html',
                           {'timesheets': timesheets, 'staffs':staffs } )
 
+            else:
+                print("OK OK")
+                context = super(AdminTimesheetList, self).get_context_data()
+                timesheets = Timesheet.objects.all()
+                dateListObj = request.POST['dateList']
+                jsonDate =json.loads(dateListObj)
+                print(jsonDate)
+                for i in jsonDate:
 
+                    obj = Timesheet.objects.filter(id=i['timesheetID']).first()
+                    if i['approved'] == 'approve':
+                        print(i['approved'])
+                        obj.approved = True
+                        obj.save()
+                    elif i['approved'] == 'pending':
+                        obj.approved = False
+                        obj.save()
 
+                return render(request, 'timesheet/admin_apps-calendar.html',
+                          {'timesheets': timesheets} )
 
 
 class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
@@ -67,8 +86,6 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
         if request.method == 'POST':
 
                 dateListObj = request.POST['dateList']
-
-                # for item in dateListObj:
                 jsonDate =json.loads(dateListObj)
                 print(jsonDate)
                 print("Here")

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from training.models import  productCategory ,CandidateProfile,CourseRequest,TesCandidate,Product,FormsList,Category,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
+from training.models import  productCategory ,StaffProfile,CandidateProfile,CourseRequest,TesCandidate,Product,FormsList,Category,Country,Location,Event,Lecturer,Certificate,Skill,WorkHistory,CandidateProject
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
@@ -35,6 +35,15 @@ class TesCandidateAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_filter = ['id','first_name','customer_id','tes_candidate_id','email','contact_number','birth_date','created_at','updated_at']
 
 admin.site.register(TesCandidate,TesCandidateAdmin)
+
+
+class StaffProfileAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+
+
+    list_display = ['id','first_name','email','photo','document_1','document_2','contact_number','contact_number','birth_date','created_at','updated_at']
+    list_filter = ['id','first_name','email','photo','document_1','document_2','contact_number','contact_number','birth_date','created_at','updated_at']
+
+admin.site.register(StaffProfile,StaffProfileAdmin)
 
 
 # class CandidateAdmin(ImportExportModelAdmin,admin.ModelAdmin):
