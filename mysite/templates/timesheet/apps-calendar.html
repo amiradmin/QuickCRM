@@ -148,7 +148,7 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
         {
                 title: "{{item.description}}",
                 start: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}") ,
-                end: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}"+ 338e6),
+                end: new Date("{{item.to_date|date:'Y/m/d H:i:s'}}") ,
                 className: "bg-warning"
             },
 {% endfor %}
@@ -199,6 +199,7 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
             var dict = {
                 title: l("#event-title").val(),
                 "startDate": a.$newEventData.date,
+                "endDate": a.$newEventData.date,
 
                };
 

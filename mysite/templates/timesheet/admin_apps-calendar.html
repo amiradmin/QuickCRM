@@ -50,6 +50,9 @@
 
                                 </div>
                            </div>
+                     <div class="mb-3 col-md-12 text-center">
+                                    <button onclick="myFunction()" class="btn btn-primary" type="submit">Update</button>
+                     </div>
                      </div>
                  </div>
                         <div class="row">
@@ -77,9 +80,7 @@
                                             <br>
     <input type="hidden" id="dateList" name="dateList" />
                                             <br>
-                                      <div class="mb-3 col-md-12 text-center">
-                                                        <button onclick="myFunction()" class="btn btn-primary" type="submit">Update</button>
-                                                    </div>
+
 
 </form>
                                         </div>  <!-- end row -->
@@ -176,13 +177,13 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
 {% endfor %}
 
         var t = [
-        {% for item in timesheetList %}
+        {% for item in timesheets %}
 
         {
-                title: "{{item.staff.first_name}} {{item.staff.last_name}}-\n{{item.description}}",
+                title:"{{item.staff.first_name}} {{item.staff.last_name}} -{{item.description}}",
                 start: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}") ,
                 end: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}"+ 338e6),
-                className: "bg-primary"
+                className: "bg-warning"
             },
 {% endfor %}
             ],

@@ -30,6 +30,7 @@ class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(AdminTimesheetList, self).get_context_data()
         timesheets = Timesheet.objects.all()
+        print(timesheets)
         staffs =User.objects.all()
         context['staffs'] = staffs
         context['timesheets'] = timesheets
@@ -41,12 +42,12 @@ class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
             context = super(AdminTimesheetList, self).get_context_data()
             userID =request.POST['userID']
             user = User.objects.filter(id=userID).first()
-            print(userID)
             timesheets = Timesheet.objects.filter(staff=user)
             staffs = User.objects.all()
+            print(timesheets)
 
             return render(request, 'timesheet/admin_apps-calendar.html',
-                          {'timesheetList': timesheets, 'staffs':staffs } )
+                          {'timesheets': timesheets, 'staffs':staffs } )
 
 
 
@@ -76,7 +77,7 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                     obj = Timesheet()
                     obj.staff = self.request.user
                     obj.from_temp = i['startDate']
-                    # obj.to_date = i['startDate']
+                    obj.to_date = i['startDate']
                     obj.description = i['title']
                     obj.save()
 

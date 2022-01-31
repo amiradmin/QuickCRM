@@ -42,6 +42,8 @@ class LoginView(TemplateView):
                     return redirect('adminpanel:adpanel_')
                 elif group_name == 'training_admin':
                     return redirect('training:trainpanel_')
+                elif group_name == 'Staff':
+                    return redirect('accounting:staffprofile_',id=request.user.id)
                 elif group_name == 'candidates':
 
                     print('can')
@@ -85,6 +87,26 @@ class LecturerProfileView(TemplateView):
         return render(request, "index.html")
 
 
+class StaffProfileView(LoginRequiredMixin, TemplateView):
+    template_name = "accounts/staff_profile.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(StaffProfileView, self).get_context_data()
+        id = self.kwargs['id']
+        user = User.objects.filter(id=id).first()
+        print(user.first_name)
+        # candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        # events = Event.objects.filter(candidate=candidate)
+        # contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
+        # contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        print('Staff Profile')
+        now = datetime.datetime.now()
+        context['user'] = user
+        # context['events'] = events
+        # context['now'] = now
+        # context['contact'] = contact
+        # context['contactRead'] = contactRead
+        return context
 
     
 class CandidateProfileView(LoginRequiredMixin,TemplateView):
