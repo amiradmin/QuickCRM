@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,DeleteView
 from stafftimesheet.models import Timesheet
 from django.contrib.auth.models import User
 from authorization.sidebarmixin import SidebarMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from training.models import TesCandidate
 from datetime import datetime,date, timedelta
+from django.urls import reverse_lazy
 import json
 # Create your views here.
 
@@ -72,15 +73,17 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     from_temp__gte=week_start,
                     from_temp__lt=week_end
                 )
-
+                staffs = User.objects.all()
                 adminStatus = False
                 for g in self.request.user.groups.all():
                     if g.name == 'super_admin' or g.name == 'training_admin':
                         adminStatus = True
                 return render(request, 'timesheet/timesheet_list.html',
-                          {'timesheets': timesheets ,'adminStatus':adminStatus })
+                          {'timesheets': timesheets ,'adminStatus':adminStatus,'staffs':staffs })
 
-
+class DeleteTimesheet(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = Timesheet
+    success_url = reverse_lazy('stafftimesheet:admintimesheetlist_')
 
 class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
