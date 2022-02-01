@@ -14,10 +14,10 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(TimesheetList, self).get_context_data()
-        user = User.objects.filter(id=self.kwargs['id']).first()
-        timesheets = Timesheet.objects.filter(staff=user)
-        user = User.objects.filter(id=self.request.user.id).first()
-        context['user'] = user
+        # user = User.objects.filter(id=self.kwargs['id']).first()
+        timesheets = Timesheet.objects.all()
+        # user = User.objects.filter(id=self.request.user.id).first()
+        # context['user'] = user
         context['timesheets'] = timesheets
         return context
 

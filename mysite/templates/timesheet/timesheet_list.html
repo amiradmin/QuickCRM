@@ -12,11 +12,43 @@
                                 <div class="page-title-right">
 
                                 </div>
-                                <h4 class="page-title">Event List</h4>
+                                <h4 class="page-title">Timesheets List</h4>
                             </div>
                         </div>
                     </div>
                     <!-- end page title -->
+
+      <form method="post">
+    {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                <div class="mb-3 col-md-12">
+                                    <label for="inputState" class="form-label">Staff</label>
+                                    <select name="userID" id="userID" class="form-select">
+
+                                        {% for item in staffs %}
+                                        <option value="{{item.id}}">{{item.first_name}}
+                                            {{item.last_name}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </select>
+                                    <div><span id="mainCanIDError" class="text-danger"></span></div>
+                                </div>
+
+
+                                </div>
+                           </div>
+                     <div class="mb-3 col-md-12 text-center">
+                                    <button onclick="myFunction()" class="btn btn-primary" name="userSelection" type="submit">Update</button>
+                     </div>
+                     </div>
+                 </div>
+                                  </form>
 
 
                     <div class="row">
@@ -32,6 +64,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
+                                                        <th>Staff</th>
                                                         <th>From</th>
                                                         <th>To</th>
                                                         <th>Description</th>
@@ -49,8 +82,9 @@
                                                     {% for item in timesheets %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
-                                                        <td>{{item.from_date|date:'P' }}</td>
-                                                        <td>{{item.to_date}}</td>
+                                                        <td>{{item.staff.first_name}} {{item.staff.last_name}}</td>
+                                                        <td>{{item.from_temp|date:'m/d/Y H:i'}}</td>
+                                                        <td>{{item.to_date|date:'m/d/Y H:i'}}</td>
                                                         <td>{{item.description}}</td>
                                                         <td>{{item.created_at|date:'m/d/Y' }}</td>
 
