@@ -50,7 +50,8 @@
                  </div>
                                   </form>
 
-
+ <form method="post">
+      {% csrf_token %}
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -157,9 +158,14 @@
                     <!-- end row-->
 
 
-                    </div>
-                    <!-- end row-->
+                     <div class="mb-3 col-md-12 text-center">
+                                    <button onclick="myFunctionButtom()" class="btn btn-primary" name="calUpdate" type="submit">Approve</button>
+                     </div>
 
+                                        </div>  <!-- end row -->
+                                    </div> <!-- end card body-->
+                                </div> <!-- end card -->
+</form>
                     </div>
                     <!-- container -->
 

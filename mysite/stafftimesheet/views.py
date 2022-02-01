@@ -12,16 +12,30 @@ import json
 class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
     template_name = "timesheet/timesheet_list.html"
-
+    timesheet = None
     def get_context_data(self, *args, **kwargs):
+
         context = super(TimesheetList, self).get_context_data()
         timesheets = Timesheet.objects.all()
         staffs = User.objects.all()
+        week_start = date.today()
+        week_start -= timedelta(days=week_start.weekday())
+        week_end = week_start + timedelta(days=7)
+
+        timesheets = Timesheet.objects.filter(
+            from_temp__gte=week_start,
+            from_temp__lt=week_end
+        )
+        staffs = User.objects.all()
         context['staffs'] = staffs
         context['timesheets'] = timesheets
+        # self.timesheet = timesheets
+        # time = timesheets
+        # print(self.timesheet)
         return context
 
     def post(self, request, *args, **kwargs):
+
         if request.method == 'POST':
             if 'userSelection' in request.POST:
                 userID =request.POST['userID']
@@ -36,34 +50,34 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     from_temp__lt=week_end
                 )
                 staffs = User.objects.all()
-                print(timesheets)
+
 
                 return render(request, 'timesheet/timesheet_list.html',
                           {'timesheets': timesheets, 'staffs':staffs } )
 
             else:
                 print("OK OK")
-                context = super(AdminTimesheetList, self).get_context_data()
-                timesheets = Timesheet.objects.all()
-                dateListObj = request.POST['dateList']
-                jsonDate =json.loads(dateListObj)
-                print(jsonDate)
-                for i in jsonDate:
+                timesheetList = self.get_context_data().get('timesheets')
 
-                    obj = Timesheet.objects.filter(id=i['timesheetID']).first()
-                    if i['approved'] == 'approve':
-                        print(i['approved'])
-                        obj.approved = True
-                        obj.save()
-                    elif i['approved'] == 'pending':
-                        obj.approved = False
-                        obj.save()
+                for item in timesheetList:
+                    obj = Timesheet.objects.filter(id=item.id).first()
+                    obj.approved=True
+                    obj.save()
+
+                week_start = date.today()
+                week_start -= timedelta(days=week_start.weekday())
+                week_end = week_start + timedelta(days=7)
+
+                timesheets = Timesheet.objects.filter(
+                    from_temp__gte=week_start,
+                    from_temp__lt=week_end
+                )
 
                 adminStatus = False
                 for g in self.request.user.groups.all():
                     if g.name == 'super_admin' or g.name == 'training_admin':
                         adminStatus = True
-                return render(request, 'timesheet/admin_apps-calendar.html',
+                return render(request, 'timesheet/timesheet_list.html',
                           {'timesheets': timesheets ,'adminStatus':adminStatus })
 
 
