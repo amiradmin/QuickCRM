@@ -243,6 +243,7 @@ class NewTimesheetForm(LoginRequiredMixin,SidebarMixin,TemplateView):
 class UpdateTimesheetForm(LoginRequiredMixin,SidebarMixin,TemplateView):
     template_name = "timesheet/update_timesheet.html"
 
+
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateTimesheetForm, self).get_context_data()
 
