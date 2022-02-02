@@ -40,16 +40,43 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
         if request.method == 'POST':
             if 'userSelection' in request.POST:
                 userID =request.POST['userID']
+                week =request.POST['week']
+                # print(week)
                 user = User.objects.filter(id=userID).first()
 
                 week_start = date.today()
                 week_start -= timedelta(days=week_start.weekday())
-                week_end = week_start + timedelta(days=7)
+                print(week_start)
+                # week_end = week_start + timedelta(days=7)
+                print("Here")
+                print(week.split(' to ')[0])
+                week_start =week.split(' to ')[0]
+                week_start_year = week_start.split('-')[2]
+                week_start_month = week_start.split('-')[0]
+                week_start_day = week_start.split('-')[1]
+                print(week_start_year)
+                print(week_start_month)
+                print(week_start_day)
+                week_start = week_start_year + '-' + week_start_month + '-' +week_start_day
+
+                week_end = week.split(' to ')[1]
+                week_end_year = week_end.split('-')[2]
+                week_end_month = week_end.split('-')[0]
+                week_end_day = week_end.split('-')[1]
+                print(week_end_year)
+                print(week_end_month)
+                print(week_end_day)
+                week_end = week_end_year + '-' + week_end_month + '-' + week_end_day
+                print(week_end)
+                # print(week.split(' to ')[1])
+                week_start = datetime.strptime(week_start, '%Y-%m-%d')
+                week_end = datetime.strptime(week_end, '%Y-%m-%d')
 
                 timesheets = Timesheet.objects.filter(staff=user).filter(
                     from_temp__gte=week_start,
                     from_temp__lt=week_end
                 )
+
                 staffs = User.objects.all()
 
 

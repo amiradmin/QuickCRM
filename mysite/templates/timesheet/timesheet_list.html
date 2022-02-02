@@ -2,6 +2,40 @@
 {% load static %}
 {% block content %}
 
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css'>
+
+<style>
+
+.week-select .input-group-addon {
+  cursor: pointer;
+}
+.datepicker table tr td.week {
+  background: #e9e9e9;
+}
+.datepicker table tr td.week-active,
+.datepicker table tr td.week-active:hover,
+.datepicker table tr td.week-active td.week,
+.datepicker table tr td.week-active td.week:hover,
+.datepicker table tr td.week-active td:hover {
+  background-color: #006dcc;
+  background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -ms-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+  background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+  background-image: linear-gradient(top, #0088cc, #0044cc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0044cc', GradientType=0);
+  border-color: #0044cc #0044cc #002a80;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+</style>
+
+
                     <!-- Start Content-->
                     <div class="container-fluid">
 
@@ -26,7 +60,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
-                <div class="mb-3 col-md-12">
+                <div class="mb-3 col-md-6">
                                     <label for="inputState" class="form-label">Staff</label>
                                     <select name="userID" id="userID" class="form-select">
 
@@ -41,6 +75,14 @@
                                 </div>
 
 
+
+    <div class="col-sm-6 col-sm-offset-4">
+<label for="inputState1" class="form-label">Week</label>
+      <div class="input-group week-select">
+          <input type="text" class="form-control" name="week">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </div>
+    </div>
                                 </div>
                            </div>
                      <div class="mb-3 col-md-12 text-center">
@@ -175,9 +217,72 @@
                 <!-- content -->
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>
                 <script>
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
 
+
+
+var applyStyle = function(e, cssClass){
+    var tr = e.parent('tr');
+    var index = e.index();
+
+    e.addClass(cssClass);
+    var daysRemainingInWeek = 6 - index;
+    var carryOver = 6 - daysRemainingInWeek;
+
+    for (var i=0; i<=daysRemainingInWeek; i++){
+        var pos = index + i;
+        tr.find('td:eq('+pos+')').addClass(cssClass);
+    }
+
+    if (carryOver > 0) {
+        var nextTr = tr.next('tr');
+        for (var i=0; i<carryOver; i++){
+            nextTr.find('td:eq('+i+')').addClass(cssClass);
+        }
+    }
+};
+
+var highlightRange = function(e){
+    var input = e.currentTarget;
+
+    $('.week-active', '.datepicker-days').removeClass('week-active');
+    var thisDay = $('td.active.day', '.datepicker-days');
+    applyStyle(thisDay, 'week-active');
+
+    var date = new Date(e.date);
+    var start_date = moment(date);
+    var end_date = moment(date).add(6, 'days');
+    var friendly_string = start_date.format('MM-DD-YYYY') + ' to '
+        + end_date.format('MM-DD-YYYY');
+
+    $(input).val(friendly_string);
+};
+
+highlightRange({ currentTarget: document.getElementsByName('week')[0], date: new Date() });
+
+$('input[name=week]').datepicker( {
+    format: "mm-dd-yyyy",
+    autoclose: true,
+    orientation: 'top auto'
+}).on('show', function(e){
+    var td = $('td', '.datepicker-days');
+    td.mouseover(function(){
+        applyStyle($(this), 'week');
+    }).mouseout(function(){
+        $('.week', '.datepicker-days').removeClass('week');
+    });
+
+    highlightRange(e);
+}).on('hide', function(e){
+    highlightRange(e);
+    console.log($(this).val());
+});
+
+$('.input-group-addon', '.week-select').click(function(){ $('input[name=week]').datepicker('show'); });
                     </script>
 
 
