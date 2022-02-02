@@ -20,8 +20,10 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
         timesheets = Timesheet.objects.all()
         staffs = User.objects.all()
         week_start = date.today()
-        week_start -= timedelta(days=week_start.weekday())
+        week_start = week_start - timedelta(days=week_start.weekday() , weeks=1)
+        print(week_start)
         week_end = week_start + timedelta(days=7)
+        print(week_end)
 
         timesheets = Timesheet.objects.filter(
             from_temp__gte=week_start,
