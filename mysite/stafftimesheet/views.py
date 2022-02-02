@@ -236,3 +236,36 @@ class NewTimesheetForm(LoginRequiredMixin,SidebarMixin,TemplateView):
 
 
         return render(request, 'forms/general/bgas.html')
+
+
+
+
+class UpdateTimesheetForm(LoginRequiredMixin,SidebarMixin,TemplateView):
+    template_name = "timesheet/update_timesheet.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateTimesheetForm, self).get_context_data()
+
+        timesheet = Timesheet.objects.filter(id=self.kwargs['id']).first()
+        context['timesheet'] = timesheet
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+
+
+
+                obj = Timesheet.objects.filter(id=self.kwargs['id']).first()
+                obj.comment =request.POST['comment']
+                if not request.POST.get('approve', None) == None:
+                    obj.approved =True
+                else:
+                    obj.approved = False
+                obj.save()
+                #
+                # obj.save()
+
+                return redirect('stafftimesheet:admintimesheetlist_')
+
+
+        return render(request, 'forms/general/bgas.html')

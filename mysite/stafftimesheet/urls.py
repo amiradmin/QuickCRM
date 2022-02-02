@@ -13,6 +13,7 @@ urlpatterns = [
     path('newtimesheet/', views.NewTimesheetForm.as_view(), name='newtimesheet_'),
     path('timesheetcal/', views.TimesheetCalendarView.as_view(), name='timesheetcal_'),
     path('adminstafftimesheet/', views.AdminTimesheetList.as_view(), name='adminstafftimesheet_'),
+    path('updatetimesheet/<int:id>', views.UpdateTimesheetForm.as_view(), name='updatetimesheet_'),
     path('deltimesheet/<int:pk>/delete/', views.DeleteTimesheet.as_view(), name='deltimesheet_'),
 
 

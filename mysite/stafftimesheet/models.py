@@ -12,7 +12,8 @@ class Timesheet(models.Model):
     from_temp= models.DateTimeField(null=True, blank=True)
     to_date = models.DateTimeField(null=True, blank=True)
     duration = models.FloatField(null=True,blank=True)
-    description = models.CharField(max_length=30, null=True, blank=True )
+    description = models.CharField(max_length=2048, null=True, blank=True )
+    comment = models.CharField(max_length=2048, null=True, blank=True )
     approved = models.BooleanField(default=False, null=True, blank=True )
 
     created_at = models.DateTimeField(auto_now_add=True)
