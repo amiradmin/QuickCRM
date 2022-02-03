@@ -37,7 +37,7 @@ class ProductCatSerializer(serializers.Serializer):
     def get_image(self, obj):
         print("Here")
         if obj.pic:
-            return 'https://erp.tescan.ca' + obj.pic.url
+            return 'http://erp.tescan.ca' + obj.pic.url
         else:
             return None
 
@@ -60,7 +60,7 @@ class ProductSerializer(serializers.Serializer):
     def get_image(self, obj):
         print("Here")
         if obj.pic:
-            return 'https://erp.tescan.ca' + obj.pic.url
+            return 'http://erp.tescan.ca' + obj.pic.url
         else:
             return None
 

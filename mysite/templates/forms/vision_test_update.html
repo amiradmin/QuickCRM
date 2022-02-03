@@ -666,7 +666,31 @@ input[type = checkbox]:checked {
   }
   #middleInfo4 {
     margin-top:105px;
+    margin-left:148px;
+  }
+
+    #middleInfo5 {
+    margin-top:143px;
+    margin-left:55px;
+  }
+
+      #middleInfo6 {
+    margin-top:145px;
     margin-left:105px;
+  }
+
+      #middleInfo7 {
+    margin-top:175px;
+    margin-left:55px;
+  }
+
+      #middleInfo8 {
+    margin-top:175px;
+    margin-left:105px;
+  }
+  #bottomInfo1 {
+    margin-top:25px;
+    margin-left:55px;
   }
 }
 
@@ -770,13 +794,13 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <input style="position: absolute; top: 547px; left: 544px; z-index: 1;" id="middleInfo2" onchange="case1Change(this);" type="checkbox" class="case1" name="corrected" {% if form.nearVisionAcuity == 'CORRECTED' %} checked {% endif%}/>
     <input style="position: absolute; top: 547px; left: 786px; z-index: 1;" id="middleInfo4" onchange="case1Change(this);" type="checkbox" class="case1" name="isNotAble" {% if form.nearVisionAcuity == 'IS NOT ABLE' %} checked {% endif%} />
 
-    <input style="position: absolute; top: 739px; left: 288px; z-index: 1;" type="checkbox" onchange="case2Change(this);" class="case2" name="colorAccept" {% if form.colourPerception == 'ACCEPT' %} checked {% endif%} />
-    <input style="position: absolute; top: 739px; left: 544px; z-index: 1;" type="checkbox" onchange="case2Change(this);" class="case2" name="colorReject"  {% if form.colourPerception == 'REJECT' %} checked {% endif%}  />
+    <input style="position: absolute; top: 739px; left: 288px; z-index: 1;" id="middleInfo5" type="checkbox" onchange="case2Change(this);" class="case2" name="colorAccept" {% if form.colourPerception == 'ACCEPT' %} checked {% endif%} />
+    <input style="position: absolute; top: 739px; left: 544px; z-index: 1;" id="middleInfo6"  type="checkbox" onchange="case2Change(this);" class="case2" name="colorReject"  {% if form.colourPerception == 'REJECT' %} checked {% endif%}  />
 
-    <input style="position: absolute; top: 940px; left: 288px; z-index: 1;" type="checkbox" onchange="case3Change(this);" class="case3" name="shadeAccept" {% if form.shadesOfGrey == 'ACCEPT' %} checked {% endif%} />
-    <input style="position: absolute; top: 940px; left: 544px; z-index: 1;" type="checkbox" onchange="case3Change(this);" class="case3" name="colorReject" {% if form.shadesOfGrey == 'REJECT' %} checked {% endif%}  />
+    <input style="position: absolute; top: 940px; left: 288px; z-index: 1;" id="middleInfo7"  type="checkbox" onchange="case3Change(this);" class="case3" name="shadeAccept" {% if form.shadesOfGrey == 'ACCEPT' %} checked {% endif%} />
+    <input style="position: absolute; top: 940px; left: 544px; z-index: 1;" id="middleInfo8"  type="checkbox" onchange="case3Change(this);" class="case3" name="colorReject" {% if form.shadesOfGrey == 'REJECT' %} checked {% endif%}  />
 
-    <input style="position: absolute; bottom: 218px; left: 173px; z-index: 1; width: 40%; height: 33px;border:none;" type="text" name="recognisedOrganisation" value="{{form.recognisedOrganisation}}" />
+    <input style="position: absolute; bottom: 218px; left: 173px; z-index: 1; width: 40%; height: 33px;border:none;" id="bottomInfo1" type="text" name="recognisedOrganisation" value="{{form.recognisedOrganisation}}" />
     <input style="position: absolute; bottom: 167px; left: 126px; z-index: 1; width: 45%; height: 33px;border:none;" type="text" name="recognisedName" value="{{form.recognisedName}}"  />
     <input style="position: absolute; bottom: 218px; left: 671px; z-index: 1; width: 20%; height: 33px;border:none;" type="text" name="recognisedPhone" value="{{form.recognisedPhone}}"  id="recognisedPhone" onkeypress="return NumberPressed(event);" />
     <input style="position: absolute; bottom: 167px; left: 748px; z-index: 1; width: 11%; height: 33px;border:none;" type="text" name="recognisedLicenceNumber" value="{{form.recognisedLicenceNumber}}"  />
