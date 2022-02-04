@@ -57,6 +57,46 @@ class LoginView(TemplateView):
 
         return render(request, "index.html")
 
+
+class CandidateLoginView(TemplateView):
+    template_name = "candidate_login.html"
+
+    def get_context_data(self):
+        context = super(CandidateLoginView, self).get_context_data()
+
+        return context
+
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                group_name = request.user.groups.values_list('name', flat=True).first()
+                print(group_name)
+                if group_name == 'super_admin':
+
+                    return redirect('adminpanel:adpanel_')
+                elif group_name == 'training_admin':
+                    return redirect('training:trainpanel_')
+                elif group_name == 'Staff':
+                    return redirect('accounting:staffprofile_', id=request.user.id)
+                elif group_name == 'candidates':
+
+                    print('can')
+                    candidate = TesCandidate.objects.filter(user=user).first()
+                    return redirect('accounting:canprofile_', id=candidate.id)
+
+            else:
+                return HttpResponse("Inactive user.")
+        else:
+            return HttpResponseRedirect(settings.LOGIN_URL)
+
+        return render(request, "index.html")
+
+
 class LogoutView(View):
     def get(self, request):
         logout(request)
