@@ -285,6 +285,62 @@ class RegisterView(TemplateView):
 
         return redirect('accounting:canprofile_',id=user.tescandidate.id)
 
+
+
+class LitteRegisterView(TemplateView):
+    template_name = "accounts/lite_reg.html"
+
+    def get_context_data(self):
+        context = super(LitteRegisterView, self).get_context_data()
+        # form = MedicineForm()
+        # context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'POST':
+            # print(request.POST['tes_id'])
+            firstName = request.POST['first_name']
+            lastName = request.POST['last_name']
+            middleName = request.POST['middleName']
+            print(firstName)
+            result = TesCandidate.objects.filter(first_name=firstName, last_name=lastName).count()
+
+            lastCan = TesCandidate.objects.exclude(tes_candidate_id__exact=None).last()
+            print(lastCan)
+            tempID = int(lastCan.tes_candidate_id.split('-')[1]) + 1
+            tempID = 'TESN-0' + str(tempID)
+            user = User()
+
+            user.username = request.POST['email']
+            user.password =make_password('Default@2022')
+            user.first_name = request.POST['first_name']
+            user.last_name = request.POST['last_name']
+            user.save()
+            group = Group.objects.filter(id=3).first()
+            user.groups.add(group)
+            # user.tes_candidate_id = request.POST['tesCanID']
+            user.tescandidate.first_name = request.POST['first_name']
+            user.tescandidate.middleName = request.POST['middleName']
+            user.tescandidate.last_name = request.POST['last_name']
+            user.tescandidate.email = request.POST['email']
+            user.tescandidate.tes_candidate_id = tempID
+            user.tescandidate.contact_number = request.POST['phone']
+            user.save()
+
+
+            print(user.username)
+
+            fullName = user.tescandidate.first_name + ' ' + user.tescandidate.last_name
+            msg = 'Your account has been created successfully'
+            sendMail(request.POST['email'],fullName,msg)
+            print('Mail Sent')
+
+        return redirect('accounting:canprofile_',id=user.tescandidate.id)
+
+
 class RegSuccessView(TemplateView):
     template_name = "accounts/success.html"
 

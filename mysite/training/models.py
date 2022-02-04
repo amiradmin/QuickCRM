@@ -5,18 +5,13 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from tinymce_4.fields import TinyMCEModelField
+
 # from tinymce import HTMLField
 
 
 # Create your models here..
 
 
-class CourseRequest(models.Model):
-    candidate = models.ForeignKey(User, related_name="candiate_request", null=True, blank=True,
-                                on_delete=models.CASCADE)
-    request = models.CharField(max_length=4096, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 
 
@@ -163,6 +158,14 @@ def update_user_tescandidate(sender, instance, created, **kwargs):
     if created:
         TesCandidate.objects.create(user=instance)
     instance.tescandidate.save()
+
+
+class CourseRequest(models.Model):
+    candidate = models.ForeignKey(TesCandidate, related_name="candiate_request", null=True, blank=True,
+                                on_delete=models.CASCADE)
+    request = models.CharField(max_length=4096, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 
 class WorkHistory(models.Model):

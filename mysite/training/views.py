@@ -37,7 +37,8 @@ class AllRequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(AllRequestView, self).get_context_data()
-        requests = CourseRequest.objects.all()
+        requests = CourseRequest.objects.select_related('candidate')
+
         context['requests'] =requests
         return context
 
@@ -55,8 +56,9 @@ class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             # country = Country.objects.get(id = request.POST['country'])
+            candidate = TesCandidate.objects.filter(user=self.request.user).first()
             obj = CourseRequest()
-            obj.candidate = self.request.user
+            obj.candidate =candidate
             obj.request = request.POST['request']
             obj.save()
 

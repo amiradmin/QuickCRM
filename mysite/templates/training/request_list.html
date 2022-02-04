@@ -34,6 +34,8 @@
                                                         <th>Row</th>
                                                         <th>Candidate</th>
                                                         <th>Request</th>
+                                                        <th>Email</th>
+                                                        <th>Contact Number</th>
 
                                           
                                                         <th></th>
@@ -47,8 +49,10 @@
                                                     {% for item in requests %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
-                                                        <td>{{item.candidate.first_name}}</td>
+                                                        <td><a href="{% url 'accounting:canprofile_' id=1063 %}">{{item.candidate.first_name}} {{item.candidate.last_name}}</a> </td>
                                                         <td>{{item.request}}</td>
+                                                        <td>{{item.candidate.email}}</td>
+                                                        <td>{{item.candidate.contact_number}}</td>
 
                                                        
                                                     </tr>

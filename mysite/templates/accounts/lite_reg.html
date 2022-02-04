@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+{% load static %}
+    <html lang="en">
+
+    <head>
+        <meta charset="utf-8" />
+        <title>Tescan | </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
+        <meta content="Coderthemes" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static 'assets/images/favicon.ico'%}">
+
+        <!-- third party css -->
+        <link href="{% static 'assets/css/vendor/jquery-jvectormap-1.2.2.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/dataTables.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/responsive.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/buttons.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/select.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- third party css end -->
+        <link href="{% static 'assets/css/vendor/jquery-jvectormap-1.2.2.css'%}" rel="stylesheet" type="text/css" />
+        <!-- App css -->
+        <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/app-creative.min.css' %}" rel="stylesheet" type="text/css" id="light-style" />
+        <link href="{% static 'assets/css/app-creative-dark.min.css' %}" rel="stylesheet" type="text/css" id="dark-style" />
+        <link rel="stylesheet" href="{% static 'css/tag.css' %}">
+        <link href="{% static 'assets/css/vendor/dataTables.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'assets/css/vendor/responsive.bootstrap4.css'%}" rel="stylesheet" type="text/css" />
+    <style>
+    a.disabled {
+    pointer-events: none;
+    color: rgba(0,0,128,0.5);
+
+.X{
+  margin: auto;
+  padding: 1% 2%;
+  max-width: 1440px;
+  border-radius: 5px;
+  background: #ecf0f1;
+  box-shadow: 0 2px 6px 0 rgba(0,0,0, .3);
+}
+h1,h2,h3{
+  text-align: center;
+  font-family: 'Baloo Tamma', cursive;
+}
+li{
+  color: #2c3e50;
+  font-size: 12px;
+  line-height: 30px;
+  text-align: justify;
+  letter-spacing: 1px;
+  font-family: 'Raleway', serif;
+}
+/*SG = style grid*/
+.SG{
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.SG .sgLi{
+  min-width: 24%;
+  margin: 2% .35%;
+  display: inline-flex;
+  box-shadow: 0 2px 4px rgba(0,0,0, .2);
+}
+.SG .sgLi:hover{
+  box-shadow:0 5px 10px rgba(0,0,0,.15);}
+.SG .box{
+  width: 100%;
+  height: 100vh;
+  padding: 1% 2%;
+  background: #fff;
+  min-height: 200px;
+  max-height: 220px;
+  box-sizing: border-box;
+}
+/*Styles */
+.df{list-style-type: disc;}
+.s1{list-style-type: square;}
+.s2{list-style-type: circle;}
+.s3{list-style-type: decimal;}
+.s4{list-style-type: decimal-leading-zero;}
+.s5{list-style-type: lower-alpha;}
+.s6{list-style-type: upper-alpha;}
+.s7{list-style-type: lower-roman;}
+.s8{list-style-type: upper-roman;}
+.s9{list-style-type: lower-greek;}
+.s10{list-style-type: georgian;}
+.s11{list-style-type: hebrew;}
+.s12{list-style-type: hiragana;}
+.s13{list-style-type: hiragana-iroha;}
+.s14{list-style-type: katakana;}
+.s15{list-style-type: katakana-iroha;}
+.s16{list-style-type: cjk-ideographic;}
+.s17{list-style-image: url(//goo.gl/L3tqpe);}
+.s18{list-style: none;}
+.s18 li:before{
+  content: '';
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  display: inline-block;
+  background: url(//goo.gl/lcPSVD);
+  background-position: 50%;
+}
+.s19{list-style: none;}
+.s19 li:before{
+  content: '\f0a9';
+  margin-right: 15px;
+  font-family: FontAwesome;
+}
+
+/* responsive grid*/
+@media (max-width: 970px){
+  .SG .sgLi{width: 180px;}}
+@media (max-width: 425px){
+  .SG .sgLi{width: 100%;}
+}
+
+</style>
+    </head>
+
+    <body style="background: rgb(2,0,36);   background-position: top; background-size: 100% 900px; background-repeat: no-repeat; background-image: url('{% static "images/Baner.jpg" %}');" class="loading" >
+
+    <!-- Begin page -->
+
+        <div class="wrapper">
+            <div class="content-page-login" style="width:70%;display: block; margin-top:220px; margin-left: auto; margin-right: auto;" >
+                <div class="content ">
+                     <br>
+
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="header-title"></h4>
+<h4 class="page-title">Registration</h4>
+                                        <br>
+                                        <br>
+
+                                        <div class="tab-content">
+
+                                            <div class="tab-pane show active" id="custom-styles-preview">
+                                                <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom01">First Name</label>
+                                                        <input type="text" name="first_name" class="form-control" id="validationCustom01" placeholder="First name"  required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom01">Middle Name</label>
+                                                        <input type="text" name="middleName" class="form-control" id="validationCustom01" placeholder="Middle name"  >
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom02">Last name</label>
+                                                        <input type="text" name="last_name" class="form-control" id="validationCustom02" placeholder="Last name" required>
+                                                        <div class="valid-feedback">
+                                                            Looks good!
+                                                        </div>
+                                                    </div>
+                                                   <div class="mb-3 col-md-12">
+
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustomUsername">Email</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                                            <input type="email" name="email" class="form-control" id="validationCustomUsername" placeholder="Email"
+                                                                aria-describedby="inputGroupPrepend" required>
+                                                            <div class="invalid-feedback">
+                                                                Please choose a email.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="validationCustom03">Contact Number</label>
+                                                        <input type="text" name="phone" class="form-control" id="contactNumber" onkeypress="return NumberPressed(event);"  placeholder="Phone" >
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid contact number.
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                    <br>
+
+
+                                                    <br>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div> <!-- end preview-->
+
+
+                                    </div> <!-- end card-body-->
+                                </div> <!-- end card-->
+                            </div> <!-- end col-->
+
+
+  </div>
+  </div>
+                        </div>
+                        <!-- end row -->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+            <div class="rightbar-overlay"></div>
+            <!-- /End-bar -->
+
+            <!-- bundle -->
+            <script src="{% static 'assets/js/vendor.min.js'%}"></script>
+            <script src="{% static 'assets/js/app.min.js'%}"></script>
+
+
+            <!-- third party js ends -->
+
+
+
+
+<!-- Datatable Init js -->
+<script src="assets/js/pages/demo.datatable-init.js"></script>
+        <!-- third party js ends -->
+
+
+<script src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'></script>
+
+
+<script>
+
+// A function to format text to look like a phone number
+function phoneFormat(input){
+        // Strip all characters from the input except digits
+        input = input.replace(/\D/g,'');
+
+        // Trim the remaining input to ten characters, to preserve phone number format
+        input = input.substring(0,10);
+
+        // Based upon the length of the string, we add formatting as necessary
+        var size = input.length;
+        if(size == 0){
+                input = input;
+        }else if(size < 4){
+                input = '('+input;
+        }else if(size < 7){
+                input = '('+input.substring(0,3)+') '+input.substring(3,6);
+        }else{
+                input = '('+input.substring(0,3)+') '+input.substring(3,6)+' - '+input.substring(6,10);
+        }
+        return input;
+}
+
+
+document.getElementById('contactNumber').addEventListener('keyup',function(evt){
+        var phoneNumber = document.getElementById('contactNumber');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('contactNumber').value = phoneFormat(document.getElementById('contactNumber').value);
+
+// A function to determine if the pressed key is an integer
+function NumberPressed(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if(charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 36 || charCode > 40)){
+                return false;
+        }
+        return true;
+}
+
+document.getElementById('emergencyContact').addEventListener('keyup',function(evt){
+        var phoneNumber = document.getElementById('emergencyContact');
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        phoneNumber.value = phoneFormat(phoneNumber.value);
+});
+
+// We need to manually format the phone number on page load
+document.getElementById('emergencyContact').value = phoneFormat(document.getElementById('emergencyContact').value);
+
+// A function to determine if the pressed key is an integer
+function emergencyNumberPressed(evt){
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if(charCode > 31 && (charCode < 48 || charCode > 57) && (charCode < 36 || charCode > 40)){
+                return false;
+        }
+        return true;
+}
+
+
+</script>
+
+        </body>
+    </html>
