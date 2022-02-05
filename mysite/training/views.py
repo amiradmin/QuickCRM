@@ -112,6 +112,13 @@ class UserFormMonitor(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
 
+class RequestSuccessView(SidebarMixin,TemplateView):
+    template_name = "training/request_success_page.html"
+
+    def get_context_data(self):
+        context = super(RequestSuccessView, self).get_context_data()
+        return context
+
 class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/new_candidate.html"
 
@@ -124,7 +131,7 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         print(tempID)
         context['tesId'] = tempID
         return context
-    
+
     
 
     def post(self, request, *args, **kwargs):

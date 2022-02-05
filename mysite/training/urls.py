@@ -12,6 +12,7 @@ urlpatterns = [
     path('newcandidate', views.NewCandidatelView.as_view(), name='newcandidate_'),
     path('requestcourse', views.RequestView.as_view(), name='requestcourse_'),
     path('requestlist', views.AllRequestView.as_view(), name='requestlist_'),
+    path('resquestsuccess', views.RequestSuccessView.as_view(), name='resquestsuccess_'),
     path('newlec', views.NewLecturerView.as_view(), name='newlec_'),
     path('canlist', views.CandidatelListView.as_view(), name='canlist_'),
     path('trainpanel', views.TrainingPanelView.as_view(), name='trainpanel_'),

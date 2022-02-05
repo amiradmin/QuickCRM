@@ -11,7 +11,7 @@ from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from contacts.models import Contact
-from training.models import TesCandidate,StaffProfile
+from training.models import TesCandidate,StaffProfile,CourseRequest
 from django.db.models import Q
 import datetime
 from mailer.views import sendMail
@@ -330,15 +330,19 @@ class LitteRegisterView(TemplateView):
             user.tescandidate.contact_number = request.POST['phone']
             user.save()
 
-
+            requestObj = CourseRequest()
+            requestObj.candidate = user.tescandidate
+            requestObj.request = request.POST['message']
+            requestObj.save()
             print(user.username)
 
             fullName = user.tescandidate.first_name + ' ' + user.tescandidate.last_name
             msg = 'Your account has been created successfully'
-            sendMail(request.POST['email'],fullName,msg)
-            print('Mail Sent')
-
-        return redirect('accounting:canprofile_',id=user.tescandidate.id)
+            # sendMail(request.POST['email'],fullName,msg)
+            # print('Mail Sent')
+            print("Redirect Here!")
+            return redirect('training:resquestsuccess_')
+        return redirect('training:resquestsuccess_')
 
 
 class RegSuccessView(TemplateView):
