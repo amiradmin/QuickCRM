@@ -2842,7 +2842,7 @@ class UpdateNDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
                 print("Here")
 
                 obj = NDTCovid19.objects.filter(id=id).first()
-                obj.candidateID = request.POST['candidateID']
+                obj.candidateID = request.POST['mainCanID']
                 obj.candidateAdress = request.POST['candidateAddress']
                 obj.candidateHomePhone = request.POST['candidateHomePhone']
                 obj.fillingDate = datetime.datetime.strptime(request.POST['fillingDate'], '%m/%d/%Y')

@@ -1181,12 +1181,12 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['candidate'] = candidate
         context['eventCount'] = event_list.count()
         context['canCount'] = canCount
-        context['canPerMonth'] = (canPerMonth/canCount) * 100
+        context['canPerMonth'] = round((canPerMonth/canCount) * 100, 2)
         if event_list.count() >0 :
-            context['eventPerMonth'] = (eventPerMonth/eventCount) * 100
-        context['productPerMonth'] = (productPerMonth/productCount) * 100
+            context['eventPerMonth'] = round((eventPerMonth/eventCount) * 100 ,2)
+        context['productPerMonth'] = round((productPerMonth/productCount) * 100,2)
         context['lecCount'] = lecCount
-        context['lecturerPerMonth'] =  (lecturerPerMonth/lecCount) * 100
+        context['lecturerPerMonth'] = round( (lecturerPerMonth/lecCount) * 100,2)
         context['product'] = product
         context['proCount'] = product.count()
         return context
