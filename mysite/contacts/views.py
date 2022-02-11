@@ -93,6 +93,21 @@ class AdminOutboxView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['message_list'] = message_list
         return context
 
+
+class CandidateOutboxView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "contact/admin_message_list.html"
+
+    def get_context_data(self):
+        context = super(CandidateOutboxView, self).get_context_data()
+        print("Here")
+        candidate = TesCandidate.objects.filter(user = self.request.user).first()
+        message_list = Contact.objects.filter(candidate=candidate ).filter(type="Candidate").order_by('-id')
+
+        # candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        context['message_list'] = message_list
+        context['candidate'] = candidate
+        return context
+
 class MessageDetailView(LoginRequiredMixin,TemplateView):
     template_name = "contact/message_detail.html"
 

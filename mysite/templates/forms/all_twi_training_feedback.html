@@ -60,7 +60,7 @@
            
             <td><p  >{{item.id}} </p></td>
             <td><p ><a style="margin:0px; padding:0px;  " href="">{{item.candidate.tes_candidate_id}}</a></p></td>
-            <td><p >{{item.candidate.first_name}} {{item.candidate.middleName}} {{item.candidate.last_name}}</p></td>
+            <td><p >{{item.candidate.first_name}} {% if item.candidate.middleName %} {{item.candidate.middleName}} {% endif %} {{item.candidate.last_name}}</p></td>
             <td><p >{% if  item.candidate.contact_number %} {{item.candidate.contact_number|phone_number}}{% endif %}</p></td>
             <td><p >{{item.candidate.email}}</p></td>
             <td><a href="{% url 'forms:viewtwitrainingfeed_' id=item.id %}" ><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;

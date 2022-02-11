@@ -9,9 +9,12 @@ from training.models import TesCandidate
 from django.views.generic import UpdateView
 from django.shortcuts import render,redirect
 from django.views.generic.edit import DeleteView
+from contacts.models import Contact
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.urls import reverse
 from staff.models import Staff
+import datetime
 # Create your views here.
 
 
@@ -64,6 +67,22 @@ class AssignToUpdateView(SidebarMixin,LoginRequiredMixin,TemplateView):
 class NewTicketView(LoginRequiredMixin,TemplateView):
     template_name = "ticket/new_ticket.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewTicketView, self).get_context_data()
+        print(self.kwargs['id'])
+        candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
+        events = Event.objects.filter(candidate = candidate)
+        contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
+        contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        print(contactRead)
+        now = datetime.datetime.now()
+        context['candidate'] = candidate
+        context['events'] = events
+        context['now'] = now
+        context['contact'] = contact
+        context['contactRead'] = contactRead
+        return context
+
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
@@ -111,7 +130,9 @@ class TicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(TicketListView, self).get_context_data()
         tickets = Ticket.objects.filter(archived=False).order_by('-id')
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         context['tickets'] = tickets
+        context['candidate'] = tickets
 
         return context
 
@@ -123,6 +144,7 @@ class CandidateAllTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
         candidate=TesCandidate.objects.filter(id=self.kwargs['id']).first()
         tickets = Ticket.objects.filter(candidate=candidate).order_by('-id')
         context['tickets'] = tickets
+        context['candidate'] = candidate
 
         return context
 

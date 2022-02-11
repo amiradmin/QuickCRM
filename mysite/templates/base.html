@@ -55,7 +55,7 @@ button, input {
                         <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="60">
                     </span>
                     <span class="logo-sm">
-                        <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="60">
+                        <img width="50" height="22" src="{% static 'images/small_logo.png' %}" alt="" height="60">
                     </span>
                 </a>
 <br>
@@ -65,7 +65,7 @@ button, input {
                         <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="48">
                     </span>
                     <span class="logo-sm">
-                        <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="48">
+                        <img width="50" height="22" src="{% static 'images/small_logo.png' %}" alt="" height="48">
                     </span>
                 </a>
     
@@ -539,6 +539,70 @@ button, input {
 
 
                                 </ul>
+                            </div>
+                        </li>
+                    {% else %}
+
+                    <ul class="side-nav">
+
+                        <li class="side-nav-title side-nav-item">Navigation </li>
+            <li class="side-nav-item">
+                            <a  href="{% url 'training:requestcourse_' %}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-registered"></i>
+
+                                <span> Request a course </span>
+                            </a>
+
+                        </li>
+
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+
+                                <span> Support </span>
+                            </a>
+                            <div class="collapse" id="sidebarDashboards">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'ticket:newticket_' id=candidate.id %}">New Ticket</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'ticket:canallticket_' id=candidate.id %}" >All TIckets</a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html" class="disabled"></a>
+                                    </li>
+                                    <li>
+                                        <a href="dashboard-projects.html" class="disabled"></a>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </li>
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarMessage" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-comment-alt-message"></i>
+
+                                <span> Messages </span>
+                            </a>
+                            <div class="collapse" id="sidebarMessage">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'contacts:messagelist_' id=candidate.id %}">Inbox</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'ticket:canallticket_' id=candidate.id %}" >Outbox</a>
+                                    </li>
+                                    <li>
+                                        <a href="index.html" class="disabled"></a>
+                                    </li>
+                                    <li>
+                                        <a href="dashboard-projects.html" class="disabled"></a>
+                                    </li>
+                                </ul>
+
                             </div>
                         </li>
                     {% endif %}

@@ -51,6 +51,7 @@ class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(RequestView, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['userID'] =candidate.id
+        context['candidate'] =candidate
         return context
 
     def post(self, request, *args, **kwargs):
