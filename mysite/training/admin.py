@@ -117,8 +117,8 @@ admin.site.register(Location,LocationAdmin)
 
 class EventAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 
-    list_display = ['id','name','product','country','location','start_date','announcement_type','created_at','updated_at']
-    list_filter = ['id','name','product','country','location','start_date','announcement_type','created_at','updated_at']
+    list_display = ['id','name','product','country','location','visible','start_date','announcement_type','created_at','updated_at']
+    list_filter = ['id','name','product','country','location','visible','start_date','announcement_type','created_at','updated_at']
 
 admin.site.register(Event,EventAdmin)
 

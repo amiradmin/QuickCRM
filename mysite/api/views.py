@@ -222,7 +222,7 @@ class GetEventListByproductID(APIView):
         id = self.kwargs['id']
         product=Product.objects.filter(id=id).first()
         print(id)
-        event_list =Event.objects.filter(product=product)
+        event_list =Event.objects.filter(product=product).filter(visible=True)
         # productList = Product.objects.filter(category=category)
         page = self.paginate_queryset(event_list)
         if page is not None:
