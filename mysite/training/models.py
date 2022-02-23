@@ -132,6 +132,7 @@ class TesCandidate(models.Model):
     skype = models.CharField(max_length=5000, null=True, blank=True )
     linkedin = models.CharField(max_length=5000, null=True, blank=True )
     skills = models.ManyToManyField('Skill',  null=True, blank=True)
+    form_category = models.ManyToManyField(Category,  null=True, blank=True)
     workHistory = models.ManyToManyField('WorkHistory',  null=True, blank=True)
     project = models.ManyToManyField('CandidateProject',  null=True, blank=True)
     certificates = models.ManyToManyField('Certificate',  null=True, blank=True )

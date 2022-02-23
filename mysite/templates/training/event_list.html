@@ -34,10 +34,11 @@
                                                         <th>ID</th>
                                                         <th>Name</th>
                                                         <th>Product</th>
+                                                        <th>Delivery Method</th>
                                                         <th>Lecturer</th>
                                                         <th>Country</th>
                                                         <th>Location</th>
-                                                        <th>Category</th>
+
                                                         <th>Summary</th>
                                                         <th>Start Date</th>
                                                         <th>Practical Date</th>
@@ -55,13 +56,11 @@
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.name}}</td>
                                                         <td>{{item.product}}</td>
+                                                        <td>{{item.product.type}}</td>
                                                         <td>{{item.lecturers}}</td>
                                                         <td>{{item.country}}</td>
                                                         <td>{{item.location}}</td>
-                                                        <td>{% for item in  item.formCategory.all %}
-                                                            <p>{{item.name}}</p>
-                                                            {% endfor %}
-                                                        </td>
+
                                                         <td><a  href="{% url 'forms:evensummary_' id=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
                                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
                                                         <td>{{item.practicalDate|date:'m/d/Y'}}</td>
@@ -94,10 +93,10 @@
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Product</label>
-                                                    <select name="product" id="inputState" class="form-select" required >
+                                                    <select name="product" id="inputState1" class="form-select" required >
                                                         <option value="" >Choose</option>
                                                         {% for item in product_list %}
-                                                        <option value="{{item.id}}" >{{item.name}} -   {{item.get_type_display}}</option>
+                                                        <option value="{{item.id}}" >{{item.name}} - {{item.type}}</option>
                                                         {%endfor%}
                                                     </select>
                                                 </div>
@@ -106,7 +105,7 @@
                                             <div class="row g-2">
                                                        <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Lecturer</label>
-                                                    <select name="lecturer" id="inputState" class="form-select" required>
+                                                    <select name="lecturer" id="inputState2" class="form-select" required>
                                                         <option value="">Choose</option>
                                                         {% for item in lecturers_list %}
                                                         <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
@@ -144,15 +143,15 @@
                                                 </div>
                                                 </div>
 
-  <div class="form-group">
-    <label for="exampleFormControlSelect2">Categories</label>
-    <select multiple class="form-control" name="category" id="exampleFormControlSelect2">
-        {% for item in categoryList %}
-      <option value="{{item.id}}">{{item.name}}</option>
-      {% endfor %}
+<!--  <div class="form-group">-->
+<!--    <label for="exampleFormControlSelect2">Categories</label>-->
+<!--    <select multiple class="form-control" name="category" id="exampleFormControlSelect2">-->
+<!--        {% for item in categoryList %}-->
+<!--      <option value="{{item.id}}">{{item.name}}</option>-->
+<!--      {% endfor %}-->
 
-    </select>
-  </div>
+<!--    </select>-->
+<!--  </div>-->
                                             </div>
 
 

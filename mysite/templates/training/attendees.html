@@ -1,92 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css'>
-<style>
 
-.card {
-  border: 0 solid #edf2f9;
-  border-radius: 0.375rem;
-  -webkit-box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
-  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
-}
-
-.card-body {
-  padding: 0.5rem;
-  background-color: #f9fafd !important;
-}
-
-.card-header {
-  padding: 1rem 1.25rem;
-  background-color: #fff;
-  border-bottom: 0 solid #edf2f9;
-}
-
-.dragableMultiselect {
-  display: none;
-}
-
-.dragSortableItems .sortable-list {
-  list-style: none;
-  margin: 0;
-  min-height: 20px;
-  padding: 0px;
-}
-.dragSortableItems .sortable-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  display: block;
-  margin-bottom: -1px;
-  padding: 10px;
-  cursor: move;
-  position: relative;
-  padding-left: 30px;
-}
-.dragSortableItems .sortable-item .icon-drag {
-  color: #ccc;
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.dragSortableItems .sortable-item .sortable-item-input {
-  visibility: hidden;
-  pointer-events: none;
-  position: absolute;
-}
-.dragSortableItems .placeholder {
-  border: 1px dashed #666;
-  height: 45px;
-  margin-bottom: 5px;
-}
-.dragSortableItems .fixed-panel {
-  max-height: 500px;
-  overflow-y: auto;
-  padding-bottom: 1px;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 7px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-</style>
                     <!-- Start Content-->
                     <div class="container-fluid">
 
@@ -95,15 +10,14 @@
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
-                            
+
+
                                 </div>
-                                <h4 class="page-title">Attendees for event : {{event.name}}</h4>
-                                
+                                <h4 class="page-title">Attendees</h4>
                             </div>
                         </div>
-                    </div>     
-                    <!-- end page title --> 
-
+                    </div>
+                    <!-- end page title -->
 
 
                     <div class="row">
@@ -115,48 +29,123 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
-                                       
-                                        </div> <!-- end preview-->
+                                           </div> <!-- end preview-->
+                                        <br>
                                         <br>
 
-                                        
-                            
-                               <form method="POST">
-                           
-                              {% csrf_token %}
-                                     <select name="catID" class="form-select mb-3">
+                                        <form   method="POST" >
+                                            {% csrf_token %}
 
-      {% for item in event.formCategory.all %}
-    <option value="{{item.id}}">{{item.name}}</option>
-{% endfor %}
-</select>
-<input type="text" style="background-color: #fff !important;" class="form-control mb-3" onkeyup="filter(this)" placeholder='Search item'>
 
-                                  <input type="hidden" id="input1"  name="temp" class="form-control" id="validationCustom04" placeholder="country" >
-                                  <input type="text" name="candidates" data-options='{{can_list}}'                                      
-                                      
+<!--                                        <input type="hidden" name="eventID" value="{{event.id}}" />-->
 
-                                             data-selected='{{selectedList}}'
-                                             data-field-title="<i class='fa fa-folder-open'></i> Available Candidate" 
-                                             data-selected-title="<i class='fa fa-star'></i> Selected Candidate" 
-                                             class="dragableMultiselect">
+                                            <div class="row g-2">
 
-                                        
-                                     
 
-                                    
-                                      <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" type="submit">Submit</button>
-                                                    </div> 
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="inputState" class="form-label">Candidate</label>
+                                                    <select name="candidate" id="inputState" class="form-select" required>
+                                                        <option value="">Choose</option>
+                                                {% for item in can_list %}
 
-                        </form>
-                     <br>
+                                                        <option value="{{item.id}}" >{{item.first_name}} {{item.middleName}} {{item.last_name}}</option>
+                                                {% endfor %}
+
+                                                    </select>
+                                                </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                    <label for="inputCity2" class="form-label">Category</label>
+                                                           <select name="catID" id="inputStat2e" class="form-select" required>
+                                                        <option value="">Choose</option>
+                                                {% for item in category_list %}
+
+                                                        <option value="{{item.id}}" >{{item.name}}</option>
+                                                {% endfor %}
+
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <br>
+                                            <div class="mb-3 col-md-12 text-center">
+
+                                                <button type="submit" class="btn btn-primary">Add</button>
+                                            </div>
+
+
+
+                                        </form>
+
+
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                                            <p>Please include following css file at <code>head</code> element</p>
+
+                                            <pre>
+                                                <span class="html escape">
+                                                    &lt;!-- Datatables css --&gt;
+                                                    &lt;link href=&quot;{% static 'assets/css/vendor/dataTables.bootstrap4.css'%} &quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+                                                    &lt;link href=&quot;{% static 'assets/css/vendor/responsive.bootstrap4.css'%}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+
+                                            <p>Make sure to include following js files at end of <code>body</code> element</p>
+
+                                            <pre class="mb-0">
+                                                <span class="html escape">
+                                                    &lt;!-- Datatables js --&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/jquery.dataTables.min.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.bootstrap4.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.responsive.min.js'%}&quot;&gt;&lt;/script&gt;
+                                                    &lt;script src=&quot;{% static 'assets/js/vendor/responsive.bootstrap4.min.js'%}&quot;&gt;&lt;/script&gt;
+
+                                                    &lt;!-- Datatable Init js --&gt;
+                                                    &lt;script src=&quot;assets/js/pages/demo.datatable-init.js&quot;&gt;&lt;/script&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+
+                                            <pre class="mb-0">
+                                                <span class="html escape">
+                                                    &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;
+                                                        &lt;thead&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;th&gt;Name&lt;/th&gt;
+                                                                &lt;th&gt;Position&lt;/th&gt;
+                                                                &lt;th&gt;Office&lt;/th&gt;
+                                                                &lt;th&gt;Age&lt;/th&gt;
+                                                                &lt;th&gt;Start date&lt;/th&gt;
+                                                                &lt;th&gt;Salary&lt;/th&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/thead&gt;
+
+
+                                                        &lt;tbody&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;td&gt;Tiger Nixon&lt;/td&gt;
+                                                                &lt;td&gt;System Architect&lt;/td&gt;
+                                                                &lt;td&gt;Edinburgh&lt;/td&gt;
+                                                                &lt;td&gt;61&lt;/td&gt;
+                                                                &lt;td&gt;2011/04/25&lt;/td&gt;
+                                                                &lt;td&gt;$320,800&lt;/td&gt;
+                                                            &lt;/tr&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;td&gt;Garrett Winters&lt;/td&gt;
+                                                                &lt;td&gt;Accountant&lt;/td&gt;
+                                                                &lt;td&gt;Tokyo&lt;/td&gt;
+                                                                &lt;td&gt;63&lt;/td&gt;
+                                                                &lt;td&gt;2011/07/25&lt;/td&gt;
+                                                                &lt;td&gt;$170,750&lt;/td&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/tbody&gt;
+                                                    &lt;/table&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
+                                        </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->
-                                  
 
                                 </div> <!-- end card body-->
                             </div> <!-- end card -->
-                              
                         </div><!-- end col-->
                     </div>
                     <!-- end row-->
@@ -172,189 +161,10 @@
                 <!-- content -->
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
-               <!-- partial -->
-                  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
-                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable.js'></script>
-                <script src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'></script>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/js/all.min.js'></script>
-                
-                
-<script  >
-               $(function() {
-  let mainWrapper = '.dragSortableItems',
-      in_available_fields = '.in_available_fields',
-      selectedDropzone = '.selectedDropzone',
-      input_name = 'name';
+<script>
+$(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
 
-  // On ready
-  $(document).ready(function() {
-    
-    const dragableMultiselect = $('.dragableMultiselect');
-    dragableMultiselect.length && dragableMultiselect.each((index, value) => {
-      const $this = $(value);
-    
-      const available_fields = $.extend({}, $this.data('options'));
-      const selected_fields = $.extend([], $this.data('selected'));
-      const $input_name = $this.attr(input_name);
-      let fieldTitle = $this.data('field-title');
-      let selectedTitle = $this.data('selected-title');
-      var canList=[];  
-      var result = "";
-      
-      let html = '<div class="row dragSortableItems dragSortableItem_' + index + '">\
-                    <div class="col-sm-6">\
-                      <div class="card">\
-                        <div class="card-header">' + fieldTitle + '</div>\
-                        <div class="card-body">\
-                          <ul class="in_available_fields custom-scrollbar sortable-list fixed-panel ui-sortable"></ul>\
-                        </div>\
-                      </div>\
-                    </div>\
-                    <div class="col-sm-6">\
-                      <div class="card primaryPanel">\
-                        <div class="card-header">' + selectedTitle + '</div>\
-                        <div class="card-body">\
-                          <div class="alert alert-warning small text-center mb-0">No Fields Selected</div>\
-                          <ul class="in_primary_fields sortable-list selectedDropzone fixed-panel"></ul>\
-                        </div>\
-                      </div>\
-                    </div>\
-                  </div>';
-      $this.replaceWith(html);
-      $dragSortableItem = $('.dragSortableItem_' + index);
-    
-      let $mainWrapper = $dragSortableItem.closest(mainWrapper),
-        $in_available_fields = $mainWrapper.find(in_available_fields),
-        $selectedDropzone = $mainWrapper.find(selectedDropzone);
-      
-      
-      console.log(available_fields, selected_fields, $mainWrapper, $in_available_fields, $selectedDropzone, $input_name);
+</script>
 
-      Object.keys(available_fields).forEach(function(key) {
-        var item = '<li class="sortable-item allowPrimary sortable-item-' + key + '" data-fid="' + key + '">'
-                + '<span class="icon-drag fas fa-grip-vertical mr-2"></span>'
-                + '<input type="checkbox" name="' + $input_name + '" class="sortable-item-input"/>'
-                + available_fields[key]
-              + '</li>';
-        $in_available_fields.append(item);
-      });
 
-      selected_fields.map(function(index) {
-        var item = $in_available_fields.find('.sortable-item-' + index);
-        item.find('.sortable-item-input').prop('checked', true);
-        $selectedDropzone.append(item);
-        console.log("Now")
-        
-      });
-      checkFields( $mainWrapper );
-      
-      // Set up our dropzone
-      $in_available_fields.sortable({
-        connectWith: '.sortable-list',
-        placeholder: 'placeholder',
-        start: function(event, ui) {
-          if (!$(ui.item).hasClass("allowPrimary")) {
-            $mainWrapper.find(".primaryPanel").removeClass('panel-primary').addClass("panel-danger");
-          }
-          checkFields( $mainWrapper )
-           console.log("Now1")
-        },
-        receive: function(event, ui) {
-          $(ui.item).find('.sortable-item-input').prop('checked', false);
-           console.log("Now2")
-        },
-        stop: function(event, ui) {
-          if (!$(ui.item).hasClass("allowPrimary")) {
-            $mainWrapper.find(".primaryPanel").removeClass("panel-danger").addClass('panel-primary');
-          }
-           console.log("Now3")
-        },
-        change: function(event, ui) {
-          checkFields( $mainWrapper );
-        },
-        update: function(event, ui) {
-          checkFields( $mainWrapper );
-          console.log("hello : " + $(ui.item).text()+ " "+$(ui.item).text());
-          
-          canList.push($(ui.item).text());
-          $("#input1").val($selectedDropzone.text());
-           console.log( "Now Here "+$selectedDropzone.text())
-          
-        },
-        out: function(event, ui) {
-          checkFields( $mainWrapper );
-           console.log("Now5")
-        }
-      }).disableSelection();
-
-      // Enable dropzone for primary fields
-      $selectedDropzone.sortable({
-        connectWith: '.sortable-list',
-        placeholder: 'placeholder',
-        receive: function(event, ui) {
-          // If we dont allow primary fields here, cancel
-          if (!$(ui.item).hasClass("allowPrimary")) {
-            $(ui.placeholder).css('display', 'none');
-            $(ui.sender).sortable("cancel");
-          } else {
-            $(ui.item).find('.sortable-item-input').prop('checked', true);
-          }
-        },
-        over: function(event, ui) {
-          if (!$(ui.item).hasClass("allowPrimary")) {
-            $(ui.placeholder).css('display', 'none');
-          } else {
-            $(ui.placeholder).css('display', '');
-          }
-        },
-        start: function(event, ui) {
-          checkFields( $mainWrapper )
-        },
-        change: function(event, ui) {
-          checkFields( $mainWrapper );
-          
-        },
-        update: function(event, ui) {
-          checkFields( $mainWrapper );
-          console.log("Here 3")
-        },
-        out: function(event, ui) {
-          checkFields( $mainWrapper );
-        }
-      }).disableSelection();
-    });
-  });
-
-  // Checks to see if the fields section has fields selected. If not, shows a placeholder
-  function checkFields( $this ) {
-    if ( $this.find(selectedDropzone).find('li').length >= 1) {
-      $this.find('.primaryPanel').find('.alert').hide();
-    } else {
-      $this.find('.primaryPanel').find('.alert').show();
-    }
-  }
-   
-  
-}); 
-      
-  function filter(element) {
-    var value = $(element).val();
-
-    $("ul.in_available_fields > li").each(function () {
-      if ($(this).text().toLowerCase().search(value.toLowerCase()) > -1) {
-        $(this).show();
-      }
-      else {
-        $(this).hide();
-      }
-    });
-  }
-                
-                
-                
-                </script>
-
-           
                 {% endblock %}

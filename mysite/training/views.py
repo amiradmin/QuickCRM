@@ -338,10 +338,10 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(EventView, self).get_context_data()
         event_list = Event.objects.all()
-        product_list = Product.objects.all()
+        product_list = Product.objects.all().order_by('name')
         lecturers_list = Lecturer.objects.all()
         country_list = Country.objects.all()
-        location_list = Location.objects.all()
+        location_list = Location.objects.all().order_by('name')
         categoryList = Category.objects.all()
 
 
@@ -512,314 +512,28 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/attendees.html"
 
     def get_context_data(self,id, *args, **kwargs):
-        selectedList = []
+
         context = super(NewAttendeesView, self).get_context_data()
         event = Event.objects.filter(id=self.kwargs['id']).first()
         can_list = TesCandidate.objects.order_by('first_name')
+        category_list = Category.objects.all()
         print("Here Amir")
-        print(event)
-        selCan='{'
-     
-        
 
-
-        counter = 0
-        can='{'
-        for item in can_list:
-            can =can + '"'+ str(counter)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'--'+ '",'
-            counter = counter + 1
-
-            tempdict={}
-
-        can = can + '"10000000000":" "}'
-
-
-
-
-        for item in event.candidate.all():
-            for i, j in enumerate(can.split('--')):
-                tesID =j.split(':')[1].split(' -')[0][1:]
-                if tesID == item.tes_candidate_id:
-                    print(str(i) + " : " + tesID)
-                    selCan =selCan + '"'+ str(i)+'":"'+ str(item.tes_candidate_id)+' - '+ str(item.first_name)+' '+ str(item.last_name)+'",'
-
-        selCan = selCan + '"10000000000":" "}'
-        
-        myDict = json.loads(selCan)
-
-        values = []
-        
-        for item in event.candidate.all():
-            print(item.tes_candidate_id)
-            for index,value in myDict.items():
-                if str(item.tes_candidate_id) in value:
-                    # print('Here: '+index)
-                    values.append(int(index))
-            
-        
-        context['selectedList'] = values
-        context['can_list'] = can
         context['event'] = event
+        context['can_list'] = can_list
+        context['category_list'] = category_list
 
         return context
     
     def post(self, request, *args, **kwargs):
       
         if request.method == 'POST':
-            # print( request.POST.get('page_contents[]', None))
             event = Event.objects.filter(id=self.kwargs['id'] ).first()
-            event.candidate.clear()
-            canList =request.POST['temp']
             catID = request.POST['catID']
             category = Category.objects.filter(id=catID).first()
-            guidelineID = 1
-            guideline = Guideline.objects.filter(id=guidelineID).first()
+            candidate = TesCandidate.objects.filter(id = request.POST['candidate']).first()
+            candidate.form_category.add(category)
 
-
-
-            if canList :
-                for item in canList.split('--'):
-                    can_id =item.split(' ')[0]
-
-                    candidate = TesCandidate.objects.filter(tes_candidate_id__exact =can_id).first()
-                    if candidate :
-                        event.candidate.add(candidate)
-                    # event.save()
-
-
-                        for item in category.form.all():
-                            print("======")
-                            print(item.name)
-                            print("======")
-                            twiEnrolForm = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
-                            # bgasinitialForm = BGASinitialForm.objects.filter(candidate=candidate).first()
-                            psl30LogExp = PSL30LogExp.objects.filter(candidate=candidate).first()
-                            psl57A = PSL57A.objects.filter(candidate=candidate).first()
-                            covid = NDTCovid19.objects.filter(candidate=candidate).first()
-                            ndt15A = NDT15AExperienceVerification.objects.filter(candidate=candidate).first()
-                            bgas = BGAsExperienceForm.objects.filter(candidate=candidate).first()
-
-                            if item.name == 'TWI Enrolment Form':
-                                if not twiEnrolForm:
-                                    obj = TwiEnrolmentForm()
-                                    print("Inside")
-                                    print(candidate.first_name)
-                                    obj.candidate = candidate
-                                    obj.firstName = candidate.first_name
-                                    obj.middleName = candidate.middleName
-                                    obj.lastName = candidate.last_name
-                                    obj.event=event
-                                    obj.save()
-                                    print(obj.id)
-
-
-                                    formListObj = FormList()
-                                    formListObj.name = obj.__class__.__name__
-                                    formListObj.event = event
-                                    formListObj.candidate = candidate
-                                    formListObj.category = category
-                                    formListObj.guideline = guideline
-                                    formListObj.FormID = obj.id
-                                    formListObj.save()
-
-
-                                    contactObj =Contact()
-                                    contactObj.type="Admin"
-                                    contactObj.messageType="Form"
-                                    contactObj.department="Registration"
-                                    contactObj.message="Please fill following form: " + formListObj.name
-                                    contactObj.formName = formListObj.name
-                                    contactObj.objID=obj.id
-                                    contactObj.candidate = candidate
-                                    contactObj.save()
-
-                                    fullname = candidate.first_name + " " + candidate.last_name
-                                    msg = "Please login to your panel and fill the form :" + formListObj.name
-                                    sendMail(candidate.email, fullname, msg)
-
-                            if item.name == 'PSL-57A Initial exam application':
-                                if not psl57A:
-                                    obj = PSL57A()
-                                    print("Inside 57A")
-                                    print(candidate.first_name)
-                                    obj.candidate = candidate
-                                    obj.event=event
-                                    obj.category=category
-                                    obj.guideline=guideline
-                                    obj.save()
-                                    print(obj.id)
-
-
-                                    formListObj = FormList()
-                                    formListObj.name = obj.__class__.__name__
-                                    formListObj.event = event
-                                    formListObj.candidate = candidate
-                                    formListObj.category = category
-                                    formListObj.guideline = guideline
-                                    formListObj.FormID = obj.id
-                                    formListObj.save()
-
-
-                                    contactObj =Contact()
-                                    contactObj.type="Admin"
-                                    contactObj.messageType="Form"
-                                    contactObj.department="Registration"
-                                    contactObj.message="Please fill following form: " + formListObj.name
-                                    contactObj.formName=formListObj.name
-                                    contactObj.objID=obj.id
-                                    contactObj.candidate = candidate
-                                    contactObj.save()
-
-                                    fullname = candidate.first_name + " " + candidate.last_name
-                                    msg = "Please login to your panel and fill the form :" + formListObj.name
-                                    sendMail(candidate.email, fullname, msg)
-
-                            if item.name == 'PSL-30_Log of experience':
-                                if not psl30LogExp:
-                                    obj = BGAsExperienceForm()
-                                    print("Inside PSL-30-Log Experience")
-                                    print(candidate.first_name)
-                                    obj.candidate = candidate
-                                    obj.event=event
-                                    obj.save()
-                                    print(obj.id)
-
-
-                                    formListObj = FormList()
-                                    formListObj.name = obj.__class__.__name__
-                                    formListObj.event = event
-                                    formListObj.candidate = candidate
-                                    formListObj.category = category
-                                    formListObj.guideline = guideline
-                                    formListObj.FormID = obj.id
-                                    formListObj.save()
-
-
-                                    contactObj =Contact()
-                                    contactObj.type="Admin"
-                                    contactObj.messageType="Form"
-                                    contactObj.department="Registration"
-                                    contactObj.message="Please fill following form: " + formListObj.name
-                                    contactObj.formName=formListObj.name
-                                    contactObj.objID=obj.id
-                                    contactObj.candidate = candidate
-                                    contactObj.save()
-
-                                    fullname = candidate.first_name + " " + candidate.last_name
-                                    msg = "Please login to your panel and fill the form :" + formListObj.name
-                                    sendMail(candidate.email, fullname, msg)
-
-                            if item.name == 'COVID-19':
-                                if not covid:
-                                    obj = NDTCovid19()
-                                    print("COVID-19")
-                                    print("Inside Covid")
-                                    print(candidate.first_name)
-                                    obj.candidate = candidate
-                                    obj.category = category
-                                    obj.guideline = guideline
-                                    obj.event = event
-                                    obj.save()
-                                    print(obj.id)
-
-                                    formListObj = FormList()
-                                    formListObj.name = obj.__class__.__name__
-                                    formListObj.event = event
-                                    formListObj.candidate = candidate
-                                    formListObj.category = category
-                                    formListObj.guideline = guideline
-                                    formListObj.FormID = obj.id
-                                    formListObj.save()
-
-                                    print(candidate.email)
-                                    contactObj = Contact()
-                                    contactObj.type = "Admin"
-                                    contactObj.messageType = "Form"
-                                    contactObj.department = "Registration"
-                                    contactObj.message = "Please fill following form: " + formListObj.name
-                                    contactObj.formName = formListObj.name
-                                    contactObj.objID = obj.id
-                                    contactObj.candidate = candidate
-                                    contactObj.save()
-
-                                    fullname = candidate.first_name + " " + candidate.last_name
-                                    msg = "Please login to your panel and fill the form :" + formListObj.name
-                                    sendMail(candidate.email, fullname, msg)
-
-
-                            if item.name == 'NDT 15A':
-                                if not ndt15A:
-                                    obj = NDT15AExperienceVerification()
-                                    print("NDT 15A")
-                                    print("Inside ")
-                                    print(candidate.first_name)
-                                    obj.candidate = candidate
-                                    obj.category = category
-                                    obj.guideline = guideline
-                                    obj.event = event
-                                    obj.save()
-                                    print(obj.id)
-
-                                    formListObj = FormList()
-                                    formListObj.name = obj.__class__.__name__
-                                    formListObj.event = event
-                                    formListObj.candidate = candidate
-                                    formListObj.category = category
-                                    formListObj.guideline = guideline
-                                    formListObj.FormID = obj.id
-                                    formListObj.save()
-
-                                    print(candidate.email)
-                                    contactObj = Contact()
-                                    contactObj.type = "Admin"
-                                    contactObj.messageType = "Form"
-                                    contactObj.department = "Registration"
-                                    contactObj.message = "Please fill following form: " + formListObj.name
-                                    contactObj.formName = formListObj.name
-                                    contactObj.objID = obj.id
-                                    contactObj.candidate = candidate
-                                    contactObj.save()
-
-                                    fullname = candidate.first_name + " " + candidate.last_name
-                                    msg = "Please login to your panel and fill the form :" + formListObj.name
-                                    sendMail(candidate.email, fullname, msg)
-
-                            if item.name == 'BGAS_Experience_Form':
-                                if not bgas:
-                                    obj = BGAsExperienceForm()
-                                    print("bgas")
-                                    print("Inside bgas")
-                                    print(candidate.first_name)
-                                    obj.candidate = candidate
-                                    obj.category = category
-                                    obj.guideline = guideline
-                                    obj.event = event
-                                    obj.save()
-                                    print(obj.id)
-
-                                    formListObj = FormList()
-                                    formListObj.name = obj.__class__.__name__
-                                    formListObj.event = event
-                                    formListObj.candidate = candidate
-                                    formListObj.category = category
-                                    formListObj.guideline = guideline
-                                    formListObj.FormID = obj.id
-                                    formListObj.save()
-
-                                    print(candidate.email)
-                                    contactObj = Contact()
-                                    contactObj.type = "Admin"
-                                    contactObj.messageType = "Form"
-                                    contactObj.department = "Registration"
-                                    contactObj.message = "Please fill following form: " + formListObj.name
-                                    contactObj.formName = formListObj.name
-                                    contactObj.objID = obj.id
-                                    contactObj.candidate = candidate
-                                    contactObj.save()
-
-                                    fullname = candidate.first_name + " " + candidate.last_name
-                                    msg = "Please login to your panel and fill the form :" + formListObj.name
-                                    sendMail(candidate.email, fullname, msg)
 
         return redirect('training:event_')
 
