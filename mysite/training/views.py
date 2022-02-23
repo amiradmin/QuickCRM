@@ -519,6 +519,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
         category_list = Category.objects.all()
         print("Here Amir")
 
+
         context['event'] = event
         context['can_list'] = can_list
         context['category_list'] = category_list
@@ -533,6 +534,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
             category = Category.objects.filter(id=catID).first()
             candidate = TesCandidate.objects.filter(id = request.POST['candidate']).first()
             candidate.form_category.add(category)
+            event.candidate.add(candidate)
 
 
         return redirect('training:event_')
