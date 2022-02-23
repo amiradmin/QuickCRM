@@ -140,12 +140,12 @@
                                                 </div>
                                             </div><!-- end col-->
                                         </div>
-                
+
                                         <div class="table-responsive" id="candidateTable">
                                             <table class="table table-centered table-striped dt-responsive nowrap w-100" >
                                                 <thead>
                                                     <tr>
-                                  
+                                                        <th></th>
                                                         <th>Name</th>
                                                         <th>TES ID</th>
 
@@ -159,7 +159,9 @@
                                                 <tbody>
                                                 {% for item in event.candidate.all %}
                                                     <tr>
-                                      
+                                                         <td style="width:60px;">
+                                                           <input type="checkbox" />
+                                                        </td>
                                                         <td class="table-user">
                                                             <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
                                                             <a href="javascript:void(0);" class="text-body ">{{item.first_name}} {{item.last_name}}</a>
@@ -175,7 +177,7 @@
                                                         
                                                    
                                                         <td>
-                                                            <span class="badge badge-success-lighten">Active</span>
+                                                            <span class="badge badge-success-lighten">Generate Forms</span>
                                                         </td>
                     
                                                         <td>
@@ -341,6 +343,16 @@
 
  
                                     </div> <!-- end card-body-->
+
+
+    <br>
+    <br>
+
+
+
+                                                <div class="mb-3 col-md-12 text-center">
+                                         <button type="submit" class="btn btn-outline-primary" name="generateForms">Generate Forms</button>
+                                            </div>
                                         <div class="tab-pane" id="basic-datatable-code">
                            
                                         </div> <!-- end preview code-->
