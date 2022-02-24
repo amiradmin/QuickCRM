@@ -255,6 +255,7 @@ class Event(models.Model):
     formCategory = models.ManyToManyField('Category',  null=True, blank=True)
     start_date = models.DateTimeField(null=True, blank=True)
     practicalDate = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
     skills = models.ManyToManyField('Skill',  null=True, blank=True)
     candidate = models.ManyToManyField('TesCandidate',  null=True, blank=True)
     visible = models.BooleanField(default=True, null=True, blank=True)
