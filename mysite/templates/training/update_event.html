@@ -1,93 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css'>
 
-<style>
-
-.card {
-  border: 0 solid #edf2f9;
-  border-radius: 0.375rem;
-  -webkit-box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
-  box-shadow: 0 7px 14px 0 rgba(59, 65, 94, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
-}
-
-.card-body {
-  padding: 0.5rem;
-  background-color: #f9fafd !important;
-}
-
-.card-header {
-  padding: 1rem 1.25rem;
-  background-color: #fff;
-  border-bottom: 0 solid #edf2f9;
-}
-
-.dragableMultiselect {
-  display: none;
-}
-
-.dragSortableItems .sortable-list {
-  list-style: none;
-  margin: 0;
-  min-height: 20px;
-  padding: 0px;
-}
-.dragSortableItems .sortable-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  display: block;
-  margin-bottom: -1px;
-  padding: 10px;
-  cursor: move;
-  position: relative;
-  padding-left: 30px;
-}
-.dragSortableItems .sortable-item .icon-drag {
-  color: #ccc;
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.dragSortableItems .sortable-item .sortable-item-input {
-  visibility: hidden;
-  pointer-events: none;
-  position: absolute;
-}
-.dragSortableItems .placeholder {
-  border: 1px dashed #666;
-  height: 45px;
-  margin-bottom: 5px;
-}
-.dragSortableItems .fixed-panel {
-  max-height: 500px;
-  overflow-y: auto;
-  padding-bottom: 1px;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 7px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #888;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  border-radius: 5px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
-</style>
                     <!-- Start Content-->
                     <div class="container-fluid">
 
@@ -96,13 +10,13 @@
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
-              
+
                                 </div>
-                                <h4 class="page-title">Event List</h4>
+                                <h4 class="page-title">Update Event</h4>
                             </div>
                         </div>
-                    </div>     
-                    <!-- end page title --> 
+                    </div>
+                    <!-- end page title -->
 
 
                     <div class="row">
@@ -110,20 +24,22 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="header-title"> </h4>
-        
+
 
                                     <div class="tab-content">
-                                        
-                                       
-                                
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+
+                                        </div> <!-- end preview-->
                                         <br>
-                                        
+                                        <br>
+                                        <br>
+
                                         <form   method="POST" >
                                             {% csrf_token %}
-                 
-                                                        
-                   
-                                                        
+
+
+
+
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputCity" class="form-label">Name</label>
@@ -131,26 +47,26 @@
                                                 </div>
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Product</label>
-                                                    <select name="product"   id="inputState" class="form-select" required >
+                                                    <select name="product" id="inputState1" class="form-select" required >
                                                         <option value="{{event.product.id}}" >{{event.product}}</option>
                                                         {% for item in product_list %}
-                                                        <option value="{{item.id}}" >{{item.name}}</option>
+                                                        <option value="{{item.id}}" >{{item.name}} - {{item.type}}</option>
                                                         {%endfor%}
                                                     </select>
                                                 </div>
-                          
-                                            </div>                                            
+
+                                            </div>
                                             <div class="row g-2">
-                                             
-                                                <div class="mb-3 col-md-6">
+                                                       <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Lecturer</label>
-                                                    <select name="lecturer" id="inputState" class="form-select" required>
+                                                    <select name="lecturer" id="inputState2" class="form-select" required>
                                                         <option value="{{event.lecturers.id}}">{{event.lecturers}}</option>
                                                         {% for item in lecturers_list %}
                                                         <option value="{{item.id}}" >{{item.first_name}}{{item.last_name}}</option>
                                                         {%endfor%}
                                                     </select>
-                                                </div>                                                
+                                                </div>
+
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Location</label>
                                                     <select name="location" id="inputState" class="form-select" required>
@@ -160,75 +76,52 @@
                                                         {%endfor%}
                                                     </select>
                                                 </div>
-                          
+
+
                                             </div>
                                             <div class="row g-2">
-                                             
-                                                                                      
+
+
                                                 <div class="mb-3 col-md-6">
-                                              
                                                 <div class="mb-3 position-relative" id="datepicker4">
                                                     <label class="form-label">Start Date</label>
-                                                    <input type="text" value="{{event.start_date |date:'m/d/Y' }}" name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
+                                                    <input type="text" value="{{event.start_date|date:'m/d/Y'}}" autocomplete="off"  name="start_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
                                                 </div>
                                                 </div>
-                                             <div class="mb-3 col-md-6">
-                                              
+
+                                                 <div class="mb-3 col-md-6">
+
                                                 <div class="mb-3 position-relative" id="datepicker4">
                                                     <label class="form-label">Practical Date</label>
-                                                    <input type="text" value="{{event.practicalDate |date:'m/d/Y' }}" name="practicalDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" >
+                                                    <input autocomplete="off" value="{{event.practicalDate|date:'m/d/Y'}}"  type="text" value="{{event.practicalDate |date:'m/d/Y' }}" name="practicalDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" >
                                                 </div>
                                                 </div>
+
+                                                <div style="margin-top:-30px;" class="mb-3 position-relative" id="datepicker4">
+                                                    <label class="form-label">End Date</label>
+                                                    <input autocomplete="off" value="{{event.end_date|date:'m/d/Y'}}"  type="text" value="{{event.end_date |date:'m/d/Y' }}" name="endDate" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" >
+                                                </div>
+
                                             </div>
-                                                <div class="mb-3 col-md-12">
-                                                    <label for="inputState" class="form-label">Form Category</label>
-                                                      <input type="hidden" id="input1"  name="catList" class="form-control" id="validationCustom04" placeholder="country" >
-     <input type="text" data-options='{{formList}}'
 
 
-                                             data-selected='{{selectedList}}'
-                                             data-field-title="<i class='fa fa-folder-open'></i> Available Category"
-                                             data-selected-title="<i class='fa fa-star'></i> Selected Category"
-                                             class="dragableMultiselect">
-
-                                                </div>                                            
 
 
-                                                        
-                                               <div class="mb-3 col-md-12 text-center">
-
+                                            <br>
+                                            <div class="mb-3 col-md-12 text-center">
                                                 <button type="submit" class="btn btn-primary">Update</button>
                                             </div>
-                                                                           
+
+
+
+
                                         </form>
 
-                                    
+
 
                                         <div class="tab-pane" id="basic-datatable-code">
-                                            <p>Please include following css file at <code>head</code> element</p>
 
-                                            <pre>
-                                                <span class="html escape">
-                                                    &lt;!-- Datatables css --&gt;
-                                                    &lt;link href=&quot;{% static 'assets/css/vendor/dataTables.bootstrap4.css'%} &quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
-                                                    &lt;link href=&quot;{% static 'assets/css/vendor/responsive.bootstrap4.css'%}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
 
-                                            <p>Make sure to include following js files at end of <code>body</code> element</p>
-
-                                            <pre class="mb-0">
-                                                <span class="html escape">
-                                                    &lt;!-- Datatables js --&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/jquery.dataTables.min.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.bootstrap4.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/dataTables.responsive.min.js'%}&quot;&gt;&lt;/script&gt;
-                                                    &lt;script src=&quot;{% static 'assets/js/vendor/responsive.bootstrap4.min.js'%}&quot;&gt;&lt;/script&gt;
-
-                                                    &lt;!-- Datatable Init js --&gt;
-                                                    &lt;script src=&quot;assets/js/pages/demo.datatable-init.js&quot;&gt;&lt;/script&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
 
                                             <pre class="mb-0">
                                                 <span class="html escape">
@@ -243,8 +136,8 @@
                                                                 &lt;th&gt;Salary&lt;/th&gt;
                                                             &lt;/tr&gt;
                                                         &lt;/thead&gt;
-                                                    
-                                                    
+
+
                                                         &lt;tbody&gt;
                                                             &lt;tr&gt;
                                                                 &lt;td&gt;Tiger Nixon&lt;/td&gt;
@@ -286,177 +179,10 @@
                 <!-- content -->
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
-               <!-- partial -->
-                  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js'></script>
-                <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-sortable/0.9.13/jquery-sortable.js'></script>
-                <script src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'></script>
-                <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/js/all.min.js'></script>
                 <script>
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
-                    
+
                     </script>
 
-<script  >
-               $(function() {
-  let mainWrapper = '.dragSortableItems',
-      in_available_fields = '.in_available_fields',
-      selectedDropzone = '.selectedDropzone',
-      input_name = 'name';
 
-  // On ready
-  $(document).ready(function() {
-
-    const dragableMultiselect = $('.dragableMultiselect');
-    dragableMultiselect.length && dragableMultiselect.each((index, value) => {
-      const $this = $(value);
-
-      const available_fields = $.extend({}, $this.data('options'));
-      const selected_fields = $.extend([], $this.data('selected'));
-      const $input_name = $this.attr(input_name);
-      let fieldTitle = $this.data('field-title');
-      let selectedTitle = $this.data('selected-title');
-      var canList=[];
-      var result = "";
-
-      let html = '<div class="row dragSortableItems dragSortableItem_' + index + '">\
-                    <div class="col-sm-6">\
-                      <div class="card">\
-                        <div class="card-header">' + fieldTitle + '</div>\
-                        <div class="card-body">\
-                          <ul class="in_available_fields custom-scrollbar sortable-list fixed-panel ui-sortable"></ul>\
-                        </div>\
-                      </div>\
-                    </div>\
-                    <div class="col-sm-6">\
-                      <div class="card primaryPanel">\
-                        <div class="card-header">' + selectedTitle + '</div>\
-                        <div class="card-body">\
-                          <div class="alert alert-warning small text-center mb-0">No Fields Selected</div>\
-                          <ul class="in_primary_fields sortable-list selectedDropzone fixed-panel"></ul>\
-                        </div>\
-                      </div>\
-                    </div>\
-                  </div>';
-      $this.replaceWith(html);
-      $dragSortableItem = $('.dragSortableItem_' + index);
-
-      let $mainWrapper = $dragSortableItem.closest(mainWrapper),
-        $in_available_fields = $mainWrapper.find(in_available_fields),
-        $selectedDropzone = $mainWrapper.find(selectedDropzone);
-
-
-      console.log(available_fields, selected_fields, $mainWrapper, $in_available_fields, $selectedDropzone, $input_name);
-
-      Object.keys(available_fields).forEach(function(key) {
-        var item = '<li class="sortable-item allowPrimary sortable-item-' + key + '" data-fid="' + key + '">'
-                + '<span class="icon-drag fas fa-grip-vertical mr-2"></span>'
-                + '<input type="checkbox" name="' + $input_name + '" class="sortable-item-input"/>'
-                + available_fields[key]
-              + '</li>';
-        $in_available_fields.append(item);
-      });
-
-      selected_fields.map(function(index) {
-        var item = $in_available_fields.find('.sortable-item-' + index);
-        item.find('.sortable-item-input').prop('checked', true);
-        $selectedDropzone.append(item);
-        console.log("Now")
-
-      });
-      checkFields( $mainWrapper );
-
-      // Set up our dropzone
-      $in_available_fields.sortable({
-        connectWith: '.sortable-list',
-        placeholder: 'placeholder',
-        start: function(event, ui) {
-          if (!$(ui.item).hasClass("allowPrimary")) {
-            $mainWrapper.find(".primaryPanel").removeClass('panel-primary').addClass("panel-danger");
-          }
-          checkFields( $mainWrapper )
-           console.log("Now1")
-        },
-        receive: function(event, ui) {
-          $(ui.item).find('.sortable-item-input').prop('checked', false);
-           console.log("Now2")
-        },
-        stop: function(event, ui) {
-          if (!$(ui.item).hasClass("allowPrimary")) {
-            $mainWrapper.find(".primaryPanel").removeClass("panel-danger").addClass('panel-primary');
-          }
-           console.log("Now3")
-        },
-        change: function(event, ui) {
-          checkFields( $mainWrapper );
-        },
-        update: function(event, ui) {
-          checkFields( $mainWrapper );
-          console.log("hello : " + $(ui.item).text()+ " "+$(ui.item).text());
-
-          canList.push($(ui.item).text());
-          $("#input1").val($selectedDropzone.text());
-           console.log( "Now Here "+$selectedDropzone.text())
-
-        },
-        out: function(event, ui) {
-          checkFields( $mainWrapper );
-           console.log("Now5")
-        }
-      }).disableSelection();
-
-      // Enable dropzone for primary fields
-      $selectedDropzone.sortable({
-        connectWith: '.sortable-list',
-        placeholder: 'placeholder',
-        receive: function(event, ui) {
-          // If we dont allow primary fields here, cancel
-          if (!$(ui.item).hasClass("allowPrimary")) {
-            $(ui.placeholder).css('display', 'none');
-            $(ui.sender).sortable("cancel");
-          } else {
-            $(ui.item).find('.sortable-item-input').prop('checked', true);
-          }
-        },
-        over: function(event, ui) {
-          if (!$(ui.item).hasClass("allowPrimary")) {
-            $(ui.placeholder).css('display', 'none');
-          } else {
-            $(ui.placeholder).css('display', '');
-          }
-        },
-        start: function(event, ui) {
-          checkFields( $mainWrapper )
-        },
-        change: function(event, ui) {
-          checkFields( $mainWrapper );
-
-        },
-        update: function(event, ui) {
-          checkFields( $mainWrapper );
-          console.log("Here 3")
-        },
-        out: function(event, ui) {
-          checkFields( $mainWrapper );
-        }
-      }).disableSelection();
-    });
-  });
-
-  // Checks to see if the fields section has fields selected. If not, shows a placeholder
-  function checkFields( $this ) {
-    if ( $this.find(selectedDropzone).find('li').length >= 1) {
-      $this.find('.primaryPanel').find('.alert').hide();
-    } else {
-      $this.find('.primaryPanel').find('.alert').show();
-    }
-  }
-
-});
-
-
-
-
-                </script>
                 {% endblock %}

@@ -458,22 +458,14 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.lecturers = lecturers
             obj.location = location
             obj.country = location.country
-            # obj.start_date = request.POST['start_date']
-            # obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
-            # if not request.POST.get('practicalDate', None) == '':
-            #     obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
+            obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
+            if not request.POST.get('practicalDate', None) == '':
+                obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
+
+            if not request.POST.get('endDate', None) == '':
+                obj.end_date = datetime.datetime.strptime(request.POST['endDate'], '%m/%d/%Y')
             obj.save()
 
-            categoryList = request.POST['catList']
-            obj.formCategory.clear()
-            if categoryList:
-                for item in categoryList.split('--'):
-                    cat_name = item.split('--')[0]
-                    print('Now: ' + cat_name)
-                    category = Category.objects.filter(name__exact=cat_name).first()
-
-                    if category:
-                        obj.formCategory.add(category)
 
 
         return redirect('training:event_')
