@@ -288,6 +288,7 @@ class ProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.code = request.POST['code']
             obj.price = request.POST['price']
             obj.type = request.POST['type']
+            print(request.POST['type'])
             obj.save()
         return redirect('training:product_')
 
