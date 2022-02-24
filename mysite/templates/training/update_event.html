@@ -48,7 +48,7 @@
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Product</label>
                                                     <select name="product" id="inputState1" class="form-select" required >
-                                                        <option value="{{event.product.id}}" >{{event.product}}</option>
+                                                        <option value="{{event.product.id}}" >{{event.product}}-{{event.product.name}}</option>
                                                         {% for item in product_list %}
                                                         <option value="{{item.id}}" >{{item.name}} - {{item.type}}</option>
                                                         {%endfor%}

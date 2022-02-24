@@ -145,23 +145,21 @@
                                             <table class="table table-centered table-striped dt-responsive nowrap w-100" >
                                                 <thead>
                                                     <tr>
-                                                        <th></th>
+
                                                         <th>Name</th>
                                                         <th>TES ID</th>
 
                                                         <th>Phone</th>
                                                         <th>Email</th>
                                                                                                                                                             
-                                                        <th>Status</th>
+                                                        <th>Forms</th>
                                                         <th style="width: 75px;">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                 {% for item in event.candidate.all %}
                                                     <tr>
-                                                         <td style="width:60px;">
-                                                           <input type="checkbox" />
-                                                        </td>
+
                                                         <td class="table-user">
                                                             <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
                                                             <a href="javascript:void(0);" class="text-body ">{{item.first_name}} {{item.last_name}}</a>
@@ -177,7 +175,13 @@
                                                         
                                                    
                                                         <td>
-                                                            <span class="badge badge-success-lighten">Generate Forms</span>
+                                                            {% for category in item.form_category.all %}
+                                                            {% for form in category.form.all %}
+
+                                                            <a href="{% url 'forms:updatevision_' id=item.id %}"><span class="badge badge-success-lighten">{{form.name}}</span></a><br>
+
+                                                            {% endfor %}
+                                                            {% endfor %}
                                                         </td>
                     
                                                         <td>
@@ -350,9 +354,7 @@
 
 
 
-                                                <div class="mb-3 col-md-12 text-center">
-                                         <button type="submit" class="btn btn-outline-primary" name="generateForms">Generate Forms</button>
-                                            </div>
+
                                         <div class="tab-pane" id="basic-datatable-code">
                            
                                         </div> <!-- end preview code-->
