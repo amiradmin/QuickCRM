@@ -1,10 +1,12 @@
 from django.db import models
+from django.db.models import ManyToManyField
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from tinymce_4.fields import TinyMCEModelField
+
 
 # from tinymce import HTMLField
 
@@ -91,6 +93,8 @@ class Skill(models.Model):
 
 class FormsList(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
+    internal_link_name = models.CharField(max_length=256, null=True, blank=True )
+    class_name = models.CharField(max_length=256, null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -133,6 +137,7 @@ class TesCandidate(models.Model):
     linkedin = models.CharField(max_length=5000, null=True, blank=True )
     skills = models.ManyToManyField('Skill',  null=True, blank=True)
     form_category = models.ManyToManyField(Category,  null=True, blank=True)
+    candidate_forms = models.ManyToManyField('forms.CandidateForms',related_name="can_forms",  null=True, blank=True)
     workHistory = models.ManyToManyField('WorkHistory',  null=True, blank=True)
     project = models.ManyToManyField('CandidateProject',  null=True, blank=True)
     certificates = models.ManyToManyField('Certificate',  null=True, blank=True )

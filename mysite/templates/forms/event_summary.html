@@ -175,17 +175,18 @@
                                                         
                                                    
                                                         <td>
-                                                            {% for category in item.form_category.all %}
-                                                            {% for form in category.form.all %}
+                                                            {% for form in item.candidate_forms.all %}
 
-                                                            <a href="{% url 'forms:updatevision_' id=item.id %}"><span class="badge badge-success-lighten">{{form.name}}</span></a><br>
 
-                                                            {% endfor %}
+                                                            <a href="http://127.0.0.1:8000/forms/{{form.internal_link}}/{{item.id}}"><span class="badge badge-success-lighten">{{form.form_name}}</span></a><br>
+
+
                                                             {% endfor %}
                                                         </td>
                     
                                                         <td>
                                                             <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a href="{% url 'forms:sendform_' canID=item.id %}" class="action-icon"> <i class="mdi mdi-send"></i></a>
                                                             <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                         </td>
                                                     </tr>

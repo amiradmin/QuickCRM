@@ -3,6 +3,25 @@ from training.models import Category, TesCandidate,Event,Product,FormsList as Gu
 
 
 
+
+class CandidateForms(models.Model):
+    form_name = models.CharField(max_length=256, null=True, blank=True )
+    candidate = models.ForeignKey(TesCandidate, related_name="circular_import_problem", on_delete=models.CASCADE, null=True,
+                                  blank=True)
+    event = models.ForeignKey(Event, related_name="event_forms", on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(Category, related_name="category_forms", on_delete=models.CASCADE, null=True, blank=True)
+    internal_link = models.CharField(max_length=256, null=True, blank=True)
+    generated = models.BooleanField(default=False,null=True, blank=True )
+    sent = models.BooleanField(default=False,null=True, blank=True )
+    submitted = models.BooleanField(default=False,null=True, blank=True )
+    confirmed = models.BooleanField(default=False,null=True, blank=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.form_name
+
+
 class Field(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     type = models.CharField(max_length=256, null=True, blank=True )
@@ -299,7 +318,7 @@ class NDT15AExperienceVerification(models.Model):
     event = models.ForeignKey(Event, related_name="event_ndt", on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate, related_name="candidate_ndt", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="category_ndt", on_delete=models.CASCADE)
-    guideline = models.ForeignKey(Guideline, related_name="guideline_ndt", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_ndt", on_delete=models.CASCADE, null=True, blank=True )
     candidateID = models.CharField(max_length=512, null=True, blank=True)
     currentFormerCertification = models.ManyToManyField('CurrentFormerCertification', null=True, blank=True)
     experienceClaimed = models.ManyToManyField('ExperienceClaimed', null=True, blank=True)
@@ -325,7 +344,7 @@ class NDTCovid19(models.Model):
     event = models.ForeignKey(Event, related_name="event_ndt_covid19", on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate, related_name="candidate_ndt_covid19", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="category_ndt_covid19", on_delete=models.CASCADE)
-    guideline = models.ForeignKey(Guideline, related_name="guideline_ndt_covid19", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_ndt_covid19", on_delete=models.CASCADE, null=True, blank=True )
     candidateID = models.CharField(max_length=512, null=True, blank=True)
     candidateAdress = models.CharField(max_length=512, null=True, blank=True)
     candidateHomePhone = models.CharField(max_length=512, null=True, blank=True)
@@ -454,7 +473,7 @@ class PSL57B(models.Model):
     event = models.ForeignKey(Event, related_name="event_psl_57b", on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate, related_name="candidate_psl_57b", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="category_psl_57b", on_delete=models.CASCADE)
-    guideline = models.ForeignKey(Guideline, related_name="guideline_psl_57b", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_psl_57b", on_delete=models.CASCADE, null=True, blank=True )
     contactMe = models.BooleanField(null=True, blank=True)
     cerAddress = models.CharField(max_length=2048, null=True, blank=True )
     pslCerAddress = models.CharField(max_length=2048, null=True, blank=True )
@@ -516,7 +535,7 @@ class VisionTest(models.Model):
     event = models.ForeignKey(Event, related_name="event_vision_test", on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate, related_name="candidate_vision_test", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="category_vision_test", on_delete=models.CASCADE)
-    guideline = models.ForeignKey(Guideline, related_name="guideline_vision_test", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_vision_test", on_delete=models.CASCADE, null=True, blank=True )
     address = models.CharField(max_length=2048, null=True, blank=True )
     address = models.CharField(max_length=2048, null=True, blank=True )
     phone = models.CharField(max_length=256, null=True, blank=True )
@@ -664,7 +683,7 @@ class TesAttCandidate(models.Model):
 class TrainingAttendance(models.Model):
     event = models.ForeignKey(Event, related_name="event_att_train", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, related_name="category_att_train", on_delete=models.CASCADE)
-    guideline = models.ForeignKey(Guideline, related_name="guideline_att_train", on_delete=models.CASCADE)
+    guideline = models.ForeignKey(Guideline, related_name="guideline_att_train", on_delete=models.CASCADE, null=True, blank=True )
     examTitleCode= models.CharField(max_length=2048, null=True, blank=True)
     venue= models.CharField(max_length=2048, null=True, blank=True)
     date = models.DateField(null=True, blank=True)

@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline,CourseRequest
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
-from forms.models import General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A,NDTCovid19,NDT15AExperienceVerification,BGAsExperienceForm
+from forms.models import CandidateForms,General,FormList,TwiEnrolmentForm,PSL30InitialForm,PSL30LogExp,PSL57A,NDTCovid19,NDT15AExperienceVerification,BGAsExperienceForm
 import datetime
 from datetime import  timedelta,timezone
 import json
@@ -512,7 +512,8 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
         event = Event.objects.filter(id=self.kwargs['id']).first()
         can_list = TesCandidate.objects.order_by('first_name')
         category_list = Category.objects.all()
-        print("Here Amir")
+
+
 
 
         context['event'] = event
@@ -522,7 +523,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
     
     def post(self, request, *args, **kwargs):
-      
+        from django.apps import apps
         if request.method == 'POST':
             event = Event.objects.filter(id=self.kwargs['id'] ).first()
             catID = request.POST['catID']
@@ -530,6 +531,29 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
             candidate = TesCandidate.objects.filter(id = request.POST['candidate']).first()
             candidate.form_category.add(category)
             event.candidate.add(candidate)
+
+            # CandidateForms
+            print("for lists: ")
+            for form in category.form.all():
+                print(form.name)
+                formObj = CandidateForms()
+                formObj.form_name = form.name
+                formObj.candidate = candidate
+                formObj.event = event
+                formObj.internal_link = form.internal_link_name
+                formObj.category = category
+                formObj.save()
+                candidate.candidate_forms.add(formObj)
+
+                model = apps.get_model('forms', form.class_name)
+                golbalObj = model()
+                golbalObj.candidate = candidate
+                golbalObj.category = category
+                golbalObj.event = event
+                golbalObj.save()
+
+
+
 
 
         return redirect('training:event_')

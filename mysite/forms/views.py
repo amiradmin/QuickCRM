@@ -3,8 +3,9 @@ from django.views.generic import View, TemplateView
 from forms.models import (Forms, TwiEnrolmentForm, General, BGAsExperienceForm, PSL30LogExp, NdtTechnique, FormList,
                           PSL30InitialForm, NDT15AExperienceVerification, CurrentFormerCertification,
                           ExperienceClaimed, NDTCovid19, PSL57B, PSL57A, empHistory, VisionTest,
-                          TesFrmExaminationAttendance,TesAttCandidate,
+                          TesFrmExaminationAttendance,TesAttCandidate,CandidateForms,
                           TesLecFeedbackFrom, TrainingAttendance, TwiTrainingFeedback, TwiExamFeedback, TesFrmCandidate
+
                           )
 from django.db.models import Count
 from classes.db import FormDb
@@ -22,6 +23,32 @@ from contacts.models import Contact
 
 
 # Create your views here.
+
+class SendForm(SidebarMixin, TemplateView):
+    template_name = "forms/send_form.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SendForm, self).get_context_data()
+
+        candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
+        can_forms = CandidateForms.objects.filter(candidate=candidate)
+        context['canID'] = self.kwargs['canID']
+        context['can_forms'] = can_forms
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+            formID = request.POST['formID']
+            if request.FILES.get('myFile', False):
+                print(formID)
+                formObj = TwiEnrolmentForm.objects.filter(id=formID).first()
+                formObj.uploadedForm = request.FILES['myFile']
+                formObj.save()
+
+        return redirect('forms:allenrolmentform_')
+
+
 
 class TwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_S.html"
