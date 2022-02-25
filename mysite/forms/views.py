@@ -71,7 +71,7 @@ class SendFormByID(SidebarMixin, TemplateView):
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         print("Send Form By ID!")
         domain = Site.objects.get_current().domain
-        url  = domain + '/forms/'+self.kwargs['urlattendees.html']+'/'+ str(self.kwargs['canID']) +'/'+ str(self.kwargs['eventID'])
+        url  = domain + '/forms/'+self.kwargs['url']+'/'+ str(self.kwargs['canID']) +'/'+ str(self.kwargs['eventID'])
         obj = Contact()
         candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
         obj.candidate = candidate
