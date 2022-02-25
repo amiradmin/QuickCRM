@@ -20,6 +20,7 @@ from authorization.sidebarmixin import SidebarMixin
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from contacts.models import Contact
+from django.contrib.sites.models import Site
 
 
 # Create your views here.
@@ -32,6 +33,9 @@ class SendForm(SidebarMixin, TemplateView):
 
         candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
         can_forms = CandidateForms.objects.filter(candidate=candidate)
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        context['event'] = event
+        context['candidate'] = candidate
         context['canID'] = self.kwargs['canID']
         context['can_forms'] = can_forms
         return context
@@ -39,15 +43,45 @@ class SendForm(SidebarMixin, TemplateView):
     def post(self, request, *args, **kwargs):
 
         if request.method == 'POST':
-            formID = request.POST['formID']
-            if request.FILES.get('myFile', False):
-                print(formID)
-                formObj = TwiEnrolmentForm.objects.filter(id=formID).first()
-                formObj.uploadedForm = request.FILES['myFile']
-                formObj.save()
+            event = Event.objects.filter(id=self.kwargs['eventID']).first()
+            print("Form was sent!")
 
-        return redirect('forms:allenrolmentform_')
 
+            domain = Site.objects.get_current().domain
+            url  = domain + '/forms/updatetwienromentbyuserid/'+ str(self.kwargs['canID']) +'/'+ str(self.kwargs['eventID'])
+            obj = Contact()
+            candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
+            obj.candidate = candidate
+            obj.type = 'Admin'
+            obj.messageType = 'Message'
+            obj.department = 'Training'
+            obj.message = url
+            obj.save()
+
+        return redirect('forms:evensummary_', id=event.id)
+
+
+
+class SendFormByID(SidebarMixin, TemplateView):
+    template_name = "forms/send_form.html"
+
+
+    def get(self, *args, **kwargs):
+        # context = super(SendFormByID, self).get_context_data()
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        print("Send Form By ID!")
+        domain = Site.objects.get_current().domain
+        url  = domain + '/forms/'+self.kwargs['urlattendees.html']+'/'+ str(self.kwargs['canID']) +'/'+ str(self.kwargs['eventID'])
+        obj = Contact()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
+        obj.candidate = candidate
+        obj.type = 'Admin'
+        obj.messageType = 'Message'
+        obj.department = 'Training'
+        obj.message = url
+        obj.save()
+
+        return redirect('forms:evensummary_', id=event.id)
 
 
 class TwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):

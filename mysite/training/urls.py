@@ -46,4 +46,7 @@ urlpatterns = [
     path('addformcategory/<int:id>', views.AddFormToCategoryView.as_view(), name='addformcategory_'),
 
 
+    path('requestregister/<int:id>', views.RequestRegister.as_view(), name='requestregister_'),
+
+
 ]

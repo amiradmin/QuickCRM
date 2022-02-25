@@ -124,6 +124,7 @@ urlpatterns = [
     path('msgupdatecovid19/<int:id>/<int:msgID>', views.MSGUpdateNDTCovid19View.as_view(),name='msgupdatecovid19_'),
 
 
-    path('sendform/<int:canID>', views.SendForm.as_view(), name='sendform_'),
+    path('sendform/<int:canID>/<int:eventID>', views.SendForm.as_view(), name='sendform_'),
+    path('sendformbyid/<int:id>/<int:canID>/<int:eventID>/<slug:url>', views.SendFormByID.as_view(), name='sendformbyid_'),
 
 ]

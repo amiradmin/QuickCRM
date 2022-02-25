@@ -18,6 +18,20 @@ from mailer.views import sendMail
 # Create your views here.
 
 
+class RequestRegister( TemplateView):
+    template_name = "training/register_request.html"
+
+    def get_context_data(self,*args,**kwargs):
+        context = super(RequestRegister, self).get_context_data()
+        print("Here")
+        product_id = self.kwargs['id']
+        print(product_id)
+        # product_list = Product.objects.all()
+        # context['product_list'] = product_list
+
+        return context
+
+
 class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/candidate_table.html"
 
@@ -47,7 +61,7 @@ class AllRequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
 class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/request_course.html"
 
-    def get_context_data(self):
+    def get_context_data(self,*args,**kwargs):
         context = super(RequestView, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['userID'] =candidate.id
