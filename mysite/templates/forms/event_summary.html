@@ -178,7 +178,7 @@
                                                             {% for form in item.candidate_forms.all %}
 
 
-                                                            <a href="http://127.0.0.1:8000/forms/{{form.internal_link}}/{{item.id}}"><span class="badge badge-success-lighten">{{form.form_name}}</span></a><br>
+                                                            <a href="{{ showURL }}/forms/{{form.internal_link}}/{{item.id}}"><span class="badge badge-success-lighten">{{form.form_name}}</span></a><br>
 
 
                                                             {% endfor %}

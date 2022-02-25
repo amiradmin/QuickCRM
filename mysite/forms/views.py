@@ -2686,7 +2686,7 @@ class EventSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
         eventID = self.kwargs['id']
         twiForm = TwiEnrolmentForm.objects.filter(eventID=eventID)
         event = Event.objects.filter(id=eventID).first()
-        # generalObj = General.objects.filter(event=event).first()
+
         eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
         candidates = TesCandidate.objects.all()[:4]
 
@@ -2709,9 +2709,7 @@ class EventSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
         resultList = list(set(list1).difference(list2))
         unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
 
-        print(resultList)
-        # context['tag'] = tag
-        # context['form'] = generalObj.twiEnrolmentForm.all()
+
         context['event'] = event
         context['eventConfirm'] = eventConfirm
         context['candidates'] = candidates
