@@ -26,8 +26,14 @@ class RequestRegister( TemplateView):
         print("Here")
         product_id = self.kwargs['id']
         print(product_id)
-        # product_list = Product.objects.all()
-        # context['product_list'] = product_list
+        product = Product.objects.filter(id=product_id).first()
+
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        obj = CourseRequest()
+        obj.candidate = candidate
+        obj.request = "Please register me for product {}".format(product.name)
+        obj.save()
+
 
         return context
 

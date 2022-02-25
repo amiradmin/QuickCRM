@@ -30,6 +30,7 @@ class LoginView(TemplateView):
     def post(self, request):
         username = request.POST['username']
         password = request.POST['password']
+        # remember = request.POST['remember_me']
         user = authenticate(username=username, password=password)
 
         if user is not None:
