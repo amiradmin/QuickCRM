@@ -785,6 +785,7 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
         context = super(UpdateTwiEnrolmentByUserID, self).get_context_data()
         candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         form = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
         if form.email is None:
             form.emergencyTel = candidate.emergencyContact
             form.privateTel = candidate.contact_number
@@ -792,6 +793,7 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
 
             form.save()
         context['form'] = form
+        context['event'] = event
 
         return context
 
@@ -800,8 +802,9 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
                 print(self.kwargs['id'])
-                obj = TwiEnrolmentForm.objects.filter(id=id).first()
+                obj = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
                 obj.twiCandidateID = request.POST['twiCandidateID']
                 obj.eventName = request.POST['eventName']
                 # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')
@@ -811,8 +814,9 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                 day = request.POST['day']
                 month = request.POST['month']
                 year = request.POST['year']
-                birdDay = month + '/' + day + '/' + year
-                obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
+                if year:
+                    birdDay = month + '/' + day + '/' + year
+                    obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
                 obj.permanentPrivateAddress = request.POST['permanentPrivateAddress']
                 obj.Postcode = request.POST['Postcode']
                 obj.CarRegNo = request.POST['CarRegNo']
@@ -1112,14 +1116,14 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
 
                 obj.save()
 
-                return redirect('forms:allenrolmentform_')
+                return redirect('forms:evensummary_', id=event.id)
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
                 obj = TwiEnrolmentForm.objects.filter(id=id).first()
                 obj.uploadedForm = request.FILES['pdfFile']
                 obj.save()
-                return redirect('forms:allenrolmentform_')
+                return redirect('forms:evensummary_', id=7)
 
 class TwiEnrolmentReg(TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_reg.html"
