@@ -455,18 +455,353 @@ class UpdateTwiEnrolment(SidebarMixin, LoginRequiredMixin, TemplateView):
 
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                # eventID = request.POST['eventID']
-                # categoryID = request.POST['categoryID']
-                # guidelineID = request.POST['guidelineID']
-                # category = Category.objects.filter(id=categoryID).first()
-                # guideline = Guideline.objects.filter(id=guidelineID).first()
-                # event = Event.objects.filter(id=eventID).first()
-                # candidate = TesCandidate.objects.filter(id=request.POST['mainCanID']).first()
+
                 obj = TwiEnrolmentForm.objects.filter(id=id).first()
-                # obj.eventID = eventID
-                # obj.candidate = candidate
-                # obj.eventID = eventID
-                # obj.candidate = candidate
+                obj.twiCandidateID = request.POST['twiCandidateID']
+                obj.eventName = request.POST['eventName']
+                # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')
+                obj.firstName = request.POST['firstName']
+                obj.middleName = request.POST['middleName']
+                obj.lastName = request.POST['lastName']
+                day = request.POST['day']
+                month = request.POST['month']
+                year = request.POST['year']
+                birdDay = month + '/' + day + '/' + year
+                obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
+                obj.permanentPrivateAddress = request.POST['permanentPrivateAddress']
+                obj.Postcode = request.POST['Postcode']
+                obj.CarRegNo = request.POST['CarRegNo']
+                obj.privateTel = request.POST['privateTel']
+                obj.emergencyTel = request.POST['emergencyTel']
+                obj.email = request.POST['email']
+                obj.correspondenceAddress = request.POST['correspondenceAddress']
+                obj.invoiceAddress = request.POST['invoiceAddress']
+                obj.sponsoringCompanyAndaddress = request.POST['sponsoringCompanyAndaddress']
+                obj.sponsorPostcode = request.POST['sponsorPostcode']
+                obj.sponsorContactName = request.POST['sponsorContactName']
+                obj.sponsorTel = request.POST['sponsorTel']
+                obj.sponsorFax = request.POST['sponsorFax']
+                obj.sponsorEmail = request.POST['sponsorEmail']
+                obj.PCN_BGASApprovalNumber = request.POST['PCN_BGASApprovalNumber']
+                obj.currentCSWIPQualifications = request.POST['currentCSWIPQualifications']
+                obj.plantInspectionRequirements = request.POST['plantInspectionRequirements']
+                obj.VerifierName = request.POST['VerifierName']
+                obj.VerifierCompanyPosition = request.POST['VerifierCompanyPosition']
+                # obj.VerifierProfessionalRelation = request.POST['VerifierProfessionalRelation']
+                obj.VerifierTelephone = request.POST['VerifierTelephone']
+                obj.VerifierEmail = request.POST['VerifierEmail']
+                # obj.experienceRequirements = request.POST['experienceRequirements']
+                obj.otherExaminationsTitle = request.POST['otherExaminationsTitle']
+                obj.bookingRef = request.POST['bookingRef']
+                obj.VerifierDate = datetime.datetime.strptime(request.POST['VerifierDate'], '%m/%d/%Y')
+
+                # obj.GDPRstatement = request.POST['form37_1']
+
+                #
+                #
+                if not request.POST.get('Calgary', None) == None:
+                    obj.venue = 'Calgary'
+
+                if not request.POST.get('Edmonton', None) == None:
+                    obj.venue = 'Edmonton'
+
+                if not request.POST.get('Brazil', None) == None:
+                    obj.venue = 'Brazil'
+
+                if not request.POST.get('Toronto', None) == None:
+                    obj.venue = 'Toronto'
+
+                if not request.POST.get('FortErie', None) == None:
+                    obj.venue = 'Fort Erie'
+
+                if not request.POST.get('USA', None) == None:
+                    obj.venue = 'USA'
+
+                if not request.POST.get('Quebec', None) == None:
+                    obj.venue = 'Quebec'
+
+                if not request.POST.get('Vancouver', None) == None:
+                    obj.venue = 'Vancouver'
+
+                if not request.POST.get('New Brunswick', None) == None:
+                    obj.venue = 'New Brunswick'
+                #
+                if not request.POST.get('diabilityYes', None) == None:
+                    obj.disability = True
+                if request.POST.get('diabilityNo', None) == None:
+                    obj.disability = False
+                #
+                if not request.POST.get('weldingSociety', None) == None:
+                    obj.weldingSociety = True
+                if not request.POST.get('twiEmployee', None) == None:
+                    obj.twiEmployee = True
+                #
+                if not request.POST.get('compSponser', None) == None:
+                    obj.sponsorStatus = True
+                if not request.POST.get('selfSponser', None) == None:
+                    obj.sponsorStatus = True
+                #
+                if not request.POST.get('GDPRstatement', None) == None:
+                    obj.GDPRstatement = True
+                #
+                tempTearAbout = ''
+                if not request.POST.get('twiWebsite', None) == None:
+                    tempTearAbout = 'TWI Corporate Website'
+                if not request.POST.get('CSWIPweb', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'CSWIP Website'
+                if not request.POST.get('emailMarketing', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Email marketing'
+                if not request.POST.get('Bulletin', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Bulletin / Connect'
+                if not request.POST.get('Google', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Google search'
+                if not request.POST.get('Other', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Other (please specify)'
+                if not request.POST.get('Linkedin', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'LinkedIn'
+                if not request.POST.get('Facebook', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Facebook'
+                if not request.POST.get('NDTnews', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'NDT News / Insight'
+                if not request.POST.get('Exhib', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Exhibitions / Events'
+                if not request.POST.get('WorkOfMouth', None) == None:
+                    tempTearAbout = tempTearAbout + ' - ' + 'Word of Mouth'
+                obj.hearAbout = tempTearAbout
+                #
+                if not request.POST.get('Initial', None) == None:
+                    obj.examinationType = 'Initial'
+                if not request.POST.get('supplementary', None) == None:
+                    obj.examinationType = 'supplementary'
+                if not request.POST.get('renewal', None) == None:
+                    obj.examinationType = 'renewal'
+                if not request.POST.get('bridging', None) == None:
+                    obj.examinationType = 'bridging'
+                if not request.POST.get('retest', None) == None:
+                    obj.examinationType = 'retest of a previously failed examination'
+                #
+                if not request.POST.get('CSWIP', None) == None:
+                    obj.examinationBody = 'CSWIP'
+                if not request.POST.get('PCN', None) == None:
+                    obj.examinationBody = 'PCN'
+                if not request.POST.get('AWS', None) == None:
+                    obj.examinationBody = 'AWS'
+                if not request.POST.get('BGAS', None) == None:
+                    obj.examinationBody = 'BGAS'
+                if not request.POST.get('ASNT', None) == None:
+                    obj.examinationBody = 'ASNT'
+
+                #
+                if not request.POST.get('VWI', None) == None:
+                    obj.CSWIPWeldingexamination = 'VWI (3.0)'
+                if not request.POST.get('WI', None) == None:
+                    obj.CSWIPWeldingexamination = 'WI (3.1)'
+                if not request.POST.get('SWI', None) == None:
+                    obj.CSWIPWeldingexamination = 'SWI (3.2.1)'
+                if not request.POST.get('SWI3', None) == None:
+                    obj.CSWIPWeldingexamination = 'SWI (3.2.2) '
+                if not request.POST.get('AWSCSWIP', None) == None:
+                    obj.CSWIPWeldingexamination = 'AWSCSWIP'
+                #
+                if not request.POST.get('Endorsement', None) == None:
+                    obj.CSWIPWeldingexamination = 'Endorsement'
+                if not request.POST.get('Instructor', None) == None:
+                    obj.CSWIPWeldingexamination = 'Instructor'
+                if not request.POST.get('Supervisor', None) == None:
+                    obj.CSWIPWeldingexamination = 'Supervisor'
+                if not request.POST.get('QC', None) == None:
+                    obj.CSWIPWeldingexamination = 'QC Coordinator'
+                if not request.POST.get('ASME', None) == None:
+                    obj.CSWIPWeldingexamination = 'ASME IX'
+                #
+                if not request.POST.get('WI31weld', None) == None:
+                    obj.experience = 'WI(3.1) - Welding Inspector for a minimum of 3 years with experience related to the duties and responsibilities listed in Clause 1.2.2 under qualified supervision, independently verified.'
+                if not request.POST.get('WI31Visual', None) == None:
+                    obj.experience = 'WI (3.1) - Certified Visual Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1 and 1.2.2.'
+                if not request.POST.get('WIWeldingInspector', None) == None:
+                    obj.experience = 'WI (3.1) - Welding Instructor or Welding Foreman/Supervisor for a minimum of 1 year.'
+                if not request.POST.get('SWIcertificate', None) == None:
+                    obj.experience = 'SWI (3.2.1 & 3.2.2) - Certified Welding Inspector for a minimum of 2 years with job responsibilities in the areas listed in 1.2.1, 1.2.2 and 1.2.3. '
+                if not request.POST.get('SWI5year', None) == None:
+                    obj.experience = 'SWI (3.2.1 & 3.2.2) - 5 years\' authenticated experience related to the duties and responsibilities listed in Clause 1.2.3, independently verified.'
+
+                if not request.POST.get('WeldingQC', None) == None:
+                    obj.experience = 'Welding QC coordinator - A current valid CSWIP 3.2 Senior Welding Inspector certification plus three years documented experience related to the duties and responsibilities or an international equivalent.'
+                if not request.POST.get('CurrentValid', None) == None:
+                    obj.experience = 'Welding QC coordinator - A current valid CSWIP 3.1 Welding Inspector with 10 year’s documented experience related to the duties and responsibilities or an international equivalent. '
+                if not request.POST.get('HoldCurrent', None) == None:
+                    obj.experience = 'ASME IX - Hold current valid Senior Welding Inspector or international equivalent.'
+                if not request.POST.get('ASMECer', None) == None:
+                    obj.experience = 'ASME IX - Certified Welding Inspector with five years relevant verified work experience or international equivalent '
+                if not request.POST.get('ASMEhnc', None) == None:
+                    obj.experience = 'ASME IX - A HNC in Welding Fabrication'
+                if not request.POST.get('ASMEWorking', None) == None:
+                    obj.experience = 'ASME IX - Working in quality control function related to welding activities with five years of verified working experience (this could relate to a CSWIP WI (3.1) holder'
+                #
+                #
+                if not request.POST.get('31U', None) == None:
+                    obj.underwaterInspectionExam = '3.1U'
+                if not request.POST.get('32U', None) == None:
+                    obj.underwaterInspectionExam = '3.2U'
+                if not request.POST.get('33U', None) == None:
+                    obj.underwaterInspectionExam = '3.3U'
+                if not request.POST.get('34U', None) == None:
+                    obj.underwaterInspectionExam = '3.4U'
+                if not request.POST.get('A-SCAN', None) == None:
+                    obj.underwaterInspectionExam = 'A-SCAN'
+                if not request.POST.get('Concrete', None) == None:
+                    obj.underwaterInspectionExam = 'Concrete'
+
+                #
+                if not request.POST.get('PT', None) == None:
+                    obj.NDTexamination = 'PT'
+                if not request.POST.get('MT', None) == None:
+                    obj.NDTexamination = 'MT'
+                if not request.POST.get('VT', None) == None:
+                    obj.NDTexamination = 'VT'
+                if not request.POST.get('ET', None) == None:
+                    obj.NDTexamination = 'ET'
+                if not request.POST.get('ACFM', None) == None:
+                    obj.NDTexamination = 'ACFM'
+                #
+                if not request.POST.get('RT', None) == None:
+                    obj.NDTexamination = 'RT'
+                if not request.POST.get('Rad', None) == None:
+                    obj.NDTexamination = 'Rad Interpret'
+                if not request.POST.get('CR', None) == None:
+                    obj.NDTexamination = 'CR/DR'
+                if not request.POST.get('CRI', None) == None:
+                    obj.NDTexamination = 'CRI/DRI'
+                if not request.POST.get('BRS', None) == None:
+                    obj.NDTexamination = 'BRS'
+                if not request.POST.get('RPS', None) == None:
+                    obj.NDTexamination = 'RPS'
+
+                if not request.POST.get('UT', None) == None:
+                    obj.NDTexamination = 'UT'
+                if not request.POST.get('PAUT', None) == None:
+                    obj.NDTexamination = 'PAUT'
+                if not request.POST.get('TOFD', None) == None:
+                    obj.NDTexamination = 'TOFD'
+                if not request.POST.get('AUT', None) == None:
+                    obj.NDTexamination = 'AUT'
+                if not request.POST.get('UTCM', None) == None:
+                    obj.NDTexamination = 'UTCM'
+                if not request.POST.get('PACM', None) == None:
+                    obj.NDTexamination = 'PACM'
+                #
+                if not request.POST.get('Appreciation', None) == None:
+                    obj.NDTexamination = 'Appreciation'
+                if not request.POST.get('Basic', None) == None:
+                    obj.NDTexamination = 'Basic'
+                if not request.POST.get('Phasor', None) == None:
+                    obj.NDTexamination = 'Phasor DM'
+                #
+                if not request.POST.get('Level1', None) == None:
+                    obj.NDTexaminationLevel = 'Level 1'
+                if not request.POST.get('Level2', None) == None:
+                    obj.NDTexaminationLevel = 'Level 2'
+                if not request.POST.get('Level3', None) == None:
+                    obj.NDTexaminationLevel = 'Level 3'
+                #
+                if not request.POST.get('General', None) == None:
+                    obj.NDTIndustrySector = 'General'
+                if not request.POST.get('Welds', None) == None:
+                    obj.NDTIndustrySector = 'Welds'
+                if not request.POST.get('Castings', None) == None:
+                    obj.NDTIndustrySector = 'Castings'
+                if not request.POST.get('Wrought', None) == None:
+                    obj.NDTIndustrySector = 'Wrought'
+                if not request.POST.get('Forgings', None) == None:
+                    obj.NDTIndustrySector = 'Forgings'
+                if not request.POST.get('Tubes', None) == None:
+                    obj.NDTIndustrySector = 'Tubes & Pipes'
+                if not request.POST.get('Aero', None) == None:
+                    obj.NDTIndustrySector = 'Aero'
+                #
+                #
+                if not request.POST.get('31', None) == None:
+                    obj.NDTexaminationCategories = '3.1'
+                if not request.POST.get('32', None) == None:
+                    obj.NDTexaminationCategories = '3.2'
+                if not request.POST.get('37', None) == None:
+                    obj.NDTexaminationCategories = '3.7'
+                if not request.POST.get('38', None) == None:
+                    obj.NDTexaminationCategories = '3.8'
+                if not request.POST.get('39', None) == None:
+                    obj.NDTexaminationCategories = '3.9'
+                if not request.POST.get('Critical', None) == None:
+                    obj.NDTexaminationCategories = 'Critical sizing'
+                #
+                #
+                if not request.POST.get('plantLevel1', None) == None:
+                    obj.plantInspectionLevel = 'Level 1'
+                if not request.POST.get('plantLevel2', None) == None:
+                    obj.plantInspectionLevel = 'Level 2'
+                if not request.POST.get('plantLevel3', None) == None:
+                    obj.plantInspectionLevel = 'Level 3'
+                if not request.POST.get('Endorsement', None) == None:
+                    obj.plantInspectionLevel = 'Endorsement'
+                #
+                if not request.POST.get('IHoldCurrent', None) == None:
+                    obj.plantInspectionLevel1 = 'I hold current approved NDT Level 2 (ACCP, CSWIP, PCN or ASNT) in two methods, one of which must be Ultrasonic'
+                if not request.POST.get('IholdCSWIP', None) == None:
+                    obj.plantInspectionLevel1 = 'I hold CSWIP Welding Inspector or higher'
+                if not request.POST.get('IholdHNC', None) == None:
+                    obj.plantInspectionLevel1 = 'I hold HNC in Mechanical Engineering or equivalent'
+                if not request.POST.get('Ihaveminimum', None) == None:
+                    obj.plantInspectionLevel1 = 'I have a minimum of Five years, assessed and authenticated industry experience in this field (Mature Entry Route), a verified CV can be supplied – Must be Authenticated by Line Manager'
+
+                if not request.POST.get('IholdvalidLevel', None) == None:
+                    obj.plantInspectionLevel2 = 'I hold a valid Level 1 Plant Inspector approval'
+                if not request.POST.get('IHaveSuccessfully', None) == None:
+                    obj.plantInspectionLevel2 = 'I have successfully completed the Level 1 exams as a pre entry requirement'
+
+                if not request.POST.get('Plastic', None) == None:
+                    obj.otherExaminationsTitleRequired = 'Plastic welding'
+                if not request.POST.get('Offshore', None) == None:
+                    obj.otherExaminationsTitleRequired = 'Offshore visual Inspector'
+                if not request.POST.get('BGAS', None) == None:
+                    obj.otherExaminationsTitleRequired = 'BGAS'
+
+
+                obj.save()
+
+                return redirect('forms:allenrolmentform_')
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = TwiEnrolmentForm.objects.filter(id=id).first()
+                obj.uploadedForm = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:allenrolmentform_')
+
+
+
+class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/reg_forms/update_twi_enrolment.html"
+
+    def get_context_data(self, id, *args, **kwargs):
+        context = super(UpdateTwiEnrolmentByUserID, self).get_context_data()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        form = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
+        if form.email is None:
+            form.emergencyTel = candidate.emergencyContact
+            form.privateTel = candidate.contact_number
+            form.email = candidate.email
+
+            form.save()
+        context['form'] = form
+
+        return context
+
+    def post(self, request, id, *args, **kwargs):
+
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                print(self.kwargs['id'])
+                obj = TwiEnrolmentForm.objects.filter(id=id).first()
                 obj.twiCandidateID = request.POST['twiCandidateID']
                 obj.eventName = request.POST['eventName']
                 # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')

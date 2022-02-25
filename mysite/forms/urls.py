@@ -29,6 +29,7 @@ urlpatterns = [
     path('newtwienrolment/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
     path('allenrolmentform/', views.AllEnrolmentForm.as_view(), name='allenrolmentform_'),
     path('updatetwienroment/<int:id>', views.UpdateTwiEnrolment.as_view(), name='updatetwienroment_'),
+    path('updatetwienromentbyuserid/<int:id>', views.UpdateTwiEnrolmentByUserID.as_view(), name='updatetwienromentbyuserid_'),
 
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
 
