@@ -221,6 +221,7 @@ li{
                                                         <div class="invalid-feedback">
                                                             Please provide a valid password.
                                                         </div>
+        <span id='passMessage'></span>
     </div>
   </div>
 
@@ -240,7 +241,7 @@ li{
 
                                                     <br>
                                                     <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" type="submit">Sign Up</button>
+                                                        <button class="btn btn-primary" id="submitButtom" type="submit">Sign Up</button>
                                                     </div>
                                                 </form>
                                             </div> <!-- end preview-->
@@ -283,6 +284,17 @@ li{
 
 
 <script>
+
+$('#password, #rePassword').on('keyup', function () {
+  if ($('#password').val() == $('#rePassword').val()) {
+    $('#passMessage').html('Matching').css('color', 'green');
+<!--    document.getElementById("submitButtom").disabled = false;-->
+  } else
+    $('#passMessage').html('Not Matching').css('color', 'red');
+<!--    document.getElementById("submitButtom").disabled = true;-->
+
+
+});
 
 // A function to format text to look like a phone number
 function phoneFormat(input){
