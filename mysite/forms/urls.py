@@ -125,6 +125,6 @@ urlpatterns = [
 
 
     path('sendform/<int:canID>/<int:eventID>', views.SendForm.as_view(), name='sendform_'),
-    path('sendformbyid/<int:id>/<int:canID>/<int:eventID>/<slug:url>', views.SendFormByID.as_view(), name='sendformbyid_'),
+    path('sendformbyid/<int:id>/<int:canID>/<int:eventID>/<slug:url>/<int:formID>', views.SendFormByID.as_view(), name='sendformbyid_'),
 
 ]

@@ -585,7 +585,7 @@ button, input {
                             <a data-bs-toggle="collapse" href="#sidebarMessage" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
                                 <i class="uil-comment-alt-message"></i>
 
-                                <span> Messages </span>
+                                  <span> Messages {% if newMessage %}  <span style="margin-top:-3px;" class="badge badge-success-lighten">New</span>{% endif %} </span>
                             </a>
                             <div class="collapse" id="sidebarMessage">
                                 <ul class="side-nav-second-level">

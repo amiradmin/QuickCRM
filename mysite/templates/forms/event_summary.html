@@ -178,7 +178,7 @@
                                                             {% for form in item.candidate_forms.all %}
 
 
-                                                            <a href="{{ showURL }}/forms/{{form.internal_link}}/{{item.id}}/{{event.id}}"><span class="badge badge-success-lighten">{{form.form_name}}</span></a><br>
+            <a href="{{ showURL }}/forms/{{form.internal_link}}/{{item.id}}/{{event.id}}">{% if form.sent %}<span class="badge badge-primary-lighten">{{form.form_name}}</span>{% else %} <span class="badge badge-warning-lighten">{{form.form_name}}</span>{% endif %}</a><br>
 
 
                                                             {% endfor %}

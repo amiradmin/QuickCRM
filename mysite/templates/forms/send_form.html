@@ -32,8 +32,8 @@
                                                 <thead>
                 <tr>
 
+            <th>ID</th>
 
-            <th >Status</th>
             <th  >Form</th>
             <th  >Event</th>
             <th  >url</th>
@@ -53,11 +53,12 @@
         <tr>
 
 
-            <td><p ><input type="checkbox" /></td>
+            <td><p >{{item.id}}</p></td>
             <td><p >{{item.form_name}}</p></td>
             <td><p >{{event.name}}</p></td>
             <td><p >{{item.internal_link}}</p></td>
-            <th><a href="{% url 'forms:sendformbyid_' canID=candidate.id eventID=event.id id=item.id url=item.internal_link %}"><span class="badge badge-warning-lighten">Send</span></a></th>
+            <th><a href="{% url 'forms:sendformbyid_' canID=candidate.id eventID=event.id id=item.id url=item.internal_link formID=item.id %}">
+                {% if item.sent %} <span class="badge badge-success-lighten">Sent</span>{% else %}<span class="badge badge-warning-lighten">Send</span> {% endif %}</a></th>
 
 
 

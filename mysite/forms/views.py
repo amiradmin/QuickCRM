@@ -72,8 +72,8 @@ class SendFormByID(SidebarMixin, TemplateView):
         print("Send Form By ID!")
         domain = Site.objects.get_current().domain
         url  = domain + '/forms/'+self.kwargs['url']+'/'+ str(self.kwargs['canID']) +'/'+ str(self.kwargs['eventID'])
-        obj = Contact()
         candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
+        obj = Contact()
         obj.candidate = candidate
         obj.type = 'Admin'
         obj.messageType = 'Message'
@@ -81,6 +81,10 @@ class SendFormByID(SidebarMixin, TemplateView):
         obj.message = 'Please fill the following form: \n'
         obj.url = url
         obj.save()
+
+        canFormObj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+        canFormObj.sent = True
+        canFormObj.save()
 
         return redirect('forms:evensummary_', id=event.id)
 

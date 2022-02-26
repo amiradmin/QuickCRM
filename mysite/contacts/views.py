@@ -8,6 +8,7 @@ from  authorization.sidebarmixin import SidebarMixin
 from django.db.models import Q
 import datetime
 from mailer.views import sendMail
+from forms.models import CandidateForms
 # Create your views here.
 
 class NewContactView(LoginRequiredMixin,TemplateView):
@@ -65,6 +66,13 @@ class MessageListView(LoginRequiredMixin,TemplateView):
         contact = Contact.objects.filter(candidate=candidate).order_by("-id")
         contactRead = Contact.objects.filter(Q(candidate=candidate)|Q(readFlag=True)).count()
         message_list = Contact.objects.filter(candidate=candidate)
+        canForms = CandidateForms.objects.filter(candidate=candidate)
+
+        if canForms.count() > 0 :
+            for item in canForms:
+                item.sent = True
+                item.save()
+
         now = datetime.datetime.now()
         context['candidate'] = candidate
         context['events'] = events
