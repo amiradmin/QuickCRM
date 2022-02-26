@@ -85,6 +85,7 @@ class EventSerializer(serializers.Serializer):
     name = serializers.CharField(required=False, allow_blank=True, max_length=512)
     visible = serializers.BooleanField(required=False)
     start_date = serializers.DateTimeField()
+    end_date = serializers.DateTimeField()
     country = serializers.SerializerMethodField()
     location = serializers.SerializerMethodField()
 

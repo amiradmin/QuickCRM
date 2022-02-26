@@ -169,6 +169,10 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         context['events'] = events
         context['now'] = now
         context['contact'] = contact
+        if contact.count() > 0:
+            context['newMessage'] = True
+        else:
+            context['newMessage'] = False
         context['contactRead'] = contactRead
         return context
 
