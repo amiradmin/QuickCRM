@@ -78,7 +78,8 @@ class SendFormByID(SidebarMixin, TemplateView):
         obj.type = 'Admin'
         obj.messageType = 'Message'
         obj.department = 'Training'
-        obj.message = url
+        obj.message = 'Please fill the following form: \n'
+        obj.url = url
         obj.save()
 
         return redirect('forms:evensummary_', id=event.id)

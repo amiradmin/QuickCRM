@@ -8,6 +8,7 @@ class Contact(models.Model):
     department = models.CharField(max_length=256, null=True, blank=True)
     formName = models.CharField(default=None,max_length=256, null=True, blank=True)
     message = models.CharField(max_length=4092, null=True, blank=True)
+    url = models.CharField(max_length=1024, null=True, blank=True)
     type = models.CharField(choices=TYPE_CHOICES,max_length=10, null=True, blank=True)
     objID = models.IntegerField( null=True, blank=True)
     messageType = models.CharField(choices=MESSAGE_TYPE_CHOICES,max_length=10, null=True, blank=True)

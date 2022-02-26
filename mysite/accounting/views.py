@@ -49,7 +49,7 @@ class LoginView(TemplateView):
 
                     print('can')
                     candidate = TesCandidate.objects.filter(user=user).first()
-                    return redirect('accounting:canprofile_', id =candidate.id)
+                    return redirect('http://5.9.255.111/')
 
             else:
                 return HttpResponse("Inactive user.")
