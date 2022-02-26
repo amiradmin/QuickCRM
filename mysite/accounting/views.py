@@ -328,13 +328,13 @@ class LitteRegisterView(TemplateView):
             user.tescandidate.last_name = request.POST['last_name']
             user.tescandidate.email = request.POST['email']
             user.tescandidate.tes_candidate_id = tempID
-            user.tescandidate.contact_number = request.POST['phone']
+            user.tescandidate.contact_number = request.POST['contactNumber']
             user.save()
 
             requestObj = CourseRequest()
             requestObj.candidate = user.tescandidate
             requestObj.request = request.POST['message']
-            requestObj.save()
+            # requestObj.save()
             print(user.username)
 
             fullName = user.tescandidate.first_name + ' ' + user.tescandidate.last_name
