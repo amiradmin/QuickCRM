@@ -316,7 +316,7 @@ class LitteRegisterView(TemplateView):
             user = User()
 
             user.username = request.POST['email']
-            user.password =make_password('Default@2022')
+            user.password =make_password(request.POST['password'])
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.save()
@@ -342,7 +342,7 @@ class LitteRegisterView(TemplateView):
             # sendMail(request.POST['email'],fullName,msg)
             # print('Mail Sent')
             print("Redirect Here!")
-            return redirect('training:resquestsuccess_')
+            return redirect('http://5.9.255.111/')
         return redirect('training:resquestsuccess_')
 
 
