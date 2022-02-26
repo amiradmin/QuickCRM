@@ -10,13 +10,13 @@
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
-              
+
                                 </div>
                                 <h4 class="page-title">Request List</h4>
                             </div>
                         </div>
-                    </div>     
-                    <!-- end page title --> 
+                    </div>
+                    <!-- end page title -->
 
 
                     <div class="row">
@@ -24,7 +24,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="header-title"> </h4>
-        
+
 
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
@@ -32,45 +32,51 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Row</th>
-                                                        <th>Candidate</th>
+                                                        <th>Candidate ID</th>
+                                                        <th>Name</th>
                                                         <th>Request</th>
                                                         <th>Email</th>
-                                                        <th>Contact Number</th>
+                                                        <th>Phone</th>
+                                                        <th>Created At</th>
 
-                                          
-                                                        <th></th>
-                                                        <th></th>
-                                                        <th></th>
+
+
+
                                                     </tr>
                                                 </thead>
-                                            
-                                            
+
+
                                                 <tbody>
                                                     {% for item in requests %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
-                                                        <td><a href="{% url 'accounting:canprofile_' id=1063 %}">{{item.candidate.first_name}} {{item.candidate.last_name}}</a> </td>
-                                                        <td>{{item.request}}</td>
+                                                        <td>{{item.candidate.tes_candidate_id}}</td>
+                    <td><a href="{% url 'accounting:canprofile_' id=item.candidate.id %}" >{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}</a></td>
+                                                        <th>{{item.request}}</th>
                                                         <td>{{item.candidate.email}}</td>
                                                         <td>{{item.candidate.contact_number}}</td>
+                                                        <td>{{item.created_at|date:'m/d/Y'}}</td>
 
-                                                       
+
+
+
+
                                                     </tr>
                                                     {%endfor%}
                                                 </tbody>
-                                            </table>                                           
+                                            </table>
                                         </div> <!-- end preview-->
                                         <br>
                                         <br>
                                         <br>
-                                        
 
-                                    
+
+
 
                                         <div class="tab-pane" id="basic-datatable-code">
-                                        
 
-                                         
+
+
                                             <pre class="mb-0">
                                                 <span class="html escape">
                                                     &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;
@@ -84,8 +90,8 @@
                                                                 &lt;th&gt;Salary&lt;/th&gt;
                                                             &lt;/tr&gt;
                                                         &lt;/thead&gt;
-                                                    
-                                                    
+
+
                                                         &lt;tbody&gt;
                                                             &lt;tr&gt;
                                                                 &lt;td&gt;Tiger Nixon&lt;/td&gt;
@@ -129,7 +135,7 @@
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
                 <script>
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
-                    
+
                     </script>
 
 

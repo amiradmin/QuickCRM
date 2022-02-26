@@ -25,13 +25,15 @@ class RequestRegister( TemplateView):
         context = super(RequestRegister, self).get_context_data()
         print("Here")
         product_id = self.kwargs['id']
-        print(product_id)
+        eventID = self.kwargs['eventID']
+        print(eventID)
         product = Product.objects.filter(id=product_id).first()
+        event = Event.objects.filter(id=eventID).first()
 
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         obj = CourseRequest()
         obj.candidate = candidate
-        obj.request = "Please register me for product {}".format(product.name)
+        obj.request = "Please register me for product {} for event {}.\n Location: {} \n Country: {} \n start Date: {}".format(product.name,event.name,event.location,event.country,event.start_date)
         obj.save()
 
 
@@ -57,7 +59,7 @@ class AllRequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(AllRequestView, self).get_context_data()
-        requests = CourseRequest.objects.select_related('candidate')
+        requests = CourseRequest.objects.select_related('candidate').order_by('-id')
 
         context['requests'] =requests
         return context
