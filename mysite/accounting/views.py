@@ -4,7 +4,7 @@ from django.views.generic import View,TemplateView
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User, Group
 from django.contrib import auth
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.conf import settings
 from training.models import CandidateProfile, Lecturer,Event,TesCandidate
 from django.contrib.auth.hashers import make_password
@@ -49,7 +49,11 @@ class LoginView(TemplateView):
 
                     print('can')
                     candidate = TesCandidate.objects.filter(user=user).first()
-                    return redirect('http://5.9.255.111/')
+                    response = redirect('http://5.9.255.111/')  # replace redirect with HttpResponse or render
+                    response.set_cookie('tesUser', candidate.id, max_age=1000)
+                    response.set_cookie('userName', candidate.first_name, max_age=1000)
+
+                    return response
 
             else:
                 return HttpResponse("Inactive user.")
