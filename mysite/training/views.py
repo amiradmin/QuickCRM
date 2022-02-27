@@ -72,7 +72,7 @@ class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self,*args,**kwargs):
         context = super(RequestView, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
-        contact = CandidateForms.objects.filter(Q(candidate=candidate) & Q(sent=False))
+        contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
         if contact.count() > 0:
             context['newMessage'] = True
         else:

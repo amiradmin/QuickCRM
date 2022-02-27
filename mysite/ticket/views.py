@@ -76,6 +76,11 @@ class NewTicketView(LoginRequiredMixin,TemplateView):
         contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
         print(contactRead)
         now = datetime.datetime.now()
+        contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        if contact.count() > 0:
+            context['newMessage'] = True
+        else:
+            context['newMessage'] = False
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
@@ -143,6 +148,11 @@ class CandidateAllTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(CandidateAllTicketView, self).get_context_data()
         candidate=TesCandidate.objects.filter(id=self.kwargs['id']).first()
         tickets = Ticket.objects.filter(candidate=candidate).order_by('-id')
+        contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        if contact.count() > 0:
+            context['newMessage'] = True
+        else:
+            context['newMessage'] = False
         context['tickets'] = tickets
         context['candidate'] = candidate
 

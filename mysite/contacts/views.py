@@ -19,6 +19,7 @@ class NewContactView(LoginRequiredMixin,TemplateView):
             candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
             obj = Contact()
             candidate = TesCandidate.objects.filter(id=candidate.id).first()
+
             obj.candidate = candidate
             obj.type = 'Candidate'
             obj.messageType = 'Message'
@@ -66,14 +67,14 @@ class MessageListView(LoginRequiredMixin,TemplateView):
         contact = Contact.objects.filter(candidate=candidate).order_by("-id")
         contactRead = Contact.objects.filter(Q(candidate=candidate)|Q(readFlag=True)).count()
         message_list = Contact.objects.filter(candidate=candidate)
-        canForms = CandidateForms.objects.filter(candidate=candidate)
 
-        if canForms.count() > 0 :
-            for item in canForms:
-                item.sent = True
+        if message_list.count() > 0 :
+            for item in message_list:
+                item.readFlag = True
                 item.save()
 
         now = datetime.datetime.now()
+
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
