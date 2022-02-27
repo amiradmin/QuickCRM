@@ -66,6 +66,7 @@ urlpatterns = [
     path('visionview/<int:id>', views.ViewVitionTest.as_view(), name='visionview_'),
     path('delvision/<int:pk>/delete/', views.DeleteVisionTest.as_view(), name='delvision_'),
     path('updatevision/<int:id>', views.updateVisionTest.as_view(), name='updatevision_'),
+    path('updatevisionbyuserid/<int:id>/<int:eventID>/', views.updateVisionTestByUserID.as_view(), name='updatevisionbyuserid_'),
 
 
     path('tesfrmexamattend/', views.NewTesFrmExaminationAttendance.as_view(), name='tesfrmexamattend_'),

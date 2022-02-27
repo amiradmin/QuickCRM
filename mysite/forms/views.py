@@ -4093,6 +4093,83 @@ class updateVisionTest(SidebarMixin, LoginRequiredMixin, TemplateView):
             return render(request, 'forms/vision_test.html', context)
 
 
+
+class updateVisionTestByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/vision_test_update.html"
+
+    def get_context_data(self, id, *args, **kwargs):
+        context = super(updateVisionTestByUserID, self).get_context_data()
+        id = self.kwargs['id']
+        candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
+        form = VisionTest.objects.filter(candidate=candidate).first()
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        context['form'] = form
+        return context
+
+    def post(self, request, id, *args, **kwargs):
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        if request.method == 'POST':
+            candidate = TesCandidate.objects.filter(user=self.kwargs['id']).first()
+            form = VisionTest.objects.filter(candidate=candidate).first()
+            if 'mainForm' in request.POST:
+                print("Git Test")
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =True
+                # if not  request.POST.get('contactMe', None) == None:
+                #     objPSL57.contactMe =False
+                visionObj = VisionTest.objects.filter(id=id).first()
+                visionObj.address = request.POST['address']
+                visionObj.phone = request.POST['phone']
+                visionObj.email = request.POST['email']
+                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                visionObj.employer = request.POST['employer']
+                visionObj.tumbling = request.POST['tumbling']
+
+                if not request.POST.get('uncorrected', None) == None:
+                    visionObj.nearVisionAcuity = 'UNCORRECTED'
+
+                if not request.POST.get('corrected', None) == None:
+                    visionObj.nearVisionAcuity = 'CORRECTED'
+
+                if not request.POST.get('isNotAble', None) == None:
+                    visionObj.nearVisionAcuity = 'IS NOT ABLE'
+
+                if not request.POST.get('colorAccept', None) == None:
+                    visionObj.colourPerception = 'ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.colourPerception = 'REJECT'
+
+                if not request.POST.get('shadeAccept', None) == None:
+                    visionObj.shadesOfGrey = 'ACCEPT'
+
+                if not request.POST.get('colorReject', None) == None:
+                    visionObj.shadesOfGrey = 'REJECT'
+
+                visionObj.recognisedOrganisation = request.POST['recognisedOrganisation']
+                visionObj.recognisedName = request.POST['recognisedName']
+                visionObj.recognisedPhone = request.POST['recognisedPhone']
+                visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
+                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+
+                visionObj.save()
+
+                return redirect('forms:evensummary_', id=event.id)
+
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = VisionTest.objects.filter(id=id).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:evensummary_', id=event.id)
+
+
+            return render(request, 'forms/vision_test.html', context)
+
+
+
+
 class NewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/general/examination_attendance.html"
 
