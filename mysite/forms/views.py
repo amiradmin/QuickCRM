@@ -3400,7 +3400,8 @@ class UpdateNDTCovid19ByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if not request.POST.get('medicalTravelCase4No', None) == None:
                     obj.medicalTravelCase4 = False
 
-                obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
+                if not request.POST.get('afterEventDate', '') == '':
+                    obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
 
                 obj.save()
 
