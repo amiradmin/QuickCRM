@@ -121,6 +121,7 @@ urlpatterns = [
     path('allndtcovid19/', views.AllNDT15Covid19View.as_view(), name='allndtcovid19_'),
     path('covidbyid/<int:id>', views.ViewNDTCovid19FormByID.as_view(), name='covidbyid_'),
     path('updatecovid19/<int:id>', views.UpdateNDTCovid19View.as_view(), name='updatecovid19_'),
+    path('updatecovid19byuserid/<int:id>/<int:eventID>', views.UpdateNDTCovid19ByUserID.as_view(), name='updatecovid19byuserid_'),
     path('msgupdatecovid19/<int:id>/<int:msgID>', views.MSGUpdateNDTCovid19View.as_view(),name='msgupdatecovid19_'),
 
 
