@@ -4109,20 +4109,19 @@ class updateVisionTestByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
     def post(self, request, id, *args, **kwargs):
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         if request.method == 'POST':
-            candidate = TesCandidate.objects.filter(user=self.kwargs['id']).first()
-            form = VisionTest.objects.filter(candidate=candidate).first()
+
             if 'mainForm' in request.POST:
-                print("Git Test")
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =True
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =False
-                visionObj = VisionTest.objects.filter(id=id).first()
-                visionObj.address = request.POST['address']
-                visionObj.phone = request.POST['phone']
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                visionObj = VisionTest.objects.filter(candidate=candidate).first()
+                visionObj.address = request.POST['candidateAdress']
+                visionObj.phone = request.POST['candidateHomePhone']
                 visionObj.email = request.POST['email']
-                visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                visionObj.employer = request.POST['employer']
+                if not request.POST.get('birthDay', '') == '':
+                    visionObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                else:
+                    visionObj.birthDay = None
+
+                visionObj.employer = request.POST['employeer']
                 visionObj.tumbling = request.POST['tumbling']
 
                 if not request.POST.get('uncorrected', None) == None:
@@ -4150,7 +4149,12 @@ class updateVisionTestByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 visionObj.recognisedName = request.POST['recognisedName']
                 visionObj.recognisedPhone = request.POST['recognisedPhone']
                 visionObj.recognisedLicenceNumber = request.POST['recognisedLicenceNumber']
-                visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+
+
+                if not request.POST.get('recognisedDate', '') == '':
+                    visionObj.recognisedDate = datetime.datetime.strptime(request.POST['recognisedDate'], '%m/%d/%Y')
+                else:
+                    visionObj.recognisedDate = None
 
                 visionObj.save()
 
@@ -4159,7 +4163,10 @@ class updateVisionTestByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
-                obj = VisionTest.objects.filter(id=id).first()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                obj = VisionTest.objects.filter(candidate=candidate).first()
+                print(request.FILES['pdfFile'])
+                print(obj)
                 obj.file = request.FILES['pdfFile']
                 obj.save()
                 return redirect('forms:evensummary_', id=event.id)
