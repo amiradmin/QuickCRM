@@ -817,7 +817,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <input style="position: absolute; top: 259px; left: 559px; z-index: 1; width: 180px; height: 33px; border:none" id="topInfo5" type="text" placeholder="M/D/Y" name="birthDay" value="{{form.birthDay|date:'d/m/Y'}}"  />
     <input style="position: absolute; top: 306px; left: 125px; z-index: 1; width: 250px; height: 33px;border:none;" id="topInfo4"  type="email" name="email" value="{{form.candidate.email}}"/>
     <input style="position: absolute; top: 307px; left: 540px; z-index: 1; width: 180px; height: 33px;border:none;" id="topInfo6" value="{% if form.employer %}{{form.employer}}{% endif %}" type="text" name="employeer" />
-    <input style="position: absolute; top: 504px; left: 671px; z-index: 1; width: 7%; height: 25px;background: transparent;border:none;"  id="middleInfo1" type="text" name="tumbling" value="{{form.tumbling}}" />
+    <input style="position: absolute; top: 504px; left: 671px; z-index: 1; width: 7%; height: 25px;background: transparent;border:none;"  id="middleInfo1" type="text" name="tumbling" value="{% if form.tumbling != 'None' %}{{form.tumbling}}{% endif %}" />
 
     <input style="position: absolute; top: 547px; left: 288px; z-index: 1;"  id="middleInfo3" onchange="case1Change(this);" type="checkbox" class="case1" name="uncorrected" {% if form.nearVisionAcuity == 'UNCORRECTED' %} checked {% endif%} />
     <input style="position: absolute; top: 547px; left: 544px; z-index: 1;" id="middleInfo2" onchange="case1Change(this);" type="checkbox" class="case1" name="corrected" {% if form.nearVisionAcuity == 'CORRECTED' %} checked {% endif%}/>
