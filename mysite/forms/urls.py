@@ -29,7 +29,7 @@ urlpatterns = [
     path('newtwienrolment/', views.TwiEnrolment.as_view(), name='jaegertofdl2_'),
     path('allenrolmentform/', views.AllEnrolmentForm.as_view(), name='allenrolmentform_'),
     path('updatetwienroment/<int:id>', views.UpdateTwiEnrolment.as_view(), name='updatetwienroment_'),
-    path('updatetwienromentbyuserid/<int:id>/<int:eventID>', views.UpdateTwiEnrolmentByUserID.as_view(), name='updatetwienromentbyuserid_'),
+    path('updatetwienromentbyuserid/<int:id>/<int:eventID>/<int:formID>', views.UpdateTwiEnrolmentByUserID.as_view(), name='updatetwienromentbyuserid_'),
 
     path('twienrolreg/<int:id>', views.TwiEnrolmentReg.as_view(), name='twienrolreg_'),
 
@@ -66,7 +66,7 @@ urlpatterns = [
     path('visionview/<int:id>', views.ViewVitionTest.as_view(), name='visionview_'),
     path('delvision/<int:pk>/delete/', views.DeleteVisionTest.as_view(), name='delvision_'),
     path('updatevision/<int:id>', views.updateVisionTest.as_view(), name='updatevision_'),
-    path('updatevisionbyuserid/<int:id>/<int:eventID>/', views.updateVisionTestByUserID.as_view(), name='updatevisionbyuserid_'),
+    path('updatevisionbyuserid/<int:id>/<int:eventID>/<int:formID>', views.updateVisionTestByUserID.as_view(), name='updatevisionbyuserid_'),
 
 
     path('tesfrmexamattend/', views.NewTesFrmExaminationAttendance.as_view(), name='tesfrmexamattend_'),
@@ -95,6 +95,7 @@ urlpatterns = [
     path('alltwitrainingfeed/', views.AllTWITrainingFeedback.as_view(), name='alltwitrainingfeed_'),
     path('deletetwitrainingfeed/<int:pk>/delete/', views.DeleteTWITrainingFeedback.as_view(), name='deletetwitrainingfeed_'),
     path('updatetwitrainingfeed/<int:id>', views.UpdateTWITrainingFeedback.as_view(), name='updatetwitrainingfeed_'),
+    path('updatetwitrainingfeedbyuserid/<int:id>/<int:eventID>/<int:formID>', views.UpdateTWITrainingFeedbackByUserID.as_view(), name='updatetwitrainingfeedbyuserid_'),
     path('viewtwitrainingfeed/<int:id>', views.ViewTWITrainingFeedback.as_view(), name='viewtwitrainingfeed_'),
 
 
@@ -122,7 +123,7 @@ urlpatterns = [
     path('allndtcovid19/', views.AllNDT15Covid19View.as_view(), name='allndtcovid19_'),
     path('covidbyid/<int:id>', views.ViewNDTCovid19FormByID.as_view(), name='covidbyid_'),
     path('updatecovid19/<int:id>', views.UpdateNDTCovid19View.as_view(), name='updatecovid19_'),
-    path('updatecovid19byuserid/<int:id>/<int:eventID>', views.UpdateNDTCovid19ByUserID.as_view(), name='updatecovid19byuserid_'),
+    path('updatecovid19byuserid/<int:id>/<int:eventID>/<int:formID>', views.UpdateNDTCovid19ByUserID.as_view(), name='updatecovid19byuserid_'),
     path('msgupdatecovid19/<int:id>/<int:msgID>', views.MSGUpdateNDTCovid19View.as_view(),name='msgupdatecovid19_'),
 
 

@@ -15,6 +15,7 @@ class CandidateForms(models.Model):
     sent = models.BooleanField(default=False,null=True, blank=True )
     submitted = models.BooleanField(default=False,null=True, blank=True )
     confirmed = models.BooleanField(default=False,null=True, blank=True )
+    file = models.FileField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

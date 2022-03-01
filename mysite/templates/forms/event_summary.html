@@ -177,8 +177,8 @@
                                                         <td>
                                                             {% for form in item.candidate_forms.all %}
 
-            <a target="_blank" href="{{ item.id }}" ><i class="fa fa-camera" aria-hidden="true"></i></a>
-            <a href="{{ showURL }}/forms/{{form.internal_link}}/{{item.id}}/{{event.id}}">{% if form.sent %}<span class="badge badge-primary-lighten">{{form.form_name}}</span>{% else %} <span class="badge badge-warning-lighten">{{form.form_name}}</span>{% endif %}</a><br>
+           {% if form.file %} <a target="_blank" href="{{ form.file.url }}" ><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
+            <a href="{{ showURL }}/forms/{{form.internal_link}}/{{item.id}}/{{event.id}}/{{form.id}}">{% if form.sent %}<span class="badge badge-primary-lighten">{{form.form_name}}</span>{% else %} <span class="badge badge-warning-lighten">{{form.form_name}}</span>{% endif %}</a><br>
 
 
                                                             {% endfor %}
