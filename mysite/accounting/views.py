@@ -44,12 +44,13 @@ class LoginView(TemplateView):
                 elif group_name == 'training_admin':
                     return redirect('training:trainpanel_')
                 elif group_name == 'Staff':
+
                     return redirect('accounting:staffprofile_',id=request.user.id)
                 elif group_name == 'candidates':
 
                     print('can')
                     candidate = TesCandidate.objects.filter(user=user).first()
-                    response = redirect('http://5.9.255.111/')  # replace redirect with HttpResponse or render
+                    response = redirect('localhost:5001')  # replace redirect with HttpResponse or render
                     response.set_cookie('tesUser', candidate.id, max_age=1000)
                     response.set_cookie('userName', candidate.first_name, max_age=1000)
 

@@ -65,7 +65,7 @@
                                     <select name="userID" id="userID" class="form-select">
 
                                         {% for item in staffs %}
-                                        <option value="{{item.id}}">{{item.first_name}}
+                                        <option value="{{item.id}}">{{item.id}}-{{item.first_name}}
                                             {{item.last_name}}
                                         </option>
                                         {% endfor %}
@@ -260,6 +260,7 @@ var highlightRange = function(e){
         + end_date.format('MM-DD-YYYY');
 
     $(input).val(friendly_string);
+    alert("Pull");
 };
 
 highlightRange({ currentTarget: document.getElementsByName('week')[0], date: new Date() });
@@ -282,7 +283,7 @@ $('input[name=week]').datepicker( {
     console.log($(this).val());
 });
 
-$('.input-group-addon', '.week-select').click(function(){ $('input[name=week]').datepicker('show'); });
+$('.input-group-addon', '.week-select').click(function(){ $('input[name=week]').datepicker('show'); alert("Pull"); });
                     </script>
 
 
