@@ -50,7 +50,7 @@ class LoginView(TemplateView):
 
                     print('can')
                     candidate = TesCandidate.objects.filter(user=user).first()
-                    response = redirect('localhost:5001')  # replace redirect with HttpResponse or render
+                    response = redirect('http://127.0.0.1:5001')  # replace redirect with HttpResponse or render
                     response.set_cookie('tesUser', candidate.id, max_age=1000)
                     response.set_cookie('userName', candidate.first_name, max_age=1000)
 
