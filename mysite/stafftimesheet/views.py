@@ -186,12 +186,14 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                 print(jsonDate)
                 print("Here Eddy")
                 for i in jsonDate:
-                    print(i['title'])
+
                     obj = Timesheet()
                     obj.staff = self.request.user
 
-                    obj.from_temp = datetime.strptime(request.POST['startDate'], '%I:%M %p')
-                    obj.to_date = datetime.strptime(request.POST['startDate'], '%I:%M %p')
+                    obj.from_temp = datetime.strptime(i['startDate'], '%I:%M')
+                    if 'endDate'  in i:
+                        print(i['endDate'])
+                        obj.to_date = datetime.strptime(i['endDate'], '%I:%M')
                     obj.description = i['title']
                     obj.save()
 
