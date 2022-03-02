@@ -49,12 +49,19 @@ class LoginView(TemplateView):
                 elif group_name == 'candidates':
 
                     print('can')
-                    candidate = TesCandidate.objects.filter(user=user).first()
-                    response = redirect('accounting:canprofile_' , id=candidate.id)
-                    response.set_cookie('tesUser', candidate.id, max_age=1000)
-                    response.set_cookie('userName', candidate.first_name, max_age=1000)
+                    redirect_to = request.META.get('HTTP_REFERER')
+                    print(redirect_to)
+                    if 'next' in redirect_to:
+                        print("exist")
+                        return redirect(redirect_to.replace('?next=/',''))
+                    else:
+                        candidate = TesCandidate.objects.filter(user=user).first()
+                        response = redirect('accounting:canprofile_' , id=candidate.id)
+                        return response
+                    # response.set_cookie('tesUser', candidate.id, max_age=1000)
+                    # response.set_cookie('userName', candidate.first_name, max_age=1000)
 
-                    return response
+
 
             else:
                 return HttpResponse("Inactive user.")
