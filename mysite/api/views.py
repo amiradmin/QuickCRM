@@ -168,7 +168,7 @@ class GetCategoryProductList(APIView):
             "msg": "Done"
         }
         category =productCategory.objects.filter(id=self.kwargs['id']).first()
-        productList = Product.objects.filter(category=category)
+        productList = Product.objects.filter(category=category).order_by('name')
         page = self.paginate_queryset(productList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)
