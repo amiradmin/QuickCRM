@@ -354,7 +354,7 @@ class LitteRegisterView(TemplateView):
             # print('Mail Sent')
             print("Redirect Here! 555fff")
             candidate = TesCandidate.objects.filter(user=user).first()
-            return redirect('accounting:canprofile' , i=candidate.id)
+            return redirect('accounting:canprofile_' , i=candidate.id)
         return redirect('training:resquestsuccess_')
 
 
