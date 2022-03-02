@@ -7,7 +7,15 @@ class SidebarMixin(object):
         context = super().get_context_data(**kwargs)
         adminStatus =False
         for g in self.request.user.groups.all():
-            if  g.name == 'super_admin' or g.name=='training_admin':
+            if  g.name == 'management' :
                 adminStatus=True
+            else:
+                adminStatus = False
+            if g.name=='training_admin':
+                managerStatus = True
+            else:
+                managerStatus = False
+
         context['adminStatus'] = adminStatus
+        context['managerStatus'] = managerStatus
         return context

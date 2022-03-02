@@ -38,9 +38,9 @@ class LoginView(TemplateView):
                 login(request, user)
                 group_name = request.user.groups.values_list('name', flat=True).first()
                 print(group_name)
-                if group_name == 'super_admin' :
+                if group_name == 'management' :
                     
-                    return redirect('adminpanel:adpanel_')
+                    return redirect('training:trainpanel_')
                 elif group_name == 'training_admin':
                     return redirect('training:trainpanel_')
                 elif group_name == 'Staff':
