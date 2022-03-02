@@ -352,7 +352,7 @@ class LitteRegisterView(TemplateView):
             msg = 'Your account has been created successfully'
             # sendMail(request.POST['email'],fullName,msg)
             # print('Mail Sent')
-            print("Redirect Here! 555")
+            print("Redirect Here! 555fff")
             return redirect('http://5.9.255.111/')
         return redirect('training:resquestsuccess_')
 
