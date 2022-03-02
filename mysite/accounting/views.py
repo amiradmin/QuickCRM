@@ -130,6 +130,7 @@ class LecturerProfileView(TemplateView):
             lecturer.aboutMe = aboutMe
             lecturer.save()  
             return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
+        
         return render(request, "index.html")
 
 

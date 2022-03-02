@@ -6342,14 +6342,11 @@ var FullCalendar = function(e) {
 
 
 <!--        Amir-->
-                    var dict = {
-                    title:e.event.title,
+<!--                    var dict = {-->
+<!--                    title:e.event-->
 
-                 "startDate": e.timeText.split(" - ")[0],
-                "endDate": e.timeText.split(" - ")[1],
-
-               };
-        dateList.push(dict);
+<!--               };-->
+<!--        dateList.push(dict);-->
 
 
 
@@ -6989,6 +6986,7 @@ var FullCalendar = function(e) {
             }, this.handleDragEnd = function(e) {
                 n.movingHit && n.emitter.trigger("hitupdate", null, !0, e), n.finalHit = n.movingHit, n.movingHit = null, n.emitter.trigger("dragend", e)
             }, this.droppableStore = t, e.emitter.on("pointerdown", this.handlePointerDown), e.emitter.on("dragstart", this.handleDragStart), e.emitter.on("dragmove", this.handleDragMove), e.emitter.on("pointerup", this.handlePointerUp), e.emitter.on("dragend", this.handleDragEnd), this.dragging = e, this.emitter = new kr
+
         }
         return e.prototype.processFirstCoord = function(e) {
             var t, n = {
@@ -7071,6 +7069,7 @@ var FullCalendar = function(e) {
                         r = e.origEvent.target;
                     t.setIgnoreMove(!n.component.isValidDateDownEl(r))
                 }, n.handleDragEnd = function(e) {
+
                     var t = n.component;
                     if (!n.dragging.pointer.wasTouchScroll) {
                         var o = n.hitDragging,
@@ -7088,6 +7087,7 @@ var FullCalendar = function(e) {
                     }
                 }, n.dragging = new wa(t.el), n.dragging.autoScroller.isEnabled = !1;
                 var o = n.hitDragging = new Ta(n.dragging, li(t));
+
                 return o.emitter.on("pointerdown", n.handlePointerDown), o.emitter.on("dragend", n.handleDragEnd), n
             }
             return n(t, e), t.prototype.destroy = function() {
@@ -7179,6 +7179,7 @@ var FullCalendar = function(e) {
                 }) : t.dispatch({
                     type: "UNSELECT_EVENT"
                 }), o.isDragging && (t.calendarApi.unselect(e), t.emitter.trigger("eventDragStart", {
+
                     el: o.subjectEl,
                     event: new zn(t, n.def, n.instance),
                     jsEvent: e.origEvent,
@@ -7219,6 +7220,7 @@ var FullCalendar = function(e) {
                                 }, c = 0, d = n; c < d.length; c++) {
                                 (0, d[c])(u, e, t)
                             }
+
                             return u
                         }(r, e, a.getCurrentData().pluginHooks.eventDragMutationMassagers)) && (l = Pn(n, a.getCurrentData().eventUiBases, s, a), c.mutatedEvents = l, d.isInteractionValid(c) || (u = !0, s = null, l = null, c.mutatedEvents = {
                             defs: {},
@@ -7230,6 +7232,7 @@ var FullCalendar = function(e) {
             }, o.handlePointerUp = function() {
                 o.isDragging || o.cleanup()
             }, o.handleDragEnd = function(e) {
+
                 if (o.isDragging) {
                     var t = o.component.context,
                         n = t.viewApi,
@@ -7416,6 +7419,7 @@ var FullCalendar = function(e) {
                     type: "UNSET_EVENT_RESIZE"
                 }), d ? Q() : ee(), t || (u && ka(s, e) && (u = null), n.validMutation = u, n.mutatedRelevantEvents = c)
             }, n.handleDragEnd = function(e) {
+
                 var t = n.component.context,
                     o = n.eventRange.def,
                     i = n.eventRange.instance,
@@ -7451,6 +7455,14 @@ var FullCalendar = function(e) {
                         jsEvent: e.origEvent,
                         view: t.viewApi
                     })), t.emitter.trigger("eventChange", c)
+<!--                    hereAmir-->
+                    alert(c.oldEvent.title);
+              var dict = {
+                    title:c.oldEvent.title
+               };
+        dateList.push(dict);
+
+
                 } else t.emitter.trigger("_noEventResize");
                 n.draggingSeg = null, n.relevantEvents = null, n.validMutation = null
             };
@@ -7587,13 +7599,16 @@ var FullCalendar = function(e) {
                                 view: s
                             })
                         }
+
                     }
                     n.receivingContext = null, n.droppableEvent = null
                 };
                 var o = this.hitDragging = new Ta(e, ui);
-                o.requireInitial = !1, o.emitter.on("dragstart", this.handleDragStart), o.emitter.on("hitupdate", this.handleHitUpdate), o.emitter.on("dragend", this.handleDragEnd), this.suppliedDragMeta = t
+                o.requireInitial = !1, o.emitter.on("dragstart", this.handleDragStart), o.emitter.on("hitupdate", this.handleHitUpdate), o.emitter.on("dragend", this.handleDragEnd), this.suppliedDragMeta = t;
+
             }
             return e.prototype.buildDragMeta = function(e) {
+
                 return "object" == typeof this.suppliedDragMeta ? fi(this.suppliedDragMeta) : "function" == typeof this.suppliedDragMeta ? fi(this.suppliedDragMeta(e)) : fi((t = function(e, t) {
                     var n = di.dataAttrPrefix,
                         r = (n ? n + "-" : "") + t;
@@ -10564,15 +10579,15 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
         }), a.$formEvent.on("submit", function(e) {
             e.preventDefault();
             var t, n = a.$formEvent[0];
-            var dict = {
-                title: l("#event-title").val(),
-                "startDate": a.$newEventData.date,
-                "endDate": '0:00',
+<!--            var dict = {-->
+<!--                title: l("#event-title").val(),-->
+<!--                "startDate": a.$newEventData.date,-->
+<!--                "endDate": '0:00',-->
 
-               };
+<!--               };-->
 
 
-            dateList.push(dict);
+<!--            dateList.push(dict);-->
 
 
             n.checkValidity() ? (a.$selectedEvent ? (a.$selectedEvent.setProp("title", l("#event-title").val()), a.$selectedEvent.setProp("classNames", [l("#event-category").val()])) : (t = {

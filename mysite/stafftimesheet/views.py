@@ -189,13 +189,33 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
 
                     obj = Timesheet()
                     obj.staff = self.request.user
+                    print(i['title'])
 
-                    obj.from_temp = datetime.strptime(i['startDate'], '%I:%M')
-                    if 'endDate'  in i:
-                        print(i['endDate'])
-                        obj.to_date = datetime.strptime(i['endDate'], '%I:%M')
-                    obj.description = i['title']
-                    obj.save()
+                    # if len(i['startDate']) >5:
+                    #     temp_start_year = i['startDate'].split('-')[0]
+                    #     temp_start_month = i['startDate'].split('-')[1]
+                    #     temp_start_day = i['startDate'].split('-')[2].split('T')[0]
+                    #     temp_start_hour  = i['startDate'].split('-')[2].split('T')[1]
+                    #     print(temp_start_year)
+                    #     print(temp_start_month)
+                    #     print(temp_start_day)
+                    #     print(temp_start_hour)
+                    #     start_combine_date = temp_start_month + '-' + temp_start_day + '-' + temp_start_year + 'T' + temp_start_hour
+                    #     print(start_combine_date)
+                    #     temp_time = datetime.strptime(start_combine_date, '%m-%d-%YT%H:%M:%S.000Z')
+                    #     print("Exist")
+                    #     print(temp_time)
+                    #
+                    #
+                    #     date_time_obj = temp_time
+                    #
+                    #     obj.from_temp = date_time_obj
+                    #     print("====================")
+                    #     # if 'endDate'  in i:
+                    #     #     print(i['endDate'])
+                    #     #     obj.to_date = datetime.strptime('03-01-2022T13:30:00.000Z', '%m-%d-%YT%H:%M:%S.000Z')
+                    #     obj.description = i['title']
+                    #     obj.save()
 
 
                 # for item in dateListObj:
