@@ -130,7 +130,7 @@ class LecturerProfileView(TemplateView):
             lecturer.aboutMe = aboutMe
             lecturer.save()  
             return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
-        
+
         return render(request, "index.html")
 
 
@@ -352,7 +352,7 @@ class LitteRegisterView(TemplateView):
             msg = 'Your account has been created successfully'
             # sendMail(request.POST['email'],fullName,msg)
             # print('Mail Sent')
-            print("Redirect Here!")
+            print("Redirect Here! 555")
             return redirect('http://5.9.255.111/')
         return redirect('training:resquestsuccess_')
 
