@@ -320,7 +320,7 @@ class LitteRegisterView(TemplateView):
 
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
-            # print(request.POST['tes_id'])
+            print("Redirect Here! 555fff")
             firstName = request.POST['first_name']
             lastName = request.POST['last_name']
             middleName = request.POST['middleName']
@@ -359,9 +359,17 @@ class LitteRegisterView(TemplateView):
             msg = 'Your account has been created successfully'
             # sendMail(request.POST['email'],fullName,msg)
             # print('Mail Sent')
-            print("Redirect Here! 555fff")
-            candidate = TesCandidate.objects.filter(user=user).first()
-            return redirect('accounting:canprofile_' , id=candidate.id)
+
+            redirect_to = request.META.get('HTTP_REFERER')
+            print(redirect_to)
+            if 'next' in redirect_to:
+                print("exist")
+                login(request, user)
+                return redirect(redirect_to.replace('literegister/?next=/', ''))
+            else:
+                candidate = TesCandidate.objects.filter(user=user).first()
+                response = redirect('accounting:canprofile_', id=candidate.id)
+                return response
         return redirect('training:resquestsuccess_')
 
 
