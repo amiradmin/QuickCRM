@@ -196,7 +196,8 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
             profileData.email = request.POST['email']
             profileData.address = request.POST['address']
             profileData.contact_number = request.POST['contact_number']
-            profileData.password = request.POST['password']
+            if not request.POST.get('password', '') == None:
+                profileData.password = request.POST['password']
             profileData.currentCompany = request.POST['currentCompany']
             profileData.website = request.POST['website']
             profileData.facebook = request.POST['facebook']
