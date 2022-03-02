@@ -50,7 +50,7 @@ class LoginView(TemplateView):
 
                     print('can')
                     candidate = TesCandidate.objects.filter(user=user).first()
-                    response = redirect('accounting:canprofile' , i=candidate.id)
+                    response = redirect('accounting:canprofile_' , id=candidate.id)
                     response.set_cookie('tesUser', candidate.id, max_age=1000)
                     response.set_cookie('userName', candidate.first_name, max_age=1000)
 
