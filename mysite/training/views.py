@@ -18,7 +18,7 @@ from mailer.views import sendMail
 # Create your views here.
 
 
-class RequestRegister( TemplateView):
+class RequestRegister(LoginRequiredMixin, TemplateView):
     template_name = "training/register_request.html"
 
     def get_context_data(self,*args,**kwargs):
