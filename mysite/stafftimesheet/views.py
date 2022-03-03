@@ -41,6 +41,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
         if request.method == 'POST':
             if 'userSelection' in request.POST:
+                print("Admin List")
                 userID =request.POST['userID']
                 week =request.POST['week']
                 # print(week)
@@ -80,10 +81,10 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 )
 
                 staffs = User.objects.all()
-
+                candidate = TesCandidate.objects.filter(user = self.request.user).first()
 
                 return render(request, 'timesheet/timesheet_list.html',
-                          {'timesheets': timesheets, 'staffs':staffs } )
+                          {'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate } )
 
             else:
                 print("OK OK")
