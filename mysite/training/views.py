@@ -1070,7 +1070,7 @@ class UpdateFormCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
 class FormGuidelineView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "training/guideline_list.html"
     group_required = u"management,admin,training_admin"
-    
+
     def get_context_data(self):
         context = super(FormGuidelineView, self).get_context_data()
         form_list = Guideline.objects.all()

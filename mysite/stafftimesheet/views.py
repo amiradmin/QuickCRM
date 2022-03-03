@@ -178,7 +178,9 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(TimesheetCalendarView, self).get_context_data()
         timesheets = Timesheet.objects.filter(staff=self.request.user)
+        candidate = TesCandidate.objects.filter(user = self.request.user).first()
         context['timesheets'] = timesheets
+        context['candidate'] = candidate
         return context
 
     def post(self, request, *args, **kwargs):
