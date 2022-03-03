@@ -15,6 +15,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from contacts.models import Contact
 from mailer.views import sendMail
+from braces.views import GroupRequiredMixin
 # Create your views here.
 
 
@@ -73,6 +74,8 @@ class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(RequestView, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         if contact.count() > 0:
             context['newMessage'] = True
         else:
@@ -147,9 +150,9 @@ class RequestSuccessView(SidebarMixin,TemplateView):
         context = super(RequestSuccessView, self).get_context_data()
         return context
 
-class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
+class NewCandidatelView(SidebarMixin,LoginRequiredMixin,GroupRequiredMixin,TemplateView):
     template_name = "training/new_candidate.html"
-
+    group_required = u"admin,training_user,management"
 
     def get_context_data(self):
         context = super(NewCandidatelView, self).get_context_data()

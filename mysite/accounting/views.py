@@ -176,8 +176,10 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         events = Event.objects.filter(candidate = candidate)
         contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
         contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
-        print(contactRead)
+
         now = datetime.datetime.now()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now

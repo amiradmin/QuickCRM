@@ -1,4 +1,4 @@
-{% extends "candidate_base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block content %}
 {% load tz %}
@@ -154,10 +154,9 @@
         </li>
 
         <li class="dropdown notification-list d-none d-sm-inline-block">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
-               aria-haspopup="false" aria-expanded="false">
-                <i class="dripicons-view-apps noti-icon"></i>
-            </a>
+
+
+
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
 
                 <div class="p-2">
@@ -209,12 +208,10 @@
         </li>
 
         <li class="notification-list">
-            <a class="nav-link end-bar-toggle" href="javascript: void(0);">
-                <i class="dripicons-gear noti-icon"></i>
-            </a>
+
         </li>
 
-        <li class="dropdown notification-list">
+        <li class="dropdown notification-list" style="margin-right:-50px;">
             <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="#"
                role="button" aria-haspopup="false"
                aria-expanded="false">
@@ -275,16 +272,6 @@
         <i class="mdi mdi-menu"></i>
     </button>
     <div class="app-search dropdown d-none d-lg-block">
-        <form method="POST">
-            {% csrf_token %}
-            <div class="input-group">
-                <input type="text" class="form-control dropdown-toggle" name="keyword" placeholder="Search..."
-                       id="top-search">
-                <span class="mdi mdi-magnify search-icon"></span>
-                <button class="input-group-text btn-primary" name="searchBtn" type="submit">Search</button>
-            </div>
-
-        </form>
 
         <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
             <!-- item-->

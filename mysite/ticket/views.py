@@ -81,6 +81,8 @@ class NewTicketView(LoginRequiredMixin,TemplateView):
             context['newMessage'] = True
         else:
             context['newMessage'] = False
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
@@ -149,6 +151,8 @@ class CandidateAllTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
         candidate=TesCandidate.objects.filter(id=self.kwargs['id']).first()
         tickets = Ticket.objects.filter(candidate=candidate).order_by('-id')
         contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         if contact.count() > 0:
             context['newMessage'] = True
         else:

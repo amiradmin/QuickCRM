@@ -23,6 +23,7 @@ class NewContactView(LoginRequiredMixin,TemplateView):
             obj.candidate = candidate
             obj.type = 'Candidate'
             obj.messageType = 'Message'
+
             obj.department = request.POST['department']
             obj.message = request.POST['message']
             obj.save()
@@ -74,7 +75,8 @@ class MessageListView(LoginRequiredMixin,TemplateView):
                 item.save()
 
         now = datetime.datetime.now()
-
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
@@ -113,6 +115,8 @@ class CandidateOutboxView(SidebarMixin,LoginRequiredMixin,TemplateView):
         message_list = Contact.objects.filter(candidate=candidate ).filter(type="Candidate").order_by('-id')
 
         # candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['message_list'] = message_list
         context['candidate'] = candidate
         return context
