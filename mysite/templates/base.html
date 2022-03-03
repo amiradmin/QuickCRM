@@ -51,7 +51,7 @@ button, input {
 
                 <!-- LOGO -->
 
-                <a style="margin:10px 0;" href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}" class="logo text-center logo-light">
+                <a style="margin:10px 0;" href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}" class="logo text-center logo-light">
                     <span class="logo-lg">
                         <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="60">
                     </span>
@@ -1007,6 +1007,33 @@ button, input {
                                 </ul>
                             </div>
                         </li>
+                    {% elif  group_name == 'Staff' %}
+                    <ul class="side-nav">
+
+                        <li class="side-nav-title side-nav-item">Navigation </li>
+
+
+
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarDashboards" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
+                                <i class="uil-home-alt"></i>
+
+                                <span> Timesheets </span>
+                            </a>
+                            <div class="collapse" id="sidebarDashboards">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'stafftimesheet:timesheetcal_'%}">Calendar View</a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </li>
+
+
+                        </li>
+
                     {% else %}
 
                     <ul class="side-nav">
@@ -1337,7 +1364,7 @@ button, input {
                         </button>
 
                         <div class="app-search dropdown d-none d-lg-block">
-                            {% if group_name  != 'candidates' %}
+                            {% if group_name  != 'candidates' or group_name  != 'Staff' %}
                             <form method="POST">
                                 {% csrf_token %}
                                 <div class="input-group">

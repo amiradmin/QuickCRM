@@ -1,4 +1,4 @@
-{% extends "staff_base.html" %}
+{% extends "base.html" %}
 {% load static %}
 {% block content %}
 {% load tz %}
@@ -33,17 +33,7 @@
 <!-- Topbar Start -->
 <div class="navbar-custom">
     <ul class="list-unstyled topbar-menu float-end mb-0">
-        <li class="dropdown notification-list d-lg-none">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
-               aria-haspopup="false" aria-expanded="false">
-                <i class="dripicons-search noti-icon"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
-                <form class="p-3">
-                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
-                </form>
-            </div>
-        </li>
+
         <link href="assets/css/app-creative.min.css" rel="stylesheet" type="text/css" id="light-style"/>
         <link href="assets/css/app-creative-dark.min.css" rel="stylesheet" type="text/css" id="dark-style"/>
         <li class="dropdown notification-list topbar-dropdown">
@@ -85,14 +75,7 @@
         </li>
 
         <li class="dropdown notification-list">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
-               aria-haspopup="false" aria-expanded="false">
 
-                <i class="dripicons-bell noti-icon"></i>
-                {% if contactRead %}
-                <span class="noti-icon-badge"></span>
-                {% endif %}
-            </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg">
 
                 <!-- item-->
@@ -154,10 +137,7 @@
         </li>
 
         <li class="dropdown notification-list d-none d-sm-inline-block">
-            <a class="nav-link dropdown-toggle arrow-none" data-bs-toggle="dropdown" href="#" role="button"
-               aria-haspopup="false" aria-expanded="false">
-                <i class="dripicons-view-apps noti-icon"></i>
-            </a>
+
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animated dropdown-lg p-0">
 
                 <div class="p-2">
@@ -209,9 +189,7 @@
         </li>
 
         <li class="notification-list">
-            <a class="nav-link end-bar-toggle" href="javascript: void(0);">
-                <i class="dripicons-gear noti-icon"></i>
-            </a>
+
         </li>
 
         <li class="dropdown notification-list">
@@ -275,16 +253,7 @@
         <i class="mdi mdi-menu"></i>
     </button>
     <div class="app-search dropdown d-none d-lg-block">
-        <form method="POST">
-            {% csrf_token %}
-            <div class="input-group">
-                <input type="text" class="form-control dropdown-toggle" name="keyword" placeholder="Search..."
-                       id="top-search">
-                <span class="mdi mdi-magnify search-icon"></span>
-                <button class="input-group-text btn-primary" name="searchBtn" type="submit">Search</button>
-            </div>
 
-        </form>
 
         <div class="dropdown-menu dropdown-menu-animated dropdown-lg" id="search-dropdown">
             <!-- item-->

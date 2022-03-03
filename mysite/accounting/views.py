@@ -44,7 +44,7 @@ class LoginView(TemplateView):
                 elif group_name == 'training_admin':
                     return redirect('training:trainpanel_')
                 elif group_name == 'Staff':
-
+                    candidate = TesCandidate.objects.filter(user=user).first()
                     return redirect('accounting:staffprofile_',id=request.user.id)
                 elif group_name == 'candidates':
 
@@ -147,18 +147,20 @@ class StaffProfileView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(StaffProfileView, self).get_context_data()
         id = self.kwargs['id']
+        print(id)
         user = User.objects.filter(id=id).first()
-        staff_profile = StaffProfile.objects.filter(user=user).first()
-        print(user.first_name)
-        # candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        # staff_profile = StaffProfile.objects.filter(user=user).first()
+        # print(user.first_name)
+        candidate = TesCandidate.objects.filter(user=user).first()
         # events = Event.objects.filter(candidate=candidate)
-        # contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
-        # contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         print('Staff Profile')
+        print(group_name)
         now = datetime.datetime.now()
         context['user'] = user
-        context['staff_profile'] = staff_profile
-        # context['events'] = events
+        # context['staff_profile'] = staff_profile
+        context['candidate'] = candidate
         # context['now'] = now
         # context['contact'] = contact
         # context['contactRead'] = contactRead
