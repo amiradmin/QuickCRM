@@ -7,12 +7,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from training.models import TesCandidate
 from datetime import datetime,date, timedelta
 from django.urls import reverse_lazy
+from braces.views import GroupRequiredMixin
 import json
 # Create your views here.
 
 class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
     template_name = "timesheet/timesheet_list.html"
+    group_required = u"management"
     timesheet = None
     def get_context_data(self, *args, **kwargs):
 
@@ -118,7 +120,7 @@ class DeleteTimesheet(SidebarMixin, LoginRequiredMixin, DeleteView):
 class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
     template_name = "timesheet/admin_apps-calendar.html"
-
+    group_required = u"management"
     def get_context_data(self, *args, **kwargs):
         context = super(AdminTimesheetList, self).get_context_data()
         timesheets = Timesheet.objects.all()

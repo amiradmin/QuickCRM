@@ -2723,7 +2723,8 @@ class EachFormMemebr(TemplateView):
 
 class EventSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/event_summary.html"
-
+    group_required = u"management,admin,training_admin"
+    
     def get_context_data(self, *args, **kwargs):
         context = super(EventSummary, self).get_context_data()
         eventID = self.kwargs['id']

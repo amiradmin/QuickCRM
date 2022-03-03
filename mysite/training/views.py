@@ -16,6 +16,7 @@ from django.db.models import Q
 from contacts.models import Contact
 from mailer.views import sendMail
 from braces.views import GroupRequiredMixin
+from braces.views import GroupRequiredMixin
 # Create your views here.
 
 
@@ -43,6 +44,7 @@ class RequestRegister(LoginRequiredMixin, TemplateView):
 
 class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/candidate_table.html"
+    group_required = u"management,admin,training_admin"
 
     def get_context_data(self):
         context = super(CandidatelListView, self).get_context_data()
@@ -302,6 +304,7 @@ class DeleteCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     
 class ProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/product_list.html"
+    group_required = u"management,admin,training_admin"
 
     def get_context_data(self):
         context = super(ProductView, self).get_context_data()
@@ -365,6 +368,7 @@ class DeleteProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
     
 class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/event_list.html"
+    group_required = u"management,admin,training_admin"
 
     def get_context_data(self):
         context = super(EventView, self).get_context_data()
@@ -525,6 +529,7 @@ class DeleteEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             
 class LecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/lecturer_list.html"
+    group_required = u"management,admin,training_admin"
 
     def get_context_data(self):
         context = super(LecturerView, self).get_context_data()
@@ -810,6 +815,7 @@ class UpdateLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 class CountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/country_list.html"
+    group_required = u"management,admin,training_admin"
 
     def get_context_data(self):
         context = super(CountryView, self).get_context_data()
@@ -861,6 +867,7 @@ class UpdateCountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 class LocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/location_list.html"
+    group_required = u"management,admin,training_admin"
 
     def get_context_data(self):
         context = super(LocationView, self).get_context_data()
@@ -1012,6 +1019,7 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 class FormCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "training/category_list.html"
+    group_required = u"management,admin,training_admin"
 
     def get_context_data(self):
         context = super(FormCategoryView, self).get_context_data()
@@ -1061,7 +1069,8 @@ class UpdateFormCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 class FormGuidelineView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "training/guideline_list.html"
-
+    group_required = u"management,admin,training_admin"
+    
     def get_context_data(self):
         context = super(FormGuidelineView, self).get_context_data()
         form_list = Guideline.objects.all()
