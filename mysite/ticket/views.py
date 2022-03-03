@@ -137,9 +137,9 @@ class TicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(TicketListView, self).get_context_data()
         tickets = Ticket.objects.filter(archived=False).order_by('-id')
-        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        # candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         context['tickets'] = tickets
-        context['candidate'] = tickets
+        # context['candidate'] = tickets
 
         return context
 
