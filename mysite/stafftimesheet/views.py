@@ -284,6 +284,34 @@ class NewTimesheetForm(LoginRequiredMixin,SidebarMixin,TemplateView):
 
 
 
+class TimesheetExcelView(LoginRequiredMixin,SidebarMixin,TemplateView):
+    template_name = "timesheet/timesheet_excel_view.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TimesheetExcelView, self).get_context_data()
+        user = User.objects.filter(id=self.request.user.id).first()
+        context['user'] = user
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+
+
+
+                obj = Timesheet()
+                obj.staff =User.objects.filter(id=request.POST['userID']).first()
+                obj.from_date = datetime.strptime(request.POST['from_date'], '%I:%M %p')
+                obj.to_date = datetime.strptime(request.POST['to_date'], '%I:%M %p')
+                obj.description = request.POST['description']
+
+                obj.save()
+
+                return redirect('stafftimesheet:stafftimesheetlist_', id=self.request.user.id)
+
+
+        return render(request, 'forms/general/bgas.html')
+
+
 
 class UpdateTimesheetForm(LoginRequiredMixin,SidebarMixin,TemplateView):
     template_name = "timesheet/update_timesheet.html"
