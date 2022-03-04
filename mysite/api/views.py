@@ -108,14 +108,14 @@ class GetEventByID(APIView):
 
 class GetExamList(APIView):
     pagination_class = CustomPagination
-    serializer_class = ExamSerializer
+    serializer_class = EventSerializer
 
     def get(self, request, format=None):
         result = {
             "status": False,
             "msg": "Done"
         }
-        examList = Exam.objects.all()
+        examList = Event.objects.filter(name= 'General Exams')
         page = self.paginate_queryset(examList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)
