@@ -156,14 +156,12 @@ class StaffProfileView(LoginRequiredMixin, TemplateView):
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
         print('Staff Profile')
-        print(group_name)
+        print(candidate.first_name)
+        print('Staff Profile')
+
         now = datetime.datetime.now()
         context['user'] = user
-        # context['staff_profile'] = staff_profile
         context['candidate'] = candidate
-        # context['now'] = now
-        # context['contact'] = contact
-        # context['contactRead'] = contactRead
         return context
 
     

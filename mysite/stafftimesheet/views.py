@@ -180,6 +180,7 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
         timesheets = Timesheet.objects.filter(staff=self.request.user)
         candidate = TesCandidate.objects.filter(user = self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        print(candidate)
         context['group_name'] = group_name
         context['timesheets'] = timesheets
         context['candidate'] = candidate
