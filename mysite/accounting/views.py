@@ -164,6 +164,39 @@ class StaffProfileView(LoginRequiredMixin, TemplateView):
         context['candidate'] = candidate
         return context
 
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+            print("Here")
+            aboutMe = request.POST['aboutMe']
+            print(aboutMe)
+            user = User.objects.filter(id = self.kwargs['id']).first()
+            profileData = TesCandidate.objects.filter(user = user).first()
+            profileData.first_name = request.POST['first_name']
+            profileData.middleName = request.POST['middleName']
+            profileData.last_name = request.POST['last_name']
+            profileData.emergencyContact = request.POST['emergencyContact']
+            profileData.email = request.POST['email']
+            profileData.address = request.POST['address']
+            profileData.contact_number = request.POST['contact_number']
+            if not request.POST.get('password', '') == None:
+                profileData.password = request.POST['password']
+
+            profileData.facebook = request.POST['facebook']
+            profileData.twitter = request.POST['twitter']
+            profileData.skype = request.POST['skype']
+            profileData.linkedin = request.POST['linkedin']
+            profileData.instagram = request.POST['instagram']
+            profileData.aboutMe = aboutMe
+            if request.FILES.get('photo', False):
+                profileData.photo = request.FILES['photo']
+            if request.FILES.get('doc_1', False):
+                profileData.document_1 = request.FILES['doc_1']
+            if request.FILES.get('doc_2', False):
+                profileData.document_2 = request.FILES['doc_2']
+            profileData.save()
+            return render(request, "accounts/staff_profile.html", context={'candidate': profileData})
+        return render(request, "index.html")
     
 class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
