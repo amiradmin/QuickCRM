@@ -29,6 +29,8 @@ class RequestRegister(LoginRequiredMixin, TemplateView):
         product_id = self.kwargs['id']
         eventID = self.kwargs['eventID']
         print(eventID)
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] = candidate
         product = Product.objects.filter(id=product_id).first()
         event = Event.objects.filter(id=eventID).first()
 
