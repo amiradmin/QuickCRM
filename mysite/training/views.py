@@ -53,6 +53,8 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
         # can_list = TesCandidate.objects.filter(user__groups__name__in=['candidates',] )
         print("Here AMir!")
         can_list = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['can_list'] = can_list
 
         return context
@@ -154,11 +156,13 @@ class RequestSuccessView(SidebarMixin,TemplateView):
 
     def get_context_data(self):
         context = super(RequestSuccessView, self).get_context_data()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         return context
 
 class NewCandidatelView(SidebarMixin,LoginRequiredMixin,GroupRequiredMixin,TemplateView):
     template_name = "training/new_candidate.html"
-    group_required = u"admin,training_user,management"
+    group_required = u"admin,training_user,management,training_operator"
 
     def get_context_data(self):
         context = super(NewCandidatelView, self).get_context_data()
@@ -167,6 +171,8 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,GroupRequiredMixin,Templ
         tempID = 'TESN-'+str(tempID)
         print(tempID)
         context['tesId'] = tempID
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         return context
 
     
@@ -240,7 +246,8 @@ class UpdateCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(UpdateCandidatelView, self).get_context_data()
         can = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         context['can'] = can
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         return context
 
     def post(self, request, *args, **kwargs):
@@ -314,6 +321,8 @@ class ProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(ProductView, self).get_context_data()
         product_list = Product.objects.all()
         context['product_list'] = product_list
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
 
         return context
 
@@ -337,6 +346,8 @@ class UpdateProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateProductView, self).get_context_data()
         product = Product.objects.filter(id = self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['product'] = product
         return context
 
@@ -382,7 +393,8 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
         country_list = Country.objects.all()
         location_list = Location.objects.all().order_by('name')
         categoryList = Category.objects.all()
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
 
 
         context['event_list'] = event_list
@@ -470,7 +482,8 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
         selForms = selForms + '"10000000000":" "}'
 
         myDict = json.loads(selForms)
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['selectedList'] = values
         context['formList'] = formList
 
@@ -516,6 +529,8 @@ class DeleteEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(DeleteEventView, self).get_context_data()
         can = Event.objects.filter(id = self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['can'] = can
 
         return context
@@ -538,6 +553,8 @@ class LecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(LecturerView, self).get_context_data()
         lecturer_list = Lecturer.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['lecturer_list'] = lecturer_list
 
         return context
@@ -555,7 +572,8 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
 
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['event'] = event
         context['can_list'] = can_list
         context['category_list'] = category_list
@@ -634,7 +652,9 @@ class NewEventLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 if str(item.name) in value:
                     # print('Here: '+index)
                     values.append(int(index))
-                    
+
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['eventList'] = events
         context['lecturer'] = lecturer
         context['selectedList'] = values
@@ -674,6 +694,8 @@ class NewLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(NewLecturerView, self).get_context_data()
         lecturer_list = Lecturer.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['lecturer_list'] = lecturer_list
 
         return context
@@ -760,6 +782,8 @@ class UpdateLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateLecturerView, self).get_context_data()
         lecturer = Lecturer.objects.filter(id = self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['lecturer'] = lecturer
 
         return context
@@ -824,6 +848,8 @@ class CountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(CountryView, self).get_context_data()
         country_list = Country.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['country_list'] = country_list
 
         return context
@@ -857,6 +883,8 @@ class UpdateCountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateCountryView, self).get_context_data()
         country = Country.objects.filter(id = self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['country'] = country
         return context
 
@@ -877,6 +905,8 @@ class LocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(LocationView, self).get_context_data()
         location_list = Location.objects.all()
         country_list = Country.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['country_list'] = country_list
         context['location_list'] = location_list
 
@@ -905,6 +935,8 @@ class UpdateLocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateLocationView, self).get_context_data()
         location = Location.objects.filter(id = self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['location'] = location
         print(location.name)
         return context
@@ -955,6 +987,8 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         productPerMonth = Product.objects.filter(created_at__month=today.month).count()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['group_name'] = group_name
         context['event_list'] = event_list
         context['candidate'] = candidate
@@ -1030,6 +1064,8 @@ class FormCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(FormCategoryView, self).get_context_data()
         category_list = Category.objects.all()
         form_list = Guideline.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['category_list'] = category_list
         context['form_list'] = form_list
 
@@ -1058,6 +1094,8 @@ class UpdateFormCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(UpdateFormCategoryView, self).get_context_data()
         category = Category.objects.filter(id=self.kwargs['catID']).first()
         form_list = Guideline.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['category'] = category
         context['form_list'] = form_list
 
@@ -1079,6 +1117,8 @@ class FormGuidelineView(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self):
         context = super(FormGuidelineView, self).get_context_data()
         form_list = Guideline.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['form_list'] = form_list
 
         return context
@@ -1101,6 +1141,8 @@ class UpdateFormGuidelineView(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self ,id,*args, **kwargs):
         context = super(UpdateFormGuidelineView, self).get_context_data()
         guideline = Guideline.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['guideline'] = guideline
         return context
 
@@ -1146,7 +1188,8 @@ class AddFormToCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
         myDict = json.loads(selForms)
 
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['selectedList'] = values
         context['formList'] = formList
         context['category'] = category.name

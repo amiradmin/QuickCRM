@@ -41,6 +41,8 @@ class AdminNewContactView(LoginRequiredMixin,TemplateView):
         context = super(AdminNewContactView, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name')
         context['candidates'] = candidates
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
 
         return context
 
@@ -92,6 +94,8 @@ class AdminMessageListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(AdminMessageListView, self).get_context_data()
         message_list = Contact.objects.filter(type="Candidate").order_by('-id')
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['message_list'] = message_list
         return context
 
@@ -101,6 +105,8 @@ class AdminOutboxView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(AdminOutboxView, self).get_context_data()
         message_list = Contact.objects.filter(type="Admin").order_by('-id')
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['message_list'] = message_list
         return context
 
@@ -115,6 +121,8 @@ class CandidateOutboxView(SidebarMixin,LoginRequiredMixin,TemplateView):
         message_list = Contact.objects.filter(candidate=candidate ).filter(type="Candidate").order_by('-id')
 
         # candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
         context['message_list'] = message_list
@@ -129,6 +137,8 @@ class MessageDetailView(LoginRequiredMixin,TemplateView):
         message = Contact.objects.filter(id=self.kwargs['id']).first()
         message.readFlag=True
         message.save()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['message'] = message
 
         return context
@@ -139,5 +149,7 @@ class AdminArchivedView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(AdminArchivedView, self).get_context_data()
         message_list = Contact.objects.filter(archived=True).order_by('-id')
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['message_list'] = message_list
         return context

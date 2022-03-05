@@ -137,7 +137,8 @@ class TicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(TicketListView, self).get_context_data()
         tickets = Ticket.objects.filter(archived=False).order_by('-id')
-        # candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['tickets'] = tickets
         # context['candidate'] = tickets
 
@@ -203,6 +204,8 @@ class ArchivedTicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(ArchivedTicketListView, self).get_context_data()
         tickets = Ticket.objects.filter(archived=True)
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['tickets'] = tickets
 
         return context
