@@ -46,6 +46,10 @@ class LoginView(TemplateView):
                 elif group_name == 'Staff':
                     candidate = TesCandidate.objects.filter(user=user).first()
                     return redirect('accounting:staffprofile_',id=request.user.id)
+
+                elif group_name == 'training_operator':
+                    candidate = TesCandidate.objects.filter(user=user).first()
+                    return redirect('accounting:staffprofile_',id=request.user.id)
                 elif group_name == 'candidates':
 
                     print('can')
