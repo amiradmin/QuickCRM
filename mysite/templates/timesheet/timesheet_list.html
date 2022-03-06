@@ -111,7 +111,7 @@
                                                         <td>Description</td>
                                                         <th>From</th>
                                                         <th>To</th>
-                                                        <th>Description</th>
+                                                        <th>Type</th>
                                                         <th>Date</th>
 
 
@@ -130,7 +130,7 @@
                                                         <td>{{item.description}}</td>
                                                         <td>{{item.from_temp|date:'m/d/Y H:i'}}</td>
                                                         <td>{{item.to_date|date:'m/d/Y H:i'}}</td>
-                                                        <td>{{item.description}}</td>
+                                                        <td>{{item.task}}</td>
                                                         <td>{{item.created_at|date:'m/d/Y' }}</td>
 
                                                         <td>{% if item.approved %}<i style="font-size:20px;color:#1c62e6;" class="fa fa-check"></i>{% else %}<i style="font-size:20px;color:#ffc800;"  class="fa fa-clock-o" aria-hidden="true"></i>{% endif %}</td>

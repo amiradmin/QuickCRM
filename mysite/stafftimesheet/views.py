@@ -236,6 +236,8 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                     #     print(i['endDate'])
                     obj.to_date = end_temp_time
                     obj.description = i['title']['title']
+                    obj.task = i['title']['classNames'][0]
+                    print(i['title']['classNames'][0])
                     obj.save()
 
 

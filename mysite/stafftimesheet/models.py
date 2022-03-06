@@ -13,6 +13,7 @@ class Timesheet(models.Model):
     to_date = models.DateTimeField(null=True, blank=True)
     duration = models.FloatField(null=True,blank=True)
     description = models.CharField(max_length=2048, null=True, blank=True )
+    task = models.CharField(max_length=2048, null=True, blank=True )
     comment = models.CharField(max_length=2048, null=True, blank=True )
     approved = models.BooleanField(default=False, null=True, blank=True )
 

@@ -80,16 +80,23 @@
 
                                                                   <div class="col-12">
                                                             <div class="mb-3">
-<!--                                                                <label class="control-label form-label">Type</label>-->
-<!--<select class="form-select">-->
-<!--    <option>Engineering</option>-->
-<!--    <option>IT</option>-->
-<!--    <option>Registration</option>-->
-<!--    <option>Accounting</option>-->
-<!--    <option>Certificate</option>-->
+                                                                <label class="control-label form-label">Type</label>
+<select class="form-select" name="category" id="event-category"  >
+    <option value="Administration" >Administration</option>
+    <option value="Financial" >Financial</option>
+    <option value="Marketing-Engineering" >Marketing-Engineering</option>
+    <option value="Marketing-Training & Exam" >Marketing-Training & Exam</option>
+    <option value="Sales-Engineering" >Sales-Engineering</option>
+    <option value="Sales-Training & Exam" >Sales-Training & Exam</option>
+    <option value="Training Services" >Training Services</option>
+    <option value="Examination Services" >Examination Services</option>
+    <option value="Engineering Services" >Engineering Services</option>
+    <option value="IT" >IT</option>
+    <option value="Human Resources" >Human Resources</option>
+    <option value="QHSE" >QHSE</option>
 
-<!--</select>-->
-<!--                                                            </div>-->
+</select>
+                                                            </div>
                                                         </div>
 
                                                     </div>
@@ -7455,13 +7462,14 @@ var FullCalendar = function(e) {
                         jsEvent: e.origEvent,
                         view: t.viewApi
                     })), t.emitter.trigger("eventChange", c)
-<!--                    hereAmir-->
-<!--                    alert(c.oldEvent.title);-->
+<!--                    hereAmirAmir-->
+<!--                    alert(u);-->
               var dict = {
-                    title:u
+                    title:u,
+<!--                    'task':a("#event-category").val()-->
                };
                 dateList.push(dict);
-
+<!--                alert(dateList);-->
 
                 } else t.emitter.trigger("_noEventResize");
                 n.draggingSeg = null, n.relevantEvents = null, n.validMutation = null
@@ -10577,6 +10585,7 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
                 allDay: !0
             })
         }), a.$formEvent.on("submit", function(e) {
+<!--        alert(l("#event-category").val());-->
             e.preventDefault();
             var t, n = a.$formEvent[0];
 <!--            var dict = {-->
@@ -10592,14 +10601,19 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
 
             n.checkValidity() ? (a.$selectedEvent ? (a.$selectedEvent.setProp("title", l("#event-title").val()), a.$selectedEvent.setProp("classNames", [l("#event-category").val()])) : (t = {
                 title: l("#event-title").val(),
+                category: l("#event-category").val(),
                 start: a.$newEventData.date,
                 allDay: a.$newEventData.allDay,
                 className: l("#event-category").val()
             }, a.$calendarObj.addEvent(t)), a.$modal.hide()) : (e.stopPropagation(), n.classList.add("was-validated"))
-        }), l(a.$btnDeleteEvent.on("click", function(e) {
+        }
+
+
+        ), l(a.$btnDeleteEvent.on("click", function(e) {
             a.$selectedEvent && (a.$selectedEvent.remove(), a.$selectedEvent = null, a.$modal.hide())
         }))
-    }, l.CalendarApp = new e, l.CalendarApp.Constructor = e
+    }
+    , l.CalendarApp = new e, l.CalendarApp.Constructor = e
 }(window.jQuery),
 function() {
     "use strict";

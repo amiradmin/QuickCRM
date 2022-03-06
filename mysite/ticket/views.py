@@ -138,6 +138,8 @@ class TicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(TicketListView, self).get_context_data()
         tickets = Ticket.objects.filter(archived=False).order_by('-id')
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidate'] =candidate
         context['tickets'] = tickets
         # context['candidate'] = tickets
@@ -169,6 +171,8 @@ class HistoryTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self,id):
         context = super(HistoryTicketView, self).get_context_data()
         ticket = Ticket.objects.filter(id=self.kwargs['id']).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['ticket'] = ticket
 
         return context
@@ -205,6 +209,8 @@ class ArchivedTicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(ArchivedTicketListView, self).get_context_data()
         tickets = Ticket.objects.filter(archived=True)
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidate'] =candidate
         context['tickets'] = tickets
 

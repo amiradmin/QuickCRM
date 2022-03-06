@@ -23,7 +23,8 @@ class NewContactView(LoginRequiredMixin,TemplateView):
             obj.candidate = candidate
             obj.type = 'Candidate'
             obj.messageType = 'Message'
-
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
             obj.department = request.POST['department']
             obj.message = request.POST['message']
             obj.save()
@@ -40,6 +41,8 @@ class AdminNewContactView(LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(AdminNewContactView, self).get_context_data()
         candidates = TesCandidate.objects.all().order_by('first_name')
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidates'] = candidates
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
@@ -95,6 +98,8 @@ class AdminMessageListView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(AdminMessageListView, self).get_context_data()
         message_list = Contact.objects.filter(type="Candidate").order_by('-id')
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidate'] =candidate
         context['message_list'] = message_list
         return context
@@ -106,6 +111,8 @@ class AdminOutboxView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(AdminOutboxView, self).get_context_data()
         message_list = Contact.objects.filter(type="Admin").order_by('-id')
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidate'] =candidate
         context['message_list'] = message_list
         return context
@@ -150,6 +157,8 @@ class AdminArchivedView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context = super(AdminArchivedView, self).get_context_data()
         message_list = Contact.objects.filter(archived=True).order_by('-id')
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
         context['candidate'] =candidate
         context['message_list'] = message_list
         return context
