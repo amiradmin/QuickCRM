@@ -70,8 +70,11 @@ class SendFormByID(SidebarMixin, TemplateView):
         # context = super(SendFormByID, self).get_context_data()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         print("Send Form By ID!")
+        canFormObj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+        canFormObj.sent = True
+        canFormObj.save()
         domain = Site.objects.get_current().domain
-        url  = domain + '/forms/'+self.kwargs['url']+'/'+ str(self.kwargs['canID']) +'/'+ str(self.kwargs['eventID'])
+        url  = domain + '/forms/'+self.kwargs['url']+'/'+ str(self.kwargs['canID']) +'/'+ str(self.kwargs['eventID'])+'/'+ str(canFormObj.id)
         candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
         obj = Contact()
         obj.candidate = candidate
@@ -82,9 +85,7 @@ class SendFormByID(SidebarMixin, TemplateView):
         obj.url = url
         obj.save()
 
-        canFormObj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
-        canFormObj.sent = True
-        canFormObj.save()
+
 
         return redirect('forms:evensummary_', id=event.id)
 
@@ -831,6 +832,8 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
             form.email = candidate.email
 
             form.save()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['form'] = form
         context['event'] = event
 
@@ -3332,6 +3335,8 @@ class UpdateNDTCovid19ByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         print("here")
         candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         form = NDTCovid19.objects.filter(candidate=candidate).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['form'] = form
         return context
 
@@ -4104,6 +4109,8 @@ class updateVisionTestByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         form = VisionTest.objects.filter(candidate=candidate).first()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['form'] = form
         return context
 

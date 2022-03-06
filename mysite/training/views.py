@@ -545,6 +545,34 @@ class DeleteEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             event.delete()
             return redirect('training:event_')
 
+class DeleteCandidateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "training/update.html"
+
+    def get_context_data(self, *args, **kwargs):
+        print("Here Hello")
+        context = super(DeleteCandidateEventView, self).get_context_data()
+        # can = Event.objects.filter(id = self.kwargs['eventID']).first()
+        # candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        # context['candidate'] =candidate
+        # context['can'] = can
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+
+        # form = MedicineForm(self.request.POST)
+        if request.method == 'GET':
+            print('Del Here')
+            event = Event.objects.filter(id = self.kwargs['eventID']).first()
+            print(event.id)
+
+            candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+            print(candidate.id)
+            event.candidate.remove(candidate)
+            # context['candidate'] = candidate
+            # event.delete()
+            return redirect('forms:evensummary_', id=event.id)
+
             
 class LecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/lecturer_list.html"

@@ -35,6 +35,7 @@ urlpatterns = [
     path('delpro/<int:id>', views.DeleteProductView.as_view(), name='delpro_'),
     path('updatepro/<int:id>', views.UpdateProductView.as_view(), name='updatepro_'),
     path('lecdel/<int:id>', views.DeleteLecturerView.as_view(), name='lecdel_'),
+    path('deletecalevent/<int:id>/<int:eventID>', views.DeleteCandidateEventView.as_view(), name='deletecalevent_'),
     path('updatelec/<int:id>', views.UpdateLecturerView.as_view(), name='updatelec_'),
     path('delcountry/<int:id>', views.DeleteCountryView.as_view(), name='delcountry_'),
     path('updatecountry/<int:id>', views.UpdateCountryView.as_view(), name='updatecountry_'),

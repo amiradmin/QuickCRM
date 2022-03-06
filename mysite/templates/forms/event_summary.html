@@ -188,7 +188,7 @@
                                                             <a href="{% url 'forms:sendform_' canID=item.id  eventID=event.id %}" class="action-icon"> <i class="mdi mdi-send"></i></a>
                                                             <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
 
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                            <a href="{% url 'training:deletecalevent_' id=item.id eventID=event.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                         </td>
                                                     </tr>
                                                     {% endfor %}
