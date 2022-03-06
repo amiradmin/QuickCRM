@@ -163,6 +163,10 @@ class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 dateListObj = request.POST['dateList']
                 jsonDate =json.loads(dateListObj)
                 print(jsonDate)
+                print("================")
+                deleteDateListObj = request.POST['deleteDateList']
+                jsonDeleteDate =json.loads(deleteDateListObj)
+                print(jsonDeleteDate)
                 for i in jsonDate:
 
                     obj = Timesheet.objects.filter(id=i['timesheetID']).first()
@@ -203,6 +207,7 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                 dateListObj = request.POST['dateList']
                 jsonDate =json.loads(dateListObj)
                 print(jsonDate)
+
                 print("Here Eddy")
                 for i in jsonDate:
 
@@ -252,6 +257,30 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                     print(i['title']['classNames'][0])
                     obj.save()
 
+
+                print("================")
+                deleteDateListObj = request.POST['deleteDateList']
+                jsonDeleteDate =json.loads(deleteDateListObj)
+                print(jsonDeleteDate)
+                from django.db.models import Q
+                for i in jsonDeleteDate:
+                    temp_start_year = i['title']['start'].split('-')[0]
+                    temp_start_month = i['title']['start'].split('-')[1]
+                    temp_start_day = i['title']['start'].split('-')[2].split('T')[0]
+                    temp_start_hour  = i['title']['start'].split('-')[2].split('T')[1][:8]
+
+                    print(temp_start_year)
+                    print(temp_start_month)
+                    print(temp_start_day)
+                    print(temp_start_hour)
+                    start_combine_date = temp_start_month + '-' + temp_start_day + '-' + temp_start_year + 'T' + temp_start_hour
+                    print(start_combine_date)
+                    temp_time = datetime.strptime(start_combine_date, '%m-%d-%YT%H:%M:%S')
+                    print("Exist")
+                    print(temp_time)
+                    obj = Timesheet.objects.filter(Q(description = i['title']['title']) & Q(staff = self.request.user) & Q(from_temp = temp_time) ).first()
+
+                    obj.delete()
 
                 # for item in dateListObj:
                 #     print(item.title)

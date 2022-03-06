@@ -50,6 +50,7 @@
                                             </div> <!-- end col -->
                                             <br>
     <input type="hidden" id="dateList" name="dateList" />
+    <input type="hidden" id="deleteDateList" name="deleteDateList" />
                                       <div class="mb-3 col-md-12 text-center">
                                                         <button onclick="myFunction()" class="btn btn-primary" type="submit">Submit</button>
                                                     </div>
@@ -145,6 +146,7 @@ Docs & License: https://fullcalendar.io/
 (c) 2020 Adam Shaw
 */
 var dateList = []
+var deleteDateList = []
 
 
 var FullCalendar = function(e) {
@@ -1184,6 +1186,7 @@ var FullCalendar = function(e) {
         } : function(e, t, n) {
             e = r({}, e), t = r({}, t),
                 function(e, t) {
+
                     e.timeZoneName && (e.hour || (e.hour = "2-digit"), e.minute || (e.minute = "2-digit"));
                     "long" === e.timeZoneName && (e.timeZoneName = "short");
                     t.omitZeroMinute && (e.second || e.millisecond) && delete t.omitZeroMinute
@@ -2688,8 +2691,17 @@ var FullCalendar = function(e) {
                             type: "MERGE_EVENTS",
                             eventStore: t
                         })
+
                     }
-                })
+
+                });
+<!--                alert(this.start);-->
+               var dict = {
+                    title:this,
+
+               };
+                deleteDateList.push(dict);
+                console.log(e);
             }, Object.defineProperty(e.prototype, "source", {
                 get: function() {
                     var e = this._def.sourceId;
@@ -3090,6 +3102,7 @@ var FullCalendar = function(e) {
     }
 
     function er(e, t, n) {
+
         var r = Ne([Jn, n], ["buttonText"]);
         delete r.code;
         var o = r.week;
@@ -6031,6 +6044,7 @@ var FullCalendar = function(e) {
             }, t
         }(jr),
         Li = function() {
+
             function e(e) {
                 var t = this;
                 this.masterCallback = e, this.currentMap = {}, this.depths = {}, this.callbackMap = {}, this.handleValue = function(e, n) {
@@ -10548,7 +10562,7 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
             a = this;
         a.$calendarObj = new FullCalendar.Calendar(a.$calendar[0], {
             slotDuration: "00:15:00",
-            slotMinTime: "06:00:00",
+            slotMinTime: "00:10:00",
             slotMaxTime: "24:00:00",
             themeSystem: "bootstrap",
             bootstrapFontAwesome: !1,
@@ -10625,6 +10639,13 @@ function myFunction(){
             var dateListJason = JSON.stringify(dateList);
             dateListEl.value =dateListJason;
 <!--            alert(dateListJason);-->
+
+
+var deleteDateListEl = document.getElementById('deleteDateList');
+            var deleteDateListJason = JSON.stringify(deleteDateList);
+            deleteDateListEl.value =deleteDateListJason;
+<!--            alert(deleteDateListJason);-->
+
 }
    </script>
         <!-- end demo js-->
