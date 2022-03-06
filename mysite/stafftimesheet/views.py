@@ -32,11 +32,15 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
             from_temp__gte=week_start,
             from_temp__lt=week_end
         )
-        staffs = User.objects.all()
+        staffs = User.objects.filter(groups__name__in=['Staff','admin','training_admin','management','training_operator'])
+        # staffs = User.objects.all()
+        print(staffs)
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
         context['candidate'] =candidate
         context['staffs'] = staffs
         context['timesheets'] = timesheets
+        context['candidate_list'] = candidate_list
         # self.timesheet = timesheets
         # time = timesheets
         # print(self.timesheet)
@@ -86,11 +90,13 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     from_temp__lt=week_end
                 )
 
-                staffs = User.objects.all()
-                candidate = TesCandidate.objects.filter(user = self.request.user).first()
+                # staffs = User.objects.all()
+                candidate = TesCandidate.objects.filter(user = request.POST['userID']).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 print(group_name)
-
+                staffs = User.objects.filter(
+                    groups__name__in=['Staff', 'admin', 'training_admin', 'management', 'training_operator'])
+                candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
                 context['timesheets'] = timesheets
                 context['staffs'] = staffs
                 context['candidate'] = candidate
@@ -98,7 +104,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 # return redirect('stafftimesheet:admintimesheetlist_' ,{'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name } )
                 # return context
                 return render(request, 'timesheet/timesheet_list.html',
-                          {'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name } )
+                          {'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list} )
 
             else:
                 print("OK OK")
