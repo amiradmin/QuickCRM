@@ -8,6 +8,7 @@ from training.models import TesCandidate
 from datetime import datetime,date, timedelta
 from django.urls import reverse_lazy
 from braces.views import GroupRequiredMixin
+from django.db.models import Q
 import json
 # Create your views here.
 
@@ -210,59 +211,100 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
 
                 print("Here Eddy")
                 for i in jsonDate:
-
-                    obj = Timesheet()
-                    obj.staff = self.request.user
                     print(i['title']['title'])
                     print(i['title']['start'])
                     print(i['title']['end'])
                     print("====================")
+                    taskID = i['title']['title'].split('-')[0]
+                    print(taskID)
                     # if len(i['startDate']) >5:
                     temp_start_year = i['title']['start'].split('-')[0]
                     temp_start_month = i['title']['start'].split('-')[1]
                     temp_start_day = i['title']['start'].split('-')[2].split('T')[0]
-                    temp_start_hour  = i['title']['start'].split('-')[2].split('T')[1][:8]
+                    temp_start_hour = i['title']['start'].split('-')[2].split('T')[1][:8]
                     print(temp_start_year)
                     print(temp_start_month)
                     print(temp_start_day)
                     print(temp_start_hour)
                     start_combine_date = temp_start_month + '-' + temp_start_day + '-' + temp_start_year + 'T' + temp_start_hour
                     print(start_combine_date)
-                    temp_time = datetime.strptime(start_combine_date ,'%m-%d-%YT%H:%M:%S')
-                    print("Exist")
-                    print(temp_time)
-                    date_time_obj = temp_time
-                    obj.from_temp = date_time_obj
-                    print("====================")
-                    temp_end_year = i['title']['end'].split('-')[0]
-                    temp_end_month = i['title']['end'].split('-')[1]
-                    temp_end_day = i['title']['end'].split('-')[2].split('T')[0]
-                    temp_end_hour  = i['title']['end'].split('-')[2].split('T')[1][:8]
-                    print(temp_end_year)
-                    print(temp_end_month)
-                    print(temp_end_day)
-                    print(temp_end_hour)
-                    end_combine_date = temp_end_month + '-' + temp_end_day + '-' + temp_end_year + 'T' + temp_end_hour
-                    print(end_combine_date)
-                    end_temp_time = datetime.strptime(end_combine_date ,'%m-%d-%YT%H:%M:%S')
-                    print("Exist")
-                    print(temp_time)
-                    date_time_obj = temp_time
-                    obj.from_temp = date_time_obj
-                    # if 'endDate'  in i:
-                    #     print(i['endDate'])
-                    obj.to_date = end_temp_time
-                    obj.description = i['title']['title']
-                    obj.task = i['title']['classNames'][0]
-                    print(i['title']['classNames'][0])
-                    obj.save()
+                    temp_time = datetime.strptime(start_combine_date, '%m-%d-%YT%H:%M:%S')
+                    if taskID.isnumeric():
+                        print("Update Task")
+                        print("taskID : "+str(taskID))
+                        updateEvent = Timesheet.objects.filter(id=taskID ).count()
+                        if updateEvent > 0:
+                            print("Update")
+                            obj = Timesheet.objects.filter(id=taskID ).first()
+                            obj.staff = self.request.user
+
+                            print("Exist")
+                            print(temp_time)
+                            date_time_obj = temp_time
+                            obj.from_temp = date_time_obj
+                            print("====================")
+                            temp_end_year = i['title']['end'].split('-')[0]
+                            temp_end_month = i['title']['end'].split('-')[1]
+                            temp_end_day = i['title']['end'].split('-')[2].split('T')[0]
+                            temp_end_hour = i['title']['end'].split('-')[2].split('T')[1][:8]
+                            print(temp_end_year)
+                            print(temp_end_month)
+                            print(temp_end_day)
+                            print(temp_end_hour)
+                            end_combine_date = temp_end_month + '-' + temp_end_day + '-' + temp_end_year + 'T' + temp_end_hour
+                            print(end_combine_date)
+                            end_temp_time = datetime.strptime(end_combine_date, '%m-%d-%YT%H:%M:%S')
+                            print("Exist")
+                            print(temp_time)
+                            date_time_obj = temp_time
+                            obj.from_temp = date_time_obj
+                            # if 'endDate'  in i:
+                            #     print(i['endDate'])
+                            obj.to_date = end_temp_time
+                            obj.description = i['title']['title']
+                            obj.task = i['title']['classNames'][0]
+                            print(i['title']['classNames'][0])
+                            obj.save()
+                    else:
+                        print("taskID : "+str(taskID))
+                        print("New Task Event")
+                        obj = Timesheet()
+                        obj.staff = self.request.user
+
+                        print("New Event")
+                        print(temp_time)
+                        date_time_obj = temp_time
+                        obj.from_temp = date_time_obj
+                        print("====================")
+                        temp_end_year = i['title']['end'].split('-')[0]
+                        temp_end_month = i['title']['end'].split('-')[1]
+                        temp_end_day = i['title']['end'].split('-')[2].split('T')[0]
+                        temp_end_hour  = i['title']['end'].split('-')[2].split('T')[1][:8]
+                        print(temp_end_year)
+                        print(temp_end_month)
+                        print(temp_end_day)
+                        print(temp_end_hour)
+                        end_combine_date = temp_end_month + '-' + temp_end_day + '-' + temp_end_year + 'T' + temp_end_hour
+                        print(end_combine_date)
+                        end_temp_time = datetime.strptime(end_combine_date ,'%m-%d-%YT%H:%M:%S')
+                        print("Exist")
+                        print(temp_time)
+                        date_time_obj = temp_time
+                        obj.from_temp = date_time_obj
+                        # if 'endDate'  in i:
+                        #     print(i['endDate'])
+                        obj.to_date = end_temp_time
+                        obj.description = i['title']['title']
+                        obj.task = i['title']['classNames'][0]
+                        print(i['title']['classNames'][0])
+                        obj.save()
 
 
                 print("================")
                 deleteDateListObj = request.POST['deleteDateList']
                 jsonDeleteDate =json.loads(deleteDateListObj)
                 print(jsonDeleteDate)
-                from django.db.models import Q
+
                 for i in jsonDeleteDate:
                     temp_start_year = i['title']['start'].split('-')[0]
                     temp_start_month = i['title']['start'].split('-')[1]
@@ -276,9 +318,11 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                     start_combine_date = temp_start_month + '-' + temp_start_day + '-' + temp_start_year + 'T' + temp_start_hour
                     print(start_combine_date)
                     temp_time = datetime.strptime(start_combine_date, '%m-%d-%YT%H:%M:%S')
-                    print("Exist")
+                    print("Delete")
                     print(temp_time)
-                    obj = Timesheet.objects.filter(Q(description = i['title']['title']) & Q(staff = self.request.user) & Q(from_temp = temp_time) ).first()
+                    taskID = i['title']['title'].split('-')[0]
+                    print()
+                    obj = Timesheet.objects.filter(id=taskID).first()
 
                     obj.delete()
 

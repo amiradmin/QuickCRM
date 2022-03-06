@@ -2613,6 +2613,7 @@ var FullCalendar = function(e) {
                     startDelta: t
                 })
             }, e.prototype.moveEnd = function(e) {
+
                 var t = Ye(e);
                 t && this.mutate({
                     endDelta: t
@@ -6620,10 +6621,13 @@ var FullCalendar = function(e) {
                         t.emitter.trigger("pointerdown", n), t.initScrollWatch(n), t.shouldIgnoreMove || document.addEventListener("mousemove", t.handleMouseMove), document.addEventListener("mouseup", t.handleMouseUp)
                     }
                 }, this.handleMouseMove = function(e) {
+
                     var n = t.createEventFromMouse(e);
                     t.recordCoords(n), t.emitter.trigger("pointermove", n)
                 }, this.handleMouseUp = function(e) {
+
                     document.removeEventListener("mousemove", t.handleMouseMove), document.removeEventListener("mouseup", t.handleMouseUp), t.emitter.trigger("pointerup", t.createEventFromMouse(e)), t.cleanup()
+
                 }, this.handleTouchStart = function(e) {
                     if (t.tryStart(e)) {
                         t.isTouchDragging = !0;
@@ -6637,6 +6641,7 @@ var FullCalendar = function(e) {
                     t.recordCoords(n), t.emitter.trigger("pointermove", n)
                 }, this.handleTouchEnd = function(e) {
                     if (t.isDragging) {
+
                         var n = e.target;
                         n.removeEventListener("touchmove", t.handleTouchMove), n.removeEventListener("touchend", t.handleTouchEnd), n.removeEventListener("touchcancel", t.handleTouchEnd), window.removeEventListener("scroll", t.handleTouchScroll, !0), t.emitter.trigger("pointerup", t.createEventFromTouch(e)), t.cleanup(), t.isTouchDragging = !1, fa++, setTimeout((function() {
                             fa--
@@ -10551,7 +10556,7 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
         {% for item in timesheets %}
 
         {
-                title: "{{item.description}}",
+                title: "{{item.id}}-{{item.description}}",
                 start: new Date("{{item.from_temp|date:'Y/m/d H:i:s'}}") ,
                 end: new Date("{{item.to_date|date:'Y/m/d H:i:s'}}") ,
                  className:{% if item.approved %} "bg-success" {% else %}"bg-warning" {% endif %}
