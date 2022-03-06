@@ -67,7 +67,7 @@ class AllRequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(AllRequestView, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
-        requests = CourseRequest.objects.select_related('candidate').order_by('-id')
+        requests = CourseRequest.objects.select_related('candidate').order_by('-created_at')
 
         context['requests'] =requests
         context['candidate'] =candidate
