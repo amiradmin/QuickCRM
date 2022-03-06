@@ -2,8 +2,8 @@ from django.db import models
 from training.models import TesCandidate
 # Create your models here.
 class Contact(models.Model):
-    TYPE_CHOICES = (('Admin', 'Admin'), ('Candidate', 'Candidate'))
-    MESSAGE_TYPE_CHOICES = (('Form', 'Form'), ('Message', 'Message'))
+    TYPE_CHOICES = (('Admin', 'Admin'), ('Candidate', 'Candidate'), ('Site', 'Site'))
+    MESSAGE_TYPE_CHOICES = (('Form', 'Form'), ('Message', 'Message'), ('Site', 'Site'))
     candidate = models.ForeignKey(TesCandidate, on_delete=models.CASCADE, null=True, blank=True)
     department = models.CharField(max_length=256, null=True, blank=True)
     formName = models.CharField(default=None,max_length=256, null=True, blank=True)

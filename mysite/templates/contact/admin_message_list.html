@@ -39,9 +39,10 @@
             
             <th >ID</th>
             <th >Candidate</th>
+            <th  >From</th>
             <th  >Department</th>
             <th  >Type</th>
-            <th  >Message Type</th>
+
             <th  >Date</th>
 
             
@@ -60,9 +61,10 @@
            
             <td><p  >{{item.id}} </p></td>
             <td><p ><a style="margin:0px; padding:0px;  " href="{% url 'contacts:messagedetails_' id=item.id %}">{{item.candidate.first_name}} {{item.candidate.last_name}}</a></p></td>
+           <td><p >{{item.formName}}</p></td>
             <td><p >{{item.department}}</p></td>
             <td><p >{{item.type}}</p></td>
-            <td><p >{{item.messageType}}</p></td>
+
             <td><p >{{item.created_at|date:"m/d/Y H:i"}}</p></td>
 
  

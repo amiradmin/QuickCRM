@@ -32,6 +32,8 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
             from_temp__lt=week_end
         )
         staffs = User.objects.all()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
         context['staffs'] = staffs
         context['timesheets'] = timesheets
         # self.timesheet = timesheets
@@ -43,6 +45,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
         if request.method == 'POST':
             if 'userSelection' in request.POST:
+                context = super(TimesheetList, self).get_context_data()
                 print("Admin List")
                 userID =request.POST['userID']
                 week =request.POST['week']
@@ -84,9 +87,17 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
                 staffs = User.objects.all()
                 candidate = TesCandidate.objects.filter(user = self.request.user).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                print(group_name)
 
+                context['timesheets'] = timesheets
+                context['staffs'] = staffs
+                context['candidate'] = candidate
+                context['group_name'] = group_name
+                # return redirect('stafftimesheet:admintimesheetlist_' ,{'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name } )
+                # return context
                 return render(request, 'timesheet/timesheet_list.html',
-                          {'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate } )
+                          {'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name } )
 
             else:
                 print("OK OK")
@@ -107,11 +118,12 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 )
                 staffs = User.objects.all()
                 adminStatus = False
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
                 for g in self.request.user.groups.all():
                     if g.name == 'super_admin' or g.name == 'training_admin':
                         adminStatus = True
                 return render(request, 'timesheet/timesheet_list.html',
-                          {'timesheets': timesheets ,'adminStatus':adminStatus,'staffs':staffs })
+                          {'timesheets': timesheets ,'adminStatus':adminStatus,'staffs':staffs,'group_name':group_name })
 
 class DeleteTimesheet(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = Timesheet

@@ -96,7 +96,7 @@ class AdminMessageListView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(AdminMessageListView, self).get_context_data()
-        message_list = Contact.objects.filter(type="Candidate").order_by('-id')
+        message_list = Contact.objects.filter(Q(type="Candidate") | Q(type="Site")).order_by('-id')
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name

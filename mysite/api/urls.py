@@ -15,5 +15,6 @@ urlpatterns = [
     path('getproductbyID/<int:id>', views.GetProductByID.as_view(), name='getproductbyID_'),
     path('getproductbycatid/<int:id>', views.GetCategoryProductList.as_view(), name='getproductbycatid_'),
     path('getexams/', views.GetExamList.as_view(), name='getexams_'),
+    path('contact', views.NewContact.as_view(), name='contact_'),
 
 ]

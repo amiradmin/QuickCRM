@@ -6,7 +6,42 @@ from api.serializers import EventSerializer,ProductSerializer,ExamSerializer,Eve
 from api.paginations import CustomPagination
 from training.models import Event,Product,productCategory,Event
 from exam_certification.models import Exam
+from contacts.models import Contact
 # Create your views here.
+
+
+
+
+
+class NewContact(APIView):
+
+    def post(self, request, format=None):
+        result = {
+            "status": False,
+            "msg": "Done"
+        }
+        data = request.data
+
+        print("Contact Api")
+
+        email = data['email']
+        subject = data['subject']
+        description = data['description']
+
+        contact = Contact()
+        contact.message = description
+        contact.formName = email
+        contact.type = "Site"
+        contact.messageType = "Site"
+        contact.save()
+        print(email)
+        result['email'] = email
+        result['subject'] = subject
+        result['description'] = description
+        result['status'] = True
+        result['msg'] = "contact has save successfully"
+        return Response(result, status=status.HTTP_200_OK)
+
 
 
 
