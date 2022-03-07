@@ -171,6 +171,7 @@ class CourseRequest(models.Model):
     candidate = models.ForeignKey(TesCandidate, related_name="candiate_request", null=True, blank=True,
                                 on_delete=models.CASCADE)
     request = models.CharField(max_length=4096, null=True, blank=True)
+    readFlag = models.BooleanField(default=False,null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

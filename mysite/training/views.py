@@ -67,13 +67,37 @@ class AllRequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(AllRequestView, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
-        requests = CourseRequest.objects.select_related('candidate').order_by('-created_at')
+        requests = CourseRequest.objects.all().order_by('-created_at')
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        requestCouner = CourseRequest.objects.filter(readFlag=False).count()
+        context['requestCouner'] =requestCouner
         context['group_name'] = group_name
         context['requests'] =requests
         context['candidate'] =candidate
         return context
 
+
+class ViewRequestbyID(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "training/request_list.html"
+
+    def get_context_data(self,*args,**kwargs):
+        context = super(ViewRequestbyID, self).get_context_data()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        requestObj = CourseRequest.objects.filter(id=self.kwargs['id']).first()
+        if requestObj.readFlag:
+            requestObj.readFlag = False
+        else:
+            requestObj.readFlag = True
+        requestObj.save()
+        print(requestObj.readFlag)
+        requests = CourseRequest.objects.all().order_by('-created_at')
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        requestCouner = CourseRequest.objects.filter(readFlag=False).count()
+        context['requestCouner'] =requestCouner
+        context['group_name'] = group_name
+        context['requests'] =requests
+        context['candidate'] =candidate
+        return context
 
 
 class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
@@ -1017,6 +1041,8 @@ class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        requestCouner = CourseRequest.objects.filter(readFlag=False).count()
+        context['requestCouner'] =requestCouner
         context['candidate'] =candidate
         context['group_name'] = group_name
         context['event_list'] = event_list

@@ -582,7 +582,7 @@ button, input {
                         <li class="side-nav-item">
                             <a href="{% url 'training:requestlist_' %}" class="side-nav-link">
                                 <i class="uil-registered"></i>
-                                <span> Requests </span>
+                                <span> Requests </span>{% if requestCouner > 0 %}<span class="badge badge-success-lighten">New</span>{% endif %}
                             </a>
                         </li>
                  <li class="side-nav-item">
