@@ -58,8 +58,8 @@
                                                         <th>{{item.request}}</th>
                                                         <td>{{item.candidate.email}}</td>
                                                         <td>{{item.candidate.contact_number}}</td>
-   <td><a href="{% url 'training:viewrequest_' id=item.id %}">{% if item.readFlag %} <span class="badge badge-warning-lighten">Read</span>{% else %}<span class="badge badge-success-lighten">Unread</span> {% endif %}</a> </td>
-   <td><a href="{% url 'training:viewrequest_' id=item.id %}"><span class="badge badge-warning-lighten">Archive</span> </a> </td>
+<td><a href="{% url 'training:viewrequest_' id=item.id %}">{% if item.readFlag %} <span class="badge badge-warning-lighten">Read</span>{% else %}<span class="badge badge-success-lighten">Unread</span> {% endif %}</a> </td>
+   <td><a href="{% url 'training:archiverequest' id=item.id %}">{% if item.archived %} <span class="badge badge-primary-lighten">Archived</span>{% else %} <span class="badge badge-primary-lighten">Archive</span>{%endif%} </a> </td>
                                                         <td>{{item.created_at|date:'m/d/Y'}}</td>
 
 

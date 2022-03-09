@@ -38,6 +38,7 @@ class RequestRegister(LoginRequiredMixin, TemplateView):
         obj = CourseRequest()
         obj.candidate = candidate
         obj.request = "Please register me for product {} for event {}.\n Location: {} \n Country: {} \n start Date: {}".format(product.name,event.name,event.location,event.country,event.start_date)
+        obj.archived=False
         obj.save()
 
 
@@ -67,7 +68,7 @@ class AllRequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(AllRequestView, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
-        requests = CourseRequest.objects.all().order_by('-created_at')
+        requests = CourseRequest.objects.filter(archived=False).order_by('-created_at')
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         requestCouner = CourseRequest.objects.filter(readFlag=False).count()
         context['requestCouner'] =requestCouner
@@ -99,6 +100,46 @@ class ViewRequestbyID(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['candidate'] =candidate
         return context
 
+
+
+
+class ArchivedbyID(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "training/request_list.html"
+
+    def get_context_data(self,*args,**kwargs):
+        context = super(ArchivedbyID, self).get_context_data()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        requestObj = CourseRequest.objects.filter(id=self.kwargs['id']).first()
+
+        requestObj.archived = True
+        requestObj.save()
+        print(requestObj.readFlag)
+        requests = CourseRequest.objects.filter(archived=False).order_by('-created_at')
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        requestCouner = CourseRequest.objects.filter(readFlag=False).count()
+        context['requestCouner'] =requestCouner
+        context['group_name'] = group_name
+        context['requests'] =requests
+        context['candidate'] =candidate
+        return context
+
+
+class ArchivedbyListView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "training/request_list.html"
+
+    def get_context_data(self,*args,**kwargs):
+        context = super(ArchivedbyListView, self).get_context_data()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+
+
+        requests = CourseRequest.objects.filter(archived=True).order_by('-created_at')
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        requestCouner = CourseRequest.objects.filter(readFlag=False).count()
+        context['requestCouner'] =requestCouner
+        context['group_name'] = group_name
+        context['requests'] =requests
+        context['candidate'] =candidate
+        return context
 
 class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/request_course.html"
