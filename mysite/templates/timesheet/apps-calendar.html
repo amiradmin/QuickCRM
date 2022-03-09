@@ -89,12 +89,12 @@
     <option value="Marketing-Training & Exam" >Marketing-Training & Exam</option>
     <option value="Sales-Engineering" >Sales-Engineering</option>
     <option value="Sales-Training & Exam" >Sales-Training & Exam</option>
-    <option value="Training Services" >Training Services</option>
-    <option value="Examination Services" >Examination Services</option>
+    <option value="Training Services" >Training & Examination Services</option>
     <option value="Engineering Services" >Engineering Services</option>
     <option value="IT" >IT</option>
     <option value="Human Resources" >Human Resources</option>
     <option value="QHSE" >QHSE</option>
+    <option value="Other" >Other</option>
 
 </select>
                                                             </div>
@@ -10567,7 +10567,7 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
             a = this;
         a.$calendarObj = new FullCalendar.Calendar(a.$calendar[0], {
             slotDuration: "00:15:00",
-            slotMinTime: "00:10:00",
+            slotMinTime: "00:00:00",
             slotMaxTime: "24:00:00",
             themeSystem: "bootstrap",
             bootstrapFontAwesome: !1,
@@ -10604,7 +10604,7 @@ console.log("{{item.from_temp|date:'D M d Y H:i:s'}}");
                 allDay: !0
             })
         }), a.$formEvent.on("submit", function(e) {
-<!--        alert(l("#event-category").val());-->
+<!--        alert(title:this);-->
             e.preventDefault();
             var t, n = a.$formEvent[0];
 <!--            var dict = {-->
@@ -10653,5 +10653,6 @@ var deleteDateListEl = document.getElementById('deleteDateList');
 
 }
    </script>
+
         <!-- end demo js-->
                 {% endblock %}

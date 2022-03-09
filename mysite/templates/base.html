@@ -579,11 +579,29 @@ button, input {
 <!--                            </a>-->
 <!--                        </li>-->
 
-                        <li class="side-nav-item">
-                            <a href="{% url 'training:requestlist_' %}" class="side-nav-link">
-                                <i class="uil-registered"></i>
-                                <span> Requests </span>{% if requestCouner > 0 %}<span class="badge badge-success-lighten">New</span>{% endif %}
+
+
+                 <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarContact" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span> Requests</span>&nbsp; {% if requestCouner > 0 %}<span class="badge badge-success-lighten">New</span>{% endif %}
+                                <span class="menu-arrow"></span>
                             </a>
+                            <div class="collapse" id="sidebarContact">
+                                <ul class="side-nav-second-level">
+
+                                    <li>
+                                        <a href="{% url 'training:requestlist_' %}">All Requests</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:requestlist_' %}">Archived</a>
+                                    </li>
+
+
+
+
+                                </ul>
+                            </div>
                         </li>
                  <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarContact" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">

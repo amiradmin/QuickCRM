@@ -8,6 +8,7 @@ from training.models import TesCandidate
 from datetime import datetime,date, timedelta
 from django.urls import reverse_lazy
 from braces.views import GroupRequiredMixin
+from django.urls import reverse
 from django.db.models import Q
 import json
 # Create your views here.
@@ -49,9 +50,11 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
     def post(self, request, *args, **kwargs):
 
         if request.method == 'POST':
+
+            # context = self.get_contex_data(**kwargs)
             if 'userSelection' in request.POST:
-                context = super(TimesheetList, self).get_context_data()
-                print("Admin List")
+                # context = super(TimesheetList, self).get_context_data()
+                print("Admin List 0000000000")
                 userID =request.POST['userID']
                 week =request.POST['week']
                 # print(week)
@@ -97,14 +100,13 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 staffs = User.objects.filter(
                     groups__name__in=['Staff', 'admin', 'training_admin', 'management', 'training_operator'])
                 candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
-                context['timesheets'] = timesheets
-                context['staffs'] = staffs
-                context['candidate'] = candidate
-                context['group_name'] = group_name
-                # return redirect('stafftimesheet:admintimesheetlist_' ,{'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name } )
-                # return context
-                return render(request, 'timesheet/timesheet_list.html',
-                          {'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list} )
+                # context['timesheets'] = timesheets
+                # context['staffs'] = staffs
+                # context['candidate'] = candidate
+                # context['group_name'] = group_name
+                context = {'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
+
+                return render(request, self.template_name, context)
 
             else:
                 print("OK OK")
@@ -203,6 +205,8 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
         timesheets = Timesheet.objects.filter(staff=self.request.user)
         candidate = TesCandidate.objects.filter(user = self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        for item in timesheets:
+            print(item.description)
         context['group_name'] = group_name
         context['timesheets'] = timesheets
         context['candidate'] = candidate
@@ -300,7 +304,7 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                         # if 'endDate'  in i:
                         #     print(i['endDate'])
                         obj.to_date = end_temp_time
-                        obj.description = i['title']['title']
+                        obj.description = i['title']['title'].replace("\n", " ")
                         obj.task = i['title']['classNames'][0]
                         print(i['title']['classNames'][0])
                         obj.save()
