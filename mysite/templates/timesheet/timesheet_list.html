@@ -84,7 +84,52 @@
       </div>
     </div>
                                 </div>
+                                                                                    <div class="row g-2">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="inputCity" class="form-label">Task</label>
+ <select class="form-select" name="task" id="event-category"  >
+    <option value="All" >All</option>
+    <option value="Administration" >Administration</option>
+    <option value="Financial" >Financial</option>
+    <option value="Marketing-Engineering" >Marketing-Engineering</option>
+    <option value="Marketing-Training & Exam" >Marketing-Training & Exam</option>
+    <option value="Sales-Engineering" >Sales-Engineering</option>
+    <option value="Sales-Training & Exam" >Sales-Training & Exam</option>
+    <option value="Training Services" >Training & Examination Services</option>
+    <option value="Engineering Services" >Engineering Services</option>
+    <option value="IT" >IT</option>
+    <option value="Human Resources" >Human Resources</option>
+    <option value="QHSE" >QHSE</option>
+    <option value="Other" >Other</option>
+
+</select>
+                                                </div>
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="inputState" class="form-label">Month</label>
+                                                    <select  id="inputState" name="monthSelect" class="form-select">
+
+    <option value=''>--Select Month--</option>
+    <option selected value='1'>Janaury</option>
+    <option value='2'>February</option>
+    <option value='3'>March</option>
+    <option value='4'>April</option>
+    <option value='5'>May</option>
+    <option value='6'>June</option>
+    <option value='7'>July</option>
+    <option value='8'>August</option>
+    <option value='9'>September</option>
+    <option value='10'>October</option>
+    <option value='11'>November</option>
+    <option value='12'>December</option>
+
+                                                    </select>
+                                                </div>
+
+                                            </div>
                            </div>
+
+
+
                      <div class="mb-3 col-md-12 text-center">
                                     <button onclick="myFunction()" class="btn btn-primary" name="userSelection" type="submit">Update</button>
                      </div>
@@ -99,9 +144,46 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="header-title"> </h4>
-<h5>Staff Location: {{candidate.location}}</h5>
-                                    <br>
 
+
+               <div class="row g-2">                                                                                                          <div class="row g-2">
+                                                <div class="mb-4 col-md-4 border border-info">
+<h5>Staff Location: {{candidate.location}}</h5>
+                                                </div>
+                                                <div class="mb-4 col-md-4 border border-info">
+<h5>Monthly Hours: {{totalHours}}</h5>
+                                                </div>
+                   <div class="mb-4 col-md-4 border border-info">
+<h5>Task: {{task}}</h5>
+                                                </div>
+
+                                            </div>
+                   <br>
+
+                   <hr>
+
+
+                   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Task</th>
+        <th>Hours</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for task in timesheets_task %}
+      <tr>
+        <td>{{task.task}}</td>
+        <td>{{task.durationTime}}</td>
+        <td>{{task.task__count}}</td>
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+                                    <br>
+                   <hr>
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
                                             <table id="basic-datatable" class="table dt-responsive  w-100">
@@ -112,6 +194,7 @@
                                                         <td>Description</td>
                                                         <th>From</th>
                                                         <th>To</th>
+                                                        <th>Duration</th>
                                                         <th>Type</th>
                                                         <th>Date</th>
 
@@ -131,6 +214,7 @@
                                                         <td>{{item.description}}</td>
                                                         <td>{{item.from_temp|date:'m/d/Y H:i'}}</td>
                                                         <td>{{item.to_date|date:'m/d/Y H:i'}}</td>
+                                                        <td>{{item.durationTime}}</td>
                                                         <td>{{item.task}}</td>
                                                         <td>{{item.created_at|date:'m/d/Y' }}</td>
 

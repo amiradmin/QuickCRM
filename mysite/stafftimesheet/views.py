@@ -9,7 +9,7 @@ from datetime import datetime,date, timedelta
 from django.urls import reverse_lazy
 from braces.views import GroupRequiredMixin
 from django.urls import reverse
-from django.db.models import Q
+from django.db.models import Q ,F ,Sum,Count
 import json
 # Create your views here.
 
@@ -32,7 +32,12 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
         timesheets = Timesheet.objects.filter(
             from_temp__gte=week_start,
             from_temp__lt=week_end
-        )
+        ).annotate(durationTime=F('to_date') - F('from_temp'))
+
+        totalHours = Timesheet.objects.annotate(durationTime=F('to_date') - F('from_temp')).aggregate(Sum('durationTime')).get('durationTime__sum')
+        hours = totalHours.days * 24 + totalHours.seconds // 3600
+        minutes = (totalHours.seconds % 3600) // 60
+        print("total: "+str(totalHours))
         staffs = User.objects.filter(groups__name__in=['Staff','admin','training_admin','management','training_operator'])
         # staffs = User.objects.all()
         print(staffs)
@@ -42,6 +47,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
         context['staffs'] = staffs
         context['timesheets'] = timesheets
         context['candidate_list'] = candidate_list
+        context['totalHours'] = str(hours) +':'+str(minutes)
         # self.timesheet = timesheets
         # time = timesheets
         # print(self.timesheet)
@@ -88,10 +94,34 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 week_start = datetime.strptime(week_start, '%Y-%m-%d')
                 week_end = datetime.strptime(week_end, '%Y-%m-%d')
 
+                # timesheets = Timesheet.objects.filter(staff=user).filter(
+                #     from_temp__gte=week_start,
+                #     from_temp__lt=week_end
+                # ).annotate(durationTime=F('to_date') - F('from_temp'))
+
+                task = request.POST['task']
+                monthSelect = request.POST['monthSelect']
+                print(monthSelect)
                 timesheets = Timesheet.objects.filter(staff=user).filter(
-                    from_temp__gte=week_start,
-                    from_temp__lt=week_end
-                )
+                    Q(staff=user) & Q (from_temp__month = monthSelect)
+                ).annotate(durationTime=F('to_date') - F('from_temp'))
+
+                totalHours = Timesheet.objects.filter(Q(staff=user) & Q (from_temp__month = monthSelect)).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
+                    Sum('durationTime')).get('durationTime__sum')
+                hours = 0
+                minutes = 0
+                if totalHours :
+                    hours = totalHours.days * 24 + totalHours.seconds // 3600
+                    minutes = (totalHours.seconds % 3600) // 60
+
+                timesheets_task = Timesheet.objects.filter(
+                    Q(staff=user) & Q (from_temp__month = monthSelect)
+                ).values('task').annotate(Count('task'),durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
+                for item in timesheets_task:
+                    print(item)
+
+
 
                 # staffs = User.objects.all()
                 candidate = TesCandidate.objects.filter(user = request.POST['userID']).first()
@@ -104,7 +134,8 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 # context['staffs'] = staffs
                 # context['candidate'] = candidate
                 # context['group_name'] = group_name
-                context = {'timesheets': timesheets, 'staffs':staffs, 'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
+                totalHours = str(hours) + ':' + str(minutes)
+                context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'staffs':staffs,'task':task,'totalHours':totalHours,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
 
                 return render(request, self.template_name, context)
 
