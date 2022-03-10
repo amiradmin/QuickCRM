@@ -109,7 +109,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     if totalHoursDaily:
                         hours = totalHoursDaily.days * 24 + totalHoursDaily.seconds // 3600
                         minutes = (totalHoursDaily.seconds % 3600) // 60
-                        totalHoursDaily = str(hours) + ':' + str(minutes)
+                        conTotalHoursDaily = str(hours) + ':' + str(minutes)
                 else:
 
                     print("Monthly")
@@ -145,7 +145,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     if totalHoursMonth:
                         hours = totalHoursMonth.days * 24 + totalHoursMonth.seconds // 3600
                         minutes = (totalHoursMonth.seconds % 3600) // 60
-                        totalHoursDaily = str(hours) + ':' + str(minutes)
+                        conTotalHoursDaily = str(hours) + ':' + str(minutes)
                         print(totalHoursDaily)
 
 
@@ -168,8 +168,8 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 # context['staffs'] = staffs
                 # context['candidate'] = candidate
                 # context['group_name'] = group_name
-                totalHours = str(hours) + ':' + str(minutes)
-                context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'timesheets_day':timesheets_day,'staffs':staffs,'totalHoursDaily':totalHoursDaily,'task':task,'totalHoursMonth':totalHoursMonth,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
+                # totalHours = str(hours) + ':' + str(minutes)
+                context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'timesheets_day':timesheets_day,'staffs':staffs,'conTotalHoursDaily':conTotalHoursDaily,'task':task,'conTotalHoursDaily':conTotalHoursDaily,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
 
                 return render(request, self.template_name, context)
 
