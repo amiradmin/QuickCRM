@@ -928,7 +928,7 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                     obj.twiEmployee = True
                 #
                 if not request.POST.get('compSponser', None) == None:
-                    obj.sponsorStatus = True
+                    obj.sponsorStatus = False
                 if not request.POST.get('selfSponser', None) == None:
                     obj.sponsorStatus = True
                 #
