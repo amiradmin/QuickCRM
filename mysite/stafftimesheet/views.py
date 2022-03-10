@@ -62,61 +62,62 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 # context = super(TimesheetList, self).get_context_data()
                 print("Admin List 0000000000")
                 userID =request.POST['userID']
-                week =request.POST['week']
-                # print(week)
                 user = User.objects.filter(id=userID).first()
-
-                week_start = date.today()
-                week_start -= timedelta(days=week_start.weekday())
-                print(week_start)
-                # week_end = week_start + timedelta(days=7)
-                print("Here")
-                print(week.split(' to ')[0])
-                week_start =week.split(' to ')[0]
-                week_start_year = week_start.split('-')[2]
-                week_start_month = week_start.split('-')[0]
-                week_start_day = week_start.split('-')[1]
-                print(week_start_year)
-                print(week_start_month)
-                print(week_start_day)
-                week_start = week_start_year + '-' + week_start_month + '-' +week_start_day
-
-                week_end = week.split(' to ')[1]
-                week_end_year = week_end.split('-')[2]
-                week_end_month = week_end.split('-')[0]
-                week_end_day = week_end.split('-')[1]
-                print(week_end_year)
-                print(week_end_month)
-                print(week_end_day)
-                week_end = week_end_year + '-' + week_end_month + '-' + week_end_day
-                print(week_end)
-                # print(week.split(' to ')[1])
-                week_start = datetime.strptime(week_start, '%Y-%m-%d')
-                week_end = datetime.strptime(week_end, '%Y-%m-%d')
-
-                # timesheets = Timesheet.objects.filter(staff=user).filter(
-                #     from_temp__gte=week_start,
-                #     from_temp__lt=week_end
-                # ).annotate(durationTime=F('to_date') - F('from_temp'))
-
+                daily =request.POST['daily']
                 task = request.POST['task']
+
+
                 monthSelect = request.POST['monthSelect']
                 print(monthSelect)
-                timesheets = Timesheet.objects.filter(staff=user).filter(
-                    Q(staff=user) & Q (from_temp__month = monthSelect)
-                ).annotate(durationTime=F('to_date') - F('from_temp'))
+                if daily is not None and monthSelect == '':
+                    print("Daily")
+                    q_object = ~Q()
 
-                totalHours = Timesheet.objects.filter(Q(staff=user) & Q (from_temp__month = monthSelect)).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
+                    if(task == 'All'):
+                        q_object = Q(staff=user) & Q(from_temp__year=daily.split('/')[2]) & Q(
+                            from_temp__month=daily.split('/')[0]) & Q(from_temp__day=daily.split('/')[1])
+                    else:
+                        q_object = Q(staff=user) & Q(task=task) & Q(from_temp__year=daily.split('/')[2]) & Q(
+                            from_temp__month=daily.split('/')[0]) & Q(from_temp__day=daily.split('/')[1])
+
+
+                    timesheets = Timesheet.objects.filter(staff=user).filter(q_object
+                    ).annotate(durationTime=F('to_date') - F('from_temp'))
+
+                    totalHours = Timesheet.objects.filter(q_object).annotate(
+                    durationTime=F('to_date') - F('from_temp')).aggregate(
                     Sum('durationTime')).get('durationTime__sum')
+                    timesheets_task = Timesheet.objects.filter(q_object
+                    ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+                    print("inside")
+                else:
+
+                    print("Monthly")
+                    q_object = ~Q()
+                    q_object = Q(staff=user) & Q (from_temp__month = monthSelect)
+                    if(task == 'All'):
+                        q_object = Q(staff=user) & Q (from_temp__month = monthSelect)
+                    else:
+                        q_object = Q(staff=user) & Q(task=task)  & Q (from_temp__month = monthSelect)
+                    timesheets = Timesheet.objects.filter(staff=user).filter(q_object
+                    ).annotate(durationTime=F('to_date') - F('from_temp'))
+
+                    totalHours = Timesheet.objects.filter(q_object).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
+                        Sum('durationTime')).get('durationTime__sum')
+                    timesheets_task = Timesheet.objects.filter(q_object
+                    ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
+                    timesheets_task = Timesheet.objects.filter(q_object
+                    ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
+
                 hours = 0
                 minutes = 0
                 if totalHours :
                     hours = totalHours.days * 24 + totalHours.seconds // 3600
                     minutes = (totalHours.seconds % 3600) // 60
 
-                timesheets_task = Timesheet.objects.filter(
-                    Q(staff=user) & Q (from_temp__month = monthSelect)
-                ).values('task').annotate(Count('task'),durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
 
                 for item in timesheets_task:
                     print(item)
