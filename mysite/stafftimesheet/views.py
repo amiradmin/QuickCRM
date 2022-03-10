@@ -65,7 +65,8 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 user = User.objects.filter(id=userID).first()
                 daily =request.POST['daily']
                 task = request.POST['task']
-
+                hours = 0
+                minutes = 0
 
                 monthSelect = request.POST['monthSelect']
                 print(monthSelect)
@@ -74,16 +75,23 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 if daily is not None and monthSelect == '':
                     print("Daily")
                     q_object = ~Q()
+                    if userID == "000":
+                        print("All users")
+                    else:
+                        q_object =  Q(staff=user)
+                        print("One users")
+
+
 
                     if(task == 'All'):
-                        q_object = Q(staff=user) & Q(from_temp__year=daily.split('/')[2]) & Q(
+                        q_object = q_object & Q(from_temp__year=daily.split('/')[2]) & Q(
                             from_temp__month=daily.split('/')[0]) & Q(from_temp__day=daily.split('/')[1])
                     else:
-                        q_object = Q(staff=user) & Q(task=task) & Q(from_temp__year=daily.split('/')[2]) & Q(
+                        q_object = q_object & Q(task=task) & Q(from_temp__year=daily.split('/')[2]) & Q(
                             from_temp__month=daily.split('/')[0]) & Q(from_temp__day=daily.split('/')[1])
 
 
-                    timesheets = Timesheet.objects.filter(staff=user).filter(q_object
+                    timesheets = Timesheet.objects.filter(q_object
                     ).annotate(durationTime=F('to_date') - F('from_temp'))
 
                     totalHoursDaily = Timesheet.objects.filter(q_object).annotate(
@@ -94,22 +102,32 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     print("inside")
 
                     timesheets_day = Timesheet.objects.filter(q_object
-                    ).values('from_temp').annotate(Count('from_temp'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+                    ).values('from_temp__day','from_temp__year','from_temp__month').annotate(Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
 
 
                     if totalHoursDaily:
                         hours = totalHoursDaily.days * 24 + totalHoursDaily.seconds // 3600
                         minutes = (totalHoursDaily.seconds % 3600) // 60
+                        totalHoursDaily = str(hours) + ':' + str(minutes)
                 else:
 
                     print("Monthly")
                     q_object = ~Q()
-                    q_object = Q(staff=user) & Q (from_temp__month = monthSelect)
-                    if(task == 'All'):
-                        q_object = Q(staff=user) & Q (from_temp__month = monthSelect)
+                    # print(userID)
+                    if userID == "000":
+                        print("All users")
                     else:
-                        q_object = Q(staff=user) & Q(task=task)  & Q (from_temp__month = monthSelect)
-                    timesheets = Timesheet.objects.filter(staff=user).filter(q_object
+                        q_object =  Q(staff=user)
+                        print("One users")
+
+                    # q_object = q_object & Q (from_temp__month = monthSelect)
+                    if(task == 'All'):
+                        q_object = q_object& Q (from_temp__month = monthSelect)
+                    else:
+                        q_object = q_object & Q(task=task)  & Q (from_temp__month = monthSelect)
+
+                    timesheets = Timesheet.objects.filter(q_object
                     ).annotate(durationTime=F('to_date') - F('from_temp'))
 
                     totalHoursMonth = Timesheet.objects.filter(q_object).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
@@ -121,30 +139,31 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
 
                     timesheets_day = Timesheet.objects.filter(q_object
-                    ).values('from_temp__day').annotate(Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+                    ).values('from_temp__day','from_temp__year','from_temp__month').annotate(Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
 
 
                     if totalHoursMonth:
                         hours = totalHoursMonth.days * 24 + totalHoursMonth.seconds // 3600
                         minutes = (totalHoursMonth.seconds % 3600) // 60
-                hours = 0
-                minutes = 0
+                        totalHoursDaily = str(hours) + ':' + str(minutes)
+                        print(totalHoursDaily)
 
 
 
 
-                for item in timesheets_task:
+                for item in timesheets_day:
                     print(item)
 
 
 
                 # staffs = User.objects.all()
-                candidate = TesCandidate.objects.filter(user = request.POST['userID']).first()
+                candidate = TesCandidate.objects.filter(user = request.user).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 print(group_name)
                 staffs = User.objects.filter(
                     groups__name__in=['Staff', 'admin', 'training_admin', 'management', 'training_operator'])
                 candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
+
                 # context['timesheets'] = timesheets
                 # context['staffs'] = staffs
                 # context['candidate'] = candidate

@@ -67,7 +67,7 @@
                 <div class="mb-3 col-md-6">
                                     <label for="inputState" class="form-label">Staff</label>
                                     <select name="userID" id="userID" class="form-select">
-
+                                    <option value="000" >All</option>
                                         {% for item in candidate_list %}
                                         <option value="{{item.user.id}}">{{item.user.id}}-{{item.first_name}} {{item.last_name}}
 
@@ -196,7 +196,6 @@
     <thead>
       <tr>
         <th>Date</th>
-        <th>Description</th>
         <th>Duration</th>
         <th>Count</th>
       </tr>
@@ -204,16 +203,18 @@
     <tbody>
     {% for task in timesheets_day %}
       <tr>
-          <td>{{task.from_temp__day}}</td>
-          <td>{{task.inerval}}</td>
+          <td>{{task.from_temp__month}}/{{task.from_temp__day}}/{{task.from_temp__year}}</td>
         <td>{{task.durationTime}}</td>
 
-        <td>{{task.from_temp__count}}</td>
+        <td>{{task.from_temp__day__count}}</td>
       </tr>
     {% endfor %}
 
     </tbody>
   </table>
+                   <br>
+                   <br>
+
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
                                             <table id="basic-datatable" class="table dt-responsive  w-100">
@@ -226,7 +227,7 @@
                                                         <th>To</th>
                                                         <th>Duration</th>
                                                         <th>Type</th>
-                                                        <th>Date</th>
+                                                        <th>Registered Date</th>
 
 
                                                         <th></th>
