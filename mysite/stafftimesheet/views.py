@@ -69,6 +69,8 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
                 monthSelect = request.POST['monthSelect']
                 print(monthSelect)
+                totalHoursDaily = 0
+                totalHoursMonth = 0
                 if daily is not None and monthSelect == '':
                     print("Daily")
                     q_object = ~Q()
@@ -84,12 +86,20 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     timesheets = Timesheet.objects.filter(staff=user).filter(q_object
                     ).annotate(durationTime=F('to_date') - F('from_temp'))
 
-                    totalHours = Timesheet.objects.filter(q_object).annotate(
+                    totalHoursDaily = Timesheet.objects.filter(q_object).annotate(
                     durationTime=F('to_date') - F('from_temp')).aggregate(
                     Sum('durationTime')).get('durationTime__sum')
                     timesheets_task = Timesheet.objects.filter(q_object
                     ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
                     print("inside")
+
+                    timesheets_day = Timesheet.objects.filter(q_object
+                    ).values('from_temp').annotate(Count('from_temp'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
+
+                    if totalHoursDaily:
+                        hours = totalHoursDaily.days * 24 + totalHoursDaily.seconds // 3600
+                        minutes = (totalHoursDaily.seconds % 3600) // 60
                 else:
 
                     print("Monthly")
@@ -102,7 +112,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     timesheets = Timesheet.objects.filter(staff=user).filter(q_object
                     ).annotate(durationTime=F('to_date') - F('from_temp'))
 
-                    totalHours = Timesheet.objects.filter(q_object).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
+                    totalHoursMonth = Timesheet.objects.filter(q_object).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
                         Sum('durationTime')).get('durationTime__sum')
                     timesheets_task = Timesheet.objects.filter(q_object
                     ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
@@ -110,12 +120,16 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                     timesheets_task = Timesheet.objects.filter(q_object
                     ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
 
+                    timesheets_day = Timesheet.objects.filter(q_object
+                    ).values('from_temp__day').annotate(Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
 
+
+                    if totalHoursMonth:
+                        hours = totalHoursMonth.days * 24 + totalHoursMonth.seconds // 3600
+                        minutes = (totalHoursMonth.seconds % 3600) // 60
                 hours = 0
                 minutes = 0
-                if totalHours :
-                    hours = totalHours.days * 24 + totalHours.seconds // 3600
-                    minutes = (totalHours.seconds % 3600) // 60
+
 
 
 
@@ -136,7 +150,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 # context['candidate'] = candidate
                 # context['group_name'] = group_name
                 totalHours = str(hours) + ':' + str(minutes)
-                context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'staffs':staffs,'task':task,'totalHours':totalHours,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
+                context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'timesheets_day':timesheets_day,'staffs':staffs,'totalHoursDaily':totalHoursDaily,'task':task,'totalHoursMonth':totalHoursMonth,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
 
                 return render(request, self.template_name, context)
 

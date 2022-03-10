@@ -154,7 +154,11 @@
 <h5>Staff Location: {{candidate.location}}</h5>
                                                 </div>
                                                 <div class="mb-4 col-md-4 border border-info">
-<h5>Monthly Hours: {{totalHours}}</h5>
+ {% if totalHoursMonth %}
+<h5>Monthly Hours: {{totalHoursMonth}}</h5>
+{% elif  totalHoursDaily %}
+<h5>Daily Hours: {{totalHoursDaily}}</h5>
+{% endif %}
                                                 </div>
                    <div class="mb-4 col-md-4 border border-info">
 <h5>Task: {{task}}</h5>
@@ -187,6 +191,29 @@
   </table>
                                     <br>
                    <hr>
+ <h5>Month</h5>
+                   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Duration</th>
+        <th>Count</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for task in timesheets_day %}
+      <tr>
+          <td>{{task.from_temp__day}}</td>
+          <td>{{task.inerval}}</td>
+        <td>{{task.durationTime}}</td>
+
+        <td>{{task.from_temp__count}}</td>
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
                                             <table id="basic-datatable" class="table dt-responsive  w-100">
