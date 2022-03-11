@@ -642,7 +642,6 @@ input[type = checkbox]:checked {
 </div>
 
 
-
 <div class="uploadForm" id="dialog-form" title="Upload file">
 
   <form method="POST" enctype="multipart/form-data">
@@ -665,8 +664,7 @@ input[type = checkbox]:checked {
 <script>
 
 
-
-                                  $(function() {
+$(function() {
   $(document).ready(function(){
   $('form input').change(function () {
     $('form p').text(this.files.length + " file(s) selected");
@@ -717,6 +715,9 @@ input[type = checkbox]:checked {
       dialog.dialog( "open" );
     });
   });
+
+
+
 
 
 

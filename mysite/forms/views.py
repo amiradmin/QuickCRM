@@ -6816,6 +6816,110 @@ class UpdateTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
             return render(request, 'forms/vision_test.html', context)
 
 
+
+class UpdateTWIExamFeedbackByid(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/update_twi_exam_Feedback.html"
+
+    def get_context_data(self, id, *args, **kwargs):
+        context = super(UpdateTWIExamFeedbackByid, self).get_context_data()
+        id = self.kwargs['id']
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        print(candidate)
+        form = TwiExamFeedback.objects.filter(candidate=candidate).first()
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        if form.event.location:
+            form.event.name = event.name
+            form.event.location = event.location
+            form.save()
+        context['form'] = form
+        return context
+
+    def post(self, request, id, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                print("POST")
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                examObj = TwiExamFeedback.objects.filter(candidate=candidate).first()
+                examObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
+                examObj.invigilator = request.POST['lecturerName']
+                examObj.programme = request.POST['programme']
+                examObj.venue = request.POST['venue']
+                examObj.region = request.POST['region']
+                examObj.howWeDid = request.POST['howWeDid']
+                examObj.candidateOpinion = request.POST['candidateOpinion']
+
+                for idx, item in enumerate(range(0, 10)):
+                    print(idx + 1)
+                    if not request.POST.get('administrativeStaff' + str(idx + 1), None) == None:
+                        examObj.administrativeStaff = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('examinationRoom' + str(idx + 1), None) == None:
+                        examObj.examinationRoom = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('feltComfortable' + str(idx + 1), None) == None:
+                        examObj.feltComfortable = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('explanationInvigilator' + str(idx + 1), None) == None:
+                        examObj.explanationInvigilator = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('writtenExamination' + str(idx + 1), None) == None:
+                        examObj.writtenExamination = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('courseContent' + str(idx + 1), None) == None:
+                        examObj.courseContent = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('equipment' + str(idx + 1), None) == None:
+                        examObj.equipment = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('samples' + str(idx + 1), None) == None:
+                        examObj.samples = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('reflection' + str(idx + 1), None) == None:
+                        examObj.reflection = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('practicalSamples' + str(idx + 1), None) == None:
+                        examObj.practicalSamples = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('recommend' + str(idx + 1), None) == None:
+                        examObj.recommend = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('comparisonTo' + str(idx + 1), None) == None:
+                        examObj.comparisonTo = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('afterYourExperience' + str(idx + 1), None) == None:
+                        examObj.afterYourExperience = str(idx + 1)
+
+                for idx, item in enumerate(range(0, 10)):
+                    if not request.POST.get('catering' + str(idx + 1), None) == None:
+                        examObj.catering = str(idx + 1)
+
+                examObj.save()
+
+                return redirect('forms:evensummary_', id=event.id)
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:evensummary_', id=event.id)
+
+            return render(request, 'forms/vision_test.html', context)
+
 class ViewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/view_twi_exam_Feedback.html"
 

@@ -103,6 +103,7 @@ urlpatterns = [
     path('alltwiexamfeed/', views.AllTWIExamFeedback.as_view(), name='alltwiexamfeed_'),
     path('deletetwiexamfeed/<int:pk>/delete/', views.DeleteTWIExamFeedback.as_view(), name='deletetwiexamfeed_'),
     path('updatetwiexamfeed/<int:id>', views.UpdateTWIExamFeedback.as_view(), name='updatetwiexamfeed_'),
+    path('updatetwiexamfeedbyid/<int:id>/<int:eventID>/<int:formID>', views.UpdateTWIExamFeedbackByid.as_view(), name='updatetwiexamfeedbyid_'),
     path('viewtwiexamfeed/<int:id>', views.ViewTWIExamFeedback.as_view(), name='viewtwiexamfeed_'),
 
     path('psl30log/', views.PSL30LogExperienceForm.as_view(), name='psl30log_'),
