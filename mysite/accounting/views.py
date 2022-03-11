@@ -12,6 +12,7 @@ from django.core.mail import EmailMessage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from contacts.models import Contact
 from training.models import TesCandidate,StaffProfile,CourseRequest
+from django.urls import reverse_lazy
 from django.db.models import Q
 import datetime
 from mailer.views import sendMail
@@ -22,24 +23,54 @@ class LoginView(TemplateView):
 
     template_name = "login.html"
 
-    def get_context_data(self):
+    def get(self,request):
         context = super(LoginView, self).get_context_data()
+        if self.request.user.is_authenticated:
+            print("Logged in")
+            group_name = request.user.groups.values_list('name', flat=True).first()
+            print(group_name)
+            if group_name == 'management':
+                return HttpResponseRedirect(reverse_lazy('training:trainpanel_'))
+            elif group_name == 'training_admin':
+                return HttpResponseRedirect(reverse_lazy('training:trainpanel_'))
+            elif group_name == 'Staff':
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                # return redirect('accounting:staffprofile_', id=self.request.user.id)
+                return HttpResponseRedirect(reverse_lazy('training:trainpanel_',id=self.request.user.id))
+            elif group_name == 'training_operator':
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                return HttpResponseRedirect(reverse_lazy('accounting:staffprofile_', id=self.request.user.id))
 
-        return context
+            elif group_name == 'candidates':
+                print('can')
+                redirect_to = request.META.get('HTTP_REFERER')
+                print(redirect_to)
+                if 'next' in redirect_to:
+                    print("exist")
+                    return redirect(redirect_to.replace('?next=/', ''))
+                else:
+                    candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                    response = redirect('accounting:canprofile_', id=candidate.id)
+                    return response
+        # return context
+        return render(request, "login.html")
 
     def post(self, request):
         username = request.POST['username']
         password = request.POST['password']
-        # remember = request.POST['remember_me']
+        remember_me = request.POST['remember_me']
         user = authenticate(username=username, password=password)
+
 
         if user is not None:
             if user.is_active:
                 login(request, user)
+                if not remember_me:
+                    request.session.set_expiry(0)
                 group_name = request.user.groups.values_list('name', flat=True).first()
                 print(group_name)
                 if group_name == 'management' :
-                    
+
                     return redirect('training:trainpanel_')
                 elif group_name == 'training_admin':
                     return redirect('training:trainpanel_')
