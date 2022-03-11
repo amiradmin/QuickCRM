@@ -88,6 +88,7 @@ urlpatterns = [
     path('alltrainingatt/', views.AllTrainingAttendance.as_view(), name='alltrainingatt_'),
     path('deletetrainingatt/<int:pk>/delete/', views.DeleteTrainingAttendance.as_view(), name='deletetrainingatt_'),
     path('updatetrainingatt/<int:id>', views.UpdateTrainingAttendancem.as_view(), name='updatetrainingatt_'),
+    path('updatetrainingattbyid/<int:id>', views.UpdateTrainingAttendancemByID.as_view(), name='updatetrainingattbyid_'),
     path('viewtrainingatt/<int:id>', views.ViewTrainingAttendance.as_view(), name='viewtrainingatt_'),
 
 
