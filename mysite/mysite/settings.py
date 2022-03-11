@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'tinymce_4',
     # 'timesheet',
     'stafftimesheet',
+    'timedeltatemplatefilter',
 
 
 

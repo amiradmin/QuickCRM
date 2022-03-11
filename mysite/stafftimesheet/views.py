@@ -151,7 +151,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
 
 
-                for item in timesheets_day:
+                for item in timesheets_task:
                     print(item)
 
 
