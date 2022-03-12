@@ -75,6 +75,7 @@ urlpatterns = [
     path('deletetesfrmexamattend/<int:pk>/delete/', views.DeleteTesFrmExaminationAttendance.as_view(), name='deletetesfrmexamattend_'),
     path('updatetesfrmexamattend/<int:id>', views.UpdateTesFrmExaminationAttendance.as_view(), name='updatetesfrmexamattend_'),
     path('viewtesfrmexamattend/<int:id>', views.ViewTesFrmExaminationAttendance.as_view(), name='viewtesfrmexamattend_'),
+    path('viewtesfrmexamattendbyid/<int:id>', views.UpdateTesFrmExaminationAttendanceByID.as_view(), name='viewtesfrmexamattendbyid_'),
 
 
     path('newlecfedform/', views.NewLecFeedbackForm.as_view(), name='newlecfedform_'),

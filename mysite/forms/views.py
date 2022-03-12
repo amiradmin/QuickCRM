@@ -3046,7 +3046,6 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateNDT15AExpVerViewByUserID, self).get_context_data()
         candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
-        # formID = self.kwargs['eventID']
         form = NDT15AExperienceVerification.objects.filter(candidate=candidate).last()
         context['form'] = form
         return context
@@ -3054,48 +3053,68 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
     def post(self, request,  *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-
-                obj = NDT15AExperienceVerification.objects.filter(id=self.kwargs['id']).first()
+                print("Update here")
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                obj = NDT15AExperienceVerification.objects.filter(candidate=candidate).last()
                 obj.candidateID = request.POST['cancanID']
                 obj.descriptionOfExperience = request.POST['descriptionOfExperience']
                 obj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                # obj.candidate.birth_date = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
                 obj.nameJobTitle = request.POST['nameJobTitle']
                 obj.companyName = request.POST['companyName']
                 obj.supervisionActivity = request.POST['supervisionActivity']
                 obj.verEmail = request.POST['verEmail']
                 obj.verDate = datetime.datetime.strptime(request.POST['verDate'], '%m/%d/%Y')
                 obj.save()
-
+                #
                 for idx, item in enumerate(range(0, 8)):
                     if not request.POST.get('methodLevel'+ str(idx+1), None) == None:
                         id = request.POST['id'+ str(idx+1)]
-                        print(id)
+
                         print(request.POST['ExpiryDate' + str(idx + 1)])
-                        objCur = CurrentFormerCertification.objects.filter(id=id).first()
-                        objCur.methodLevel = request.POST['methodLevel'+ str(idx+1)]
-                        objCur.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority'+ str(idx+1)]
-                        objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate' + str(idx + 1)], '%m/%d/%Y')
-                        objCur.save()
+                        if CurrentFormerCertification.objects.filter(id=id).count() > 0:
+                            print("Update Indide")
+                            objCur = CurrentFormerCertification.objects.filter(id=id).first()
+                            objCur.methodLevel = request.POST['methodLevel'+ str(idx+1)]
+                            objCur.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority'+ str(idx+1)]
+                            objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate' + str(idx + 1)], '%m/%d/%Y')
+                            objCur.save()
+                        if not request.POST.get('methodLevelNew', None) == None:
+                            print("New Inside")
+                            objCur.methodLevel = request.POST['methodLevelNew']
+                            objCur.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthorityNew']
+                            objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDateNew'], '%m/%d/%Y')
+                            objCur.save()
+                            obj.currentFormerCertification.add(objCur)
 
                 for idx, item in enumerate(range(0, 8)):
                     if not request.POST.get('claimedMethodLevel'+ str(idx+1), None) == None:
                         id = request.POST['expID'+ str(idx+1)]
                         print(id)
-                        objExp = ExperienceClaimed.objects.filter(id=id).first()
-                        objExp.methodLevel = request.POST['claimedMethodLevel'+ str(idx+1)]
-                        objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSince'+ str(idx+1)]
-                        objExp.NumberOfNonths = request.POST['NumberOfNonths'+ str(idx+1)]
-                        objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' + str(idx + 1)], '%m/%d/%Y')
-                        objExp.save()
+                        if ExperienceClaimed.objects.filter(id=id).count() > 0:
+                            objExp = ExperienceClaimed.objects.filter(id=id).first()
+                            objExp.methodLevel = request.POST['claimedMethodLevel'+ str(idx+1)]
+                            objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSince'+ str(idx+1)]
+                            objExp.NumberOfNonths = request.POST['NumberOfNonths'+ str(idx+1)]
+                            objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' + str(idx + 1)], '%m/%d/%Y')
+                            objExp.save()
+                        else:
+                            objExp = ExperienceClaimed()
+                            objExp.methodLevel = request.POST['claimedMethodLevelNew']
+                            objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSinceNew']
+                            objExp.NumberOfNonths = request.POST['NumberOfNonths'+ str(idx+1)]
+                            objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' +New ], '%m/%d/%Y')
+                            objExp.save()
 
-                return redirect('forms:allndt15expver_')
+                return redirect('forms:evensummary_', id=event.id)
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
                 obj = NDT15AExperienceVerification.objects.filter(id=id).first()
                 obj.file = request.FILES['pdfFile']
                 obj.save()
-                return redirect('forms:allndt15expver_')
+                return redirect('forms:evensummary_', id=event.id)
 
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/ndt/ndt_15.html', context)
@@ -4438,6 +4457,80 @@ class UpdateTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, Templa
                 return redirect('forms:alltesfrmexamattend_')
 
             return render(request, 'forms/vision_test.html', context)
+
+
+class UpdateTesFrmExaminationAttendanceByID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/update_TES-TES-FRM-008_examination_attendance.html"
+
+    def get_context_data(self, id, *args, **kwargs):
+        context = super(UpdateTesFrmExaminationAttendanceByID, self).get_context_data()
+        id = self.kwargs['id']
+        event = Event.objects.filter(id=id).first()
+        form = TesFrmExaminationAttendance.objects.filter(event=event).first()
+        context['form'] = form
+        return context
+
+    def post(self, request, id, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                print("LOOK")
+
+                # candidate = TesCandidate.objects.filter(id=request.POST['CanID']).first()
+
+                examObj = TesFrmExaminationAttendance.objects.filter(id=self.kwargs['id']).first()
+                # examObj.candidate =candidate
+
+
+                examObj.examTitleCode = request.POST['examTitleCode']
+                examObj.venue = request.POST['venue']
+                examObj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                examObj.invigilatorName = request.POST['invigilatorName']
+
+                examObj.save()
+
+                #
+
+                for idx, item in enumerate(range(0, 8)):
+                    print(str(idx+1))
+                    # print(request.POST.get('id', None))
+                    if not request.POST.get('id'+str(idx+1), None) == None:
+                        id = request.POST['id'+str(idx+1)]
+                        # print(id)
+
+                        fullName = request.POST["canName" + str(idx+1)].split(' ')
+                        print(fullName)
+                        if len(fullName) == 2:
+                            candidate = TesCandidate.objects.filter(
+                                Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
+                            print(candidate.first_name)
+
+                        elif len(fullName) == 3:
+                            candidate = TesCandidate.objects.filter(
+                                Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
+                            # print(candidate.first_name)
+                        #
+                        if candidate:
+                            canObj = TesFrmCandidate.objects.filter(id=id).first()
+                            canObj.candidate = candidate
+                            canObj.testSequence = request.POST['testSequence' + str(idx + 1)]
+                            canObj.methodOfExam = request.POST['methodOfExam' + str(idx + 1)]
+                            canObj.scheme = request.POST['scheme' + str(idx + 1)]
+                            canObj.remark = request.POST['remark' + str(idx + 1)]
+                            canObj.save()
+                            examObj.tesFrmCandidate.add(canObj)
+
+
+                return redirect('forms:alltesfrmexamattend_')
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = TesFrmExaminationAttendance.objects.filter(id=id).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:alltesfrmexamattend_')
+
+            return render(request, 'forms/vision_test.html', context)
+
 
 
 class ViewTesFrmExaminationAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
