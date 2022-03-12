@@ -3039,6 +3039,69 @@ class UpdateNDT15AExpVerView(SidebarMixin, LoginRequiredMixin, TemplateView):
             return render(request, 'forms/ndt/ndt_15.html', context)
 
 
+
+class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/ndt/update_ndt_15.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateNDT15AExpVerViewByUserID, self).get_context_data()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        # formID = self.kwargs['eventID']
+        form = NDT15AExperienceVerification.objects.filter(candidate=candidate).last()
+        context['form'] = form
+        return context
+
+    def post(self, request,  *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+
+                obj = NDT15AExperienceVerification.objects.filter(id=self.kwargs['id']).first()
+                obj.candidateID = request.POST['cancanID']
+                obj.descriptionOfExperience = request.POST['descriptionOfExperience']
+                obj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                obj.nameJobTitle = request.POST['nameJobTitle']
+                obj.companyName = request.POST['companyName']
+                obj.supervisionActivity = request.POST['supervisionActivity']
+                obj.verEmail = request.POST['verEmail']
+                obj.verDate = datetime.datetime.strptime(request.POST['verDate'], '%m/%d/%Y')
+                obj.save()
+
+                for idx, item in enumerate(range(0, 8)):
+                    if not request.POST.get('methodLevel'+ str(idx+1), None) == None:
+                        id = request.POST['id'+ str(idx+1)]
+                        print(id)
+                        print(request.POST['ExpiryDate' + str(idx + 1)])
+                        objCur = CurrentFormerCertification.objects.filter(id=id).first()
+                        objCur.methodLevel = request.POST['methodLevel'+ str(idx+1)]
+                        objCur.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority'+ str(idx+1)]
+                        objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate' + str(idx + 1)], '%m/%d/%Y')
+                        objCur.save()
+
+                for idx, item in enumerate(range(0, 8)):
+                    if not request.POST.get('claimedMethodLevel'+ str(idx+1), None) == None:
+                        id = request.POST['expID'+ str(idx+1)]
+                        print(id)
+                        objExp = ExperienceClaimed.objects.filter(id=id).first()
+                        objExp.methodLevel = request.POST['claimedMethodLevel'+ str(idx+1)]
+                        objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSince'+ str(idx+1)]
+                        objExp.NumberOfNonths = request.POST['NumberOfNonths'+ str(idx+1)]
+                        objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' + str(idx + 1)], '%m/%d/%Y')
+                        objExp.save()
+
+                return redirect('forms:allndt15expver_')
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                obj = NDT15AExperienceVerification.objects.filter(id=id).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:allndt15expver_')
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/ndt/ndt_15.html', context)
+
+
+
 class NDTCovid19View(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/ndt/covid_19_S.html"
 

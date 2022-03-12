@@ -53,6 +53,7 @@ urlpatterns = [
     path('allndt15expver/', views.AllNDT15AExpVerView.as_view(), name='allndt15expver_'),
     path('getndt15byid/<int:id>', views.ViewNDT15FormByID.as_view(), name='getndt15byid_'),
     path('updatendt15/<int:id>', views.UpdateNDT15AExpVerView.as_view(), name='updatendt15_'),
+    path('updatendt15byid/<int:id>/<int:eventID>/<int:formID>', views.UpdateNDT15AExpVerViewByUserID.as_view(), name='updatendt15_'),
 
 
 

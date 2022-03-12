@@ -39,8 +39,8 @@ admin.site.register(TesAttCandidate, TesAttCandidateAdmin)
 # Register your models here.
 
 class TesLecFeedbackFromAdmin(admin.ModelAdmin):
-    list_display = ['id', 'courseName', 'candidate','startDate','lecturerName','location', 'created_at', 'updated_at']
-    list_filter =['id', 'courseName', 'candidate','startDate','lecturerName','location', 'created_at', 'updated_at']
+    list_display = ['id', 'event', 'candidate','startDate','lecturerName','location', 'created_at', 'updated_at']
+    list_filter =['id', 'event', 'candidate','startDate','lecturerName','location', 'created_at', 'updated_at']
 admin.site.register(TesLecFeedbackFrom, TesLecFeedbackFromAdmin)
 
 

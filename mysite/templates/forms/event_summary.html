@@ -176,12 +176,17 @@
                                                         
                                                    
                                                         <td>
-                                                            {% for form in item.candidate_forms.all %}
+                                                            {% for form in item.candidate_forms.all  %}
+                                                            {{form.event.id}}-{{event.id}}
+
+                                                            {% if form.event.id == event.id %}
+
 
            {% if form.file %} <a target="_blank" href="{{ form.file.url }}" ><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
             <a href="{{ showURL }}/forms/{{form.internal_link}}/{{item.id}}/{{event.id}}/{{form.id}}">{% if form.sent %}<span class="badge badge-primary-lighten">{{form.form_name}}</span>{% else %} <span class="badge badge-warning-lighten">{{form.form_name}}</span>{% endif %}</a><br>
 
 
+                        {% endif %}
                                                             {% endfor %}
                                                         </td>
                     

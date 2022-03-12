@@ -599,7 +599,7 @@ class TesFrmExaminationAttendance(models.Model):
 
 
 class TesLecFeedbackFrom(models.Model):
-    courseName= models.ForeignKey(Event, related_name="feed_form_event", on_delete=models.CASCADE)
+    event= models.ForeignKey(Event, related_name="feed_form_event", on_delete=models.CASCADE)
     lecturerName= models.CharField(max_length=512, null=True, blank=True)
     startDate = models.DateField(null=True, blank=True)
     location = models.CharField(max_length=512, null=True, blank=True)
@@ -648,7 +648,7 @@ class TesLecFeedbackFrom(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.courseName.name
+        return self.event.name
 
 
 
