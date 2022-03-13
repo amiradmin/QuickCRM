@@ -5224,14 +5224,12 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
         if request.method == 'POST':
             if 'mainForm' in request.POST:
 
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =True
-                # if not  request.POST.get('contactMe', None) == None:
-                #     objPSL57.contactMe =False
-                attObj = TrainingAttendance.objects.filter(id=id).first()
+                eventID = self.kwargs['id']
+                event = Event.objects.filter(id=eventID).first()
+                attObj = TrainingAttendance.objects.filter(event=event).first()
                 attObj.examTitleCode = request.POST['examTitleCode']
                 attObj.venue = request.POST['venue']
-                attObj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                attObj.date = datetime.datetime.strptime(request.POST['date'].split(' - ')[0], '%m/%d/%Y')
                 attObj.lecturerName = request.POST['lecturerName']
                 attObj.save()
 

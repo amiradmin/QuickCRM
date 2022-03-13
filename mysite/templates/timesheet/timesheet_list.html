@@ -56,7 +56,7 @@
                     </div>
                     <!-- end page title -->
 
-      <form method="post">
+      <form method="post" onsubmit="submitForm(event)">
     {% csrf_token %}
                         <div class="row">
                             <div class="col-12">
@@ -108,10 +108,10 @@
 </select>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Month</label>
-                                                    <select  id="inputState" name="monthSelect" class="form-select">
+                                                    <label for="months" class="form-label">Month</label>
+                                                    <select  id="months" name="monthSelect" class="form-select">
 
-    <option selected value=''>Choose</option>
+    <option  value=''>Choose</option>
     <option  value='1'>Janaury</option>
     <option value='2'>February</option>
     <option value='3'>March</option>
@@ -134,7 +134,7 @@
 
 
                      <div class="mb-3 col-md-12 text-center">
-                                    <button onclick="myFunction()" class="btn btn-primary" name="userSelection" type="submit">Update</button>
+                                    <button  class="btn btn-primary" name="userSelection" type="submit">Update</button>
                      </div>
                      </div>
                  </div>
@@ -337,6 +337,35 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js'></script>
                 <script>
+
+
+
+
+
+function submitForm(event){
+<!--alert("Test");-->
+
+var e = document.getElementById("months");
+var strUser = e.value;
+
+var e = document.getElementById("datepicker");
+var datePick = e.value;
+<!--alert(datePick);-->
+    if (strUser == 0  &&  datePick == '' ){
+    alert("Please select month or date!");
+    event.preventDefault();
+
+    }
+
+
+
+
+
+    }
+
+<!--alert(monthSelect);-->
+
+
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
 
 
