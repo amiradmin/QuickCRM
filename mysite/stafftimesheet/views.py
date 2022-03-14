@@ -58,6 +58,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
         if request.method == 'POST':
 
             # context = self.get_contex_data(**kwargs)
+            conTotalHoursDaily = None
             if 'userSelection' in request.POST:
                 # context = super(TimesheetList, self).get_context_data()
                 print("Admin List 0000000000")
