@@ -21,6 +21,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
 
         context = super(TimesheetList, self).get_context_data()
+        print("Here Here")
         timesheets = Timesheet.objects.all()
         staffs = User.objects.all()
         week_start = date.today()
@@ -44,6 +45,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
         context['candidate'] =candidate
+        context['idd'] =2002
         context['staffs'] = staffs
         context['timesheets'] = timesheets
         context['candidate_list'] = candidate_list
@@ -57,10 +59,11 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
         if request.method == 'POST':
 
-            # context = self.get_contex_data(**kwargs)
+
+
             conTotalHoursDaily = None
             if 'userSelection' in request.POST:
-                # context = super(TimesheetList, self).get_context_data()
+                context = super(TimesheetList, self).get_context_data()
                 print("Admin List 0000000000")
                 userID =request.POST['userID']
                 user = User.objects.filter(id=userID).first()
@@ -170,10 +173,28 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 # context['candidate'] = candidate
                 # context['group_name'] = group_name
                 # totalHours = str(hours) + ':' + str(minutes)
-                context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'timesheets_day':timesheets_day,'staffs':staffs,'conTotalHoursDaily':conTotalHoursDaily,'task':task,'conTotalHoursDaily':conTotalHoursDaily,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
+                # context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'timesheets_day':timesheets_day,'staffs':staffs,'conTotalHoursDaily':conTotalHoursDaily,'task':task,'conTotalHoursDaily':conTotalHoursDaily,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
 
-                return render(request, self.template_name, context)
-
+                # return render(request, self.template_name, context)
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
+                context['candidate'] = candidate
+                context['timesheets_task'] = timesheets_task
+                context['timesheets_day'] = timesheets_day
+                context['candidate_list'] = candidate_list
+                context['conTotalHoursDaily'] = conTotalHoursDaily
+                context['task'] = task
+                context['candidate_list'] = candidate_list
+                context['conTotalHoursDaily'] = conTotalHoursDaily
+                context['staffs'] = staffs
+                context['timesheets'] = timesheets
+                context['totalHours'] = str(hours) + ':' + str(minutes)
+                context['idd'] = 6006                # self.timesheet = timesheets
+                # time = timesheets
+                # print(self.timesheet)
+                print("Zanjan Today")
+                return render(request, self.template_name, context=context)
+                # return context
             else:
                 print("OK OK")
                 timesheetList = self.get_context_data().get('timesheets')
@@ -271,8 +292,7 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
         timesheets = Timesheet.objects.filter(staff=self.request.user)
         candidate = TesCandidate.objects.filter(user = self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
-        for item in timesheets:
-            print(item.description)
+        print("Here Zanjan")
         context['group_name'] = group_name
         context['timesheets'] = timesheets
         context['candidate'] = candidate
@@ -412,7 +432,7 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                 #
                 # obj.save()
 
-                return redirect('stafftimesheet:timesheetcal_')
+
 
 
 
