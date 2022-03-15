@@ -362,10 +362,10 @@ var chart = am4core.create("chartdiv", am4charts.PieChart);
 // Add data
 
 chart.data = [
-{% for task in timesheets_day %}
+{% for task in timesheets_task %}
 {
   "country": "{{task.task}}",
-  "litres": "{{task.durationTime|timedelta:"{hours_total}" }}"
+  "litres": {{task.durationTime|timedelta:"{hours_total}" }}
 },
 
    {% endfor %}
