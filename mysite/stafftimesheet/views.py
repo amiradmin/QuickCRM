@@ -425,7 +425,12 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                     obj.delete()
         context = super(TimesheetCalendarView, self).get_context_data()
         timesheets = Timesheet.objects.filter(staff=self.request.user)
+        candidate = TesCandidate.objects.filter(user = self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+
+        context['group_name'] = group_name
         context['timesheets'] = timesheets
+        context['candidate'] = candidate
 
         return render(request, self.template_name, context=context)
                 # for item in dateListObj:
