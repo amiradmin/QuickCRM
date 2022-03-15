@@ -299,8 +299,10 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
+
         if request.method == 'POST':
 
+                print("Radin")
                 dateListObj = request.POST['dateList']
                 jsonDate =json.loads(dateListObj)
                 print(jsonDate)
@@ -421,7 +423,11 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
                     obj = Timesheet.objects.filter(id=taskID).first()
 
                     obj.delete()
+        context = super(TimesheetCalendarView, self).get_context_data()
+        timesheets = Timesheet.objects.filter(staff=self.request.user)
+        context['timesheets'] = timesheets
 
+        return render(request, self.template_name, context=context)
                 # for item in dateListObj:
                 #     print(item.title)
                 # obj = Timesheet()

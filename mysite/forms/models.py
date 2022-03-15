@@ -697,7 +697,7 @@ class TrainingAttendance(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.examTitleCode
+        return self.event.name
 
 
 class TwiTrainingFeedback(models.Model):

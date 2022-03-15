@@ -33,8 +33,8 @@ class TwiTrainingFeedbackAdmin(admin.ModelAdmin):
 admin.site.register(TwiTrainingFeedback, TwiTrainingFeedbackAdmin)
 
 class TrainingAttendanceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'examTitleCode', 'venue','date','lecturerName', 'created_at', 'updated_at']
-    list_filter =['id', 'examTitleCode', 'venue','date','lecturerName', 'created_at', 'updated_at']
+    list_display = ['id', 'examTitleCode','event', 'venue','date','lecturerName', 'created_at', 'updated_at']
+    list_filter =['id', 'examTitleCode','event',  'venue','date','lecturerName', 'created_at', 'updated_at']
 admin.site.register(TrainingAttendance, TrainingAttendanceAdmin)
 
 class TesAttCandidateAdmin(admin.ModelAdmin):

@@ -5236,17 +5236,17 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
                 for idx, item in enumerate(range(0, 8)):
                     print(idx)
                     if not request.POST.get('canName' + str(idx + 1), None) == None:
-                        fullName = request.POST["canName" + str(idx + 1)].split(' ')
+                        fullName = request.POST["canName" + str(idx + 1)].split('-')[0]
                         print(fullName)
-                        if len(fullName) == 2:
-                            candidate = TesCandidate.objects.filter(
-                                Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
-                            print(candidate.first_name)
 
-                        elif len(fullName) == 3:
-                            candidate = TesCandidate.objects.filter(
-                                Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
-                            print(candidate.first_name)
+                        # print(request.POST['canName'.split('-')[0]])
+                        candidate = TesCandidate.objects.filter(id = request.POST['canName'.split('-')[0]] ).first()
+                        testAttCandidate = TesAttCandidate()
+                        testAttCandidate = candidate
+                        testAttCandidate.save()
+                        attObj.attCandidate.add(testAttCandidate)
+
+
 
                         # if len(fullName) > 1:
                         #     print(request.POST['indexID'+ str(idx + 1)])

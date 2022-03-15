@@ -38,6 +38,7 @@
 
   <h5 class="page-title" >Event: {{event.name}}  </h5>
   <p style="font-size:14px;">Start Date: {{event.start_date|date}}</p>
+  <p style="font-size:14px;">End Date: {{event.end_date|date}}</p>
   <p style="font-size:14px;">Location: {{event.location}}</p>
    <br>
    <br>
@@ -177,7 +178,7 @@
                                                    
                                                         <td>
                                                             {% for form in item.candidate_forms.all  %}
-                                                            {{form.event.id}}-{{event.id}}
+
 
                                                             {% if form.event.id == event.id %}
 

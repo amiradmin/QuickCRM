@@ -598,7 +598,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 {% for item in event.candidate.all %}
 
 <input type="hidden"  name="indexID{{ forloop.counter }}" value="{{item.id}}"  />
-<input type="text" id="insideInfo1o"  value="{{item.first_name}} {% if item.middleName != 'None' %}{{item.middleName}}{% endif %} {{item.last_name}}" style="border:none;background: transparent;width: 217px; height: 35px;font-size: 15px;margin:1px;" value="" name="canName{{ forloop.counter }}" id="">
+<input type="text" id="insideInfo1o"  value="{{item.id}}-{{item.first_name}} {% if item.middleName != 'None' %}{{item.middleName}}{% endif %} {{item.last_name}}" style="border:none;background: transparent;width: 217px; height: 35px;font-size: 15px;margin:1px;" value="" name="canName{{ forloop.counter }}" id="">
 <input type="text" id="insideInfo2o" value="{{item.testSequence}}"   style="border:none;background: transparent;width: 81px; height: 31px;font-size: 15px;margin:1px;" value="" name="testSequence{{ forloop.counter }}" id="">
 
 <input id="insideInfo3" type="checkbox" {% if item.dayOneSec1 %} checked {% endif %}  style="border:none;margin-left:0px ;" name="dayOneSec1{{ forloop.counter }}" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />

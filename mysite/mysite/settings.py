@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     # 'timesheet',
     'stafftimesheet',
     'timedeltatemplatefilter',
+    'scheduler',
+    # 'scheduler.apps.SchedulerConfig'
 
 
 
