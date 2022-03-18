@@ -52,6 +52,7 @@ class LoginView(TemplateView):
                     candidate = TesCandidate.objects.filter(user=self.request.user).first()
                     response = redirect('accounting:canprofile_', id=candidate.id)
                     return response
+
         # return context
         return render(request, "login.html")
 
@@ -99,7 +100,7 @@ class LoginView(TemplateView):
 
 
             else:
-                return HttpResponse("Inactive user.")
+                return render(request, "index.html", {'msg': 'Your username or password is wrong!'})
         else:
             return HttpResponseRedirect(settings.LOGIN_URL)
 

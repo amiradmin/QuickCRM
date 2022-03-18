@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Timesheet(models.Model):
     # STATUS_CHOICES = (('P', 'Partial Payment'), ('F', 'Fully Payment'))
-    staff = models.ForeignKey(User,related_name="staff_stafftimesheet",  null=True, blank=True , on_delete=models.CASCADE)
+    staff = models.ForeignKey(User,related_name="staff_stafftimesheet",  null=True, blank=True , on_delete=models.DO_NOTHING)
     # from_date = models.DateTimeField(null=True,blank=True)
     # to_date = models.DateTimeField(null=True,blank=True)
 

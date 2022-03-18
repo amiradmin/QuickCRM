@@ -5223,7 +5223,7 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-
+                print("Here now")
                 eventID = self.kwargs['id']
                 event = Event.objects.filter(id=eventID).first()
                 attObj = TrainingAttendance.objects.filter(event=event).first()
@@ -5236,15 +5236,21 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
                 for idx, item in enumerate(range(0, 8)):
                     print(idx)
                     if not request.POST.get('canName' + str(idx + 1), None) == None:
-                        fullName = request.POST["canName" + str(idx + 1)].split('-')[0]
-                        print(fullName)
-
-                        # print(request.POST['canName'.split('-')[0]])
-                        candidate = TesCandidate.objects.filter(id = request.POST['canName'.split('-')[0]] ).first()
-                        testAttCandidate = TesAttCandidate()
-                        testAttCandidate = candidate
-                        testAttCandidate.save()
-                        attObj.attCandidate.add(testAttCandidate)
+                        canID = request.POST["canName" + str(idx + 1)].split('-')[0]
+                        print(canID)
+                        candidate = TesCandidate.objects.filter(id=canID).first()
+                        testAttCandidate = TesAttCandidate.objects.filter(candidate=candidate)
+                        if testAttCandidate.count() >0:
+                            testAttCandidate = TesAttCandidate.objects.filter(candidate=candidate).first()
+                            candidate = TesCandidate.objects.filter(id=canID).first()
+                            testAttCandidate.candidate = candidate
+                            testAttCandidate.testSequence =  request.POST['testSequence' + str(idx + 1)]
+                            testAttCandidate.save()
+                        else:
+                            testAttCandidate = TesAttCandidate()
+                            testAttCandidate.candidate = candidate
+                            testAttCandidate.save()
+                            attObj.attCandidate.add(testAttCandidate)
 
 
 
@@ -5319,7 +5325,7 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
                         #
                         #     canObj.save()
 
-                return redirect('forms:alltrainingatt_')
+                return redirect('forms:evensummary_', id=event.id)
 
 
             if 'uploadFormBack' in request.POST:
@@ -5327,7 +5333,7 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
                 obj = TrainingAttendance.objects.filter(id=id).first()
                 obj.file = request.FILES['pdfFile']
                 obj.save()
-                return redirect('forms:alltrainingatt_')
+                return redirect('forms:evensummary_', id=event.id)
 
             return render(request, 'forms/vision_test.html', context)
 

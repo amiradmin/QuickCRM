@@ -9,7 +9,7 @@ from datetime import datetime,date, timedelta
 from django.urls import reverse_lazy
 from braces.views import GroupRequiredMixin
 from django.urls import reverse
-from django.db.models import Q ,F ,Sum,Count
+from django.db.models import Q ,F ,Sum,Count,Max
 import json
 # Create your views here.
 
@@ -59,167 +59,262 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
 
         if request.method == 'POST':
 
-
-
-            conTotalHoursDaily = None
             if 'userSelection' in request.POST:
-                context = super(TimesheetList, self).get_context_data()
-                print("Admin List 0000000000")
-                userID =request.POST['userID']
-                user = User.objects.filter(id=userID).first()
-                daily =request.POST['daily']
-                task = request.POST['task']
-                hours = 0
-                minutes = 0
 
-                monthSelect = request.POST['monthSelect']
-                print(monthSelect)
-                totalHoursDaily = 0
-                totalHoursMonth = 0
-                if daily is not None and monthSelect == '':
-                    print("Daily")
-                    q_object = ~Q()
-                    if userID == "000":
-                        print("All users")
-                    else:
-                        q_object =  Q(staff=user)
-                        print("One users")
+                conTotalHoursDaily = None
+                if 'userSelection' in request.POST:
+                    context = super(TimesheetList, self).get_context_data()
+                    print("Admin List 0000000000")
+                    userID =request.POST['userID']
+                    user = User.objects.filter(id=userID).first()
+                    daily =request.POST['daily']
+                    week =request.POST['week']
+                    task = request.POST['task']
+                    hours = 0
+                    minutes = 0
 
-
-
-                    if(task == 'All'):
-                        q_object = q_object & Q(from_temp__year=daily.split('/')[2]) & Q(
-                            from_temp__month=daily.split('/')[0]) & Q(from_temp__day=daily.split('/')[1])
-                    else:
-                        q_object = q_object & Q(task=task) & Q(from_temp__year=daily.split('/')[2]) & Q(
-                            from_temp__month=daily.split('/')[0]) & Q(from_temp__day=daily.split('/')[1])
-
-
-                    timesheets = Timesheet.objects.filter(q_object
-                    ).annotate(durationTime=F('to_date') - F('from_temp'))
-
-                    totalHoursDaily = Timesheet.objects.filter(q_object).annotate(
-                    durationTime=F('to_date') - F('from_temp')).aggregate(
-                    Sum('durationTime')).get('durationTime__sum')
-                    timesheets_task = Timesheet.objects.filter(q_object
-                    ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
-                    print("inside")
-
-                    timesheets_day = Timesheet.objects.filter(q_object
-                    ).values('from_temp__day','from_temp__year','from_temp__month').annotate(Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+                    monthSelect = request.POST['monthSelect']
+                    print(monthSelect)
+                    totalHoursDaily = 0
+                    totalHoursMonth = 0
+                    if daily is not None and monthSelect == '' and week == '' :
+                        print("Daily")
+                        q_object = ~Q()
+                        if userID == "000":
+                            print("All users")
+                        else:
+                            q_object =  Q(staff=user)
+                            print("One users")
 
 
 
-                    if totalHoursDaily:
-                        hours = totalHoursDaily.days * 24 + totalHoursDaily.seconds // 3600
-                        minutes = (totalHoursDaily.seconds % 3600) // 60
-                        conTotalHoursDaily = str(hours) + ':' + str(minutes)
-                else:
+                        if(task == 'All'):
+                            q_object = q_object & Q(from_temp__year=daily.split('/')[2]) & Q(
+                                from_temp__month=daily.split('/')[0]) & Q(from_temp__day=daily.split('/')[1])
+                        else:
+                            q_object = q_object & Q(task=task) & Q(from_temp__year=daily.split('/')[2]) & Q(
+                                from_temp__month=daily.split('/')[0]) & Q(from_temp__day=daily.split('/')[1])
 
-                    print("Monthly")
-                    q_object = ~Q()
-                    # print(userID)
-                    if userID == "000":
-                        print("All users")
-                    else:
-                        q_object =  Q(staff=user)
-                        print("One users")
 
-                    # q_object = q_object & Q (from_temp__month = monthSelect)
-                    if(task == 'All'):
-                        q_object = q_object& Q (from_temp__month = monthSelect)
-                    else:
-                        q_object = q_object & Q(task=task)  & Q (from_temp__month = monthSelect)
+                        timesheets = Timesheet.objects.filter(q_object
+                        ).annotate(durationTime=F('to_date') - F('from_temp'))
 
-                    timesheets = Timesheet.objects.filter(q_object
-                    ).annotate(durationTime=F('to_date') - F('from_temp'))
-
-                    totalHoursMonth = Timesheet.objects.filter(q_object).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
+                        totalHoursDaily = Timesheet.objects.filter(q_object).annotate(
+                        durationTime=F('to_date') - F('from_temp')).aggregate(
                         Sum('durationTime')).get('durationTime__sum')
-                    timesheets_task = Timesheet.objects.filter(q_object
-                    ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+                        timesheets_task = Timesheet.objects.filter(q_object
+                        ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+                        print("inside")
 
-                    timesheets_task = Timesheet.objects.filter(q_object
-                    ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
-
-                    timesheets_day = Timesheet.objects.filter(q_object
-                    ).values('from_temp__day','from_temp__year','from_temp__month').annotate(Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
-
-
-                    if totalHoursMonth:
-                        hours = totalHoursMonth.days * 24 + totalHoursMonth.seconds // 3600
-                        minutes = (totalHoursMonth.seconds % 3600) // 60
-                        conTotalHoursDaily = str(hours) + ':' + str(minutes)
-                        print(totalHoursDaily)
+                        timesheets_day = Timesheet.objects.filter(q_object
+                        ).values('from_temp__day','from_temp__year','from_temp__month').annotate(Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
 
 
 
+                        if totalHoursDaily:
+                            hours = totalHoursDaily.days * 24 + totalHoursDaily.seconds // 3600
+                            minutes = (totalHoursDaily.seconds % 3600) // 60
+                            conTotalHoursDaily = str(hours) + ':' + str(minutes)
+                    elif week is not None and monthSelect == '' and daily == '':
+                        print("Weekly")
+                        date_range = request.POST['week']
+                        startDate =datetime.strptime(date_range.split(' to ')[0], "%m/%d/%Y").date()
+                        endDate =datetime.strptime(date_range.split(' to ')[1], "%m/%d/%Y").date()
 
-                for item in timesheets_task:
-                    print(item)
+                        print(startDate)
+                        print(endDate)
+
+                        q_object = ~Q()
+                        # print(userID)
+                        if userID == "000":
+                            print("All users")
+                        else:
+                            q_object = Q(staff=user)
+                            print("One users")
+
+                        # q_object = q_object & Q (from_temp__month = monthSelect)
+                        if (task == 'All'):
+                            q_object = q_object & Q(from_temp__gte=startDate) & Q(to_date__gte=endDate)
+                        else:
+                            q_object = q_object & Q(task=task) & Q(from_temp__gte=monthSelect)
+
+                        timesheets = Timesheet.objects.filter(q_object
+                                                              ).annotate(durationTime=F('to_date') - F('from_temp'))
+
+                        totalHoursMonth = Timesheet.objects.filter(q_object).annotate(
+                            durationTime=F('to_date') - F('from_temp')).aggregate(
+                            Sum('durationTime')).get('durationTime__sum')
+                        timesheets_task = Timesheet.objects.filter(q_object
+                                                                   ).values('task').annotate(Count('task'),
+                                                                                             durationTime=Sum(
+                                                                                                 F('to_date') - F(
+                                                                                                     'from_temp'))).order_by()
+
+                        timesheets_task = Timesheet.objects.filter(q_object
+                                                                   ).values('task').annotate(Count('task'),
+                                                                                             durationTime=Sum(
+                                                                                                 F('to_date') - F(
+                                                                                                     'from_temp'))).order_by()
+
+                        timesheets_day = Timesheet.objects.filter(q_object
+                                                                  ).values('from_temp__day', 'from_temp__year',
+                                                                           'from_temp__month').annotate(
+                            Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
+                        if totalHoursMonth:
+                            hours = totalHoursMonth.days * 24 + totalHoursMonth.seconds // 3600
+                            minutes = (totalHoursMonth.seconds % 3600) // 60
+                            conTotalHoursDaily = str(hours) + ':' + str(minutes)
+                            print(totalHoursDaily)
+
+                        for item in timesheets_task:
+                            print(item)
+
+                        # staffs = User.objects.all()
+                        candidate = TesCandidate.objects.filter(user=request.user).first()
+                        group_name = self.request.user.groups.values_list('name', flat=True).first()
+                        print(group_name)
+                        staffs = User.objects.filter(
+                            groups__name__in=['Staff', 'admin', 'training_admin', 'management', 'training_operator'])
+                        candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
+
+                        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                        candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
+                        context['candidate'] = candidate
+                        context['timesheets_task'] = timesheets_task
+                        context['timesheets_day'] = timesheets_day
+                        context['candidate_list'] = candidate_list
+                        context['conTotalHoursDaily'] = conTotalHoursDaily
+                        context['task'] = task
+                        context['candidate_list'] = candidate_list
+                        context['conTotalHoursDaily'] = conTotalHoursDaily
+                        context['staffs'] = staffs
+                        context['timesheets'] = timesheets
+                        context['totalHours'] = str(hours) + ':' + str(minutes)
+                        context['idd'] = 6006  # self.timesheet = timesheets
+
+                        return render(request, self.template_name, context=context)
+                    else:
+
+                        print("Monthly")
+                        q_object = ~Q()
+                        # print(userID)
+                        if userID == "000":
+                            print("All users")
+                        else:
+                            q_object =  Q(staff=user)
+                            print("One users")
+
+                        # q_object = q_object & Q (from_temp__month = monthSelect)
+                        if(task == 'All'):
+                            q_object = q_object& Q (from_temp__month = monthSelect)
+                        else:
+                            q_object = q_object & Q(task=task)  & Q (from_temp__month = monthSelect)
+
+                        timesheets = Timesheet.objects.filter(q_object
+                        ).annotate(durationTime=F('to_date') - F('from_temp'))
+
+                        totalHoursMonth = Timesheet.objects.filter(q_object).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
+                            Sum('durationTime')).get('durationTime__sum')
+                        timesheets_task = Timesheet.objects.filter(q_object
+                        ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
+                        timesheets_task = Timesheet.objects.filter(q_object
+                        ).values('task').annotate(Count('task'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
+                        timesheets_day = Timesheet.objects.filter(q_object
+                        ).values('from_temp__day','from_temp__year','from_temp__month').annotate(Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+
+
+                        if totalHoursMonth:
+                            hours = totalHoursMonth.days * 24 + totalHoursMonth.seconds // 3600
+                            minutes = (totalHoursMonth.seconds % 3600) // 60
+                            conTotalHoursDaily = str(hours) + ':' + str(minutes)
+                            print(totalHoursDaily)
 
 
 
-                # staffs = User.objects.all()
-                candidate = TesCandidate.objects.filter(user = request.user).first()
-                group_name = self.request.user.groups.values_list('name', flat=True).first()
-                print(group_name)
-                staffs = User.objects.filter(
-                    groups__name__in=['Staff', 'admin', 'training_admin', 'management', 'training_operator'])
-                candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
 
-                # context['timesheets'] = timesheets
-                # context['staffs'] = staffs
-                # context['candidate'] = candidate
-                # context['group_name'] = group_name
-                # totalHours = str(hours) + ':' + str(minutes)
-                # context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'timesheets_day':timesheets_day,'staffs':staffs,'conTotalHoursDaily':conTotalHoursDaily,'task':task,'conTotalHoursDaily':conTotalHoursDaily,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
+                    for item in timesheets_task:
+                        print(item)
 
-                # return render(request, self.template_name, context)
+
+
+                    # staffs = User.objects.all()
+                    candidate = TesCandidate.objects.filter(user = request.user).first()
+                    group_name = self.request.user.groups.values_list('name', flat=True).first()
+                    print(group_name)
+                    staffs = User.objects.filter(
+                        groups__name__in=['Staff', 'admin', 'training_admin', 'management', 'training_operator'])
+                    candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
+
+                    # context['timesheets'] = timesheets
+                    # context['staffs'] = staffs
+                    # context['candidate'] = candidate
+                    # context['group_name'] = group_name
+                    # totalHours = str(hours) + ':' + str(minutes)
+                    # context = {'timesheets': timesheets,'timesheets_task':timesheets_task ,'timesheets_day':timesheets_day,'staffs':staffs,'conTotalHoursDaily':conTotalHoursDaily,'task':task,'conTotalHoursDaily':conTotalHoursDaily,'candidate':candidate,'group_name':group_name ,'candidate_list':candidate_list}
+
+                    # return render(request, self.template_name, context)
+                    candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                    candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
+                    context['candidate'] = candidate
+                    context['timesheets_task'] = timesheets_task
+                    context['timesheets_day'] = timesheets_day
+                    context['candidate_list'] = candidate_list
+                    context['conTotalHoursDaily'] = conTotalHoursDaily
+                    context['task'] = task
+                    context['candidate_list'] = candidate_list
+                    context['conTotalHoursDaily'] = conTotalHoursDaily
+                    context['staffs'] = staffs
+                    context['timesheets'] = timesheets
+                    context['totalHours'] = str(hours) + ':' + str(minutes)
+                    context['idd'] = 6006                # self.timesheet = timesheets
+                    # time = timesheets
+                    # print(self.timesheet)
+                    print("Zanjan Today")
+                    return render(request, self.template_name, context=context)
+                    # return context
+                else:
+                    print("OK OK")
+                    timesheetList = self.get_context_data().get('timesheets')
+
+                    for item in timesheetList:
+                        obj = Timesheet.objects.filter(id=item.id).first()
+                        obj.approved=True
+                        obj.save()
+
+                    week_start = date.today()
+                    week_start -= timedelta(days=week_start.weekday())
+                    week_end = week_start + timedelta(days=7)
+
+                    timesheets = Timesheet.objects.filter(
+                        from_temp__gte=week_start,
+                        from_temp__lt=week_end
+                    )
+                    staffs = User.objects.all()
+                    adminStatus = False
+                    group_name = self.request.user.groups.values_list('name', flat=True).first()
+                    for g in self.request.user.groups.all():
+                        if g.name == 'super_admin' or g.name == 'training_admin':
+                            adminStatus = True
+                    return render(request, 'timesheet/timesheet_list.html',
+                              {'timesheets': timesheets ,'adminStatus':adminStatus,'staffs':staffs,'group_name':group_name })
+
+            if 'approve' in request.POST:
+                context = super(TimesheetList, self).get_context_data()
+                print("Approved Button")
+                for item2 in request.POST.getlist('approvedFlag'):
+                    print(item2)
+                    timesheet_approval = Timesheet.objects.filter(id=item2).first()
+                    timesheet_approval.approved = True
+                    timesheet_approval.save()
+
                 candidate = TesCandidate.objects.filter(user=self.request.user).first()
-                candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
-                context['candidate'] = candidate
-                context['timesheets_task'] = timesheets_task
-                context['timesheets_day'] = timesheets_day
-                context['candidate_list'] = candidate_list
-                context['conTotalHoursDaily'] = conTotalHoursDaily
-                context['task'] = task
-                context['candidate_list'] = candidate_list
-                context['conTotalHoursDaily'] = conTotalHoursDaily
-                context['staffs'] = staffs
-                context['timesheets'] = timesheets
-                context['totalHours'] = str(hours) + ':' + str(minutes)
-                context['idd'] = 6006                # self.timesheet = timesheets
-                # time = timesheets
-                # print(self.timesheet)
-                print("Zanjan Today")
-                return render(request, self.template_name, context=context)
-                # return context
-            else:
-                print("OK OK")
-                timesheetList = self.get_context_data().get('timesheets')
-
-                for item in timesheetList:
-                    obj = Timesheet.objects.filter(id=item.id).first()
-                    obj.approved=True
-                    obj.save()
-
-                week_start = date.today()
-                week_start -= timedelta(days=week_start.weekday())
-                week_end = week_start + timedelta(days=7)
-
-                timesheets = Timesheet.objects.filter(
-                    from_temp__gte=week_start,
-                    from_temp__lt=week_end
-                )
-                staffs = User.objects.all()
-                adminStatus = False
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
-                for g in self.request.user.groups.all():
-                    if g.name == 'super_admin' or g.name == 'training_admin':
-                        adminStatus = True
-                return render(request, 'timesheet/timesheet_list.html',
-                          {'timesheets': timesheets ,'adminStatus':adminStatus,'staffs':staffs,'group_name':group_name })
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                return render(request, self.template_name, context=context)
 
 class DeleteTimesheet(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = Timesheet
@@ -282,6 +377,37 @@ class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 return render(request, 'timesheet/admin_apps-calendar.html',
                           {'timesheets': timesheets,'adminStatus':adminStatus} )
 
+class TimesheetAlertView(LoginRequiredMixin, SidebarMixin, TemplateView):
+    template_name = "timesheet/alert_timesheet.html"
+    def get_context_data(self, *args, **kwargs):
+        context = super(TimesheetAlertView, self).get_context_data()
+        # timesheet_list = Timesheet.objects.filter().values_list('staff', flat=True).annotate(Count('staff')).order_by()
+        # print(type(timesheet_list))
+        # user_list = User.objects.filter(id__in= list(timesheet_list))
+        # tecCandidates = TesCandidate.objects.filter(user__in = user_list)
+        # for item in tecCandidates:
+        #     print(item)
+        rec_list=[]
+        user_list = User.objects.filter(groups__name__in=['Staff','training_admin','admin','training_operator'])
+        for user in user_list:
+            if Timesheet.objects.filter(staff=user).count() > 0:
+                last_record = Timesheet.objects.select_related('staff').filter(staff=user).last()
+                if last_record.from_temp < datetime.now()-timedelta(days=7):
+                    rec_list.append(last_record)
+                    print(last_record.staff.username +' : '+ str(last_record.from_temp))
+
+
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['rec_list'] = rec_list
+
+
+        # context['timesheet_list'] = timesheet_list
+        # context['tecCandidates'] = tecCandidates
+        return context
+
 
 class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
 
@@ -297,6 +423,7 @@ class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
         context['timesheets'] = timesheets
         context['candidate'] = candidate
         return context
+
 
     def post(self, request, *args, **kwargs):
 

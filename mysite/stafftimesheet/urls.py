@@ -16,6 +16,7 @@ urlpatterns = [
     path('updatetimesheet/<int:id>', views.UpdateTimesheetForm.as_view(), name='updatetimesheet_'),
     path('deltimesheet/<int:pk>/delete/', views.DeleteTimesheet.as_view(), name='deltimesheet_'),
     path('timesheetims/', views.TimesheetExcelView.as_view(), name='timesheetims_'),
+    path('timesheetimalert/', views.TimesheetAlertView.as_view(), name='timesheetimalert_'),
 
 
 

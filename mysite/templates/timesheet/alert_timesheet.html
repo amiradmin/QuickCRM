@@ -28,74 +28,27 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
-        <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
-                                                    {% csrf_token %}
+                      <table id="basic-datatable" class="table dt-responsive  w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Staff</th>
 
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="validationCustom01">Staff</label>
-        <input type="text" name="first_name" value="{{timesheet.staff.first_name}} {{timesheet.staff.last_name}}" class="form-control"  >
-                                                        <div class="valid-feedback">
-                                                            Looks good!
-                                                        </div>
-                                                    </div>
-
-                                                   <div class="mb-3 col-md-12">
+                                                    </tr>
+                                                </thead>
 
 
+                                                <tbody>
+                                                    {% for item in rec_list %}
+                                                    <tr>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.staff.username}} {{item.last_name}} </td>
 
 
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Start</label>
-                                  <input class="form-control" value="{{timesheet.from_temp|date:'m/d/Y H:i'}}" name="start_date" type="text" id="inputGroupFile04">
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">End</label>
-                                                            <input value="{{timesheet.to_date|date:'m/d/Y H:i'}}" class="form-control" name='end_date' type="text" id="inputGroupFile05">
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="">Description</label>
-
-                                                        <div class="form-floating">
-    <textarea  name="description"  class="form-control" placeholder=" " id="floatingTextarea" style="height: 100px;">{{timesheet.description}}</textarea>
-
-                                                        </div>
-                                                    </div>
-
-           <div class="mb-3">
-                                                        <label class="form-label" for="">Comment</label>
-
-                                                        <div class="form-floating">
-    <textarea  name="comment"  class="form-control" placeholder=" " id="" style="height: 100px;">{{timesheet.comment}}</textarea>
-
-                                                        </div>
-                                                    </div>
-
-       <label class="form-label">Approve</label>
-       <input  {% if timesheet.approved %} checked {% endif %} name='approve' type="checkbox" id="" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                                    <br>
-                                                    <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" type="submit">Submit</button>
-                                                    </div>
-                                                </form>
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>
                                             </div> <!-- end preview-->
 
 

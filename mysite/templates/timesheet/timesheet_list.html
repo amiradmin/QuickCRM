@@ -109,6 +109,7 @@
     <option value="Human Resources" >Human Resources</option>
     <option value="QHSE" >QHSE</option>
     <option value="Other" >Other</option>
+    <option value="Other" >Standby</option>
 
 </select>
                                                 </div>
@@ -134,10 +135,19 @@
                                                 </div>
 
                                             </div>
+
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="week" class="form-label">Week</label>
+      <div class="input-group week-select">
+          <input type="text" class="form-control" name="week" id="week">
+          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+      </div>
+                                                </div>
+
+                                            </div>
                            </div>
-
-
-
+                                                           </div>
+                                                </div>
                      <div class="mb-3 col-md-12 text-center">
                                     <button  class="btn btn-primary" name="userSelection" type="submit">Update</button>
                      </div>
@@ -152,7 +162,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="header-title"> </h4>
-
+<a href="{% url 'stafftimesheet:timesheetimalert_' %}">Alerts</a>
 
                <div class="row g-2">                                                                                                          <div class="row g-2">
                                                 <div class="mb-4 col-md-4 border border-info">
@@ -232,6 +242,7 @@
                                             <table id="basic-datatable" class="table dt-responsive  w-100">
                                                 <thead>
                                                     <tr>
+                                                        <th></th>
                                                         <th>ID</th>
                                                         <th>Staff</th>
                                                         <td>Description</td>
@@ -252,6 +263,7 @@
                                                 <tbody>
                                                     {% for item in timesheets %}
                                                     <tr>
+                                                        <td><input type="checkbox" name="approvedFlag" value="{{item.id}}" {% if item.approved %} checked {% endif %} /></td>
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.staff.first_name}} {{item.staff.last_name}}</td>
                                                         <td>{{item.description}}</td>
@@ -331,7 +343,7 @@
 
 
                      <div class="mb-3 col-md-12 text-center">
-                                    <button onclick="myFunctionButtom()" class="btn btn-primary" name="calUpdate" type="submit">Approve</button>
+                                    <button onclick="myFunctionButtom()" class="btn btn-primary" name="approve" type="submit">Approve</button>
                      </div>
 
                                         </div>  <!-- end row -->
@@ -397,8 +409,12 @@ var strUser = e.value;
 
 var e = document.getElementById("datepicker");
 var datePick = e.value;
+
+var eWeek = document.getElementById("week");
+var week = eWeek.value;
+
 <!--alert(datePick);-->
-    if (strUser == 0  &&  datePick == '' ){
+    if (strUser == 0  &&  datePick == '' && week == ''){
     alert("Please select month or date!");
     event.preventDefault();
 
@@ -448,17 +464,17 @@ var highlightRange = function(e){
     var date = new Date(e.date);
     var start_date = moment(date);
     var end_date = moment(date).add(6, 'days');
-    var friendly_string = start_date.format('MM-DD-YYYY') + ' to '
-        + end_date.format('MM-DD-YYYY');
+    var friendly_string = start_date.format('MM/DD/YYYY') + ' to '
+        + end_date.format('MM/DD/YYYY');
 
     $(input).val(friendly_string);
 
 };
 
-highlightRange({ currentTarget: document.getElementsByName('week')[0], date: new Date() });
+
 
 $('input[name=week]').datepicker( {
-    format: "mm-dd-yyyy",
+    format: "mm/dd/yyyy",
     autoclose: true,
     orientation: 'top auto'
 }).on('show', function(e){
