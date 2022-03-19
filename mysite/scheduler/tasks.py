@@ -36,11 +36,15 @@ def timesheet_check_interval():
     rec_list = []
     user_list = User.objects.filter(groups__name__in=['Staff', 'training_admin', 'admin', 'training_operator'])
     for user in user_list:
-        if Timesheet.objects.filter(staff=user).count() > 0:
-            last_record = Timesheet.objects.select_related('staff').filter(staff=user).last()
-            if last_record.from_temp < datetime.datetime.now() - timedelta(days=7):
-                rec_list.append(last_record)
-                print(last_record.staff.username + ' : ' + str(last_record.from_temp))
+        can_count = TesCandidate.objects.filter(user=user).count()
+        if can_count > 0:
+            tesCandidate = TesCandidate.objects.filter(user=user).first()
+            if tesCandidate.disable_timesheet == False:
+                if Timesheet.objects.filter(staff=user).count() > 0:
+                    last_record = Timesheet.objects.select_related('staff').filter(staff=user).last()
+                    if last_record.from_temp < datetime.datetime.now() - timedelta(days=7):
+                        rec_list.append(last_record)
+                        print(last_record.staff.username + ' : ' + str(last_record.from_temp))
 
         # if item.diff.days > 10:
         #     candidate = TesCandidate.objects.filter(user=item.staff).first()

@@ -139,7 +139,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                             q_object = q_object & Q(task=task) & Q(from_temp__gte=monthSelect)
 
                         timesheets = Timesheet.objects.filter(q_object
-                                                              ).annotate(durationTime=F('to_date') - F('from_temp'))
+                                                              ).annotate(durationTime=F('to_date') - F('from_temp')).order_by('-approved')
 
                         totalHoursMonth = Timesheet.objects.filter(q_object).annotate(
                             durationTime=F('to_date') - F('from_temp')).aggregate(
@@ -212,7 +212,7 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                             q_object = q_object & Q(task=task)  & Q (from_temp__month = monthSelect)
 
                         timesheets = Timesheet.objects.filter(q_object
-                        ).annotate(durationTime=F('to_date') - F('from_temp'))
+                        ).annotate(durationTime=F('to_date') - F('from_temp')).order_by('-approved')
 
                         totalHoursMonth = Timesheet.objects.filter(q_object).annotate(durationTime=F('to_date') - F('from_temp')).aggregate(
                             Sum('durationTime')).get('durationTime__sum')
@@ -390,11 +390,15 @@ class TimesheetAlertView(LoginRequiredMixin, SidebarMixin, TemplateView):
         rec_list=[]
         user_list = User.objects.filter(groups__name__in=['Staff','training_admin','admin','training_operator'])
         for user in user_list:
-            if Timesheet.objects.filter(staff=user).count() > 0:
-                last_record = Timesheet.objects.select_related('staff').filter(staff=user).last()
-                if last_record.from_temp < datetime.now()-timedelta(days=7):
-                    rec_list.append(last_record)
-                    print(last_record.staff.username +' : '+ str(last_record.from_temp))
+            can_count = TesCandidate.objects.filter(user=user).count()
+            if can_count > 0:
+                tesCandidate = TesCandidate.objects.filter(user=user).first()
+                if tesCandidate.disable_timesheet == False :
+                    if Timesheet.objects.filter(staff=user).count() > 0:
+                        last_record = Timesheet.objects.select_related('staff').filter(staff=user).last()
+                        if last_record.from_temp < datetime.now()-timedelta(days=7):
+                            rec_list.append(last_record)
+                            print(last_record.staff.username +' : '+ str(last_record.from_temp))
 
 
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
