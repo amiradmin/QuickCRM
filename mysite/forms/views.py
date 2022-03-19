@@ -5235,16 +5235,83 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
 
                 for idx, item in enumerate(range(0, 8)):
                     print(idx)
-                    if not request.POST.get('canName' + str(idx + 1), None) == None:
-                        canID = request.POST["canName" + str(idx + 1)].split('-')[0]
+                    if not request.POST.get('indexID' + str(idx + 1), None) == None:
+                        canID = request.POST["indexID" + str(idx + 1)]
                         print(canID)
                         candidate = TesCandidate.objects.filter(id=canID).first()
                         testAttCandidate = TesAttCandidate.objects.filter(candidate=candidate)
                         if testAttCandidate.count() >0:
+                            print("Exist")
                             testAttCandidate = TesAttCandidate.objects.filter(candidate=candidate).first()
                             candidate = TesCandidate.objects.filter(id=canID).first()
                             testAttCandidate.candidate = candidate
                             testAttCandidate.testSequence =  request.POST['testSequence' + str(idx + 1)]
+
+                            if not request.POST.get('dayOneSec1' + str(idx + 1), None) == None:
+                                testAttCandidate.dayOneSec1 = True
+                            else:
+                                testAttCandidate.dayOneSec1 = False
+
+                            if not request.POST.get('dayOneSec2' + str(idx + 1), None) == None:
+                                testAttCandidate.dayOneSec2 = True
+                            else:
+                                testAttCandidate.dayOneSec2 = False
+
+                            if not request.POST.get('dayOneSec3' + str(idx + 1), None) == None:
+                                testAttCandidate.dayOneSec3 = True
+                            else:
+                                testAttCandidate.dayOneSec3 = False
+
+                            if not request.POST.get('dayOneSec4' + str(idx + 1), None) == None:
+                                testAttCandidate.dayOneSec4 = True
+                            else:
+                                testAttCandidate.dayOneSec4 = False
+
+
+
+                            if not request.POST.get('dayTwoSec1' + str(idx + 1), None) == None:
+                                testAttCandidate.dayTwoSec1 = True
+                            else:
+                                testAttCandidate.dayTwoSec1 = False
+
+                            if not request.POST.get('dayTwoSec2' + str(idx + 1), None) == None:
+                                testAttCandidate.dayTwoSec2 = True
+                            else:
+                                testAttCandidate.dayTwoSec2 = False
+
+                            if not request.POST.get('dayTwoSec3' + str(idx + 1), None) == None:
+                                testAttCandidate.dayTwoSec3 = True
+                            else:
+                                testAttCandidate.dayTwoSec3 = False
+
+                            if not request.POST.get('dayTwoSec4' + str(idx + 1), None) == None:
+                                testAttCandidate.dayTwoSec4 = True
+                            else:
+                                testAttCandidate.dayTwoSec4 = False
+
+
+
+                            if not request.POST.get('dayThreeSec1' + str(idx + 1), None) == None:
+                                testAttCandidate.dayThreeSec1 = True
+                            else:
+                                testAttCandidate.dayThreeSec1 = False
+
+                            if not request.POST.get('dayThreeSec2' + str(idx + 1), None) == None:
+                                testAttCandidate.dayThreeSec2 = True
+                            else:
+                                testAttCandidate.dayThreeSec2 = False
+
+                            if not request.POST.get('dayThreeSec3' + str(idx + 1), None) == None:
+                                testAttCandidate.dayThreeSec3 = True
+                            else:
+                                testAttCandidate.dayThreeSec3 = False
+
+                            if not request.POST.get('dayThreeSec4' + str(idx + 1), None) == None:
+                                testAttCandidate.dayThreeSec4 = True
+                            else:
+                                testAttCandidate.dayThreeSec4 = False
+
+
                             testAttCandidate.save()
                         else:
                             testAttCandidate = TesAttCandidate()
@@ -5330,12 +5397,13 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
-                obj = TrainingAttendance.objects.filter(id=id).first()
-                obj.file = request.FILES['pdfFile']
+                print(request.POST['eventID'])
+                obj = Event.objects.filter(id=request.POST['eventID']).first()
+                obj.traning_att_file = request.FILES['pdfFile']
                 obj.save()
-                return redirect('forms:evensummary_', id=event.id)
+                return redirect('forms:evensummary_', id=obj.id)
 
-            return render(request, 'forms/vision_test.html', context)
+            return redirect('forms:evensummary_', id=event.id)
 
 
 class ViewTrainingAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):

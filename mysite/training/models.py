@@ -268,6 +268,8 @@ class Event(models.Model):
     skills = models.ManyToManyField('Skill',  null=True, blank=True)
     candidate = models.ManyToManyField('TesCandidate',  null=True, blank=True)
     visible = models.BooleanField(default=True, null=True, blank=True)
+    traning_att_file = models.FileField(null=True, blank=True)
+    exam_att_file = models.FileField(null=True, blank=True)
     # start_date = models.DateField(null=True, blank=True)
 
     announcement_type =  models.CharField(max_length=1,null=True, blank=True, choices=ANNOUNCMENT_CHOICES)

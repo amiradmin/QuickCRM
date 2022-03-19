@@ -447,6 +447,19 @@ input[type = checkbox]:checked {
 
   }
 
+  #topper2 {
+    position: relative;
+    left: 63px;
+    top: 80px;
+
+
+  }
+  #topper3 {
+    position: relative;
+    left: 90px;
+    top: 80px;
+
+  }
   #topInfo1 {
     position: relative;
     left: 63px;
@@ -490,21 +503,21 @@ input[type = checkbox]:checked {
   #insideInfo3 {
     position: relative;
     left: 85px;
-    top: 72px;
+    top: 77px;
     padding:10px;
   }
 
     #insideInfo4 {
     position: relative;
     left: 117px;
-    top: 72px;
+    top: 77px;
     padding:10px;
   }
 
 #insideInfo5 {
     position: relative;
     left: 144px;
-    top: 72px;
+    top: 77px;
     padding:10px;
   }
 }
@@ -591,15 +604,15 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 <div style="position:absolute; top: 279px; left: 274px;z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 367px; height: 31px;font-size: 15px;margin:1px;" value="{{form.event.name}}/{{form.event.product.name}}" name="examTitleCode" id="topInfo1"></div>
 <div style="position:absolute; top: 279px; left: 705px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 167px; height: 31px;font-size: 15px;margin:1px;" value="{{form.event.location}}" name="venue" id="topInfo2"></div>
 <div style="position:absolute; top: 279px; left: 919px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 184px; height: 31px;font-size: 15px;margin:1px;" value="{{form.event.start_date|date:'m/d/Y'}} - {{form.event.end_date|date:'m/d/Y'}}" name="date" id="topInfo3"></div>
-<div style="position:absolute;top: 742px; left: 341px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 300px; height: 31px;font-size: 15px;margin:1px;"  value="{{form.lecturerName}}" name="lecturerName" id="topInfo4"></div>
+<div style="position:absolute;top: 742px; left: 341px; z-index: 1;"><input type="text"   style="border:none;background: transparent;width: 300px; height: 31px;font-size: 15px;margin:1px;"  value="{{form.event.lecturers}}" name="lecturerName" id="topInfo4"></div>
 
 
 <div style="position:absolute; top: 385px; left: 183px; z-index: 1;" >
-{% for item in event.candidate.all %}
+{% for item in form.attCandidate.all %}
 
-<input type="hidden"  name="indexID{{ forloop.counter }}" value="{{item.id}}"  />
-<input type="text" id="insideInfo1o"  value="{{item.id}}-{{item.first_name}} {% if item.middleName != 'None' %}{{item.middleName}}{% endif %} {{item.last_name}}" style="border:none;background: transparent;width: 217px; height: 35px;font-size: 15px;margin:1px;" value="" name="canName{{ forloop.counter }}" id="">
-<input type="text" id="insideInfo2o" value="{{item.testSequence}}"   style="border:none;background: transparent;width: 81px; height: 31px;font-size: 15px;margin:1px;" value="" name="testSequence{{ forloop.counter }}" id="">
+<input id="topper1" type="hidden"  name="indexID{{ forloop.counter }}" value="{{item.candidate.id}}"  />
+<input id="topper2" type="text" id="insideInfo1o"  value="{{item.id}}-{{item.candidate.first_name}} {% if item.candidate.middleName != 'None' %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}" style="border:none;background: transparent;width: 217px; height: 35px;font-size: 15px;margin:1px;" value="" name="canName{{ forloop.counter }}" id="">
+<input id="topper3" type="text" id="insideInfo2o" value="{{item.testSequence}}"   style="border:none;background: transparent;width: 81px; height: 31px;font-size: 15px;margin:1px;" value="" name="testSequence{{ forloop.counter }}" id="">
 
 <input id="insideInfo3" type="checkbox" {% if item.dayOneSec1 %} checked {% endif %}  style="border:none;margin-left:0px ;" name="dayOneSec1{{ forloop.counter }}" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
 <input id="insideInfo3" type="checkbox" {% if item.dayOneSec2 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayOneSec2{{ forloop.counter }}" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
@@ -679,6 +692,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
         <input type="hidden" value="{{event.formCategory_id}}" name="fomCatID"/>
         <input type="hidden" value="{{category.id}}" name="categoryID"/>
         <input type="hidden" value="{{guideline.id}}" name="guidelineID"/>
+        <input type="text" value="{{form.id}}" name="formID"/>
   <input type="file" name="pdfFile" >
 
   <p>Drag your files here or click in this area.</p>
