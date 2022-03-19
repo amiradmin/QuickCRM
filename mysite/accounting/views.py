@@ -57,6 +57,7 @@ class LoginView(TemplateView):
         return render(request, "login.html")
 
     def post(self, request):
+        context = super(LoginView, self).get_context_data()
         username = request.POST['username']
         password = request.POST['password']
         remember_me = request.POST['remember_me']
@@ -102,8 +103,7 @@ class LoginView(TemplateView):
             else:
                 return render(request, "index.html", {'msg': 'Your username or password is wrong!'})
         else:
-            return HttpResponseRedirect(settings.LOGIN_URL)
-
+            return render(request, 'login.html', {'msg': 'Wrong username or password!'})
         return render(request, "index.html")
 
 

@@ -305,9 +305,15 @@ class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
                 context = super(TimesheetList, self).get_context_data()
                 print("Approved Button")
                 for item2 in request.POST.getlist('approvedFlag'):
+                    print("Here")
                     print(item2)
+
                     timesheet_approval = Timesheet.objects.filter(id=item2).first()
-                    timesheet_approval.approved = True
+                    if timesheet_approval.approved == False:
+                        timesheet_approval.approved = True
+                    elif timesheet_approval.approved == True:
+                        timesheet_approval.approved = False
+
                     timesheet_approval.save()
 
                 candidate = TesCandidate.objects.filter(user=self.request.user).first()
