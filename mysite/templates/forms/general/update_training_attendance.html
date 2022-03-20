@@ -442,8 +442,8 @@ input[type = checkbox]:checked {
   #page-container1 {
     position: absolute;
     left: -235px;
-    top: -140px;
-    transform: scaleX(0.8);
+    top: -120px;
+    transform: scale(0.8,0.85);
 
   }
 
@@ -633,24 +633,6 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 {% endfor %}
 
 
-    <input type="hidden"  name="indexIDNew" value="{{item.id}}"  />
-<input type="text" id="insideInfo1o"  value="{{item.first_name}} {% if item.middleName != 'None' %}{{item.middleName}}{% endif %} {{item.last_name}}" style="border:none;background: transparent;width: 217px; height: 35px;font-size: 15px;margin:1px;" value="" name="canNameNew" id="">
-<input type="text" id="insideInfo2o" value="{{item.testSequence}}"   style="border:none;background: transparent;width: 81px; height: 31px;font-size: 15px;margin:1px;" value="" name="testSequenceNew" id="">
-
-<input id="insideInfo3" type="checkbox" {% if item.dayOneSec1 %} checked {% endif %}  style="border:none;margin-left:0px ;" name="dayOneSec1New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo3" type="checkbox" {% if item.dayOneSec2 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayOneSec2New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo3" type="checkbox" {% if item.dayOneSec3 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayOneSec3New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo3" type="checkbox" {% if item.dayOneSec4 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayOneSec4New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-
-<input id="insideInfo4" type="checkbox" {% if item.dayTwoSec1 %} checked {% endif %} style="border:none;margin-left:93px ;" name="dayTwoSec1New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo4" type="checkbox" {% if item.dayTwoSec2 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayTwoSec2New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo4" type="checkbox" {% if item.dayTwoSec3 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayTwoSec3New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo4" type="checkbox" {% if item.dayTwoSec4 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayTwoSec4New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-
-<input id="insideInfo5" type="checkbox" {% if item.dayThreeSec1 %} checked {% endif %} style="border:none;margin-left:93px ;" name="dayThreeSec1New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo5" type="checkbox" {% if item.dayThreeSec2 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayThreeSec2New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo5" type="checkbox" {% if item.dayThreeSec3 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayThreeSec3New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
-<input id="insideInfo5" type="checkbox" {% if item.dayThreeSec4 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayThreeSec4New" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
 
 </div>
 
