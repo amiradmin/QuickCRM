@@ -4467,6 +4467,15 @@ class UpdateTesFrmExaminationAttendanceByID(SidebarMixin, LoginRequiredMixin, Te
         id = self.kwargs['id']
         event = Event.objects.filter(id=id).first()
         form = TesFrmExaminationAttendance.objects.filter(event=event).first()
+
+        if form.tesFrmCandidate.all().count() == 0:
+            for item in event.candidate.all():
+                print(item)
+                obj = TesFrmCandidate()
+                obj.candidate = item
+                obj.save()
+                form.tesFrmCandidate.add(obj)
+
         context['form'] = form
         return context
 
@@ -4474,7 +4483,8 @@ class UpdateTesFrmExaminationAttendanceByID(SidebarMixin, LoginRequiredMixin, Te
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("LOOK")
-
+                id = self.kwargs['id']
+                event = Event.objects.filter(id=id).first()
                 # candidate = TesCandidate.objects.filter(id=request.POST['CanID']).first()
 
                 examObj = TesFrmExaminationAttendance.objects.filter(id=self.kwargs['id']).first()
@@ -4483,7 +4493,7 @@ class UpdateTesFrmExaminationAttendanceByID(SidebarMixin, LoginRequiredMixin, Te
 
                 examObj.examTitleCode = request.POST['examTitleCode']
                 examObj.venue = request.POST['venue']
-                examObj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                # examObj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 examObj.invigilatorName = request.POST['invigilatorName']
 
                 examObj.save()
@@ -4491,27 +4501,13 @@ class UpdateTesFrmExaminationAttendanceByID(SidebarMixin, LoginRequiredMixin, Te
                 #
 
                 for idx, item in enumerate(range(0, 8)):
-                    print(str(idx+1))
                     # print(request.POST.get('id', None))
                     if not request.POST.get('id'+str(idx+1), None) == None:
                         id = request.POST['id'+str(idx+1)]
-                        # print(id)
-
-                        fullName = request.POST["canName" + str(idx+1)].split(' ')
-                        print(fullName)
-                        if len(fullName) == 2:
-                            candidate = TesCandidate.objects.filter(
-                                Q(first_name=fullName[0]) & Q(last_name=fullName[1])).first()
-                            print(candidate.first_name)
-
-                        elif len(fullName) == 3:
-                            candidate = TesCandidate.objects.filter(
-                                Q(first_name=fullName[0]) & Q(middleName=fullName[1]) & Q(last_name=fullName[2])).first()
-                            # print(candidate.first_name)
-                        #
-                        if candidate:
+                        print(id)
+                        if TesFrmCandidate.objects.filter(id=id).count() >0:
                             canObj = TesFrmCandidate.objects.filter(id=id).first()
-                            canObj.candidate = candidate
+                            # canObj.candidate = candidate
                             canObj.testSequence = request.POST['testSequence' + str(idx + 1)]
                             canObj.methodOfExam = request.POST['methodOfExam' + str(idx + 1)]
                             canObj.scheme = request.POST['scheme' + str(idx + 1)]
@@ -4520,14 +4516,15 @@ class UpdateTesFrmExaminationAttendanceByID(SidebarMixin, LoginRequiredMixin, Te
                             examObj.tesFrmCandidate.add(canObj)
 
 
-                return redirect('forms:alltesfrmexamattend_')
+                return redirect('forms:evensummary_', id=event.id)
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
-                obj = TesFrmExaminationAttendance.objects.filter(id=id).first()
-                obj.file = request.FILES['pdfFile']
+                print(request.POST['eventID'])
+                obj = Event.objects.filter(id=id).first()
+                obj.exam_att_file = request.FILES['pdfFile']
                 obj.save()
-                return redirect('forms:alltesfrmexamattend_')
+                return redirect('forms:evensummary_', id=obj.id)
 
             return render(request, 'forms/vision_test.html', context)
 

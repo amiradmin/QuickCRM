@@ -138,6 +138,7 @@
                                                     <a href="{{event.traning_att_file.url}}" class="btn btn-success mb-2 me-1"><i class="fa fa-camera"></i></a>
                                                     </a> <a href="{% url 'forms:updatetrainingattbyid_' id=event.id %}" type="button" class="btn btn-light mb-2 me-1">Training Attendance Form</a>
                                                     <a href="{% url 'forms:viewtesfrmexamattendbyid_' id=event.id %}"  class="btn btn-light mb-2">Exam Atendance Form</a>
+                                                    <a href="{{event.exam_att_file.url}}" class="btn btn-success mb-2 me-1"><i class="fa fa-camera"></i></a>
 
                                                 </div>
                                             </div><!-- end col-->
