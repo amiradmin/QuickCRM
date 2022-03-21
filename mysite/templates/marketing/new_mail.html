@@ -9,10 +9,8 @@
                        <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-                                <div class="page-title-right">
 
-                                </div>
-                                <h4 class="page-title">Alerts</h4>
+                                <h4 class="page-title">New Message</h4>
                             </div>
                         </div>
                     </div>
@@ -28,33 +26,62 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
-                      <table id="basic-datatable" class="table dt-responsive  w-100">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Email</th>
-                                                        <th>Staff</th>
 
-                                                    </tr>
-                                                </thead>
+                                        </div> <!-- end preview-->
+ <form method="post">
 
-
-                                                <tbody>
-                                                    {% for item in rec_list %}
-                                                    <tr>
-                                                        <td>{{item.id}}</td>
-                                                        <td>{{item.email}}</td>
-                                                        <td>{{item.username}} {{item.last_name}} </td>
-
-
-                                                    </tr>
-                                                    {%endfor%}
-                                                </tbody>
-                                            </table>
-                                            </div> <!-- end preview-->
+            {% csrf_token %}
 
 
 
+
+                                            <div class="row g-2">
+<!--                                                <div class="mb-3 col-md-6">-->
+<!--                                                    <label for="inputCity" class="form-label">Type</label>-->
+<!--                                                    <input type="text" name="name" class="form-control" id="inputCity">-->
+<!--                                                </div>-->
+
+                                            </div>
+                                            <div class="row g-2">
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="inputState" class="form-label">Type</label>
+                                                    <select name="country" id="inputState" class="form-select">
+                                                        <option>Choose</option>
+                                                        <option>New Event</option>
+                                                        <option>All candidate</option>
+
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3 col-md-6">
+                                                    <label for="inputState" class="form-label">Postal Code</label>
+                                                    <input type="text" name="postalCode" class="form-control" id="inputCity">
+                                                </div>
+
+                                            </div>
+
+                                             <div class="row g-2">
+                                                <div class="mb-3 col-md-12">
+                                                    <label for="inputCity" class="form-label">Address</label>
+                                                    <textarea rows=4 type="text" name="address" class="form-control" id="inputCity"></textarea>
+                                                </div>
+
+
+                                            </div>
+
+                                       <div class="mb-3 col-md-12 text-center">
+                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                            </div>
+
+</form>
+
+
+
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+
+
+                                        </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->
 
                                 </div> <!-- end card body-->

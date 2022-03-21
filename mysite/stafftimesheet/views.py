@@ -10,6 +10,9 @@ from django.urls import reverse_lazy
 from braces.views import GroupRequiredMixin
 from django.urls import reverse
 from django.db.models import Q ,F ,Sum,Count,Max
+from email.message import EmailMessage
+from email.utils import make_msgid
+import smtplib
 import json
 # Create your views here.
 
@@ -394,18 +397,45 @@ class TimesheetAlertView(LoginRequiredMixin, SidebarMixin, TemplateView):
         # for item in tecCandidates:
         #     print(item)
         rec_list=[]
-        user_list = User.objects.filter(groups__name__in=['Staff','training_admin','admin','training_operator'])
+        user_list = User.objects.filter(groups__name__in=['Staff','training_admin','admin','training_operator','management'])
         for user in user_list:
             can_count = TesCandidate.objects.filter(user=user).count()
             if can_count > 0:
                 tesCandidate = TesCandidate.objects.filter(user=user).first()
                 if tesCandidate.disable_timesheet == False :
+                    # print(user)
                     if Timesheet.objects.filter(staff=user).count() > 0:
                         last_record = Timesheet.objects.select_related('staff').filter(staff=user).last()
                         if last_record.from_temp < datetime.now()-timedelta(days=7):
-                            rec_list.append(last_record)
+                            tesCandidate = TesCandidate.objects.filter(user=user).first()
+                            rec_list.append(tesCandidate)
                             print(last_record.staff.username +' : '+ str(last_record.from_temp))
+                    else:
+                        tesCandidate = TesCandidate.objects.filter(user=user).first()
+                        rec_list.append(tesCandidate)
+                        # print("empty timesheet: "+ tesCandidate.email + ' = ' +str(Timesheet.objects.filter(staff=user).count()))
+        # print(rec_list)
 
+        print("Start mailing")
+        msg = EmailMessage()
+
+        asparagus_cid = make_msgid()
+        msg.add_alternative("Please submit your timesheet!")
+        fromEmail = 'erp@tescan.ca'
+        toEmail = "amirbehvandi747@gmail.com"
+
+        msg['Subject'] = 'Timesheet Reminder.'
+        msg['From'] = fromEmail
+        msg['To'] = toEmail
+
+        # msg['Cc'] = 'customersupportdesk@tescan.ca'
+
+        s = smtplib.SMTP('smtp-mail.outlook.com', 25)
+        s.starttls()
+        s.login(fromEmail, 'Wuh28931')
+        s.send_message(msg)
+        s.quit()
+        print("Email was sent!")
 
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()

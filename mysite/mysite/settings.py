@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'ticket',
     'rest_framework',
     'tinymce_4',
-    # 'timesheet',
+    'marketing',
     'stafftimesheet',
     'timedeltatemplatefilter',
     'scheduler',
@@ -192,14 +192,22 @@ LOGOUT_REDIRECT_URL = '/'
 #Email
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST_USER = 'registration@tescan.ca'
-EMAIL_HOST = 'mail.tescan.ca'  # (also tried : smtp.office365.com  and outlook.office365.com)
-EMAIL_PORT = 26
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST_USER = 'registration@tescan.ca'
+# EMAIL_HOST = 'mail.tescan.ca'  # (also tried : smtp.office365.com  and outlook.office365.com)
 # EMAIL_PORT = 26
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL: False
-EMAIL_HOST_PASSWORD = 'A^f[Xoi+)ngh'
+# # EMAIL_PORT = 26
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL: False
+# EMAIL_HOST_PASSWORD = 'A^f[Xoi+)ngh'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_HOST_USER = 'amir.behvandi@tescan.ca'
+EMAIL_HOST_PASSWORD = 'Daj21372'
+EMAIL_PORT = 25
 
 
 REST_FRAMEWORK = {

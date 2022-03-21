@@ -33,7 +33,8 @@ urlpatterns = [
     path('stafftimesheet/', include("stafftimesheet.urls",namespace="stafftimesheet_")),
     path('api/', include("api.urls",namespace="api")),
     path('api-auth/', include('rest_framework.urls')),
-    path('scheduler/', include('scheduler.urls'))
+    path('scheduler/', include('scheduler.urls')),
+    path('marketing/', include('marketing.urls'))
     # path('tinymce/', include('tinymce.urls')),
 ]
 if settings.DEBUG:

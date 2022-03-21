@@ -4468,8 +4468,9 @@ class UpdateTesFrmExaminationAttendanceByID(SidebarMixin, LoginRequiredMixin, Te
         event = Event.objects.filter(id=id).first()
         form = TesFrmExaminationAttendance.objects.filter(event=event).first()
 
-        if form.tesFrmCandidate.all().count() == 0:
-            for item in event.candidate.all():
+
+        for item in event.candidate.all():
+            if not form.tesFrmCandidate.filter(candidate=item).exists():
                 print(item)
                 obj = TesFrmCandidate()
                 obj.candidate = item
@@ -4487,7 +4488,7 @@ class UpdateTesFrmExaminationAttendanceByID(SidebarMixin, LoginRequiredMixin, Te
                 event = Event.objects.filter(id=id).first()
                 # candidate = TesCandidate.objects.filter(id=request.POST['CanID']).first()
 
-                examObj = TesFrmExaminationAttendance.objects.filter(id=self.kwargs['id']).first()
+                examObj = TesFrmExaminationAttendance.objects.filter(event=event).first()
                 # examObj.candidate =candidate
 
 
@@ -4930,6 +4931,169 @@ class UpdateLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
             return render(request, 'forms/vision_test.html', context)
 
 
+
+class UpdateLecFeedbackByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/update_lect_feedback_form.html"
+
+    def get_context_data(self, id, *args, **kwargs):
+        context = super(UpdateLecFeedbackByUserID, self).get_context_data()
+        id = self.kwargs['id']
+        form = TesLecFeedbackFrom.objects.filter(id=id).first()
+        context['form'] = form
+        return context
+
+    def post(self, request, id, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                lecObj = TesLecFeedbackFrom.objects.filter(id=id).first()
+
+                # lecObj.courseName = event
+                lecObj.lecturerName = request.POST['lecName']
+                lecObj.location = request.POST['location']
+                lecObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
+
+                if not request.POST.get('case11', None) == None:
+                    lecObj.knowledge = '1'
+                if not request.POST.get('case12', None) == None:
+                    lecObj.knowledge = '2'
+                if not request.POST.get('case13', None) == None:
+                    lecObj.knowledge = '3'
+                if not request.POST.get('case14', None) == None:
+                    lecObj.knowledge = '4'
+                if not request.POST.get('case15', None) == None:
+                    lecObj.knowledge = '5'
+
+                if not request.POST.get('case21', None) == None:
+                    lecObj.teachingMethod = '1'
+                if not request.POST.get('case22', None) == None:
+                    lecObj.teachingMethod = '2'
+                if not request.POST.get('case23', None) == None:
+                    lecObj.teachingMethod = '3'
+                if not request.POST.get('case24', None) == None:
+                    lecObj.teachingMethod = '4'
+                if not request.POST.get('case25', None) == None:
+                    lecObj.teachingMethod = '5'
+
+                if not request.POST.get('case31', None) == None:
+                    lecObj.abilityToAnswer = '1'
+                if not request.POST.get('case32', None) == None:
+                    lecObj.abilityToAnswer = '2'
+                if not request.POST.get('case33', None) == None:
+                    lecObj.abilityToAnswer = '3'
+                if not request.POST.get('case34', None) == None:
+                    lecObj.abilityToAnswer = '4'
+                if not request.POST.get('case35', None) == None:
+                    lecObj.abilityToAnswer = '5'
+
+                if not request.POST.get('case41', None) == None:
+                    lecObj.usefulExample = '1'
+                if not request.POST.get('case42', None) == None:
+                    lecObj.usefulExample = '2'
+                if not request.POST.get('case43', None) == None:
+                    lecObj.usefulExample = '3'
+                if not request.POST.get('case44', None) == None:
+                    lecObj.usefulExample = '4'
+                if not request.POST.get('case45', None) == None:
+                    lecObj.usefulExample = '5'
+
+                if not request.POST.get('case51', None) == None:
+                    lecObj.industrialExperience = '1'
+                if not request.POST.get('case52', None) == None:
+                    lecObj.industrialExperience = '2'
+                if not request.POST.get('case53', None) == None:
+                    lecObj.industrialExperience = '3'
+                if not request.POST.get('case54', None) == None:
+                    lecObj.industrialExperience = '4'
+                if not request.POST.get('case55', None) == None:
+                    lecObj.industrialExperience = '5'
+
+                if not request.POST.get('case61', None) == None:
+                    lecObj.appropriateAids = '1'
+                if not request.POST.get('case62', None) == None:
+                    lecObj.appropriateAids = '2'
+                if not request.POST.get('case63', None) == None:
+                    lecObj.appropriateAids = '3'
+                if not request.POST.get('case64', None) == None:
+                    lecObj.appropriateAids = '4'
+                if not request.POST.get('case65', None) == None:
+                    lecObj.appropriateAids = '5'
+
+                if not request.POST.get('case71', None) == None:
+                    lecObj.transposition = '1'
+                if not request.POST.get('case72', None) == None:
+                    lecObj.transposition = '2'
+                if not request.POST.get('case73', None) == None:
+                    lecObj.transposition = '3'
+                if not request.POST.get('case74', None) == None:
+                    lecObj.transposition = '4'
+                if not request.POST.get('case75', None) == None:
+                    lecObj.transposition = '5'
+
+                if not request.POST.get('case81', None) == None:
+                    lecObj.participantsAttraction = '1'
+                if not request.POST.get('case82', None) == None:
+                    lecObj.participantsAttraction = '2'
+                if not request.POST.get('case83', None) == None:
+                    lecObj.participantsAttraction = '3'
+                if not request.POST.get('case84', None) == None:
+                    lecObj.participantsAttraction = '4'
+                if not request.POST.get('case85', None) == None:
+                    lecObj.participantsAttraction = '5'
+
+                if not request.POST.get('case91', None) == None:
+                    lecObj.ControllingTheClass = '1'
+                if not request.POST.get('case92', None) == None:
+                    lecObj.ControllingTheClass = '2'
+                if not request.POST.get('case93', None) == None:
+                    lecObj.ControllingTheClass = '3'
+                if not request.POST.get('case94', None) == None:
+                    lecObj.ControllingTheClass = '4'
+                if not request.POST.get('case95', None) == None:
+                    lecObj.ControllingTheClass = '5'
+
+                if not request.POST.get('case101', None) == None:
+                    lecObj.punctuality = '1'
+                if not request.POST.get('case102', None) == None:
+                    lecObj.punctuality = '2'
+                if not request.POST.get('case103', None) == None:
+                    lecObj.punctuality = '3'
+                if not request.POST.get('case104', None) == None:
+                    lecObj.punctuality = '4'
+                if not request.POST.get('case105', None) == None:
+                    lecObj.punctuality = '5'
+
+                if not request.POST.get('case111', None) == None:
+                    lecObj.generalBehaviour = '1'
+                if not request.POST.get('case112', None) == None:
+                    lecObj.generalBehaviour = '2'
+                if not request.POST.get('case113', None) == None:
+                    lecObj.generalBehaviour = '3'
+                if not request.POST.get('case114', None) == None:
+                    lecObj.generalBehaviour = '4'
+                if not request.POST.get('case115', None) == None:
+                    lecObj.generalBehaviour = '5'
+
+                lecObj.knowledgeComment = request.POST['comment1']
+                lecObj.teachingMethodComment = request.POST['comment2']
+                lecObj.abilityToAnswerComment = request.POST['comment3']
+                lecObj.usefulExampleComment = request.POST['comment4']
+                lecObj.industrialExperienceComment = request.POST['comment5']
+                lecObj.appropriateAidsComment = request.POST['comment6']
+                lecObj.transpositionComment = request.POST['comment7']
+                lecObj.participantsAttractionComment = request.POST['comment8']
+                lecObj.ControllingTheClassComment = request.POST['comment9']
+                lecObj.punctualityComment = request.POST['comment10']
+                lecObj.generalBehaviourComment = request.POST['comment11']
+
+                lecObj.anyComments = request.POST['comment']
+
+                lecObj.save()
+
+                return redirect('forms:alllecfedform_')
+
+            return render(request, 'forms/vision_test.html', context)
+
+
 class ViewLecFeedbackForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/update_lect_feedback_form.html"
 
@@ -5212,7 +5376,12 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
         event = Event.objects.filter(id=eventID).first()
         form = TrainingAttendance.objects.filter(event=event).first()
         for item in event.candidate.all():
-            print(item.first_name)
+            if not form.attCandidate.filter(candidate=item).exists():
+                print(item)
+                obj = TesAttCandidate()
+                obj.candidate = item
+                obj.save()
+                form.attCandidate.add(obj)
         context['form'] = form
         context['event'] = event
         return context

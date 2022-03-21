@@ -83,6 +83,7 @@ urlpatterns = [
     path('deletelecfedform/<int:pk>/delete/', views.DeleteLecFeedbackForm.as_view(), name='deletelecfedform_'),
     path('updatelecfedform/<int:id>', views.UpdateLecFeedbackForm.as_view(), name='updatelecfedform_'),
     path('viewlecfedform/<int:id>', views.ViewLecFeedbackForm.as_view(), name='viewlecfedform_'),
+    path('updatelecfedbyuserid/<int:id>/<int:eventID>/<int:formID>', views.UpdateLecFeedbackByUserID.as_view(), name='updatelecfedbyuserid_'),
 
 
 

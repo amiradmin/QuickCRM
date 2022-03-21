@@ -12,45 +12,46 @@ import smtplib
 
 def timesheet_check_interval():
     print("Hello from task!")
-    # msg = EmailMessage()
-    #
-    # asparagus_cid = make_msgid()
-    # msg.add_alternative("Test Message")
-    # fromEmail = 'amir.behvandi@tescan.ca'
-    # toEmail = "amirbehvandi747@gmail.com"
-    #
-    # msg['Subject'] = 'Timesheet interval tester.'
-    # msg['From'] = fromEmail
-    # msg['To'] = toEmail
-    # # msg['Cc'] = 'customersupportdesk@tescan.ca'
-    #
-    # s = smtplib.SMTP('mail.tescan.ca', 26)
-    # s.starttls()
-    # s.login(fromEmail, 'Daj21372')
-    # s.send_message(msg)
-    # s.quit()
-    # print("Email was sent!")
-
 
 
     rec_list = []
-    user_list = User.objects.filter(groups__name__in=['Staff', 'training_admin', 'admin', 'training_operator'])
+    user_list = User.objects.filter(
+        groups__name__in=['Staff', 'training_admin', 'admin', 'training_operator', 'management'])
     for user in user_list:
         can_count = TesCandidate.objects.filter(user=user).count()
         if can_count > 0:
             tesCandidate = TesCandidate.objects.filter(user=user).first()
             if tesCandidate.disable_timesheet == False:
+                # print(user)
                 if Timesheet.objects.filter(staff=user).count() > 0:
                     last_record = Timesheet.objects.select_related('staff').filter(staff=user).last()
                     if last_record.from_temp < datetime.datetime.now() - timedelta(days=7):
-                        rec_list.append(last_record)
+                        tesCandidate = TesCandidate.objects.filter(user=user).first()
+                        rec_list.append(tesCandidate)
                         print(last_record.staff.username + ' : ' + str(last_record.from_temp))
+                else:
+                    tesCandidate = TesCandidate.objects.filter(user=user).first()
+                    rec_list.append(tesCandidate)
+                    # print("empty timesheet: "+ tesCandidate.email + ' = ' +str(Timesheet.objects.filter(staff=user).count()))
+    print(rec_list)
 
-        # if item.diff.days > 10:
-        #     candidate = TesCandidate.objects.filter(user=item.staff).first()
-        #     print(candidate.first_name +': ' + str(item.diff.days) )
-        #     timesheet = Timesheet.objects.first()
-        #     obj = TimesheetChecker()
-        #     obj.timesheet = timesheet
-        #     obj.trigger = True
-            # obj.save()
+    print("Start mailing")
+    msg = EmailMessage()
+
+    asparagus_cid = make_msgid()
+    msg.add_alternative("Please submit your timesheet!")
+    fromEmail = 'erp@tescan.ca'
+    toEmail = "amirbehvandi747@gmail.com"
+
+    msg['Subject'] = 'Timesheet Reminder.'
+    msg['From'] = fromEmail
+    msg['To'] = toEmail
+
+    # msg['Cc'] = 'customersupportdesk@tescan.ca'
+
+    s = smtplib.SMTP('smtp-mail.outlook.com', 25)
+    s.starttls()
+    s.login(fromEmail, 'Wuh28931')
+    s.send_message(msg)
+    s.quit()
+    print("Email was sent!")

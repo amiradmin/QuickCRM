@@ -183,6 +183,7 @@ button, input {
                         </li>
 
 
+
                         <li class="side-nav-item">
                             <a href="apps-chat.html" onclick="return false;" class="side-nav-link disabled">
                                 <i class="dripicons-graduation"></i>
@@ -1019,7 +1020,24 @@ button, input {
                                 </ul>
                             </div>
                         </li>
+                        <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#marketing" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span> Marketing </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="marketing">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'marketing:mailer_' %}">Emails</a>
+                                    </li>
 
+
+
+
+                                </ul>
+                            </div>
+                        </li>
                         <li class="side-nav-item">
 
                             <div class="collapse" id="sidebarTasks">
