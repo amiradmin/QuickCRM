@@ -32,8 +32,9 @@ class SendForm(SidebarMixin, TemplateView):
         context = super(SendForm, self).get_context_data()
 
         candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
-        can_forms = CandidateForms.objects.filter(candidate=candidate)
+
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        can_forms = CandidateForms.objects.filter(Q(candidate=candidate) & Q(event=event))
         context['event'] = event
         context['candidate'] = candidate
         context['canID'] = self.kwargs['canID']
@@ -4937,20 +4938,23 @@ class UpdateLecFeedbackByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, id, *args, **kwargs):
         context = super(UpdateLecFeedbackByUserID, self).get_context_data()
-        id = self.kwargs['id']
-        form = TesLecFeedbackFrom.objects.filter(id=id).first()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        form = TesLecFeedbackFrom.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
         context['form'] = form
         return context
 
     def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                lecObj = TesLecFeedbackFrom.objects.filter(id=id).first()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                lecObj = TesLecFeedbackFrom.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
 
                 # lecObj.courseName = event
                 lecObj.lecturerName = request.POST['lecName']
                 lecObj.location = request.POST['location']
-                lecObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
+                # lecObj.startDate = datetime.datetime.strptime(request.POST['startDate'], '%m/%d/%Y')
 
                 if not request.POST.get('case11', None) == None:
                     lecObj.knowledge = '1'
@@ -5089,8 +5093,15 @@ class UpdateLecFeedbackByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 lecObj.save()
 
-                return redirect('forms:alllecfedform_')
-
+                return redirect('forms:evensummary_', id=event.id)
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                form = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                form.file = request.FILES['pdfFile']
+                form.save()
+                return redirect('forms:evensummary_', id=event.id)
             return render(request, 'forms/vision_test.html', context)
 
 

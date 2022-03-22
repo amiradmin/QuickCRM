@@ -9,8 +9,10 @@
                        <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
+                                <div class="page-title-right">
 
-                                <h4 class="page-title">New Message</h4>
+                                </div>
+                                <h4 class="page-title">Event List</h4>
                             </div>
                         </div>
                     </div>
@@ -25,23 +27,10 @@
 
 
                                     <div class="tab-content">
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
-
-                                        </div> <!-- end preview-->
- <form method="post">
-
-            {% csrf_token %}
 
 
-
-
-                                            <div class="row g-2">
-<!--                                                <div class="mb-3 col-md-6">-->
-<!--                                                    <label for="inputCity" class="form-label">Type</label>-->
-<!--                                                    <input type="text" name="name" class="form-control" id="inputCity">-->
-<!--                                                </div>-->
-
-                                            </div>
+                                        <form   method="POST" >
+                                            {% csrf_token %}
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
                                                     <label for="inputState" class="form-label">Type</label>
@@ -54,33 +43,97 @@
                                                 </div>
 
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Postal Code</label>
-                                                    <input type="text" name="postalCode" class="form-control" id="inputCity">
+                                                    <label for="temp" class="form-label">Templates</label>
+                                                    <select name="country" id="temp" class="form-select">
+                                                        <option>Choose</option>
+                                                        <option>Template 1</option>
+                                                        <option>Template 2</option>
+                                                        <option>Template 3</option>
+
+                                                    </select>
                                                 </div>
-
                                             </div>
+                                            <br>
 
-                                             <div class="row g-2">
-                                                <div class="mb-3 col-md-12">
-                                                    <label for="inputCity" class="form-label">Address</label>
-                                                    <textarea rows=4 type="text" name="address" class="form-control" id="inputCity"></textarea>
-                                                </div>
+                                        </form>
+
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+                                               <label for="inputState" class="form-label">Candidates:</label>
+                                            <table id="basic-datatable" class="table dt-responsive  w-100">
+                                                <thead>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Email</th>
+                                                        <th>Phone</th>
+
+                                                </thead>
 
 
-                                            </div>
+                                                <tbody>
+                                                    {% for item in candidate_list %}
+                                                    <tr>
+                                                         <td><input type="checkbox" name="approvedFlag" value="{{item.id}}" {% if item.approved %} checked {% endif %} /></td>
+                                                        <td>{{item.id}}</td>
+                                                        <td>{{item.first_name}} {% if item.middleName %}{{item.middleName}}{% endif %} {{item.last_name}}</td>
+                                                        <td>{{item.email}}</td>
+                                                        <td>{{item.contact_number}}</td>
 
-                                       <div class="mb-3 col-md-12 text-center">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
 
-</form>
+                                                    </tr>
+                                                    {%endfor%}
+                                                </tbody>
+                                            </table>
+                                        </div> <!-- end preview-->
+                                        <br>
+                                        <br>
+                                        <br>
 
-
-
+                     <div class="mb-3 col-md-12 text-center">
+                                    <button onclick="myFunctionButtom()" class="btn btn-primary" name="send" type="submit">Send</button>
+                     </div>
 
                                         <div class="tab-pane" id="basic-datatable-code">
 
 
+
+                                            <pre class="mb-0">
+                                                <span class="html escape">
+                                                    &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;
+                                                        &lt;thead&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;th&gt;Name&lt;/th&gt;
+                                                                &lt;th&gt;Position&lt;/th&gt;
+                                                                &lt;th&gt;Office&lt;/th&gt;
+                                                                &lt;th&gt;Age&lt;/th&gt;
+                                                                &lt;th&gt;Start date&lt;/th&gt;
+                                                                &lt;th&gt;Salary&lt;/th&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/thead&gt;
+
+
+                                                        &lt;tbody&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;td&gt;Tiger Nixon&lt;/td&gt;
+                                                                &lt;td&gt;System Architect&lt;/td&gt;
+                                                                &lt;td&gt;Edinburgh&lt;/td&gt;
+                                                                &lt;td&gt;61&lt;/td&gt;
+                                                                &lt;td&gt;2011/04/25&lt;/td&gt;
+                                                                &lt;td&gt;$320,800&lt;/td&gt;
+                                                            &lt;/tr&gt;
+                                                            &lt;tr&gt;
+                                                                &lt;td&gt;Garrett Winters&lt;/td&gt;
+                                                                &lt;td&gt;Accountant&lt;/td&gt;
+                                                                &lt;td&gt;Tokyo&lt;/td&gt;
+                                                                &lt;td&gt;63&lt;/td&gt;
+                                                                &lt;td&gt;2011/07/25&lt;/td&gt;
+                                                                &lt;td&gt;$170,750&lt;/td&gt;
+                                                            &lt;/tr&gt;
+                                                        &lt;/tbody&gt;
+                                                    &lt;/table&gt;
+                                                </span>
+                                            </pre> <!-- end highlight-->
                                         </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->
 
@@ -105,4 +158,6 @@
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
 
                     </script>
+
+
                 {% endblock %}

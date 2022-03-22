@@ -642,8 +642,7 @@ class TesLecFeedbackFrom(models.Model):
 
     anyComments = models.CharField(max_length=4092, null=True, blank=True)
 
-
-
+    file = models.FileField(null=True, blank=True)
     confirmation = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
