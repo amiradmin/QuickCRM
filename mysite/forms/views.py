@@ -7095,7 +7095,8 @@ class UpdateTWITrainingFeedbackByUserID(SidebarMixin, LoginRequiredMixin, Templa
                 obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
                 obj.file = request.FILES['pdfFile']
                 obj.save()
-                return redirect('forms:allenrolmentform_')
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                return redirect('forms:evensummary_', id=event.id)
 
             return redirect('forms:evensummary_', id=event.id)
 
