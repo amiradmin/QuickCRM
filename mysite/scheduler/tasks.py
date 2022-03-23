@@ -19,6 +19,7 @@ def timesheet_check_interval():
         groups__name__in=['Staff', 'training_admin', 'admin', 'training_operator', 'management'])
     for user in user_list:
         can_count = TesCandidate.objects.filter(user=user).count()
+        tes_task = TimesheetChecker()
         if can_count > 0:
             tesCandidate = TesCandidate.objects.filter(user=user).first()
             if tesCandidate.disable_timesheet == False:
@@ -28,13 +29,15 @@ def timesheet_check_interval():
                     if last_record.from_temp < datetime.datetime.now() - timedelta(days=7):
                         tesCandidate = TesCandidate.objects.filter(user=user).first()
                         rec_list.append(tesCandidate)
+
                         print(last_record.staff.username + ' : ' + str(last_record.from_temp))
                 else:
                     tesCandidate = TesCandidate.objects.filter(user=user).first()
                     rec_list.append(tesCandidate)
                     # print("empty timesheet: "+ tesCandidate.email + ' = ' +str(Timesheet.objects.filter(staff=user).count()))
     print(rec_list)
-
+    tes_task.date = datetime.datetime.now() + timedelta(days=7)
+    tes_task.save()
     print("Start mailing")
     msg = EmailMessage()
 
