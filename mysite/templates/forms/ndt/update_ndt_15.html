@@ -807,6 +807,7 @@
     position: relative;
     left: 90px;
     top: 95px;
+    margin-bottom:10px;
 
   }
 
@@ -989,7 +990,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
  <input type="text" id="topInfo7" value="{{item.methodLevel}}" name="claimedMethodLevel{{ forloop.counter }}"   style="width: 155px;height: 35px;font-size: 15px;"/><input type="text" id="middleInfo8" value="{{item.ExperienceClaimedSince}}" name="ExperienceClaimedSince{{ forloop.counter }}"  style="width: 155px;height: 25px;font-size: 15px;"/>
     <input type="text" id="middleInfo9" value="{{item.NumberOfNonths}}" name="NumberOfNonths{{ forloop.counter }}"   style="margin-left: 100px;width: 169px;height: 25px;font-size: 15px;"/>
     <input type="text" id="middleInfo10" value="{{item.DateOfExamination|date:'m/d/Y'}}" name="DateOfExamination{{ forloop.counter }}"   style="margin-left: -41px;width: 169px;height: 25px;font-size: 15px;"/>
-
+    <br>
 {% endfor %}
             <input type="hidden" name="expIDNew" value="{{item.id}}" />
  <input type="text" id="topInfo7" value="{{item.methodLevel}}" name="claimedMethodLevelNew"   style="width: 155px;height: 35px;font-size: 15px;"/><input type="text" id="middleInfo8" value="{{item.ExperienceClaimedSince}}" name="ExperienceClaimedSinceNew"  style="width: 155px;height: 25px;font-size: 15px;"/>

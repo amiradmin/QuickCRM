@@ -3093,6 +3093,14 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
                             objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate' + str(idx + 1)], '%m/%d/%Y')
                             objCur.save()
 
+                if not request.POST.get('claimedMethodLevelNew', '') == '':
+                    objExp = ExperienceClaimed()
+                    objExp.methodLevel = request.POST['claimedMethodLevelNew']
+                    objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSinceNew']
+                    objExp.NumberOfNonths = request.POST['NumberOfNonthsNew']
+                    objExp.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExaminationNew'], '%m/%d/%Y')
+                    objExp.save()
+                    obj.experienceClaimed.add(objExp)
 
                 for idx, item in enumerate(range(0, 8)):
                     if not request.POST.get('claimedMethodLevel'+ str(idx+1), None) == None:
@@ -3103,15 +3111,15 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
                             objExp.methodLevel = request.POST['claimedMethodLevel'+ str(idx+1)]
                             objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSince'+ str(idx+1)]
                             objExp.NumberOfNonths = request.POST['NumberOfNonths'+ str(idx+1)]
-                            objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' + str(idx + 1)], '%m/%d/%Y')
+                            objExp.DateOfExamination = datetime.datetime.strptime(request.POST['DateOfExamination' + str(idx + 1)], '%m/%d/%Y')
                             objExp.save()
-                        else:
-                            objExp = ExperienceClaimed()
-                            objExp.methodLevel = request.POST['claimedMethodLevelNew']
-                            objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSinceNew']
-                            objExp.NumberOfNonths = request.POST['NumberOfNonths'+ str(idx+1)]
-                            objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' +New ], '%m/%d/%Y')
-                            objExp.save()
+                #         else:
+                #             objExp = ExperienceClaimed()
+                #             objExp.methodLevel = request.POST['claimedMethodLevelNew']
+                #             objExp.ExperienceClaimedSince = request.POST['ExperienceClaimedSinceNew']
+                #             objExp.NumberOfNonths = request.POST['NumberOfNonths'+ str(idx+1)]
+                #             objExp.ExpiryDate = datetime.datetime.strptime(request.POST['DateOfExamination' +New ], '%m/%d/%Y')
+                #             objExp.save()
 
                 return redirect('forms:evensummary_', id=event.id)
 
