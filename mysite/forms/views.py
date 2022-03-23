@@ -3057,7 +3057,7 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
 
                 event = Event.objects.filter(id=self.kwargs['eventID']).first()
                 candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
-                obj = NDT15AExperienceVerification.objects.filter(candidate=candidate).last()
+                obj = NDT15AExperienceVerification.objects.filter(Q(candidate=candidate) & Q(event=event)).last()
                 obj.candidateID = request.POST['cancanID']
                 obj.descriptionOfExperience = request.POST['descriptionOfExperience']
                 if not request.POST.get('date' , '') == '':
@@ -3125,7 +3125,8 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
-                obj = NDT15AExperienceVerification.objects.filter(id=id).first()
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
                 obj.file = request.FILES['pdfFile']
                 obj.save()
                 return redirect('forms:evensummary_', id=event.id)
