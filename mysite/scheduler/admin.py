@@ -4,5 +4,4 @@ from scheduler.models import TimesheetChecker
 class TimesheetCheckerAdmin(admin.ModelAdmin):
     list_display = ['id','date','created_at','updated_at']
     list_filter = ['id','created_at','updated_at']
-
 admin.site.register(TimesheetChecker,TimesheetCheckerAdmin)
