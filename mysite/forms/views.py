@@ -3054,25 +3054,36 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
     def post(self, request,  *args, **kwargs):
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                print("Update here")
+
                 event = Event.objects.filter(id=self.kwargs['eventID']).first()
                 candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
                 obj = NDT15AExperienceVerification.objects.filter(candidate=candidate).last()
                 obj.candidateID = request.POST['cancanID']
                 obj.descriptionOfExperience = request.POST['descriptionOfExperience']
-                obj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                if not request.POST.get('date' , '') == '':
+                    obj.date = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 # obj.candidate.birth_date = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
                 obj.nameJobTitle = request.POST['nameJobTitle']
                 obj.companyName = request.POST['companyName']
                 obj.supervisionActivity = request.POST['supervisionActivity']
                 obj.verEmail = request.POST['verEmail']
-                obj.verDate = datetime.datetime.strptime(request.POST['verDate'], '%m/%d/%Y')
+                if not request.POST.get('verDate', '') == '':
+                    obj.verDate = datetime.datetime.strptime(request.POST['verDate'], '%m/%d/%Y')
                 obj.save()
-                #
-                for idx, item in enumerate(range(0, 8)):
-                    if not request.POST.get('methodLevel'+ str(idx+1), None) == None:
-                        id = request.POST['id'+ str(idx+1)]
 
+                if not request.POST.get('methodLevelNew', '') == '':
+                    print("New Indide")
+                    objCur = CurrentFormerCertification()
+                    objCur.methodLevel = request.POST['methodLevelNew']
+                    objCur.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthorityNew']
+                    objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDateNew'], '%m/%d/%Y')
+                    objCur.save()
+                    obj.currentFormerCertification.add(objCur)
+
+                for idx, item in enumerate(range(0, 8)):
+                    if not request.POST.get('methodLevel'+ str(idx+1), '') == '':
+                        id = request.POST['id'+ str(idx+1)]
+                        print(id)
                         print(request.POST['ExpiryDate' + str(idx + 1)])
                         if CurrentFormerCertification.objects.filter(id=id).count() > 0:
                             print("Update Indide")
@@ -3081,13 +3092,7 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
                             objCur.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthority'+ str(idx+1)]
                             objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDate' + str(idx + 1)], '%m/%d/%Y')
                             objCur.save()
-                        if not request.POST.get('methodLevelNew', None) == None:
-                            print("New Inside")
-                            objCur.methodLevel = request.POST['methodLevelNew']
-                            objCur.SchemeCertifyingAuthority = request.POST['SchemeCertifyingAuthorityNew']
-                            objCur.ExpiryDate = datetime.datetime.strptime(request.POST['ExpiryDateNew'], '%m/%d/%Y')
-                            objCur.save()
-                            obj.currentFormerCertification.add(objCur)
+
 
                 for idx, item in enumerate(range(0, 8)):
                     if not request.POST.get('claimedMethodLevel'+ str(idx+1), None) == None:
