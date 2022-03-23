@@ -612,7 +612,7 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 
 <input id="topper1" type="hidden"  name="indexID{{ forloop.counter }}" value="{{item.candidate.id}}"  />
 <input id="topper2" type="text" id="insideInfo1o"  value="{{item.id}}-{{item.candidate.first_name}} {% if item.candidate.middleName != 'None' %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}" style="border:none;background: transparent;width: 217px; height: 35px;font-size: 15px;margin:1px;" value="" name="canName{{ forloop.counter }}" id="">
-<input id="topper3" type="text" id="insideInfo2o" value="{{item.testSequence}}"   style="border:none;background: transparent;width: 81px; height: 31px;font-size: 15px;margin:1px;" value="" name="testSequence{{ forloop.counter }}" id="">
+<input id="topper3" type="text" id="insideInfo2o" value="{% if item.testSequence %}{{item.testSequence}}{%endif%}"   style="border:none;background: transparent;width: 81px; height: 31px;font-size: 15px;margin:1px;" value="" name="testSequence{{ forloop.counter }}" id="">
 
 <input id="insideInfo3" type="checkbox" {% if item.dayOneSec1 %} checked {% endif %}  style="border:none;margin-left:0px ;" name="dayOneSec1{{ forloop.counter }}" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />
 <input id="insideInfo3" type="checkbox" {% if item.dayOneSec2 %} checked {% endif %} style="border:none;margin-left:6px ;" name="dayOneSec2{{ forloop.counter }}" onclick="compValidation();" class="dayOne" onchange="chequeChange(this);"  />

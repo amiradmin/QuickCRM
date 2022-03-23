@@ -653,7 +653,7 @@ class TesLecFeedbackFrom(models.Model):
 
 
 class TesAttCandidate(models.Model):
-
+    event = models.ForeignKey(Event, related_name="event_att_tes", on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate, related_name="tes_att_candidate", on_delete=models.CASCADE)
     testSequence= models.CharField(max_length=1024, null=True, blank=True)
 

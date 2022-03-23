@@ -5389,12 +5389,14 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
         print("Here Amir")
         context = super(UpdateTrainingAttendancemByID, self).get_context_data()
         eventID = self.kwargs['id']
+        print(eventID)
         event = Event.objects.filter(id=eventID).first()
         form = TrainingAttendance.objects.filter(event=event).first()
         for item in event.candidate.all():
-            if not form.attCandidate.filter(candidate=item).exists():
+            if not form.attCandidate.filter(Q(candidate=item) & Q(event=event)).exists():
                 print(item)
                 obj = TesAttCandidate()
+                obj.event = event
                 obj.candidate = item
                 obj.save()
                 form.attCandidate.add(obj)
@@ -5420,11 +5422,13 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
                     if not request.POST.get('indexID' + str(idx + 1), None) == None:
                         canID = request.POST["indexID" + str(idx + 1)]
                         print(canID)
+                        print("Inside Update")
                         candidate = TesCandidate.objects.filter(id=canID).first()
-                        testAttCandidate = TesAttCandidate.objects.filter(candidate=candidate)
+                        event = Event.objects.filter(id=eventID).first()
+                        testAttCandidate = TesAttCandidate.objects.filter(Q(candidate=candidate) & Q(event=event))
                         if testAttCandidate.count() >0:
                             print("Exist")
-                            testAttCandidate = TesAttCandidate.objects.filter(candidate=candidate).first()
+                            testAttCandidate = TesAttCandidate.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
                             candidate = TesCandidate.objects.filter(id=canID).first()
                             testAttCandidate.candidate = candidate
                             testAttCandidate.testSequence =  request.POST['testSequence' + str(idx + 1)]
@@ -5495,11 +5499,9 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
 
 
                             testAttCandidate.save()
-                        else:
-                            testAttCandidate = TesAttCandidate()
-                            testAttCandidate.candidate = candidate
-                            testAttCandidate.save()
-                            attObj.attCandidate.add(testAttCandidate)
+                            obj = TrainingAttendance.objects.filter(event=event).first()
+                            obj.attCandidate.add(testAttCandidate)
+
 
 
 
