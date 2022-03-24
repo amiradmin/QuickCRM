@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from training.models import Event,Category
-from exam_certification.models import Exam
+
 # class MessageListSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
 #     user = serializers.CharField(required=False, allow_blank=True, max_length=100)

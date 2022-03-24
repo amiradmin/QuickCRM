@@ -34,7 +34,8 @@ urlpatterns = [
     path('api/', include("api.urls",namespace="api")),
     path('api-auth/', include('rest_framework.urls')),
     path('scheduler/', include('scheduler.urls')),
-    path('marketing/', include('marketing.urls'))
+    path('marketing/', include('marketing.urls')),
+    path('exam_certification/', include('exam_certification.urls'))
     # path('tinymce/', include('tinymce.urls')),
 ]
 if settings.DEBUG:

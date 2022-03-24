@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from api.serializers import EventSerializer,ProductSerializer,ExamSerializer,EventSerializer
 from api.paginations import CustomPagination
 from training.models import Event,Product,productCategory,Event
-from exam_certification.models import Exam
 from contacts.models import Contact
 # Create your views here.
 
@@ -152,7 +151,7 @@ class GetExamList(APIView):
         }
         # examList = Event.objects.filter(name= 'General Exams')
         product = Product.objects.filter(id=1639).first()
-        examList = Event.objects.filter(product= product)
+        examList = Event.objects.filter(product= product).order_by('start_date')
         page = self.paginate_queryset(examList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)

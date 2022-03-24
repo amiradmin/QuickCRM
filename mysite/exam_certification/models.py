@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from training.models import Country,Location
+from training.models import Country,Location,TesCandidate,Product,Event
 # Create your models here.
 
 
@@ -29,32 +29,28 @@ class Invigilator(models.Model):
     def __str__(self):
         return self.user.first_name + ' '+ self.user.last_name
 
-class Exam(models.Model):
-    # TYPE_CHOICES = (('V', 'Virtual Accademy'), ('C', 'Class Rooom Based'),('O', 'Online Zoom'))
-    title = models.CharField(max_length=30, null=True, blank=True )
-    code = models.CharField(max_length=30, null=True, blank=True )
-    venue = models.CharField(max_length=30, null=True, blank=True )
-    sequence = models.CharField(max_length=30, null=True, blank=True )
-    invigilator = models.CharField(max_length=30, null=True, blank=True )
 
+
+
+class CertificateType(models.Model):
+    name = models.CharField(max_length=128, null=True, blank=True )
+    expriation = models.IntegerField( null=True, blank=True )
+    file = models.FileField(upload_to='exam_file',null=True,blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.name
 
-class Event(models.Model):
-    ANNOUNCMENT_CHOICES = (('S', 'SMS'), ('E', 'Email'))
-    name = models.CharField(max_length=30, null=True, blank=True )
-    exam = models.ForeignKey(Exam,related_name="exam_event",  null=True, blank=True , on_delete=models.CASCADE)
-    country = models.ForeignKey(Country,related_name="country_event_exam",  null=True, blank=True , on_delete=models.CASCADE)
-    location = models.ForeignKey(Location,related_name="location_event_exam",  null=True, blank=True , on_delete=models.CASCADE)
-    # lecturers = models.ForeignKey(Lecturer,related_name="lecturer_event",  null=True, blank=True , on_delete=models.CASCADE)
-    date = models.DateTimeField(null=True, blank=True)
-    film = models.FileField(upload_to='exam_film',null=True,blank=True)
+class Certificate(models.Model):
+    name = models.CharField(max_length=128, null=True, blank=True )
+    event = models.ForeignKey(Event,related_name="exam_event",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="exam_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    type = models.ForeignKey(CertificateType,related_name="exam_type",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    invigilator = models.ForeignKey(Invigilator,related_name="invigilator_exam",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    file = models.FileField(upload_to='exam_file',null=True,blank=True)
 
-    announcement_type =  models.CharField(max_length=1,null=True, blank=True, choices=ANNOUNCMENT_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
