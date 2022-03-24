@@ -150,7 +150,9 @@ class GetExamList(APIView):
             "status": False,
             "msg": "Done"
         }
-        examList = Event.objects.filter(name= 'General Exams')
+        # examList = Event.objects.filter(name= 'General Exams')
+        product = Product.objects.filter(id=1639).first()
+        examList = Event.objects.filter(product= product)
         page = self.paginate_queryset(examList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)

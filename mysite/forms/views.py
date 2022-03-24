@@ -920,7 +920,12 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                 #
                 if not request.POST.get('diabilityYes', None) == None:
                     obj.disability = True
+                else:
+                    obj.disability = False
+
                 if request.POST.get('diabilityNo', None) == None:
+                    obj.disability = True
+                else:
                     obj.disability = False
                 #
                 if not request.POST.get('weldingSociety', None) == None:
@@ -929,9 +934,13 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                     obj.twiEmployee = True
                 #
                 if not request.POST.get('compSponser', None) == None:
+                    obj.sponsorStatus = True
+                else:
                     obj.sponsorStatus = False
                 if not request.POST.get('selfSponser', None) == None:
                     obj.sponsorStatus = True
+                else:
+                    obj.sponsorStatus = False
                 #
                 if not request.POST.get('GDPRstatement', None) == None:
                     obj.GDPRstatement = True
@@ -940,25 +949,25 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                 if not request.POST.get('twiWebsite', None) == None:
                     tempTearAbout = 'TWI Corporate Website'
                 if not request.POST.get('CSWIPweb', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'CSWIP Website'
+                    tempTearAbout = 'CSWIP Website'
                 if not request.POST.get('emailMarketing', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Email marketing'
+                    tempTearAbout = 'Email marketing'
                 if not request.POST.get('Bulletin', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Bulletin / Connect'
+                    tempTearAbout = 'Bulletin / Connect'
                 if not request.POST.get('Google', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Google search'
+                    tempTearAbout = 'Google search'
                 if not request.POST.get('Other', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Other (please specify)'
+                    tempTearAbout = 'Other (please specify)'
                 if not request.POST.get('Linkedin', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'LinkedIn'
+                    tempTearAbout = 'LinkedIn'
                 if not request.POST.get('Facebook', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Facebook'
+                    tempTearAbout = 'Facebook'
                 if not request.POST.get('NDTnews', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'NDT News / Insight'
+                    tempTearAbout = 'NDT News / Insight'
                 if not request.POST.get('Exhib', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Exhibitions / Events'
+                    tempTearAbout = 'Exhibitions / Events'
                 if not request.POST.get('WorkOfMouth', None) == None:
-                    tempTearAbout = tempTearAbout + ' - ' + 'Word of Mouth'
+                    tempTearAbout =  'Word of Mouth'
                 obj.hearAbout = tempTearAbout
                 #
                 if not request.POST.get('Initial', None) == None:
@@ -2155,6 +2164,148 @@ class UpdatePSL57AForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 # formObj.save()
 
                 return redirect('forms:allpsl57A_')
+
+
+
+class UpdatePSL57AFormByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/reg_forms/update_PSL-57A_Initial_exam_application_S.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdatePSL57AFormByUserID, self).get_context_data()
+        candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        form = PSL57A.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+        context['form'] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+
+                context = super(UpdatePSL57AFormByUserID, self).get_context_data()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                mainObj = PSL57A.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+                mainObj.cerAddress = request.POST['cerAddress']
+                mainObj.pslCerAddress = request.POST['pslCerAddress']
+                mainObj.phone = request.POST['phone']
+                mainObj.pclNumber = request.POST['pclNumber']
+                mainObj.email = request.POST['email']
+                mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                mainObj.dateOfCourse = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%m/%d/%Y')
+                mainObj.currentEmploymentDetails = request.POST['currentEmploymentDetails']
+                mainObj.candidatePosition = request.POST['currentEmploymentPosition']
+                mainObj.employmentStatus = request.POST['currentEmploymentStatus']
+                mainObj.trainingOrg = request.POST['preCerTraining']
+                # mainObj.preCerTrainingDate = request.POST['preCerTrainingDate']
+                mainObj.iroductsIndustrySector = request.POST['iroductsIndustrySector']
+
+                if not request.POST.get('contactMe', None) == None:
+                    mainObj.contactMe = True
+                else:
+                    mainObj.contactMe = True
+
+                if request.POST.get('gender', None) == 'Male':
+                    mainObj.gender = 'M'
+                elif request.POST.get('gender', None) == 'Female':
+                    mainObj.gender = 'M'
+
+                if not request.POST.get('et', None) == None:
+                    mainObj.NDTMethod = 'ET'
+
+                if not request.POST.get('mt', None) == None:
+                    mainObj.NDTMethod = 'MT'
+
+                if not request.POST.get('pt', None) == None:
+                    mainObj.NDTMethod = 'PT'
+
+                if not request.POST.get('rt', None) == None:
+                    mainObj.NDTMethod = 'RT'
+
+                if not request.POST.get('ri', None) == None:
+                    mainObj.NDTMethod = 'RI'
+                if not request.POST.get('ut', None) == None:
+                    mainObj.NDTMethod = 'UT'
+                if not request.POST.get('vt', None) == None:
+                    mainObj.NDTMethod = 'VT'
+                if not request.POST.get('crt', None) == None:
+                    mainObj.NDTMethod = 'CRT'
+                if not request.POST.get('tofd', None) == None:
+                    mainObj.NDTMethod = 'TOFD'
+                if not request.POST.get('paut', None) == None:
+                    mainObj.NDTMethod = 'PAUT'
+
+                if not request.POST.get('levelOne', None) == None:
+                    mainObj.NDTLevel = 'level 1'
+                if not request.POST.get('levelTwo', None) == None:
+                    mainObj.NDTLevel = 'level 2'
+                if not request.POST.get('levelThree', None) == None:
+                    mainObj.NDTLevel = 'level 3'
+
+                if not request.POST.get('basicRadio', None) == None:
+                    mainObj.radiationSafety = 'Basic Radiation Safety'
+                if not request.POST.get('supervisorProtection', None) == None:
+                    mainObj.radiationProtectionSup = 'Radiation protection supervisor'
+
+                if not request.POST.get('visa', None) == None:
+                    mainObj.creditCardPayment = 'Visa'
+                if not request.POST.get('masterCard', None) == None:
+                    mainObj.creditCardPayment = 'Master Card'
+                if not request.POST.get('amex', None) == None:
+                    mainObj.creditCardPayment = 'Amex'
+                if not request.POST.get('switch', None) == None:
+                    mainObj.creditCardPayment = 'Switch'
+
+                mainObj.ndtOther = request.POST['ndtOther']
+                mainObj.ifLevel3 = request.POST['ifLevel3']
+                # mainObj.basicRadiationSafty = request.POST['basicRadiationSafty']
+                # mainObj.radiationProtectionSupervisor = request.POST['radiationProtectionSupervisor']
+                mainObj.cerCategory = request.POST['cerCategory']
+                mainObj.preferredExaminationDateVenue = request.POST['preferredExaminationDateVenue']
+
+                mainObj.claimDuration = request.POST['claimDuration']
+                mainObj.verClaimAddress = request.POST['verClaimAddress']
+                mainObj.dateOfSign = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                mainObj.sponsorName = request.POST['sponsorName']
+                mainObj.sponsorCompany = request.POST['sponsorCompany']
+                mainObj.sponsorPhone = request.POST['sponsorPhone']
+
+                mainObj.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
+                mainObj.testCenterExaminer = request.POST['testCenterExaminer']
+                mainObj.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
+                mainObj.testCenterVenue = request.POST['testCenterVenue']
+                mainObj.testCenterModerator = request.POST['testCenterModerator']
+                mainObj.testCenterResultRef = request.POST['testCenterResultRef']
+                mainObj.testCenterExamCompleteColsed = request.POST['testCenterExamCompleteColsed']
+
+                mainObj.nameAddressInvoice = request.POST['nameAddressInvoice']
+                mainObj.accommodation = request.POST['accommodation']
+                mainObj.paymentMethod = request.POST['paymentMethod']
+                mainObj.nameResponsible = request.POST['nameResponsible']
+                mainObj.companyOrderReference = request.POST['companyOrderReference']
+                mainObj.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
+                mainObj.NameOnCard = request.POST['NameOnCard']
+                mainObj.cardNumber = request.POST['cardNumber']
+                mainObj.securityCode = request.POST['securityCode']
+                mainObj.addressCreditCardHolder = request.POST['addressCreditCardHolder']
+                mainObj.categoriesOfCertification = request.POST['cerCategory']
+                mainObj.preferredExaminationDateVenu = request.POST['preferredExaminationDateVenue']
+                mainObj.debit = request.POST['debit']
+
+                # mainObj.creditCardPayment = request.POST['creditCardPayment']
+
+                mainObj.save()
+
+                # formObj = FormList()
+                # formObj.name = "PSL-57A Initial exam application"
+                # formObj.candidate = candidate
+                # formObj.event = event
+                # if not request.POST.get('comfirmation', None) == None:
+                #     formObj.status = True
+                #
+                # formObj.save()
+
+                return redirect('forms:evensummary_', id=event.id)
 
 
 class MessageUpdatePSL57AForm(LoginRequiredMixin, TemplateView):
@@ -4204,8 +4355,8 @@ class updateVisionTestByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(updateVisionTestByUserID, self).get_context_data()
         id = self.kwargs['id']
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
-        form = VisionTest.objects.filter(candidate=candidate).first()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        form = VisionTest.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
         context['form'] = form

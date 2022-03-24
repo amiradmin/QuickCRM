@@ -12,7 +12,7 @@
                                 <div class="page-title-right">
 
                                 </div>
-                                <h4 class="page-title">Event List</h4>
+                                <h4 class="page-title">Marketing Emails</h4>
                             </div>
                         </div>
                     </div>
@@ -32,29 +32,60 @@
                                         <form   method="POST" >
                                             {% csrf_token %}
                                             <div class="row g-2">
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="inputState" class="form-label">Type</label>
-                                                    <select name="country" id="inputState" class="form-select">
-                                                        <option>Choose</option>
-                                                        <option>New Event</option>
-                                                        <option>All candidate</option>
+    <div class="col-md-4">
+      <select class="form-control" name="select1" id="select1">
+        <option value="1">General Announcement</option>
+        <option value="2">Incomplete Document</option>
+        <option value="3">Certificate Expiration</option>
+        <option value="4">New Course</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <select class="form-control" name="select2" id="select2">
+        <option value="1" data-section1="1">Profile is ready</option>
+        <option value="2" data-section1="1">Visit our new course</option>
+        <option value="3" data-section1="2">Photo</option>
+        <option value="4" data-section1="2">Passport image</option>
+        <option value="5" data-section1="3">Re Exam</option>
+        <option value="6" data-section1="3">Training</option>
+        <option value="7" data-section1="4">NDT</option>
+        <option value="8" data-section1="4">Welding Inspection</option>
+        <option value="8" data-section1="4">Underwater</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <select class="form-control" name="select3" id="select3">
+          <option value="1">Banana</option>
+          <option value="1">Apple</option>
+          <option value="2">Orange</option>
+          <option value="2">Grapes</option>
+          <option value="3">Cat</option>
+          <option value="3">Dog</option>
+          <option value="3">Hamster</option>
+          <option value="4">CSWIP</option>
+          <option value="4">UT</option>
+          <option value="4">RI</option>
+          <option value="5">Eagle</option>
+          <option value="5">Hawk</option>
+          <option value="6">Chicken</option>
+          <option value="6">Penguin</option>
+          <option value="7">Ferrari<option>
+          <option value="7">Maserati<option>
+          <option value="7">McLaren<option>
+          <option value="8">VW<option>
+          <option value="8">Ford<option>
+          <option value="8">Honda<option>
+          <option value="8">Volvo<option>
+      </select>
+    </div>
 
-                                                    </select>
-                                                </div>
-
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="temp" class="form-label">Templates</label>
-                                                    <select name="country" id="temp" class="form-select">
-                                                        <option>Choose</option>
-                                                        <option>Template 1</option>
-                                                        <option>Template 2</option>
-                                                        <option>Template 3</option>
-
-                                                    </select>
-                                                </div>
+  </div>
                                             </div>
                                             <br>
-
+<div class="tab-content text-center">
+<button class="btn btn-outline-primary" name="mainForm" type="submit">Update</button>
+</div>
+                                    <br><br>
                                         </form>
 
                                         <div class="tab-pane show active" id="basic-datatable-preview">
@@ -98,42 +129,7 @@
 
 
 
-                                            <pre class="mb-0">
-                                                <span class="html escape">
-                                                    &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;
-                                                        &lt;thead&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;th&gt;Name&lt;/th&gt;
-                                                                &lt;th&gt;Position&lt;/th&gt;
-                                                                &lt;th&gt;Office&lt;/th&gt;
-                                                                &lt;th&gt;Age&lt;/th&gt;
-                                                                &lt;th&gt;Start date&lt;/th&gt;
-                                                                &lt;th&gt;Salary&lt;/th&gt;
-                                                            &lt;/tr&gt;
-                                                        &lt;/thead&gt;
 
-
-                                                        &lt;tbody&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;td&gt;Tiger Nixon&lt;/td&gt;
-                                                                &lt;td&gt;System Architect&lt;/td&gt;
-                                                                &lt;td&gt;Edinburgh&lt;/td&gt;
-                                                                &lt;td&gt;61&lt;/td&gt;
-                                                                &lt;td&gt;2011/04/25&lt;/td&gt;
-                                                                &lt;td&gt;$320,800&lt;/td&gt;
-                                                            &lt;/tr&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;td&gt;Garrett Winters&lt;/td&gt;
-                                                                &lt;td&gt;Accountant&lt;/td&gt;
-                                                                &lt;td&gt;Tokyo&lt;/td&gt;
-                                                                &lt;td&gt;63&lt;/td&gt;
-                                                                &lt;td&gt;2011/07/25&lt;/td&gt;
-                                                                &lt;td&gt;$170,750&lt;/td&gt;
-                                                            &lt;/tr&gt;
-                                                        &lt;/tbody&gt;
-                                                    &lt;/table&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
                                         </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->
 
@@ -157,6 +153,44 @@
                 <script>
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
 
+
+//Reference: https://jsfiddle.net/fwv18zo1/
+$(document).ready( function(){
+var $order_name = $('#order-name');
+var $output = $('#output');
+var $select1 = $( '#select1' );
+var	$select2 = $( '#select2' );
+var	$select3 = $( '#select3' );
+var	$options2 = $select2.find( 'option' );
+var	$options3 = $select3.find( 'option' );
+
+
+$select1.on( 'change', function(event) {
+    $select2.html(
+        $options2.filter(
+          function() {
+              return $(this).data('section1') == $select1[0].selectedOptions[0].value;
+          }
+        )
+    );
+    $select2.trigger('change');
+ }).trigger('change');
+
+$select2.on( 'change', function(event) {
+    $select3.html(
+        $options3.filter(
+          function() {
+              return $(this).val() == $select2[0].selectedOptions[0].value;
+          }
+        )
+    );
+ }).trigger('change');
+
+$order_name.on('keyup', function(){
+  $output.val(`utm_source=${$select1[0].selectedOptions[0].innerHTML}_${$select2[0].selectedOptions[0].innerHTML}&utm_medium=${$select3[0].selectedOptions[0].innerHTML}&utm_campaign=${$order_name.val()}`);
+});
+
+});
                     </script>
 
 
