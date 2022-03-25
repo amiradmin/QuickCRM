@@ -27,10 +27,18 @@ class FinalCertificateAttendanceView(SidebarMixin, LoginRequiredMixin, TemplateV
         candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         form = CertificateAttendance.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
-
+        print(form)
         context['form'] = form
         return context
-
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            print('uploadFormBack')
+            candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
+            event = Event.objects.filter(id=self.kwargs['eventID']).first()
+            obj = CertificateAttendance.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+            obj.file = request.FILES['pdfFile']
+            obj.save()
+        return redirect('exam_certification:cersummary_')
 
 class NewCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_attendance.html"
