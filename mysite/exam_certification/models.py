@@ -43,12 +43,16 @@ class CertificateType(models.Model):
     def __str__(self):
         return self.name
 
-class Certificate(models.Model):
-    name = models.CharField(max_length=128, null=True, blank=True )
+class CertificateAttendance(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    authorized_signatory = models.CharField(max_length=256, null=True, blank=True )
+    certiﬁcate_number = models.CharField(max_length=256, null=True, blank=True )
+    course_duration = models.IntegerField( null=True, blank=True )
     event = models.ForeignKey(Event,related_name="exam_event",  null=True, blank=True , on_delete=models.DO_NOTHING)
     candidate = models.ForeignKey(TesCandidate,related_name="exam_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
     type = models.ForeignKey(CertificateType,related_name="exam_type",  null=True, blank=True , on_delete=models.DO_NOTHING)
     invigilator = models.ForeignKey(Invigilator,related_name="invigilator_exam",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    issue_date = models.DateTimeField(null=True,blank=True)
     file = models.FileField(upload_to='exam_file',null=True,blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from  exam_certification.models import Invigilator,Certificate,CertificateType
+from  exam_certification.models import Invigilator,CertificateAttendance,CertificateType
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 class InvigilatorProfileAdmin(ImportExportModelAdmin,admin.ModelAdmin):
@@ -9,11 +9,11 @@ class InvigilatorProfileAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 admin.site.register(Invigilator,InvigilatorProfileAdmin)
 
 
-class CertificateAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+class CertificateAttendanceAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','candidate','created_at','updated_at']
     list_filter = ['id','name','event','candidate','created_at','updated_at']
 
-admin.site.register(Certificate,CertificateAdmin)
+admin.site.register(CertificateAttendance,CertificateAttendanceAdmin)
 
 
 class CertificateTypeAdmin(ImportExportModelAdmin,admin.ModelAdmin):

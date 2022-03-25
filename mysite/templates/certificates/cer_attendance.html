@@ -28,13 +28,21 @@
 
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="basic-datatable-preview">
+
+<div class="tab-content text-left">
+<a href="{% url 'exam_certification:newcerattendance_' %}" class="btn btn-outline-primary" name="mainForm" type="submit">New</a>
+</div>
+                                                <br>
+                                                <br>
+
                                             <table id="basic-datatable" class="table dt-responsive  w-100">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
                                                         <th>Name</th>
                                                         <th>Expiration(Year)</th>
-
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                             
@@ -45,7 +53,8 @@
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.name}}</td>
                                                         <td>{{item.expriation}}</td>
-
+<td><a  href="{% url 'exam_certification:cersummary_' typeID=item.id %}"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+<td><a alt="Test" href="{% url 'training:att_' id=item.id %}"><i style="font-size:20px;" class="fa fa-users"></i></a></td>
 <!--                                                        <td><a alt="Test" href="{% url 'training:att_' id=item.id %}"><i style="font-size:20px;" class="fa fa-users"></i></a></td>-->
 <!--                                                        <td><a href="{% url 'training:updateevent_' id=item.id %}"><i style="font-size:20px;" class="fa fa-pencil-square-o" aria-hidden="true" ></i></a></td>-->
 <!--														<td><a href="{% url 'training:delevent_' id=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>-->
