@@ -2191,8 +2191,10 @@ class UpdatePSL57AFormByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 mainObj.phone = request.POST['phone']
                 mainObj.pclNumber = request.POST['pclNumber']
                 mainObj.email = request.POST['email']
-                mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
-                mainObj.dateOfCourse = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%m/%d/%Y')
+                if not request.POST.get('birthDay', '') == '':
+                    mainObj.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                if not request.POST.get('preCerTrainingDate', '') == '':
+                    mainObj.dateOfCourse = datetime.datetime.strptime(request.POST['preCerTrainingDate'], '%m/%d/%Y')
                 mainObj.currentEmploymentDetails = request.POST['currentEmploymentDetails']
                 mainObj.candidatePosition = request.POST['currentEmploymentPosition']
                 mainObj.employmentStatus = request.POST['currentEmploymentStatus']
@@ -2265,12 +2267,14 @@ class UpdatePSL57AFormByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 mainObj.claimDuration = request.POST['claimDuration']
                 mainObj.verClaimAddress = request.POST['verClaimAddress']
-                mainObj.dateOfSign = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                if not request.POST.get('date', '') == '':
+                    mainObj.dateOfSign = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 mainObj.sponsorName = request.POST['sponsorName']
                 mainObj.sponsorCompany = request.POST['sponsorCompany']
                 mainObj.sponsorPhone = request.POST['sponsorPhone']
 
-                mainObj.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
+                if not request.POST.get('testCenterExamDate', '') == '':
+                    mainObj.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
                 mainObj.testCenterExaminer = request.POST['testCenterExaminer']
                 mainObj.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
                 mainObj.testCenterVenue = request.POST['testCenterVenue']
@@ -2283,7 +2287,8 @@ class UpdatePSL57AFormByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 mainObj.paymentMethod = request.POST['paymentMethod']
                 mainObj.nameResponsible = request.POST['nameResponsible']
                 mainObj.companyOrderReference = request.POST['companyOrderReference']
-                mainObj.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
+                if not request.POST.get('issueExpiryDates', '') == '':
+                    mainObj.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
                 mainObj.NameOnCard = request.POST['NameOnCard']
                 mainObj.cardNumber = request.POST['cardNumber']
                 mainObj.securityCode = request.POST['securityCode']
