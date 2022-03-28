@@ -4135,6 +4135,161 @@ class UpdatePSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
             return render(request, 'forms/psl_57B.html', context)
 
 
+
+class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/update_psl_57B.html"
+
+    def get_context_data(self, id, *args, **kwargs):
+        context = super(UpdatePSL57BByUserID, self).get_context_data()
+        id = self.kwargs['id']
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        form = PSL57B.objects.filter(Q(event=event) & Q(candidate=candidate)).first()
+        context['form'] = form
+        return context
+
+    def post(self, request, id, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+
+                objPSL57 = PSL57B.objects.filter(id=id).first()
+                if not request.POST.get('contactMe', None) == None:
+                    objPSL57.contactMe = True
+                if not request.POST.get('contactMe', None) == None:
+                    objPSL57.contactMe = False
+
+                objPSL57.cerAddress = request.POST['cerAddress']
+                objPSL57.pslCerAddress = request.POST['pslCerAddress']
+                objPSL57.phone = request.POST['phone']
+                objPSL57.email = request.POST['email']
+                objPSL57.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                objPSL57.currentEmploymentDetails = request.POST['currentEmploymentDetails']
+                objPSL57.candidatePosition = request.POST['currentEmploymentPosition']
+                objPSL57.employmentStatus = request.POST['currentEmploymentStatus']
+                objPSL57.examinationType = request.POST['examinationType']
+                objPSL57.productInductory = request.POST['iroductsIndustrySector']
+                objPSL57.ndtOther = request.POST['ndtOther']
+                objPSL57.iroductsIndustrySector = request.POST['iroductsIndustrySector']
+
+                if not request.POST.get('contactMe', None) == None:
+                    objPSL57.contactMe = True
+                else:
+                    objPSL57.contactMe = True
+
+                if request.POST.get('gender', None) == 'Male':
+                    objPSL57.gender = 'M'
+                elif request.POST.get('gender', None) == 'Female':
+                    objPSL57.gender = 'M'
+
+                if not request.POST.get('mt', None) == None:
+                    objPSL57.NDTMethod = 'MT'
+
+                if not request.POST.get('pt', None) == None:
+                    objPSL57.NDTMethod = 'PT'
+
+                if not request.POST.get('rt', None) == None:
+                    objPSL57.NDTMethod = 'RT'
+
+                if not request.POST.get('ri', None) == None:
+                    objPSL57.NDTMethod = 'RI'
+
+                if not request.POST.get('ui', None) == None:
+                    objPSL57.NDTMethod = 'UI'
+
+                if not request.POST.get('vt', None) == None:
+                    objPSL57.NDTMethod = 'VT'
+
+                if not request.POST.get('crt', None) == None:
+                    objPSL57.NDTMethod = 'CRT'
+
+                if not request.POST.get('tofd', None) == None:
+                    objPSL57.NDTMethod = 'TOFD'
+
+                if not request.POST.get('puat', None) == None:
+                    objPSL57.NDTMethod = 'PAUT'
+
+                if not request.POST.get('levelOne', None) == None:
+                    objPSL57.NDTLevel = 'Level 1'
+
+                if not request.POST.get('levelTwo', None) == None:
+                    objPSL57.NDTLevel = 'Level 2'
+
+                if not request.POST.get('levelThree', None) == None:
+                    objPSL57.NDTLevel = 'Level 3'
+
+                objPSL57.ifLevel3 = request.POST['ifLevel3']
+                objPSL57.categoriesOfCertification = request.POST['categoriesOfCertification']
+                objPSL57.recertification = request.POST['recertification']
+                objPSL57.preferredExaminationDateVenu = request.POST['preferredExaminationDateVenue']
+
+                objPSL57.nameAddressInvoice = request.POST['nameAddressInvoice']
+                objPSL57.paymentMethod = request.POST['paymentMethod']
+
+                if not request.POST.get('cheque', None) == None:
+                    objPSL57.cheque = True
+                objPSL57.nameResponsible = request.POST['nameResponsible']
+                objPSL57.accommodation = request.POST['accommodation']
+                objPSL57.companyOrderReference = request.POST['companyOrderReference']
+
+                if not request.POST.get('visa', None) == None:
+                    objPSL57.creditCardPayment = 'Visa'
+                if not request.POST.get('masterCard', None) == None:
+                    objPSL57.creditCardPayment = 'MasterCard'
+                if not request.POST.get('amex', None) == None:
+                    objPSL57.creditCardPayment = 'Amex'
+                if not request.POST.get('switch', None) == None:
+                    objPSL57.creditCardPayment = 'Switch'
+
+                objPSL57.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
+                objPSL57.NameOnCard = request.POST['NameOnCard']
+                objPSL57.cardNumber = request.POST['cardNumber']
+                objPSL57.securityCode = request.POST['securityCode']
+                objPSL57.addressCreditCardHolder = request.POST['addressCreditCardHolder']
+                objPSL57.debit = request.POST['debit']
+                objPSL57.pclNumber = request.POST['pclNumber']
+                # objPSL57.verClaimAddress = request.POST['verClaimAddress']
+                objPSL57.dateOfSign = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                objPSL57.sponsorName = request.POST['sponsorName']
+                objPSL57.sponsorCompany = request.POST['sponsorCompany']
+                objPSL57.sponsorPhone = request.POST['sponsorPhone']
+
+                objPSL57.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
+                objPSL57.testCenterExaminer = request.POST['testCenterExaminer']
+                objPSL57.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
+                objPSL57.testCenterVenue = request.POST['testCenterVenue']
+                objPSL57.testCenterModerator = request.POST['testCenterModerator']
+                objPSL57.testCenterResultRef = request.POST['testCenterResultRef']
+                objPSL57.testCenterExamCompleteColsed = request.POST['testCenterExamCompleteColsed']
+                objPSL57.save()
+
+
+
+                for idx, item in enumerate(range(1, 4)):
+                    # print(idx + 1)
+                    # if not request.POST.get("organisation" + str(idx + 1), None) == None:
+                    if not request.POST.get('organisation'+ str(idx), None) == None:
+                        print("Here")
+                        # print('organisation'+ str(idx ))
+                        historyObj = empHistory.objects.filter(id=request.POST["idIdex" + str(idx )]).first()
+                        historyObj.organisation = request.POST['organisation' + str(idx )]
+                        historyObj.period = request.POST['period' + str(idx)]
+                        historyObj.contactNamePhone = request.POST['contactNamePhone' + str(idx )]
+                        historyObj.save()
+
+
+
+
+
+
+                return redirect('forms:allpsl57b_')
+
+            # return redirect('forms:jaegertofdl2_' ,context)
+            return render(request, 'forms/psl_57B.html', context)
+
+
+
+
+
 class ViewPSL57B(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/view_psl_57B.html"
 
