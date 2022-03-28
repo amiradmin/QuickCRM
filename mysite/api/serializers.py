@@ -88,11 +88,14 @@ class EventSerializer(serializers.Serializer):
     end_date = serializers.DateTimeField()
     country = serializers.SerializerMethodField()
     location = serializers.SerializerMethodField()
+    productID = serializers.SerializerMethodField()
 
 
+
+    def get_productID(self, obj):
+        return obj.product.id
 
     def get_country(self, obj):
-
         if obj.country:
             return obj.country.name
 

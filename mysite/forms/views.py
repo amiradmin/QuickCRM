@@ -2668,6 +2668,64 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateVie
                 return redirect('forms:allpslform_')
 
 
+
+
+class UpdatePSL30LogExperienceByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/reg_forms/update_PSL_30_log_exper.html"
+
+    def get_context_data(self,  *args, **kwargs):
+        context = super(UpdatePSL30LogExperienceByUserID, self).get_context_data()
+        event=Event.objects.filter(id=self.kwargs['eventID']).first()
+        candidate=TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        form = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+        context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            event = Event.objects.filter(id=self.kwargs['eventID']).first()
+            candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+            if 'mainForm' in request.POST:
+
+                # eventID = request.POST['eventID']
+                # eventID = request.POST['eventID']
+                print("Form Today")
+
+                pslObj = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+                # pslObj.pslNumber = request.POST['pcnNumber']
+                if not request.POST.get('dateFrom' , '') == '':
+                    pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
+
+                if not request.POST.get('dateTo' , '') == '':
+                    pslObj.dateTo = datetime.datetime.strptime(request.POST['dateTo'], '%m/%d/%Y')
+                pslObj.ndtMethod = request.POST['ndtMethod']
+                pslObj.totalHours = request.POST['totalHours']
+                pslObj.employingOrganisation = request.POST['employingOrganisation']
+                pslObj.reviewerName = request.POST['reviewerName']
+                if not request.POST.get('reviewerDate' + str(idx), '') == '':
+                    pslObj.reviewerDate = datetime.datetime.strptime(request.POST['reviewerDate'], '%m/%d/%Y')
+                pslObj.finalEmployerDeclarationName = request.POST['finalEmployerDeclarationName']
+                if not request.POST.get('dateCandidateDeclaration' + str(idx), '') == '':
+                    pslObj.dateCandidateDeclaration = datetime.datetime.strptime(request.POST['dateCandidateDeclaration'],
+                                                                             '%m/%d/%Y')
+                pslObj.save()
+
+                #
+                # for idx, item in enumerate(range(0, 8)):
+                #     if not request.POST.get('techniqueCodeR'+str(idx), None) == None:
+                #         NdtTechniqueObj = NdtTechnique.objects.filter(request.POST['insideID']).first()
+                #         NdtTechniqueObj.candidate = candidate
+                #         NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR'+str(idx)]
+                #         NdtTechniqueObj.employerComponent = request.POST['employerComponent'+str(idx)]
+                #         NdtTechniqueObj.ndtTask = request.POST['ndtTask'+str(idx)]
+                #         NdtTechniqueObj.experienceHours = request.POST['experienceHours'+str(idx)]
+                #         NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmed'+str(idx)]
+                #         NdtTechniqueObj.save()
+
+                return redirect('forms:evensummary_', id=event.id)
+
+
 class ViewPSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/update_PSL_30_log_exper.html"
 
@@ -4150,9 +4208,11 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
 
     def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
+            event = Event.objects.filter(id=self.kwargs['eventID']).first()
+            candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
             if 'mainForm' in request.POST:
 
-                objPSL57 = PSL57B.objects.filter(id=id).first()
+                objPSL57 = PSL57B.objects.filter(Q(event=event) & Q(candidate=candidate)).first()
                 if not request.POST.get('contactMe', None) == None:
                     objPSL57.contactMe = True
                 if not request.POST.get('contactMe', None) == None:
@@ -4162,7 +4222,8 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.pslCerAddress = request.POST['pslCerAddress']
                 objPSL57.phone = request.POST['phone']
                 objPSL57.email = request.POST['email']
-                objPSL57.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                if not request.POST.get('birthDay', '') == '':
+                    objPSL57.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
                 objPSL57.currentEmploymentDetails = request.POST['currentEmploymentDetails']
                 objPSL57.candidatePosition = request.POST['currentEmploymentPosition']
                 objPSL57.employmentStatus = request.POST['currentEmploymentStatus']
@@ -4240,7 +4301,8 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if not request.POST.get('switch', None) == None:
                     objPSL57.creditCardPayment = 'Switch'
 
-                objPSL57.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
+                if not request.POST.get('issueExpiryDates', '') == '':
+                    objPSL57.issueExpiryDates = datetime.datetime.strptime(request.POST['issueExpiryDates'], '%m/%d/%Y')
                 objPSL57.NameOnCard = request.POST['NameOnCard']
                 objPSL57.cardNumber = request.POST['cardNumber']
                 objPSL57.securityCode = request.POST['securityCode']
@@ -4248,12 +4310,14 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.debit = request.POST['debit']
                 objPSL57.pclNumber = request.POST['pclNumber']
                 # objPSL57.verClaimAddress = request.POST['verClaimAddress']
-                objPSL57.dateOfSign = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
+                if not request.POST.get('date', '') == '':
+                    objPSL57.dateOfSign = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 objPSL57.sponsorName = request.POST['sponsorName']
                 objPSL57.sponsorCompany = request.POST['sponsorCompany']
                 objPSL57.sponsorPhone = request.POST['sponsorPhone']
 
-                objPSL57.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
+                if not request.POST.get('testCenterExamDate', '') == '':
+                    objPSL57.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')
                 objPSL57.testCenterExaminer = request.POST['testCenterExaminer']
                 objPSL57.testCenterPaymentReceived = request.POST['testCenterPaymentReceived']
                 objPSL57.testCenterVenue = request.POST['testCenterVenue']
@@ -4281,7 +4345,7 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-                return redirect('forms:allpsl57b_')
+                return redirect('forms:evensummary_', id=event.id)
 
             # return redirect('forms:jaegertofdl2_' ,context)
             return render(request, 'forms/psl_57B.html', context)

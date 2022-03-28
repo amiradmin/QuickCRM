@@ -114,6 +114,7 @@ urlpatterns = [
     path('psl30log/', views.PSL30LogExperienceForm.as_view(), name='psl30log_'),
     path('deletepsl3logexp/<int:pk>/delete/', views.DeletePSL30LogExperienceForm.as_view(), name='deletepsl3logexp_'),
     path('updatepsl3logexp/<int:id>', views.UpdatePSL30LogExperienceForm.as_view(), name='updatepsl3logexp_'),
+    path('psl30logbyid/<int:id>/<int:eventID>/<int:formID>', views.UpdatePSL30LogExperienceByUserID.as_view(), name='psl30logbyid_'),
     path('viewpsl3logexp/<int:id>', views.ViewPSL30LogExperienceForm.as_view(), name='viewpsl3logexp_'),
     path('msgupdatepsl3logexp/<int:id>/<int:msgID>', views.MessagePSL30LogExperienceForm.as_view(), name='msgupdatepsl3logexp_'),
 
