@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from exam_certification.models import CertificateAttendance,PcnCertificateAttendance
+from exam_certification.models import CertificateAttendance,PcnCertificateAttendance,CSWIPCertificateAttendance
 from django.contrib.auth.mixins import LoginRequiredMixin
 from authorization.sidebarmixin import SidebarMixin
 from django.views.generic import View, TemplateView
@@ -9,6 +9,54 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 import datetime
 # Create your views here.
+
+class CSWIPCertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/cswip_cer_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CSWIPCertificateSummayView, self).get_context_data()
+        certificates = CSWIPCertificateAttendance.objects.all()
+        cerCount = CSWIPCertificateAttendance.objects.count()
+        context['certificates'] = certificates
+        context['cerCount'] = cerCount
+        return context
+
+class NewCswipCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_cswip_candidate.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewCswipCertificateAttendance, self).get_context_data()
+        candidates = TesCandidate.objects.all()
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+
+            print("Form was sent!")
+            print(self.request.POST['candidate'].split('-')[0])
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+
+            if CSWIPCertificateAttendance.objects.filter(Q(candidate=candidate) ).count() > 0:
+                obj = CSWIPCertificateAttendance.objects.filter(Q(candidate=candidate)).first()
+                obj.candidate = candidate
+                obj.name = candidate.first_name + " " + candidate.last_name
+                obj.file = self.request.FILES['file']
+                obj.save()
+            else:
+                obj = CSWIPCertificateAttendance()
+                obj.candidate = candidate
+                obj.name = candidate.first_name + " " + candidate.last_name
+                obj.file = self.request.FILES['file']
+                obj.save()
+
+        return redirect('exam_certification:swipcersummary_')
+
+class DeleteCswipCertificate(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = CSWIPCertificateAttendance
+    success_url = reverse_lazy('exam_certification:swipcersummary_')
+
 
 class PCNCertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/pcn_cer_summary.html"
@@ -53,6 +101,13 @@ class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView
                 obj.save()
 
         return redirect('exam_certification:pcncersummary_')
+
+
+
+class DeletePcnCertificate(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = PcnCertificateAttendance
+    success_url = reverse_lazy('exam_certification:pcncersummary_')
+
 
 class CertificateAttendanceView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cer_attendance.html"
