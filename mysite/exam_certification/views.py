@@ -56,16 +56,18 @@ class NewCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
         if request.method == 'POST':
 
             print("Form was sent!")
-            candidate = TesCandidate.objects.filter(id=self.request.POST['candidate']).first()
+            print(self.request.POST['candidate'].split('-')[0])
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+            print(self.request.POST['certiﬁcate_number'])
             event = Event.objects.filter(id=self.request.POST['event']).first()
-            if CertificateAttendance.objects.filter(Q(candidate=candidate) & Q(event=event)).exists:
+            if CertificateAttendance.objects.filter(Q(candidate=candidate) & Q(event=event)).count() > 0:
                 obj = CertificateAttendance.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
                 obj.candidate = candidate
                 obj.event = event
                 obj.name = candidate.first_name + " " + candidate.last_name
                 obj.authorized_signatory = self.request.POST['authorized_signatory']
                 obj.course_duration = self.request.POST['course_duration']
-                obj.certiﬁcate_number = self.request.POST['certiﬁcate_number']
+                obj.cer_number = self.request.POST['certiﬁcate_number']
                 obj.issue_date = datetime.datetime.strptime(self.request.POST['issue_date'], '%m/%d/%Y')
                 obj.save()
             else:
@@ -92,5 +94,7 @@ class CertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(CertificateSummayView, self).get_context_data()
         certificateAttendances = CertificateAttendance.objects.all()
+        cerCount = CertificateAttendance.objects.count()
         context['certificateAttendances'] = certificateAttendances
+        context['cerCount'] = cerCount
         return context

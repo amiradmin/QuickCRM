@@ -52,7 +52,7 @@
                                         <datalist id="candiList"  >
 
                                         {% for item in candidates %}
-                                        <option value="{{item.id}}">{{item.first_name}}{% if item.middleName %} {{item.middleName}}{% endif %}
+                                        <option value="{{item.id}}-{{item.first_name}}-{{item.last_name}}">{{item.first_name}}{% if item.middleName %} {{item.middleName}}{% endif %}
                                             {{item.last_name}}
                                         </option>
                                         {% endfor %}
@@ -87,17 +87,19 @@
 
 
                                                     <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Certiﬁcate Number</label>
-                                                       <input class="form-control" name="certiﬁcate_number" type="text" id="inputGroupFile050">
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-
+                                                  <div class="mb-3 col-md-6">
                                                       <div class="mb-3 position-relative" id="datepicker4">
                                                     <label class="form-label">Issue Date</label>
-                                                    <input type="text" autocomplete="off"  name="issue_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
+                                                    <input type="text" autocomplete="off" id="issue_date" onchange="myFunction()" name="issue_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
                                                 </div>
                                                         </div>
+
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Certiﬁcate Number</label>
+                                                       <input class="form-control" id="certiﬁcate_number" name="certiﬁcate_number" type="text" id="inputGroupFile050">
+                                                        </div>
+
+
                                                     </div>
 
 
@@ -138,7 +140,19 @@
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
                 <script>
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
-                    
+
+
+function myFunction() {
+
+  var issueDate = document.getElementById('issue_date').value;
+  var candidate = document.getElementById('canID').value;
+  console.log(candidate);
+  var cerNumber = document.getElementById('certiﬁcate_number');
+  cerNumber.value=issueDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + issueDate.split('/')[0] + '_' + issueDate.split('/')[1]  ;
+}
+
+
+
                     </script>
 
 

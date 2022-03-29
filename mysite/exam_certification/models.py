@@ -46,6 +46,7 @@ class CertificateType(models.Model):
 class CertificateAttendance(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     authorized_signatory = models.CharField(max_length=256, null=True, blank=True )
+    cer_number = models.CharField(max_length=256, null=True, blank=True )
     certiﬁcate_number = models.CharField(max_length=256, null=True, blank=True )
     course_duration = models.IntegerField( null=True, blank=True )
     event = models.ForeignKey(Event,related_name="exam_event",  null=True, blank=True , on_delete=models.DO_NOTHING)

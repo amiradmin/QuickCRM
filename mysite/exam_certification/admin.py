@@ -10,7 +10,7 @@ admin.site.register(Invigilator,InvigilatorProfileAdmin)
 
 
 class CertificateAttendanceAdmin(ImportExportModelAdmin,admin.ModelAdmin):
-    list_display = ['id','name','event','candidate','created_at','updated_at']
+    list_display = ['id','name','cer_number','event','candidate','created_at','updated_at']
     list_filter = ['id','name','event','candidate','created_at','updated_at']
 
 admin.site.register(CertificateAttendance,CertificateAttendanceAdmin)
