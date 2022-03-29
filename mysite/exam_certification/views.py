@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from exam_certification.models import CertificateAttendance
+from exam_certification.models import CertificateAttendance,PcnCertificateAttendance
 from django.contrib.auth.mixins import LoginRequiredMixin
 from authorization.sidebarmixin import SidebarMixin
 from django.views.generic import View, TemplateView
@@ -9,6 +9,50 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 import datetime
 # Create your views here.
+
+class PCNCertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/pcn_cer_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PCNCertificateSummayView, self).get_context_data()
+        certificates = PcnCertificateAttendance.objects.all()
+        cerCount = PcnCertificateAttendance.objects.count()
+        context['certificates'] = certificates
+        context['cerCount'] = cerCount
+        return context
+
+
+class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_pcn_candidate.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewPcnCertificateAttendance, self).get_context_data()
+        candidates = TesCandidate.objects.all()
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+
+            print("Form was sent!")
+            print(self.request.POST['candidate'].split('-')[0])
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+
+            if PcnCertificateAttendance.objects.filter(Q(candidate=candidate) ).count() > 0:
+                obj = CertificateAttendance.objects.filter(Q(candidate=candidate)).first()
+                obj.candidate = candidate
+                obj.name = candidate.first_name + " " + candidate.last_name
+                obj.file = self.request.FILES['file']
+                obj.save()
+            else:
+                obj = PcnCertificateAttendance()
+                obj.candidate = candidate
+                obj.name = candidate.first_name + " " + candidate.last_name
+                obj.file = self.request.FILES['file']
+                obj.save()
+
+        return redirect('exam_certification:pcncersummary_')
 
 class CertificateAttendanceView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cer_attendance.html"
