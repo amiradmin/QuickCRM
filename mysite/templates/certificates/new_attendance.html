@@ -47,7 +47,7 @@
                                                     <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input list="candiList" value="{{candidate.id}}"  id="canID" name="candidate" placeholder="type here..." class="form-control" />
+                                    <input list="candiList" value="{{candidate.id}}"  id="canID" name="candidate" placeholder="type here..." class="form-control" required/>
 
                                         <datalist id="candiList"  >
 
@@ -61,7 +61,7 @@
                                                         </div>
                                                         <div class="mb-3 col-md-6">
                                                             <label class="form-label">Event</label>
-                                                       <input list="eventList" value="{{event.id}}"  id="canID" name="event" placeholder="type here..." class="form-control" />
+                                                       <input list="eventList" value="{{event.id}}"  id="canID" name="event" placeholder="type here..." class="form-control" required />
                                         <datalist id="eventList"  >
 
                                         {% for item in events %}
@@ -77,11 +77,11 @@
                                                     <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                                             <label class="form-label">Authorized Signatory</label>
-                                                              <input class="form-control" name="authorized_signatory" type="text" id="inputGroupFile05">
+                                                              <input class="form-control" name="authorized_signatory" type="text" id="inputGroupFile05" required>
                                                         </div>
                                                         <div class="mb-3 col-md-6">
                                                             <label class="form-label">Course Duration</label>
-                                                            <input class="form-control" name="course_duration" type="text" id="inputGroupFile050">
+                                                            <input class="form-control" name="course_duration" type="text" id="inputGroupFile050" required>
                                                         </div>
                                                     </div>
 
