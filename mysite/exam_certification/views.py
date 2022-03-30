@@ -73,7 +73,7 @@ class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView
     def get_context_data(self, *args, **kwargs):
         context = super(NewPcnCertificateAttendance, self).get_context_data()
         candidates = TesCandidate.objects.all()
-        products = CswipCertificateProduct.objects.all()
+        products = PcnCertificateProduct.objects.all()
         context['candidates'] = candidates
         context['products'] = products
         return context
@@ -86,7 +86,7 @@ class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView
             print(self.request.POST['candidate'].split('-')[0])
             candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
             product = PcnCertificateProduct.objects.filter(id=self.request.POST['product']).first()
-
+            print(product)
             obj = PcnCertificateAttendance()
             obj.candidate = candidate
             obj.name = candidate.first_name + " " + candidate.last_name
