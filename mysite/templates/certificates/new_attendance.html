@@ -61,7 +61,7 @@
                                                         </div>
                                                         <div class="mb-3 col-md-6">
                                                             <label class="form-label">Event</label>
-                                                       <input list="eventList" value="{{event.id}}"  id="event_id" name="event" placeholder="type here..." class="form-control" required />
+                                                       <input list="eventList" value="{{event.id}}" onchange="myFunction()"   id="event_id" name="event" placeholder="type here..." class="form-control" required />
                                         <datalist id="eventList"  >
 
                                         {% for item in events %}
@@ -75,31 +75,34 @@
                                                     </div>
 
                                                     <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Authorized Signatory</label>
-                                                              <input class="form-control" name="authorized_signatory" type="text" id="inputGroupFile05" required>
+                                                  <div class="mb-3 col-md-6">
+                                                      <div class="mb-3 position-relative" id="datepicker4">
+                                                    <label class="form-label">Issue Date</label>
+                                                    <input type="text" autocomplete="off" id="issue_date" name="issue_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" >
+                                                </div>
                                                         </div>
+
+
+
+
+
                                                         <div class="mb-3 col-md-6">
                                                             <label class="form-label">Course Duration</label>
-                                                            <input class="form-control" name="course_duration" type="text" id="inputGroupFile050" required>
+                                                            <input class="form-control" name="course_duration" type="text" id="inputGroupFile050" >
                                                         </div>
                                                     </div>
 
 
                                                     <div class="row g-2">
-                                                  <div class="mb-3 col-md-6">
-                                                      <div class="mb-3 position-relative" id="datepicker4">
-                                                    <label class="form-label">Issue Date</label>
-                                                    <input type="text" autocomplete="off" id="issue_date" onchange="myFunction()" name="issue_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
-                                                </div>
-                                                        </div>
 
                                                         <div class="mb-3 col-md-6">
                                                             <label class="form-label">Certiﬁcate Number</label>
                                                        <input class="form-control" id="certiﬁcate_number" name="certiﬁcate_number" type="text" id="inputGroupFile050">
                                                         </div>
-
-
+ <div class="mb-3 col-md-6">
+      <label class="form-label">File</label>
+<input  type="file"  name="myFile" class="form-control"  />
+     </div>
                                                     </div>
 
 
@@ -149,7 +152,7 @@ function myFunction() {
   eventDate = event.split('-')[1]
   console.log(eventDate);
   var cerNumber = document.getElementById('certiﬁcate_number');
-  cerNumber.value=eventDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + eventDate.split('/')[0] + '_' + eventDate.split('/')[1]  ;
+  cerNumber.value=eventDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + candidate.split('-')[2].slice(0, 3) + '_' + eventDate.split('/')[0] + '_' + eventDate.split('/')[1]  ;
 }
 
 
