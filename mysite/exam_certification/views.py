@@ -94,6 +94,7 @@ class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView
             obj.product = product
             obj.save()
 
+
         return redirect('exam_certification:pcncersummary_')
 
 
