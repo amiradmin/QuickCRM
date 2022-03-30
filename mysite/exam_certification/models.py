@@ -64,9 +64,19 @@ class CertificateAttendance(models.Model):
 
 
 
+class PcnCertificateProduct(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class PcnCertificateAttendance(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     candidate = models.ForeignKey(TesCandidate,related_name="pcn_exam_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(PcnCertificateProduct,related_name="pcn_exam_product",  null=True, blank=True , on_delete=models.DO_NOTHING)
     file = models.FileField(upload_to='exam_file',null=True,blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -77,9 +87,19 @@ class PcnCertificateAttendance(models.Model):
 
 
 
+class CswipCertificateProduct(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class CSWIPCertificateAttendance(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     candidate = models.ForeignKey(TesCandidate,related_name="cswip_exam_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    product = models.ForeignKey(CswipCertificateProduct,related_name="cswip_exam_product",  null=True, blank=True , on_delete=models.DO_NOTHING)
     file = models.FileField(upload_to='exam_file',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

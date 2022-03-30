@@ -58,17 +58,33 @@
                                         {% endfor %}
 
                                     </datalist>
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label class="form-label">Event</label>
-<input  type="file"  name="file" class="form-control" required />
 
+                                                        </div>
+
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Product</label>
+                                    <input list="productList" value=""  id="productID" name="product" placeholder="type here..." class="form-control" required/>
+
+                                        <datalist id="productList"  >
+
+                                        {% for item2 in products %}
+                                        <option value="{{item2.id}}">{{item2.name}}
+                                        </option>
+                                        {% endfor %}
 
                                     </datalist>
+
                                                         </div>
                                                     </div>
 
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">File</label>
+<input  type="file"  name="file" class="form-control" required />
 
+
+
+                                                        </div>
 
 
 

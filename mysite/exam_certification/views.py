@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from exam_certification.models import CertificateAttendance,PcnCertificateAttendance,CSWIPCertificateAttendance
+from exam_certification.models import CertificateAttendance,PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,CswipCertificateProduct
 from django.contrib.auth.mixins import LoginRequiredMixin
 from authorization.sidebarmixin import SidebarMixin
 from django.views.generic import View, TemplateView
@@ -27,7 +27,9 @@ class NewCswipCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateVi
     def get_context_data(self, *args, **kwargs):
         context = super(NewCswipCertificateAttendance, self).get_context_data()
         candidates = TesCandidate.objects.all()
+        products = CswipCertificateProduct.objects.all()
         context['candidates'] = candidates
+        context['products'] = products
         return context
 
     def post(self, request, *args, **kwargs):
@@ -37,19 +39,14 @@ class NewCswipCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateVi
             print("Form was sent!")
             print(self.request.POST['candidate'].split('-')[0])
             candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+            product = CswipCertificateProduct.objects.filter(id=self.request.POST['product']).first()
 
-            if CSWIPCertificateAttendance.objects.filter(Q(candidate=candidate) ).count() > 0:
-                obj = CSWIPCertificateAttendance.objects.filter(Q(candidate=candidate)).first()
-                obj.candidate = candidate
-                obj.name = candidate.first_name + " " + candidate.last_name
-                obj.file = self.request.FILES['file']
-                obj.save()
-            else:
-                obj = CSWIPCertificateAttendance()
-                obj.candidate = candidate
-                obj.name = candidate.first_name + " " + candidate.last_name
-                obj.file = self.request.FILES['file']
-                obj.save()
+            obj = CSWIPCertificateAttendance()
+            obj.candidate = candidate
+            obj.name = candidate.first_name + " " + candidate.last_name
+            obj.file = self.request.FILES['file']
+            obj.product = product
+            obj.save()
 
         return redirect('exam_certification:swipcersummary_')
 
@@ -76,7 +73,9 @@ class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView
     def get_context_data(self, *args, **kwargs):
         context = super(NewPcnCertificateAttendance, self).get_context_data()
         candidates = TesCandidate.objects.all()
+        products = CswipCertificateProduct.objects.all()
         context['candidates'] = candidates
+        context['products'] = products
         return context
 
     def post(self, request, *args, **kwargs):
@@ -86,19 +85,14 @@ class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView
             print("Form was sent!")
             print(self.request.POST['candidate'].split('-')[0])
             candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+            product = PcnCertificateProduct.objects.filter(id=self.request.POST['product']).first()
 
-            if PcnCertificateAttendance.objects.filter(Q(candidate=candidate) ).count() > 0:
-                obj = CertificateAttendance.objects.filter(Q(candidate=candidate)).first()
-                obj.candidate = candidate
-                obj.name = candidate.first_name + " " + candidate.last_name
-                obj.file = self.request.FILES['file']
-                obj.save()
-            else:
-                obj = PcnCertificateAttendance()
-                obj.candidate = candidate
-                obj.name = candidate.first_name + " " + candidate.last_name
-                obj.file = self.request.FILES['file']
-                obj.save()
+            obj = PcnCertificateAttendance()
+            obj.candidate = candidate
+            obj.name = candidate.first_name + " " + candidate.last_name
+            obj.file = self.request.FILES['file']
+            obj.product = product
+            obj.save()
 
         return redirect('exam_certification:pcncersummary_')
 
