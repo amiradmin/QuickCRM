@@ -9,6 +9,14 @@ from django.contrib.auth.models import User
 from datetime import datetime,date, timedelta
 import datetime
 import smtplib
+from celery import shared_task
+
+
+@shared_task
+def cerExpiration(x, y):
+    print("Inside Task")
+    return x + y
+
 
 def timesheet_check_interval():
     print("Hello from task!")
@@ -35,26 +43,29 @@ def timesheet_check_interval():
                     tesCandidate = TesCandidate.objects.filter(user=user).first()
                     rec_list.append(tesCandidate)
                     # print("empty timesheet: "+ tesCandidate.email + ' = ' +str(Timesheet.objects.filter(staff=user).count()))
-    print(rec_list)
-    tes_task.date = datetime.datetime.now() + timedelta(days=7)
-    tes_task.save()
-    print("Start mailing")
-    msg = EmailMessage()
 
-    asparagus_cid = make_msgid()
-    msg.add_alternative("You haven't submit your timesheet since last week.Please submit your timesheet!")
-    fromEmail = 'erp@tescan.ca'
-    toEmail = "amirbehvandi747@gmail.com"
+    for item in rec_list:
+        print(item.email)
 
-    msg['Subject'] = 'Timesheet Reminder.'
-    msg['From'] = fromEmail
-    msg['To'] = toEmail
+        tes_task.date = datetime.datetime.now() + timedelta(days=7)
+        tes_task.save()
+        print("Start mailing")
+        msg = EmailMessage()
 
-    # msg['Cc'] = 'customersupportdesk@tescan.ca'
+        asparagus_cid = make_msgid()
+        msg.add_alternative("You haven't submit your timesheet since last week.Please submit your timesheet!")
+        fromEmail = 'erp@tescan.ca'
+        toEmail = item.email
 
-    s = smtplib.SMTP('smtp-mail.outlook.com', 25)
-    s.starttls()
-    s.login(fromEmail, 'Wuh28931')
-    s.send_message(msg)
-    s.quit()
-    print("Email was sent!")
+        msg['Subject'] = 'Timesheet Reminder.'
+        msg['From'] = fromEmail
+        msg['To'] = toEmail
+
+        # msg['Cc'] = 'customersupportdesk@tescan.ca'
+
+        s = smtplib.SMTP('smtp-mail.outlook.com', 25)
+        s.starttls()
+        s.login(fromEmail, 'Wuh28931')
+        s.send_message(msg)
+        s.quit()
+        print("Email was sent!")

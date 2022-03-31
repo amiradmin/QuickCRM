@@ -21,5 +21,7 @@ urlpatterns = [
     path('pcndelete/<int:pk>/delete/', views.DeletePcnCertificate.as_view(), name='pcndelete_'),
     path('cswipdelete/<int:pk>/delete/', views.DeleteCswipCertificate.as_view(), name='cswipdelete_'),
 
+    path('exampiwi/', views.ExamMaterialPiWi.as_view(), name='exampiwi_'),
+
 
 ]

@@ -10,6 +10,32 @@ from django.db.models import Q
 import datetime
 # Create your views here.
 
+
+
+class ExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_pi_wi.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamMaterialPiWi, self).get_context_data()
+        events = Event.objects.all()
+        context['events'] = events
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(ExamMaterialPiWi, self).get_context_data()
+        if request.method == 'POST':
+            if 'getEvent' in request.POST:
+                print("Get Event")
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event)
+                context['event'] = event
+
+
+
+        return redirect('exam_certification:exampiwi_')
+
+
+
 class CSWIPCertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cswip_cer_summary.html"
 

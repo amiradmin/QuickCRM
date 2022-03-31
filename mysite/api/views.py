@@ -6,10 +6,23 @@ from api.serializers import EventSerializer,ProductSerializer,ExamSerializer,Eve
 from api.paginations import CustomPagination
 from training.models import Event,Product,productCategory,Event
 from contacts.models import Contact
+from scheduler.tasks import cerExpiration
 # Create your views here.
 
 
 
+
+
+class TaskControl(APIView):
+    def get(self, request, format=None):
+        result = {
+            "status": False,
+            "msg": "Done"
+        }
+        cerExpiration.apply_async((5, 10), countdown=60)
+        result['status'] = True
+        result['msg'] = "Tasks started!"
+        return Response(result, status=status.HTTP_200_OK)
 
 
 class NewContact(APIView):
