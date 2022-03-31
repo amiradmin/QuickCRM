@@ -498,6 +498,12 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
             if not request.POST.get('endDate', None) == '':
                 obj.end_date = datetime.datetime.strptime(request.POST['endDate'], '%m/%d/%Y')
+
+            if not request.POST.get('start_exam_date', None) == '':
+                obj.start_exam_date = datetime.datetime.strptime(request.POST['start_exam_date'], '%m/%d/%Y')
+
+            if not request.POST.get('end_exam_date', None) == '':
+                obj.end_exam_date = datetime.datetime.strptime(request.POST['end_exam_date'], '%m/%d/%Y')
             obj.save()
             for item in categories:
                 obj.formCategory.add(item)
@@ -582,6 +588,12 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
             if not request.POST.get('endDate', None) == '':
                 obj.end_date = datetime.datetime.strptime(request.POST['endDate'], '%m/%d/%Y')
+
+            if not request.POST.get('start_exam_date', None) == '':
+                obj.start_exam_date = datetime.datetime.strptime(request.POST['start_exam_date'], '%m/%d/%Y')
+
+            if not request.POST.get('end_exam_date', None) == '':
+                obj.end_exam_date = datetime.datetime.strptime(request.POST['end_exam_date'], '%m/%d/%Y')
             obj.save()
 
 

@@ -104,6 +104,24 @@
 
                                             </div>
 
+                                            <hr>
+                                            <div class="row g-2">
+
+
+                                                <div class="mb-3 col-md-6">
+                                                <div class="mb-3 position-relative" id="datepicker41">
+                                                    <label class="form-label">Start Exam Date</label>
+                                                    <input type="text" autocomplete="off" value="{{event.start_exam_date|date:'m/d/Y'}}"  name="start_exam_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" required>
+                                                </div>
+                                                </div>
+
+                                                 <div class="mb-3 col-md-6">
+
+                                                <div class="mb-3 position-relative" id="datepicker42">
+                                                    <label class="form-label">End Exam Date</label>
+                                                    <input autocomplete="off"  type="text" value="{{event.end_exam_date |date:'m/d/Y' }}" name="end_exam_date" class="form-control" data-provide="datepicker" data-date-autoclose="true" data-date-container="#datepicker4" >
+                                                </div>
+                                                </div>
 
 
 
