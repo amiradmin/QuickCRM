@@ -12,6 +12,43 @@ import datetime
 
 
 
+class NewExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_piwi_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamMaterialPiWi, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamMaterialPiWi, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                context['events'] = events
+                context['candidates'] = candidates
+                context['event'] = event
+
+                return render(request, 'certificates/new_piwi_material.html', context)
+
+
+class ExamMaterialPiWiSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_piwi_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamMaterialPiWiSummary, self).get_context_data()
+        events = Event.objects.all()
+        context['events'] = events
+        return context
+
 class ExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_pi_wi.html"
 
@@ -27,12 +64,13 @@ class ExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
             if 'getEvent' in request.POST:
                 print("Get Event")
                 event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
-                print(event)
+                print(event.id)
                 context['event'] = event
 
 
 
-        return redirect('exam_certification:exampiwi_')
+        # return redirect('exam_certification:exampiwi_')
+        return render(request, 'certificates/exam_pi_wi.html', context)
 
 
 

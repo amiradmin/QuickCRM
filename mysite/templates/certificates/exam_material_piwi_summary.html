@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% load template_filters %}
+<link rel="stylesheet" href="{% static 'css/summary.css' %}">
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap4.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
+             <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+              
+                                </div>
+                                <h4 class="page-title">Exam Material Pi/Wi Summary</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body" >
+          
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+                                                                     
+                                        </div> <!-- end preview-->
+                                        <br>
+ 
+
+
+   <br>
+   <br>
+<h5></h5>
+    {% for item in event.formCategory.all %}
+       <h6 style="margin-top:20px;">{{item.name}}</h6>
+     <ul class="tags" >
+         {% for item2 in item.form.all %}
+      <li><a href="" class="tag" style="background-color:{{item.colorCode}};--my-color-var: {{item.colorCode}};">
+          {{item2.name}}
+      {% endfor %}
+
+      </a></li>
+     </ul>
+    {% endfor %}
+    
+
+<br>
+<br>  
+<br>  
+   <!-- Icon Cards-->
+      <div class="row">
+     
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-primary o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-comments"></i>
+              </div>
+              <div class="mr-5">Total Candidate: <span style="font-size:25px;">{{cerCount}}</span></div>
+            </div>
+            <a id="toggleCanList"  class="card-footer text-white clearfix small z-1"  href="#">
+              <span class="float-left" >View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-warning o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-list"></i>
+              </div>
+              <div class="mr-5">Submitted Forms:<span style="font-size:25px;"> {{eventSubmit.count}}</span></div>
+            </div>
+            <a id="submitFormBtn" class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left" >View Details </span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-success o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-shopping-cart"></i>
+              </div>
+              <div class="mr-5">Confirmed Forms: <span style="font-size:25px;"> {{eventConfirm.count}}<span style="font-size:25px;"></span></div>
+            </div>
+            <a id="confirmedFormBtn" class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left" >View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-3">
+          <div class="card text-white bg-danger o-hidden h-100">
+            <div class="card-body">
+              <div class="card-body-icon">
+                <i class="fa fa-fw fa-support"></i>
+              </div>
+              <div class="mr-5">Unsubmitted Forms: <span style="font-size:25px;"> {{unsubmited.count}}<span style="font-size:25px;"></span></div>
+            </div>
+            <a id="unsubmitBtn" class="card-footer text-white clearfix small z-1" href="#">
+              <span class="float-left" >View Details</span>
+              <span class="float-right">
+                <i class="fa fa-angle-right"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+<br>                 
+<div class="card-body">
+                                        <div class="row mb-2">
+                                            <div class="col-sm-4">
+
+                                            </div>
+                                            <div class="col-sm-8" >
+                                                <div class="text-sm-end" >
+ <a href="{% url 'exam_certification:newexampiwi_' %}" type="button" class="btn btn-light mb-2 me-1"><i class="mdi mdi-square-edit-outline" style="margin-right:6px;color:#03962a;font-size:20px;"></i>New</a>
+<a href="{% url 'exam_certification:exampiwi_' %}" type="button" class="btn btn-light mb-2 me-1"><i class="mdi mdi-clipboard-outline" style="margin-right:6px;color:#03962a;font-size:20px;"></i>IMS Form</a>
+                                                </div>
+
+                                            </div><!-- end col-->
+                                        </div>
+
+                                        <div class="table-responsive" id="candidateTable">
+                                            <table class="table table-centered table-striped dt-responsive nowrap w-100" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Name</th>
+                                                        <th>Product</th>
+                                                        <th>File</th>
+
+
+                                                        <th style="width: 75px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in certificates %}
+                                                    <tr>
+                                                        <td>{{item.id}}</td>
+                                                        <td class="table-user">
+                                                            <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
+                                                            <a href="javascript:void(0);" class="text-body ">{{item.candidate.first_name}} {{item.candidate.last_name}}</a>
+                                                        </td>
+                                                           <td>
+                                                            {{item.product}}
+
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{item.file.url}}">{{item.file}}</a>
+
+                                                        </td>
+
+                                                   
+
+                    
+                                                        <td>
+
+                                                            <a href="{% url 'exam_certification:pcndelete_' pk=item.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="table-responsive" id="unsubmittedTable">
+                                          <table class="table table-centered table-striped dt-responsive nowrap w-100" >
+                                              <thead>
+                                                  <tr>
+                                
+                                                      <th>Name</th>
+                                                      <th>TES ID</th>
+
+                                                      <th>Phone</th>
+                                                      <th>Email</th>
+                                                                                                     
+                                                      <th>Status</th>
+                                                      <th style="width: 75px;">Action</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                              {% for item in unsubmited %}
+                                                  <tr>
+                                    
+                                                      <td class="table-user">
+                                                          <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
+                                                          <a href="javascript:void(0);" class="text-body ">{{item.first_name}} {{item.last_name}}</a>
+                                                      </td>
+                                                      <td>
+                                                          {{item.tes_candidate_id}}
+                                                      </td>                     <td>
+                                                          {{item.contact_number}}
+                                                      </td>
+                                                      <td>
+                                                          {{item.email}}
+                                                      </td>
+                                                  
+                                                 
+                                                      <td>
+                                                          <span class="badge badge-success-lighten">Active</span>
+                                                      </td>
+                  
+                                                      <td>
+                                                          <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                          <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                      </td>
+                                                  </tr>
+                                                  {% endfor %}
+                                                  
+                                                  
+                                              </tbody>
+                                          </table>
+                                      </div>
+                            <div class="table-responsive" id="submitFormTable">
+                                            <table class="table table-centered table-striped dt-responsive nowrap w-100" >
+                                                <thead>
+                                                    <tr>
+                                  
+                                                        <th>Name</th>
+                                                        <th>TES ID</th>
+
+                                                        <th>Phone</th>
+                                                        <th>Email</th>
+                                                        <th>Form</th>
+
+                                                        <th>Status</th>
+                                                        <th style="width: 75px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in eventSubmit %}
+                                                    <tr>
+                                      
+                                                        <td class="table-user">
+                                                            <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
+                                                            <a href="javascript:void(0);" class="text-body ">{{item.candidate.firstName}} {{item.candidate.lastName}}</a>
+                                                        </td>
+                                                        <td>
+                                                            {{item.candidate.tes_candidate_id}}
+                                                        </td>                     <td>
+                                                             {{item.candidate.contact_number| phone_number}}
+                                                        </td>
+                                                        <td>
+                                                            {{item.candidate.email}}
+                                                        </td>
+                                                        <td><a  href=""><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+                                                        <i class="fa fa-camera" aria-hidden="true"></i>
+                                                        </td>
+                                                   
+                                                        <td>
+                                                            <span class="badge badge-success-lighten">Active</span>
+                                                        </td>
+                    
+                                                        <td>
+                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    
+                                                    
+                                                </tbody>
+                                            </table>
+                                        </div>
+  <div class="table-responsive" id="confirmedFormTable">
+                                            <table class="table table-centered table-striped dt-responsive nowrap w-100" >
+                                                <thead>
+                                                    <tr>
+                                  
+                                                        <th>Name</th>
+                                                        <th>TES ID</th>
+
+                                                        <th>Phone</th>
+                                                        <th>Email</th>
+                                                        <th>Form</th>                                               
+                                                        <th>Status</th>
+                                                        <th style="width: 75px;">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in eventConfirm %}
+                                                    <tr>
+                                      
+                                                        <td class="table-user">
+                                                            <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
+                                                            <a href="javascript:void(0);" class="text-body ">{{item.firstName}} {{item.lastName}}</a>
+                                                        </td>
+                                                        <td>
+                                                            {{item.candidate.tes_candidate_id}}
+                                                        </td>                     <td>
+                                                             {{item.candidate.contact_number| phone_number}}
+                                                        </td>
+                                                        <td>
+                                                            {{item.candidate.email}}
+                                                        </td>
+                                                    
+                                                      </td>
+                                                      <td><a  href=""><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;
+                                                       {% if item.uploadedForm %}<a href="{{item.uploadedForm.url}}"><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
+                                                      </td>                                                  
+                                                        <td>
+                                                            <span class="badge badge-success-lighten">Active</span>
+                                                        </td>
+                    
+                                                        <td>
+                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-delete"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    
+                                                    
+                                                </tbody>
+                                            </table>
+
+ 
+                                    </div> <!-- end card-body-->
+
+
+    <br>
+    <br>
+
+
+
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                           
+                                        </div> <!-- end preview code-->
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+               <!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js'></script>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script>
+const targetDiv = document.getElementById("candidateTable");
+const btn = document.getElementById("toggleCanList");
+const targetDivSubmit = document.getElementById("submitFormTable");
+const SubBtn = document.getElementById("submitFormBtn");
+const targetDivConfirm = document.getElementById("confirmedFormTable");
+const ConfBtn = document.getElementById("confirmedFormBtn");
+const targetUnsubmit = document.getElementById("unsubmittedTable");
+const unsubmitBtn = document.getElementById("unsubmitBtn");
+btn.onclick = function () {
+    targetDivSubmit.style.display = "none";
+    targetDivConfirm.style.display = "none";
+    targetUnsubmit.style.display = "none";
+  if (targetDiv.style.display !== "none") {
+    targetDiv.style.display = "none";
+  } else {
+    targetDiv.style.display = "block";
+  }
+};
+
+
+targetDivSubmit.style.display = "none";
+targetDivConfirm.style.display = "none";
+targetUnsubmit.style.display = "none";
+
+SubBtn.onclick = function () {
+  targetDiv.style.display = "none";
+  targetDivConfirm.style.display = "none";
+  targetUnsubmit.style.display = "none";
+  if (targetDivSubmit.style.display !== "none") {
+    targetDivSubmit.style.display = "none";
+    
+  } else {
+    targetDivSubmit.style.display = "block";
+  }
+};
+ConfBtn.onclick = function () {
+  targetDiv.style.display = "none";
+  targetDivSubmit.style.display = "none";
+  targetUnsubmit.style.display = "none";
+  if (targetDivConfirm.style.display !== "none") {
+    targetDivConfirm.style.display = "none";
+    
+  } else {
+    targetDivConfirm.style.display = "block";
+  }
+};
+
+unsubmitBtn.onclick = function () {
+  targetDiv.style.display = "none";
+  targetDivSubmit.style.display = "none";
+  targetDivConfirm.style.display = "none";
+  if (targetUnsubmit.style.display !== "none") {
+    targetUnsubmit.style.display = "none";
+    
+  } else {
+    targetUnsubmit.style.display = "block";
+  }
+};
+    </script>
+                      
+
+
+                {% endblock %}
