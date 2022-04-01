@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from exam_certification.models import CertificateAttendance,PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,CswipCertificateProduct
+from exam_certification.models import CertificateAttendance,PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,CswipCertificateProduct,ExamMaterialPiWiModel
+
+from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
 from authorization.sidebarmixin import SidebarMixin
 from django.views.generic import View, TemplateView
@@ -34,10 +36,35 @@ class NewExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 context['events'] = events
-                context['candidates'] = candidates
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
                 context['event'] = event
 
                 return render(request, 'certificates/new_piwi_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = ExamMaterialPiWiModel()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.exam_revision = self.request.POST['revision']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                obj.remark = self.request.POST['remarks']
+                obj.customerID = self.request.POST['customerID']
+                obj.save()
+
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                context['events'] = events
+                context['candidate'] = candidates
+                context['event'] = event
+
+                return render(request, 'certificates/exam_material_piwi_summary.html')
 
 
 class ExamMaterialPiWiSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -46,7 +73,9 @@ class ExamMaterialPiWiSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialPiWiSummary, self).get_context_data()
         events = Event.objects.all()
+        exams = ExamMaterialPiWiModel.objects.all()
         context['events'] = events
+        context['exams'] = exams
         return context
 
 class ExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):

@@ -4,35 +4,25 @@ from training.models import Country,Location,TesCandidate,Product,Event
 # Create your models here.
 
 
-class ExamMaterialPiWiAttendance(models.Model):
+
+
+
+class ExamMaterialPiWiModel(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="exam_material_pi_event", null=True, blank=True, on_delete=models.DO_NOTHING)
     candidate = models.ForeignKey(TesCandidate,related_name="exam_material_pi_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
     exam_date = models.DateTimeField(null=True, blank=True)
     exam_revision = models.CharField(max_length=256, null=True, blank=True)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
     remark = models.CharField(max_length=2048, null=True, blank=True)
     file = models.FileField(upload_to='exam_file',null=True,blank=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
-
-
-
-class ExamMaterialPiWi(models.Model):
-    name = models.CharField(max_length=256, null=True, blank=True )
-    event = models.ForeignKey(Event, related_name="exam_material_pi_event", null=True, blank=True, on_delete=models.DO_NOTHING)
-    attendance = models.ManyToManyField(ExamMaterialPiWiAttendance, null=True, blank=True)
-    file = models.FileField(upload_to='exam_file',null=True,blank=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
+        return self.event.name
 
 
 class Invigilator(models.Model):

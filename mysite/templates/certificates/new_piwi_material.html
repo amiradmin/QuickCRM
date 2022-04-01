@@ -96,12 +96,12 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input  value="{{event.candidate.first_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Event</label>
-                                    <input  value="{{event.name}}"  id="" name="eventID" class="form-control" required/>
+                                    <input  value="{{event.id}}-{{event.name}}"  id="" name="eventID" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -109,7 +109,7 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Customer ID</label>
-                                    <input  value="{{candidate.id}}"  id="" name="customerID"  class="form-control" required/>
+                                    <input  value=""  id="" name="customerID"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
