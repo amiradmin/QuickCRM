@@ -53,7 +53,7 @@ def timesheet_check_interval():
         msg = EmailMessage()
 
         asparagus_cid = make_msgid()
-        msg.add_alternative("You haven't submit your timesheet since last week.Please submit your timesheet!")
+        msg.add_alternative("You haven’t completed your timesheet recently. Please make sure to submit it at your earliest time. Thank you.")
         fromEmail = 'erp@tescan.ca'
         toEmail = item.email
 

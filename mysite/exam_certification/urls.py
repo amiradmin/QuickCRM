@@ -19,11 +19,12 @@ urlpatterns = [
     path('newpcncer', views.NewPcnCertificateAttendance.as_view(), name='newpcncer_'),
     path('newcswipcer', views.NewCswipCertificateAttendance.as_view(), name='newcswipcer_'),
     path('pcndelete/<int:pk>/delete/', views.DeletePcnCertificate.as_view(), name='pcndelete_'),
-    path('cswipdelete/<int:pk>/delete/', views.DeleteCswipCertificate.as_view(), name='cswipdelete_'),
+
 
     path('exampiwi/', views.ExamMaterialPiWi.as_view(), name='exampiwi_'),
     path('exampiwisummary/', views.ExamMaterialPiWiSummary.as_view(), name='exampiwisummary_'),
     path('newexampiwi/', views.NewExamMaterialPiWi.as_view(), name='newexampiwi_'),
+    path('exampiwidelete/<int:pk>/delete/', views.DeleteExamPiWi.as_view(), name='exampiwidelete_'),
 
 
 ]

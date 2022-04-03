@@ -60,11 +60,19 @@ class NewExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
+                exams = ExamMaterialPiWiModel.objects.all()
                 context['events'] = events
-                context['candidate'] = candidates
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
 
-                return render(request, 'certificates/exam_material_piwi_summary.html')
+                return render(request, 'certificates/exam_material_piwi_summary.html',context=context)
+
+
+class DeleteExamPiWi(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = ExamMaterialPiWiModel
+    success_url = reverse_lazy('exam_certification:exampiwisummary_')
 
 
 class ExamMaterialPiWiSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -74,8 +82,10 @@ class ExamMaterialPiWiSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(ExamMaterialPiWiSummary, self).get_context_data()
         events = Event.objects.all()
         exams = ExamMaterialPiWiModel.objects.all()
+        examCount = ExamMaterialPiWiModel.objects.count()
         context['events'] = events
         context['exams'] = exams
+        context['examCount'] = examCount
         return context
 
 class ExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -83,23 +93,10 @@ class ExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialPiWi, self).get_context_data()
-        events = Event.objects.all()
-        context['events'] = events
+        exams = ExamMaterialPiWiModel.objects.all()
+        context['exams'] = exams
         return context
 
-    def post(self, request, *args, **kwargs):
-        context = super(ExamMaterialPiWi, self).get_context_data()
-        if request.method == 'POST':
-            if 'getEvent' in request.POST:
-                print("Get Event")
-                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
-                print(event.id)
-                context['event'] = event
-
-
-
-        # return redirect('exam_certification:exampiwi_')
-        return render(request, 'certificates/exam_pi_wi.html', context)
 
 
 
@@ -140,6 +137,7 @@ class NewCswipCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateVi
             obj.file = self.request.FILES['file']
             obj.product = product
             obj.save()
+
 
         return redirect('exam_certification:swipcersummary_')
 

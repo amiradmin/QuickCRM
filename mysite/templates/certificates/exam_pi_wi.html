@@ -448,41 +448,7 @@ td
                     </div>
                     <!-- end page title -->
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title"> </h4>
 
-
-                                    <div class="tab-content" >
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
-                                            <form method="post">
-                                                {% csrf_token %}
-
-
-                                                            <div class="mb-3 col-md-12">
-                                                            <label class="form-label">Event</label>
-                       <input list="eventList" value="{{event.id}}" onchange="myFunction()"   id="event_id" name="event" placeholder="type here..." class="form-control" required />
-                                        <datalist id="eventList"  >
-
-                                        {% for item in events %}
-                                        <option value="{{item.id}}-{{item.product.name}}">{{item.name}}-{{item.product.name}}
-
-                                        </option>
-                                        {% endfor %}
-
-                                    </datalist>
-                                    </div>
-                                </div>
-                                </div>
-                                                                                        <br>
-                                                    <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" name="getEvent" type="submit">Update</button>
-                                                    </div>
-                                    </form>
-                                </div>
-                                </div>
 
 
 
@@ -502,8 +468,7 @@ td
 
                                         </div> <!-- end preview-->
                                         <br>
-                                        <br>
-                                        <br>
+
 
                     <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                                     {% csrf_token %}
