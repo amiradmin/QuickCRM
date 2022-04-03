@@ -31,5 +31,9 @@ urlpatterns = [
     path('newexamtofd/', views.NewExamMaterialTofd.as_view(), name='newexamtofd_'),
     path('examtofddelete/<int:pk>/delete/', views.DeleteExamTofd.as_view(), name='examtofddelete_'),
 
+    path('exampautl2summary/', views.ExamMaterialPAUTL2Summary.as_view(), name='exampautl2summary_'),
+    path('newexamaputl2/', views.NewExamMaterialPautl2.as_view(), name='newexamaputl2_'),
+    path('exampautl2delete/<int:pk>/delete/', views.DeleteExamPAUTL2.as_view(), name='exampautl2delete_'),
+
 
 ]

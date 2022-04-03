@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from exam_certification.models import CertificateAttendance,ExamMaterialTOFDModel1,PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,CswipCertificateProduct,ExamMaterialPiWiModel
+from exam_certification.models import CertificateAttendance,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,CswipCertificateProduct,ExamMaterialPiWiModel
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,6 +11,93 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 import datetime
 # Create your views here.
+
+class DeleteExamPAUTL2(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = ExamMaterialPAUTL2
+    success_url = reverse_lazy('exam_certification:exampautl2summary_')
+
+
+class ExamMaterialPAUTL2Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_PAUTL2_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamMaterialPAUTL2Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = ExamMaterialPAUTL2.objects.all()
+        examCount = ExamMaterialPAUTL2.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
+class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_pautl2_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamMaterialPautl2, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamMaterialPautl2, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_pautl2_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = ExamMaterialPAUTL2()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.exam_revision = self.request.POST['revision']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                obj.remark = self.request.POST['remarks']
+                obj.customerID = self.request.POST['customerID']
+                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.general_theory = self.request.POST['general_theory']
+                obj.specific_theory = self.request.POST['specific_theory']
+                obj.sample1_analysis = self.request.POST['sample1_analysis']
+                obj.sample1_collection = self.request.POST['sample1_collection']
+                obj.sample2_analysis = self.request.POST['sample2_analysis']
+                obj.sample2_collection = self.request.POST['sample2_collection']
+                obj.sample3_analysis = self.request.POST['sample3_analysis']
+                obj.sample3_collection = self.request.POST['sample3_collection']
+                obj.written_instruction = self.request.POST['written_instruction']
+                obj.save()
+
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = ExamMaterialPAUTL2.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+
+                return render(request, 'certificates/exam_material_PAUTL2_summary.html',context=context)
+
 
 class DeleteExamTofd(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialTOFDModel1
