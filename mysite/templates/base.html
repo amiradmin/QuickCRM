@@ -184,18 +184,60 @@ button, input {
 
 
 
-                        <li class="side-nav-item">
-                            <a href="apps-chat.html" onclick="return false;" class="side-nav-link disabled">
-                                <i class="dripicons-graduation"></i>
-                                <span> Certifications </span>
-                            </a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a href="apps-chat.html" class="side-nav-link disabled">
-                                <i class=" dripicons-bookmarks"></i>
+                         <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#examMaterial" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
                                 <span> Examination </span>
+                                <span class="menu-arrow"></span>
                             </a>
-                        </li>    
+                            <div class="collapse" id="examMaterial">
+                                <ul class="side-nav-second-level">
+                                 <li>
+                                        <a href="{% url 'exam_certification:exampiwisummary_' %}">Exam Material PI/WI</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examtofdsummary_' %}">Exam Material TOFD</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampautl2summary_' %}">Exam Material PAUTL 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material PAUTL-TOFD L3</a>
+                                    </li>
+
+
+
+
+
+
+
+                                </ul>
+                            </div>
+                        </li>
+
+                         <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#cerType" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span> Certifications </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="cerType">
+                                <ul class="side-nav-second-level">
+                                 <li>
+                                        <a href="{% url 'exam_certification:cersummary_' %}">Attendance/completing</a>
+                                    </li>                                    </li>                                    <li>
+                                        <a href="{% url 'exam_certification:pcncersummary_' %}">Certificate of Proficiency-PCN</a>
+                                    </li>                                    </li>                                    </li>                                    <li>
+                                        <a href="{% url 'exam_certification:swipcersummary_' %}">Certificate of Proficiency-CSWIP</a>
+                                    </li>
+
+
+
+
+                                </ul>
+                            </div>
+                        </li>
+
                         <li class="side-nav-item">
                             <a href="apps-chat.html" class="side-nav-link disabled">
                                 <i class="uil-comments-alt"></i>
@@ -1555,6 +1597,7 @@ button, input {
 
                             </div>
                         </li>
+
                     {% endif %}
     
 
