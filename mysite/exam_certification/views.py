@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from exam_certification.models import CertificateAttendance,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,CswipCertificateProduct,ExamMaterialPiWiModel
+from exam_certification.models import CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,CswipCertificateProduct,ExamMaterialPiWiModel
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,6 +11,231 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 import datetime
 # Create your views here.
+
+
+class NewExamMaterialL3(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_l3_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamMaterialL3, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamMaterialL3, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_l3_material.html', context)
+            elif 'submit_paut' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = ExamMaterialL3()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['customerID']
+                obj.paut_scheme = self.request.POST['paut_scheme']
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                obj.paut_ndtl3 = self.request.POST['paut_ndtl3']
+                obj.paut_pautl2 = self.request.POST['paut_pautl2']
+                obj.paut_practical_exam = self.request.POST['paut_practical_exam']
+                obj.paut_basic_a1 = self.request.POST['paut_basic_a1']
+                obj.paut_basic_a2 = self.request.POST['paut_basic_a2']
+                obj.paut_basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
+                obj.paut_basic_b_part_2 = self.request.POST['paut_basic_b_part_2']
+                obj.paut_basic_b_part_3 = self.request.POST['paut_basic_b_part_3']
+                obj.paut_basic_b_part_4 = self.request.POST['paut_basic_b_part_4']
+                obj.paut_main_c_1 = self.request.POST['paut_main_c_1']
+                obj.paut_main_c_2 = self.request.POST['paut_main_c_2']
+                obj.paut_main_c_3 = self.request.POST['paut_main_c_3']
+                obj.paut_delivery_method = self.request.POST['paut_delivery_method']
+                obj.paut_lecturer = self.request.POST['paut_lecturer']
+                obj.paut_invigilator = self.request.POST['paut_invigilator']
+                obj.paut_venue = self.request.POST['paut_venue']
+                obj.paut_remark = self.request.POST['paut_remarks']
+
+
+                obj.tofd_scheme = self.request.POST['tofd_scheme']
+                if not request.POST.get('tofd_exam_date', '') == '':
+                    obj.tofd_exam_date = datetime.datetime.strptime(self.request.POST['tofd_exam_date'], '%m/%d/%Y')
+                obj.tofd_ndtl3 = self.request.POST['tofd_ndtl3']
+                obj.tofd_pautl2 = self.request.POST['tofd_pautl2']
+                obj.tofd_practical_exam = self.request.POST['tofdtofdtofd_practical_exam']
+                obj.tofd_basic_a1 = self.request.POST['tofdtofd_basic_a1']
+                obj.tofd_basic_a2 = self.request.POST['tofdtofd_basic_a2']
+                obj.tofd_basic_b_part_1 = self.request.POST['tofd_basic_b_part_1']
+                obj.tofd_basic_b_part_2 = self.request.POST['tofd_basic_b_part_2']
+                obj.tofd_basic_b_part_3 = self.request.POST['tofd_basic_b_part_3']
+                obj.tofd_basic_b_part_4 = self.request.POST['tofd_basic_b_part_4']
+                obj.tofd_main_c_1 = self.request.POST['tofd_main_c_1']
+                obj.tofd_main_c_2 = self.request.POST['tofd_main_c_2']
+                obj.tofd_main_c_3 = self.request.POST['tofd_main_c_3']
+                obj.tofd_delivery_method = self.request.POST['tofd_delivery_method']
+                obj.tofd_lecturer = self.request.POST['tofd_lecturer']
+                obj.tofd_invigilator = self.request.POST['tofd_invigilator']
+                obj.tofd_venue = self.request.POST['tofd_venue']
+                obj.tofd_remark = self.request.POST['tofd_remarks']
+
+                obj.save()
+
+            elif 'submit_tofd' in request.POST:
+                print("Submit TOFD")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = ExamMaterialL3()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['customerID']
+
+
+                obj.tofd_scheme = self.request.POST['tofd_scheme']
+                if not request.POST.get('tofd_exam_date', '') == '':
+                    obj.tofd_exam_date = datetime.datetime.strptime(self.request.POST['tofd_exam_date'], '%m/%d/%Y')
+                obj.tofd_ndtl3 = self.request.POST['tofd_ndtl3']
+                obj.tofd_pautl2 = self.request.POST['tofd_pautl2']
+                obj.tofd_practical_exam = self.request.POST['tofd_practical_exam']
+                obj.tofd_basic_a1 = self.request.POST['tofd_basic_a1']
+                obj.tofd_basic_a2 = self.request.POST['tofd_basic_a2']
+                obj.tofd_basic_b_part_1 = self.request.POST['tofd_basic_b_part_1']
+                obj.tofd_basic_b_part_2 = self.request.POST['tofd_basic_b_part_2']
+                obj.tofd_basic_b_part_3 = self.request.POST['tofd_basic_b_part_3']
+                obj.tofd_basic_b_part_4 = self.request.POST['tofd_basic_b_part_4']
+                obj.tofd_main_c_1 = self.request.POST['tofd_main_c_1']
+                obj.tofd_main_c_2 = self.request.POST['tofd_main_c_2']
+                obj.tofd_main_c_3 = self.request.POST['tofd_main_c_3']
+                obj.tofd_delivery_method = self.request.POST['tofd_delivery_method']
+                obj.tofd_lecturer = self.request.POST['tofd_lecturer']
+                obj.tofd_invigilator = self.request.POST['tofd_invigilator']
+                obj.tofd_venue = self.request.POST['tofd_venue']
+                obj.tofd_remark = self.request.POST['tofd_remarks']
+
+                obj.save()
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = ExamMaterialPAUTL2.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+            elif 'submit_pcn_tofd' in request.POST:
+                print("Submit PCN TOFD")
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = ExamMaterialL3()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['pcn_tofd_l3_customerID']
+                obj.pcn_paut_scheme = self.request.POST['pcn_tofd_l3_scheme']
+                if not request.POST.get('pcn_tofd_exam_l3_date', '') == '':
+                    obj.tofd_exam_date = datetime.datetime.strptime(self.request.POST['pcn_tofd_l3__exam_date'], '%m/%d/%Y')
+                obj.pcn_tofd_ndtl3 = self.request.POST['pcn_tofd_l3_ndtl3']
+                obj.pcn_tofd_pautl2 = self.request.POST['pcn_tofd_l3_pautl2']
+                obj.pcn_tofd_practical_exam = self.request.POST['pcn_tofd_l3_practical_exam']
+                obj.pcn_tofd_basic_a1 = self.request.POST['pcn_tofd_l3_basic_a1']
+                obj.pcn_tofd_basic_a2 = self.request.POST['pcn_tofd_l3_basic_a2']
+                obj.pcn_tofd_basic_b_part_1 = self.request.POST['pcn_tofd_l3_basic_b_part_1']
+                obj.pcn_tofd_basic_b_part_2 = self.request.POST['pcn_tofd_l3_basic_b_part_2']
+                obj.pcn_tofd_basic_b_part_3 = self.request.POST['pcn_tofd_l3_basic_b_part_3']
+                obj.pcn_tofd_basic_b_part_4 = self.request.POST['pcn_tofd_l3_basic_b_part_4']
+                obj.pcn_tofd_l3_main_d = self.request.POST['pcn_tofd_l3_main_d']
+                obj.pcn_tofd_l3_main_e = self.request.POST['pcn_tofd_l3_main_e']
+                obj.pcn_tofd_l3_main_f = self.request.POST['pcn_tofd_l3_main_f']
+                obj.pcn_tofd_l3_delivery_method = self.request.POST['pcn_tofd_l3_delivery_method']
+                obj.pcn_tofd_l3_lecturer = self.request.POST['pcn_tofd_l3_lecturer']
+                obj.pcn_tofd_l3_invigilator = self.request.POST['pcn_tofd_l3_invigilator']
+                obj.pcn_tofd_l3_venue = self.request.POST['pcn_tofd_l3_venue']
+                obj.pcn_tofd_l3_remark = self.request.POST['pcn_tofd_l3_remark']
+                obj.save()
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = ExamMaterialPAUTL2.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+            elif 'submit_pcn_paut' in request.POST:
+                print("Submit PCN PAUT")
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = ExamMaterialL3()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['pcn_tofd_l3_customerID']
+                obj.pcn_tofd_scheme = self.request.POST['pcn_tofd_l3_scheme']
+                if not request.POST.get('pcn_tofd_exam_l3_date', '') == '':
+                    obj.tofd_exam_date = datetime.datetime.strptime(self.request.POST['pcn_paut_l3_exam_date'], '%m/%d/%Y')
+                obj.pcn_paut_ndtl3 = self.request.POST['pcn_paut_l3_ndtl3']
+                obj.pcn_paut_pautl2 = self.request.POST['pcn_paut_l3_pautl2']
+                obj.pcn_paut_practical_exam = self.request.POST['pcn_paut_l3_practical_exam']
+                obj.pcn_paut_basic_a1 = self.request.POST['pcn_paut_l3_basic_a1']
+                obj.pcn_paut_basic_a2 = self.request.POST['pcn_paut_l3_basic_a2']
+                obj.pcn_paut_basic_b_part_1 = self.request.POST['pcn_paut_l3_basic_b_part_1']
+                obj.pcn_paut_basic_b_part_2 = self.request.POST['pcn_paut_l3_basic_b_part_2']
+                obj.pcn_paut_basic_b_part_3 = self.request.POST['pcn_paut_l3_basic_b_part_3']
+                obj.pcn_paut_basic_b_part_4 = self.request.POST['pcn_paut_l3_basic_b_part_4']
+                obj.pcn_paut_l3_main_d = self.request.POST['pcn_paut_l3_main_d']
+                obj.pcn_paut_l3_main_e = self.request.POST['pcn_paut_l3_main_e']
+                obj.pcn_paut_l3_main_f = self.request.POST['pcn_paut_l3_main_f']
+                obj.pcn_paut_l3_delivery_method = self.request.POST['pcn_paut_l3_delivery_method']
+                obj.pcn_paut_l3_lecturer = self.request.POST['pcn_paut_l3_lecturer']
+                obj.pcn_paut_l3_invigilator = self.request.POST['pcn_paut_l3_invigilator']
+                obj.pcn_paut_l3_venue = self.request.POST['pcn_paut_l3_venue']
+                obj.pcn_paut_l3_remark = self.request.POST['pcn_paut_l3_remark']
+                obj.save()
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = ExamMaterialPAUTL2.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+        return render(request, 'certificates/exam_material_l3_summary.html',context=context)
+
+
+
+class ExamMaterialL3Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_l3_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamMaterialL3Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = ExamMaterialL3.objects.all()
+        examCount = ExamMaterialL3.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
+
 
 class DeleteExamPAUTL2(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialPAUTL2

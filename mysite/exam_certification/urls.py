@@ -35,5 +35,9 @@ urlpatterns = [
     path('newexamaputl2/', views.NewExamMaterialPautl2.as_view(), name='newexamaputl2_'),
     path('exampautl2delete/<int:pk>/delete/', views.DeleteExamPAUTL2.as_view(), name='exampautl2delete_'),
 
+    path('examl3summary/', views.ExamMaterialL3Summary.as_view(), name='examl3summary_'),
+    path('newexaml3/', views.NewExamMaterialL3.as_view(), name='newexaml3_'),
+    # path('exampautl2delete/<int:pk>/delete/', views.DeleteExamPAUTL2.as_view(), name='exampautl2delete_'),
+
 
 ]
