@@ -37,6 +37,7 @@ urlpatterns = [
 
     path('examl3summary/', views.ExamMaterialL3Summary.as_view(), name='examl3summary_'),
     path('newexaml3/', views.NewExamMaterialL3.as_view(), name='newexaml3_'),
+    path('l3ismform/<int:id>', views.ExamMaterialL3IMSForm.as_view(), name='l3ismform_'),
     # path('exampautl2delete/<int:pk>/delete/', views.DeleteExamPAUTL2.as_view(), name='exampautl2delete_'),
 
 

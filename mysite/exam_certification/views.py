@@ -13,6 +13,16 @@ import datetime
 # Create your views here.
 
 
+class ExamMaterialL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/l3_ims_form.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamMaterialL3IMSForm, self).get_context_data()
+        form =ExamMaterialL3.objects.filter(id=self.kwargs['id']).first()
+        context['form'] = form
+        return context
+
+
 class NewExamMaterialL3(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_l3_material.html"
 
