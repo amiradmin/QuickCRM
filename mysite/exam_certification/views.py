@@ -13,6 +13,12 @@ import datetime
 # Create your views here.
 
 
+class DeleteExamL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = ExamMaterialL3
+    success_url = reverse_lazy('exam_certification:examl3summary_')
+
+
+
 class ExamMaterialL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/l3_ims_form.html"
 
