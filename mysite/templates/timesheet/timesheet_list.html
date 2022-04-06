@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 {% load timedelta_filter %}
-
+<link rel='stylesheet' href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css'>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
@@ -16,7 +16,92 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 <style>
+ @media all {
 
+  .tabs {
+    padding-top: 3%
+  }
+  .tab-list {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .tab-list > li {
+    padding: 0 3%;
+    border-left: 1px solid #6c6c6c;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+  }
+  .tab-list > li:first-child {
+    border-left: none;
+  }
+  .tab-list > li:hover > h3,
+  .tab-list > li.active > h3 {
+    color: #4ECDC4;
+  }
+  .tab-list > li > h3 {
+    font-weight: 100;
+    display: block;
+    transition: all 500ms ease;
+  }
+  .tabs-content { opacity: 0; display: none; margin: 3em 0; opacity 1s ease-out;  }
+  .tabs-content.active { opacity: 1; display: block; }
+
+  /* Tab 1 Set */
+  .tabs-content#content-select-1 > div {
+    padding: 0 4em;
+  }
+  .tabs-content > div > i  {
+    font-size: 65px;
+    float: left;
+    display: block;
+    margin-top: 10px;
+  }
+  .tabs-content > div > article {
+    float: right;
+    width: 80%;
+  }
+  .tabs-content > div > article h3 {
+    font-weight: bold;
+  }
+
+  /* Bar Set Style */
+  .tab-header { margin: 0 0 1em; }
+  .tab-header h3 { font-size: 20px; text-transform: uppercase; }
+  .single-bar {
+    float: left;
+    text-align: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .single-bar p { text-align: center; }
+  .single-bar p.bar-place { margin: 1em 0; }
+  .bar-container {
+    border-bottom: 1px solid #fff;
+    padding: 0 1em;
+    min-height: 280px;
+    position: relative;
+  }
+  .bar {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+  }
+  .bar:first-child { padding-left: 0; }
+  .bar-value {border: 1px solid #fff;
+    border-bottom: none;}
+  .bar1 { height: 150px; }
+  .bar2 { height: 245px; }
+  .bar3 { height: 110px; }
+  .bar4 { height: 95px; }
+  .bar5 { height: 180px; }
+  .bar6 { height: 50px; }
+  .bar-highlight {
+    background-color: #4ECDC4;
+    border-color:  #4ECDC4;
+  }
+  .bar-highlight:hover { opacity: .9; }
+}
 
 /* Table */
 #data-table {
@@ -350,8 +435,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="header-title"> </h4>
-<a href="{% url 'stafftimesheet:timesheetimalert_' %}">Alerts</a>
-
+                                    <a href="{% url 'stafftimesheet:timesheetimalert_' %}">Alerts</a>
                <div class="row g-2">                                                                                                          <div class="row g-2">
                                                 <div class="mb-4 col-md-4 border border-info">
 <h5>Staff Location: {{candidate.location}}</h5>
@@ -372,15 +456,34 @@
                                                 </div>
 
                                             </div>
-                   <hr>
-    {%  if  timesheets_task != null %}
+
+      <div class="container tabs">
+      <ul class="list-inline tab-list col-md-12">
+        <li id="select-1" class="active">
+          <h3>Task Base Pie Chart Report</h3>
+        </li>
+        <li id="select-2">
+          <h3>Monthly Report</h3>
+        </li>
+        <li id="select-3">
+          <h3>Details</h3>
+        </li>
+        <li id="select-4">
+          <h3>Something Here</h3>
+        </li>
+      </ul>
+    </div>
+
+
+
+
+
+<div class="tabs-content active" id="content-select-1">
+   {%  if  timesheets_task != null %}
                 <div id="chartdiv"></div>
                    <br>
 {% endif %}
-                   <hr>
-
-
-                   <table class="table table-striped">
+          <table class="table table-striped">
     <thead>
       <tr>
         <th>Task</th>
@@ -399,11 +502,14 @@
 
     </tbody>
   </table>
-                                    <br>
-                   <hr>
- <div id="wrapper">
+</div>
+
+
+<div class="tabs-content" id="content-select-2">
+    <h5>Monthly</h5>
+<div id="wrapper">
 			<div class="chart">
-				<h2>Month</h2>
+
 				<table id="data-table" border="1" cellpadding="10" cellspacing="0" >
 					<thead>
 						<tr>
@@ -427,34 +533,12 @@
 			</div>
 		</div>
 
+</div>
 
- <h5>Month</h5>
-                   <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Duration</th>
-        <th>Count</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% for task in timesheets_day %}
-      <tr>
-          <td>{{task.from_temp__month}}/{{task.from_temp__day}}/{{task.from_temp__year}}</td>
-        <td>{{task.durationTime|timedelta:"{hours_total}:{minutes}" }}</td>
 
-        <td>{{task.from_temp__day__count}}</td>
-      </tr>
-    {% endfor %}
-
-    </tbody>
-  </table>
-                   <br>
-                   <br>
-
-                                    <div class="tab-content">
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
-                                            <table id="basic-datatable" class="table dt-responsive  w-100">
+<div class="tabs-content" id="content-select-3">
+    <br>
+   <table id="basic-datatable" class="table dt-responsive  w-100">
                                                 <thead>
                                                     <tr>
                                                         <th data-sortable="true"  data-field="approved" ></th>
@@ -498,6 +582,30 @@
                                                     {%endfor%}
                                                 </tbody>
                                             </table>
+
+</div>
+
+
+<div class="tabs-content" id="content-select-4">
+
+4
+</div>
+
+
+
+
+                                    <br>
+                   <hr>
+
+
+
+
+                   <br>
+                   <br>
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+
                                         </div> <!-- end preview-->
                                         <br>
                                         <br>
@@ -511,42 +619,7 @@
 
 
 
-                                            <pre class="mb-0">
-                                                <span class="html escape">
-                                                    &lt;table id=&quot;basic-datatable&quot; class=&quot;table dt-responsive nowrap w-100&quot;&gt;
-                                                        &lt;thead&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;th&gt;Name&lt;/th&gt;
-                                                                &lt;th&gt;Position&lt;/th&gt;
-                                                                &lt;th&gt;Office&lt;/th&gt;
-                                                                &lt;th&gt;Age&lt;/th&gt;
-                                                                &lt;th&gt;Start date&lt;/th&gt;
-                                                                &lt;th&gt;Salary&lt;/th&gt;
-                                                            &lt;/tr&gt;
-                                                        &lt;/thead&gt;
 
-
-                                                        &lt;tbody&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;td&gt;Tiger Nixon&lt;/td&gt;
-                                                                &lt;td&gt;System Architect&lt;/td&gt;
-                                                                &lt;td&gt;Edinburgh&lt;/td&gt;
-                                                                &lt;td&gt;61&lt;/td&gt;
-                                                                &lt;td&gt;2011/04/25&lt;/td&gt;
-                                                                &lt;td&gt;$320,800&lt;/td&gt;
-                                                            &lt;/tr&gt;
-                                                            &lt;tr&gt;
-                                                                &lt;td&gt;Garrett Winters&lt;/td&gt;
-                                                                &lt;td&gt;Accountant&lt;/td&gt;
-                                                                &lt;td&gt;Tokyo&lt;/td&gt;
-                                                                &lt;td&gt;63&lt;/td&gt;
-                                                                &lt;td&gt;2011/07/25&lt;/td&gt;
-                                                                &lt;td&gt;$170,750&lt;/td&gt;
-                                                            &lt;/tr&gt;
-                                                        &lt;/tbody&gt;
-                                                    &lt;/table&gt;
-                                                </span>
-                                            </pre> <!-- end highlight-->
                                         </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->
 
@@ -935,6 +1008,32 @@ $(document).ready(function() {
 		resetGraph();
 	}
 });
+
+
+
+function myFunction() {
+
+  var issueDate = document.getElementById('issue_date').value;
+  var candidate = document.getElementById('canID').value;
+  console.log(candidate);
+  var cerNumber = document.getElementById('certiﬁcate_number');
+  cerNumber.value=issueDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + issueDate.split('/')[0] + '_' + issueDate.split('/')[1]  ;
+}
+
+//Top Content Tabs and Description
+$(".tab-list li").on("click", function() {
+  var tabId = ".tab-list li#" + $(this).attr("id");
+  var tabDivId = ".tabs-content#content-" + $(this).attr("id");
+
+  if (!$(this).hasClass("active")) {
+    $(".tab-list li").removeClass("active");
+    $(this).addClass("active");
+
+    $(".tabs-content").removeClass("active");
+    $(tabDivId).addClass("active");
+  }
+});
+
 </script>
 
                 {% endblock %}
