@@ -145,8 +145,8 @@ class NewExamMaterialL3(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['pcn_tofd_l3_customerID']
                 obj.pcn_tofd_l3_scheme = self.request.POST['pcn_tofd_l3_scheme']
-                if not request.POST.get('pcn_tofd_exam_l3_date', '') == '':
-                    obj.tofd_exam_l3_date = datetime.datetime.strptime(self.request.POST['pcn_tofd_l3__exam_date'], '%m/%d/%Y')
+                if not request.POST.get('pcn_tofd_l3_exam_date', '') == '':
+                    obj.pcn_tofd_l3_exam_date = datetime.datetime.strptime(self.request.POST['pcn_tofd_l3_exam_date'], '%m/%d/%Y')
                 obj.pcn_tofd_l3_ndtl3 = self.request.POST['pcn_tofd_l3_ndtl3']
                 obj.pcn_tofd_l3_pautl2 = self.request.POST['pcn_tofd_l3_pautl2']
                 obj.pcn_tofd_l3_practical_exam = self.request.POST['pcn_tofd_l3_practical_exam']
@@ -187,7 +187,7 @@ class NewExamMaterialL3(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.pcn_paut_l3_scheme = self.request.POST['pcn_paut_l3_scheme']
                 if not request.POST.get('pcn_paut_exam_l3_date', '') == '':
                     obj.pcn_paut_l3_exam_date = datetime.datetime.strptime(self.request.POST['pcn_paut_exam_l3_date'], '%m/%d/%Y')
-                obj.pcn_paut_l3_exam_date = self.request.POST['pcn_paut_l3_ndtl3']
+                obj.pcn_paut_l3_ndtl3 = self.request.POST['pcn_paut_l3_ndtl3']
                 obj.pcn_paut_l3_pautl2 = self.request.POST['pcn_paut_l3_pautl2']
                 obj.pcn_paut_l3_practical_exam = self.request.POST['pcn_paut_l3_practical_exam']
                 obj.pcn_paut_l3_basic_a1 = self.request.POST['pcn_paut_l3_basic_a1']
