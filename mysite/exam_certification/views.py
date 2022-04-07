@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
-from exam_certification.models import CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,CswipCertificateProduct,ExamMaterialPiWiModel
+from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
+                                       PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
+                                       CswipCertificateProduct,ExamMaterialPiWiModel,ExamResult )
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -11,6 +13,80 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 import datetime
 # Create your views here.
+
+
+
+
+class ExamMaterialTofdL3Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_tofd_l3_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamMaterialTofdL3Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = ExamMaterialL3.objects.all()
+        examCount = ExamMaterialL3.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
+class NewExamResult(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_exam_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamResult, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamResult, self).get_context_data()
+        if request.method == 'POST':
+
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+            obj = ExamResult()
+            obj.event = event
+            obj.candidate = candidate
+            obj.result = self.request.POST['result']
+            obj.explanation = self.request.POST['explanation']
+            if bool(request.FILES.get('myFile', False)) == True:
+                obj.file = self.request.FILES['myFile']
+            obj.save()
+
+            events = Event.objects.all()
+            candidates = TesCandidate.objects.all()
+            exams = ExamMaterialPAUTL2.objects.all()
+            context['events'] = events
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['event'] = event
+            context['exams'] = exams
+            context['candidates'] = candidates
+            # return render(request, 'certificates/exam_result_summary.html',context=context)
+            return redirect('exam_certification:examresultsummary_')
+
+class ExamResultSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_result_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamResultSummary, self).get_context_data()
+        events = Event.objects.all()
+        exams = ExamResult.objects.all()
+        examCount = ExamResult.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
 
 
 class DeleteExamL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):

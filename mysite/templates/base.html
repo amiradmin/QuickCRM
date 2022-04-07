@@ -193,19 +193,24 @@ button, input {
                             <div class="collapse" id="examMaterial">
                                 <ul class="side-nav-second-level">
                                  <li>
+                                        <a href="{% url 'exam_certification:examresultsummary_' %}">Results</a>
+                                    </li>
+                                 <li>
                                         <a href="{% url 'exam_certification:exampiwisummary_' %}">Exam Material PI/WI</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'exam_certification:examtofdsummary_' %}">Exam Material TOFD</a>
+                                        <a href="{% url 'exam_certification:examtofdsummary_' %}">Exam Material TOFD L2</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'exam_certification:exampautl2summary_' %}">Exam Material PAUTL 2</a>
+                                        <a href="{% url 'exam_certification:exampautl2summary_' %}">Exam Material PAUT L2</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material PAUTL-TOFD L3</a>
+                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material PAUTL L3</a>
                                     </li>
 
-
+                                    <li>
+                                        <a href="{% url 'exam_certification:examtofdl3summary_' %}">Exam Material TOFD L3</a>
+                                    </li>
 
 
 
@@ -722,17 +727,24 @@ button, input {
                             </a>
                             <div class="collapse" id="examMaterial">
                                 <ul class="side-nav-second-level">
+                                      <li>
+                                        <a href="{% url 'exam_certification:examresultsummary_' %}">Results</a>
+                                    </li>
                                  <li>
                                         <a href="{% url 'exam_certification:exampiwisummary_' %}">Exam Material PI/WI</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'exam_certification:examtofdsummary_' %}">Exam Material TOFD</a>
+                                        <a href="{% url 'exam_certification:examtofdsummary_' %}">Exam Material TOFD L2</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'exam_certification:exampautl2summary_' %}">Exam Material PAUTL 2</a>
+                                        <a href="{% url 'exam_certification:exampautl2summary_' %}">Exam Material PAUT L2</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material PAUTL-TOFD L3</a>
+                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material PAUTL L3</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material TOFD L3</a>
                                     </li>
 
 
@@ -1157,7 +1169,10 @@ button, input {
 
 
                         </li>
-           {% elif  group_name == 'training_operator' %}
+           {% elif  group_name == 'training_admin' %}
+Test
+
+            {% elif  group_name == 'training_operator' %}
                     <ul class="side-nav">
 
                         <li class="side-nav-title side-nav-item">Navigation </li>
