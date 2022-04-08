@@ -1,6 +1,6 @@
 from django.contrib import admin
 from  exam_certification.models import (Invigilator,CertificateAttendance,CertificateType,CSWIPCertificateAttendance,PcnCertificateAttendance,CswipCertificateProduct,PcnCertificateProduct
-                                        ,ExamMaterialPiWiModel,ExamMaterialTOFDModel1,ExamMaterialPAUTL2,ExamMaterialL3,ExamResult )
+                                        ,ExamMaterialPiWiModel,ExamMaterialTOFDModel1,ExamMaterialPAUTL2,ExamMaterialL3,ExamResult,ExamMaterialTofdL3 )
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
@@ -11,6 +11,11 @@ class ExamResultAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_filter = ['id','name','event','created_at','updated_at']
 admin.site.register(ExamResult,ExamResultAdmin)
 
+
+class ExamMaterialTofdL3Admin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','event','created_at','updated_at']
+    list_filter = ['id','name','event','created_at','updated_at']
+admin.site.register(ExamMaterialTofdL3,ExamMaterialTofdL3Admin)
 
 class ExamMaterialL3Admin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']

@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 <style>
- @media all {
 
   .tabs {
     padding-top: 3%
@@ -104,11 +103,17 @@
   .bar-highlight:hover { opacity: .9; }
 }
 
+
+
+
+
+
+
 /* Table */
 #data-table {
 	border: none; /* Turn off all borders */
 	border-top: 1px solid #ccc;
-	width: 60%;
+	width: 90%;
 }
 #data-table th,
 #data-table td {
@@ -173,7 +178,7 @@
 	bottom: 0;
 	position: absolute;
 	text-align: left;
-	width: 540px;
+	width: 100%;
 }
 .legend li {
 	display: block;
@@ -181,7 +186,7 @@
 	height: 20px;
 	margin: 0;
 	padding: 10px 30px;
-	width: 120px;
+	width: 20px;
 }
 .legend span.icon {
 	background-position: 50% 0;
@@ -200,13 +205,14 @@
 	position: absolute;
 	text-align: center;
 	width: 100%;
+
 }
 .x-axis li {
 	float: left;
 	margin: 0 15px;
 	padding: 5px 0;
-	width: 1%;
-	transform: rotate(90deg);
+	width: 2px;
+		transform: rotate(90deg);
 }
 .x-axis li span {
   float: left;
@@ -243,7 +249,7 @@
 	height: 100%;
 	margin: 0 15px;
 	position: relative;
-	width: 1%;
+	width: 2px;
 }
 .bar {
 	border-radius: 3px 3px 0 0;
@@ -262,7 +268,7 @@
 	margin: 0;
 	position: relative;
 	text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
-	width: 15px;
+	width: 5px;
 	z-index: 20;
 
 	-webkit-box-shadow: rgba(0, 0, 0, 0.6) 0 1px 4px;
@@ -281,9 +287,8 @@
 }
 .fig0 {
 	background: rgb(0, 167, 143);
+
 }
-
-
 
 
 #chartdiv {
@@ -796,8 +801,7 @@ $('#datepicker').datepicker({
 
                     </script>
 <script>
-
-    /**
+/**
  *	Animated Graph Tutorial for Smashing Magazine
  *	July 2011
  *
@@ -861,7 +865,7 @@ $(document).ready(function() {
 			chartYMax: function() {
 				var chartData = this.chartData();
 				// Round off the value
-				var chartYMax = Math.ceil(Math.max.apply(Math, chartData) ) ;
+				var chartYMax = Math.ceil(Math.max.apply(Math, chartData) );
 				return chartYMax;
 			},
 			// Get y-axis data from table cells
@@ -917,7 +921,7 @@ $(document).ready(function() {
 				// Set the height later in displayGraph() to allow for left-to-right sequential display
 				var barObj = {};
 				barObj.label = this[j];
-				barObj.height = Math.floor(barObj.label * chartYMax * 2.1) ;
+				barObj.height = Math.floor(barObj.label / chartYMax * 100) ;
 				barObj.bar = $('<div class="bar fig' + j + '"><span>' + barObj.label + '</span></div>')
 					.appendTo(barGroup);
 				bars.push(barObj);
@@ -1012,8 +1016,6 @@ $(document).ready(function() {
 		resetGraph();
 	}
 });
-
-
 
 function myFunction() {
 

@@ -20,10 +20,10 @@ class ExamResult(models.Model):
 
 
 
-class ExamMaterialL3(models.Model):
+class ExamMaterialTofdL3(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
-    event = models.ForeignKey(Event, related_name="exam_material_l3_event", null=True, blank=True, on_delete=models.DO_NOTHING)
-    candidate = models.ForeignKey(TesCandidate,related_name="exam_material_l3_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    event = models.ForeignKey(Event, related_name="exam_material_tofd_l3_event", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="exam_material_tofd_l3_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
 
 
 
