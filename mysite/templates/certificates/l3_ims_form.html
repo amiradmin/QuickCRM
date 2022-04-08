@@ -963,93 +963,9 @@ bottom:0px;
 <td class='x24'></td>
 <td class='x24'></td>
  </tr>
- <tr height='34' class='x38' style='mso-height-source:userset;height:25.5pt'>
-<td colspan='16' height='32' class='x48' style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:24pt;'>TOFDL3 EXAMS</td>
-<td rowspan='4' height='131' class='x43' style='border-bottom:1px solid windowtext;height:98.25pt;'>Delivery Method</td>
-<td rowspan='4' height='131' class='x43' style='border-bottom:1px solid windowtext;height:98.25pt;'>Lecturer</td>
-<td rowspan='4' height='131' class='x43' style='border-bottom:1px solid windowtext;height:98.25pt;'>Invigilator</td>
-<td rowspan='4' height='132' class='x44' style='border-bottom:1px solid windowtext;height:99pt;'>Exam Venue (Country, City, Address)</td>
-<td rowspan='4' height='131' class='x43' style='border-bottom:1px solid windowtext;height:98.25pt;'>Remarks</td>
- </tr>
- <tr height='24' class='x34' style='mso-height-source:userset;height:18pt'>
-<td rowspan='3' height='98' class='x46' style='border-bottom:1px solid windowtext;height:73.5pt;'>No.</td>
-<td rowspan='3' height='98' class='x46' style='border-bottom:1px solid windowtext;height:73.5pt;'>Candidate Name</td>
-<td rowspan='3' height='98' class='x46' style='border-bottom:1px solid windowtext;height:73.5pt;'>Scheme</td>
-<td rowspan='3' height='98' class='x46' style='border-bottom:1px solid windowtext;height:73.5pt;'>Exam date</td>
-<td rowspan='3' height='98' class='x52' style='border-bottom:1px solid windowtext;height:73.5pt;'>NDTL3</td>
-<td rowspan='3' height='98' class='x52' style='border-bottom:1px solid windowtext;height:73.5pt;'>TOFDL2</td>
-<td rowspan='3' height='98' class='x53' style='border-bottom:1px solid windowtext;height:73.5pt;'>PAUT L2<br> Practical Exam</td>
-<td colspan='6' class='x46' style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>BASIC EXAMS A1, A2, B (for part B up to 60 questions for 4 NDT Methods)</td>
-<td colspan='3' class='x46' style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>Main method examination</td>
- </tr>
- <tr height='27' class='x34' style='mso-height-source:userset;height:20.25pt'>
-<td class='x35'>A1</td>
-<td class='x35'>A2</td>
-<td class='x35'>B-part 1</td>
-<td class='x35'>B-part 2</td>
-<td class='x35'>B-part 3</td>
-<td class='x35'>B-part 4</td>
-<td class='x36'>C1</td>
-<td class='x36'>C2</td>
-<td class='x36'>C3</td>
- </tr>
- <tr height='48' class='x34' style='mso-height-source:userset;height:36pt'>
-<td class='x37'>25 questions on materials</td>
-<td class='x37'>10 questions-Scheme</td>
-<td class='x37'>15 Questions in PT</td>
-<td class='x37'>15 Questions in MT</td>
-<td class='x37'>15 Questions in UT</td>
-<td class='x37'>15 Questions in RT</td>
-<td class='x37'>30 questions of Level 3 knowledge</td>
-<td class='x36'>20 questions- application</td>
-<td class='x36'>NDT procedure</td>
- </tr>
- <tr height='36' style='mso-height-source:userset;height:27pt'>
-<td height='34' class='x26' style='height:25.5pt;'>1</td>
-<td class='x26'>{{form.candidate.first_name}} {% if form.candidate.middleName %}{{form.candidate.middleName}}{% endif %} {{form.candidate.last_name}}</td>
-<td class='x26'>{% if form.tofd_scheme %}{{form.tofd_scheme}}{% endif %}</td>
-<td class='x27'>{% if form.tofd_exam_date %}{{form.tofd_exam_date|date:'m/d/Y'}}{% endif %}</td>
-<td class='x26'>{% if form.tofd_ndtl3 %}{{form.tofd_ndtl3}}{% endif %}</td>
-<td class='x26'>{% if form.tofd_pautl2 %}{{form.tofd_pautl2}}{% endif %}</td>
-<td class='x26'>{% if form.tofd_practical_exam %}{{form.tofd_practical_exam}}{% endif %}</td>
-<td class='x31'>{% if form.tofd_basic_a1 %}{{form.tofd_basic_a1}}{% endif %}</td>
-<td class='x30'>{% if form.tofd_basic_a2 %}{{form.tofd_basic_a2}}{% endif %}</td>
-<td class='x31'>{% if form.tofd_basic_b_part_1 %}{{form.tofd_basic_b_part_1}}{% endif %}</td>
-<td class='x31'>{% if form.tofd_basic_b_part_2 %}{{form.tofd_basic_b_part_2}}{% endif %}</td>
-<td class='x31'>{% if form.tofd_basic_b_part_3 %}{{form.tofd_basic_b_part_3}}{% endif %}</td>
-<td class='x31'>{% if form.tofd_basic_b_part_4 %}{{form.tofd_basic_b_part_4}}{% endif %}</td>
-<td class='x31'>{% if form.tofd_main_c_1 %}{{form.tofd_main_c_1}}{% endif %}</td>
-<td class='x30'>{% if form.tofd_main_c_2 %}{{form.tofd_main_c_2}}{% endif %}</td>
-<td class='x30'>{% if form.tofd_main_c_3 %}{{form.tofd_main_c_3}}{% endif %}</td>
-<td class='x39'>{% if form.tofd_delivery_method %}{{form.tofd_delivery_method}}{% endif %}</td>
-<td class='x39'>{% if form.tofd_lecturer %}{{form.tofd_lecturer}}{% endif %}</td>
-<td class='x39'>{% if form.tofd_invigilator %}{{form.tofd_invigilator}}{% endif %}</td>
-<td class='x39'>{% if form.tofd_venue %}{{form.tofd_venue}}{% endif %}</td>
-<td class='x39'>{% if form.tofd_remark %}{{form.tofd_remark}}{% endif %}</td>
- </tr>
- <tr height='36' style='mso-height-source:userset;height:27pt'>
-<td height='34' class='x26' style='height:25.5pt;'></td>
-<td class='x26'></td>
-<td class='x26'></td>
-<td class='x27'></td>
-<td class='x26'></td>
-<td class='x26'></td>
-<td class='x26'></td>
-<td class='x33'></td>
-<td class='x33'></td>
-<td class='x33'></td>
-<td class='x33'></td>
-<td class='x33'></td>
-<td class='x33'></td>
-<td class='x32'></td>
-<td class='x30'></td>
-<td class='x30'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
- </tr>
+
+
+
  <tr height='133' style='mso-height-source:userset;height:99.75pt;mso-xlrowspan:7'>
 <td colspan='21' height='19' class='x24' style='mso-ignore:colspan;height:14.25pt;'></td>
  </tr>
@@ -1232,93 +1148,10 @@ bottom:0px;
 <td class='x24'></td>
 <td class='x24'></td>
  </tr>
- <tr height='34' style='mso-height-source:userset;height:25.5pt'>
-<td colspan='16' height='32' class='x48' style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;height:24pt;'>PCN-TOFDL3, EXAMS</td>
-<td rowspan='4' height='131' class='x43' style='border-bottom:1px solid windowtext;height:98.25pt;'>Delivery Method</td>
-<td rowspan='4' height='131' class='x43' style='border-bottom:1px solid windowtext;height:98.25pt;'>Lecturer</td>
-<td rowspan='4' height='131' class='x43' style='border-bottom:1px solid windowtext;height:98.25pt;'>Invigilator</td>
-<td rowspan='4' height='132' class='x44' style='border-bottom:1px solid windowtext;height:99pt;'>Exam Venue (Country, City, Address)</td>
-<td rowspan='4' height='131' class='x43' style='border-bottom:1px solid windowtext;height:98.25pt;'>Remarks</td>
- </tr>
- <tr height='24' class='x25' style='mso-height-source:userset;height:18pt'>
-<td rowspan='3' height='98' class='x46' style='border-bottom:1px solid windowtext;height:73.5pt;'>No.</td>
-<td rowspan='3' height='98' class='x46' style='border-bottom:1px solid windowtext;height:73.5pt;'>Candidate Name</td>
-<td rowspan='3' height='97' class='x43' style='border-bottom:1px solid windowtext;height:72.75pt;'>Scheme</td>
-<td rowspan='3' height='97' class='x43' style='border-bottom:1px solid windowtext;height:72.75pt;'>Exam date</td>
-<td rowspan='3' height='97' class='x47' style='border-bottom:1px solid windowtext;height:72.75pt;'>NDTL3</td>
-<td rowspan='3' height='97' class='x47' style='border-bottom:1px solid windowtext;height:72.75pt;'>TOFDL2</td>
-<td rowspan='3' height='97' class='x51' style='border-bottom:1px solid windowtext;height:72.75pt;'>PAUT L2<br> Practical Exam</td>
-<td colspan='6' class='x43' style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>BASIC EXAMS (A, B, C)</td>
-<td colspan='3' class='x43' style='border-right:1px solid windowtext;border-bottom:1px solid windowtext;'>Main method examination</td>
- </tr>
- <tr height='27' class='x25' style='mso-height-source:userset;height:20.25pt'>
-<td class='x35'>A</td>
-<td class='x35'>B</td>
-<td class='x35'>C- Part-1</td>
-<td class='x35'>C- Part-2</td>
-<td class='x35'>C- Part-3</td>
-<td class='x35'>C- Part-4</td>
-<td class='x36'>D</td>
-<td class='x36'>E</td>
-<td class='x36'>F</td>
- </tr>
- <tr height='48' class='x25' style='mso-height-source:userset;height:36pt'>
-<td class='x37'>30 questions on materials</td>
-<td class='x37'>10 questions-Scheme</td>
-<td class='x37'>15 Questions in PT</td>
-<td class='x37'>15 Questions in MT</td>
-<td class='x37'>15 Questions in UT</td>
-<td class='x37'>15 Questions in RT</td>
-<td class='x37'>30 questions of Level 3 knowledge</td>
-<td class='x36'>20 questions- application</td>
-<td class='x36'>NDT procedure</td>
- </tr>
- <tr height='36' style='mso-height-source:userset;height:27pt'>
-<td height='34' class='x39' style='height:25.5pt;'>1</td>
-<td class='x39'>{{form.candidate.first_name}} {% if form.candidate.middleName %}{{form.candidate.middleName}}{% endif %} {{form.candidate.last_name}}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_scheme %}{{form.pcn_tofd_l3_scheme}}{% endif %}</td>
-<td class='x27'>{% if form.pcn_tofd_l3_exam_date %}{{form.pcn_tofd_l3_exam_date|date:'m/d/Y'}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_ndtl3 %}{{form.pcn_tofd_l3_ndtl3}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_pautl2 %}{{form.pcn_tofd_l3_pautl2}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_practical_exam %}{{form.pcn_tofd_l3_practical_exam}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_basic_a1 %}{{form.pcn_tofd_l3_basic_a1}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_basic_a2 %}{{form.pcn_tofd_l3_basic_a2}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_basic_b_part_1 %}{{form.pcn_tofd_l3_basic_b_part_1}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_basic_b_part_2 %}{{form.pcn_tofd_l3_basic_b_part_2}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_basic_b_part_3 %}{{form.pcn_tofd_l3_basic_b_part_3}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_basic_b_part_4 %}{{form.pcn_tofd_l3_basic_b_part_4}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_main_d %}{{form.pcn_tofd_l3_main_d}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_main_e %}{{form.pcn_tofd_l3_main_e}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_main_f %}{{form.pcn_tofd_l3_main_f}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_delivery_method %}{{form.pcn_tofd_l3_delivery_method}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_lecturer %}{{form.pcn_tofd_l3_lecturer}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_invigilator %}{{form.pcn_tofd_l3_invigilator}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_venue %}{{form.pcn_tofd_l3_venue}}{% endif %}</td>
-<td class='x39'>{% if form.pcn_tofd_l3_remark %}{{form.pcn_tofd_l3_remark}}{% endif %}</td>
- </tr>
- <tr height='36' style='mso-height-source:userset;height:27pt'>
-<td height='34' class='x39' style='height:25.5pt;'>2</td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x27'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
-<td class='x39'></td>
- </tr>
+
+
+
+
 <![if supportMisalignedColumns]>
  <tr height='0' style='display:none'>
   <td width='43' style='width:32.25pt'; ></td>
