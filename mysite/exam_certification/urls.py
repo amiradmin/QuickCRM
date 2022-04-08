@@ -42,8 +42,8 @@ urlpatterns = [
 
     path('examtofdl3summary/', views.ExamMaterialTofdL3Summary.as_view(), name='examtofdl3summary_'),
     path('newexamtofdl3/', views.NewExamMaterialTofdL3.as_view(), name='newexamtofdl3_'),
-    # path('l3ismform/<int:id>', views.ExamMaterialL3IMSForm.as_view(), name='l3ismform_'),
-    # path('examl3delete/<int:pk>/delete/', views.DeleteExamL3Material.as_view(), name='examl3delete_'),
+    path('tofdl3ismform/<int:id>', views.ExamMaterialTofdL3IMSForm.as_view(), name='tofdl3ismform_'),
+    path('examtofdl3delete/<int:pk>/delete/', views.DeleteExamTofdL3Material.as_view(), name='examtofdl3delete_'),
 
     path('examresultsummary/', views.ExamResultSummary.as_view(), name='examresultsummary_'),
     path('newexamresult/', views.NewExamResult.as_view(), name='newexamresult_'),

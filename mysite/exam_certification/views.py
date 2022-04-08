@@ -15,6 +15,22 @@ import datetime
 # Create your views here.
 
 
+class DeleteExamTofdL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = ExamMaterialTofdL3
+    success_url = reverse_lazy('exam_certification:examtofdl3summary_')
+
+
+class ExamMaterialTofdL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/tofd_l3_ims_form.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamMaterialTofdL3IMSForm, self).get_context_data()
+        form =ExamMaterialTofdL3.objects.filter(id=self.kwargs['id']).first()
+        context['form'] = form
+        return context
+
+
+
 
 
 class NewExamMaterialTofdL3(SidebarMixin, LoginRequiredMixin, TemplateView):
