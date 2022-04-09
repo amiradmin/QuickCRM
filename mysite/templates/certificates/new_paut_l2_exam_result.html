@@ -1,7 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<!-- CSS Code: Place this code in the document's head (between the 'head' tags) -->
+<style>
+table.GeneratedTable {
+  width: 100%;
+  background-color: #ffffff;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-color: #000000;
+  border-style: solid;
+  color: #000000;
+}
 
+table.GeneratedTable td, table.GeneratedTable th {
+  border-width: 2px;
+  border-color: #000000;
+  border-style: solid;
+  padding: 3px;
+}
+
+table.GeneratedTable thead {
+  background-color: #3f8ad9;
+}
+</style>
                     <!-- Start Content-->
                     <div class="container-fluid">
 
@@ -12,13 +34,11 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">New PAUTL 2 Exam Material</h4>
+                                <h4 class="page-title">New Exam Result</h4>
                             </div>
                         </div>
                     </div>     
                     <!-- end page title --> 
-
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -33,7 +53,7 @@
                                         </div> <!-- end preview-->
                                         <br>
 
-                                        
+
                     <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                                     {% csrf_token %}
 
@@ -85,25 +105,131 @@
                                     </div></div></div>
 
 
-
-                           <div class="row">
+                    <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
+                                    <h4 class="header-title"> </h4>
 
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+
+
+                                        </div> <!-- end preview-->
+                                        <br>
+
+                                        
                     <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                                     {% csrf_token %}
-         <div class="row g-2">
+
+
+
+
+
+<!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
+<table class="GeneratedTable">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Value</th>
+      <th>Title</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Candidate</td>
+      <td>{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}</td>
+      <td>Event Date</td>
+      <td>{{exam.event.start_date|date:'m/d/Y'}}-{{exam.event.end_date|date:'m/d/Y'}}</td>
+    </tr>
+    <tr>
+      <td>Product</td>
+      <td>{{exam.event.product.name}}</td>
+      <td>Product Category</td>
+      <td>{{exam.event.product.category}}</td>
+    </tr>
+    <tr>
+      <td>Exam Date</td>
+      <td>{{exam.event.start_exam_date|date:'m/d/Y'}}</td>
+      <td>Scheme</td>
+      <td>{{exam.cswip_pcn}}</td>
+    </tr>
+    <tr>
+      <td>Lecturer</td>
+      <td>{{exam.event.lecturers}}</td>
+      <td>General Theory</td>
+      <td>{{exam.general_theory }}</td>
+    </tr>
+    <tr>
+      <td>Specific Theory</td>
+      <td>{{exam.specific_theory }}</td>
+      <td>Sample 1(data collection)</td>
+      <td>{{exam.sample1_analysis }}</td>
+    </tr>
+    <tr>
+      <td>Sample 1 (data analysis)</td>
+      <td>{{exam.sample1_collection }}</td>
+      <td>Sample 2(Double Vee)(data collection)</td>
+      <td>{{exam.sample2_analysis }}</td>
+    </tr>
+    <tr>
+      <td>Sample 2(data collection)</td>
+      <td>{{exam.sample2_collection }}</td>
+      <td>Sample 3(data collection)</td>
+      <td>{{exam.sample2_collection }}</td>
+    </tr>
+      <tr>
+      <td>Sample 3 (data analysis)</td>
+      <td>{{exam.sample3_analysis }}</td>
+      <td>Sample 3(data collection)</td>
+      <td>{{exam.sample3_collection }}</td>
+    </tr>
+        <tr>
+      <td>Written Instruction</td>
+      <td>{{exam.written_instruction }}</td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<!-- Codes by Quackit.com -->
+                        <br>
+                        <br>
+                        <br>
+
+
+
+
+                                                    <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                    <input  value="{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}"  id="canID" name="candidateID" class="form-control" required/>
+
+
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
+                                                            <label class="form-label">Event</label>
+                                                       <input  value="{{exam.event.name}}"   id="" name="eventID" class="form-control" required />
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row g-2">
+                                                  <div class="mb-3 col-md-6">
+                                                      <div class="mb-3 position-relative" id="datepicker4">
+                                                    <label class="form-label">Result</label>
+<select class="form-select" name="result" aria-label="Default select example">
+
+  <option value="">Choose</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+
+</select>
+                                                </div>
                                                         </div>
 
-                     <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Event</label>
-                                    <input  value="{{event.id}}-{{event.name}}"  id="" name="eventID" class="form-control" required/>
-                                                        </div>
-        </div>
 
 
          <div class="row g-2">
@@ -234,9 +360,27 @@
 
 
 
+                                                        <div class="mb-3 col-md-6">
+      <label class="form-label">Result Card File</label>
+<input  type="file"  name="myFile" class="form-control"  />
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                        <div class="mb-3 col-md-12">
+                                                            <label class="form-label">Failed </label>
+                                                            <textarea class="form-control" id="certiﬁcate_number" name="explanation" ></textarea>
+                                                        </div>
+
+
+
+
+
                                                     <br>
                                                     <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" name="submit" type="submit">Submit</button>
+                                                        <button class="btn btn-primary" type="submit">Submit</button>
                                                     </div>
                                                 </form>
 
@@ -271,14 +415,7 @@
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
 
 
-function myFunction() {
 
-  var issueDate = document.getElementById('issue_date').value;
-  var candidate = document.getElementById('canID').value;
-  console.log(candidate);
-  var cerNumber = document.getElementById('certiﬁcate_number');
-  cerNumber.value=issueDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + issueDate.split('/')[0] + '_' + issueDate.split('/')[1]  ;
-}
 
 
 

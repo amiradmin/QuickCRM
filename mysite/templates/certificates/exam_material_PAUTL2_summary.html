@@ -132,7 +132,6 @@
                                             </div>
                                             <div class="col-sm-8" >
                                                 <div class="text-sm-end" >
- <a href="{% url 'exam_certification:newexamaputl2_' %}" type="button" class="btn btn-light mb-2 me-1"><i class="mdi mdi-square-edit-outline" style="margin-right:6px;color:#03962a;font-size:20px;"></i>New</a>
 
                                                 </div>
 
@@ -192,7 +191,7 @@
 
                                                         <td>{{item.written_instruction}}</td>
                                                         <td><a href="{% url 'exam_certification:exampautl2delete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
-
+<td><a href="{% url 'exam_certification:newexamaputl2_' id=item.id  %}"><i style="font-size:20px;" class="fa fa-id-card" aria-hidden="true"></i></a>
 
                                                     </tr>
                                                     {%endfor%}

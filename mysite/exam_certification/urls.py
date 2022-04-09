@@ -32,7 +32,7 @@ urlpatterns = [
     path('examtofddelete/<int:pk>/delete/', views.DeleteExamTofd.as_view(), name='examtofddelete_'),
 
     path('exampautl2summary/', views.ExamMaterialPAUTL2Summary.as_view(), name='exampautl2summary_'),
-    path('newexamaputl2/', views.NewExamMaterialPautl2.as_view(), name='newexamaputl2_'),
+    path('newexamaputl2/<int:id>', views.NewExamMaterialPautl2ByID.as_view(), name='newexamaputl2_'),
     path('exampautl2delete/<int:pk>/delete/', views.DeleteExamPAUTL2.as_view(), name='exampautl2delete_'),
 
     path('examl3summary/', views.ExamMaterialL3Summary.as_view(), name='examl3summary_'),
@@ -46,7 +46,7 @@ urlpatterns = [
     path('examtofdl3delete/<int:pk>/delete/', views.DeleteExamTofdL3Material.as_view(), name='examtofdl3delete_'),
 
     path('examresultsummary/', views.ExamResultSummary.as_view(), name='examresultsummary_'),
-    path('newexamresult/', views.NewExamResult.as_view(), name='newexamresult_'),
+    path('newexamresult/', views.NewExamResultPautL2.as_view(), name='newexamresult_'),
     # path('l3ismform/<int:id>', views.ExamMaterialL3IMSForm.as_view(), name='l3ismform_'),
     # path('examl3delete/<int:pk>/delete/', views.DeleteExamL3Material.as_view(), name='examl3delete_'),
 
