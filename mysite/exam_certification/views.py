@@ -163,6 +163,7 @@ class NewExamMaterialTofdL3(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
+
 class ExamMaterialTofdL3Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_tofd_l3_summary.html"
 
@@ -184,8 +185,10 @@ class NewExamResultPautL2(SidebarMixin, LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamResultPautL2, self).get_context_data()
-        # exam = ExamResultPautL2.objects.all()
-        # context['exam'] = exam
+        exams = ExamMaterialPAUTL2.objects.all()
+        candidates = TesCandidate.objects.all()
+        context['exams'] = exams
+        context['candidates'] = candidates
         return context
 
     def post(self, request, *args, **kwargs):
@@ -193,8 +196,9 @@ class NewExamResultPautL2(SidebarMixin, LoginRequiredMixin, TemplateView):
         if request.method == 'POST':
             if 'updateInfo' in request.POST:
                 print("updateInfo")
-                exam = ExamResultPautL2.objects.filter(id=self.kwargs['id']).first()
-                print(self.kwargs['id'])
+                print(request.POST['examID'])
+                exam = ExamMaterialPAUTL2.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                # print(self.kwargs['id'])
                 context['exam'] = exam
 
                 return render(request, 'certificates/new_paut_l2_exam_result.html', context)
@@ -205,12 +209,23 @@ class NewExamResultPautL2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 print("Submit")
                 print(self.request.POST['eventID'].split('-')[0])
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
                 obj = ExamResultPautL2()
                 obj.event = event
                 obj.candidate = candidate
                 obj.result = self.request.POST['result']
                 obj.explanation = self.request.POST['explanation']
+                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.general_theory = self.request.POST['general_theory']
+                obj.specific_theory = self.request.POST['specific_theory']
+                obj.sample1_analysis = self.request.POST['sample1_analysis']
+                obj.sample1_collection = self.request.POST['sample1_collection']
+                obj.sample2_analysis = self.request.POST['sample2_analysis']
+                obj.sample2_collection = self.request.POST['sample2_collection']
+                obj.sample3_analysis = self.request.POST['sample3_analysis']
+                obj.sample3_collection = self.request.POST['sample3_collection']
+                obj.written_instruction = self.request.POST['written_instruction']
+                obj.remark = self.request.POST['remarks']
                 if bool(request.FILES.get('myFile', False)) == True:
                     obj.file = self.request.FILES['myFile']
                 obj.save()
@@ -239,6 +254,25 @@ class ExamResultSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
+        return context
+
+
+class ExamResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/paut_l2_exam_result_byID.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamResultSummaryByID, self).get_context_data()
+        print(self.kwargs['id'])
+        exam = ExamResultPautL2.objects.filter(id=self.kwargs['id']).first()
+        finalResult =None
+        if exam.general_theory < 69  or exam.specific_theory < 69  or exam.sample1_analysis < 69  or exam.sample1_collection < 69  or exam.sample2_analysis < 69  or exam.sample2_collection < 69  or exam.sample3_analysis < 69  or exam.sample3_collection < 69  or exam.written_instruction < 69 :
+            finalResult = "Failed"
+        else:
+            finalResult = "Passed"
+
+        context['exam'] = exam
+        context['finalResult'] = finalResult
+
         return context
 
 

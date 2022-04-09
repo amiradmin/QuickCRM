@@ -157,6 +157,7 @@ class ExamResultPautL2(models.Model):
     candidate = models.ForeignKey(TesCandidate,related_name="exam_result_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
     exam = models.ForeignKey(ExamMaterialPAUTL2,related_name="exam_result",  null=True, blank=True , on_delete=models.DO_NOTHING)
     result = models.CharField(max_length=128,null=True, blank=True)
+    cswip_pcn = models.CharField(max_length=256, null=True, blank=True)
     explanation = models.CharField(max_length=4096,null=True, blank=True)
     file = models.FileField(upload_to='exam_result_file',null=True,blank=True)
     general_theory = models.FloatField(null=True, blank=True)
