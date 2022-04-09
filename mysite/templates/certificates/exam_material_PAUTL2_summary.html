@@ -132,6 +132,7 @@
                                             </div>
                                             <div class="col-sm-8" >
                                                 <div class="text-sm-end" >
+ <a href="{% url 'exam_certification:newexamaputl2_' %}" type="button" class="btn btn-light mb-2 me-1"><i class="mdi mdi-square-edit-outline" style="margin-right:6px;color:#03962a;font-size:20px;"></i>New</a>
 
                                                 </div>
 
@@ -148,7 +149,7 @@
                                                         <th></th>
                                                         <th>Name</th>
                                                         <th>Product</th>
-                                                        <th>Revision</th>
+                                                        <th>Exam Title</th>
 
                                                         <th>Email</th>
                                                         <th>Exam Date</th>
@@ -176,7 +177,7 @@
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{%endif%} {{item.candidate.last_name}}</td>
                                                         <td>{{item.event.product}}</td>
-                                                        <td>{{item.exam_revision}}</td>
+                                                        <td>{{item.exam_title}}</td>
                                                         <td>{{item.candidate.email}}</td>
                                                         <td>{{item.exam_date|date:'m/d/Y'}}</td>
                                                         <td>{{item.cswip_pcn}}</td>
@@ -191,7 +192,6 @@
 
                                                         <td>{{item.written_instruction}}</td>
                                                         <td><a href="{% url 'exam_certification:exampautl2delete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
-<td><a href="{% url 'exam_certification:newexamaputl2_' id=item.id  %}"><i style="font-size:20px;" class="fa fa-id-card" aria-hidden="true"></i></a>
 
                                                     </tr>
                                                     {%endfor%}

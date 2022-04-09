@@ -32,7 +32,7 @@ urlpatterns = [
     path('examtofddelete/<int:pk>/delete/', views.DeleteExamTofd.as_view(), name='examtofddelete_'),
 
     path('exampautl2summary/', views.ExamMaterialPAUTL2Summary.as_view(), name='exampautl2summary_'),
-    path('newexamaputl2/<int:id>', views.NewExamMaterialPautl2ByID.as_view(), name='newexamaputl2_'),
+    path('newexamaputl2/', views.NewExamMaterialPautl2.as_view(), name='newexamaputl2_'),
     path('exampautl2delete/<int:pk>/delete/', views.DeleteExamPAUTL2.as_view(), name='exampautl2delete_'),
 
     path('examl3summary/', views.ExamMaterialL3Summary.as_view(), name='examl3summary_'),

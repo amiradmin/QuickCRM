@@ -127,7 +127,16 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Title</label>
-                                    <input  value="{{event.product.name}}"  id="" name="examTitle"  class="form-control" required/>
+                                         <select name="examTitle"  >
+
+
+                                        <option value="Initial">Initial</option>
+                                        <option value="Retest">Retest</option>
+                                        <option value="Renewal">Renewal</option>
+
+
+                                    </select>
+
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -138,10 +147,7 @@
 
 
          <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Exam Revision</label>
-                                    <input  value=""  id="" name="revision"  class="form-control" required/>
-                                                        </div>
+
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Lecturer</label>

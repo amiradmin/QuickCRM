@@ -10,6 +10,7 @@ from django.views.generic import View, TemplateView
 from training.models import TesCandidate,Event
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
+from dateutil.relativedelta import *
 from django.db.models import Q
 import datetime
 # Create your views here.
@@ -265,13 +266,52 @@ class ExamResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateView):
         print(self.kwargs['id'])
         exam = ExamResultPautL2.objects.filter(id=self.kwargs['id']).first()
         finalResult =None
+        re_exams =""
+
         if exam.general_theory < 69  or exam.specific_theory < 69  or exam.sample1_analysis < 69  or exam.sample1_collection < 69  or exam.sample2_analysis < 69  or exam.sample2_collection < 69  or exam.sample3_analysis < 69  or exam.sample3_collection < 69  or exam.written_instruction < 69 :
             finalResult = "Failed"
         else:
             finalResult = "Passed"
 
+
+        if exam.cswip_pcn == 'CSWIP':
+            if exam.general_theory < 69 :
+                re_exams = "General Theory,"
+            if exam.specific_theory < 69 :
+                re_exams = str(re_exams) + "Specific Theory,"
+            if exam.sample1_analysis < 69 :
+                re_exams = str(re_exams) + "Sample1 data Analysis,"
+            if exam.sample1_collection < 69 :
+                re_exams = str(re_exams) + "Sample1 data Collection,"
+            if exam.sample2_analysis < 69 :
+                re_exams = str(re_exams) + "Sample2 data Analysis,"
+            if exam.sample2_collection < 69 :
+                re_exams = str(re_exams) + "Sample2 data Collection,"
+            if exam.sample3_analysis < 69 :
+                re_exams = str(re_exams) + "Sample3 data Analysis,"
+            if exam.sample3_collection < 69 :
+                re_exams = str(re_exams) + "Sample3 data Collection,"
+            if exam.written_instruction < 69 :
+                re_exams = str(re_exams) + "Written data Instruction,"
+
+        elif exam.cswip_pcn == 'PCN':
+            if exam.general_theory < 69 or exam.specific_theory < 69 :
+                re_exams = "General Theory,Specific Theory"
+            elif exam.sample1_analysis < 69 or exam.sample1_collection < 69 or exam.sample2_analysis < 69 or exam.sample2_collection < 69 or exam.sample3_collection < 69 or exam.sample3_analysis < 69 or exam.written_instruction < 69 :
+                re_exams = str(
+                    re_exams) + "Sample1 data Analysis,Sample1 data Collection,Sample2 data Analysis,Sample2 data Collection,Sample3 data Analysis,Sample3 data Collection,Written data Instruction"
+
+        import datetime
+
+        final_deadline_date = exam.event.start_exam_date + relativedelta(months=+12)
+        second_email_date = exam.event.start_exam_date + relativedelta(months=+6)
+        third_email_date = exam.event.start_exam_date + relativedelta(months=+10)
         context['exam'] = exam
         context['finalResult'] = finalResult
+        context['re_exams'] = re_exams
+        context['final_deadline_date'] = final_deadline_date
+        context['second_email_date'] = second_email_date
+        context['third_email_date'] = third_email_date
 
         return context
 
@@ -548,12 +588,13 @@ class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                # obj.exam_revision = self.request.POST['revision']
+                obj.examTitle = self.request.POST['examTitle']
                 obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
                 obj.remark = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
                 obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['examTitle']
                 obj.general_theory = self.request.POST['general_theory']
                 obj.specific_theory = self.request.POST['specific_theory']
                 obj.sample1_analysis = self.request.POST['sample1_analysis']
@@ -625,6 +666,7 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.invigilator = self.request.POST['invigilator']
                 obj.remark = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
+                obj.examTitle = self.request.POST['examTitle']
                 obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.general_theory = self.request.POST['general_theory']
                 obj.specific_theory = self.request.POST['specific_theory']
