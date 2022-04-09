@@ -127,8 +127,8 @@ table.GeneratedTable thead {
         <tr>
       <td>Written Instruction</td>
             <td>{% if exam.written_instruction < 70.0 %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>
-      <td></td>
-      <td></td>
+      <td>Exam Title</td>
+      <td>{{exam.exam.exam_title}}</td>
     </tr>
   </tbody>
 </table>

@@ -214,8 +214,8 @@ class NewExamResultPautL2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj = ExamResultPautL2()
                 obj.event = event
                 obj.candidate = candidate
-                obj.result = self.request.POST['result']
-                obj.explanation = self.request.POST['explanation']
+                # obj.result = self.request.POST['result']
+                # obj.explanation = self.request.POST['explanation']
                 obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.general_theory = self.request.POST['general_theory']
                 obj.specific_theory = self.request.POST['specific_theory']
