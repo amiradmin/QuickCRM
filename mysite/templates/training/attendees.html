@@ -130,13 +130,16 @@
                                             <div class="mb-3 col-md-12 text-center">
 
                                                 <button type="submit" class="btn btn-primary">Add</button>
+                                                <button type="submit" onclick="location.href = 'http://erp.tescan.ca/training/event';"class="btn btn-primary">Finish</button>
                                             </div>
 
 
 
                                         </form>
-
-
+<h4>Added Candidate:</h4>
+{% for item in event.candidate.all %}
+<p style="margin-bottom:4px;">{{item.id}}-{{item.first_name}} {% if item.middleName %}{{ item.middleName }}{% endif %} {{item.last_name}}</p>
+{% endfor %}
 
                                         <div class="tab-pane" id="basic-datatable-code">
                                             <p>Please include following css file at <code>head</code> element</p>

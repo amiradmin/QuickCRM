@@ -720,7 +720,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
 
-        return redirect('training:event_')
+        return redirect('training:att_', id=event.id)
 
 
 class NewEventLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
