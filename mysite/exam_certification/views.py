@@ -266,52 +266,61 @@ class ExamResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateView):
         print(self.kwargs['id'])
         exam = ExamResultPautL2.objects.filter(id=self.kwargs['id']).first()
         finalResult =None
+        final_deadline_date =None
+        action=None
         re_exams =""
 
-        if exam.general_theory < 69  or exam.specific_theory < 69  or exam.sample1_analysis < 69  or exam.sample1_collection < 69  or exam.sample2_analysis < 69  or exam.sample2_collection < 69  or exam.sample3_analysis < 69  or exam.sample3_collection < 69  or exam.written_instruction < 69 :
+        if exam.general_theory == 'Failed'  or exam.specific_theory == 'Failed'  or exam.sample1_analysis == 'Failed'   or exam.sample1_collection == 'Failed'   or exam.sample2_analysis == 'Failed'  or exam.sample2_collection == 'Failed'   or exam.sample3_analysis == 'Failed'   or exam.sample3_collection == 'Failed'  or exam.written_instruction == 'Failed'  :
             finalResult = "Failed"
+            final_deadline_date = exam.event.start_exam_date + relativedelta(months=+12)
+            second_email_date = exam.event.start_exam_date + relativedelta(months=+6)
+            third_email_date = exam.event.start_exam_date + relativedelta(months=+10)
+            action='Re-test'
         else:
             finalResult = "Passed"
 
+            second_email_date = exam.event.start_exam_date + relativedelta(months=+54)
+            third_email_date = exam.event.start_exam_date + relativedelta(months=+114)
+            action = 'Renewal'
+
 
         if exam.cswip_pcn == 'CSWIP':
-            if exam.general_theory < 69 :
+            if exam.general_theory == 'Failed' :
                 re_exams = "General Theory,"
-            if exam.specific_theory < 69 :
+            if exam.specific_theory == 'Failed' :
                 re_exams = str(re_exams) + "Specific Theory,"
-            if exam.sample1_analysis < 69 :
+            if exam.sample1_analysis == 'Failed'  :
                 re_exams = str(re_exams) + "Sample1 data Analysis,"
-            if exam.sample1_collection < 69 :
+            if exam.sample1_collection == 'Failed'  :
                 re_exams = str(re_exams) + "Sample1 data Collection,"
-            if exam.sample2_analysis < 69 :
+            if exam.sample2_analysis == 'Failed' :
                 re_exams = str(re_exams) + "Sample2 data Analysis,"
-            if exam.sample2_collection < 69 :
+            if exam.sample2_collection == 'Failed'  :
                 re_exams = str(re_exams) + "Sample2 data Collection,"
-            if exam.sample3_analysis < 69 :
+            if exam.sample3_analysis == 'Failed'  :
                 re_exams = str(re_exams) + "Sample3 data Analysis,"
-            if exam.sample3_collection < 69 :
+            if exam.sample3_collection == 'Failed'  :
                 re_exams = str(re_exams) + "Sample3 data Collection,"
-            if exam.written_instruction < 69 :
+            if exam.written_instruction == 'Failed' :
                 re_exams = str(re_exams) + "Written data Instruction,"
 
         elif exam.cswip_pcn == 'PCN':
-            if exam.general_theory < 69 or exam.specific_theory < 69 :
+            if exam.general_theory == 'Failed'  or exam.specific_theory == 'Failed'  :
                 re_exams = "General Theory,Specific Theory"
-            elif exam.sample1_analysis < 69 or exam.sample1_collection < 69 or exam.sample2_analysis < 69 or exam.sample2_collection < 69 or exam.sample3_collection < 69 or exam.sample3_analysis < 69 or exam.written_instruction < 69 :
+            elif exam.sample1_analysis == 'Failed'  or exam.sample1_collection == 'Failed'  or exam.sample2_analysis== 'Failed'  or exam.sample2_collection == 'Failed'  or exam.sample3_collection == 'Failed'  or exam.sample3_analysis == 'Failed'  or exam.written_instruction == 'Failed'  :
                 re_exams = str(
                     re_exams) + "Sample1 data Analysis,Sample1 data Collection,Sample2 data Analysis,Sample2 data Collection,Sample3 data Analysis,Sample3 data Collection,Written data Instruction"
 
         import datetime
 
-        final_deadline_date = exam.event.start_exam_date + relativedelta(months=+12)
-        second_email_date = exam.event.start_exam_date + relativedelta(months=+6)
-        third_email_date = exam.event.start_exam_date + relativedelta(months=+10)
+
         context['exam'] = exam
         context['finalResult'] = finalResult
         context['re_exams'] = re_exams
         context['final_deadline_date'] = final_deadline_date
         context['second_email_date'] = second_email_date
         context['third_email_date'] = third_email_date
+        context['action'] = action
 
         return context
 
