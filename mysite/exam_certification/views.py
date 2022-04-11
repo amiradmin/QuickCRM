@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
                                        PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
-                                       CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3 )
+                                       CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3,
+                                       CSWIPWeldingInspector3_1ExamMaterial)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,6 +15,90 @@ from dateutil.relativedelta import *
 from django.db.models import Q
 import datetime
 # Create your views here.
+
+
+
+
+
+
+class CSWIPExamMaterial31Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_cswip_31_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CSWIPExamMaterial31Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = CSWIPWeldingInspector3_1ExamMaterial.objects.all()
+        examCount = CSWIPWeldingInspector3_1ExamMaterial.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_cswip_31_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewCSWIPExamMaterial31, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewCSWIPExamMaterial31, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_cswip_31_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = CSWIPWeldingInspector3_1ExamMaterial()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.examTitle = self.request.POST['examTitle']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                obj.remark = self.request.POST['remarks']
+                obj.customerID = self.request.POST['customerID']
+                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['examTitle']
+                obj.general_paper = self.request.POST['general_paper']
+                obj.technology_paper = self.request.POST['technology_paper']
+                obj.plate_paper = self.request.POST['plate_paper']
+                obj.pipe_paper = self.request.POST['pipe_paper']
+                obj.macro_paper = self.request.POST['macro_paper']
+
+                obj.save()
+
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = CSWIPWeldingInspector3_1ExamMaterial.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+
+                return render(request, 'certificates/exam_material_PAUTL2_summary.html',context=context)
+
+
 
 
 class DeleteExamTofdL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
