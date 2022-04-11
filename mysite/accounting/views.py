@@ -245,7 +245,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         events = Event.objects.filter(candidate = candidate)
         contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
         contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
-
+        print("Good Day")
         now = datetime.datetime.now()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
@@ -277,6 +277,9 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
             profileData.contact_number = request.POST['contact_number']
             if not request.POST.get('password', '') == None:
                 profileData.password = request.POST['password']
+
+            if not request.POST.get('birthDate', '') == '':
+                profileData.birth_date = datetime.datetime.strptime(self.request.POST['birthDate'], '%m/%d/%Y')
             profileData.currentCompany = request.POST['currentCompany']
             profileData.website = request.POST['website']
             profileData.facebook = request.POST['facebook']

@@ -612,7 +612,7 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="validationCustom01">Middle Name</label>
                                     <input type="text" title="Write your middle name if you have one!"
-                                           value="{% if candidate.middleName != 'None' %}{{candidate.middleName}}{% endif %}" name="middleName" class="form-control"
+                                           value="{% if candidate.middleName  %}{{candidate.middleName}}{% endif %}" name="middleName" class="form-control"
                                            id="validationCustom01" placeholder="Middle name">
                                     <div class="valid-feedback">
                                         Looks good!
@@ -654,7 +654,7 @@
                                             <div class="mb-3">
                                                 <label for="userbio" class="form-label">About Me</label>
                                                 <textarea class="form-control" name="aboutMe" id="userbio" rows="4"
-                                                          style="text-align:justify" placeholder="Write something..."> {% if candidate.aboutMe  != 'None'  %} {{candidate.aboutMe}} {% endif %}</textarea>
+                                                          style="text-align:justify" placeholder="Write something..."> {% if candidate.aboutMe   %} {{candidate.aboutMe}} {% endif %}</textarea>
                                             </div>
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
@@ -684,7 +684,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="validationCustom03">Contact Number</label>
-                                        <input type="text" name="contact_number" value="{{candidate.contact_number}}"
+                                        <input type="text" name="contact_number" value="{% if candidate.contact_number   %} {{candidate.contact_number}}{% endif %}"
                                                class="form-control" id="validationCustom03" placeholder="Phone">
                                         <div class="invalid-feedback">
                                             Please provide a valid contact number.
@@ -693,7 +693,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Emergenry Contact</label>
                                         <input type="text" name="emergencyContact"
-                                               value="{{candidate.emergencyContact}}" class="form-control"
+                                               value="{% if candidate.emergencyContact   %} {{candidate.emergencyContact}}{% endif %}" class="form-control"
                                                id="validationCustom06" placeholder="Emergenry Contact" >
                                         <div class="invalid-feedback">
                                             Please provide a valid Emergenry Cantact.
@@ -708,7 +708,7 @@
                                             <textarea name="address" class="form-control"
                                                       title="Address should be included with postal code!"
                                                       placeholder=" Address here" id="floatingTextarea"
-                                                      style="height: 100px;">{% if candidate.address != 'None' %} {{candidate.address}}{% endif %}</textarea>
+                                                      style="height: 100px;">{% if candidate.address %} {{candidate.address}}{% endif %}</textarea>
                                             <span class="tooltiptext">Tooltip text</span>
                                         </div>
 
@@ -750,7 +750,7 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-facebook"></i></span>
                                                     <input type="text" class="form-control" name="facebook"
-                                                           value=" {% if candidate.facebook != 'None' %} {{candidate.facebook}}{% endif %}" id="social-fb"
+                                                           value=" {% if candidate.facebook %} {{candidate.facebook}}{% endif %}" id="social-fb"
                                                            placeholder="Url">
                                                 </div>
                                             </div>
@@ -762,8 +762,8 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-twitter"></i></span>
                                                     <input type="text" class="form-control" name="twitter"
-                                                           value="{% if candidate.twitter != 'None' %} {{candidate.twitter}}{% endif %}" id="social-tw"
-                                                           placeholder="Username">
+                                                           value="{% if candidate.twitter  %} {{candidate.twitter}}{% endif %}" id="social-tw"
+                                                           placeholder="Url">
                                                 </div>
                                             </div>
                                         </div> <!-- end col -->
@@ -777,7 +777,7 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-instagram"></i></span>
                                                     <input type="text" class="form-control" name="instagram"
-                                                           value="{% if candidate.instagram != 'None' %} {{candidate.instagram}}{% endif %}" id="social-insta"
+                                                           value="{% if candidate.instagram  %} {{candidate.instagram}}{% endif %}" id="social-insta"
                                                            placeholder="Url">
                                                 </div>
                                             </div>
@@ -789,7 +789,7 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-linkedin"></i></span>
                                                     <input type="text" class="form-control" name="linkedin"
-                                                           value="{% if candidate.linkedin != 'None' %} {{candidate.linkedin}}{% endif %}" id="social-lin"
+                                                           value="{% if candidate.linkedin  %} {{candidate.linkedin}}{% endif %}" id="social-lin"
                                                            placeholder="Url">
                                                 </div>
                                             </div>
@@ -803,8 +803,8 @@
                                                 <div class="input-group">
                                                     <span class="input-group-text"><i class="mdi mdi-skype"></i></span>
                                                     <input type="text" class="form-control" name="skype"
-                                                           value="{% if candidate.skype != 'None' %} {{candidate.skype}}{% endif %}" id="social-sky"
-                                                           placeholder="@username">
+                                                           value="{% if candidate.skype %} {{candidate.skype}}{% endif %}" id="social-sky"
+                                                           placeholder="Url">
                                                 </div>
                                             </div>
                                         </div>
