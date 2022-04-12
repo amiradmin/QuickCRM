@@ -1177,6 +1177,7 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                 obj.save()
                 return redirect('forms:evensummary_', id=event.id)
 
+
 class TwiEnrolmentReg(TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_reg.html"
     candidateID = None
