@@ -841,11 +841,11 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
         return context
 
     def post(self, request, id, *args, **kwargs):
-
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        event = Event.objects.filter(id=self.kwargs['eventID']).first()
         if request.method == 'POST':
             if 'mainForm' in request.POST:
-                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
-                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+
                 print(self.kwargs['id'])
                 obj = TwiEnrolmentForm.objects.filter(candidate=candidate).first()
                 obj.twiCandidateID = request.POST['twiCandidateID']
@@ -1175,7 +1175,7 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                 obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
                 obj.file = request.FILES['pdfFile']
                 obj.save()
-                return redirect('forms:evensummary_', id=7)
+                return redirect('forms:evensummary_', id=event.id)
 
 class TwiEnrolmentReg(TemplateView):
     template_name = "forms/reg_forms/twi_enrolment_reg.html"
@@ -2310,6 +2310,14 @@ class UpdatePSL57AFormByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 #
                 # formObj.save()
 
+                return redirect('forms:evensummary_', id=event.id)
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
                 return redirect('forms:evensummary_', id=event.id)
 
 
@@ -4361,6 +4369,14 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 return redirect('forms:evensummary_', id=event.id)
 
             # return redirect('forms:jaegertofdl2_' ,context)
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:evensummary_', id=event.id)
+
             return render(request, 'forms/psl_57B.html', context)
 
 
