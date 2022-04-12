@@ -198,7 +198,7 @@ class CSWIPWeldingInspector3_1ExamMaterial(models.Model):
         return self.event.name
 
 
-class CSWIPWeldingInspector3_1(models.Model):
+class CSWIPWeldingInspector3_1Result(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="exam_result_event_31", null=True, blank=True, on_delete=models.DO_NOTHING)
     candidate = models.ForeignKey(TesCandidate,related_name="exam_result_candidate_31",  null=True, blank=True , on_delete=models.DO_NOTHING)

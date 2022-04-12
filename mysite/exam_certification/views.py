@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
                                        PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
                                        CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3,
-                                       CSWIPWeldingInspector3_1ExamMaterial)
+                                       CSWIPWeldingInspector3_1ExamMaterial,CSWIPWeldingInspector3_1Result)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -17,8 +17,24 @@ import datetime
 # Create your views here.
 
 
+class CSWIPExamResult31Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_cswip_31_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CSWIPExamResult31Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = CSWIPWeldingInspector3_1Result.objects.all()
+        examCount = CSWIPWeldingInspector3_1Result.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
 
 
+
+class DeleteCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = CSWIPWeldingInspector3_1ExamMaterial
+    success_url = reverse_lazy('exam_certification:examscwip31summary_')
 
 
 class CSWIPExamMaterial31Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -76,7 +92,7 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.invigilator = self.request.POST['invigilator']
                 obj.remark = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
-                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                # obj.file = self.request.POST['cswip_pcn']
                 obj.exam_title = self.request.POST['examTitle']
                 obj.general_paper = self.request.POST['general_paper']
                 obj.technology_paper = self.request.POST['technology_paper']
@@ -96,7 +112,7 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['exams'] = exams
                 context['candidates'] = candidates
 
-                return render(request, 'certificates/exam_material_PAUTL2_summary.html',context=context)
+                return render(request, 'certificates/exam_material_cswip_31_summary.html',context=context)
 
 
 
