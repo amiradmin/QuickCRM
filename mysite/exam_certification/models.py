@@ -5,6 +5,16 @@ from training.models import Country,Location,TesCandidate,Product,Event
 
 
 
+class Samples(models.Model):
+    serial_no = models.CharField(max_length=256, null=True, blank=True )
+    asset_code = models.CharField(max_length=256, null=True, blank=True)
+    size = models.CharField(max_length=256, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file',null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.serial_no
 
 
 class ExamMaterialTofdL3(models.Model):
@@ -125,20 +135,21 @@ class ExamMaterialPAUTL2(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="exam_material_pautl_event", null=True, blank=True, on_delete=models.DO_NOTHING)
     candidate = models.ForeignKey(TesCandidate,related_name="exam_material_pautl_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample = models.ForeignKey(Samples,related_name="exam_material_pautl_sample",  null=True, blank=True , on_delete=models.DO_NOTHING)
     exam_date = models.DateTimeField(null=True, blank=True)
     cswip_pcn = models.CharField(max_length=256, null=True, blank=True)
     exam_title = models.CharField(max_length=256, null=True, blank=True)
     customerID = models.CharField(max_length=256, null=True, blank=True)
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
-    general_theory = models.CharField(max_length=256, null=True, blank=True)
-    specific_theory = models.CharField(max_length=256, null=True, blank=True)
-    sample1_analysis = models.CharField(max_length=256,null=True, blank=True)
-    sample1_collection = models.CharField(max_length=256, null=True, blank=True)
-    sample2_analysis = models.CharField(max_length=256, null=True, blank=True)
-    sample2_collection = models.CharField(max_length=256, null=True, blank=True)
-    sample3_analysis = models.CharField(max_length=256, null=True, blank=True)
-    sample3_collection = models.CharField(max_length=256, null=True, blank=True)
+    general_theory = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_general_theory",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    specific_theory = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_specific_theory",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample1_analysis = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_sample1_analysis",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample1_collection = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_sample1_collection",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample2_analysis = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_sample2_analysis",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample2_collection = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_gsample2_collection",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample3_analysis = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_sample3_analysis",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample3_collection = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_sample3_collection",  null=True, blank=True , on_delete=models.DO_NOTHING)
     written_instruction = models.CharField(max_length=256, null=True, blank=True)
 
 

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
                                        PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
                                        CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3,
-                                       CSWIPWeldingInspector3_1ExamMaterial,CSWIPWeldingInspector3_1Result)
+                                       CSWIPWeldingInspector3_1ExamMaterial,CSWIPWeldingInspector3_1Result,Samples)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -733,6 +733,8 @@ class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(NewExamMaterialPautl2, self).get_context_data()
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
         return context
@@ -747,6 +749,8 @@ class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 print(event.id)
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
                 context['event'] = event
@@ -769,14 +773,24 @@ class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.customerID = self.request.POST['customerID']
                 obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.exam_title = self.request.POST['examTitle']
-                obj.general_theory = self.request.POST['general_theory']
-                obj.specific_theory = self.request.POST['specific_theory']
-                obj.sample1_analysis = self.request.POST['sample1_analysis']
-                obj.sample1_collection = self.request.POST['sample1_collection']
-                obj.sample2_analysis = self.request.POST['sample2_analysis']
-                obj.sample2_collection = self.request.POST['sample2_collection']
-                obj.sample3_analysis = self.request.POST['sample3_analysis']
-                obj.sample3_collection = self.request.POST['sample3_collection']
+                print(self.request.POST['general_theory'])
+                sample1 = Samples.objects.filter(id=self.request.POST['general_theory']).first()
+                obj.general_theory = sample1
+                sample2 = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
+                obj.specific_theory = sample2
+                sample3 = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
+                obj.sample1_analysis = sample3
+                sample4 = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()
+                obj.sample1_collection = sample4
+                sample5 = Samples.objects.filter(id=self.request.POST['sample2_analysis']).first()
+                obj.sample2_analysis = sample5
+                sample6 = Samples.objects.filter(id=self.request.POST['sample2_collection']).first()
+                obj.sample2_collection = sample6
+                sample7 = Samples.objects.filter(id=self.request.POST['sample3_analysis']).first()
+                obj.sample3_analysis = sample7
+                sample8 = Samples.objects.filter(id=self.request.POST['sample3_collection']).first()
+                obj.sample3_collection = sample8
+
                 obj.written_instruction = self.request.POST['written_instruction']
                 obj.save()
 
@@ -784,6 +798,8 @@ class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = ExamMaterialPAUTL2.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event

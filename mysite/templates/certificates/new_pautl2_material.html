@@ -162,11 +162,26 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Theory</label>
-                                    <input  value=""  id="" name="general_theory" class="form-control" />
+
+
+                                   <select name="general_theory" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Specific Theory</label>
-                                    <input  value=""  id="" name="specific_theory"  class="form-control" />
+
+                            <select name="specific_theory" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
         </div>
 
@@ -175,12 +190,26 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Sample 1
  (data analysis)</label>
-                                    <input  value=""  id="" name="sample1_analysis"  class="form-control" />
+
+                              <select name="sample1_analysis" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                                         </div>
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Sample 1
  (data collection)</label>
-                                    <input  value=""  id="" name="sample1_collection" class="form-control" />
+
+                                 <select name="sample1_collection" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                                         </div>
         </div>
 
@@ -192,12 +221,27 @@
                                  <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Sample 2
  (data analysis)</label>
-                                    <input  value=""  id="" name="sample2_analysis" class="form-control" />
+
+
+                                 <select name="sample2_analysis" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                                         </div>
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Sample 2
 (data collection)</label>
-                                    <input  value=""  id="" name="sample2_collection"  class="form-control" />
+
+                                 <select name="sample2_collection" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                                         </div>
 
 
@@ -208,12 +252,28 @@
                                  <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Sample 3
  (data analysis)</label>
-                                    <input  value=""  id="" name="sample3_analysis" class="form-control" />
+
+
+                                 <select name="sample3_analysis" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                                         </div>
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Sample 3
 (data collection)</label>
-                                    <input  value=""  id="" name="sample3_collection"  class="form-control" />
+
+
+                                 <select name="sample3_collection" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                                         </div>
 
 
@@ -224,6 +284,7 @@
                                    <label for="" class="form-label">Written
  Instruction</label>
                                     <input  value=""  id="" name="written_instruction"  class="form-control" />
+
                                                         </div>
 
 
