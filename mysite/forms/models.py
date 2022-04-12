@@ -238,7 +238,7 @@ class PSL30LogExp(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     # def __str__(self):
-    #     return self.candidate.first_name
+    #     return self.event.name
 
 
 class PSL30InitialForm(models.Model):
@@ -284,14 +284,14 @@ class PSL30InitialForm(models.Model):
     paymentRecieved = models.CharField(max_length=512, null=True, blank=True)
     resultReference = models.CharField(max_length=512, null=True, blank=True)
     examCloseDate = models.DateField(null=True, blank=True)
-
+    file = models.FileField(null=True, blank=True)
     confirmation = models.BooleanField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.email
+    # def __str__(self):
+    #     return self.email
 
 class CurrentFormerCertification(models.Model):
     methodLevel = models.CharField(max_length=512, null=True, blank=True)

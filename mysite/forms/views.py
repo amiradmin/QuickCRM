@@ -2651,21 +2651,35 @@ class UpdatePSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateVie
                                                                              '%m/%d/%Y')
                 pslObj.save()
 
+                #
+                # for idx, item in enumerate(range(0, 8)):
+                #     if not request.POST.get('techniqueCodeR'+str(idx), None) == None:
+                #         NdtTechniqueObj = NdtTechnique.objects.filter(request.POST['insideID']).first()
+                #         NdtTechniqueObj.candidate = candidate
+                #         NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR'+str(idx)]
+                #         NdtTechniqueObj.employerComponent = request.POST['employerComponent'+str(idx)]
+                #         NdtTechniqueObj.ndtTask = request.POST['ndtTask'+str(idx)]
+                #         NdtTechniqueObj.experienceHours = request.POST['experienceHours'+str(idx)]
+                #         NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmed'+str(idx)]
+                #         NdtTechniqueObj.save()
+                if 'uploadFormBack' in request.POST:
+                    print('uploadFormBack')
+                    objCounter = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event))
+                    if objCounter.count() > 0:
+                        obj = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+                        obj.file = request.FILES['pdfFile']
+                        obj.save()
+                    else:
+                        obj = PSL30LogExp()
+                        obj.event = event
+                        obj.candidate = candidate
+                        obj.file = request.FILES['pdfFile']
+                        obj.save()
 
-                for idx, item in enumerate(range(0, 8)):
-                    if not request.POST.get('techniqueCodeR'+str(idx), None) == None:
-                        NdtTechniqueObj = NdtTechnique.objects.filter(request.POST['insideID']).first()
-                        NdtTechniqueObj.candidate = candidate
-                        NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR'+str(idx)]
-                        NdtTechniqueObj.employerComponent = request.POST['employerComponent'+str(idx)]
-                        NdtTechniqueObj.ndtTask = request.POST['ndtTask'+str(idx)]
-                        NdtTechniqueObj.experienceHours = request.POST['experienceHours'+str(idx)]
-                        NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmed'+str(idx)]
-                        NdtTechniqueObj.save()
+                    # return redirect('forms:psl30log_')
+                context['candidate'] = candidate
+                return redirect('forms:evensummary_', id=event.id)
 
-
-
-                return redirect('forms:allpslform_')
 
 
 
@@ -2677,7 +2691,7 @@ class UpdatePSL30LogExperienceByUserID(SidebarMixin, LoginRequiredMixin, Templat
         context = super(UpdatePSL30LogExperienceByUserID, self).get_context_data()
         event=Event.objects.filter(id=self.kwargs['eventID']).first()
         candidate=TesCandidate.objects.filter(id=self.kwargs['id']).first()
-        form = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+        form = PSL30InitialForm.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
         context['form'] = form
 
         return context
@@ -2693,7 +2707,7 @@ class UpdatePSL30LogExperienceByUserID(SidebarMixin, LoginRequiredMixin, Templat
                 # eventID = request.POST['eventID']
                 print("Form Today")
 
-                pslObj = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+                pslObj = PSL30InitialForm.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
                 # pslObj.pslNumber = request.POST['pcnNumber']
                 if not request.POST.get('dateFrom' , '') == '':
                     pslObj.dateFrom = datetime.datetime.strptime(request.POST['dateFrom'], '%m/%d/%Y')
@@ -2713,21 +2727,15 @@ class UpdatePSL30LogExperienceByUserID(SidebarMixin, LoginRequiredMixin, Templat
                 pslObj.save()
 
             if 'uploadFormBack' in request.POST:
-                print('uploadFormBack')
-                objCounter = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event))
-                if objCounter.count() > 0:
-                    obj = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
-                    obj.file = request.FILES['pdfFile']
-                    obj.save()
-                else:
-                    obj = PSL30LogExp()
-                    obj.event = event
-                    obj.candidate = candidate
-                    obj.file = request.FILES['pdfFile']
-                    obj.save()
-
+                print('uploadFormBack 000')
+                print(self.kwargs['eventID'])
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:evensummary_', id=event.id)
                 # return redirect('forms:psl30log_')
-            context['candidate'] = candidate
+            # context['candidate'] = candidate
             return redirect('forms:evensummary_', id=event.id)
 
 
