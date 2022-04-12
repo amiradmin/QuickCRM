@@ -17,8 +17,72 @@ import datetime
 # Create your views here.
 
 
+
+
+
+class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_cswip_31_exam_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamResultSwip31, self).get_context_data()
+        exams = CSWIPWeldingInspector3_1ExamMaterial.objects.all()
+        candidates = TesCandidate.objects.all()
+        context['exams'] = exams
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamResultSwip31, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(request.POST['examID'])
+                exam = CSWIPWeldingInspector3_1ExamMaterial.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                # print(self.kwargs['id'])
+                context['exam'] = exam
+
+                return render(request, 'certificates/new_cswip_31_exam_result.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+
+
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+                obj = CSWIPWeldingInspector3_1Result()
+                obj.event = event
+                obj.candidate = candidate
+                # obj.result = self.request.POST['result']
+                # obj.explanation = self.request.POST['explanation']
+                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.general_paper = self.request.POST['general_paper']
+                obj.technology_paper = self.request.POST['technology_paper']
+                obj.plate_paper = self.request.POST['plate_paper']
+                obj.pipe_paper = self.request.POST['pipe_paper']
+                obj.macro_paper = self.request.POST['macro_paper']
+
+                obj.remark = self.request.POST['remarks']
+                if bool(request.FILES.get('myFile', False)) == True:
+                    obj.file = self.request.FILES['myFile']
+                obj.save()
+                print("Must save here")
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = CSWIPWeldingInspector3_1Result.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_result_summary.html',context=context)
+                return redirect('exam_certification:examscwip31resultsummary_')
+            return redirect('exam_certification:examscwip31resultsummary_')
+
+
+
 class CSWIPExamResult31Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/exam_material_cswip_31_summary.html"
+    template_name = "certificates/exam_result_cswip_31_summary.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(CSWIPExamResult31Summary, self).get_context_data()

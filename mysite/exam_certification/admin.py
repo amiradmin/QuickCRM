@@ -1,10 +1,21 @@
 from django.contrib import admin
 from  exam_certification.models import (Invigilator,CertificateAttendance,CertificateType,CSWIPCertificateAttendance,PcnCertificateAttendance,CswipCertificateProduct,PcnCertificateProduct
-                                        ,ExamMaterialPiWiModel,ExamMaterialTOFDModel1,ExamMaterialPAUTL2,ExamMaterialL3,ExamResultPautL2,ExamMaterialTofdL3 )
+                                        ,ExamMaterialPiWiModel,ExamMaterialTOFDModel1,ExamMaterialPAUTL2,ExamMaterialL3
+                                        ,ExamResultPautL2,ExamMaterialTofdL3,CSWIPWeldingInspector3_1Result,CSWIPWeldingInspector3_1ExamMaterial )
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
 
+
+class CSWIPWeldingInspector3_1ExamMaterialAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','event','created_at','updated_at']
+    list_filter = ['id','name','event','created_at','updated_at']
+admin.site.register(CSWIPWeldingInspector3_1ExamMaterial,CSWIPWeldingInspector3_1ExamMaterialAdmin)
+
+class CSWIPWeldingInspector3_1ResultAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','event','created_at','updated_at']
+    list_filter = ['id','name','event','created_at','updated_at']
+admin.site.register(CSWIPWeldingInspector3_1Result,CSWIPWeldingInspector3_1ResultAdmin)
 
 class ExamResultPautL2Admin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']

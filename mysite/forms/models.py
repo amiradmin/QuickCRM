@@ -233,6 +233,7 @@ class PSL30LogExp(models.Model):
     ndtTechnique = models.ManyToManyField('NdtTechnique', null=True, blank=True)
     confirmation = models.BooleanField(null=True, blank=True)
 
+    file = models.FileField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

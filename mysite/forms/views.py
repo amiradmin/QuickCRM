@@ -2683,6 +2683,7 @@ class UpdatePSL30LogExperienceByUserID(SidebarMixin, LoginRequiredMixin, Templat
         return context
 
     def post(self, request, *args, **kwargs):
+        context = super(UpdatePSL30LogExperienceByUserID, self).get_context_data()
         if request.method == 'POST':
             event = Event.objects.filter(id=self.kwargs['eventID']).first()
             candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
@@ -2711,19 +2712,23 @@ class UpdatePSL30LogExperienceByUserID(SidebarMixin, LoginRequiredMixin, Templat
                                                                              '%m/%d/%Y')
                 pslObj.save()
 
-                #
-                # for idx, item in enumerate(range(0, 8)):
-                #     if not request.POST.get('techniqueCodeR'+str(idx), None) == None:
-                #         NdtTechniqueObj = NdtTechnique.objects.filter(request.POST['insideID']).first()
-                #         NdtTechniqueObj.candidate = candidate
-                #         NdtTechniqueObj.techniqueCode = request.POST['techniqueCodeR'+str(idx)]
-                #         NdtTechniqueObj.employerComponent = request.POST['employerComponent'+str(idx)]
-                #         NdtTechniqueObj.ndtTask = request.POST['ndtTask'+str(idx)]
-                #         NdtTechniqueObj.experienceHours = request.POST['experienceHours'+str(idx)]
-                #         NdtTechniqueObj.experienceConfirmed = request.POST['experienceConfirmed'+str(idx)]
-                #         NdtTechniqueObj.save()
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                objCounter = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event))
+                if objCounter.count() > 0:
+                    obj = PSL30LogExp.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+                    obj.file = request.FILES['pdfFile']
+                    obj.save()
+                else:
+                    obj = PSL30LogExp()
+                    obj.event = event
+                    obj.candidate = candidate
+                    obj.file = request.FILES['pdfFile']
+                    obj.save()
 
-                return redirect('forms:evensummary_', id=event.id)
+                # return redirect('forms:psl30log_')
+            context['candidate'] = candidate
+            return redirect('forms:evensummary_', id=event.id)
 
 
 class ViewPSL30LogExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
