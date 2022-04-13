@@ -171,7 +171,7 @@ table.GeneratedTable thead {
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Scheme</label>
-                                    <input   id="" name="cswip_pcn" value="{{exam.cswip_pcn}}"   class="form-control" required/>
+                                    <input   id="" name="cswip_pcn" value="{{exam.cswip_pcn}}"   class="form-control" />
                                                         </div>
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Lecturer</label>
@@ -232,7 +232,6 @@ table.GeneratedTable thead {
 
         <div class="row g-2">
 
-
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Macro Paper</label>
 
@@ -243,6 +242,12 @@ table.GeneratedTable thead {
   <option value="Failed">Failed</option>
 </select>
                                                         </div>
+                                                        <div class="mb-3 col-md-6">
+      <label class="form-label">Result Card File</label>
+<input  type="file"  name="myFile" class="form-control"  />
+                                                        </div>
+                                                    </div>
+
 
         </div>
 
@@ -261,14 +266,10 @@ table.GeneratedTable thead {
                                                         </div>
 
 
+  <input type="hidden" value="{{exam.id}}"  id="" name="examID" class="form-control" required/>
 
 
 
-                                                        <div class="mb-3 col-md-12">
-      <label class="form-label">Result Card File</label>
-<input  type="file"  name="myFile" class="form-control"  />
-                                                        </div>
-                                                    </div>
 
 
 

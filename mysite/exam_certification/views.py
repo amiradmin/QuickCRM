@@ -19,6 +19,73 @@ import datetime
 
 
 
+class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/cswip_31_exam_result_byID.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamCSWIP31ResultSummaryByID, self).get_context_data()
+        print(self.kwargs['id'])
+        exam = CSWIPWeldingInspector3_1Result.objects.filter(id=self.kwargs['id']).first()
+        finalResult =None
+        final_deadline_date =None
+        action=None
+        re_exams =""
+        #
+        if exam.general_paper == 'Failed'  or exam.technology_paper == 'Failed'  or exam.plate_paper == 'Failed'   or exam.pipe_paper == 'Failed'   or exam.macro_paper == 'Failed'    :
+            finalResult = "Failed"
+            final_deadline_date = exam.event.start_exam_date + relativedelta(months=+12)
+            second_email_date = exam.event.start_exam_date + relativedelta(months=+6)
+            third_email_date = exam.event.start_exam_date + relativedelta(months=+10)
+            action='Re-test'
+        else:
+            finalResult = "Passed"
+
+            second_email_date = exam.event.start_exam_date + relativedelta(months=+54)
+            third_email_date = exam.event.start_exam_date + relativedelta(months=+114)
+            action = 'Renewal'
+
+        #
+        # if exam.cswip_pcn == 'CSWIP':
+        #     if exam.general_theory == 'Failed' :
+        #         re_exams = "General Theory,"
+        #     if exam.specific_theory == 'Failed' :
+        #         re_exams = str(re_exams) + "Specific Theory,"
+        #     if exam.sample1_analysis == 'Failed'  :
+        #         re_exams = str(re_exams) + "Sample1 data Analysis,"
+        #     if exam.sample1_collection == 'Failed'  :
+        #         re_exams = str(re_exams) + "Sample1 data Collection,"
+        #     if exam.sample2_analysis == 'Failed' :
+        #         re_exams = str(re_exams) + "Sample2 data Analysis,"
+        #     if exam.sample2_collection == 'Failed'  :
+        #         re_exams = str(re_exams) + "Sample2 data Collection,"
+        #     if exam.sample3_analysis == 'Failed'  :
+        #         re_exams = str(re_exams) + "Sample3 data Analysis,"
+        #     if exam.sample3_collection == 'Failed'  :
+        #         re_exams = str(re_exams) + "Sample3 data Collection,"
+        #     if exam.written_instruction == 'Failed' :
+        #         re_exams = str(re_exams) + "Written data Instruction,"
+        #
+        # elif exam.cswip_pcn == 'PCN':
+        #     if exam.general_theory == 'Failed'  or exam.specific_theory == 'Failed'  :
+        #         re_exams = "General Theory,Specific Theory"
+        #     elif exam.sample1_analysis == 'Failed'  or exam.sample1_collection == 'Failed'  or exam.sample2_analysis== 'Failed'  or exam.sample2_collection == 'Failed'  or exam.sample3_collection == 'Failed'  or exam.sample3_analysis == 'Failed'  or exam.written_instruction == 'Failed'  :
+        #         re_exams = str(
+        #             re_exams) + "Sample1 data Analysis,Sample1 data Collection,Sample2 data Analysis,Sample2 data Collection,Sample3 data Analysis,Sample3 data Collection,Written data Instruction"
+
+        import datetime
+
+
+        context['exam'] = exam
+        context['finalResult'] = finalResult
+        # context['re_exams'] = re_exams
+        context['final_deadline_date'] = final_deadline_date
+        context['second_email_date'] = second_email_date
+        context['third_email_date'] = third_email_date
+        context['action'] = action
+
+        return context
+
+
 
 class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_cswip_31_exam_result.html"
@@ -50,18 +117,20 @@ class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 print(self.request.POST['eventID'].split('-')[0])
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+                exam = CSWIPWeldingInspector3_1ExamMaterial.objects.filter(id=self.request.POST['examID']).first()
                 obj = CSWIPWeldingInspector3_1Result()
                 obj.event = event
                 obj.candidate = candidate
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam = exam
                 obj.general_paper = self.request.POST['general_paper']
                 obj.technology_paper = self.request.POST['technology_paper']
                 obj.plate_paper = self.request.POST['plate_paper']
                 obj.pipe_paper = self.request.POST['pipe_paper']
                 obj.macro_paper = self.request.POST['macro_paper']
-
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.remark = self.request.POST['remarks']
                 if bool(request.FILES.get('myFile', False)) == True:
                     obj.file = self.request.FILES['myFile']
@@ -389,9 +458,11 @@ class NewExamResultPautL2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 print(self.request.POST['eventID'].split('-')[0])
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+                exam = ExamMaterialPAUTL2.objects.filter(id=self.request.POST['examID']).first()
                 obj = ExamResultPautL2()
                 obj.event = event
                 obj.candidate = candidate
+                obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
                 obj.cswip_pcn = self.request.POST['cswip_pcn']

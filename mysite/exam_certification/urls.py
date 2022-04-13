@@ -48,10 +48,11 @@ urlpatterns = [
     path('examresultsummary/', views.ExamResultSummary.as_view(), name='examresultsummary_'),
     path('newexamresult/', views.NewExamResultPautL2.as_view(), name='newexamresult_'),
     path('newexamresultbyid/<int:id>', views.ExamResultSummaryByID.as_view(), name='newexamresultbyid_'),
-    # path('l3ismform/<int:id>', views.ExamMaterialL3IMSForm.as_view(), name='l3ismform_'),
+    path('l3ismform/<int:id>', views.ExamCSWIP31ResultSummaryByID.as_view(), name='l3ismform_'),
     # path('examl3delete/<int:pk>/delete/', views.DeleteExamL3Material.as_view(), name='examl3delete_'),
 
     path('examscwip31summary/', views.CSWIPExamMaterial31Summary.as_view(), name='examscwip31summary_'),
+    path('newexamrscwip31esultbyid/<int:id>', views.ExamCSWIP31ResultSummaryByID.as_view(), name='newexamrscwip31esultbyid_'),
     path('newcswipexam31/', views.NewCSWIPExamMaterial31.as_view(), name='newcswipexam31_'),
     path('examcswip31delete/<int:pk>/delete/', views.DeleteCSWIPExamMaterial31.as_view(), name='examcswip31delete_'),
 
