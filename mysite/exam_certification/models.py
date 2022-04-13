@@ -187,6 +187,8 @@ class ExamResultPautL2(models.Model):
     def __str__(self):
         return self.event.name
 
+
+
 class CSWIPWeldingInspector3_1ExamMaterial(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="exam_result_event_31_exam_material", null=True, blank=True, on_delete=models.DO_NOTHING)
@@ -217,6 +219,9 @@ class CSWIPWeldingInspector3_1ExamMaterial(models.Model):
         return self.event.name
 
 
+
+
+
 class CSWIPWeldingInspector3_1Result(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="exam_result_event_31", null=True, blank=True, on_delete=models.DO_NOTHING)
@@ -237,6 +242,19 @@ class CSWIPWeldingInspector3_1Result(models.Model):
 
     def __str__(self):
         return self.event.name
+
+
+class CSWIPWeldingInspector3_1ResultIntermadiate(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    exam = models.ForeignKey(CSWIPWeldingInspector3_1ExamMaterial,related_name="exam_result_31_intermediate",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    previouse_exam = models.ManyToManyField(CSWIPWeldingInspector3_1Result, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
+
+
 
 class ExamMaterialTOFDModel1(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )

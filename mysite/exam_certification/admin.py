@@ -2,10 +2,16 @@ from django.contrib import admin
 from  exam_certification.models import (Invigilator,CertificateAttendance,CertificateType,CSWIPCertificateAttendance,PcnCertificateAttendance,CswipCertificateProduct,PcnCertificateProduct
                                         ,ExamMaterialPiWiModel,ExamMaterialTOFDModel1,ExamMaterialPAUTL2,ExamMaterialL3
                                         ,ExamResultPautL2,ExamMaterialTofdL3,CSWIPWeldingInspector3_1Result,
-                                        CSWIPWeldingInspector3_1ExamMaterial,Samples )
+                                        CSWIPWeldingInspector3_1ExamMaterial,Samples,CSWIPWeldingInspector3_1ResultIntermadiate )
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
+
+
+class CSWIPWeldingInspector3_1ResultIntermadiateAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','exam','created_at','updated_at']
+    list_filter = ['id','name','exam','created_at','updated_at']
+admin.site.register(CSWIPWeldingInspector3_1ResultIntermadiate,CSWIPWeldingInspector3_1ResultIntermadiateAdmin)
 
 
 class SamplesAdmin(ImportExportModelAdmin,admin.ModelAdmin):

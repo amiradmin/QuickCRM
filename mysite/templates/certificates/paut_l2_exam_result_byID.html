@@ -78,14 +78,16 @@ table.GeneratedTable thead {
     <tr>
       <td>Candidate</td>
       <td>{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}</td>
-      <td>Event Date</td>
-      <td>{{exam.event.start_date|date:'m/d/Y'}}-{{exam.event.end_date|date:'m/d/Y'}}</td>
+
+              <td>Exam Title</td>
+      <td>{{exam.exam.exam_title}}</td>
     </tr>
     <tr>
       <td>Product</td>
       <td>{{exam.event.product.name}}</td>
       <td>Product Category</td>
       <td>{{exam.event.product.category}}</td>
+
     </tr>
     <tr>
       <td>Exam Date</td>
@@ -94,8 +96,9 @@ table.GeneratedTable thead {
       <td>{{exam.cswip_pcn}}</td>
     </tr>
     <tr>
-      <td>Lecturer</td>
-      <td>{{exam.event.lecturers}}</td>
+
+              <td>Event Date</td>
+      <td>{{exam.event.start_date|date:'m/d/Y'}}-{{exam.event.end_date|date:'m/d/Y'}}</td>
       <td>General Theory</td>
       <td>{% if exam.general_theory == 'Failed'  %}<span style="color:red;">{{exam.general_theory }}</span> {%else%}<span>{{exam.general_theory }}</span> {% endif %}</td>
     </tr>
@@ -127,13 +130,16 @@ table.GeneratedTable thead {
         <tr>
       <td>Written Instruction</td>
             <td>{% if exam.written_instruction == 'Failed'  %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>
-      <td>Exam Title</td>
-      <td>{{exam.exam.exam_title}}</td>
+      <td>Lecturer</td>
+      <td>{{exam.event.lecturers}}</td>
+
+
     </tr>
   </tbody>
 </table>
 <!-- Codes by Quackit.com -->
-                      {% if exam.file %}  <a href="{{exam.file.url }}" target="_blank">Result Card</a>{% endif %}
+                        <br>
+                      {% if exam.file %}  <h5><a href="{{exam.file.url }}" target="_blank">Result Card</a></h5>{% endif %}
                         <br>
                         <br>
                         <br>

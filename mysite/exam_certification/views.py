@@ -30,6 +30,7 @@ class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateVie
         final_deadline_date =None
         action=None
         re_exams =""
+        remark =''
         #
         if exam.general_paper == 'Failed'  or exam.technology_paper == 'Failed'  or exam.plate_paper == 'Failed'   or exam.pipe_paper == 'Failed'   or exam.macro_paper == 'Failed'    :
             finalResult = "Failed"
@@ -43,6 +44,19 @@ class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateVie
             second_email_date = exam.event.start_exam_date + relativedelta(months=+54)
             third_email_date = exam.event.start_exam_date + relativedelta(months=+114)
             action = 'Renewal'
+
+        if exam.general_paper == 'Failed':
+            remark ='Candidate can participate to General Paper re-exam once,'
+        if exam.technology_paper == 'Failed':
+            remark = remark + str('Candidate can participate to Technology Paper re-exam once,')
+        if exam.plate_paper == 'Failed':
+            remark = remark +  str('Candidate can participate to Plant Paper re-exam two time,')
+        if exam.pipe_paper == 'Failed':
+            remark = remark +  str('Candidate can participate to Pipe Paper re-exam two time,')
+        if exam.macro_paper == 'Failed':
+            remark = remark +  str('Candidate can participate to Macro Paper re-exam two time,')
+
+
 
         #
         # if exam.cswip_pcn == 'CSWIP':
@@ -82,6 +96,7 @@ class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateVie
         context['second_email_date'] = second_email_date
         context['third_email_date'] = third_email_date
         context['action'] = action
+        context['remark'] = remark
 
         return context
 
@@ -93,9 +108,11 @@ class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamResultSwip31, self).get_context_data()
         exams = CSWIPWeldingInspector3_1ExamMaterial.objects.all()
+        results = CSWIPWeldingInspector3_1Result.objects.all()
         candidates = TesCandidate.objects.all()
         context['exams'] = exams
         context['candidates'] = candidates
+        context['results'] = results
         return context
 
     def post(self, request, *args, **kwargs):
@@ -107,6 +124,7 @@ class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 exam = CSWIPWeldingInspector3_1ExamMaterial.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 context['exam'] = exam
+                context['previouseID'] = self.request.POST['previouseID']
 
                 return render(request, 'certificates/new_cswip_31_exam_result.html', context)
             elif 'submit' in request.POST:
@@ -505,6 +523,7 @@ class ExamResultSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['exams'] = exams
         context['examCount'] = examCount
         return context
+
 
 
 class ExamResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateView):
