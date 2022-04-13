@@ -153,7 +153,13 @@
                                                         </div>
                                  <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Macro Paper</label>
-                                    <input  value=""  id="" name="macro_paper" class="form-control" />
+                            <select name="macro_paper" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
 
         </div>
@@ -162,11 +168,23 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Paper</label>
-                                    <input  value=""  id="" name="general_paper" class="form-control" />
+                            <select name="general_paper" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Technology Paper</label>
-                                    <input  value=""  id="" name="technology_paper"  class="form-control" />
+                            <select name="technology_paper" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
         </div>
 
@@ -174,11 +192,23 @@
 
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Plate Paper</label>
-                                    <input  value=""  id="" name="plate_paper"  class="form-control" />
+                            <select name="plate_paper" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Pipe Paper</label>
-                                    <input  value=""  id="" name="pipe_paper" class="form-control" />
+                              <select name="pipe_paper" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
         </div>
 

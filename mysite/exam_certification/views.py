@@ -109,6 +109,8 @@ class CSWIPExamMaterial31Summary(SidebarMixin, LoginRequiredMixin, TemplateView)
         events = Event.objects.all()
         exams = CSWIPWeldingInspector3_1ExamMaterial.objects.all()
         examCount = CSWIPWeldingInspector3_1ExamMaterial.objects.count()
+        samples =Samples.objects.all()
+        context['samples'] = samples
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -122,6 +124,8 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(NewCSWIPExamMaterial31, self).get_context_data()
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
         return context
@@ -135,7 +139,9 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
                 print(event.id)
                 events = Event.objects.all()
-                candidates = TesCandidate.objects.all()
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
                 context['event'] = event
@@ -156,13 +162,18 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.invigilator = self.request.POST['invigilator']
                 obj.remark = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
-                # obj.file = self.request.POST['cswip_pcn']
+                # obj.file = self.request.FILEs['file']
                 obj.exam_title = self.request.POST['examTitle']
-                obj.general_paper = self.request.POST['general_paper']
-                obj.technology_paper = self.request.POST['technology_paper']
-                obj.plate_paper = self.request.POST['plate_paper']
-                obj.pipe_paper = self.request.POST['pipe_paper']
-                obj.macro_paper = self.request.POST['macro_paper']
+                sample = Samples.objects.filter(id=self.request.POST['general_paper']).first()
+                obj.general_paper = sample
+                sample = Samples.objects.filter(id=self.request.POST['technology_paper']).first()
+                obj.technology_paper = sample
+                sample = Samples.objects.filter(id=self.request.POST['plate_paper']).first()
+                obj.plate_paper = sample
+                sample = Samples.objects.filter(id=self.request.POST['pipe_paper']).first()
+                obj.pipe_paper = sample
+                sample = Samples.objects.filter(id=self.request.POST['macro_paper']).first()
+                obj.macro_paper = sample
 
                 obj.save()
 
@@ -170,6 +181,8 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = CSWIPWeldingInspector3_1ExamMaterial.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
