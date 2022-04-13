@@ -35,7 +35,7 @@ class NewContact(APIView):
         data = request.data
 
         print("Contact Api")
-
+        print(data)
         email = data['email']
         subject = data['subject']
         description = data['description']
