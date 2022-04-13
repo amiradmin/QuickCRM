@@ -149,8 +149,6 @@
                                                         <th></th>
                                                         <th>Name</th>
                                                         <th>Product</th>
-                                                        <th>Result</th>
-
                                                         <th>Email</th>
                                                         <th>Result Card</th>
                                                         <th>Action</th>
@@ -166,7 +164,7 @@
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{%endif%} {{item.candidate.last_name}}</td>
                                                         <td>{{item.event.product}}</td>
-                                                        <td>{{item.result}}</td>
+
                                                         <td>{{item.candidate.email}}</td>
                                                         <td>{% if item.file %} <a href="{{item.file.url}}"><i class="fa fa-camera"></i></a> {% endif %}</td>
 <td><a href="{% url 'exam_certification:examl3delete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a>&nbsp;
