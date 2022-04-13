@@ -490,9 +490,9 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.location = location
             # obj.formCategory = category
             obj.country = location.country
-            
 
-            obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
+            if not request.POST.get('start_date', '') == '':
+                obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
             if not request.POST.get('practicalDate', '') == '':
                 obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
 
