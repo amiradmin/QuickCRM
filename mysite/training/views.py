@@ -493,16 +493,16 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             
 
             obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
-            if not request.POST.get('practicalDate', None) == '':
+            if not request.POST.get('practicalDate', '') == '':
                 obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
 
-            if not request.POST.get('endDate', None) == '':
+            if not request.POST.get('endDate', '') == '':
                 obj.end_date = datetime.datetime.strptime(request.POST['endDate'], '%m/%d/%Y')
 
-            if not request.POST.get('start_exam_date', None) == '':
+            if not request.POST.get('start_exam_date', '') == '':
                 obj.start_exam_date = datetime.datetime.strptime(request.POST['start_exam_date'], '%m/%d/%Y')
 
-            if not request.POST.get('end_exam_date', None) == '':
+            if not request.POST.get('end_exam_date', '') == '':
                 obj.end_exam_date = datetime.datetime.strptime(request.POST['end_exam_date'], '%m/%d/%Y')
             obj.save()
             for item in categories:
