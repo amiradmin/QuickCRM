@@ -89,11 +89,21 @@ class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateVie
         #             re_exams) + "Sample1 data Analysis,Sample1 data Collection,Sample2 data Analysis,Sample2 data Collection,Sample3 data Analysis,Sample3 data Collection,Written data Instruction"
 
 
-        repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate.objects.filter(result = exam).first()
-        print(repeat_obj)
-        result_list = CSWIPWeldingInspector3_1Result.objects.filter(id=repeat_obj.result_1.id)
-        print(result_list)
-        context['result_list'] = result_list
+        repeat_list = CSWIPWeldingInspector3_1ResultIntermadiate.objects.filter(candidate = exam.candidate)
+        repeat_first = CSWIPWeldingInspector3_1Result.objects.filter(id=repeat_list.first().primary.id).first()
+        print(repeat_list)
+        print(repeat_list.count())
+        print("Here")
+        for item in repeat_list:
+            print(item.secondry.id)
+        print("Here")
+        # result_list = CSWIPWeldingInspector3_1Result.objects.filter(id=repeat_obj)
+        # result_list = repeat_obj
+
+        print(repeat_list)
+
+        context['repeat_list'] = repeat_list
+        context['repeat_first'] = repeat_first
         context['exam'] = exam
         context['finalResult'] = finalResult
         # context['re_exams'] = re_exams
@@ -113,11 +123,12 @@ class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamResultSwip31, self).get_context_data()
         exams = CSWIPWeldingInspector3_1ExamMaterial.objects.all()
-        results = CSWIPWeldingInspector3_1Result.objects.all()
+        result_list = CSWIPWeldingInspector3_1Result.objects.all()
+        print("Here")
+        context['result_list'] = result_list
         candidates = TesCandidate.objects.all()
         context['exams'] = exams
         context['candidates'] = candidates
-        context['results'] = results
         return context
 
     def post(self, request, *args, **kwargs):
@@ -128,6 +139,8 @@ class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 print(request.POST['examID'])
                 exam = CSWIPWeldingInspector3_1ExamMaterial.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
+                result_list = CSWIPWeldingInspector3_1Result.objects.all()
+                context['result_list'] = result_list
                 context['exam'] = exam
                 return render(request, 'certificates/new_cswip_31_exam_result.html', context)
             elif 'submit' in request.POST:
@@ -156,14 +169,17 @@ class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if bool(request.FILES.get('myFile', False)) == True:
                     obj.file = self.request.FILES['myFile']
                 obj.save()
-                previousID = self.request.POST['previouseID'].split('-')[0]
-                pre_result = CSWIPWeldingInspector3_1Result.objects.filter(id= previousID).first()
-                print(pre_result)
+                if not request.POST.get('previouseID', '') == '':
+                    print("Exist")
+                    previousID = self.request.POST['previouseID'].split('-')[0]
+                    pre_result = CSWIPWeldingInspector3_1Result.objects.filter(id= previousID).first()
+                    print(pre_result)
 
-                repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate()
-                repeat_obj.result = obj
-                repeat_obj.result_1 = pre_result
-                repeat_obj.save()
+                    repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate()
+                    repeat_obj.candidate = candidate
+                    repeat_obj.primary = pre_result
+                    repeat_obj.secondry = obj
+                    repeat_obj.save()
 
 
                 events = Event.objects.all()

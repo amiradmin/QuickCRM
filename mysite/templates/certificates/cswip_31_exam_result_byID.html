@@ -124,7 +124,6 @@ table.GeneratedTable thead {
                         <br>
                         <hr>
 <h4>History:</h4>
-   {% for item in result_list %}
 
 <table class="GeneratedTable">
   <thead>
@@ -138,46 +137,102 @@ table.GeneratedTable thead {
   <tbody>
     <tr>
       <td>Candidate</td>
-      <td>{{item.candidate.first_name}} {% if exam.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}</td>
+      <td>{{repeat_first.candidate.first_name}} {% if repeat_first.candidate.middleName %}{{repeat_first.candidate.middleName}}{% endif %} {{repeat_first.candidate.last_name}}</td>
       <td>Event Date</td>
-      <td>{{item.event.start_date|date:'m/d/Y'}}-{{item.event.end_date|date:'m/d/Y'}}</td>
+      <td>{{repeat_first.event.start_date|date:'m/d/Y'}}-{{exam.event.end_date|date:'m/d/Y'}}</td>
     </tr>
     <tr>
       <td>Product</td>
-      <td>{{item.event.product.name}}</td>
+      <td>{{repeat_first.event.product.name}}</td>
       <td>Product Category</td>
-      <td>{{item.event.product.category}}</td>
+      <td>{{repeat_first.event.product.category}}</td>
     </tr>
     <tr>
       <td>Exam Date</td>
-      <td>{{item.event.start_exam_date|date:'m/d/Y'}}</td>
+      <td>{{repeat_first.event.start_exam_date|date:'m/d/Y'}}</td>
 
               <td>Exam Title</td>
-      <td>{{item.exam.exam_title }}</td>
+      <td>{{repeat_first.exam.exam_title }}</td>
     </tr>
 
     <tr>
       <td>General Paper</td>
-      <td>{% if item.general_paper == 'Failed'  %}<span style="color:red;">{{item.general_paper }}</span> {%else%} {{item.general_paper }}{% endif %}</td>
+      <td>{% if repeat_first.general_paper == 'Failed'  %}<span style="color:red;">{{repeat_first.general_paper }}</span> {%else%} {{repeat_first.general_paper }}{% endif %}</td>
       <td>Technology Paper</td>
-      <td>{% if item.technology_paper == 'Failed'  %}<span style="color:red;">{{item.technology_paper }}</span> {%else%}{{item.technology_paper }}{% endif %}</td>
+      <td>{% if repeat_first.technology_paper == 'Failed'  %}<span style="color:red;">{{repeat_first.technology_paper }}</span> {%else%}{{repeat_first.technology_paper }}{% endif %}</td>
     </tr>
     <tr>
       <td>Plate Paper</td>
 
-            <td>{% if item.plate_paper == 'Failed' %}<span style="color:red;">{{item.plate_paper }}</span> {%else%}{{item.plate_paper }}{% endif %}</td>
+            <td>{% if repeat_first.plate_paper == 'Failed' %}<span style="color:red;">{{repeat_first.plate_paper }}</span> {%else%}{{repeat_first.plate_paper }}{% endif %}</td>
       <td>Pipe Paper</td>
-        <td>{% if item.pipe_paper == 'Failed' %}<span style="color:red;">{{item.pipe_paper }}</span> {%else%}{{item.pipe_paper }}{% endif %}</td>
+        <td>{% if repeat_first.pipe_paper == 'Failed' %}<span style="color:red;">{{exam.repeat_first }}</span> {%else%}{{repeat_first.pipe_paper }}{% endif %}</td>
     </tr>
     <tr>
       <td>Macro Paper</td>
-        <td>{% if item.macro_paper == 'Failed'  %}<span style="color:red;">{{item.macro_paper }}</span> {%else%}{{item.macro_paper }}{% endif %}</td>
+        <td>{% if repeat_first.macro_paper == 'Failed'  %}<span style="color:red;">{{repeat_first.macro_paper }}</span> {%else%}{{repeat_first.macro_paper }}{% endif %}</td>
       <td>Lecturer</td>
-      <td>{{item.event.lecturers}}</td>
+      <td>{{repeat_first.event.lecturers}}</td>
     </tr>
 
   </tbody>
 </table>
+                        <br>
+   {% for item in repeat_list %}
+
+<table class="GeneratedTable">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Value</th>
+      <th>Title</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Candidate</td>
+      <td>{{item.secondry.candidate.first_name}} {% if exam.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}</td>
+      <td>Event Date</td>
+      <td>{{item.secondry.event.start_date|date:'m/d/Y'}}-{{item.event.end_date|date:'m/d/Y'}}</td>
+    </tr>
+    <tr>
+      <td>Product</td>
+      <td>{{item.secondry.event.product.name}}</td>
+      <td>Product Category</td>
+      <td>{{item.secondry.event.product.category}}</td>
+    </tr>
+    <tr>
+      <td>Exam Date</td>
+      <td>{{item.secondry.event.start_exam_date|date:'m/d/Y'}}</td>
+
+              <td>Exam Title</td>
+      <td>{{item.secondry.exam.exam_title }}</td>
+    </tr>
+
+    <tr>
+      <td>General Paper</td>
+      <td>{% if item.secondry.general_paper == 'Failed'  %}<span style="color:red;">{{item.secondry.general_paper }}</span> {%else%} {{item.secondry.general_paper }}{% endif %}</td>
+      <td>Technology Paper</td>
+      <td>{% if item.secondry.technology_paper == 'Failed'  %}<span style="color:red;">{{item.secondry.technology_paper }}</span> {%else%}{{item.secondry.technology_paper }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Plate Paper</td>
+
+            <td>{% if item.secondry.plate_paper == 'Failed' %}<span style="color:red;">{{item.secondry.plate_paper }}</span> {%else%}{{item.secondry.plate_paper }}{% endif %}</td>
+      <td>Pipe Paper</td>
+        <td>{% if item.secondry.pipe_paper == 'Failed' %}<span style="color:red;">{{item.secondry.pipe_paper }}</span> {%else%}{{item.secondry.pipe_paper }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Macro Paper</td>
+        <td>{% if item.secondry.macro_paper == 'Failed'  %}<span style="color:red;">{{item.secondry.macro_paper }}</span> {%else%}{{item.secondry.macro_paper }}{% endif %}</td>
+      <td>Lecturer</td>
+      <td>{{item.secondry.event.lecturers}}</td>
+    </tr>
+
+  </tbody>
+</table>
+                         <br>
    {% endfor %}
                         <br>
                         <hr>

@@ -271,16 +271,16 @@ table.GeneratedTable thead {
 
                      <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Previouse Exam(If Applicable)</label>
-                                    <input list="previouseList" value=""  id="" name="previouseID" placeholder="type here..." class="form-control" required/>
+<!--                                    <input list="previouseList1" value=""  id="" name="previouseID" placeholder="type here..." class="form-control" />-->
 
-                                        <datalist id="previouseList"  >
-
-                                        {% for item2 in results %}
-            <option value="{{item2.id}}-{{item2.event.name}}-{{item2.event.product.name}}-{{item2.candidate.first_name}}-{{item2.candidate.last_name}}">{{item2.event.product.name}}
+                                        <select id="previouseList1" class="form-select" name="previouseID" >
+ <option value="">Select</option>
+                                        {% for item4 in result_list %}
+            <option value="{{item4.id}}-{{item4.event.name}}-{{item4.event.product.name}}-{{item4.candidate.first_name}}-{{item4.candidate.last_name}}">{{item4.id}}-{{item4.event.product.name}}
                                         </option>
                                         {% endfor %}
 
-                                    </datalist>
+                                    </select>
 
 
                                                     </div>
