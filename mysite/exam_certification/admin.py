@@ -9,8 +9,8 @@ from import_export.admin import ImportExportModelAdmin
 
 
 class CSWIPWeldingInspector3_1ResultIntermadiateAdmin(ImportExportModelAdmin,admin.ModelAdmin):
-    list_display = ['id','name','exam','created_at','updated_at']
-    list_filter = ['id','name','exam','created_at','updated_at']
+    list_display = ['id','name','result','created_at','updated_at']
+    list_filter = ['id','name','result','created_at','updated_at']
 admin.site.register(CSWIPWeldingInspector3_1ResultIntermadiate,CSWIPWeldingInspector3_1ResultIntermadiateAdmin)
 
 

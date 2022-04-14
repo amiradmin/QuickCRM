@@ -74,21 +74,7 @@ table.GeneratedTable thead {
 
                                                     </div>
 
-                     <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Previouse Exam(If Applicable)</label>
-                                    <input list="previouseList" value=""  id="" name="previouseID" placeholder="type here..." class="form-control" required/>
 
-                                        <datalist id="previouseList"  >
-
-                                        {% for item2 in results %}
-            <option value="{{item2.id}}-{{item2.event.name}}-{{item2.event.product.name}}-{{item2.candidate.first_name}}-{{item2.candidate.last_name}}">{{item2.event.product.name}}
-                                        </option>
-                                        {% endfor %}
-
-                                    </datalist>
-
-
-                                                    </div>
                         <br>
                                                     <div class="mb-3 col-md-12 text-center">
                                                         <button class="btn btn-primary" name="updateInfo" type="submit">Update</button>
@@ -258,7 +244,7 @@ table.GeneratedTable thead {
       <label class="form-label">Result Card File</label>
 <input  type="file"  name="myFile" class="form-control"  />
 
-  <input  type="hidden" value="{{previouseID}}"  name="previouseExamID" class="form-control"  />
+
                                                         </div>
                                                     </div>
 
@@ -283,7 +269,21 @@ table.GeneratedTable thead {
   <input type="hidden" value="{{exam.id}}"  id="" name="examID" class="form-control" required/>
 
 
+                     <div class="mb-3 col-md-12">
+                                   <label for="" class="form-label">Previouse Exam(If Applicable)</label>
+                                    <input list="previouseList" value=""  id="" name="previouseID" placeholder="type here..." class="form-control" required/>
 
+                                        <datalist id="previouseList"  >
+
+                                        {% for item2 in results %}
+            <option value="{{item2.id}}-{{item2.event.name}}-{{item2.event.product.name}}-{{item2.candidate.first_name}}-{{item2.candidate.last_name}}">{{item2.event.product.name}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </datalist>
+
+
+                                                    </div>
 
 
 

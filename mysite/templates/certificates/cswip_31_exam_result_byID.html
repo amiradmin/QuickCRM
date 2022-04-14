@@ -114,18 +114,7 @@ table.GeneratedTable thead {
       <td>Lecturer</td>
       <td>{{exam.event.lecturers}}</td>
     </tr>
-<!--      <tr>-->
-<!--      <td>Sample 3 (data analysis)</td>-->
-<!--          <td>{% if exam.sample3_analysis == 'Failed'  %}<span style="color:red;">{{exam.sample3_analysis }}</span> {%else%}{{exam.sample3_analysis }}{% endif %}</td>-->
-<!--      <td>Sample 3(data collection)</td>-->
-<!--      <td>{% if exam.sample3_collection == 'Failed'  %}<span style="color:red;">{{exam.sample3_collection }}</span> {%else%}{{exam.sample3_collection }}{% endif %}</td>-->
-<!--    </tr>-->
-<!--        <tr>-->
-<!--      <td>Written Instruction</td>-->
-<!--            <td>{% if exam.written_instruction == 'Failed'  %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>-->
-<!--      <td>Exam Title</td>-->
-<!--      <td>{{exam.exam.exam_title}}</td>-->
-<!--    </tr>-->
+
   </tbody>
 </table>
 <!-- Codes by Quackit.com -->
@@ -133,6 +122,65 @@ table.GeneratedTable thead {
                         <br>
                         <br>
                         <br>
+                        <hr>
+<h4>History:</h4>
+   {% for item in result_list %}
+
+<table class="GeneratedTable">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Value</th>
+      <th>Title</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Candidate</td>
+      <td>{{item.candidate.first_name}} {% if exam.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}</td>
+      <td>Event Date</td>
+      <td>{{item.event.start_date|date:'m/d/Y'}}-{{item.event.end_date|date:'m/d/Y'}}</td>
+    </tr>
+    <tr>
+      <td>Product</td>
+      <td>{{item.event.product.name}}</td>
+      <td>Product Category</td>
+      <td>{{item.event.product.category}}</td>
+    </tr>
+    <tr>
+      <td>Exam Date</td>
+      <td>{{item.event.start_exam_date|date:'m/d/Y'}}</td>
+
+              <td>Exam Title</td>
+      <td>{{item.exam.exam_title }}</td>
+    </tr>
+
+    <tr>
+      <td>General Paper</td>
+      <td>{% if item.general_paper == 'Failed'  %}<span style="color:red;">{{item.general_paper }}</span> {%else%} {{item.general_paper }}{% endif %}</td>
+      <td>Technology Paper</td>
+      <td>{% if item.technology_paper == 'Failed'  %}<span style="color:red;">{{item.technology_paper }}</span> {%else%}{{item.technology_paper }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Plate Paper</td>
+
+            <td>{% if item.plate_paper == 'Failed' %}<span style="color:red;">{{item.plate_paper }}</span> {%else%}{{item.plate_paper }}{% endif %}</td>
+      <td>Pipe Paper</td>
+        <td>{% if item.pipe_paper == 'Failed' %}<span style="color:red;">{{item.pipe_paper }}</span> {%else%}{{item.pipe_paper }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Macro Paper</td>
+        <td>{% if item.macro_paper == 'Failed'  %}<span style="color:red;">{{item.macro_paper }}</span> {%else%}{{item.macro_paper }}{% endif %}</td>
+      <td>Lecturer</td>
+      <td>{{item.event.lecturers}}</td>
+    </tr>
+
+  </tbody>
+</table>
+   {% endfor %}
+                        <br>
+                        <hr>
 <h2>Conclusion</h2>
 <p>Final Result: {{finalResult}}</p>
 <p>Next Action: {{action}}</p>

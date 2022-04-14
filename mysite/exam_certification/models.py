@@ -150,7 +150,7 @@ class ExamMaterialPAUTL2(models.Model):
     sample2_collection = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_gsample2_collection",  null=True, blank=True , on_delete=models.DO_NOTHING)
     sample3_analysis = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_sample3_analysis",  null=True, blank=True , on_delete=models.DO_NOTHING)
     sample3_collection = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_sample3_collection",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    written_instruction = models.CharField(max_length=256, null=True, blank=True)
+    written_instruction = models.ForeignKey(Samples,related_name="exam_material_pautl_sample_written",  null=True, blank=True , on_delete=models.DO_NOTHING)
 
 
     remark = models.CharField(max_length=2048, null=True, blank=True)
@@ -246,13 +246,14 @@ class CSWIPWeldingInspector3_1Result(models.Model):
 
 class CSWIPWeldingInspector3_1ResultIntermadiate(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
-    exam = models.ForeignKey(CSWIPWeldingInspector3_1ExamMaterial,related_name="exam_result_31_intermediate",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    previouse_exam = models.ManyToManyField(CSWIPWeldingInspector3_1Result, null=True, blank=True)
+    result = models.ForeignKey(CSWIPWeldingInspector3_1Result,related_name="exam_result_31_intermediate",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    result_1 = models.ForeignKey(CSWIPWeldingInspector3_1Result,related_name="exam_result_31_intermediate_result1",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    result_2 = models.ForeignKey(CSWIPWeldingInspector3_1Result,related_name="exam_result_31_intermediate_result2",  null=True, blank=True , on_delete=models.DO_NOTHING)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.event.name
+    # def __str__(self):
+    #     return self.name
 
 
 

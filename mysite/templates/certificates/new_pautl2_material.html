@@ -153,7 +153,14 @@
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Scheme</label>
-                                    <input  value=""  id="" name="cswip_pcn"  class="form-control" required/>
+
+                          <select name="cswip_pcn" class="form-control"  >
+                                            <option value="">Select</option>
+                                            <option value="CSWIP">CSWIP</option>
+                                            <option value="PCN">PCN</option>
+
+
+                                    </select>
                                                         </div>
 
         </div>
@@ -283,8 +290,14 @@
                                                         <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Written
  Instruction</label>
-                                    <input  value=""  id="" name="written_instruction"  class="form-control" />
 
+                              <select name="written_instruction" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
                                                         </div>
 
 

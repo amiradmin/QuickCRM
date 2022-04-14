@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
                                        PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
                                        CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3,
-                                       CSWIPWeldingInspector3_1ExamMaterial,CSWIPWeldingInspector3_1Result,Samples)
+                                       CSWIPWeldingInspector3_1ExamMaterial,CSWIPWeldingInspector3_1Result,Samples,
+                                       CSWIPWeldingInspector3_1ResultIntermadiate)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,6 +15,7 @@ from django.urls import reverse_lazy
 from dateutil.relativedelta import *
 from django.db.models import Q
 import datetime
+
 # Create your views here.
 
 
@@ -86,9 +88,12 @@ class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateVie
         #         re_exams = str(
         #             re_exams) + "Sample1 data Analysis,Sample1 data Collection,Sample2 data Analysis,Sample2 data Collection,Sample3 data Analysis,Sample3 data Collection,Written data Instruction"
 
-        import datetime
 
-
+        repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate.objects.filter(result = exam).first()
+        print(repeat_obj)
+        result_list = CSWIPWeldingInspector3_1Result.objects.filter(id=repeat_obj.result_1.id)
+        print(result_list)
+        context['result_list'] = result_list
         context['exam'] = exam
         context['finalResult'] = finalResult
         # context['re_exams'] = re_exams
@@ -124,8 +129,6 @@ class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 exam = CSWIPWeldingInspector3_1ExamMaterial.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 context['exam'] = exam
-                context['previouseID'] = self.request.POST['previouseID']
-
                 return render(request, 'certificates/new_cswip_31_exam_result.html', context)
             elif 'submit' in request.POST:
                 print("Submit")
@@ -153,7 +156,16 @@ class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if bool(request.FILES.get('myFile', False)) == True:
                     obj.file = self.request.FILES['myFile']
                 obj.save()
-                print("Must save here")
+                previousID = self.request.POST['previouseID'].split('-')[0]
+                pre_result = CSWIPWeldingInspector3_1Result.objects.filter(id= previousID).first()
+                print(pre_result)
+
+                repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate()
+                repeat_obj.result = obj
+                repeat_obj.result_1 = pre_result
+                repeat_obj.save()
+
+
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = CSWIPWeldingInspector3_1Result.objects.all()
@@ -893,8 +905,8 @@ class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.sample3_analysis = sample7
                 sample8 = Samples.objects.filter(id=self.request.POST['sample3_collection']).first()
                 obj.sample3_collection = sample8
-
-                obj.written_instruction = self.request.POST['written_instruction']
+                sample9 = Samples.objects.filter(id=self.request.POST['written_instruction']).first()
+                obj.written_instruction = sample9
                 obj.save()
 
 
