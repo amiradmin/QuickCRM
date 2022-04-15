@@ -20,6 +20,90 @@ import datetime
 # Create your views here.
 
 
+class DeleteCSWIPExamResult321(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = CSWIPWeldingInspector3_2_1_Result
+    success_url = reverse_lazy('exam_certification:examscwip321resultsummary_')
+
+
+class NewExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_cswip_3_2_1_exam_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamResultSwip321, self).get_context_data()
+        exams = CSWIPWeldingInspector3_2_1ExamMaterial.objects.all()
+        result_list = CSWIPWeldingInspector3_2_1_Result.objects.all()
+        print("Here")
+        context['result_list'] = result_list
+        candidates = TesCandidate.objects.all()
+        context['exams'] = exams
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamResultSwip321, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(request.POST['examID'])
+                exam = CSWIPWeldingInspector3_2_1ExamMaterial.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                # print(self.kwargs['id'])
+                result_list = CSWIPWeldingInspector3_2_1_Result.objects.all()
+                context['result_list'] = result_list
+                context['exam'] = exam
+                return render(request, 'certificates/new_cswip_3_2_1_exam_result.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+
+
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+                exam = CSWIPWeldingInspector3_2_1ExamMaterial.objects.filter(id=self.request.POST['examID']).first()
+                obj = CSWIPWeldingInspector3_2_1_Result()
+                obj.event = event
+                obj.candidate = candidate
+                # obj.result = self.request.POST['result']
+                # obj.explanation = self.request.POST['explanation']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam = exam
+                obj.general_theory_s = self.request.POST['general_theory_s']
+                obj.ndt_s = self.request.POST['ndt_s']
+                obj.symbols_s = self.request.POST['symbols_s']
+                obj.scenario_s = self.request.POST['scenario_s']
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.remark = self.request.POST['remarks']
+                if bool(request.FILES.get('myFile', False)) == True:
+                    obj.file = self.request.FILES['myFile']
+                obj.save()
+                # if not request.POST.get('previouseID', '') == '':
+                #     print("Exist")
+                #     previousID = self.request.POST['previouseID'].split('-')[0]
+                #     pre_result = CSWIPWeldingInspector3_1Result.objects.filter(id= previousID).first()
+                #     print(pre_result)
+                #
+                #     repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate()
+                #     repeat_obj.candidate = candidate
+                #     repeat_obj.primary = pre_result
+                #     repeat_obj.secondry = obj
+                #     repeat_obj.save()
+
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = CSWIPWeldingInspector3_2_1_Result.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_result_summary.html',context=context)
+                return redirect('exam_certification:examscwip321resultsummary_')
+            return redirect('exam_certification:examscwip321resultsummary_')
+
+
+
+
 
 class CSWIPExamResult321Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_result_cswip_3_2_1_summary.html"
@@ -80,7 +164,7 @@ class NewCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                # obj.examTitle = self.request.POST['examTitle']
+                obj.customerID = self.request.POST['customerID']
                 obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
                 obj.remark = self.request.POST['remarks']
