@@ -504,6 +504,16 @@ class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
             if not request.POST.get('end_exam_date', '') == '':
                 obj.end_exam_date = datetime.datetime.strptime(request.POST['end_exam_date'], '%m/%d/%Y')
+
+            # if response.POST.get("eventVisible") == "clicked":
+            #     pass
+
+            if 'eventVisible' in request.POST:
+                print("Chekced")
+                obj.visible = True
+            else:
+                print("Not Chekced")
+                obj.visible = False
             obj.save()
             for item in categories:
                 obj.formCategory.add(item)
@@ -594,6 +604,13 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
             if not request.POST.get('end_exam_date', None) == '':
                 obj.end_exam_date = datetime.datetime.strptime(request.POST['end_exam_date'], '%m/%d/%Y')
+
+            if 'eventVisible' in request.POST:
+                print("checked")
+                obj.visible = True
+            else:
+                print("Not checked")
+                obj.visible = False
             obj.save()
 
 

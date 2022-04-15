@@ -3,7 +3,8 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
                                        CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3,
                                        CSWIPWeldingInspector3_1ExamMaterial,CSWIPWeldingInspector3_1Result,Samples,
-                                       CSWIPWeldingInspector3_1ResultIntermadiate)
+                                       CSWIPWeldingInspector3_1ResultIntermadiate,CSWIPWeldingInspector3_2_1ExamMaterial,
+                                       CSWIPWeldingInspector3_2_1_Result)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,6 +20,117 @@ import datetime
 # Create your views here.
 
 
+
+class CSWIPExamResult321Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_result_cswip_3_2_1_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CSWIPExamResult321Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = CSWIPWeldingInspector3_2_1_Result.objects.all()
+        examCount = CSWIPWeldingInspector3_2_1_Result.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+class DeleteCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = CSWIPWeldingInspector3_2_1ExamMaterial
+    success_url = reverse_lazy('exam_certification:examscwip321summary_')
+
+class NewCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_cswip_3_2_1_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewCSWIPExamMaterial321, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewCSWIPExamMaterial321, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_cswip_3_2_1_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = CSWIPWeldingInspector3_2_1ExamMaterial()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                # obj.examTitle = self.request.POST['examTitle']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                obj.remark = self.request.POST['remarks']
+                obj.customerID = self.request.POST['customerID']
+                # obj.file = self.request.FILEs['file']
+                obj.exam_title = self.request.POST['examTitle']
+                sample = Samples.objects.filter(id=self.request.POST['general_theory_s']).first()
+                obj.general_theory_s = sample
+                sample = Samples.objects.filter(id=self.request.POST['ndt_s']).first()
+                obj.ndt_s = sample
+                sample = Samples.objects.filter(id=self.request.POST['symbols_s']).first()
+                obj.symbols_s = sample
+                sample = Samples.objects.filter(id=self.request.POST['scenario_s']).first()
+                obj.scenario_s = sample
+
+
+                obj.save()
+
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = CSWIPWeldingInspector3_2_1ExamMaterial.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+
+                return render(request, 'certificates/exam_material_cswip_3_2_1_summary.html',context=context)
+
+
+
+
+
+class CSWIPExamMaterial321Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_cswip_3_2_1_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CSWIPExamMaterial321Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = CSWIPWeldingInspector3_2_1ExamMaterial.objects.all()
+        examCount = CSWIPWeldingInspector3_2_1ExamMaterial.objects.count()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
 
 
 class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateView):
