@@ -592,7 +592,8 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.lecturers = lecturers
             obj.location = location
             obj.country = location.country
-            obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
+            if not request.POST.get('start_date', None) == '':
+                obj.start_date = datetime.datetime.strptime(request.POST['start_date'], '%m/%d/%Y')
             if not request.POST.get('practicalDate', None) == '':
                 obj.practicalDate = datetime.datetime.strptime(request.POST['practicalDate'], '%m/%d/%Y')
 
