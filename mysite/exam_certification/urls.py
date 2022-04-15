@@ -61,6 +61,11 @@ urlpatterns = [
     path('newcswipexam321/', views.NewCSWIPExamMaterial321.as_view(), name='newcswipexam321_'),
     path('examcswip321delete/<int:pk>/delete/', views.DeleteCSWIPExamMaterial321.as_view(), name='examcswip321delete_'),
 
+    path('examscwip322summary/', views.CSWIPExamMaterial322Summary.as_view(), name='examscwip322summary_'),
+    # path('newexamrscwip31esultbyid/<int:id>', views.ExamCSWIP31ResultSummaryByID.as_view(), name='newexamrscwip31esultbyid_'),
+    path('newcswipexam322/', views.NewCSWIPExamMaterial322.as_view(), name='newcswipexam322_'),
+    path('examcswip322delete/<int:pk>/delete/', views.DeleteCSWIPExamMaterial322.as_view(), name='examcswip322delete_'),
+
 
     path('examscwip31resultsummary/', views.CSWIPExamResult31Summary.as_view(), name='examscwip31resultsummary_'),
     path('newcswipexam31result/', views.NewExamResultSwip31.as_view(), name='newcswipexam31result_'),
@@ -70,6 +75,11 @@ urlpatterns = [
     path('examscwip321resultsummary/', views.CSWIPExamResult321Summary.as_view(), name='examscwip321resultsummary_'),
     path('newcswipexam321result/', views.NewExamResultSwip321.as_view(), name='newcswipexam321result_'),
     path('examcswip321resultdelete/<int:pk>/delete/', views.DeleteCSWIPExamResult321.as_view(), name='examcswip321resultdelete_'),
+
+
+    path('examscwip322resultsummary/', views.CSWIPExamResult322Summary.as_view(), name='examscwip322resultsummary_'),
+    path('newcswipexam322result/', views.NewExamResultSwip322.as_view(), name='newcswipexam322result_'),
+    path('examcswip322resultdelete/<int:pk>/delete/', views.DeleteCSWIPExamResult322.as_view(), name='examcswip322resultdelete_'),
 
 
 ]
