@@ -6,7 +6,8 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        CSWIPWeldingInspector3_1ResultIntermadiate,CSWIPWeldingInspector3_2_1ExamMaterial,
                                        CSWIPWeldingInspector3_2_1_Result,CSWIPWeldingInspector3_2_2ExamMaterial,
                                        CSWIPWeldingInspector3_2_2_Result,BGAS_CSWIP_PaintingInspectorMaterial,
-                                       BGAS_CSWIP_PaintingInspectorResult)
+                                       BGAS_CSWIP_PaintingInspectorResult,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP,
+                                       Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -20,6 +21,115 @@ from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+
+
+class DeleteCSWIPPhasedAraayUltera(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP
+    success_url = reverse_lazy('exam_certification:examscwipphasedarraysummary_')
+
+
+
+class NewExamMaterialCSWIPPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_cswip_phased_array_ultera_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamMaterialCSWIPPhasedArrayUltera, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamMaterialCSWIPPhasedArrayUltera, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_cswip_phased_array_ultera_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.examTitle = self.request.POST['examTitle']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                obj.remark = self.request.POST['remarks']
+                obj.customerID = self.request.POST['customerID']
+                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['examTitle']
+                print(self.request.POST['general_theory'])
+                sample1 = Samples.objects.filter(id=self.request.POST['general_theory']).first()
+                obj.general_theory = sample1
+                sample2 = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
+                obj.specific_theory = sample2
+                sample3 = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
+                obj.sample1_analysis = sample3
+                sample4 = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()
+                obj.sample1_collection = sample4
+                sample5 = Samples.objects.filter(id=self.request.POST['sample2_analysis']).first()
+                obj.sample2_analysis = sample5
+                sample6 = Samples.objects.filter(id=self.request.POST['sample2_collection']).first()
+                obj.sample2_collection = sample6
+                sample7 = Samples.objects.filter(id=self.request.POST['sample3_analysis']).first()
+                obj.sample3_analysis = sample7
+                sample8 = Samples.objects.filter(id=self.request.POST['sample3_collection']).first()
+                obj.sample3_collection = sample8
+                sample9 = Samples.objects.filter(id=self.request.POST['written_instruction']).first()
+                obj.written_instruction = sample9
+                obj.save()
+
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+
+                return render(request, 'certificates/exam_material_phaied_array_ultera_summary.html',context=context)
+
+
+
+class CSWIPPhasedArrayUltrasonicSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_phaied_array_ultera_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CSWIPPhasedArrayUltrasonicSummary, self).get_context_data()
+        events = Event.objects.all()
+        exams = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.all()
+        examCount = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
 
 
 class DeletePaintingInspectionResult2(SidebarMixin, LoginRequiredMixin, DeleteView):
