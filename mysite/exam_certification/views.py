@@ -5,7 +5,8 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        CSWIPWeldingInspector3_1ExamMaterial,CSWIPWeldingInspector3_1Result,Samples,
                                        CSWIPWeldingInspector3_1ResultIntermadiate,CSWIPWeldingInspector3_2_1ExamMaterial,
                                        CSWIPWeldingInspector3_2_1_Result,CSWIPWeldingInspector3_2_2ExamMaterial,
-                                       CSWIPWeldingInspector3_2_2_Result)
+                                       CSWIPWeldingInspector3_2_2_Result,BGAS_CSWIP_PaintingInspectorMaterial,
+                                       BGAS_CSWIP_PaintingInspectorResult)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,6 +20,200 @@ from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+
+class DeletePaintingInspectionResult2(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = BGAS_CSWIP_PaintingInspectorResult
+    success_url = reverse_lazy('exam_certification:paintinginspectionresultsummary_')
+
+
+class NewExamResultPaintingInspection(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_painting_inspection_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamResultPaintingInspection, self).get_context_data()
+        exams = BGAS_CSWIP_PaintingInspectorMaterial.objects.all()
+        result_list = BGAS_CSWIP_PaintingInspectorResult.objects.all()
+        print("Here")
+        context['result_list'] = result_list
+        candidates = TesCandidate.objects.all()
+        context['exams'] = exams
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamResultPaintingInspection, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(request.POST['examID'])
+                exam = BGAS_CSWIP_PaintingInspectorMaterial.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                # print(self.kwargs['id'])
+                result_list = BGAS_CSWIP_PaintingInspectorResult.objects.all()
+                context['result_list'] = result_list
+                context['exam'] = exam
+                return render(request, 'certificates/new_painting_inspection_result.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+
+
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+                exam = BGAS_CSWIP_PaintingInspectorMaterial.objects.filter(id=self.request.POST['examID']).first()
+                obj = BGAS_CSWIP_PaintingInspectorResult()
+                obj.event = event
+                obj.candidate = candidate
+                # obj.result = self.request.POST['result']
+                # obj.explanation = self.request.POST['explanation']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam = exam
+                obj.general_theory = self.request.POST['general_theory']
+                obj.practical = self.request.POST['practical']
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.remark = self.request.POST['remarks']
+                if bool(request.FILES.get('myFile', False)) == True:
+                    obj.file = self.request.FILES['myFile']
+                obj.save()
+                # if not request.POST.get('previouseID', '') == '':
+                #     print("Exist")
+                #     previousID = self.request.POST['previouseID'].split('-')[0]
+                #     pre_result = CSWIPWeldingInspector3_1Result.objects.filter(id= previousID).first()
+                #     print(pre_result)
+                #
+                #     repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate()
+                #     repeat_obj.candidate = candidate
+                #     repeat_obj.primary = pre_result
+                #     repeat_obj.secondry = obj
+                #     repeat_obj.save()
+
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = BGAS_CSWIP_PaintingInspectorResult.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_result_summary.html',context=context)
+                return redirect('exam_certification:paintinginspectionresultsummary_')
+            return redirect('exam_certification:paintinginspectionresultsummary_')
+
+
+
+
+class PaintingInspectionSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/painting_inspection_result_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PaintingInspectionSummary, self).get_context_data()
+        events = Event.objects.all()
+        exams = BGAS_CSWIP_PaintingInspectorResult.objects.all()
+        examCount = BGAS_CSWIP_PaintingInspectorResult.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+class DeletePaintingInspectionMaterial(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = BGAS_CSWIP_PaintingInspectorMaterial
+    success_url = reverse_lazy('exam_certification:exampaintinginspectionsummary_')
+
+
+class NewBGAS_CSWIP_PaintingInspector(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_painting_inspection_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewBGAS_CSWIP_PaintingInspector, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewBGAS_CSWIP_PaintingInspector, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_painting_inspection_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = BGAS_CSWIP_PaintingInspectorMaterial()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.customerID = self.request.POST['customerID']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                obj.remark = self.request.POST['remarks']
+                obj.customerID = self.request.POST['customerID']
+                # obj.file = self.request.FILEs['file']
+                obj.exam_title = self.request.POST['examTitle']
+                sample = Samples.objects.filter(id=self.request.POST['general_theory']).first()
+                obj.general_theory = sample
+                sample = Samples.objects.filter(id=self.request.POST['practical']).first()
+                obj.practical = sample
+
+
+
+                obj.save()
+
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = BGAS_CSWIP_PaintingInspectorMaterial.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+
+                return render(request, 'certificates/painting_inspection_summary.html',context=context)
+
+
+
+class BGAS_CSWIP_PaintingInspectorSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/painting_inspection_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(BGAS_CSWIP_PaintingInspectorSummary, self).get_context_data()
+        events = Event.objects.all()
+        exams = BGAS_CSWIP_PaintingInspectorMaterial.objects.all()
+        examCount = BGAS_CSWIP_PaintingInspectorMaterial.objects.count()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
+
 
 class DeleteCSWIPExamResult322(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPWeldingInspector3_2_2_Result
