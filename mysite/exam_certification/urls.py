@@ -86,6 +86,11 @@ urlpatterns = [
     path('examcswip321resultdelete/<int:pk>/delete/', views.DeleteCSWIPExamResult321.as_view(), name='examcswip321resultdelete_'),
 
 
+    path('cswipphasedarrayresultsummary/', views.CSWIPPhasedArrayUltrasonic_Result_Summary.as_view(), name='cswipphasedarrayresultsummary_'),
+    path('newcswipphasedarrayresult/', views.NewExamResultCSWIPPhasedArrayUltrasonic.as_view(), name='newcswipphasedarrayresult_'),
+    path('examcswipphasedarraydelete/<int:pk>/delete/', views.DeletePhasedArrayResultL2.as_view(), name='examcswipphasedarraydelete_'),
+
+
     path('paintinginspectionresultsummary/', views.PaintingInspectionSummary.as_view(), name='paintinginspectionresultsummary_'),
     path('newcpaintinginspectionresult/', views.NewExamResultPaintingInspection.as_view(), name='newcpaintinginspectionresult_'),
     path('paintinginspectionresultdelete/<int:pk>/delete/', views.DeletePaintingInspectionResult2.as_view(), name='paintinginspectionresultdelete_'),
