@@ -401,10 +401,10 @@ class LitteRegisterView(TemplateView):
             print(firstName)
             result = TesCandidate.objects.filter(first_name=firstName, last_name=lastName).count()
 
-            lastCan = TesCandidate.objects.exclude(tes_candidate_id__exact=None).last()
-            print(lastCan)
-            tempID = int(lastCan.tes_candidate_id.split('-')[1]) + 1
-            tempID = 'TESN-0' + str(tempID)
+            # lastCan = TesCandidate.objects.exclude(tes_candidate_id__exact=None).last()
+            # print(lastCan)
+            # tempID = int(lastCan.tes_candidate_id.split('-')[1]) + 1
+            # tempID = 'TESN-0' + str(tempID)
             user = User()
 
             user.username = request.POST['email']
@@ -419,7 +419,7 @@ class LitteRegisterView(TemplateView):
             user.tescandidate.middleName = request.POST['middleName']
             user.tescandidate.last_name = request.POST['last_name']
             user.tescandidate.email = request.POST['email']
-            user.tescandidate.tes_candidate_id = tempID
+            # user.tescandidate.tes_candidate_id = tempID
             user.tescandidate.contact_number = request.POST['contactNumber']
             user.save()
 
