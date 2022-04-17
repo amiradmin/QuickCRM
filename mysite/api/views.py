@@ -166,7 +166,7 @@ class GetExamList(APIView):
         }
         # examList = Event.objects.filter(name= 'General Exams')
         product = Product.objects.filter(id=1639).first()
-        examList = Event.objects.filter(Q(product= product) & Q(start_exam_date__lte=datetime.datetime.now())).order_by('start_date')
+        examList = Event.objects.filter(Q(product= product) & Q(start_exam_date__gte=datetime.datetime.now())).order_by('start_date')
         page = self.paginate_queryset(examList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)
@@ -219,7 +219,9 @@ class GetCategoryProductList(APIView):
             "msg": "Done"
         }
         category =productCategory.objects.filter(id=self.kwargs['id']).first()
-        productList = Product.objects.filter(category=category).order_by('name')
+        productList = Product.objects.filter(category=category ).order_by('name')
+        # productList = Product.objects.filter(Q(category=category) & Q(start_date__gte=datetime.datetime.now())).order_by('start_date')
+
         page = self.paginate_queryset(productList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)
@@ -273,7 +275,7 @@ class GetEventListByproductID(APIView):
         id = self.kwargs['id']
         product=Product.objects.filter(id=id).first()
         print(id)
-        event_list =Event.objects.filter(product=product).filter(visible=True)
+        event_list =Event.objects.filter(Q(product=product) & Q(start_exam_date__gte=datetime.datetime.now())).filter(visible=True).order_by('start_date')
         # productList = Product.objects.filter(category=category)
         page = self.paginate_queryset(event_list)
         if page is not None:
