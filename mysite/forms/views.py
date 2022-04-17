@@ -2963,7 +2963,7 @@ class EachFormMemebr(TemplateView):
 
 class EventSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/event_summary.html"
-    group_required = u"management,admin,training_admin"
+    group_required = u"management,admin,training_admin,training_operator"
     
     def get_context_data(self, *args, **kwargs):
         context = super(EventSummary, self).get_context_data()
@@ -2992,7 +2992,10 @@ class EventSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
 
         resultList = list(set(list1).difference(list2))
         unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
-
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
 
         context['event'] = event
         context['eventConfirm'] = eventConfirm
@@ -3046,7 +3049,8 @@ class EventSummaryByFormId(SidebarMixin, TemplateView):
         # context['form'] = form
         context['unsubmited'] = unsubmited
 
-        return context
+        # return context
+        return redirect('forms:evensummary_', id=163)
 
 
 class NDT15AExperienceVerificationView(SidebarMixin, LoginRequiredMixin, TemplateView):
