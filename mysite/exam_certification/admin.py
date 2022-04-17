@@ -7,10 +7,24 @@ from  exam_certification.models import (Invigilator,CertificateAttendance,Certif
                                         CSWIPWeldingInspector3_2_2ExamMaterial,CSWIPWeldingInspector3_2_2_Result,
                                         BGAS_CSWIP_PaintingInspectorResult,BGAS_CSWIP_PaintingInspectorMaterial,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP
                                         ,Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN
-                                        ,Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN
+                                        ,Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial,
+                                        PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult
                                         )
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
+
+
+class PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResultAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','event','created_at','updated_at']
+    list_filter = ['id','name','event','created_at','updated_at']
+admin.site.register(PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResultAdmin)
+
+
+
+class PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterialAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','event','created_at','updated_at']
+    list_filter = ['id','name','event','created_at','updated_at']
+admin.site.register(PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterialAdmin)
 
 
 class Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCNAdmin(ImportExportModelAdmin,admin.ModelAdmin):
