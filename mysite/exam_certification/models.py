@@ -5,9 +5,6 @@ from training.models import Country,Location,TesCandidate,Product,Event
 
 
 
-
-
-
 class Samples(models.Model):
     serial_no = models.CharField(max_length=256, null=True, blank=True )
     asset_code = models.CharField(max_length=256, null=True, blank=True)
@@ -18,6 +15,70 @@ class Samples(models.Model):
 
     def __str__(self):
         return self.serial_no
+
+
+
+class ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="exam_material_ultra_event_pcn", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="exam_material_ultra_candidate_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample = models.ForeignKey(Samples,related_name="exam_material_ultra_sample_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    exam_date = models.DateTimeField(null=True, blank=True)
+    cswip_pcn = models.CharField(max_length=256, null=True, blank=True)
+    exam_title = models.CharField(max_length=256, null=True, blank=True)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    general_theory = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_general_theory_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample1_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample1_analysis_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample1_collection = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample1_collection_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample2_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample2_analysis_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample2_collection = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_gsample2_collection_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample3_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample3_analysis_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample3_collection = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample3_collection_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    written_instruction = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_written_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+
+
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file',null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
+
+
+
+class Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="exam_material_ultra_result_event_pcn", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="exam_material_ultra_result_candidate_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample = models.ForeignKey(Samples,related_name="exam_material_ultra_result_sample_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    exam_date = models.DateTimeField(null=True, blank=True)
+    cswip_pcn = models.CharField(max_length=256, null=True, blank=True)
+    exam_title = models.CharField(max_length=256, null=True, blank=True)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    general_theory =models.CharField(max_length=128, null=True, blank=True)
+    sample1_analysis = models.CharField(max_length=128, null=True, blank=True)
+    sample1_collection = models.CharField(max_length=128, null=True, blank=True)
+    sample2_analysis = models.CharField(max_length=128, null=True, blank=True)
+    sample2_collection = models.CharField(max_length=128, null=True, blank=True)
+    sample3_analysis = models.CharField(max_length=128, null=True, blank=True)
+    sample3_collection =models.CharField(max_length=128, null=True, blank=True)
+    written_instruction =models.CharField(max_length=128, null=True, blank=True)
+
+
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file',null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
+
+
 
 
 

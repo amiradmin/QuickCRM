@@ -12,7 +12,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">New Phased Array Ultrasonic Testing(PAUT) Level 2 CSWIP Exam Material</h4>
+                                <h4 class="page-title">New Phased Array Ultrasonic Testing(PAUT) Level 2 PCN Exam Material</h4>
                             </div>
                         </div>
                     </div>     
@@ -180,9 +180,9 @@
                                     </select>
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Specific Theory</label>
+                                   <label for="" class="form-label">Instruction Writing</label>
 
-                            <select name="specific_theory" class="form-control"  >
+                            <select name="written_instruction" class="form-control"  >
                                             <option value="">Select</option>
                                         {% for item3 in samples %}
                                         <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
@@ -287,18 +287,7 @@
         </div>
 
 
-                                                        <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Written
- Instruction</label>
 
-                              <select name="written_instruction" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
-                                                        </div>
 
 
 

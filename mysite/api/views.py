@@ -7,6 +7,8 @@ from api.paginations import CustomPagination
 from training.models import Event,Product,productCategory,Event
 from contacts.models import Contact
 from scheduler.tasks import cerExpiration
+from django.db.models import Q
+import datetime
 # Create your views here.
 
 
@@ -164,7 +166,7 @@ class GetExamList(APIView):
         }
         # examList = Event.objects.filter(name= 'General Exams')
         product = Product.objects.filter(id=1639).first()
-        examList = Event.objects.filter(product= product).order_by('start_date')
+        examList = Event.objects.filter(Q(product= product) & Q(start_exam_date__lte=datetime.datetime.now())).order_by('start_date')
         page = self.paginate_queryset(examList)
         if page is not None:
             serializer = self.serializer_class(page, many=True)
