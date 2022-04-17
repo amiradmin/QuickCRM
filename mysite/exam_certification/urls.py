@@ -81,8 +81,8 @@ urlpatterns = [
     path('pcnphasedarraydelete/<int:pk>/delete/', views.DeletePhasedArrayPCNMaterial.as_view(), name='pcnphasedarraydelete_'),
 
     path('exampcnphasedarrayresultsummary/', views.PCNPhasedArrayUltrasonicResultSummary.as_view(), name='exampcnphasedarrayresultsummary_'),
-    # path('newexampcnphasedarray/', views.NewExamMaterialPCNPhasedArrayUltera.as_view(), name='newexampcnphasedarray_'),
-    # path('pcnphasedarraydelete/<int:pk>/delete/', views.DeletePhasedArrayPCNMaterial.as_view(), name='pcnphasedarraydelete_'),
+    path('newexampcnphasedarraypcn/', views.NewExamResultPCNPhasedArrayUltrasonic.as_view(), name='newexampcnphasedarraypcn_'),
+    path('pcnphasedarrayresultdelete/<int:pk>/delete/', views.DeletePhasedArrayPCNResult.as_view(), name='pcnphasedarrayresultdelete_'),
 
     path('examscwip31resultsummary/', views.CSWIPExamResult31Summary.as_view(), name='examscwip31resultsummary_'),
     path('newcswipexam31result/', views.NewExamResultSwip31.as_view(), name='newcswipexam31result_'),

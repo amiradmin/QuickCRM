@@ -132,7 +132,7 @@
                                             </div>
                                             <div class="col-sm-8" >
                                                 <div class="text-sm-end" >
- <a href="{% url 'exam_certification:newexampcnphasedarray_' %}" type="button" class="btn btn-light mb-2 me-1"><i class="mdi mdi-square-edit-outline" style="margin-right:6px;color:#03962a;font-size:20px;"></i>New</a>
+ <a href="{% url 'exam_certification:newexampcnphasedarraypcn_' %}" type="button" class="btn btn-light mb-2 me-1"><i class="mdi mdi-square-edit-outline" style="margin-right:6px;color:#03962a;font-size:20px;"></i>New</a>
 
                                                 </div>
 
@@ -155,7 +155,7 @@
                                                         <th>Exam Date</th>
                                                         <th>CSWIP/PCN</th>
                                                         <th>General Theory</th>
-                                                        <th>Specific Theory</th>
+
                                                         <th>Sample 1(data collection)</th>
                                                         <th>Sample 1(data analysis)</th>
                                                          <th>Sample 2(data collection)</th>
@@ -181,8 +181,7 @@
                                                         <td>{{item.candidate.email}}</td>
                                                         <td>{{item.exam_date|date:'m/d/Y'}}</td>
                                                         <td>{{item.cswip_pcn}}</td>
-                                                        <td>{{item.general_theory.serial_no}}-{{item.general_theory.asset_code}}</td>
-                                                        <td>{{item.specific_theory}}22</td>
+                                                        <td>{{item.general_theory}}</td>
                                                         <td>{{item.sample1_analysis}}</td>
                                                         <td>{{item.sample1_collection}}</td>
                                                         <td>{{item.sample2_analysis}}</td>
@@ -191,7 +190,7 @@
                                                         <td>{{item.sample3_collection}}</td>
 
                                                         <td>{{item.written_instruction}}</td>
-                                                        <td><a href="{% url 'exam_certification:pcnphasedarraydelete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
+                                                        <td><a href="{% url 'exam_certification:pcnphasedarrayresultdelete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
 
                                                     </tr>
                                                     {%endfor%}

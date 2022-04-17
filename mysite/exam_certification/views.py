@@ -23,13 +23,18 @@ import datetime
 
 # Create your views here.
 
+class DeletePhasedArrayPCNResult(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN
+    success_url = reverse_lazy('exam_certification:exampcnphasedarrayresultsummary_')
+
+
 
 class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/new_phased_array_l2_exam_result.html"
+    template_name = "certificates/new_phased_array_l2_exam_pcn_result.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamResultPCNPhasedArrayUltrasonic, self).get_context_data()
-        exams = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.all()
+        exams = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
         candidates = TesCandidate.objects.all()
         context['exams'] = exams
         context['candidates'] = candidates
@@ -41,11 +46,11 @@ class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, Te
             if 'updateInfo' in request.POST:
                 print("updateInfo")
                 print(request.POST['examID'])
-                exam = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                exam = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 context['exam'] = exam
 
-                return render(request, 'certificates/new_phased_array_l2_exam_result.html', context)
+                return render(request, 'certificates/new_phased_array_l2_exam_pcn_result.html', context)
             elif 'submit' in request.POST:
                 print("Submit")
 
@@ -55,8 +60,8 @@ class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, Te
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
                 print(self.request.POST['exam_ID'])
-                exam = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(id=self.request.POST['exam_ID']).first()
-                obj = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP()
+                exam = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(id=self.request.POST['exam_ID']).first()
+                obj = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN()
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam = exam
@@ -64,7 +69,6 @@ class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, Te
                 # obj.explanation = self.request.POST['explanation']
                 obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.general_theory = self.request.POST['general_theory']
-                obj.specific_theory = self.request.POST['specific_theory']
                 obj.sample1_analysis = self.request.POST['sample1_analysis']
                 obj.sample1_collection = self.request.POST['sample1_collection']
                 obj.sample2_analysis = self.request.POST['sample2_analysis']
@@ -79,15 +83,15 @@ class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, Te
 
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
-                exams = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.all()
+                exams = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
                 context['exams'] = exams
                 context['candidates'] = candidates
                 # return render(request, 'certificates/exam_result_summary.html',context=context)
-                return redirect('exam_certification:cswipphasedarrayresultsummary_')
-            return redirect('exam_certification:cswipphasedarrayresultsummary_')
+                return redirect('exam_certification:exampcnphasedarrayresultsummary_')
+            return redirect('exam_certification:exampcnphasedarrayresultsummary_')
 
 
 
