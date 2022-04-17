@@ -80,6 +80,10 @@ urlpatterns = [
     path('newsexamscwipultral3/', views.NewExamMaterialPAUTUltraL3.as_view(), name='newsexamscwipultral3_'),
     path('examscwipultral3delete/<int:pk>/delete/', views.DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.as_view(), name='examscwipultral3delete_'),
 
+    path('examscwipultral3resultsummary/', views.PhasedArrayUltrasonicTesting_PAUT_L3CSWIP_Result_Summary.as_view(), name='examscwipultral3resultsummary_'),
+    path('newsexamscwipultral3result/', views.NewExamResultPAUTUltraL3.as_view(), name='newsexamscwipultral3result_'),
+    path('examscwipultral3resultdelete/<int:pk>/delete/', views.DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.as_view(), name='examscwipultral3resultdelete_'),
+
     path('exampcnphasedarraysummary/', views.PCNPhasedArrayUltrasonicMaterialSummary.as_view(), name='exampcnphasedarraysummary_'),
     path('newexampcnphasedarray/', views.NewExamMaterialPCNPhasedArrayUltera.as_view(), name='newexampcnphasedarray_'),
     path('pcnphasedarraydelete/<int:pk>/delete/', views.DeletePhasedArrayPCNMaterial.as_view(), name='pcnphasedarraydelete_'),

@@ -24,6 +24,89 @@ import datetime
 
 # Create your views here.
 
+class DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult
+    success_url = reverse_lazy('exam_certification:examscwipultral3resultsummary_')
+
+
+
+class NewExamResultPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_paut_ultra_l3_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamResultPAUTUltraL3, self).get_context_data()
+        exams = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.objects.all()
+        candidates = TesCandidate.objects.all()
+        context['exams'] = exams
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamResultPAUTUltraL3, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(request.POST['examID'])
+                exam = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                # print(self.kwargs['id'])
+                context['exam'] = exam
+
+                return render(request, 'certificates/new_paut_ultra_l3_result.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+
+
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+                print(self.request.POST['exam_ID'])
+                exam = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.objects.filter(id=self.request.POST['exam_ID']).first()
+                obj = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam = exam
+                # obj.result = self.request.POST['result']
+                # obj.explanation = self.request.POST['explanation']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.basic_a1 = self.request.POST['basic_a1']
+                obj.basic_a2 = self.request.POST['basic_a2']
+                obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
+                obj.basic_b_part_2 = self.request.POST['basic_b_part_2']
+                obj.basic_b_part_3 = self.request.POST['basic_b_part_3']
+                obj.basic_b_part_4 = self.request.POST['basic_b_part_4']
+                obj.practical_paut_l2 = self.request.POST['practical_paut_l2']
+                obj.remark = self.request.POST['paut_remarks']
+                if bool(request.FILES.get('myFile', False)) == True:
+                    obj.file = self.request.FILES['myFile']
+                obj.save()
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_result_summary.html',context=context)
+                return redirect('exam_certification:examscwipultral3resultsummary_')
+            return redirect('exam_certification:examscwipultral3resultsummary_')
+
+
+class PhasedArrayUltrasonicTesting_PAUT_L3CSWIP_Result_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_result_l3_paut_altra_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PhasedArrayUltrasonicTesting_PAUT_L3CSWIP_Result_Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.all()
+        examCount = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
 
 class DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial
