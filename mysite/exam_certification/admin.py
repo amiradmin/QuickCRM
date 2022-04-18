@@ -11,11 +11,22 @@ from  exam_certification.models import (Invigilator,CertificateAttendance,Certif
                                         PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
                                         PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material,
                                         TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material,
-                                        TimeFlightDiffractionTOFDLevel3_PCN_Result
+                                        TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial,
+                                        RadiographicInterpretationWeldsRIResult
                                         )
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
+
+class RadiographicInterpretationWeldsRIResultAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','event','created_at','updated_at']
+    list_filter = ['id','name','event','created_at','updated_at']
+admin.site.register(RadiographicInterpretationWeldsRIResult,RadiographicInterpretationWeldsRIResultAdmin)
+
+class RadiographicInterpretationWeldsRIMaterialAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','event','created_at','updated_at']
+    list_filter = ['id','name','event','created_at','updated_at']
+admin.site.register(RadiographicInterpretationWeldsRIMaterial,RadiographicInterpretationWeldsRIMaterialAdmin)
 
 class TimeFlightDiffractionTOFDLevel3_PCN_ResultAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']

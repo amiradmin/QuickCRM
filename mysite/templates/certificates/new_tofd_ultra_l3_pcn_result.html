@@ -1,0 +1,814 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+
+<link rel='stylesheet' href='https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'>
+
+
+<style>
+    @media all {
+
+  .tabs {
+    padding-top: 3%
+  }
+  .tab-list {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .tab-list > li {
+    padding: 0 3%;
+    border-left: 1px solid #6c6c6c;
+    text-align: center;
+    float: left;
+    cursor: pointer;
+  }
+  .tab-list > li:first-child {
+    border-left: none;
+  }
+  .tab-list > li:hover > h3,
+  .tab-list > li.active > h3 {
+    color: #4ECDC4;
+  }
+  .tab-list > li > h3 {
+    font-weight: 100;
+    display: block;
+    transition: all 500ms ease;
+  }
+  .tabs-content { opacity: 0; display: none; margin: 3em 0; opacity 1s ease-out;  }
+  .tabs-content.active { opacity: 1; display: block; }
+
+  /* Tab 1 Set */
+  .tabs-content#content-select-1 > div {
+    padding: 0 4em;
+  }
+  .tabs-content > div > i  {
+    font-size: 65px;
+    float: left;
+    display: block;
+    margin-top: 10px;
+  }
+  .tabs-content > div > article {
+    float: right;
+    width: 80%;
+  }
+  .tabs-content > div > article h3 {
+    font-weight: bold;
+  }
+
+  /* Bar Set Style */
+  .tab-header { margin: 0 0 1em; }
+  .tab-header h3 { font-size: 20px; text-transform: uppercase; }
+  .single-bar {
+    float: left;
+    text-align: center;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .single-bar p { text-align: center; }
+  .single-bar p.bar-place { margin: 1em 0; }
+  .bar-container {
+    border-bottom: 1px solid #fff;
+    padding: 0 1em;
+    min-height: 280px;
+    position: relative;
+  }
+  .bar {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+  }
+  .bar:first-child { padding-left: 0; }
+  .bar-value {border: 1px solid #fff;
+    border-bottom: none;}
+  .bar1 { height: 150px; }
+  .bar2 { height: 245px; }
+  .bar3 { height: 110px; }
+  .bar4 { height: 95px; }
+  .bar5 { height: 180px; }
+  .bar6 { height: 50px; }
+  .bar-highlight {
+    background-color: #4ECDC4;
+    border-color:  #4ECDC4;
+  }
+  .bar-highlight:hover { opacity: .9; }
+}
+</style>
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+              
+                                </div>
+                                <h4 class="page-title">New Time of Flight Diffraction(TOFD) Level 3 PCN Result</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title"> </h4>
+
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+
+
+                                        </div> <!-- end preview-->
+                                        <br>
+
+                                        
+                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+
+<section class="container-fluid">
+  <div class="row">
+    <!-- Tabs Start -->
+
+
+
+
+
+
+                                                    <div class="row g-2">
+                     <div class="mb-3 col-md-12">
+                                   <label for="" class="form-label">Examination</label>
+                                    <input list="examList" value=""  id="" name="examID" placeholder="type here..." class="form-control" required/>
+
+                                        <datalist id="examList"  >
+
+                                        {% for item2 in exams %}
+            <option value="{{item2.id}}-{{item2.event.name}}-{{item2.event.product.name}}-{{item2.candidate.first_name}}-{{item2.candidate.last_name}}">{{item2.event.product.name}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </datalist>
+
+
+                                                    </div>
+
+
+                                                    </div>
+                        <br>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" name="updateInfo" type="submit">Update</button>
+                                                    </div>
+                                                </form>
+</div>
+                                    </div></div></div>
+
+
+
+                           <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+
+
+
+     <div class="container tabs">
+      <ul class="list-inline tab-list col-md-12">
+        <li id="select-1" class="active">
+          <h3></h3>
+        </li>
+
+
+      </ul>
+    </div>
+    <!-- Tabs End -->
+
+    <!-- Tabs Content Start -->
+    <div class="container">
+      <!-- Tab Content 1 https://codepen.io/vinguerra/pen/VbWwQJ -->
+      <div class="tabs-content active" id="content-select-1">
+
+                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+          <br>
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Candidate</label>
+                                    <input  value="{{exam.candidate.id}}-{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Event</label>
+                                    <input  value="{{exam.event.id}}-{{exam.event.name}}"  id="" name="eventID" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Customer ID</label>
+                                    <input  value="{{exam.customerID}}"  id="" name="customerID"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Date</label>
+                                    <input  value="{{exam.event.start_exam_date|date:'m/d/Y'}}"  id="" name="paut_exam_date" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+
+
+
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Title</label>
+                                    <input  value="{{exam.scheme}}"  id="" name="paut_examTitle"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Invigilator</label>
+                                    <input  value="{{exam.invigilator}}"  id="" name="paut_invigilator" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+
+                     <div class="mb-3 col-md-12">
+                                   <label for="" class="form-label">Lecturer</label>
+                                    <input  value="{{exam.lecturers}}"  id="" name="paut_lecturer" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">A1(25 questions on materials)</label>
+ <select class="form-select" name="basic_a1" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">A2(10 questions-Scheme)</label>
+ <select class="form-select" name="basic_a2" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 1 (15 Questions in PT)</label>
+ <select class="form-select" name="basic_b_part_1" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 2(15 Questions in MT)</label>
+ <select class="form-select" name="basic_b_part_2" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 3(15 Questions in UT)</label>
+ <select class="form-select" name="basic_b_part_3" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 4(15 Questions in RT)
+</label>
+ <select class="form-select" name="basic_b_part_4" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Main D</label>
+ <select class="form-select" name="main_d" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Main E
+</label>
+ <select class="form-select" name="main_e" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Main F</label>
+ <select class="form-select" name="main_f" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Practical TOFD L2
+</label>
+ <select class="form-select" name="practical_tofd_l2" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+        </div>
+
+
+                                                        <div class="mb-3 col-md-12">
+                                   <label for="" class="form-label">Exam Venue (Country, City, Address)</label>
+                                    <input  value=""  id="" name="paut_venue"  class="form-control" />
+                                                        </div>
+
+
+
+
+
+
+
+                     <div class="mb-3 col-md-12">
+                                   <text for="" class="form-label">Remarks</text>
+                                    <textarea  value=""  id="" name="paut_remarks" class="form-control" ></textarea>
+                                                        </div>
+<input  type="text" value="{{exam.id}}"  name="exam_ID" class="form-control"  />
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" name="submit" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+
+      </div>
+      <!-- Tab Content 1 https://codepen.io/vinguerra/pen/VbWwQJ End -->
+
+      <!-- Tab Content 2 https://codepen.io/vinguerra/pen/rmwaao Start -->
+
+
+      <!-- Tab Content 2 https://codepen.io/vinguerra/pen/rmwaao End -->
+
+      <div class="tabs-content" id="content-select-3">
+                              <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+       <br>
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Candidate</label>
+                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Event</label>
+                                    <input  value="{{event.id}}-{{event.name}}"  id="" name="eventID" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Customer ID</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_customerID"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Date</label>
+                                    <input  value="{{event.start_exam_date|date:'m/d/Y'}}"  id="" name="pcn_paut_exam_l3_date" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+
+
+
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Title</label>
+                                    <input  value="{{event.product.name}}"  id="" name="pcn_paut_l3_examTitle"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Invigilator</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_invigilator" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Lecturer</label>
+                                    <input  value="{{event.lecturers}}"  id="" name="pcn_paut_l3_lecturer" class="form-control" required/>
+                                                        </div>
+        </div>
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Scheme</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_scheme"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">NDTL3</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_ndtl3" class="form-control" />
+                                                        </div>
+        </div>
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">PAUTL2</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_pautl2"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">PAUT L2
+ Practical Exam</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_practical_exam" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">A1(25 questions on materials)</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_basic_a1"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">A2(10 questions-Scheme)</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_basic_a2" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 1 (15 Questions in PT)</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_basic_b_part_1"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 2(15 Questions in MT)</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_basic_b_part_2" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 3(15 Questions in UT)</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_basic_b_part_3"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 4(15 Questions in RT)
+</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_basic_b_part_4" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">D(30 questions of Level 3 knowledge)</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_main_d"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">E(20 questions- application)
+</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_main_e" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">F(NDT procedure)</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_main_f"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Delivery Method
+</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_delivery_method" class="form-control" />
+                                                        </div>
+        </div>
+
+
+                                                        <div class="mb-3 col-md-12">
+                                   <label for="" class="form-label">Exam Venue (Country, City, Address)</label>
+                                    <input  value=""  id="" name="pcn_paut_l3_venue"  class="form-control" />
+                                                        </div>
+
+
+
+
+
+
+
+                     <div class="mb-3 col-md-12">
+                                   <text for="" class="form-label">Remarks</text>
+                                    <textarea  value=""  id="" name="pcn_paut_l3_remark" class="form-control" ></textarea>
+                                                        </div>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button  class="btn btn-primary" name="submit_pcn_paut" type="submit">Submit</button>
+                                                    </div>
+                              </form>
+      </div>
+
+      <div class="tabs-content" id="content-select-4">
+                                        <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+        <br>
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Candidate</label>
+                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Event</label>
+                                    <input  value="{{event.id}}-{{event.name}}"  id="" name="eventID" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Customer ID</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_customerID"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Date</label>
+                                    <input  value="{{event.start_exam_date|date:'m/d/Y'}}"  id="" name="pcn_tofd_l3_exam_date" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+
+
+
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Title</label>
+                                    <input  value="{{event.product.name}}"  id="" name="pcn_tofd_examTitle"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Invigilator</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_invigilator" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Revision</label>
+                                    <input  value=""  id="" name="pcn_tofd_revision"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Lecturer</label>
+                                    <input  value="{{event.lecturers}}"  id="" name="pcn_tofd_l3_lecturer" class="form-control" required/>
+                                                        </div>
+        </div>
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Scheme</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_scheme"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">NDTL3</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_ndtl3" class="form-control" />
+                                                        </div>
+        </div>
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">PAUTL2</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_pautl2"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">PAUT L2
+ Practical Exam</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_practical_exam" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">A1(25 questions on materials)</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_basic_a1"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">A2(10 questions-Scheme)</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_basic_a2" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 1 (15 Questions in PT)</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_basic_b_part_1"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 2(15 Questions in MT)</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_basic_b_part_2" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 3(15 Questions in UT)</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_basic_b_part_3"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 4(15 Questions in RT)
+</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_basic_b_part_4" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">D(30 questions of Level 3 knowledge)</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_main_d"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">E(20 questions- application)
+</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_main_e" class="form-control" />
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">F(NDT procedure)</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_main_f"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Delivery Method
+</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_delivery_method" class="form-control" />
+                                                        </div>
+        </div>
+
+
+                                                        <div class="mb-3 col-md-12">
+                                   <label for="" class="form-label">Exam Venue (Country, City, Address)</label>
+                                    <input  value=""  id="" name="pcn_tofd_l3_venue"  class="form-control" />
+                                                        </div>
+
+
+
+
+
+
+
+                     <div class="mb-3 col-md-12">
+                                   <text for="" class="form-label">Remarks</text>
+                                    <textarea  value=""  id="" name="pcn_tofd_l3_remark" class="form-control" ></textarea>
+                                                        </div>
+                                                   <div class="mb-3 col-md-12 text-center">
+                                                        <button  class="btn btn-primary" name="submit_pcn_tofd" type="submit">Submit</button>
+                                                    </div>
+                              </form>
+      </div>
+    </div>
+    <!-- Tabs Content End -->
+  </div>
+</section>
+
+
+
+
+
+
+                                                    <br>
+
+
+                                    
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                                        
+
+                                         
+
+                                        </div> <!-- end preview code-->
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+ <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+                <script>
+                    $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
+
+
+function myFunction() {
+
+  var issueDate = document.getElementById('issue_date').value;
+  var candidate = document.getElementById('canID').value;
+  console.log(candidate);
+  var cerNumber = document.getElementById('certiﬁcate_number');
+  cerNumber.value=issueDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + issueDate.split('/')[0] + '_' + issueDate.split('/')[1]  ;
+}
+
+//Top Content Tabs and Description
+$(".tab-list li").on("click", function() {
+  var tabId = ".tab-list li#" + $(this).attr("id");
+  var tabDivId = ".tabs-content#content-" + $(this).attr("id");
+
+  if (!$(this).hasClass("active")) {
+    $(".tab-list li").removeClass("active");
+    $(this).addClass("active");
+
+    $(".tabs-content").removeClass("active");
+    $(tabDivId).addClass("active");
+  }
+});
+
+                    </script>
+
+
+                {% endblock %}

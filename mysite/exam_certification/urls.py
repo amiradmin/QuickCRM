@@ -140,10 +140,32 @@ urlpatterns = [
 
     path('exampcntofdl3summary/', views.TimeFlightDiffractionTOFDLevel3_PCN_Material_Summary.as_view(),
          name='exampcntofdl3summary_'),
-    # path('newcexamcswiptofdl3material/', views.NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material.as_view(),
-    #      name='newcexamcswiptofdl3material_'),
-    # path('cexamcswiptofdl3delete/<int:pk>/delete/',
-    #      views.DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Material.as_view(),
-    #      name='cexamcswiptofdl3delete_'),
+    path('newexampcntofdl3material/', views.NewTimeFlightDiffractionTOFDLevel3_PCN_Material.as_view(),
+         name='newexampcntofdl3material_'),
+    path('xampcntofdl3delete/<int:pk>/delete/',
+         views.DeleteTimeFlightDiffractionTOFDLevel3_PCN_Material.as_view(),
+         name='xampcntofdl3delete_'),
+
+    path('exampcntofdresultsummary/', views.TimeFlightDiffractionTOFDLevel3_PCN_Result_Summary.as_view(),
+         name='exampcntofdresultsummary_'),
+    path('newpcntofdresultresultultra/', views.NewTimeFlightDiffractionTOFDLevel3_PCN_Result.as_view(),
+         name='newpcntofdresultresultultra_'),
+    path('pcntofdresultresultdelete/<int:pk>/delete/',
+         views.DeleteTimeFlightDiffractionTOFDLevel3_PCN_Result.as_view(), name='pcntofdresultresultdelete_'),
+
+    path('examrisummary/', views.RadiographicInterpretationWeldsRIMaterial_Summary.as_view(),
+         name='examrisummary_'),
+    path('newexamrmaterial/', views.NewRadiographicInterpretationWeldsRIMaterial.as_view(),
+         name='newexamrmaterial_'),
+    path('examridelete/<int:pk>/delete/',
+         views.DeleteRadiographicInterpretationWeldsRIMaterial.as_view(),
+         name='examridelete_'),
+
+    path('examriresultsummary/', views.RadiographicInterpretationWeldsRIResult_Summary.as_view(),
+         name='examriresultsummary_'),
+    path('newexamriresult/', views.NewRadiographicInterpretationWeldsRIResult.as_view(),
+         name='newexamriresult_'),
+    path('examriresutdelete/<int:pk>/delete/',
+         views.DeleteRadiographicInterpretationWeldsRIResult.as_view(), name='examriresutdelete_'),
 
 ]

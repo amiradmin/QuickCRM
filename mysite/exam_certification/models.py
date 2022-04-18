@@ -47,6 +47,49 @@ class TimeFlightDiffractionTOFDLevel3_PCN_Material(models.Model):
         return self.event.name
 
 
+class RadiographicInterpretationWeldsRIMaterial(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="ri_event1", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="ri_candidate1",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    scheme = models.CharField(max_length=256, null=True, blank=True)
+    exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
+    general_theory = models.ForeignKey(Samples,related_name="exam_material_ri",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    specific_theory = models.ForeignKey(Samples,related_name="exam_material_specific_ri",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    practical = models.ForeignKey(Samples,related_name="exam_material_ri_practical",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    delivery_method = models.CharField(max_length=256,null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    venue = models.CharField(max_length=256, null=True, blank=True)
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
+
+class RadiographicInterpretationWeldsRIResult(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="ri_event1_result", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="ri_candidate1_result",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    scheme = models.CharField(max_length=256, null=True, blank=True)
+    exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
+    general_theory = models.CharField(max_length=256, null=True, blank=True)
+    specific_theory = models.CharField(max_length=256, null=True, blank=True)
+    practical = models.CharField(max_length=256, null=True, blank=True)
+    delivery_method = models.CharField(max_length=256,null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    venue = models.CharField(max_length=256, null=True, blank=True)
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
+
+
 class TimeFlightDiffractionTOFDLevel3_PCN_Result(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="exam_material_flight_l3_pcn_event_result1", null=True, blank=True, on_delete=models.DO_NOTHING)
