@@ -126,4 +126,9 @@ urlpatterns = [
     path('exampcnultral3resultdelete/<int:pk>/delete/',
          views.DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.as_view(), name='exampcnultral3resultdelete_'),
 
+    path('examcswiptofdl3summary/', views.TimeFlightDiffractionTOFDLevel3_CSWIP_Material_Summary.as_view(), name='examcswiptofdl3summary_'),
+    path('newcexamcswiptofdl3material/', views.NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material.as_view(), name='newcexamcswiptofdl3material_'),
+    path('cexamcswiptofdl3delete/<int:pk>/delete/', views.DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Material.as_view(),
+         name='cexamcswiptofdl3delete_'),
+
 ]

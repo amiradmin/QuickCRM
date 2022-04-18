@@ -10,7 +10,8 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN,
                                        Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial,
                                        PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
-                                       PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result)
+                                       PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material,
+                                       TimeFlightDiffractionTOFDLevel3_CSWIP_Result)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,6 +25,114 @@ from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+class DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = TimeFlightDiffractionTOFDLevel3_CSWIP_Material
+    success_url = reverse_lazy('exam_certification:examcswiptofdl3summary_')
+
+
+
+
+
+class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_cswip_tofd_phased_array_ultera_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_cswip_tofd_phased_array_ultera_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = TimeFlightDiffractionTOFDLevel3_CSWIP_Material()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['customerID']
+                # obj.paut_scheme = self.request.POST['paut_scheme']
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a1']).first()
+                obj.basic_a1 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a2']).first()
+                obj.basic_a2 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_1']).first()
+                obj.basic_b_part_1 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_2']).first()
+                obj.basic_b_part_2 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_3']).first()
+                obj.basic_b_part_3 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_4']).first()
+                obj.basic_b_part_4 = sample
+                sample = Samples.objects.filter(id=self.request.POST['main_c1']).first()
+                obj.main_c1 = sample
+                sample = Samples.objects.filter(id=self.request.POST['main_c2']).first()
+                obj.main_c2 = sample
+                sample = Samples.objects.filter(id=self.request.POST['main_c3']).first()
+                obj.main_c3 = sample
+                # obj.delivery_method = self.request.POST['paut_delivery_method']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                # obj.venue = self.request.POST['venue']
+                obj.remark = self.request.POST['remarks']
+                obj.save()
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+                return redirect('exam_certification:examcswiptofdl3summary_')
+            return redirect('exam_certification:examcswiptofdl3summary_')
+
+
+
+class TimeFlightDiffractionTOFDLevel3_CSWIP_Material_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_l3_tofd_altra_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TimeFlightDiffractionTOFDLevel3_CSWIP_Material_Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.all()
+        examCount = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
 
 class DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result
