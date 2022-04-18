@@ -9,7 +9,8 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        BGAS_CSWIP_PaintingInspectorResult,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP,
                                        Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN,
                                        Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial,
-                                       PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult)
+                                       PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
+                                       PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,6 +24,113 @@ from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+
+
+class DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material
+    success_url = reverse_lazy('exam_certification:exampcnl3summary_')
+
+
+
+class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_paut_ultra_l3_pcn_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamMaterialPAUTUltraL3PCN, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamMaterialPAUTUltraL3PCN, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_paut_ultra_l3_pcn_material.html', context)
+            elif 'submit_paut' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['customerID']
+                # obj.paut_scheme = self.request.POST['paut_scheme']
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a1']).first()
+                obj.basic_a1 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a2']).first()
+                obj.basic_a2 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_1']).first()
+                obj.basic_b_part_1 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_2']).first()
+                obj.basic_b_part_2 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_3']).first()
+                obj.basic_b_part_3 = sample
+                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_4']).first()
+                obj.basic_b_part_4 = sample
+                sample = Samples.objects.filter(id=self.request.POST['main_d']).first()
+                obj.main_d = sample
+                sample = Samples.objects.filter(id=self.request.POST['main_e']).first()
+                obj.main_e = sample
+                sample = Samples.objects.filter(id=self.request.POST['main_f']).first()
+                obj.main_f = sample
+                obj.delivery_method = self.request.POST['paut_delivery_method']
+                obj.lecturer = self.request.POST['paut_lecturer']
+                obj.invigilator = self.request.POST['paut_invigilator']
+                obj.venue = self.request.POST['paut_venue']
+                obj.remark = self.request.POST['paut_remarks']
+                obj.save()
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+                return redirect('exam_certification:exampcnl3summary_')
+
+
+
+class PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_l3_pcn_phased_array_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material_Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material.objects.all()
+        examCount = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
 
 class DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult
