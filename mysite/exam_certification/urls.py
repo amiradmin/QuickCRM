@@ -120,5 +120,10 @@ urlpatterns = [
     path('newcswipexam322result/', views.NewExamResultSwip322.as_view(), name='newcswipexam322result_'),
     path('examcswip322resultdelete/<int:pk>/delete/', views.DeleteCSWIPExamResult322.as_view(), name='examcswip322resultdelete_'),
 
+    path('exampcnultral3resultsummary/', views.PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result_Summary.as_view(),
+         name='exampcnultral3resultsummary_'),
+    path('newsexampcnultral3result/', views.NewPhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.as_view(), name='newsexampcnultral3result_'),
+    path('exampcnultral3resultdelete/<int:pk>/delete/',
+         views.DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.as_view(), name='exampcnultral3resultdelete_'),
 
 ]
