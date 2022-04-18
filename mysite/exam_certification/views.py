@@ -11,7 +11,8 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial,
                                        PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
                                        PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material,
-                                       TimeFlightDiffractionTOFDLevel3_CSWIP_Result)
+                                       TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material,
+                                       TimeFlightDiffractionTOFDLevel3_PCN_Result)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,6 +26,20 @@ from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+
+class TimeFlightDiffractionTOFDLevel3_PCN_Material_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_l3_tofd_altra_pcn_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TimeFlightDiffractionTOFDLevel3_PCN_Material_Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = TimeFlightDiffractionTOFDLevel3_PCN_Material.objects.all()
+        examCount = TimeFlightDiffractionTOFDLevel3_PCN_Material.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
 
 
 
