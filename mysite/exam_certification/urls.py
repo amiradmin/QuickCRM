@@ -131,4 +131,11 @@ urlpatterns = [
     path('cexamcswiptofdl3delete/<int:pk>/delete/', views.DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Material.as_view(),
          name='cexamcswiptofdl3delete_'),
 
+    path('examswiptofdresultsummary/', views.TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Summary.as_view(),
+         name='examswiptofdresultsummary_'),
+    path('newsexamswiptofdresultresult/', views.TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result.as_view(),
+         name='newsexamswiptofdresultresult_'),
+    path('examswiptofdresultresultdelete/<int:pk>/delete/',
+         views.DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Result.as_view(), name='examswiptofdresultresultdelete_'),
+
 ]
