@@ -12,7 +12,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">New TOFD Exam Material</h4>
+                                <h4 class="page-title">New Time of Flight Diffraction(TOFD) Level 2 CSWIP Exam Material</h4>
                             </div>
                         </div>
                     </div>     
@@ -126,15 +126,11 @@
 
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Exam Title</label>
-                                         <select name="examTitle"  >
-
-
+                                   <label for="" class="form-label" >Exam Title</label>
+                                    <select name="examTitle" class="form-select" >
                                         <option value="Initial">Initial</option>
                                         <option value="Retest">Retest</option>
                                         <option value="Renewal">Renewal</option>
-
-
                                     </select>
 
                                                         </div>
@@ -146,51 +142,75 @@
         </div>
 
 
+
          <div class="row g-2">
-
-
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Lecturer</label>
                                     <input  value="{{event.lecturers}}"  id="" name="lecturer" class="form-control" required/>
                                                         </div>
-        </div>
-
-         <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">CSWIP/PCN</label>
-                                    <input  value=""  id="" name="cswip_pcn"  class="form-control" required/>
-                                                        </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Theory</label>
-                                    <input  value=""  id="" name="general_theory" class="form-control" required/>
+
+                                <select name="general_theory" class="form-control" required >
+                                            <option value="">Select</option>
+                                            <option value="UT2_G_P4_0219">UT2_G_P4_0219</option>
+                                            <option value="UT2_G_P1_1221">UT2_G_P1_1221</option>
+
+                            </select>
                                                         </div>
         </div>
 
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Specific Theory</label>
-                                    <input  value=""  id="" name="specific_theory"  class="form-control" required/>
+
+                                <select name="specific_theory" class="form-control" required >
+                                            <option value="">Select</option>
+                                            <option value="TOFD2_S_P1_ms_1221">TOFD2_S_P1_ms_1221</option>
+                                            <option value="TOFD2_S_P2_ms_1121">TOFD2_S_P2_ms_1121</option>
+                            </select>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Sample 1(Single Vee, 1" or 1/2")
 (data collection)</label>
-                                    <input  value=""  id="" name="sample1" class="form-control" required/>
+                               <select name="sample1" class="form-control" required >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
         </div>
 
 
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Written Instruction</label>
-                                    <input  value=""  id="" name="written_instruction"  class="form-control" required/>
+
+                                    <label for="" class="form-label">Sample 2(Double Vee)
+(data collection)</label>
+                                                <select name="sample2" class="form-control" required >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
+
+
                                                         </div>
 
                      <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Sample 2(Double Vee)
-(data collection)</label>
-                                    <input  value=""  id="" name="sample2" class="form-control" required/>
+                                   <label for="" class="form-label">Written Instruction</label>
+                               <select name="written_instruction" class="form-control" required >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
         </div>
 
@@ -198,12 +218,24 @@
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data File# 1 Analysis</label>
-                                    <input  value=""  id="" name="data_file_1"  class="form-control" required/>
+                                           <select name="data_file_1" class="form-control" required >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data File# 2Analysis</label>
-                                    <input  value=""  id="" name="data_file_2" class="form-control" required/>
+                                 <select name="data_file_2" class="form-control" required >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
         </div>
 
@@ -211,12 +243,24 @@
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data File# 3 Analysis</label>
-                                    <input  value=""  id="" name="data_file_3"  class="form-control" required/>
+                               <select name="data_file_3" class="form-control" required >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data File# 4 Analysis</label>
-                                    <input  value=""  id="" name="data_file_4" class="form-control" required/>
+                                           <select name="data_file_4" class="form-control" required >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
         </div>
 
@@ -224,7 +268,13 @@
                                                         <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Data File# 5 Analysis
 Only for PCN</label>
-                                    <input  value=""  id="" name="data_file_5"  class="form-control" required/>
+                                            <select name="data_file_5" class="form-control" required >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
                                                         </div>
 
 

@@ -1518,10 +1518,8 @@ class NewExamMaterialCSWIPPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Te
                 obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.exam_title = self.request.POST['examTitle']
                 print(self.request.POST['general_theory'])
-                sample1 = Samples.objects.filter(id=self.request.POST['general_theory']).first()
-                obj.general_theory = sample1
-                sample2 = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
-                obj.specific_theory = sample2
+                obj.general_theory = self.request.POST['general_theory']
+                obj.specific_theory = id=self.request.POST['specific_theory']
                 sample3 = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
                 obj.sample1_analysis = sample3
                 sample4 = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()
@@ -3092,6 +3090,8 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(NewExamMaterialTofd, self).get_context_data()
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
         return context
@@ -3105,7 +3105,9 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
                 event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
                 print(event.id)
                 events = Event.objects.all()
-                candidates = TesCandidate.objects.all()
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
                 context['event'] = event
@@ -3121,29 +3123,39 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                obj.exam_revision = self.request.POST['revision']
+                # obj.exam_revision = self.request.POST['revision']
                 obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
                 obj.remark = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
-                obj.examTitle = self.request.POST['examTitle']
-                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['examTitle']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.general_theory = self.request.POST['general_theory']
                 obj.specific_theory = self.request.POST['specific_theory']
-                obj.sample1 = self.request.POST['sample1']
-                obj.sample2 = self.request.POST['sample2']
-                obj.data_file_1 = self.request.POST['data_file_1']
-                obj.data_file_2 = self.request.POST['data_file_2']
-                obj.data_file_3 = self.request.POST['data_file_3']
-                obj.data_file_4 = self.request.POST['data_file_4']
-                obj.data_file_5 = self.request.POST['data_file_5']
-                obj.written_instruction = self.request.POST['written_instruction']
+                sample = Samples.objects.filter(id=self.request.POST['sample1']).first()
+                obj.sample1 = sample
+                sample = Samples.objects.filter(id=self.request.POST['sample2']).first()
+                obj.sample2 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_file_1']).first()
+                obj.data_file_1 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_file_2']).first()
+                obj.data_file_2 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_file_3']).first()
+                obj.data_file_3 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_file_4']).first()
+                obj.data_file_4 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_file_5']).first()
+                obj.data_file_5 = sample
+                sample =Samples.objects.filter(id=self.request.POST['written_instruction']).first()
+                obj.written_instruction = sample
                 obj.save()
 
 
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = ExamMaterialTOFDModel1.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
