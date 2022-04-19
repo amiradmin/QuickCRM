@@ -18,6 +18,62 @@ class Samples(models.Model):
 
 
 
+class DigitalRadiographicInterpretationDRI_Level2_Material(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="dri_event1", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="dri_candidate1",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    scheme = models.CharField(max_length=256, null=True, blank=True)
+    exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
+    general_practical = models.ForeignKey(Samples,related_name="exam_general_practical_dri",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    data_analysis1 = models.ForeignKey(Samples,related_name="exam_material_data_analysis1",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    data_analysis2 = models.ForeignKey(Samples,related_name="exam_material_data_analysis2",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    data_analysis3 = models.ForeignKey(Samples,related_name="exam_material_data_analysis3",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    data_analysis4 = models.ForeignKey(Samples,related_name="exam_material_data_analysis4",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    data_analysis5 = models.ForeignKey(Samples,related_name="exam_material_data_analysis5",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    data_analysis6 = models.ForeignKey(Samples,related_name="exam_material_data_analysis6",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    general_theory = models.ForeignKey(Samples,related_name="exam_material_dri",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    specific_theory = models.ForeignKey(Samples,related_name="exam_material_specific_dri",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    delivery_method = models.CharField(max_length=256,null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    venue = models.CharField(max_length=256, null=True, blank=True)
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
+
+
+
+class DigitalRadiographicInterpretationDRI_Level2_Result(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="dri_event1_result", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="dri_candidate1_result",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    scheme = models.CharField(max_length=256, null=True, blank=True)
+    exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
+    general_practical = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis1 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis2 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis3 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis4 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis5 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis6 = models.CharField(max_length=256, null=True, blank=True)
+    general_theory = models.CharField(max_length=256, null=True, blank=True)
+    specific_theory = models.CharField(max_length=256, null=True, blank=True)
+    delivery_method = models.CharField(max_length=256, null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    venue = models.CharField(max_length=256, null=True, blank=True)
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
+
 class TimeFlightDiffractionTOFDLevel3_PCN_Material(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="pcn_material_phased_Array_l3_event1", null=True, blank=True, on_delete=models.DO_NOTHING)

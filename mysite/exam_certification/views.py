@@ -13,7 +13,8 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material,
                                        TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material,
                                        TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial
-                                       ,RadiographicInterpretationWeldsRIResult)
+                                       ,RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material,
+                                       DigitalRadiographicInterpretationDRI_Level2_Result)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -27,6 +28,108 @@ from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+
+
+class DigitalRadiographicInterpretationDRI_Level2_Material_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/dri_material_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DigitalRadiographicInterpretationDRI_Level2_Material_Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = DigitalRadiographicInterpretationDRI_Level2_Material.objects.all()
+        examCount = DigitalRadiographicInterpretationDRI_Level2_Material.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
+class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_dri_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewDigitalRadiographicInterpretationDRI_Level2_Material, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewDigitalRadiographicInterpretationDRI_Level2_Material, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_dri_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = DigitalRadiographicInterpretationDRI_Level2_Material()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['customerID']
+                # obj.paut_scheme = self.request.POST['paut_scheme']
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                sample = Samples.objects.filter(id=self.request.POST['general_theory']).first()
+                obj.general_theory = sample
+                sample = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
+                obj.specific_theory = sample
+                sample = Samples.objects.filter(id=self.request.POST['general_practical']).first()
+                obj.general_practical = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_analysis1']).first()
+                obj.data_analysis1 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_analysis2']).first()
+                obj.data_analysis2 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_analysis3']).first()
+                obj.data_analysis3 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_analysis4']).first()
+                obj.data_analysis4 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_analysis5']).first()
+                obj.data_analysis5 = sample
+                sample = Samples.objects.filter(id=self.request.POST['data_analysis6']).first()
+                obj.data_analysis6 = sample
+                # obj.delivery_method = self.request.POST['paut_delivery_method']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                # obj.venue = self.request.POST['venue']
+                obj.remark = self.request.POST['remarks']
+                obj.save()
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = DigitalRadiographicInterpretationDRI_Level2_Material.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+                return redirect('exam_certification:exammaterialdrisummary_')
+            return redirect('exam_certification:exammaterialdrisummary_')
+
+
+
 
 class DeleteRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = RadiographicInterpretationWeldsRIResult

@@ -1,0 +1,349 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+              
+                                </div>
+                                <h4 class="page-title">New Digital Radiographic Interpretation(DRI) Level 2 Exam Material</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title"> </h4>
+
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+
+
+                                        </div> <!-- end preview-->
+                                        <br>
+
+                                        
+                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+
+
+
+
+
+
+
+                                                    <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Candidate</label>
+                                    <input list="candiList" value="{{candidate.id}}"  id="canID" name="candidate" placeholder="type here..." class="form-control" required/>
+
+                                        <datalist id="candiList"  >
+
+                                        {% for item in candidates %}
+                                        <option value="{{item.id}}-{{item.first_name}}-{{item.last_name}}">{{item.first_name}}{% if item.middleName %} {{item.middleName}}{% endif %}
+                                            {{item.last_name}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </datalist>
+
+                                                        </div>
+
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Event</label>
+                                    <input list="productList" value=""  id="" name="event" placeholder="type here..." class="form-control" required/>
+
+                                        <datalist id="productList"  >
+
+                                        {% for item2 in events %}
+                                        <option value="{{item2.id}}-{{item2.name}}-{{item2.product.name}}">{{item2.name}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </datalist>
+
+                                                        </div>
+                                                    </div>
+                        <br>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" name="updateInfo" type="submit">Update</button>
+                                                    </div>
+                                                </form>
+</div>
+                                    </div></div></div>
+
+
+
+                           <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Candidate</label>
+                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Event</label>
+                                    <input  value="{{event.id}}-{{event.name}}"  id="" name="eventID" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Customer ID</label>
+                                    <input  value=""  id="" name="customerID"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Date</label>
+                                    <input  value="{{event.start_exam_date|date:'m/d/Y'}}"  id="" name="exam_date" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+
+
+
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Title</label>
+                                         <select name="examTitle" class="form-control"  >
+
+
+                                        <option value="Initial">Initial</option>
+                                        <option value="Retest">Retest</option>
+                                        <option value="Renewal">Renewal</option>
+
+
+                                    </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Invigilator</label>
+                                    <input  value=""  id="productID" name="invigilator" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Lecturer</label>
+                                    <input  value="{{event.lecturers}}"  id="" name="lecturer" class="form-control" required/>
+                                                        </div>
+                                                                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Scheme</label>
+
+                          <select name="cswip_pcn" class="form-control"  >
+                                            <option value="">Select</option>
+                                            <option value="CSWIP">CSWIP</option>
+                                            <option value="PCN">PCN</option>
+
+
+                                    </select>
+                                                        </div>
+
+        </div>
+
+         <div class="row g-2">
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">General Theory</label>
+
+
+                                   <select name="general_theory" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                                        </div>
+                                                                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Specific Theory</label>
+
+                            <select name="specific_theory" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
+                                                        </div>
+        </div>
+
+         <div class="row g-2">
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">General Practical</label>
+                                   <select name="general_practical" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                                        </div>
+                                                                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data Analysis 1</label>
+
+                            <select name="data_analysis1" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
+                                                        </div>
+        </div>
+
+
+
+
+         <div class="row g-2">
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data Analysis 2</label>
+                                   <select name="data_analysis2" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                                        </div>
+                                                                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data Analysis 3</label>
+
+                            <select name="data_analysis3" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
+                                                        </div>
+        </div>
+
+
+
+         <div class="row g-2">
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data Analysis 4</label>
+                                   <select name="data_analysis4" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                                        </div>
+                                                                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data Analysis 5</label>
+
+                            <select name="data_analysis5" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+                     <div class="mb-3 col-md-12">
+                                   <label for="" class="form-label">Data Analysis 6</label>
+                                   <select name="data_analysis6" class="form-control"  >
+                                            <option value="">Select</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                                    </select>
+                                                        </div>
+
+        </div>
+
+
+
+                     <div class="mb-3 col-md-12">
+                                   <text for="" class="form-label">Remarks</text>
+                                    <textarea  value=""  id="" name="remarks" class="form-control" ></textarea>
+                                                        </div>
+
+
+
+
+
+                                                    <br>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" name="submit" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+
+                                    
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                                        
+
+                                         
+
+                                        </div> <!-- end preview code-->
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+                <script>
+                    $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
+
+
+function myFunction() {
+
+  var issueDate = document.getElementById('issue_date').value;
+  var candidate = document.getElementById('canID').value;
+  console.log(candidate);
+  var cerNumber = document.getElementById('certiﬁcate_number');
+  cerNumber.value=issueDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + issueDate.split('/')[0] + '_' + issueDate.split('/')[1]  ;
+}
+
+
+
+                    </script>
+
+
+                {% endblock %}

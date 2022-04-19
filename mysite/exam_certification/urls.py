@@ -168,4 +168,12 @@ urlpatterns = [
     path('examriresutdelete/<int:pk>/delete/',
          views.DeleteRadiographicInterpretationWeldsRIResult.as_view(), name='examriresutdelete_'),
 
+    path('exammaterialdrisummary/', views.DigitalRadiographicInterpretationDRI_Level2_Material_Summary.as_view(),
+         name='exammaterialdrisummary_'),
+    path('newexamdrimaterial/', views.NewDigitalRadiographicInterpretationDRI_Level2_Material.as_view(),
+         name='newexamdrimaterial_'),
+    # path('examridelete/<int:pk>/delete/',
+    #      views.DeleteRadiographicInterpretationWeldsRIMaterial.as_view(),
+    #      name='examridelete_'),
+
 ]
