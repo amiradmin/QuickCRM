@@ -172,8 +172,14 @@ urlpatterns = [
          name='exammaterialdrisummary_'),
     path('newexamdrimaterial/', views.NewDigitalRadiographicInterpretationDRI_Level2_Material.as_view(),
          name='newexamdrimaterial_'),
-    # path('examridelete/<int:pk>/delete/',
-    #      views.DeleteRadiographicInterpretationWeldsRIMaterial.as_view(),
-    #      name='examridelete_'),
+    path('exammaterialdril2delete/<int:pk>/delete/',
+         views.DeleteDigitalRadiographicInterpretationDRI_Level2_Material.as_view(),
+         name='exammaterialdril2delete_'),
 
+    path('examdriresultsummary/', views.DigitalRadiographicInterpretationDRI_Level2_Result_Summary.as_view(),
+         name='examdriresultsummary_'),
+    path('newexamdrirl2esult/', views.NewDigitalRadiographicInterpretationDRI_Level2_Result.as_view(),
+         name='newexamdrirl2esult_'),
+    path('examdriresultdelete/<int:pk>/delete/',
+         views.DeleteDigitalRadiographicInterpretationDRI_Level2_Result.as_view(), name='examdriresultdelete_'),
 ]

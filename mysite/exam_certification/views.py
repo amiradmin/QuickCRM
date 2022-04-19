@@ -30,6 +30,102 @@ import datetime
 # Create your views here.
 
 
+class DeleteDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = DigitalRadiographicInterpretationDRI_Level2_Result
+    success_url = reverse_lazy('exam_certification:examdriresultsummary_')
+
+
+class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_dri_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewDigitalRadiographicInterpretationDRI_Level2_Result, self).get_context_data()
+        exams = DigitalRadiographicInterpretationDRI_Level2_Material.objects.all()
+        candidates = TesCandidate.objects.all()
+        context['exams'] = exams
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewDigitalRadiographicInterpretationDRI_Level2_Result, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(request.POST['examID'])
+                exam = DigitalRadiographicInterpretationDRI_Level2_Material.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                # print(self.kwargs['id'])
+                context['exam'] = exam
+
+                return render(request, 'certificates/new_dri_result.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+
+
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+                print(self.request.POST['exam_ID'])
+                exam = DigitalRadiographicInterpretationDRI_Level2_Material.objects.filter(id=self.request.POST['exam_ID']).first()
+                obj = DigitalRadiographicInterpretationDRI_Level2_Result()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam = exam
+                # obj.result = self.request.POST['result']
+                # obj.explanation = self.request.POST['explanation']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.general_theory = self.request.POST['general_theory']
+                obj.specific_theory = self.request.POST['specific_theory']
+                obj.general_practical = self.request.POST['general_practical']
+                obj.data_analysis1 = self.request.POST['data_analysis1']
+                obj.data_analysis2 = self.request.POST['data_analysis2']
+                obj.data_analysis3 = self.request.POST['data_analysis3']
+                obj.data_analysis3 = self.request.POST['data_analysis3']
+                obj.data_analysis4 = self.request.POST['data_analysis4']
+                obj.data_analysis5 = self.request.POST['data_analysis5']
+                obj.data_analysis6 = self.request.POST['data_analysis6']
+
+                obj.remark = self.request.POST['paut_remarks']
+                if bool(request.FILES.get('myFile', False)) == True:
+                    obj.file = self.request.FILES['myFile']
+                obj.save()
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = DigitalRadiographicInterpretationDRI_Level2_Result.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_result_summary.html',context=context)
+                return redirect('exam_certification:examdriresultsummary_')
+            return redirect('exam_certification:examdriresultsummary_')
+
+
+
+
+class DigitalRadiographicInterpretationDRI_Level2_Result_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/dri_result_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DigitalRadiographicInterpretationDRI_Level2_Result_Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = DigitalRadiographicInterpretationDRI_Level2_Result.objects.all()
+        examCount = DigitalRadiographicInterpretationDRI_Level2_Result.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
+
+
+class DeleteDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = DigitalRadiographicInterpretationDRI_Level2_Material
+    success_url = reverse_lazy('exam_certification:exammaterialdrisummary_')
+
+
 
 class DigitalRadiographicInterpretationDRI_Level2_Material_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/dri_material_summary.html"
