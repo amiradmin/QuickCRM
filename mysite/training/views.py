@@ -715,24 +715,24 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
             event.candidate.add(candidate)
 
             # CandidateForms
-            print("for lists: ")
-            for form in category.form.all():
-                print(form.name)
-                formObj = CandidateForms()
-                formObj.form_name = form.name
-                formObj.candidate = candidate
-                formObj.event = event
-                formObj.internal_link = form.internal_link_name
-                formObj.category = category
-                formObj.save()
-                candidate.candidate_forms.add(formObj)
-
-                model = apps.get_model('forms', form.class_name)
-                golbalObj = model()
-                golbalObj.candidate = candidate
-                golbalObj.category = category
-                golbalObj.event = event
-                golbalObj.save()
+            # print("for lists: ")
+            # for form in category.form.all():
+            #     print(form.name)
+            #     formObj = CandidateForms()
+            #     formObj.form_name = form.name
+            #     formObj.candidate = candidate
+            #     formObj.event = event
+            #     formObj.internal_link = form.internal_link_name
+            #     formObj.category = category
+            #     formObj.save()
+            #     candidate.candidate_forms.add(formObj)
+            #
+            #     model = apps.get_model('forms', form.class_name)
+            #     golbalObj = model()
+            #     golbalObj.candidate = candidate
+            #     golbalObj.category = category
+            #     golbalObj.event = event
+            #     golbalObj.save()
 
 
 
