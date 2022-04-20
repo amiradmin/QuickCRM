@@ -51,6 +51,39 @@ class ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(models.Model):
     def __str__(self):
         return self.event.name
 
+
+class Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="exam_result_ultra_event_tofd_pcn", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="exam_result_ultra_candidate_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample = models.ForeignKey(Samples,related_name="exam_result_ultra_sample_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    exam_date = models.DateTimeField(null=True, blank=True)
+    cswip_pcn = models.CharField(max_length=256, null=True, blank=True)
+    exam_title = models.CharField(max_length=256, null=True, blank=True)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    specific_theory = models.CharField(max_length=256, null=True, blank=True)
+
+    sample1_collection =  models.CharField(max_length=256, null=True, blank=True)
+    sample2_collection = models.CharField(max_length=256, null=True, blank=True)
+
+    sample1_analysis = models.CharField(max_length=256, null=True, blank=True)
+    sample2_analysis = models.CharField(max_length=256, null=True, blank=True)
+
+    sample3_analysis = models.CharField(max_length=256, null=True, blank=True)
+    sample4_analysis = models.CharField(max_length=256, null=True, blank=True)
+    sample5_analysis = models.CharField(max_length=256, null=True, blank=True)
+    written_instruction = models.CharField(max_length=256, null=True, blank=True)
+
+
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file',null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
 class DigitalRadiographicInterpretationDRI_Level2_Material(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="dri_event1", null=True, blank=True, on_delete=models.DO_NOTHING)
