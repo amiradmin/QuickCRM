@@ -182,4 +182,13 @@ urlpatterns = [
          name='newexamdrirl2esult_'),
     path('examdriresultdelete/<int:pk>/delete/',
          views.DeleteDigitalRadiographicInterpretationDRI_Level2_Result.as_view(), name='examdriresultdelete_'),
+
+    path('exammaterialtofdl2pcnsummary/', views.ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCNAdmin_Summary.as_view(),
+         name='exammaterialtofdl2pcnsummary_'),
+    path('newmaterialtofdl2pcn/', views.NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.as_view(),
+         name='newmaterialtofdl2pcn_'),
+    path('exammaterialtofdl2pcndelete/<int:pk>/delete/',
+         views.DeleteExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.as_view(),
+         name='exammaterialtofdl2pcndelete_'),
+
 ]

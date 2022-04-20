@@ -14,7 +14,7 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material,
                                        TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial
                                        ,RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material,
-                                       DigitalRadiographicInterpretationDRI_Level2_Result)
+                                       DigitalRadiographicInterpretationDRI_Level2_Result,ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN)
 
 from training.models import TesCandidate
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -28,6 +28,109 @@ from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+
+class DeleteExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN
+    success_url = reverse_lazy('exam_certification:exammaterialtofdl2pcnsummary_')
+
+class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_pautl2_pcn_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN, self).get_context_data()
+        events = Event.objects.all()
+        candidates =TesCandidate.objects.all()
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['events'] = events
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                events = Event.objects.all()
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_pautl2_pcn_material.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['customerID']
+                # obj.paut_scheme = self.request.POST['paut_scheme']
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+
+
+                obj.specific_theory = self.request.POST['specific_theory']
+                sample = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()
+                obj.sample1_collection = sample
+                sample = Samples.objects.filter(id=self.request.POST['sample2_collection']).first()
+                obj.sample2_collection = sample
+                sample = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
+                obj.sample1_analysis = sample
+                sample = Samples.objects.filter(id=self.request.POST['sample2_analysis']).first()
+                obj.sample2_analysis = sample
+                sample = Samples.objects.filter(id=self.request.POST['sample3_analysis']).first()
+                obj.sample3_analysis = sample
+                sample = Samples.objects.filter(id=self.request.POST['sample4_analysis']).first()
+                obj.sample4_analysis = sample
+                sample = Samples.objects.filter(id=self.request.POST['sample5_analysis']).first()
+                obj.sample5_analysis = sample
+                sample = Samples.objects.filter(id=self.request.POST['written_instruction']).first()
+                obj.written_instruction = sample
+                # obj.delivery_method = self.request.POST['paut_delivery_method']
+                obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                obj.exam_title = self.request.POST['examTitle']
+                obj.remark = self.request.POST['remarks']
+                obj.save()
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+                return redirect('exam_certification:exammaterialtofdl2pcnsummary_')
+            return redirect('exam_certification:exammaterialtofdl2pcnsummary_')
+
+
+
+
+class ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCNAdmin_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_material_tofd_pcn_l2_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCNAdmin_Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
+        examCount = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
 
 
 class DeleteDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginRequiredMixin, DeleteView):
@@ -1317,11 +1420,10 @@ class NewExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Temp
                 obj.invigilator = self.request.POST['invigilator']
                 obj.remark = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
-                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.exam_title = self.request.POST['examTitle']
-                print(self.request.POST['general_theory'])
-                sample1 = Samples.objects.filter(id=self.request.POST['general_theory']).first()
-                obj.general_theory = sample1
+              
+                obj.specific_theory = self.request.POST['specific_theory']
                 sample3 = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
                 obj.sample1_analysis = sample3
                 sample4 = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()

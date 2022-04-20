@@ -17,6 +17,39 @@ class Samples(models.Model):
         return self.serial_no
 
 
+class ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="exam_material_ultra_event_tofd_pcn", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="exam_material_ultra_candidate_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample = models.ForeignKey(Samples,related_name="exam_material_ultra_sample_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    exam_date = models.DateTimeField(null=True, blank=True)
+    cswip_pcn = models.CharField(max_length=256, null=True, blank=True)
+    exam_title = models.CharField(max_length=256, null=True, blank=True)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    specific_theory = models.CharField(max_length=256, null=True, blank=True)
+
+    sample1_collection = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample1_collection_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample2_collection = models.ForeignKey(Samples, related_name="exam_material_ultera_sample_gsample2_collection_tofd_pcn",
+                                           null=True, blank=True, on_delete=models.DO_NOTHING)
+    sample1_analysis = models.ForeignKey(Samples, related_name="exam_material_ultera_sample_sample1_analysis_tofd_pcn",
+                                         null=True, blank=True, on_delete=models.DO_NOTHING)
+    sample2_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample2_analysis_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+
+    sample3_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample3_analysis_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample4_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample4_collection_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample5_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample5_collection_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    written_instruction = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_written_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+
+
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file',null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
 
 class DigitalRadiographicInterpretationDRI_Level2_Material(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
@@ -366,7 +399,7 @@ class ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN(models.Model):
     customerID = models.CharField(max_length=256, null=True, blank=True)
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
-    general_theory = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_general_theory_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    specific_theory = models.CharField(max_length=256, null=True, blank=True)
     sample1_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample1_analysis_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
     sample1_collection = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample1_collection_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
     sample2_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample2_analysis_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
@@ -1038,3 +1071,5 @@ class CSWIPCertificateAttendance(models.Model):
 
     def __str__(self):
         return self.name
+
+
