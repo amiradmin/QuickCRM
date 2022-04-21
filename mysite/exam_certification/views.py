@@ -641,7 +641,7 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
                 obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['examTitle']
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
                 obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
@@ -2079,14 +2079,10 @@ class NewCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.customerID = self.request.POST['customerID']
                 # obj.file = self.request.FILEs['file']
                 obj.exam_title = self.request.POST['examTitle']
-                sample = Samples.objects.filter(id=self.request.POST['general_theory_s']).first()
-                obj.general_theory_s = sample
-                sample = Samples.objects.filter(id=self.request.POST['ndt_s']).first()
-                obj.ndt_s = sample
-                sample = Samples.objects.filter(id=self.request.POST['symbols_s']).first()
-                obj.symbols_s = sample
-                sample = Samples.objects.filter(id=self.request.POST['scenario_s']).first()
-                obj.scenario_s = sample
+                obj.general_theory_s = self.request.POST['general_theory_s']
+                obj.ndt_s = self.request.POST['ndt_s']
+                obj.symbols_s = self.request.POST['symbols_s']
+                obj.scenario_s = self.request.POST['scenario_s']
 
 
                 obj.save()
@@ -2276,14 +2272,10 @@ class NewCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.customerID = self.request.POST['customerID']
                 # obj.file = self.request.FILEs['file']
                 obj.exam_title = self.request.POST['examTitle']
-                sample = Samples.objects.filter(id=self.request.POST['general_theory_s']).first()
-                obj.general_theory_s = sample
-                sample = Samples.objects.filter(id=self.request.POST['ndt_s']).first()
-                obj.ndt_s = sample
-                sample = Samples.objects.filter(id=self.request.POST['symbols_s']).first()
-                obj.symbols_s = sample
-                sample = Samples.objects.filter(id=self.request.POST['scenario_s']).first()
-                obj.scenario_s = sample
+                obj.general_theory_s = self.request.POST['general_theory_s']
+                obj.ndt_s = self.request.POST['ndt_s']
+                obj.symbols_s = self.request.POST['symbols_s']
+                obj.scenario_s = self.request.POST['scenario_s']
 
 
                 obj.save()
@@ -2582,12 +2574,10 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.exam_title = self.request.POST['examTitle']
                 obj.general_paper = self.request.POST['general_paper']
                 obj.technology_paper = self.request.POST['technology_paper']
-                sample = Samples.objects.filter(id=self.request.POST['plate_paper']).first()
-                obj.plate_paper = sample
-                sample = Samples.objects.filter(id=self.request.POST['pipe_paper']).first()
-                obj.pipe_paper = sample
-                sample = Samples.objects.filter(id=self.request.POST['macro_paper']).first()
-                obj.macro_paper = sample
+                obj.plate_paper = self.request.POST['plate_paper']
+
+                obj.pipe_paper = self.request.POST['pipe_paper']
+                obj.macro_paper = self.request.POST['macro_paper']
 
                 obj.save()
 

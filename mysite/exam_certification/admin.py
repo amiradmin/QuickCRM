@@ -3,7 +3,7 @@ from  exam_certification.models import (Invigilator,CertificateAttendance,Certif
                                         ,ExamMaterialPiWiModel,ExamMaterialTOFDModel1,ExamMaterialPAUTL2,ExamMaterialL3
                                         ,ExamResultPautL2,ExamMaterialTofdL3,CSWIPWeldingInspector3_1Result,
                                         CSWIPWeldingInspector3_1ExamMaterial,Samples,CSWIPWeldingInspector3_1ResultIntermadiate,
-                                        CSWIPWeldingInspector3_2_1ExamMaterial,CSWIPWeldingInspector3_2_1_Result,
+                                        CSWIPWeldingInspector3_2_1ExamMaterial2,CSWIPWeldingInspector3_2_1_Result,
                                         CSWIPWeldingInspector3_2_2ExamMaterial,CSWIPWeldingInspector3_2_2_Result,
                                         BGAS_CSWIP_PaintingInspectorResult,BGAS_CSWIP_PaintingInspectorMaterial,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP
                                         ,Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN
@@ -152,10 +152,10 @@ class CSWIPWeldingInspector3_2_1_ResultAdmin(ImportExportModelAdmin,admin.ModelA
     list_filter = ['id','name','event','created_at','updated_at']
 admin.site.register(CSWIPWeldingInspector3_2_1_Result,CSWIPWeldingInspector3_2_1_ResultAdmin)
 
-class CSWIPWeldingInspector3_2_1ExamMaterialAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+class CSWIPWeldingInspector3_2_1ExamMaterial2Admin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']
     list_filter = ['id','name','event','created_at','updated_at']
-admin.site.register(CSWIPWeldingInspector3_2_1ExamMaterial,CSWIPWeldingInspector3_2_1ExamMaterialAdmin)
+admin.site.register(CSWIPWeldingInspector3_2_1ExamMaterial2,CSWIPWeldingInspector3_2_1ExamMaterial2Admin)
 
 class CSWIPWeldingInspector3_1ResultIntermadiateAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','primary','secondry','created_at','updated_at']
