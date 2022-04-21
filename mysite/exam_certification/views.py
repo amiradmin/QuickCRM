@@ -11,7 +11,7 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial,
                                        PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
                                        PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material2,
-                                       TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material,
+                                       TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material2,
                                        TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial
                                        ,RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material,
                                        DigitalRadiographicInterpretationDRI_Level2_Result,ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN,
@@ -608,7 +608,7 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewTimeFlightDiffractionTOFDLevel3_PCN_Result, self).get_context_data()
-        exams = TimeFlightDiffractionTOFDLevel3_PCN_Material.objects.all()
+        exams = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.all()
         candidates = TesCandidate.objects.all()
         context['exams'] = exams
         context['candidates'] = candidates
@@ -620,7 +620,7 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
             if 'updateInfo' in request.POST:
                 print("updateInfo")
                 print(request.POST['examID'])
-                exam = TimeFlightDiffractionTOFDLevel3_PCN_Material.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                exam = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 context['exam'] = exam
 
@@ -634,7 +634,7 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
                 print(self.request.POST['exam_ID'])
-                exam = TimeFlightDiffractionTOFDLevel3_PCN_Material.objects.filter(id=self.request.POST['exam_ID']).first()
+                exam = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.filter(id=self.request.POST['exam_ID']).first()
                 obj = TimeFlightDiffractionTOFDLevel3_PCN_Result()
                 obj.event = event
                 obj.candidate = candidate
@@ -687,7 +687,7 @@ class TimeFlightDiffractionTOFDLevel3_PCN_Result_Summary(SidebarMixin, LoginRequ
 
 
 class DeleteTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequiredMixin, DeleteView):
-    model = TimeFlightDiffractionTOFDLevel3_PCN_Material
+    model = TimeFlightDiffractionTOFDLevel3_PCN_Material2
     success_url = reverse_lazy('exam_certification:exampcntofdl3summary_')
 
 
@@ -728,31 +728,23 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
 
-                obj = TimeFlightDiffractionTOFDLevel3_PCN_Material()
+                obj = TimeFlightDiffractionTOFDLevel3_PCN_Material2()
                 obj.event = event
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
                     obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a1']).first()
-                obj.basic_a1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a2']).first()
-                obj.basic_a2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_1']).first()
-                obj.basic_b_part_1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_2']).first()
-                obj.basic_b_part_2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_3']).first()
-                obj.basic_b_part_3 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_4']).first()
-                obj.basic_b_part_4 = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_d']).first()
-                obj.main_d = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_e']).first()
-                obj.main_e = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_f']).first()
-                obj.main_f = sample
+                obj.basic_a1 = self.request.POST['paut_basic_a1']
+                obj.basic_a2 = self.request.POST['paut_basic_a2']
+                obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
+                obj.basic_b_part_2 = self.request.POST['paut_basic_b_part_2']
+                obj.basic_b_part_3 = self.request.POST['paut_basic_b_part_3']
+                obj.basic_b_part_4 = self.request.POST['paut_basic_b_part_4']
+                obj.main_d = self.request.POST['main_d']
+                obj.main_e = self.request.POST['main_e']
+                obj.main_f = self.request.POST['main_f']
+                obj.practical_tofd_l2 = self.request.POST['practical_tofd_l2']
                 # obj.delivery_method = self.request.POST['paut_delivery_method']
                 obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
@@ -761,7 +753,7 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
                 obj.save()
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
-                exams = TimeFlightDiffractionTOFDLevel3_PCN_Material.objects.all()
+                exams = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.all()
                 samples = Samples.objects.all()
                 context['samples'] = samples
                 context['events'] = events
@@ -780,8 +772,8 @@ class TimeFlightDiffractionTOFDLevel3_PCN_Material_Summary(SidebarMixin, LoginRe
     def get_context_data(self, *args, **kwargs):
         context = super(TimeFlightDiffractionTOFDLevel3_PCN_Material_Summary, self).get_context_data()
         events = Event.objects.all()
-        exams = TimeFlightDiffractionTOFDLevel3_PCN_Material.objects.all()
-        examCount = TimeFlightDiffractionTOFDLevel3_PCN_Material.objects.count()
+        exams = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.all()
+        examCount = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.count()
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
