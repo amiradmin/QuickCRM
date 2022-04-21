@@ -192,7 +192,7 @@
      <div class="container tabs">
       <ul class="list-inline tab-list col-md-12">
         <li id="select-1" class="active">
-          <h3>PAUTL3 EXAMS</h3>
+          <h3></h3>
         </li>
 
 
@@ -254,12 +254,15 @@
 
          <div class="row g-2">
 
-                     <div class="mb-3 col-md-12">
+                     <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Lecturer</label>
                                     <input  value="{{event.lecturers}}"  id="" name="paut_lecturer" class="form-control" required/>
                                                         </div>
         </div>
-
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Practical PAUT L2</label>
+                                    <input  value=""  id="" name="practical_paut_l2" class="form-control" required/>
+                                                        </div>
 
 
         <div class="row g-2">
@@ -267,10 +270,17 @@
                                    <label for="" class="form-label">A1(25 questions on materials)</label>
                                <select name="paut_basic_a1" class="form-control"  >
                                             <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+
+<option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220" >BAS_B_SCHM_P2_0220</option>
+
                             </select>
                                                         </div>
 
@@ -278,10 +288,16 @@
                                    <label for="" class="form-label">A2(10 questions-Scheme)</label>
                                  <select name="paut_basic_a2" class="form-control"  >
                                             <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+<option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220" >BAS_B_SCHM_P2_0220</option>
+
                             </select>
                                                         </div>
         </div>
@@ -292,10 +308,16 @@
                                    <label for="" class="form-label">B-part 1 (15 Questions in PT)</label>
                              <select name="paut_basic_b_part_1" class="form-control"  >
                                             <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+<option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220" >BAS_B_SCHM_P2_0220</option>
+
                             </select>
                                                         </div>
 
@@ -303,10 +325,16 @@
                                    <label for="" class="form-label">B-part 2(15 Questions in MT)</label>
                                    <select name="paut_basic_b_part_2" class="form-control"  >
                                             <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+<option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220" >BAS_B_SCHM_P2_0220</option>
+
                             </select>
                                                         </div>
         </div>
@@ -317,10 +345,16 @@
                                    <label for="" class="form-label">B-part 3(15 Questions in UT)</label>
                                                <select name="paut_basic_b_part_3" class="form-control"  >
                                             <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+<option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220" >BAS_B_SCHM_P2_0220</option>
+
                             </select>
                                                         </div>
 
@@ -328,11 +362,17 @@
                                    <label for="" class="form-label">B-part 4(15 Questions in RT)
 </label>
                                               <select name="paut_basic_b_part_4" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+<option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220" >BAS_B_SCHM_P2_0220</option>
+
+
                             </select>
                                                         </div>
         </div>

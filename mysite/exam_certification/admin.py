@@ -9,7 +9,7 @@ from  exam_certification.models import (Invigilator,CertificateAttendance,Certif
                                         ,Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN
                                         ,Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial,
                                         PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
-                                        PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material,
+                                        PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material2,
                                         TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material,
                                         TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial,
                                         RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material,
@@ -72,10 +72,10 @@ admin.site.register(TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffr
 
 
 
-class TimeFlightDiffractionTOFDLevel3_CSWIP_MaterialAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+class TimeFlightDiffractionTOFDLevel3_CSWIP_Material2Admin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']
     list_filter = ['id','name','event','created_at','updated_at']
-admin.site.register(TimeFlightDiffractionTOFDLevel3_CSWIP_Material,TimeFlightDiffractionTOFDLevel3_CSWIP_MaterialAdmin)
+admin.site.register(TimeFlightDiffractionTOFDLevel3_CSWIP_Material2,TimeFlightDiffractionTOFDLevel3_CSWIP_Material2Admin)
 
 
 class PhasedArrayUltrasonicTesting_PAUT_L3_PCN_ResultAdmin(ImportExportModelAdmin,admin.ModelAdmin):

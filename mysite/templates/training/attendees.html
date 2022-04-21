@@ -104,8 +104,8 @@
                                         <datalist id="candiList"  >
 
                                         {% for item in can_list %}
-                                        <option value="{{item.id}}">{{item.first_name}} {{item.middleName}}
-                                            {{item.last_name}}
+                                        <option value="{{item.id}}">{{item.first_name}} {% if item.middleName %}{{item.middleName}}{% endif %}
+                                             {{item.last_name}}
                                         </option>
                                         {% endfor %}
 

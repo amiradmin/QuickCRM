@@ -242,7 +242,12 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Title</label>
-                                    <input  value="{{event.product.name}}"  id="" name="paut_examTitle"  class="form-control" required/>
+
+                                <select name="paut_examTitle" class="form-control"  >
+                                        <option value="Initial">Initial</option>
+                                        <option value="Retest">Retest</option>
+                                        <option value="Renewal">Renewal</option>
+                                    </select>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -265,24 +270,15 @@
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">A1(25 questions on materials)</label>
-                               <select name="paut_basic_a1" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+
+<input  value=""  id="" name="paut_basic_a1"  class="form-control" required/>
                             </select>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">A2(10 questions-Scheme)</label>
-                                 <select name="paut_basic_a2" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+
+<input  value=""  id="" name="paut_basic_a2"  class="form-control" required/>
                                                         </div>
         </div>
 
@@ -290,24 +286,13 @@
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">B-part 1 (15 Questions in PT)</label>
-                             <select name="paut_basic_b_part_1" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+<input  value=""  id="" name="paut_basic_b_part_1"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">B-part 2(15 Questions in MT)</label>
-                                   <select name="paut_basic_b_part_2" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+
+<input  value=""  id="" name="paut_basic_b_part_2"  class="form-control" required/>
                                                         </div>
         </div>
 
@@ -315,25 +300,13 @@
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">B-part 3(15 Questions in UT)</label>
-                                               <select name="paut_basic_b_part_3" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+<input  value=""  id="" name="paut_basic_b_part_3"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">B-part 4(15 Questions in RT)
 </label>
-                                              <select name="paut_basic_b_part_4" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+<input  value=""  id="" name="paut_basic_b_part_4"  class="form-control" required/>
                                                         </div>
         </div>
 
@@ -341,13 +314,8 @@
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Main D</label>
-                            <select name="main_d" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+
+<input  value=""  id="" name="main_d"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -355,10 +323,8 @@
 </label>
                                                     <select name="main_e" class="form-control"  >
                                             <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+                                            <option value="E-CPA3 No. 4 Iss. 1">E-CPA3 No. 4 Iss. 1</option>
+
                             </select>
                                                         </div>
         </div>
@@ -369,10 +335,8 @@
                                    <label for="" class="form-label">Main F</label>
                                      <select name="main_f" class="form-control"  >
                                             <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
+                                            <option value="PA3_F_P2_0419 – weld">PA3_F_P2_0419 – weld</option>
+
                             </select>
                                                         </div>
 
@@ -385,8 +349,8 @@
 
 
                                                         <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Exam Venue (Country, City, Address)</label>
-                                    <input  value=""  id="" name="paut_venue"  class="form-control" />
+                                   <label for="" class="form-label">Practical PAUT L2</label>
+                                    <input  value=""  id="" name="practical_paut_l2"  class="form-control" />
                                                         </div>
 
 

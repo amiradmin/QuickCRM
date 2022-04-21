@@ -10,7 +10,7 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP,ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN,
                                        Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN,PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial,
                                        PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
-                                       PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material,
+                                       PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material2,
                                        TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material,
                                        TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial
                                        ,RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material,
@@ -800,7 +800,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
 
     def get_context_data(self, *args, **kwargs):
         context = super(TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result, self).get_context_data()
-        exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.all()
+        exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.all()
         candidates = TesCandidate.objects.all()
         context['exams'] = exams
         context['candidates'] = candidates
@@ -812,7 +812,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
             if 'updateInfo' in request.POST:
                 print("updateInfo")
                 print(request.POST['examID'])
-                exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 context['exam'] = exam
 
@@ -826,7 +826,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
                 print(self.request.POST['exam_ID'])
-                exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.filter(id=self.request.POST['exam_ID']).first()
+                exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.filter(id=self.request.POST['exam_ID']).first()
                 obj = TimeFlightDiffractionTOFDLevel3_CSWIP_Result()
                 obj.event = event
                 obj.candidate = candidate
@@ -852,6 +852,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.all()
+
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
@@ -880,7 +881,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Summary(SidebarMixin, LoginRe
 
 
 class DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequiredMixin, DeleteView):
-    model = TimeFlightDiffractionTOFDLevel3_CSWIP_Material
+    model = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2
     success_url = reverse_lazy('exam_certification:examcswiptofdl3summary_')
 
 
@@ -923,40 +924,32 @@ class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequi
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
 
-                obj = TimeFlightDiffractionTOFDLevel3_CSWIP_Material()
+                obj = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2()
                 obj.event = event
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
                     obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a1']).first()
-                obj.basic_a1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a2']).first()
-                obj.basic_a2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_1']).first()
-                obj.basic_b_part_1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_2']).first()
-                obj.basic_b_part_2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_3']).first()
-                obj.basic_b_part_3 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_4']).first()
-                obj.basic_b_part_4 = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_c1']).first()
-                obj.main_c1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_c2']).first()
-                obj.main_c2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_c3']).first()
-                obj.main_c3 = sample
-                # obj.delivery_method = self.request.POST['paut_delivery_method']
+
+                obj.basic_a1 = self.request.POST['paut_basic_a1']
+                obj.basic_a2 = self.request.POST['paut_basic_a2']
+                obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
+                obj.basic_b_part_2 = self.request.POST['paut_basic_b_part_2']
+                obj.basic_b_part_3 = self.request.POST['paut_basic_b_part_3']
+                obj.basic_b_part_4 = self.request.POST['paut_basic_b_part_4']
+                obj.main_c1 = self.request.POST['main_c1']
+                obj.main_c2 = self.request.POST['main_c2']
+                obj.main_c3 = self.request.POST['main_c3']
+                obj.practical_tofd_l2 = self.request.POST['practical_tofd_l2']
                 obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
                 # obj.venue = self.request.POST['venue']
-                obj.remark = self.request.POST['remarks']
+                obj.exam_title = self.request.POST['examTitle']
                 obj.save()
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
-                exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.all()
+                exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.all()
                 samples = Samples.objects.all()
                 context['samples'] = samples
                 context['events'] = events
@@ -976,8 +969,8 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Material_Summary(SidebarMixin, Login
     def get_context_data(self, *args, **kwargs):
         context = super(TimeFlightDiffractionTOFDLevel3_CSWIP_Material_Summary, self).get_context_data()
         events = Event.objects.all()
-        exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.all()
-        examCount = TimeFlightDiffractionTOFDLevel3_CSWIP_Material.objects.count()
+        exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.all()
+        examCount = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.count()
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -1125,28 +1118,19 @@ class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateVi
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
                     obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a1']).first()
-                obj.basic_a1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a2']).first()
-                obj.basic_a2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_1']).first()
-                obj.basic_b_part_1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_2']).first()
-                obj.basic_b_part_2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_3']).first()
-                obj.basic_b_part_3 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_4']).first()
-                obj.basic_b_part_4 = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_d']).first()
-                obj.main_d = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_e']).first()
-                obj.main_e = sample
-                sample = Samples.objects.filter(id=self.request.POST['main_f']).first()
-                obj.main_f = sample
-                obj.delivery_method = self.request.POST['paut_delivery_method']
+                obj.basic_a1 = self.request.POST['paut_basic_a1']
+                obj.basic_a2 = self.request.POST['paut_basic_a2']
+                obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
+                obj.basic_b_part_2 = self.request.POST['paut_basic_b_part_2']
+                obj.basic_b_part_3 = self.request.POST['paut_basic_b_part_3']
+                obj.basic_b_part_4 = self.request.POST['paut_basic_b_part_3']
+                obj.main_d = self.request.POST['main_d']
+                obj.main_e = self.request.POST['main_e']
+                obj.main_f = self.request.POST['main_f']
+                obj.practical_paut_l2 = self.request.POST['practical_paut_l2']
                 obj.lecturer = self.request.POST['paut_lecturer']
                 obj.invigilator = self.request.POST['paut_invigilator']
-                obj.venue = self.request.POST['paut_venue']
+                # obj.venue = self.request.POST['paut_venue']
                 obj.remark = self.request.POST['paut_remarks']
                 obj.save()
                 events = Event.objects.all()
@@ -1314,24 +1298,17 @@ class NewExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView)
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
                     obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a1']).first()
-                obj.basic_a1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_a2']).first()
-                obj.basic_a2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_1']).first()
-                obj.basic_b_part_1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_2']).first()
-                obj.basic_b_part_2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_3']).first()
-                obj.basic_b_part_3 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_basic_b_part_4']).first()
-                obj.basic_b_part_4 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_main_c_1']).first()
-                obj.main_c_1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_main_c_2']).first()
-                obj.main_c_2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['paut_main_c_3']).first()
-                obj.main_c_3 = sample
+
+                obj.basic_a1 = self.request.POST['paut_basic_a1']
+                obj.basic_a2 = self.request.POST['paut_basic_a2']
+                obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
+                obj.basic_b_part_2 = self.request.POST['paut_basic_b_part_2']
+                obj.basic_b_part_3 = self.request.POST['paut_basic_b_part_3']
+                obj.basic_b_part_4 = self.request.POST['paut_basic_b_part_4']
+                obj.main_c_1 = self.request.POST['paut_main_c_1']
+                obj.main_c_2 = self.request.POST['paut_main_c_2']
+                obj.main_c_3 = self.request.POST['paut_main_c_3']
+                obj.practical_paut_l2 = self.request.POST['practical_paut_l2']
                 obj.delivery_method = self.request.POST['paut_delivery_method']
                 obj.lecturer = self.request.POST['paut_lecturer']
                 obj.invigilator = self.request.POST['paut_invigilator']
@@ -2611,10 +2588,8 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.customerID = self.request.POST['customerID']
                 # obj.file = self.request.FILEs['file']
                 obj.exam_title = self.request.POST['examTitle']
-                sample = Samples.objects.filter(id=self.request.POST['general_paper']).first()
-                obj.general_paper = sample
-                sample = Samples.objects.filter(id=self.request.POST['technology_paper']).first()
-                obj.technology_paper = sample
+                obj.general_paper = self.request.POST['general_paper']
+                obj.technology_paper = self.request.POST['technology_paper']
                 sample = Samples.objects.filter(id=self.request.POST['plate_paper']).first()
                 obj.plate_paper = sample
                 sample = Samples.objects.filter(id=self.request.POST['pipe_paper']).first()
