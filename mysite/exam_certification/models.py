@@ -620,8 +620,8 @@ class BGAS_CSWIP_PaintingInspectorMaterial(models.Model):
     invigilator = models.CharField(max_length=256, null=True, blank=True)
     remarks = models.CharField(max_length=4096,null=True, blank=True)
     file = models.FileField(upload_to='exam_result_file',null=True,blank=True)
-    general_theory = models.ForeignKey(Samples,related_name="exam_material_painting_general_paper",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    practical = models.ForeignKey(Samples,related_name="exam_material_painting_sample_technology_paper",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    general_theory = models.CharField(max_length=256, null=True, blank=True)
+    practical = models.CharField(max_length=256, null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -160,7 +160,7 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Theory S</label>
-                            <select name="general_theory_s" class="form-control"  >
+                            <select name="general_theory_s" onchange="mySelector()"  id="general_theory_s" class="form-control"  >
                                             <option value="">Select</option>
                                             <option value="Exam 1S">Exam 1S</option>
                                             <option value="Exam 2S">Exam 2S</option>
@@ -169,7 +169,7 @@
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">NDT S</label>
-                            <select name="ndt_s" class="form-control"  >
+                            <select name="ndt_s" id="ndt_s" class="form-control"  >
                                             <option value="">Select</option>
                                             <option value="Exam 1S">Exam 1S</option>
                                             <option value="Exam 2S">Exam 2S</option>
@@ -181,7 +181,7 @@
 
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Symbols S</label>
-                            <select name="symbols_s" class="form-control"  >
+                            <select name="symbols_s"  id="symbols_s" class="form-control"  >
                                             <option value="">Select</option>
                                             <option value="Exam 1S">Exam 1S</option>
                                             <option value="Exam 2S">Exam 2S</option>
@@ -189,7 +189,7 @@
                                                         </div>
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Scenario S</label>
-                              <select name="scenario_s" class="form-control"  >
+                              <select name="scenario_s" id="scenario_s"  class="form-control"  >
                                             <option value="">Select</option>
                                             <option value="Exam 1S">Exam 1S</option>
                                             <option value="Exam 2S">Exam 2S</option>
@@ -267,5 +267,13 @@ function myFunction() {
 
                     </script>
 
-
+<script>
+function mySelector() {
+    d = document.getElementById("general_theory_s").value;
+   
+    document.querySelector('#ndt_s').value = d
+    document.querySelector('#symbols_s').value = d
+    document.querySelector('#scenario_s').value = d
+}
+</script>
                 {% endblock %}

@@ -1882,10 +1882,8 @@ class NewBGAS_CSWIP_PaintingInspector(SidebarMixin, LoginRequiredMixin, Template
                 obj.customerID = self.request.POST['customerID']
                 # obj.file = self.request.FILEs['file']
                 obj.exam_title = self.request.POST['examTitle']
-                sample = Samples.objects.filter(id=self.request.POST['general_theory']).first()
-                obj.general_theory = sample
-                sample = Samples.objects.filter(id=self.request.POST['practical']).first()
-                obj.practical = sample
+                obj.general_theory = self.request.POST['general_theory']
+                obj.practical = self.request.POST['practical']
 
 
 
