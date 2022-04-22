@@ -168,8 +168,8 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
-                if not request.POST.get('paut_exam_date', '') == '':
-                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
 
 
                 obj.specific_theory = self.request.POST['specific_theory']
