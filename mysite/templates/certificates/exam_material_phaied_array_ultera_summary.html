@@ -175,7 +175,7 @@
                                                     {% for item in exams %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
-                                                        <td>{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{%endif%} {{item.candidate.last_name}}</td>
+                                                        <td>{{item.candidate.first_name}} {% if item.candidate.middleName != 'None' %}{{item.candidate.middleName}}{%endif%} {{item.candidate.last_name}}</td>
                                                         <td>{{item.event.product}}</td>
                                                         <td>{{item.exam_title}}</td>
                                                         <td>{{item.candidate.email}}</td>
