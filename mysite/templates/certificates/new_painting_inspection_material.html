@@ -160,7 +160,7 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Theory</label>
-                            <select name="general_theory" class="form-control"  >
+                            <select name="general_theory"  id="general_theory" onchange="mySelector()"  class="form-control"  >
                                             <option value="">Select</option>
                                             <option value="Exam Package 4 Version 1">Exam Package 4 Version 1</option>
                                             <option value="Exam Package 5 Version 1">Exam Package 5 Version 1</option>
@@ -169,7 +169,7 @@
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Practical</label>
-                            <select name="practical" class="form-control"  >
+                            <select name="practical" id="practical" class="form-control"  >
                                             <option value="">Select</option>
                                             <option value="Exam Package 4 Version 1">Exam Package 4 Version 1</option>
                                             <option value="Exam Package 5 Version 1">Exam Package 5 Version 1</option>
@@ -245,6 +245,12 @@ function myFunction() {
   cerNumber.value=issueDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + issueDate.split('/')[0] + '_' + issueDate.split('/')[1]  ;
 }
 
+function mySelector() {
+    d = document.getElementById("general_theory").value;
+
+    document.querySelector('#practical').value = d
+
+}
 
 
                     </script>
