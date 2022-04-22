@@ -73,7 +73,7 @@ class NewExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 obj.exam = exam
 
                 if not request.POST.get('exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.exam_title = self.request.POST['examTitle']
                 obj.customerID = self.request.POST['customerID']
                 obj.lecturer = self.request.POST['lecturer']
@@ -169,7 +169,7 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
 
 
                 obj.specific_theory = self.request.POST['specific_theory']
@@ -381,7 +381,7 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
                 sample = Samples.objects.filter(id=self.request.POST['general_theory']).first()
                 obj.general_theory = sample
                 sample = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
@@ -555,7 +555,7 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
                 sample = Samples.objects.filter(id=self.request.POST['general_theory']).first()
                 obj.general_theory = sample
                 sample = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
@@ -734,7 +734,7 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
                 obj.basic_a1 = self.request.POST['paut_basic_a1']
                 obj.basic_a2 = self.request.POST['paut_basic_a2']
                 obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
@@ -922,7 +922,7 @@ class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequi
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
 
                 obj.basic_a1 = self.request.POST['paut_basic_a1']
                 obj.basic_a2 = self.request.POST['paut_basic_a2']
@@ -1109,7 +1109,7 @@ class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateVi
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
                 obj.basic_a1 = self.request.POST['paut_basic_a1']
                 obj.basic_a2 = self.request.POST['paut_basic_a2']
                 obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
@@ -1289,7 +1289,7 @@ class NewExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView)
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
 
                 obj.basic_a1 = self.request.POST['paut_basic_a1']
                 obj.basic_a2 = self.request.POST['paut_basic_a2']
@@ -2964,7 +2964,7 @@ class NewExamMaterialL3(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.customerID = self.request.POST['customerID']
                 obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('paut_exam_date', '') == '':
-                    obj.paut_exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
                 obj.paut_ndtl3 = self.request.POST['paut_ndtl3']
                 obj.paut_pautl2 = self.request.POST['paut_pautl2']
                 obj.paut_practical_exam = self.request.POST['paut_practical_exam']
