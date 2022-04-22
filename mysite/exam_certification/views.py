@@ -733,8 +733,8 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
-                if not request.POST.get('paut_exam_date', '') == '':
-                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.basic_a1 = self.request.POST['paut_basic_a1']
                 obj.basic_a2 = self.request.POST['paut_basic_a2']
                 obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
