@@ -1303,7 +1303,7 @@ class NewExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView)
                 obj.practical_paut_l2 = self.request.POST['practical_paut_l2']
                 obj.delivery_method = self.request.POST['paut_delivery_method']
                 obj.lecturer = self.request.POST['paut_lecturer']
-                obj.invigilator = self.request.POST['paut_invigilator']
+                # obj.invigilator = self.request.POST['paut_invigilator']
                 # obj.venue = self.request.POST['paut_venue']
                 obj.remark = self.request.POST['paut_remarks']
                 obj.save()
