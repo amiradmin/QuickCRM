@@ -151,17 +151,19 @@
                                    <label for="" class="form-label">Lecturer</label>
                                     <input  value="{{event.lecturers}}"  id="" name="lecturer" class="form-control" required/>
                                                         </div>
-                                                                     <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Scheme</label>
 
-                          <select name="cswip_pcn" class="form-control"  >
+             <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Practical</label>
+
+                              <select name="practical" class="form-control"  >
                                             <option value="">Select</option>
-                                            <option value="CSWIP">CSWIP</option>
-                                            <option value="PCN">PCN</option>
-
-
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
                                     </select>
                                                         </div>
+
 
         </div>
 
@@ -192,22 +194,7 @@
                                                         </div>
         </div>
 
-         <div class="row g-2">
 
-                                                        <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Practical</label>
-
-                              <select name="practical" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
-                                                        </div>
-                     <div class="mb-3 col-md-6">
-
-        </div>
 
 
 

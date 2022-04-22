@@ -380,8 +380,8 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
-                if not request.POST.get('paut_exam_date', '') == '':
-                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 sample = Samples.objects.filter(id=self.request.POST['general_theory']).first()
                 obj.general_theory = sample
                 sample = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
