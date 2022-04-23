@@ -814,6 +814,8 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.exam_date = self.request.POST['paut_examTitle']
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
