@@ -215,7 +215,7 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Date</label>
-                                    <input  value="{{exam.event.start_exam_date|date:'m/d/Y'}}"  id="" name="paut_exam_date" class="form-control" required/>
+                                    <input  value="{{exam.event.start_exam_date|date:'m/d/Y'}}"  id="" name="exam_date" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -228,7 +228,7 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Title</label>
-                                    <input  value="{{exam.scheme}}"  id="" name="paut_examTitle"  class="form-control" required/>
+                                    <input  value="{{exam.exam_title}}"  id="" name="examTitle"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -238,13 +238,7 @@
         </div>
 
 
-         <div class="row g-2">
 
-                     <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Lecturer</label>
-                                    <input  value="{{exam.lecturers}}"  id="" name="paut_lecturer" class="form-control" required/>
-                                                        </div>
-        </div>
 
 
 
@@ -287,14 +281,10 @@
 
 
 
-
-                                                        <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Exam Venue (Country, City, Address)</label>
-                                    <input  value=""  id="" name="paut_venue"  class="form-control" />
-                                                        </div>
-
-
-
+<div class="mb-3 col-md-12">
+      <label class="form-label">Result Card File</label>
+<input  type="file"  name="myFile" class="form-control"  />
+ </div>
 
 
 
@@ -355,7 +345,7 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Title</label>
-                                    <input  value="{{event.product.name}}"  id="" name="pcn_paut_l3_examTitle"  class="form-control" required/>
+                                    <input  value="{{event.exam_title}}"  id="" name="examTitle"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">

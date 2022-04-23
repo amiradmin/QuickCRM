@@ -233,6 +233,7 @@ class RadiographicInterpretationWeldsRIMaterial(models.Model):
     candidate = models.ForeignKey(TesCandidate,related_name="ri_candidate1",  null=True, blank=True , on_delete=models.DO_NOTHING)
     customerID = models.CharField(max_length=256, null=True, blank=True)
     scheme = models.CharField(max_length=256, null=True, blank=True)
+    exam_title = models.CharField(max_length=256, null=True, blank=True)
     exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
     general_theory = models.CharField(max_length=256, null=True, blank=True)
     specific_theory = models.CharField(max_length=256, null=True, blank=True)
