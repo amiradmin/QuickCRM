@@ -119,6 +119,7 @@ class DigitalRadiographicInterpretationDRI_Level2_Material3(models.Model):
     candidate = models.ForeignKey(TesCandidate,related_name="dri_candidate13",  null=True, blank=True , on_delete=models.DO_NOTHING)
     customerID = models.CharField(max_length=256, null=True, blank=True)
     scheme = models.CharField(max_length=256, null=True, blank=True)
+    exam_title = models.CharField(max_length=256, null=True, blank=True)
     exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
     general_practical = models.CharField(max_length=256, null=True, blank=True)
     data_analysis1 = models.CharField(max_length=256, null=True, blank=True)
