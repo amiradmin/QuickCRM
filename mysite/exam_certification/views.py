@@ -547,7 +547,7 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
                 obj.event = event
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['customerID']
-                # obj.paut_scheme = self.request.POST['paut_scheme']
+                obj.exam_title = self.request.POST['examTitle']
                 if not request.POST.get('exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.general_theory = self.request.POST['general_theory']
