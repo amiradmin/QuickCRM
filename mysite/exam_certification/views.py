@@ -12,7 +12,7 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
                                        PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material2,
                                        TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material2,
-                                       TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial
+                                       TimeFlightDiffractionTOFDLevel3_PCN_Result2,RadiographicInterpretationWeldsRIMaterial
                                        ,RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material3,
                                        DigitalRadiographicInterpretationDRI_Level2_Result,ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN,
                                        Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN )
@@ -588,7 +588,7 @@ class RadiographicInterpretationWeldsRIMaterial_Summary(SidebarMixin, LoginRequi
 
 
 class DeleteTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredMixin, DeleteView):
-    model = TimeFlightDiffractionTOFDLevel3_PCN_Result
+    model = TimeFlightDiffractionTOFDLevel3_PCN_Result2
     success_url = reverse_lazy('exam_certification:newpcntofdresultresult_')
 
 
@@ -624,12 +624,14 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
                 print(self.request.POST['exam_ID'])
                 exam = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.filter(id=self.request.POST['exam_ID']).first()
-                obj = TimeFlightDiffractionTOFDLevel3_PCN_Result()
+                obj = TimeFlightDiffractionTOFDLevel3_PCN_Result2()
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.exam_title = self.request.POST['examTitle']
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
@@ -648,7 +650,7 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
 
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
-                exams = TimeFlightDiffractionTOFDLevel3_PCN_Result.objects.all()
+                exams = TimeFlightDiffractionTOFDLevel3_PCN_Result2.objects.all()
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
@@ -667,8 +669,8 @@ class TimeFlightDiffractionTOFDLevel3_PCN_Result_Summary(SidebarMixin, LoginRequ
     def get_context_data(self, *args, **kwargs):
         context = super(TimeFlightDiffractionTOFDLevel3_PCN_Result_Summary, self).get_context_data()
         events = Event.objects.all()
-        exams = TimeFlightDiffractionTOFDLevel3_PCN_Result.objects.all()
-        examCount = TimeFlightDiffractionTOFDLevel3_PCN_Result.objects.count()
+        exams = TimeFlightDiffractionTOFDLevel3_PCN_Result2.objects.all()
+        examCount = TimeFlightDiffractionTOFDLevel3_PCN_Result2.objects.count()
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
