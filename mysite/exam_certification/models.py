@@ -335,6 +335,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Material(models.Model):
     candidate = models.ForeignKey(TesCandidate,related_name="cswip_material_phased_Array_l3_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
     customerID = models.CharField(max_length=256, null=True, blank=True)
     scheme = models.CharField(max_length=256, null=True, blank=True)
+    exam_title = models.CharField(max_length=256, null=True, blank=True)
     exam_date = models.DateTimeField( null=True, blank=True)
     basic_a1 = models.CharField(max_length=256, null=True, blank=True)
     basic_a2 = models.CharField(max_length=256, null=True, blank=True)

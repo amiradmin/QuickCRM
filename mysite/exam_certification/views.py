@@ -814,7 +814,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_date = self.request.POST['paut_examTitle']
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
                 obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
