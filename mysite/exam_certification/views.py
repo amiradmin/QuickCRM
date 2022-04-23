@@ -1376,7 +1376,7 @@ class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, Te
                 obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.general_theory = self.request.POST['general_theory']
                 obj.sample1_analysis = self.request.POST['sample1_analysis']
                 obj.sample1_collection = self.request.POST['sample1_collection']
@@ -1569,7 +1569,7 @@ class NewExamResultCSWIPPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, 
                 obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.general_theory = self.request.POST['general_theory']
                 obj.specific_theory = self.request.POST['specific_theory']
                 obj.sample1_analysis = self.request.POST['sample1_analysis']

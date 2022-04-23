@@ -160,6 +160,7 @@ class DigitalRadiographicInterpretationDRI_Level2_Result(models.Model):
     delivery_method = models.CharField(max_length=256, null=True, blank=True)
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
     venue = models.CharField(max_length=256, null=True, blank=True)
     remark = models.CharField(max_length=2048, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -290,6 +291,7 @@ class TimeFlightDiffractionTOFDLevel3_PCN_Result(models.Model):
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
     venue = models.CharField(max_length=256, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
     remark = models.CharField(max_length=2048, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -379,6 +381,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result(models.Model):
     invigilator = models.CharField(max_length=256, null=True, blank=True)
     venue = models.CharField(max_length=256, null=True, blank=True)
     remark = models.CharField(max_length=2048, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -438,6 +441,7 @@ class PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result(models.Model):
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
     venue = models.CharField(max_length=256, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
     remark = models.CharField(max_length=2048, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -499,6 +503,7 @@ class PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult(models.Model):
     invigilator = models.CharField(max_length=256, null=True, blank=True)
     venue = models.CharField(max_length=256, null=True, blank=True)
     remark = models.CharField(max_length=2048, null=True, blank=True)
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -556,7 +561,7 @@ class Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN(models.Model):
     sample3_analysis = models.CharField(max_length=128, null=True, blank=True)
     sample3_collection =models.CharField(max_length=128, null=True, blank=True)
     written_instruction =models.CharField(max_length=128, null=True, blank=True)
-
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
 
     remark = models.CharField(max_length=2048, null=True, blank=True)
     file = models.FileField(upload_to='exam_file',null=True,blank=True)
@@ -622,7 +627,7 @@ class Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP(models.Model):
     sample3_analysis = models.CharField(max_length=128, null=True, blank=True)
     sample3_collection =models.CharField(max_length=128, null=True, blank=True)
     written_instruction =models.CharField(max_length=128, null=True, blank=True)
-
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
 
     remark = models.CharField(max_length=2048, null=True, blank=True)
     file = models.FileField(upload_to='exam_file',null=True,blank=True)
@@ -674,7 +679,7 @@ class BGAS_CSWIP_PaintingInspectorResult(models.Model):
     file = models.FileField(upload_to='exam_result_file',null=True,blank=True)
     general_theory = models.CharField(max_length=128,null=True, blank=True)
     practical = models.CharField(max_length=128,null=True, blank=True)
-
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -730,7 +735,7 @@ class CSWIPWeldingInspector3_2_2_Result(models.Model):
     ndt_s = models.CharField(max_length=256, null=True, blank=True)
     symbols_s = models.CharField(max_length=256, null=True, blank=True)
     scenario_s = models.CharField(max_length=256, null=True, blank=True)
-
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -813,7 +818,7 @@ class CSWIPWeldingInspector3_2_1_Result(models.Model):
     ndt_s = models.CharField(max_length=256, null=True, blank=True)
     symbols_s = models.CharField(max_length=256, null=True, blank=True)
     scenario_s = models.CharField(max_length=256, null=True, blank=True)
-
+    file = models.FileField(upload_to='exam_file', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
