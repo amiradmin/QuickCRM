@@ -12,7 +12,7 @@ from  exam_certification.models import (Invigilator,CertificateAttendance,Certif
                                         PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material2,
                                         TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material2,
                                         TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial,
-                                        RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material,
+                                        RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material3,
                                         DigitalRadiographicInterpretationDRI_Level2_Result,ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN
                                         ,Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN)
 from import_export.admin import ImportExportModelAdmin
@@ -40,10 +40,10 @@ class DigitalRadiographicInterpretationDRI_Level2_ResultAdmin(ImportExportModelA
 admin.site.register(DigitalRadiographicInterpretationDRI_Level2_Result,DigitalRadiographicInterpretationDRI_Level2_ResultAdmin)
 
 
-class DigitalRadiographicInterpretationDRI_Level2_MaterialAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+class DigitalRadiographicInterpretationDRI_Level2_Material3Admin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']
     list_filter = ['id','name','event','created_at','updated_at']
-admin.site.register(DigitalRadiographicInterpretationDRI_Level2_Material,DigitalRadiographicInterpretationDRI_Level2_MaterialAdmin)
+admin.site.register(DigitalRadiographicInterpretationDRI_Level2_Material3,DigitalRadiographicInterpretationDRI_Level2_Material3Admin)
 
 class RadiographicInterpretationWeldsRIResultAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']

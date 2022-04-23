@@ -68,7 +68,7 @@
                                         <datalist id="productList"  >
 
                                         {% for item2 in events %}
-                                        <option value="{{item2.id}}-{{item2.name}}">{{item2.name}}
+                                        <option  value="{{item2.id}}-{{item2.product.name}}">{{item2.name}}-{{item2.start_exam_date|date:'m/d/Y'}}
                                         </option>
                                         {% endfor %}
 
@@ -265,17 +265,6 @@
         </div>
 
 
-                                                        <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Data File# 5 Analysis
-Only for PCN</label>
-                                            <select name="data_file_5" class="form-control" required >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
-                                                        </div>
 
 
 

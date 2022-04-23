@@ -13,7 +13,7 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material2,
                                        TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material2,
                                        TimeFlightDiffractionTOFDLevel3_PCN_Result,RadiographicInterpretationWeldsRIMaterial
-                                       ,RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material,
+                                       ,RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material3,
                                        DigitalRadiographicInterpretationDRI_Level2_Result,ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN,
                                        Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN )
 
@@ -236,7 +236,7 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginR
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewDigitalRadiographicInterpretationDRI_Level2_Result, self).get_context_data()
-        exams = DigitalRadiographicInterpretationDRI_Level2_Material.objects.all()
+        exams = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.all()
         candidates = TesCandidate.objects.all()
         context['exams'] = exams
         context['candidates'] = candidates
@@ -248,7 +248,7 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginR
             if 'updateInfo' in request.POST:
                 print("updateInfo")
                 print(request.POST['examID'])
-                exam = DigitalRadiographicInterpretationDRI_Level2_Material.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                exam = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 context['exam'] = exam
 
@@ -262,7 +262,7 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginR
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
                 print(self.request.POST['exam_ID'])
-                exam = DigitalRadiographicInterpretationDRI_Level2_Material.objects.filter(id=self.request.POST['exam_ID']).first()
+                exam = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.filter(id=self.request.POST['exam_ID']).first()
                 obj = DigitalRadiographicInterpretationDRI_Level2_Result()
                 obj.event = event
                 obj.candidate = candidate
@@ -318,7 +318,7 @@ class DigitalRadiographicInterpretationDRI_Level2_Result_Summary(SidebarMixin, L
 
 
 class DeleteDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, LoginRequiredMixin, DeleteView):
-    model = DigitalRadiographicInterpretationDRI_Level2_Material
+    model = DigitalRadiographicInterpretationDRI_Level2_Material3
     success_url = reverse_lazy('exam_certification:exammaterialdrisummary_')
 
 
@@ -329,8 +329,8 @@ class DigitalRadiographicInterpretationDRI_Level2_Material_Summary(SidebarMixin,
     def get_context_data(self, *args, **kwargs):
         context = super(DigitalRadiographicInterpretationDRI_Level2_Material_Summary, self).get_context_data()
         events = Event.objects.all()
-        exams = DigitalRadiographicInterpretationDRI_Level2_Material.objects.all()
-        examCount = DigitalRadiographicInterpretationDRI_Level2_Material.objects.count()
+        exams = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.all()
+        examCount = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.count()
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -375,31 +375,23 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
 
-                obj = DigitalRadiographicInterpretationDRI_Level2_Material()
+                obj = DigitalRadiographicInterpretationDRI_Level2_Material3()
                 obj.event = event
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['customerID']
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                sample = Samples.objects.filter(id=self.request.POST['general_theory']).first()
-                obj.general_theory = sample
-                sample = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
-                obj.specific_theory = sample
-                sample = Samples.objects.filter(id=self.request.POST['general_practical']).first()
-                obj.general_practical = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_analysis1']).first()
-                obj.data_analysis1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_analysis2']).first()
-                obj.data_analysis2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_analysis3']).first()
-                obj.data_analysis3 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_analysis4']).first()
-                obj.data_analysis4 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_analysis5']).first()
-                obj.data_analysis5 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_analysis6']).first()
-                obj.data_analysis6 = sample
+
+                obj.general_theory = self.request.POST['general_theory']
+                obj.specific_theory = self.request.POST['specific_theory']
+                obj.general_practical = self.request.POST['general_practical']
+                obj.data_analysis1 = self.request.POST['data_analysis1']
+                obj.data_analysis2 = self.request.POST['data_analysis2']
+                obj.data_analysis3 = self.request.POST['data_analysis3']
+                obj.data_analysis4 = self.request.POST['data_analysis4']
+                obj.data_analysis5 = self.request.POST['data_analysis5']
+                obj.data_analysis6 = self.request.POST['data_analysis6']
                 # obj.delivery_method = self.request.POST['paut_delivery_method']
                 obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
@@ -408,7 +400,7 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
                 obj.save()
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
-                exams = DigitalRadiographicInterpretationDRI_Level2_Material.objects.all()
+                exams = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.all()
                 samples = Samples.objects.all()
                 context['samples'] = samples
                 context['events'] = events
@@ -556,12 +548,9 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
                 # obj.paut_scheme = self.request.POST['paut_scheme']
                 if not request.POST.get('exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                sample = Samples.objects.filter(id=self.request.POST['general_theory']).first()
-                obj.general_theory = sample
-                sample = Samples.objects.filter(id=self.request.POST['specific_theory']).first()
-                obj.specific_theory = sample
-                sample = Samples.objects.filter(id=self.request.POST['practical']).first()
-                obj.practical = sample
+                obj.general_theory = self.request.POST['general_theory']
+                obj.specific_theory = self.request.POST['specific_theory']
+                obj.practical = self.request.POST['practical']
 
                 # obj.delivery_method = self.request.POST['paut_delivery_method']
                 obj.lecturer = self.request.POST['lecturer']
@@ -1679,7 +1668,7 @@ class NewExamMaterialCSWIPPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Te
                 obj.invigilator = self.request.POST['invigilator']
                 obj.remark = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
-                obj.cswip_pcn = self.request.POST['cswip_pcn']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.exam_title = self.request.POST['examTitle']
                 print(self.request.POST['general_theory'])
                 obj.general_theory = self.request.POST['general_theory']
@@ -3294,8 +3283,8 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.data_file_3 = sample
                 sample = Samples.objects.filter(id=self.request.POST['data_file_4']).first()
                 obj.data_file_4 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_file_5']).first()
-                obj.data_file_5 = sample
+                # sample = Samples.objects.filter(id=self.request.POST['data_file_5']).first()
+                # obj.data_file_5 = sample
                 sample =Samples.objects.filter(id=self.request.POST['written_instruction']).first()
                 obj.written_instruction = sample
                 obj.save()

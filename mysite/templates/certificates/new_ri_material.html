@@ -68,7 +68,7 @@
                                         <datalist id="productList"  >
 
                                         {% for item2 in events %}
-                                        <option value="{{item2.id}}-{{item2.name}}-{{item2.product.name}}">{{item2.name}}
+                          <option  value="{{item2.id}}-{{item2.product.name}}">{{item2.name}}-{{item2.start_exam_date|date:'m/d/Y'}}
                                         </option>
                                         {% endfor %}
 
@@ -155,14 +155,8 @@
              <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Practical</label>
 
-                              <select name="practical" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
-                                                        </div>
+<input  value=""  id="" name="practical" class="form-control" required/>
+             </div>
 
 
         </div>
@@ -172,26 +166,15 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Theory</label>
 
+<input  value=""  id="" name="general_theory" class="form-control" required/>
 
-                                   <select name="general_theory" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Specific Theory</label>
 
-                            <select name="specific_theory" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
-                                                        </div>
+
+<input  value=""  id="" name="specific_theory" class="form-control" required/>
+                                                                     </div>
         </div>
 
 

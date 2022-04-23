@@ -84,6 +84,7 @@ class Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(models.Model):
 
     def __str__(self):
         return self.event.name
+
 class DigitalRadiographicInterpretationDRI_Level2_Material(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="dri_event1", null=True, blank=True, on_delete=models.DO_NOTHING)
@@ -111,6 +112,33 @@ class DigitalRadiographicInterpretationDRI_Level2_Material(models.Model):
     def __str__(self):
         return self.event.name
 
+
+class DigitalRadiographicInterpretationDRI_Level2_Material3(models.Model):
+    name = models.CharField(max_length=256, null=True, blank=True )
+    event = models.ForeignKey(Event, related_name="dri_event13", null=True, blank=True, on_delete=models.DO_NOTHING)
+    candidate = models.ForeignKey(TesCandidate,related_name="dri_candidate13",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    customerID = models.CharField(max_length=256, null=True, blank=True)
+    scheme = models.CharField(max_length=256, null=True, blank=True)
+    exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
+    general_practical = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis1 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis2 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis3 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis4 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis5 = models.CharField(max_length=256, null=True, blank=True)
+    data_analysis6 = models.CharField(max_length=256, null=True, blank=True)
+    general_theory = models.CharField(max_length=256, null=True, blank=True)
+    specific_theory = models.CharField(max_length=256, null=True, blank=True)
+    delivery_method = models.CharField(max_length=256,null=True, blank=True)
+    lecturer = models.CharField(max_length=256, null=True, blank=True)
+    invigilator = models.CharField(max_length=256, null=True, blank=True)
+    venue = models.CharField(max_length=256, null=True, blank=True)
+    remark = models.CharField(max_length=2048, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.event.name
 
 
 class DigitalRadiographicInterpretationDRI_Level2_Result(models.Model):
@@ -205,9 +233,9 @@ class RadiographicInterpretationWeldsRIMaterial(models.Model):
     customerID = models.CharField(max_length=256, null=True, blank=True)
     scheme = models.CharField(max_length=256, null=True, blank=True)
     exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
-    general_theory = models.ForeignKey(Samples,related_name="exam_material_ri",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    specific_theory = models.ForeignKey(Samples,related_name="exam_material_specific_ri",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    practical = models.ForeignKey(Samples,related_name="exam_material_ri_practical",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    general_theory = models.CharField(max_length=256, null=True, blank=True)
+    specific_theory = models.CharField(max_length=256, null=True, blank=True)
+    practical = models.CharField(max_length=256, null=True, blank=True)
     delivery_method = models.CharField(max_length=256,null=True, blank=True)
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)

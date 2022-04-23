@@ -68,7 +68,7 @@
                                         <datalist id="productList"  >
 
                                         {% for item2 in events %}
-                                        <option value="{{item2.id}}-{{item2.name}}-{{item2.product.name}}">{{item2.name}}
+                                       <option  value="{{item2.id}}-{{item2.product.name}}">{{item2.name}}-{{item2.start_exam_date|date:'m/d/Y'}}
                                         </option>
                                         {% endfor %}
 
@@ -159,50 +159,27 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Theory</label>
+<input  value=""  id="" name="general_theory" class="form-control" required/>
 
-
-                                   <select name="general_theory" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
-                                                        </div>
-                                                                     <div class="mb-3 col-md-6">
+   </div>
+       <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Specific Theory</label>
 
-                            <select name="specific_theory" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+  <input  value=""  id="" name="specific_theory" class="form-control" required/>
                                                         </div>
         </div>
 
          <div class="row g-2">
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Practical</label>
-                                   <select name="general_practical" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
+
+  <input  value=""  id="" name="general_practical" class="form-control" required/>
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 1</label>
 
-                            <select name="data_analysis1" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+
+  <input  value=""  id="" name="data_analysis1" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -212,24 +189,14 @@
          <div class="row g-2">
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 2</label>
-                                   <select name="data_analysis2" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
+
+  <input  value=""  id="" name="data_analysis2" class="form-control" required/>
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 3</label>
 
-                            <select name="data_analysis3" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+
+<input  value=""  id="" name="data_analysis3" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -238,24 +205,13 @@
          <div class="row g-2">
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 4</label>
-                                   <select name="data_analysis4" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
+<input  value=""  id="" name="data_analysis4" class="form-control" required/>
                                                         </div>
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 5</label>
 
-                            <select name="data_analysis5" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                            </select>
+
+  <input  value=""  id="" name="data_analysis5" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -263,13 +219,7 @@
          <div class="row g-2">
                      <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Data Analysis 6</label>
-                                   <select name="data_analysis6" class="form-control"  >
-                                            <option value="">Select</option>
-                                        {% for item3 in samples %}
-                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
-                                        </option>
-                                        {% endfor %}
-                                    </select>
+<input  value=""  id="" name="data_analysis6" class="form-control" required/>
                                                         </div>
 
         </div>

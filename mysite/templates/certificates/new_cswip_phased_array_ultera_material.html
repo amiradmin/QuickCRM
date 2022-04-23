@@ -68,7 +68,7 @@
                                         <datalist id="productList"  >
 
                                         {% for item2 in events %}
-                                        <option value="{{item2.id}}-{{item2.name}}-{{item2.product.name}}">{{item2.name}}
+                                  <option  value="{{item2.id}}-{{item2.product.name}}">{{item2.name}}-{{item2.start_exam_date|date:'m/d/Y'}}
                                         </option>
                                         {% endfor %}
 
@@ -147,20 +147,9 @@
 
          <div class="row g-2">
 
-                     <div class="mb-3 col-md-6">
+                     <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Lecturer</label>
                                     <input  value="{{event.lecturers}}"  id="" name="lecturer" class="form-control" required/>
-                                                        </div>
-                                                                     <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Scheme</label>
-
-                          <select name="cswip_pcn" class="form-control"  >
-                                            <option value="">Select</option>
-                                            <option value="CSWIP">CSWIP</option>
-                                            <option value="PCN">PCN</option>
-
-
-                                    </select>
                                                         </div>
 
         </div>
