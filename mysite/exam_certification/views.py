@@ -76,7 +76,7 @@ class NewExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.exam_title = self.request.POST['examTitle']
                 obj.customerID = self.request.POST['customerID']
-                obj.lecturer = self.request.POST['lecturer']
+                # obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
                 obj.specific_theory = self.request.POST['specific_theory']
                 # obj.general_practical = self.request.POST['general_practical']
