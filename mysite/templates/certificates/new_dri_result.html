@@ -228,7 +228,7 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Title</label>
-                                    <input  value="{{exam.scheme}}"  id="" name="paut_examTitle"  class="form-control" required/>
+                                    <input  value="{{exam.exam_title}}"  id="" name="examTitle"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -238,13 +238,7 @@
         </div>
 
 
-         <div class="row g-2">
 
-                     <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Lecturer</label>
-                                    <input  value="{{exam.lecturers}}"  id="" name="paut_lecturer" class="form-control" required/>
-                                                        </div>
-        </div>
 
 
 
@@ -346,11 +340,11 @@
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
 </select>
-                                                        <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Exam Venue (Country, City, Address)</label>
-                                    <input  value=""  id="" name="paut_venue"  class="form-control" />
-                                                        </div>
 
+<div class="mb-3 col-md-12">
+      <label class="form-label">Result Card File</label>
+<input  type="file"  name="myFile" class="form-control"  />
+ </div>
 
 
 

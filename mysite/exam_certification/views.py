@@ -269,7 +269,10 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginR
                 obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['examTitle']
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+
                 obj.general_theory = self.request.POST['general_theory']
                 obj.specific_theory = self.request.POST['specific_theory']
                 obj.general_practical = self.request.POST['general_practical']
