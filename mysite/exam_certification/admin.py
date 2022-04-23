@@ -11,7 +11,7 @@ from  exam_certification.models import (Invigilator,CertificateAttendance,Certif
                                         PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult,PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material,
                                         PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result,TimeFlightDiffractionTOFDLevel3_CSWIP_Material2,
                                         TimeFlightDiffractionTOFDLevel3_CSWIP_Result,TimeFlightDiffractionTOFDLevel3_PCN_Material2,
-                                        TimeFlightDiffractionTOFDLevel3_PCN_Result2,RadiographicInterpretationWeldsRIMaterial,
+                                        TimeFlightDiffractionTOFDLevel3_PCN_Result3,RadiographicInterpretationWeldsRIMaterial,
                                         RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material3,
                                         DigitalRadiographicInterpretationDRI_Level2_Result,ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN
                                         ,Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN)
@@ -55,10 +55,10 @@ class RadiographicInterpretationWeldsRIMaterialAdmin(ImportExportModelAdmin,admi
     list_filter = ['id','name','event','created_at','updated_at']
 admin.site.register(RadiographicInterpretationWeldsRIMaterial,RadiographicInterpretationWeldsRIMaterialAdmin)
 
-class TimeFlightDiffractionTOFDLevel3_PCN_Result2Admin(ImportExportModelAdmin,admin.ModelAdmin):
+class TimeFlightDiffractionTOFDLevel3_PCN_Result3Admin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']
     list_filter = ['id','name','event','created_at','updated_at']
-admin.site.register(TimeFlightDiffractionTOFDLevel3_PCN_Result2,TimeFlightDiffractionTOFDLevel3_PCN_Result2Admin)
+admin.site.register(TimeFlightDiffractionTOFDLevel3_PCN_Result3,TimeFlightDiffractionTOFDLevel3_PCN_Result3Admin)
 
 class TimeFlightDiffractionTOFDLevel3_PCN_Material2Admin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ['id','name','event','created_at','updated_at']
