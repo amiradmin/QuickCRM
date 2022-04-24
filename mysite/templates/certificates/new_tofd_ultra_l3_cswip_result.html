@@ -141,7 +141,7 @@
                                                     <div class="row g-2">
                      <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Examination</label>
-                                    <input list="examList" value=""  id="" name="examID" placeholder="type here..." class="form-control" required/>
+                                    <input list="examList" value=""  id="" name="exam_ID" placeholder="type here..." class="form-control" required/>
 
                                         <datalist id="examList"  >
 
@@ -215,7 +215,7 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Date</label>
-                                    <input  value="{{exam.event.start_exam_date|date:'m/d/Y'}}"  id="" name="paut_exam_date" class="form-control" required/>
+                                    <input  value="{{exam.event.start_exam_date|date:'m/d/Y'}}"  id="" name="exam_date" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -228,12 +228,12 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Title</label>
-                                    <input  value="{{exam.exam_title}}"  id="" name="paut_examTitle"  class="form-control" required/>
+                                    <input  value="{{exam.exam_title}}"  id="" name="examTitle"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Invigilator</label>
-                                    <input  value="{{exam.invigilator}}"  id="" name="paut_invigilator" class="form-control" required/>
+                                    <input  value="{{exam.invigilator}}"  id="" name="invigilator" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -244,8 +244,8 @@
 
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">A1(25 questions on materials)</label>
- <select class="form-select" name="basic_a1" >
+                                   <label for="" class="form-label">General Theory</label>
+ <select class="form-select" name="general_theory" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -254,31 +254,8 @@
                                                         </div>
 
                      <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">A2(10 questions-Scheme)</label>
- <select class="form-select" name="basic_a2" >
-  <option selected>Select</option>
-  <option value="Passed">Passed</option>
-  <option value="Failed">Failed</option>
-     <option value="N/A">N/A</option>
-</select>
-                                                        </div>
-        </div>
-
-
-        <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">B-part 1 (15 Questions in PT)</label>
- <select class="form-select" name="basic_b_part_1" >
-  <option selected>Select</option>
-  <option value="Passed">Passed</option>
-  <option value="Failed">Failed</option>
-     <option value="N/A">N/A</option>
-</select>
-                                                        </div>
-
-                     <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">B-part 2(15 Questions in MT)</label>
- <select class="form-select" name="basic_b_part_2" >
+                                   <label for="" class="form-label">Specific Theory</label>
+ <select class="form-select" name="specific_theory" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -290,8 +267,8 @@
 
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">B-part 3(15 Questions in UT)</label>
- <select class="form-select" name="basic_b_part_3" >
+                                   <label for="" class="form-label">Sample 1(Single Vee, 1" or 1/2") (data collection)</label>
+ <select class="form-select" name="sample1" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -300,9 +277,32 @@
                                                         </div>
 
                      <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">B-part 4(15 Questions in RT)
+                                   <label for="" class="form-label">Sample 2(Double Vee) (data collection)</label>
+ <select class="form-select" name="sample2" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Written Instruction</label>
+ <select class="form-select" name="written_instruction" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data File# 1 Analysis
 </label>
- <select class="form-select" name="basic_b_part_4" >
+ <select class="form-select" name="data_file_1" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -314,8 +314,8 @@
 
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Main C1</label>
- <select class="form-select" name="main_c_1" >
+                                   <label for="" class="form-label">Data File# 2Analysis</label>
+ <select class="form-select" name="data_file_2" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -324,9 +324,9 @@
                                                         </div>
 
                      <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Main C2
+                                   <label for="" class="form-label">Data File# 3 Analysis
 </label>
- <select class="form-select" name="main_c_2" >
+ <select class="form-select" name="data_file_3" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -338,8 +338,8 @@
 
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Main C3</label>
- <select class="form-select" name="main_c_3" >
+                                   <label for="" class="form-label">Data File# 4 Analysis</label>
+ <select class="form-select" name="data_file_4" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -347,22 +347,13 @@
 </select>
                                                         </div>
 
-                     <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Practical TOFD L2
-</label>
- <select class="form-select" name="practical_tofd_l2" >
-  <option selected>Select</option>
-  <option value="Passed">Passed</option>
-  <option value="Failed">Failed</option>
-     <option value="N/A">N/A</option>
-</select>
-                                                        </div>
-        </div>
-
-<div class="mb-3 col-md-12">
+<div class="mb-3 col-md-6">
       <label class="form-label">Result Card File</label>
 <input  type="file"  name="myFile" class="form-control"  />
  </div>
+
+        </div>
+
 
 
 

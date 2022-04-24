@@ -200,4 +200,13 @@ urlpatterns = [
          views.DeleteExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.as_view(),
          name='examresulttofdl2pcndelete_'),
 
+    path('examtofdl2cswipresultsummary/',
+         views.Exam_Result_ExamMaterialTOFD_CSWIP_Summary.as_view(),
+         name='examtofdl2cswipresultsummary_'),
+    path('newmaterialtofdl2cswipresult/', views.NewExam_Result_ExamMaterialTOFD_CSWIP.as_view(),
+         name='newmaterialtofdl2cswipresult_'),
+    path('examresulttofdl2cswipdelete/<int:pk>/delete/',
+         views.DeleteExam_Result_ExamMaterialTOFD_CSWIP.as_view(),
+         name='examresulttofdl2cswipdelete_'),
+
 ]

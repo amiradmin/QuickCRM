@@ -14,9 +14,17 @@ from  exam_certification.models import (Invigilator,CertificateAttendance,Certif
                                         TimeFlightDiffractionTOFDLevel3_PCN_Result3,RadiographicInterpretationWeldsRIMaterial,
                                         RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material3,
                                         DigitalRadiographicInterpretationDRI_Level2_Result,ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN
-                                        ,Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN)
+                                        ,Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN,ExamMaterialTOFD_CSWIP)
 from import_export.admin import ImportExportModelAdmin
 # Register your models here.
+
+
+class ExamMaterialTOFD_CSWIP_ResultAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ['id','name','event','created_at','updated_at']
+    list_filter = ['id','name','event','created_at','updated_at']
+admin.site.register(ExamMaterialTOFD_CSWIP,ExamMaterialTOFD_CSWIP_ResultAdmin)
+
+
 
 
 class Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCNAdmin(ImportExportModelAdmin,admin.ModelAdmin):

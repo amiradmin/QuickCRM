@@ -15,7 +15,7 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        TimeFlightDiffractionTOFDLevel3_PCN_Result3,RadiographicInterpretationWeldsRIMaterial
                                        ,RadiographicInterpretationWeldsRIResult,DigitalRadiographicInterpretationDRI_Level2_Material3,
                                        DigitalRadiographicInterpretationDRI_Level2_Result,ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN,
-                                       Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN )
+                                       Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN,ExamMaterialTOFD_CSWIP )
 
 
 from training.models import TesCandidate
@@ -30,6 +30,100 @@ from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+
+class DeleteExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = ExamMaterialTOFD_CSWIP
+    success_url = reverse_lazy('exam_certification:examtofdl2cswipresultsummary_')
+
+
+
+
+class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_tofd_ultra_l3_cswip_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewExam_Result_ExamMaterialTOFD_CSWIP, self).get_context_data()
+        exams = ExamMaterialTOFDModel1.objects.all()
+        candidates = TesCandidate.objects.all()
+        context['exams'] = exams
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExam_Result_ExamMaterialTOFD_CSWIP, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo' in request.POST:
+                print("updateInfo 2")
+                print(request.POST['exam_ID'])
+                exam = ExamMaterialTOFDModel1.objects.filter(id=self.request.POST['exam_ID'].split('-')[0]).first()
+                # print(self.kwargs['id'])
+                print(exam)
+                context['exam'] = exam
+
+                return render(request, 'certificates/new_tofd_ultra_l3_cswip_result.html', context)
+            elif 'submit' in request.POST:
+                print("Submit")
+
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+                print(self.request.POST['exam_ID'])
+                exam = ExamMaterialTOFDModel1.objects.filter(id=self.request.POST['exam_ID']).first()
+                obj = ExamMaterialTOFD_CSWIP()
+                obj.event = event
+                obj.candidate = candidate
+                obj.exam = exam
+
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.exam_title = self.request.POST['examTitle']
+                obj.customerID = self.request.POST['customerID']
+                # obj.lecturer = self.request.POST['lecturer']
+                obj.invigilator = self.request.POST['invigilator']
+                obj.specific_theory = self.request.POST['specific_theory']
+                obj.general_theory = self.request.POST['general_theory']
+                obj.sample1 = self.request.POST['sample1']
+                obj.sample2 = self.request.POST['sample2']
+                obj.data_file_1 = self.request.POST['data_file_1']
+                obj.data_file_2 = self.request.POST['data_file_2']
+                obj.data_file_3 = self.request.POST['data_file_3']
+                obj.data_file_4 = self.request.POST['data_file_4']
+                obj.written_instruction = self.request.POST['written_instruction']
+
+                obj.remark = self.request.POST['paut_remarks']
+                if bool(request.FILES.get('myFile', False)) == True:
+                    obj.file = self.request.FILES['myFile']
+                obj.save()
+
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = ExamMaterialTOFD_CSWIP.objects.all()
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_result_summary.html',context=context)
+                return redirect('exam_certification:examtofdl2cswipresultsummary_')
+            return redirect('exam_certification:examtofdl2cswipresultsummary_')
+
+
+
+class Exam_Result_ExamMaterialTOFD_CSWIP_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/exam_result_cswip_tofd_l2_summary.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(Exam_Result_ExamMaterialTOFD_CSWIP_Summary, self).get_context_data()
+        events = Event.objects.all()
+        exams = ExamMaterialTOFD_CSWIP.objects.all()
+        examCount = ExamMaterialTOFD_CSWIP.objects.count()
+        context['events'] = events
+        context['exams'] = exams
+        context['examCount'] = examCount
+        return context
+
+
 
 class DeleteExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN
@@ -3314,7 +3408,7 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class ExamMaterialTofdSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/exam_material_tofd_summary.html"
+    template_name = "certificates/exam_material_tofd_result_summary.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialTofdSummary, self).get_context_data()
