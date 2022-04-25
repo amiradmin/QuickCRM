@@ -16,7 +16,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">Results of CSWIP Welding Inspector(3.1)Summary</h4>
+                                <h4 class="page-title">Results of CSWIP Welding Inspector(3.1) Summary</h4>
                             </div>
                         </div>
                     </div>     
@@ -176,8 +176,8 @@
                                                         <td>{{item.plate_paper}}</td>
                                                         <td>{{item.pipe_paper}}</td>
                                                         <td>{{item.macro_paper}}</td>
-<td><a href="{% url 'exam_certification:examcswip31delete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a>&nbsp;
-<a href="{% url 'exam_certification:newexamrscwip31esultbyid_' id=item.id %}"><i style="font-size:20px;" class="fa fa-wpforms" aria-hidden="true"></i></a>
+<td><a href="{% url 'exam_certification:examcswip31resultdelete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a>&nbsp;
+<a href="{% url 'exam_certification:examresulthistorycswip31_' candidate_id=item.candidate.id %}"><i style="font-size:20px;" class="fa fa-wpforms" aria-hidden="true"></i></a>
 </td>
 
 

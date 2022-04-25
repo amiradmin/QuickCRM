@@ -455,7 +455,7 @@
                         <li class="nav-item">
                             <a href="#certificates" data-bs-toggle="tab" aria-expanded="false"
                                class="nav-link rounded-0 ">
-                                Certificates
+                                Result/Certificates
                             </a>
                         </li>
                         <li class="nav-item">
@@ -605,6 +605,52 @@
                                             <i style="color:orange" class="fa fa-hourglass-start"
                                                aria-hidden="true"></i> {% endif %}
                                         </td>
+
+
+                                    </tr>
+                                    {%endfor%}
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="tab-pane" id="certificates">
+                            <!-- end timeline -->
+
+
+                            <div class="text-start mt-3">
+                                <h4 class="font-13 text-uppercase">Results/Certificates:</h4>
+
+                                <table id="basic-datatable" class="table dt-responsive  w-100">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Product</th>
+                                        <th>Exam Title</th>
+                                        <th>Country</th>
+                                        <th>Location</th>
+                                        <th>Exam Date</th>
+
+
+
+                                    </tr>
+                                    </thead>
+
+
+                                    <tbody>
+                                    {% for item in material_list %}
+                                    <tr>
+                                        <td>{{item.id}}</td>
+                                        <td>{{item.event.product.name}}</td>
+                                        <td>{{item.exam_title}}</td>
+                                        <td>{{item.event.country}}</td>
+                                        <td>{{item.event.location}}</td>
+                                        <td>{{item.exam_date|date:'m/d/Y'}}</td>
+
 
 
                                     </tr>

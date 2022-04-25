@@ -24,12 +24,32 @@ from authorization.sidebarmixin import SidebarMixin
 from django.views.generic import View, TemplateView
 from training.models import TesCandidate,Event
 from django.views.generic.edit import DeleteView
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from dateutil.relativedelta import *
 from django.db.models import Q
 import datetime
 
 # Create your views here.
+
+
+
+class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/cswip_result_history_3_1.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamResultHistoryCSWIP31, self).get_context_data()
+        print(self.kwargs['candidate_id'])
+        # user = User.objects.filter(id = self.kwargs['candidate_id']).first()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
+        print(candidate)
+        results = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
+
+        context['results'] = results
+        # context['examCount'] = examCount
+        return context
+
+
 
 
 class DeleteExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, DeleteView):
@@ -2498,6 +2518,11 @@ class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateVie
 
         return context
 
+
+
+class DeleteCSWIPExamResult31(SidebarMixin, LoginRequiredMixin, DeleteView):
+    model = CSWIPWeldingInspector3_1Result
+    success_url = reverse_lazy('exam_certification:examscwip31resultsummary_')
 
 
 class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):

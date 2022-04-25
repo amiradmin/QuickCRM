@@ -1103,7 +1103,7 @@ class CSWIPWeldingInspector3_1Result(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     event = models.ForeignKey(Event, related_name="exam_result_event_31", null=True, blank=True, on_delete=models.DO_NOTHING)
     candidate = models.ForeignKey(TesCandidate,related_name="exam_result_candidate_31",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    exam = models.ForeignKey(CSWIPWeldingInspector3_1ExamMaterial,related_name="exam_result_31",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    exam = models.ForeignKey(CSWIPWeldingInspector3_1ExamMaterial,related_name="exam_result_31",  null=True, blank=True , on_delete=models.CASCADE)
     result = models.CharField(max_length=128,null=True, blank=True)
     scheme = models.CharField(max_length=256, null=True, blank=True)
     remarks = models.CharField(max_length=4096,null=True, blank=True)
@@ -1125,8 +1125,8 @@ class CSWIPWeldingInspector3_1ResultIntermadiate(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     candidate = models.ForeignKey(TesCandidate, related_name="exam_material_result_intermadiate_candidate", null=True, blank=True,
                                   on_delete=models.DO_NOTHING)
-    primary = models.ForeignKey(CSWIPWeldingInspector3_1Result,related_name="exam_result_31_intermediate",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    secondry = models.ForeignKey(CSWIPWeldingInspector3_1Result,related_name="exam_result_31_intermediate_result1",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    primary = models.ForeignKey(CSWIPWeldingInspector3_1Result,related_name="exam_result_31_intermediate",  null=True, blank=True , on_delete=models.CASCADE)
+    secondry = models.ForeignKey(CSWIPWeldingInspector3_1Result,related_name="exam_result_31_intermediate_result1",  null=True, blank=True , on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

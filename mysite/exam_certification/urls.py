@@ -98,7 +98,7 @@ urlpatterns = [
 
     path('examscwip31resultsummary/', views.CSWIPExamResult31Summary.as_view(), name='examscwip31resultsummary_'),
     path('newcswipexam31result/', views.NewExamResultSwip31.as_view(), name='newcswipexam31result_'),
-    path('examcswip31delete/<int:pk>/delete/', views.DeleteCSWIPExamMaterial31.as_view(), name='examcswip31delete_'),
+    path('examcswip31resultdelete/<int:pk>/delete/', views.DeleteCSWIPExamResult31.as_view(), name='examcswip31resultdelete_'),
 
 
     path('examscwip321resultsummary/', views.CSWIPExamResult321Summary.as_view(), name='examscwip321resultsummary_'),
@@ -209,4 +209,5 @@ urlpatterns = [
          views.DeleteExam_Result_ExamMaterialTOFD_CSWIP.as_view(),
          name='examresulttofdl2cswipdelete_'),
 
+    path('examresulthistorycswip31/<int:candidate_id>', views.ExamResultHistoryCSWIP31.as_view(), name='examresulthistorycswip31_'),
 ]
