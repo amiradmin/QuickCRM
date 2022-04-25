@@ -60,6 +60,15 @@ class DeleteExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin,
     model = ExamMaterialTOFD_CSWIP
     success_url = reverse_lazy('exam_certification:examtofdl2cswipresultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteExam_Result_ExamMaterialTOFD_CSWIP, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 
@@ -176,6 +185,15 @@ class Exam_Result_ExamMaterialTOFD_CSWIP_Summary(SidebarMixin, LoginRequiredMixi
 class DeleteExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN
     success_url = reverse_lazy('exam_certification:examresulttofdl2pcnsummary_')
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -288,6 +306,16 @@ class Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN_Summary(SidebarMix
 class DeleteExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN
     success_url = reverse_lazy('exam_certification:exammaterialtofdl2pcnsummary_')
+
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_pautl2_pcn_material.html"
@@ -429,6 +457,16 @@ class DeleteDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, Log
     model = DigitalRadiographicInterpretationDRI_Level2_Result
     success_url = reverse_lazy('exam_certification:examdriresultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteDigitalRadiographicInterpretationDRI_Level2_Result, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
+
 
 class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_dri_result.html"
@@ -543,6 +581,15 @@ class DeleteDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, L
     model = DigitalRadiographicInterpretationDRI_Level2_Material3
     success_url = reverse_lazy('exam_certification:exammaterialdrisummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteDigitalRadiographicInterpretationDRI_Level2_Material, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class DigitalRadiographicInterpretationDRI_Level2_Material_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -678,6 +725,16 @@ class DeleteRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredM
     model = RadiographicInterpretationWeldsRIResult
     success_url = reverse_lazy('exam_certification:examriresultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteRadiographicInterpretationWeldsRIResult, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
+
 
 
 class NewRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -784,6 +841,15 @@ class DeleteRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequire
     model = RadiographicInterpretationWeldsRIMaterial
     success_url = reverse_lazy('exam_certification:examrisummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteRadiographicInterpretationWeldsRIMaterial, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -909,6 +975,16 @@ class DeleteTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequir
     model = TimeFlightDiffractionTOFDLevel3_PCN_Result3
     success_url = reverse_lazy('exam_certification:newpcntofdresultresult_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteTimeFlightDiffractionTOFDLevel3_PCN_Result, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
+
 
 class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_tofd_ultra_l3_pcn_result.html"
@@ -1019,6 +1095,15 @@ class DeleteTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequ
     model = TimeFlightDiffractionTOFDLevel3_PCN_Material2
     success_url = reverse_lazy('exam_certification:exampcntofdl3summary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteTimeFlightDiffractionTOFDLevel3_PCN_Material, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -1151,6 +1236,15 @@ class DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Result(SidebarMixin, LoginRequ
     model = TimeFlightDiffractionTOFDLevel3_CSWIP_Result
     success_url = reverse_lazy('exam_certification:examswiptofdresultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Result, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -1263,6 +1357,15 @@ class DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRe
     model = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2
     success_url = reverse_lazy('exam_certification:examcswiptofdl3summary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Material, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 
@@ -1400,6 +1503,15 @@ class DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result(SidebarMixin, LoginR
     model = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result
     success_url = reverse_lazy('exam_certification:exampcnultral3resultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewPhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -1509,6 +1621,15 @@ class DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material(SidebarMixin, Logi
     model = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material
     success_url = reverse_lazy('exam_certification:exampcnl3summary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -1641,6 +1762,15 @@ class DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult(SidebarMixin, LoginR
     model = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult
     success_url = reverse_lazy('exam_certification:examscwipultral3resultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewExamResultPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -1741,6 +1871,15 @@ class DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial(SidebarMixin, Logi
     model = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial
     success_url = reverse_lazy('exam_certification:examscwipultral3summary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -1875,6 +2014,15 @@ class DeletePhasedArrayPCNResult(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN
     success_url = reverse_lazy('exam_certification:exampcnphasedarrayresultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePhasedArrayPCNResult, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -1979,6 +2127,15 @@ class DeletePhasedArrayPCNMaterial(SidebarMixin, LoginRequiredMixin, DeleteView)
     model = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN
     success_url = reverse_lazy('exam_certification:exampcnphasedarraysummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePhasedArrayPCNMaterial, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -2116,6 +2273,15 @@ class DeletePhasedArrayResultL2(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP
     success_url = reverse_lazy('exam_certification:cswipphasedarrayresultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePhasedArrayResultL2, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewExamResultCSWIPPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -2223,6 +2389,16 @@ class CSWIPPhasedArrayUltrasonic_Result_Summary(SidebarMixin, LoginRequiredMixin
 class DeleteCSWIPPhasedAraayUltera(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2CSWIP
     success_url = reverse_lazy('exam_certification:examscwipphasedarraysummary_')
+
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteCSWIPPhasedAraayUltera, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 
@@ -2366,6 +2542,15 @@ class DeletePaintingInspectionResult2(SidebarMixin, LoginRequiredMixin, DeleteVi
     model = BGAS_CSWIP_PaintingInspectorResult
     success_url = reverse_lazy('exam_certification:paintinginspectionresultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePaintingInspectionResult2, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class NewExamResultPaintingInspection(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_painting_inspection_result.html"
@@ -2478,6 +2663,15 @@ class DeletePaintingInspectionMaterial(SidebarMixin, LoginRequiredMixin, DeleteV
     model = BGAS_CSWIP_PaintingInspectorMaterial
     success_url = reverse_lazy('exam_certification:exampaintinginspectionsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeletePaintingInspectionMaterial, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class NewBGAS_CSWIP_PaintingInspector(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_painting_inspection_material.html"
@@ -2605,6 +2799,15 @@ class DeleteCSWIPExamResult322(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPWeldingInspector3_2_2_Result
     success_url = reverse_lazy('exam_certification:examscwip322resultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteCSWIPExamResult322, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class NewExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_cswip_3_2_2_exam_result.html"
@@ -2721,6 +2924,15 @@ class DeleteCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPWeldingInspector3_2_2ExamMaterial
     success_url = reverse_lazy('exam_certification:examscwip322summary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteCSWIPExamMaterial322, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class NewCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_cswip_3_2_2_material.html"
@@ -2847,6 +3059,15 @@ class DeleteCSWIPExamResult321(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPWeldingInspector3_2_1_Result
     success_url = reverse_lazy('exam_certification:examscwip321resultsummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteCSWIPExamResult321, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class NewExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_cswip_3_2_1_exam_result.html"
@@ -2962,6 +3183,18 @@ class CSWIPExamResult321Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
 class DeleteCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPWeldingInspector3_2_1ExamMaterial
     success_url = reverse_lazy('exam_certification:examscwip321summary_')
+
+
+def get_context_data(self, **kwargs):
+    """Overriding get_context_data to add additional context."""
+    context = super(DeleteCSWIPExamMaterial321, self).get_context_data(**kwargs)
+    # Provides the base template to extend from
+    candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+    group_name = self.request.user.groups.values_list('name', flat=True).first()
+    context['group_name'] = group_name
+    context['candidate'] = candidate
+    return context
+
 
 class NewCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_cswip_3_2_1_material.html"
@@ -3186,6 +3419,16 @@ class ExamCSWIP31ResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateVie
 class DeleteCSWIPExamResult31(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPWeldingInspector3_1Result
     success_url = reverse_lazy('exam_certification:examscwip31resultsummary_')
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteCSWIPExamResult31, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
+
 
 
 class NewExamResultSwip31(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -3301,6 +3544,16 @@ class CSWIPExamResult31Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
 class DeleteCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPWeldingInspector3_1ExamMaterial
     success_url = reverse_lazy('exam_certification:examscwip31summary_')
+
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteCSWIPExamMaterial31, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class CSWIPExamMaterial31Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -3433,6 +3686,15 @@ class DeleteExamTofdL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialTofdL3
     success_url = reverse_lazy('exam_certification:examtofdl3summary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteExamTofdL3Material, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class ExamMaterialTofdL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/tofd_l3_ims_form.html"
@@ -3791,7 +4053,15 @@ class DeleteExamL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialL3
     success_url = reverse_lazy('exam_certification:examl3summary_')
 
-
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteExamL3Material, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class ExamMaterialL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/l3_ims_form.html"
@@ -3961,7 +4231,15 @@ class ExamMaterialL3Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
 class DeleteExamPAUTL2(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialPAUTL2
     success_url = reverse_lazy('exam_certification:exampautl2summary_')
-
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteExamPAUTL2, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class ExamMaterialPAUTL2Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_PAUTL2_summary.html"
@@ -4160,7 +4438,15 @@ class DeleteExamTofd(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialTOFDModel1
     success_url = reverse_lazy('exam_certification:examtofdsummary_')
 
-
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteExamTofd, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_tofd_material.html"
@@ -4361,6 +4647,15 @@ class DeleteExamPiWi(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialPiWiModel
     success_url = reverse_lazy('exam_certification:exampiwisummary_')
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteExamPiWi, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 class ExamMaterialPiWiSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_piwi_summary.html"
