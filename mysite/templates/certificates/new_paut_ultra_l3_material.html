@@ -126,20 +126,12 @@
                                         <br>
 
                                         
+
                     <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                                     {% csrf_token %}
 
-<section class="container-fluid">
-  <div class="row">
-    <!-- Tabs Start -->
-
-
-
-
-
-
                                                     <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
+                                                        <div class="mb-3 col-md-11">
                                    <label for="" class="form-label">Candidate</label>
                                     <input list="candiList" value="{{candidate.id}}"  id="canID" name="candidate" placeholder="type here..." class="form-control" required/>
 
@@ -154,28 +146,41 @@
                                     </datalist>
 
                                                         </div>
+                              <div class="mb-3 col-md-1">
+                                  <br>
 
+<!--                                                    <div class="mb-3 col-md-12 text-center">-->
+                                                        <button class="btn btn-primary" style="margin-top:8px;" name="updateInfo-candidate" type="submit">Update</button>
+                                                    </div>
+                       </div>
+                                                </form>
 
-                     <div class="mb-3 col-md-6">
+ <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                 {% csrf_token %}
+     <input type="hidden" name="candidate_inner_ID" value="{{candidate.id}}-{{candidate.first_name}}-{{candidate.last_name}}" />
+ <div class="row g-2">
+                     <div class="mb-3 col-md-11">
                                    <label for="" class="form-label">Event</label>
                                     <input list="productList" value=""  id="" name="event" placeholder="type here..." class="form-control" required/>
 
                                         <datalist id="productList"  >
 
                                         {% for item2 in events %}
-                              <option  value="{{item2.id}}-{{item2.product.name}}">{{item2.name}}-{{item2.start_exam_date|date:'m/d/Y'}}
+<option  value="{{item2.id}}-{{item2.product.name}}">{{item2.name}}-{{item2.start_exam_date|date:'m/d/Y'}}
                                         </option>
                                         {% endfor %}
 
                                     </datalist>
 
-                                                        </div>
-                                                    </div>
+
+                             </div>
                         <br>
-                                                    <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" name="updateInfo" type="submit">Update</button>
+                         <div class="mb-3 col-md-1">
+                                                        <button class="btn btn-primary" style="margin-top:29px;"  name="updateInfo-event" type="submit">Update</button>
                                                     </div>
-                                                </form>
+
+</div>
+          </form>
 </div>
                                     </div></div></div>
 
