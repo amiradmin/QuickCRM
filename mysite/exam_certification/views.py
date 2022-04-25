@@ -44,6 +44,10 @@ class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
 
         context['results'] = results
         # context['examCount'] = examCount
@@ -66,6 +70,11 @@ class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, Te
         context = super(NewExam_Result_ExamMaterialTOFD_CSWIP, self).get_context_data()
         exams = ExamMaterialTOFDModel1.objects.all()
         candidates = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['exams'] = exams
         context['candidates'] = candidates
         return context
@@ -79,6 +88,11 @@ class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, Te
                 exam = ExamMaterialTOFDModel1.objects.filter(id=self.request.POST['exam_ID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 print(exam)
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['exam'] = exam
 
                 return render(request, 'certificates/new_tofd_ultra_l3_cswip_result.html', context)
@@ -94,6 +108,10 @@ class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, Te
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam = exam
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
 
                 if not request.POST.get('exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
@@ -119,6 +137,11 @@ class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, Te
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = ExamMaterialTOFD_CSWIP.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
@@ -138,6 +161,11 @@ class Exam_Result_ExamMaterialTOFD_CSWIP_Summary(SidebarMixin, LoginRequiredMixi
         events = Event.objects.all()
         exams = ExamMaterialTOFD_CSWIP.objects.all()
         examCount = ExamMaterialTOFD_CSWIP.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -157,6 +185,11 @@ class NewExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
         context = super(NewExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN, self).get_context_data()
         exams = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
         candidates = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['exams'] = exams
         context['candidates'] = candidates
         return context
@@ -170,6 +203,11 @@ class NewExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 exam = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 print(exam)
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['exam'] = exam
 
                 return render(request, 'certificates/new_paut_l2_exam_pcn_result.html', context)
@@ -211,6 +249,11 @@ class NewExam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
@@ -231,6 +274,11 @@ class Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN_Summary(SidebarMix
         events = Event.objects.all()
         exams = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
         examCount = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -249,6 +297,11 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
         samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
@@ -264,6 +317,11 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = candidate
@@ -277,6 +335,11 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 print(event.id)
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['candidate'] = TesCandidate.objects.filter(
                     id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
@@ -325,6 +388,11 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 candidates = TesCandidate.objects.all()
                 exams = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
@@ -346,6 +414,11 @@ class ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCNAdmin_Summary(Sideb
         events = Event.objects.all()
         exams = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
         examCount = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -364,6 +437,11 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginR
         context = super(NewDigitalRadiographicInterpretationDRI_Level2_Result, self).get_context_data()
         exams = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.all()
         candidates = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['exams'] = exams
         context['candidates'] = candidates
         return context
@@ -376,6 +454,11 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginR
                 print(request.POST['examID'])
                 exam = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['exam'] = exam
 
                 return render(request, 'certificates/new_dri_result.html', context)
@@ -418,6 +501,11 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginR
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = DigitalRadiographicInterpretationDRI_Level2_Result.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
@@ -438,6 +526,11 @@ class DigitalRadiographicInterpretationDRI_Level2_Result_Summary(SidebarMixin, L
         events = Event.objects.all()
         exams = DigitalRadiographicInterpretationDRI_Level2_Result.objects.all()
         examCount = DigitalRadiographicInterpretationDRI_Level2_Result.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -460,6 +553,11 @@ class DigitalRadiographicInterpretationDRI_Level2_Material_Summary(SidebarMixin,
         events = Event.objects.all()
         exams = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.all()
         examCount = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -476,6 +574,11 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
         samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
@@ -491,6 +594,11 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = candidate
@@ -504,6 +612,11 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
                 print(event.id)
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['candidate'] = TesCandidate.objects.filter(
                     id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
@@ -543,6 +656,11 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
                 candidates = TesCandidate.objects.all()
                 exams = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
@@ -569,6 +687,11 @@ class NewRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixi
         context = super(NewRadiographicInterpretationWeldsRIResult, self).get_context_data()
         exams = RadiographicInterpretationWeldsRIMaterial.objects.all()
         candidates = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['exams'] = exams
         context['candidates'] = candidates
         return context
@@ -581,6 +704,11 @@ class NewRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixi
                 print(request.POST['examID'])
                 exam = RadiographicInterpretationWeldsRIMaterial.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['exam'] = exam
 
                 return render(request, 'certificates/new_ri_result.html', context)
@@ -615,6 +743,11 @@ class NewRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixi
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = RadiographicInterpretationWeldsRIResult.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
@@ -635,6 +768,11 @@ class RadiographicInterpretationWeldsRIResult_Summary(SidebarMixin, LoginRequire
         events = Event.objects.all()
         exams = RadiographicInterpretationWeldsRIResult.objects.all()
         examCount = RadiographicInterpretationWeldsRIResult.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -656,6 +794,11 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
         samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
@@ -671,6 +814,11 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = candidate
@@ -684,6 +832,11 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
                 print(event.id)
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['candidate'] = TesCandidate.objects.filter(
                     id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
@@ -717,6 +870,11 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
                 candidates = TesCandidate.objects.all()
                 exams = RadiographicInterpretationWeldsRIMaterial.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
@@ -736,6 +894,11 @@ class RadiographicInterpretationWeldsRIMaterial_Summary(SidebarMixin, LoginRequi
         events = Event.objects.all()
         exams = RadiographicInterpretationWeldsRIMaterial.objects.all()
         examCount = RadiographicInterpretationWeldsRIMaterial.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -754,6 +917,11 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
         context = super(NewTimeFlightDiffractionTOFDLevel3_PCN_Result, self).get_context_data()
         exams = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.all()
         candidates = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['exams'] = exams
         context['candidates'] = candidates
         return context
@@ -766,6 +934,11 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
                 print(request.POST['examID'])
                 exam = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['exam'] = exam
 
                 return render(request, 'certificates/new_tofd_ultra_l3_pcn_result.html', context)
@@ -806,6 +979,11 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
@@ -826,6 +1004,11 @@ class TimeFlightDiffractionTOFDLevel3_PCN_Result_Summary(SidebarMixin, LoginRequ
         events = Event.objects.all()
         exams = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.all()
         examCount = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -846,6 +1029,11 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
         samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
@@ -861,6 +1049,11 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = candidate
@@ -874,6 +1067,11 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
                 print(event.id)
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['candidate'] = TesCandidate.objects.filter(
                     id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
@@ -913,6 +1111,11 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
                 candidates = TesCandidate.objects.all()
                 exams = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
@@ -932,6 +1135,11 @@ class TimeFlightDiffractionTOFDLevel3_PCN_Material_Summary(SidebarMixin, LoginRe
         events = Event.objects.all()
         exams = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.all()
         examCount = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -952,6 +1160,11 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
         context = super(TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result, self).get_context_data()
         exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.all()
         candidates = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['exams'] = exams
         context['candidates'] = candidates
         return context
@@ -964,6 +1177,11 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 print(request.POST['examID'])
                 exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['exam'] = exam
 
                 return render(request, 'certificates/new_tofd_ultra_l3_cswip_result.html', context)
@@ -1004,6 +1222,10 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
 
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
@@ -1024,6 +1246,11 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Summary(SidebarMixin, LoginRe
         events = Event.objects.all()
         exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.all()
         examCount = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -1048,6 +1275,11 @@ class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequi
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
         samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
@@ -1063,6 +1295,11 @@ class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequi
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = candidate
@@ -1076,6 +1313,11 @@ class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequi
                 print(event.id)
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['candidate'] = TesCandidate.objects.filter(
                     id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
@@ -1115,6 +1357,11 @@ class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequi
                 candidates = TesCandidate.objects.all()
                 exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
@@ -1135,6 +1382,11 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Material_Summary(SidebarMixin, Login
         events = Event.objects.all()
         exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.all()
         examCount = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -1157,6 +1409,11 @@ class NewPhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result(SidebarMixin, LoginRequ
         context = super(NewPhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result, self).get_context_data()
         exams = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material.objects.all()
         candidates = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['exams'] = exams
         context['candidates'] = candidates
         return context
@@ -1169,6 +1426,11 @@ class NewPhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result(SidebarMixin, LoginRequ
                 print(request.POST['examID'])
                 exam = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['exam'] = exam
 
                 return render(request, 'certificates/new_paut_ultra_l3_pcn_result.html', context)
@@ -1207,6 +1469,11 @@ class NewPhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result(SidebarMixin, LoginRequ
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
                 exams = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
@@ -1226,6 +1493,11 @@ class PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result_Summary(SidebarMixin, Logi
         events = Event.objects.all()
         exams = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.all()
         examCount = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['events'] = events
         context['exams'] = exams
         context['examCount'] = examCount
@@ -1247,6 +1519,11 @@ class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateVi
         events = Event.objects.all()
         candidates =TesCandidate.objects.all()
         samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['samples'] = samples
         context['events'] = events
         context['candidates'] = candidates
@@ -1262,6 +1539,11 @@ class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateVi
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = candidate
@@ -1275,6 +1557,11 @@ class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateVi
                 print(event.id)
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['candidate'] = TesCandidate.objects.filter(
                     id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
@@ -1313,6 +1600,11 @@ class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateVi
                 candidates = TesCandidate.objects.all()
                 exams = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material.objects.all()
                 samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+
                 context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
@@ -2777,6 +3069,11 @@ class CSWIPExamMaterial31Summary(SidebarMixin, LoginRequiredMixin, TemplateView)
         exams = CSWIPWeldingInspector3_1ExamMaterial.objects.all()
         examCount = CSWIPWeldingInspector3_1ExamMaterial.objects.count()
         samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
         context['samples'] = samples
         context['events'] = events
         context['exams'] = exams
