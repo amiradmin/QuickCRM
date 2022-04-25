@@ -266,166 +266,145 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         now = datetime.datetime.now()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
 
-        result={}
         result_list=[]
-        material1={}
-        material2={}
-        material3={}
-        material4={}
-        material5={}
-        material6={}
-        material7={}
-        material8={}
-        material9={}
-        material10={}
-        material11={}
-        material12={}
-        material13={}
-        material14={}
-        material15={}
-        material16={}
-        material17={}
-        material_list=[]
-        cswip31_materials = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
-        for item in cswip31_materials:
-            material1['id'] = item.id
-            material1['event'] = item.event
-            material1['exam_date'] = item.exam.exam_date
-            material1['exam_title'] = item.exam.exam_title
-            material_list.append(material1)
+        result1={}
+        result2={}
+        result3={}
+        result4={}
+        result5={}
+        result6={}
+        result7={}
+        result8={}
+        result9={}
+        resul10={}
+        resul11={}
+        resul12={}
+        resul13={}
+        resul14={}
+        resul15={}
+        resul16={}
+        resul17={}
 
-        paut_l2_materials = ExamResultPautL2.objects.filter(candidate=candidate)
-        for item in paut_l2_materials:
-            material2['id'] = item.id
-            material2['event'] = item.event
-            material2['exam_date'] = item.exam.exam_date
-            material2['exam_title'] = item.exam.exam_title
-            material_list.append(material2)
+        cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
+        for item in cswip31_result:
+            result1['id'] = item.id
+            result1['event'] = item.event
+            result1['exam_date'] = item.exam.exam_date
+            result1['exam_title'] = item.exam.exam_title
+            result_list.append(result1)
+
+        cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
+        for item in cswip321_result:
+            result2['id'] = item.id
+            result2['event'] = item.event
+            result2['exam_date'] = item.exam.exam_date
+            result2['exam_title'] = item.exam.exam_title
+            result_list.append(result2)
 
 
-        # tofd_materials = ExamMaterialTOFDModel1.objects.filter(candidate=candidate)
-        # for item in tofd_materials:
-        #     material3['id'] = item.id
-        #     material3['event'] = item.event
-        #     material3['exam_date'] = item.exam_date
-        #     material3['exam_title'] = item.exam_title
-        #     material_list.append(material3)
-        #
-        # tofd_l3_materials = ExamMaterialTofdL3.objects.filter(candidate=candidate)
-        # for item in tofd_l3_materials:
-        #     material4['id'] = item.id
-        #     material4['event'] = item.event
-        #     material4['exam_date'] = item.exam_date
-        #     material4['exam_title'] = item.exam_title
-        #     material_list.append(material4)
+        cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=candidate)
+        for item in cswip322_result:
+            result3['id'] = item.id
+            result3['event'] = item.event
+            result3['exam_date'] = item.exam.exam_date
+            result3['exam_title'] = item.exam.exam_title
+            result_list.append(result3)
 
-        tofd_l321_materials = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
-        for item in tofd_l321_materials:
-            material5['id'] = item.id
-            material5['event'] = item.event
-            material5['exam_date'] = item.exam.exam_date
-            material5['exam_title'] = item.exam.exam_title
-            material_list.append(material5)
+        painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
+        for item in painting_cswip_result:
+            result4['id'] = item.id
+            result4['event'] = item.event
+            result4['exam_date'] = item.exam.exam_date
+            result4['exam_title'] = item.exam.exam_title
+            result_list.append(result4)
 
-        tofd_l322_materials = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=candidate)
-        for item in tofd_l322_materials:
-            material6['id'] = item.id
-            material6['event'] = item.event
-            material6['exam_date'] = item.exam.exam_date
-            material6['exam_title'] = item.exam.exam_title
-            material_list.append(material6)
+        paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
+        for item in paut_l2_cswip_result:
+            result5['id'] = item.id
+            result5['event'] = item.event
+            # result5['exam_date'] = item.exam.exam_date
+            # result5['exam_title'] = item.exam.exam_title
+            result_list.append(result5)
 
-        bgas_cswip_painting_materials = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
-        for item in bgas_cswip_painting_materials:
-            material7['id'] = item.id
-            material7['event'] = item.event
-            material7['exam_date'] = item.exam.exam_date
-            material7['exam_title'] = item.exam.exam_title
-            material_list.append(material7)
+        paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(candidate=candidate)
+        for item in paut_l2_pcn_result:
+            result6['id'] = item.id
+            result6['event'] = item.event
+            result6['exam_date'] = item.exam.exam_date
+            result6['exam_title'] = item.exam.exam_title
+            result_list.append(result6)
 
-        paut_cswip_l2_materials = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
-        for item in paut_cswip_l2_materials:
-            material8['id'] = item.id
-            material8['event'] = item.event
-            # material8['exam_date'] = item.exam.exam_date
-            # material8['exam_title'] = item.exam.exam_title
-            material_list.append(material8)
+        paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(candidate=candidate)
+        for item in paut_l3_cswip_result:
+            result7['id'] = item.id
+            result7['event'] = item.event
+            result7['exam_date'] = item.exam.exam_date
+            result7['exam_title'] = item.exam.exam_title
+            result_list.append(result7)
 
-        # paut_pcn_l2_materials = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(candidate=candidate)
-        # for item in paut_pcn_l2_materials:
-        #     material9['id'] = item.id
-        #     material9['event'] = item.event
-        #     material9['exam_date'] = item.exam_date
-        #     material9['exam_title'] = item.exam_title
-        #     material_list.append(material9)
-        #
-        # paut_cswip_l3_materials = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(candidate=candidate)
-        # for item in paut_cswip_l3_materials:
-        #     material10['id'] = item.id
-        #     material10['event'] = item.event
-        #     material10['exam_date'] = item.exam_date
-        #     material10['exam_title'] = item.exam_title
-        #     material_list.append(material10)
 
-        # paut_pcn_l3_materials = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate)
-        # for item in paut_pcn_l3_materials:
-        #     material11['id'] = item.id
-        #     material11['event'] = item.event
-        #     material11['exam_date'] = item.exam_date
-        #     material11['exam_title'] = item.exam_title
-        #     material_list.append(material11)
-        #
-        # tofd_cswip_l3_materials = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(candidate=candidate)
-        # for item in tofd_cswip_l3_materials:
-        #     material12['id'] = item.id
-        #     material12['event'] = item.event
-        #     material12['exam_date'] = item.exam_date
-        #     material12['exam_title'] = item.exam_title
-        #     material_list.append(material12)
+        paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate)
+        for item in paut_l3_pcn_result:
+            result8['id'] = item.id
+            result8['event'] = item.event
+            # result8['exam_date'] = item.exam.exam_date
+            # result8['exam_title'] = item.exam.exam_title
+            result_list.append(result8)
 
-        # tofd_pcn_l3_materials = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.filter(candidate=candidate)
-        # for item in tofd_pcn_l3_materials:
-        #     material13['id'] = item.id
-        #     material13['event'] = item.event
-        #     material13['exam_date'] = item.exam_date
-        #     material13['exam_title'] = item.exam_title
-        #     material_list.append(material13)
+        tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(candidate=candidate)
+        for item in tofd_l2_pcn_result:
+            result9['id'] = item.id
+            result9['event'] = item.event
+            result9['exam_date'] = item.exam.exam_date
+            result9['exam_title'] = item.exam.exam_title
+            result_list.append(result9)
 
-        ri_materials = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate)
-        for item in ri_materials:
-            material14['id'] = item.id
-            material14['event'] = item.event
-            material14['exam_date'] = item.exam.exam_date
-            material14['exam_title'] = item.exam.exam_title
-            material_list.append(material14)
+        tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
+        for item in tofd_l2_cswip_result:
+            result10['id'] = item.id
+            result10['event'] = item.event
+            result10['exam_date'] = item.exam.exam_date
+            result10['exam_title'] = item.exam.exam_title
+            result_list.append(result10)
 
-        dri_materials = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate)
-        for item in dri_materials:
-            material15['id'] = item.id
-            material15['event'] = item.event
-            material15['exam_date'] = item.exam.exam_date
-            material15['exam_title'] = item.exam.exam_title
-            material_list.append(material15)
+        tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate)
+        for item in tofd_l3_cswip_result:
+            result11['id'] = item.id
+            result11['event'] = item.event
+            result11['exam_date'] = item.exam.exam_date
+            result11['exam_title'] = item.exam.exam_title
+            result_list.append(result11)
 
-        # tofd_pcn_l2_materials = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(candidate=candidate)
-        # for item in tofd_pcn_l2_materials:
-        #     material16['id'] = item.id
-        #     material16['event'] = item.event
-        #     material16['exam_date'] = item.exam_date
-        #     material16['exam_title'] = item.exam_title
-        #     material_list.append(material16)
-        #
-        # tofd_cswip_l2_materials = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
-        # for item in tofd_cswip_l2_materials:
-        #     material17['id'] = item.id
-        #     material17['event'] = item.event
-        #     material17['exam_date'] = item.exam_date
-        #     material17['exam_title'] = item.exam_title
-        #     material_list.append(material17)
+
+        tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(candidate=candidate)
+        for item in tofd_l3_pcn_result:
+            result12['id'] = item.id
+            result12['event'] = item.event
+            result12['exam_date'] = item.exam.exam_date
+            result12['exam_title'] = item.exam.exam_title
+            result_list.append(result12)
+
+
+        ri_result = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate)
+        for item in ri_result:
+            result13['id'] = item.id
+            result13['event'] = item.event
+            result13['exam_date'] = item.exam.exam_date
+            result13['exam_title'] = item.exam.exam_title
+            result_list.append(result13)
+
+
+        dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate)
+        for item in dri_result:
+            result14['id'] = item.id
+            result14['event'] = item.event
+            result14['exam_date'] = item.exam.exam_date
+            result14['exam_title'] = item.exam.exam_title
+            result_list.append(result14)
 
 
         # results = cswip31_materials
-        context['material_list'] = material_list
+        context['result_list'] = result_list
         context['group_name'] = group_name
         context['candidate'] = candidate
         context['events'] = events
