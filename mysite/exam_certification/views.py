@@ -472,17 +472,29 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
     def post(self, request, *args, **kwargs):
         context = super(NewDigitalRadiographicInterpretationDRI_Level2_Material, self).get_context_data()
         if request.method == 'POST':
-            if 'updateInfo' in request.POST:
-                print("updateInfo")
-                print(self.request.POST['event'].split('-')[0])
-                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
-                print(event.id)
-                events = Event.objects.all()
+            if 'updateInfo-candidate' in request.POST:
+                print("updateInfo candidate")
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate)
+
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['candidate'] = candidate
+
+                return render(request, 'certificates/new_dri_material.html', context)
+
+            elif 'updateInfo-event' in request.POST:
+                print("updateInfo event")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['candidate'] = TesCandidate.objects.filter(
+                    id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
                 context['event'] = event
 
                 return render(request, 'certificates/new_dri_material.html', context)
@@ -640,17 +652,29 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
     def post(self, request, *args, **kwargs):
         context = super(NewRadiographicInterpretationWeldsRIMaterial, self).get_context_data()
         if request.method == 'POST':
-            if 'updateInfo' in request.POST:
-                print("updateInfo")
-                print(self.request.POST['event'].split('-')[0])
-                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
-                print(event.id)
-                events = Event.objects.all()
+            if 'updateInfo-candidate' in request.POST:
+                print("updateInfo candidate")
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate)
+
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                context['candidate'] = candidate
+
+                return render(request, 'certificates/new_ri_material.html', context)
+
+            elif 'updateInfo-event' in request.POST:
+                print("updateInfo event")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                context['samples'] = samples
+                context['candidate'] = TesCandidate.objects.filter(
+                    id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
                 context['event'] = event
 
                 return render(request, 'certificates/new_ri_material.html', context)
