@@ -12,7 +12,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">New CSWIP Visual Welding Inspector(3.0) Exam Material</h4>
+                                <h4 class="page-title">New CSWIP Visual Welding Inspector(3.1) Exam Material</h4>
                             </div>
                         </div>
                     </div>     
@@ -37,14 +37,8 @@
                     <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                                     {% csrf_token %}
 
-
-
-
-
-
-
                                                     <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
+                                                        <div class="mb-3 col-md-11">
                                    <label for="" class="form-label">Candidate</label>
                                     <input list="candiList" value="{{candidate.id}}"  id="canID" name="candidate" placeholder="type here..." class="form-control" required/>
 
@@ -59,9 +53,20 @@
                                     </datalist>
 
                                                         </div>
+                              <div class="mb-3 col-md-1">
+                                  <br>
 
+<!--                                                    <div class="mb-3 col-md-12 text-center">-->
+                                                        <button class="btn btn-primary" style="margin-top:8px;" name="updateInfo-candidate" type="submit">Update</button>
+                                                    </div>
+                       </div>
+                                                </form>
 
-                     <div class="mb-3 col-md-6">
+ <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                 {% csrf_token %}
+     <input type="hidden" name="candidate_inner_ID" value="{{candidate.id}}-{{candidate.first_name}}-{{candidate.last_name}}" />
+ <div class="row g-2">
+                     <div class="mb-3 col-md-11">
                                    <label for="" class="form-label">Event</label>
                                     <input list="productList" value=""  id="" name="event" placeholder="type here..." class="form-control" required/>
 
@@ -74,15 +79,15 @@
 
                                     </datalist>
 
-                                                        </div>
-                                                    </div>
+
+                             </div>
                         <br>
-                                                    <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" name="updateInfo" type="submit">Update</button>
+                         <div class="mb-3 col-md-1">
+                                                        <button class="btn btn-primary" style="margin-top:29px;"  name="updateInfo-event" type="submit">Update</button>
                                                     </div>
                                                 </form>
 </div>
-                                    </div></div></div>
+                                    </div>
 
 
 
