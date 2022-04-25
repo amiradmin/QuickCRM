@@ -340,8 +340,9 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -349,10 +350,9 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
-
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_pautl2_pcn_material.html', context)
 
@@ -636,8 +636,9 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -645,10 +646,9 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
-
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_dri_material.html', context)
 
@@ -875,8 +875,9 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -884,10 +885,9 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
-
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_ri_material.html', context)
 
@@ -1129,8 +1129,9 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -1138,10 +1139,9 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
-
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_pcn_tofd_phased_array_ultera_material.html', context)
 
@@ -1393,8 +1393,9 @@ class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequi
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -1402,10 +1403,9 @@ class NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material(SidebarMixin, LoginRequi
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
-
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_cswip_tofd_phased_array_ultera_material.html', context)
 
@@ -1655,8 +1655,9 @@ class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateVi
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -1664,10 +1665,9 @@ class NewExamMaterialPAUTUltraL3PCN(SidebarMixin, LoginRequiredMixin, TemplateVi
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
-
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_paut_ultra_l3_pcn_material.html', context)
 
@@ -1904,8 +1904,9 @@ class NewExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView)
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -1915,7 +1916,7 @@ class NewExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView)
                 context['candidate'] = candidate
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_paut_ultra_l3_material.html', context)
 
@@ -2160,8 +2161,9 @@ class NewExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Temp
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -2171,8 +2173,7 @@ class NewExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Temp
                 context['candidate'] = candidate
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
-
+                context['candidate_main'] = candidate_main
                 return render(request, 'certificates/new_pcn_phased_array_ultera_material.html', context)
 
             elif 'updateInfo-event' in request.POST:
@@ -2424,8 +2425,9 @@ class NewExamMaterialCSWIPPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Te
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -2435,7 +2437,8 @@ class NewExamMaterialCSWIPPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Te
                 context['candidate'] = candidate
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
+
 
                 return render(request, 'certificates/new_cswip_phased_array_ultera_material.html', context)
 
@@ -2695,8 +2698,8 @@ class NewBGAS_CSWIP_PaintingInspector(SidebarMixin, LoginRequiredMixin, Template
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -2706,7 +2709,7 @@ class NewBGAS_CSWIP_PaintingInspector(SidebarMixin, LoginRequiredMixin, Template
                 context['candidate'] = candidate
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_painting_inspection_material.html', context)
 
@@ -2956,8 +2959,9 @@ class NewCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView):
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -2967,7 +2971,7 @@ class NewCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['candidate'] = candidate
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_cswip_3_2_2_material.html', context)
 
@@ -3218,8 +3222,9 @@ class NewCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView):
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -3229,7 +3234,7 @@ class NewCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['candidate'] = candidate
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_cswip_3_2_1_material.html', context)
 
@@ -3603,8 +3608,8 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
 
 
                 # candidates = TesCandidate.objects.all()
@@ -3615,12 +3620,12 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['candidate'] = candidate
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_cswip_31_material.html', context)
 
             elif 'updateInfo-event' in request.POST:
-                print("updateInfo event")
+                print("updateInfo event1")
                 print(self.request.POST['event'].split('-')[0])
                 event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
                 print(event.id)
@@ -3629,7 +3634,7 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
                 candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
-                context['candidate'] = candidate
+                # context['candidate'] = candidate
                 context['samples'] = samples
                 context['candidate'] = TesCandidate.objects.filter(id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
                 context['event'] = event
@@ -4470,8 +4475,9 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate)
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -4481,7 +4487,7 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['candidate'] = candidate
                 context['samples'] = samples
                 context['events'] = events
-                context['candidate'] = candidate
+                context['candidate_main'] = candidate_main
 
                 return render(request, 'certificates/new_tofd_material.html', context)
 

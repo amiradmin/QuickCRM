@@ -65,7 +65,7 @@
 
  <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                  {% csrf_token %}
-     <input type="hidden" name="candidate_inner_ID" value="{{candidate.id}}-{{candidate.first_name}}-{{candidate.last_name}}" />
+     <input type="hidden" name="candidate_inner_ID" value="{{candidate_main.id}}-{{candidate_main.first_name}}-{{candidate_main.last_name}}" />
  <div class="row g-2">
                      <div class="mb-3 col-md-11">
                                    <label for="" class="form-label">Event</label>
