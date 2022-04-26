@@ -34,6 +34,26 @@ import datetime
 
 
 
+class ExamResultHistoryCSWIP321(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/cswip_result_history_3_2_1.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ExamResultHistoryCSWIP321, self).get_context_data()
+        print(self.kwargs['candidate_id'])
+        # user = User.objects.filter(id = self.kwargs['candidate_id']).first()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
+        print(candidate)
+        results = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['results'] = results
+        # context['examCount'] = examCount
+        return context
+
+
+
 class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cswip_result_history_3_1.html"
 

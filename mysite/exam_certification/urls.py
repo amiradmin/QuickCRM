@@ -210,4 +210,5 @@ urlpatterns = [
          name='examresulttofdl2cswipdelete_'),
 
     path('examresulthistorycswip31/<int:candidate_id>', views.ExamResultHistoryCSWIP31.as_view(), name='examresulthistorycswip31_'),
+    path('examresulthistorycswip321/<int:candidate_id>', views.ExamResultHistoryCSWIP321.as_view(), name='examresulthistorycswip321_'),
 ]
