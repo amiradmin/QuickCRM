@@ -33,7 +33,7 @@ import datetime
 # Create your views here.
 
 class ExamResultHistoryRadioDRI(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_radio_dri.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryRadioDRI, self).get_context_data()
@@ -53,7 +53,7 @@ class ExamResultHistoryRadioDRI(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class ExamResultHistoryRadioRI(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_radio_ri.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryRadioRI, self).get_context_data()
@@ -73,7 +73,7 @@ class ExamResultHistoryRadioRI(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class ExamResultHistoryTOFDL3PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_tofd_l3_pcn.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryTOFDL3PCN, self).get_context_data()
@@ -92,7 +92,7 @@ class ExamResultHistoryTOFDL3PCN(SidebarMixin, LoginRequiredMixin, TemplateView)
 
 
 class ExamResultHistoryTOFDL3CSWIP(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_tofd_l3_cswip.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryTOFDL3CSWIP, self).get_context_data()
@@ -111,7 +111,7 @@ class ExamResultHistoryTOFDL3CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
 
 
 class ExamResultHistoryTOFDL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_tofd_l2_cswip.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryTOFDL2CSWIP, self).get_context_data()
@@ -130,7 +130,7 @@ class ExamResultHistoryTOFDL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
 
 
 class ExamResultHistoryTOFDL2PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_tofd_l2_pcn.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryTOFDL2PCN, self).get_context_data()
@@ -148,7 +148,7 @@ class ExamResultHistoryTOFDL2PCN(SidebarMixin, LoginRequiredMixin, TemplateView)
         return context
 
 class ExamResultHistoryPAUTL3PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_paut_l3_pcn.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryPAUTL3PCN, self).get_context_data()
@@ -166,7 +166,7 @@ class ExamResultHistoryPAUTL3PCN(SidebarMixin, LoginRequiredMixin, TemplateView)
         return context
 
 class ExamResultHistoryPAUTL3CSWIP(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_paut_l3_cswip.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryPAUTL3CSWIP, self).get_context_data()
@@ -174,7 +174,7 @@ class ExamResultHistoryPAUTL3CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
         # user = User.objects.filter(id = self.kwargs['candidate_id']).first()
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
-        results = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate)
+        results = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(candidate=candidate)
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
@@ -185,7 +185,7 @@ class ExamResultHistoryPAUTL3CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
 
 
 class ExamResultHistoryPAUTL2PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_paut_l2_pcn.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryPAUTL2PCN, self).get_context_data()
@@ -203,9 +203,10 @@ class ExamResultHistoryPAUTL2PCN(SidebarMixin, LoginRequiredMixin, TemplateView)
         return context
 
 class ExamResultHistoryPAUTL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+    template_name = "certificates/cswip_result_history_paut_l2_cswip.html"
 
     def get_context_data(self, *args, **kwargs):
+        print("Here")
         context = super(ExamResultHistoryPAUTL2CSWIP, self).get_context_data()
         print(self.kwargs['candidate_id'])
         # user = User.objects.filter(id = self.kwargs['candidate_id']).first()
@@ -220,23 +221,23 @@ class ExamResultHistoryPAUTL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
         # context['examCount'] = examCount
         return context
 
-class ExamResultHistoryPAUTL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/painting_inspection_result_history_3_2_2.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(ExamResultHistoryPAUTL2CSWIP, self).get_context_data()
-        print(self.kwargs['candidate_id'])
-        # user = User.objects.filter(id = self.kwargs['candidate_id']).first()
-        candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
-        print(candidate)
-        results = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
-        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
-        group_name = self.request.user.groups.values_list('name', flat=True).first()
-        context['group_name'] = group_name
-        context['candidate'] = candidate
-        context['results'] = results
-        # context['examCount'] = examCount
-        return context
+# class ExamResultHistoryPAUTL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateView):
+#     template_name = "certificates/painting_inspection_result_history_3_2_2.html"
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(ExamResultHistoryPAUTL2CSWIP, self).get_context_data()
+#         print(self.kwargs['candidate_id'])
+#         # user = User.objects.filter(id = self.kwargs['candidate_id']).first()
+#         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
+#         print(candidate)
+#         results = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
+#         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+#         group_name = self.request.user.groups.values_list('name', flat=True).first()
+#         context['group_name'] = group_name
+#         context['candidate'] = candidate
+#         context['results'] = results
+#         # context['examCount'] = examCount
+#         return context
 
 
 class ExamResultHistoryPaintingInspection(SidebarMixin, LoginRequiredMixin, TemplateView):

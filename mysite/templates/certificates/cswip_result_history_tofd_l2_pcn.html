@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+{% load tag_library %}
+<!-- CSS Code: Place this code in the document's head (between the 'head' tags) -->
+<style>
+table.GeneratedTable {
+  width: 100%;
+  background-color: #ffffff;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-color: #000000;
+  border-style: solid;
+  color: #000000;
+}
+
+table.GeneratedTable td, table.GeneratedTable th {
+  border-width: 2px;
+  border-color: #000000;
+  border-style: solid;
+  padding: 3px;
+}
+
+table.GeneratedTable thead {
+  background-color: #FFC907;
+}
+</style>
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+              
+                                </div>
+                                <h4 class="page-title">Exam Result History</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title"> </h4>
+
+
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="basic-datatable-preview">
+
+
+                                        </div> <!-- end preview-->
+                                        <br>
+
+                                        
+                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+
+
+
+
+
+{% for exam in results %}
+<table class="GeneratedTable">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Value</th>
+      <th>Title</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Candidate</td>
+      <td>{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}</td>
+
+              <td>Exam Title</td>
+      <td>{{exam.exam.exam_title}}</td>
+    </tr>
+    <tr>
+      <td>Product</td>
+      <td>{{exam.event.product.name}}</td>
+      <td>Product Category</td>
+      <td>{{exam.event.product.category}}</td>
+
+    </tr>
+    <tr>
+      <td>Exam Date</td>
+      <td>{{exam.event.start_date|date:'m/d/Y'}}-{{exam.event.end_date|date:'m/d/Y'}}</td>
+      <td>General Theory</td>
+        <td>{% if exam.general_theory == 'Failed' %}<span style="color:red;">{{exam.general_theory }}</span> {%else%}{{general_theory.macro_paper }}{% endif %}</td>
+    </tr>
+
+    <tr>
+      <td>Specific Theory</td>
+      <td>{% if exam.specific_theory == 'Failed'  %}<span style="color:red;">{{exam.specific_theory }}</span> {%else%} {{exam.specific_theory }}{% endif %}</td>
+      <td>Sample1 Analysis</td>
+      <td>{% if exam.sample1_analysis == 'Failed'  %}<span style="color:red;">{{exam.sample1_analysis }}</span> {%else%}{{exam.sample1_analysis }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Sample1 Collection</td>
+            <td>{% if exam.sample1_collection == 'Failed' %}<span style="color:red;">{{exam.sample1_collection }}</span> {%else%}{{exam.sample1_collection }}{% endif %}</td>
+ <td>Sample2 Analysis</td>
+            <td>{% if exam.sample2_analysis == 'Failed' %}<span style="color:red;">{{exam.sample2_analysis }}</span> {%else%}{{exam.sample2_analysis }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Sample2 Collection</td>
+            <td>{% if exam.sample2_collection == 'Failed' %}<span style="color:red;">{{exam.sample2_collection }}</span> {%else%}{{exam.sample2_collection }}{% endif %}</td>
+ <td>Sample3 Analysis</td>
+            <td>{% if exam.sample3_analysis == 'Failed' %}<span style="color:red;">{{exam.sample3_analysis }}</span> {%else%}{{exam.sample3_analysis }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Sample3 Analysis</td>
+            <td>{% if exam.sample3_analysis == 'Failed' %}<span style="color:red;">{{exam.sample3_analysis }}</span> {%else%}{{exam.sample3_analysis }}{% endif %}</td>
+ <td>Sample4 Analysis</td>
+            <td>{% if exam.sample4_analysis == 'Failed' %}<span style="color:red;">{{exam.sample4_analysis }}</span> {%else%}{{exam.sample4_analysis }}{% endif %}</td>
+    </tr>
+
+      <tr>
+      <td>Sample5 Analysis</td>
+            <td>{% if exam.sample5_analysis == 'Failed' %}<span style="color:red;">{{exam.sample5_analysis }}</span> {%else%}{{exam.sample5_analysis }}{% endif %}</td>
+ <td>Written Instruction</td>
+            <td>{% if exam.written_instruction == 'Failed' %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Codes by Quackit.com -->
+                        <br>
+                      {% if exam.file %}  <h5><a href="{{exam.file.url }}" target="_blank">Result Card</a></h5>{% endif %}
+                        <br>
+                        <br>
+                        <br>
+  {% endfor %}
+<!--<h2>Conclusion</h2>-->
+<!--<p>Final Result: {{finalResult}}</p>-->
+<!--<p>Next Action: {{action}}</p>-->
+<!--<p>First Email Date: {{exam.created_at|date:'m/d/Y'}}</p>-->
+<!--<p>Second Email Date: {{second_email_date|date:'m/d/Y'}}</p>-->
+<!--<p>Third Email Date: {{third_email_date|date:'m/d/Y'}}</p>-->
+
+
+                                                </form>
+
+                                    
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                                        
+
+                                         
+
+                                        </div> <!-- end preview code-->
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+                <script>
+                    $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
+
+
+
+
+
+
+                    </script>
+
+
+                {% endblock %}
