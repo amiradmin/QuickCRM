@@ -48,7 +48,6 @@ class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
         context['candidate'] = candidate
-
         context['results'] = results
         # context['examCount'] = examCount
         return context

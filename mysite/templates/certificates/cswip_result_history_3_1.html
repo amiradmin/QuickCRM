@@ -64,7 +64,7 @@ table.GeneratedTable thead {
 
 
 
-<!-- HTML Code: Place this code in the document's body (between the 'body' tags) where the table should appear -->
+{% for exam in results %}
 <table class="GeneratedTable">
   <thead>
     <tr>
@@ -91,64 +91,42 @@ table.GeneratedTable thead {
     </tr>
     <tr>
       <td>Exam Date</td>
-      <td>{{exam.event.start_exam_date|date:'m/d/Y'}}</td>
-      <td>Scheme</td>
-      <td>{{exam.cswip_pcn}}</td>
-    </tr>
-    <tr>
-
-              <td>Event Date</td>
       <td>{{exam.event.start_date|date:'m/d/Y'}}-{{exam.event.end_date|date:'m/d/Y'}}</td>
-      <td>General Theory</td>
-      <td>{% if exam.general_theory == 'Failed'  %}<span style="color:red;">{{exam.general_theory }}</span> {%else%}<span>{{exam.general_theory }}</span> {% endif %}</td>
+      <td>Macro Paper</td>
+        <td>{% if exam.macro_paper == 'Failed' %}<span style="color:red;">{{exam.macro_paper }}</span> {%else%}{{exam.macro_paper }}{% endif %}</td>
+    </tr>
+
+    <tr>
+      <td>General Paper</td>
+      <td>{% if exam.general_paper == 'Failed'  %}<span style="color:red;">{{exam.general_paper }}</span> {%else%} {{exam.general_paper }}{% endif %}</td>
+      <td>Technology Paper</td>
+      <td>{% if exam.technology_paper == 'Failed'  %}<span style="color:red;">{{exam.technology_paper }}</span> {%else%}{{exam.technology_paper }}{% endif %}</td>
     </tr>
     <tr>
-      <td>Specific Theory</td>
-      <td>{% if exam.specific_theory == 'Failed'  %}<span style="color:red;">{{exam.specific_theory }}</span> {%else%} {{exam.specific_theory }}{% endif %}</td>
-      <td>Sample 1(data collection)</td>
-      <td>{% if exam.sample1_analysis == 'Failed'  %}<span style="color:red;">{{exam.sample1_analysis }}</span> {%else%}{{exam.sample1_analysis }}{% endif %}</td>
-    </tr>
-    <tr>
-      <td>Sample 1 (data analysis)</td>
+      <td>Pipe Paper</td>
 
-            <td>{% if exam.sample1_collection < 70.0 %}<span style="color:red;">{{exam.sample1_collection }}</span> {%else%}{{exam.sample1_collection }}{% endif %}</td>
-      <td>Sample 2(Double Vee)(data collection)</td>
-        <td>{% if exam.sample2_analysis == 'Failed' %}<span style="color:red;">{{exam.sample2_analysis }}</span> {%else%}{{exam.sample2_analysis }}{% endif %}</td>
+            <td>{% if exam.pipe_paper == 'Failed' %}<span style="color:red;">{{exam.pipe_paper }}</span> {%else%}{{exam.pipe_paper }}{% endif %}</td>
+      <td></td>
+        <td></td>
     </tr>
-    <tr>
-      <td>Sample 2(data collection)</td>
-        <td>{% if exam.sample2_collection == 'Failed'  %}<span style="color:red;">{{exam.sample2_collection }}</span> {%else%}{{exam.sample2_collection }}{% endif %}</td>
-      <td>Sample 3(data collection)</td>
-      <td>{{exam.sample2_collection }}</td>
-    </tr>
-      <tr>
-      <td>Sample 3 (data analysis)</td>
-          <td>{% if exam.sample3_analysis == 'Failed'  %}<span style="color:red;">{{exam.sample3_analysis }}</span> {%else%}{{exam.sample3_analysis }}{% endif %}</td>
-      <td>Sample 3(data collection)</td>
-      <td>{% if exam.sample3_collection == 'Failed'  %}<span style="color:red;">{{exam.sample3_collection }}</span> {%else%}{{exam.sample3_collection }}{% endif %}</td>
-    </tr>
-        <tr>
-      <td>Written Instruction</td>
-            <td>{% if exam.written_instruction == 'Failed'  %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>
-      <td>Lecturer</td>
-      <td>{{exam.event.lecturers}}</td>
 
 
-    </tr>
   </tbody>
 </table>
+
 <!-- Codes by Quackit.com -->
                         <br>
                       {% if exam.file %}  <h5><a href="{{exam.file.url }}" target="_blank">Result Card</a></h5>{% endif %}
                         <br>
                         <br>
                         <br>
-<h2>Conclusion</h2>
-<p>Final Result: {{finalResult}}</p>
-<p>Next Action: {{action}}</p>
-<p>First Email Date: {{exam.created_at|date:'m/d/Y'}}</p>
-<p>Second Email Date: {{second_email_date|date:'m/d/Y'}}</p>
-<p>Third Email Date: {{third_email_date|date:'m/d/Y'}}</p>
+  {% endfor %}
+<!--<h2>Conclusion</h2>-->
+<!--<p>Final Result: {{finalResult}}</p>-->
+<!--<p>Next Action: {{action}}</p>-->
+<!--<p>First Email Date: {{exam.created_at|date:'m/d/Y'}}</p>-->
+<!--<p>Second Email Date: {{second_email_date|date:'m/d/Y'}}</p>-->
+<!--<p>Third Email Date: {{third_email_date|date:'m/d/Y'}}</p>-->
 
 
                                                 </form>
