@@ -211,4 +211,16 @@ urlpatterns = [
 
     path('examresulthistorycswip31/<int:candidate_id>', views.ExamResultHistoryCSWIP31.as_view(), name='examresulthistorycswip31_'),
     path('examresulthistorycswip321/<int:candidate_id>', views.ExamResultHistoryCSWIP321.as_view(), name='examresulthistorycswip321_'),
+    path('examresulthistorycswip322/<int:candidate_id>', views.ExamResultHistoryCSWIP322.as_view(), name='examresulthistorycswip322_'),
+    path('examresulthistorypaintinginspection/<int:candidate_id>', views.ExamResultHistoryPaintingInspection.as_view(), name='examresulthistorypaintinginspection_'),
+    path('examresulthistorypautl2cswip/<int:candidate_id>', views.ExamResultHistoryPAUTL2CSWIP.as_view(), name='examresulthistorypautl2cswip_'),
+    path('examresulthistorypautl2pcn/<int:candidate_id>', views.ExamResultHistoryPAUTL2PCN.as_view(), name='examresulthistorypautl2pcn_'),
+    path('examresulthistorypautl3cswip/<int:candidate_id>', views.ExamResultHistoryPAUTL3CSWIP.as_view(), name='examresulthistorypautl3cswip_'),
+    path('examresulthistorypautl3pcn/<int:candidate_id>', views.ExamResultHistoryPAUTL3PCN.as_view(), name='examresulthistorypautl3pcn_'),
+    path('examresulthistorytofdl2pcn/<int:candidate_id>', views.ExamResultHistoryTOFDL2PCN.as_view(), name='examresulthistorytofdl2pcn_'),
+    path('examresulthistorytofdl2cswip/<int:candidate_id>', views.ExamResultHistoryTOFDL2CSWIP.as_view(), name='examresulthistorytofdl2cswip_'),
+    path('examresulthistorytofdl3cswip/<int:candidate_id>', views.ExamResultHistoryTOFDL3CSWIP.as_view(), name='examresulthistorytofdl3cswip_'),
+    path('examresulthistorytofdl3pcn/<int:candidate_id>', views.ExamResultHistoryTOFDL3PCN.as_view(), name='examresulthistorytofdl3pcn_'),
+    path('examresulthistoryradiori/<int:candidate_id>', views.ExamResultHistoryRadioRI.as_view(), name='examresulthistoryradiori_'),
+    path('examresulthistoryradiodri/<int:candidate_id>', views.ExamResultHistoryRadioDRI.as_view(), name='examresulthistoryradiodri_'),
 ]
