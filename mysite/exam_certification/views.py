@@ -2163,7 +2163,7 @@ class NewExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Temp
                 print("updateInfo candidate")
                 candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
                 events = Event.objects.filter(candidate=candidate_main)
-
+                print(candidate_main)
 
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
@@ -2184,9 +2184,11 @@ class NewExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Temp
                 # candidates = TesCandidate.objects.all()
                 samples = Samples.objects.all()
                 context['samples'] = samples
-                context['candidate'] = TesCandidate.objects.filter(
+                print(self.request.POST['candidate_inner_ID'])
+                candidate = TesCandidate.objects.filter(
                     id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
-                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                context['candidate'] = candidate
+                # candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
@@ -2454,9 +2456,10 @@ class NewExamMaterialCSWIPPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Te
                 context['group_name'] = group_name
                 context['candidate'] = candidate
                 context['samples'] = samples
-                context['candidate'] = TesCandidate.objects.filter(
+                candidate =TesCandidate.objects.filter(
                     id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
-                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                context['candidate'] = candidate
+                # candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
