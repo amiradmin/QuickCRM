@@ -149,11 +149,11 @@
                                                         <th></th>
                                                         <th>Name</th>
                                                         <th>Product</th>
-                                                        <th>Exam Title</th>
+
 
                                                         <th>Email</th>
                                                         <th>Exam Date</th>
-                                                        <th>CSWIP/PCN</th>
+
                                                         <th>General Theory</th>
 
                                                         <th>Sample 1(data collection)</th>
@@ -177,10 +177,10 @@
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{%endif%} {{item.candidate.last_name}}</td>
                                                         <td>{{item.event.product}}</td>
-                                                        <td>{{item.exam_title}}</td>
+
                                                         <td>{{item.candidate.email}}</td>
                                                         <td>{{item.exam_date|date:'m/d/Y'}}</td>
-                                                        <td>{{item.cswip_pcn}}</td>
+
                                                         <td>{{item.general_theory}}</td>
                                                         <td>{{item.sample1_analysis}}</td>
                                                         <td>{{item.sample1_collection}}</td>

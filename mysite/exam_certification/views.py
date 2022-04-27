@@ -1822,9 +1822,10 @@ class NewPhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result(SidebarMixin, LoginRequ
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam = exam
-                # obj.result = self.request.POST['result']
+                obj.exam_title = self.request.POST['paut_examTitle']
                 # obj.explanation = self.request.POST['explanation']
-                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
                 obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
@@ -2079,9 +2080,11 @@ class NewExamResultPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam = exam
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['paut_examTitle']
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
                 obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
@@ -2332,7 +2335,9 @@ class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, Te
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam = exam
-                # obj.result = self.request.POST['result']
+                obj.exam_title = self.request.POST['examTitle']
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 # obj.explanation = self.request.POST['explanation']
                 # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.general_theory = self.request.POST['general_theory']
