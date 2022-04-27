@@ -2598,7 +2598,9 @@ class NewExamResultCSWIPPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, 
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam = exam
-                # obj.result = self.request.POST['result']
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.exam_title = self.request.POST['examTitle']
                 # obj.explanation = self.request.POST['explanation']
                 # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.general_theory = self.request.POST['general_theory']
@@ -2873,7 +2875,9 @@ class NewExamResultPaintingInspection(SidebarMixin, LoginRequiredMixin, Template
                 obj.candidate = candidate
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['examTitle']
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
                 obj.exam = exam
                 obj.general_theory = self.request.POST['general_theory']
                 obj.practical = self.request.POST['practical']
@@ -3128,7 +3132,7 @@ class NewExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj = CSWIPWeldingInspector3_2_2_Result()
                 obj.event = event
                 obj.candidate = candidate
-                # obj.result = self.request.POST['result']
+                obj.exam_title = self.request.POST['examTitle']
                 # obj.explanation = self.request.POST['explanation']
                 # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.exam = exam
@@ -3167,8 +3171,8 @@ class NewExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['exams'] = exams
                 context['candidates'] = candidates
                 # return render(request, 'certificates/exam_result_summary.html',context=context)
-                return redirect('exam_certification:examscwip322summary_')
-            return redirect('exam_certification:examscwip322summary_')
+                return redirect('exam_certification:examscwip322resultsummary_')
+            return redirect('exam_certification:examscwip322resultsummary_')
 
 
 
@@ -3381,7 +3385,7 @@ class NewExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 print("Submit")
 
 
-                print("Submit")
+                print("Here")
                 print(self.request.POST['eventID'].split('-')[0])
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
@@ -3389,7 +3393,7 @@ class NewExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj = CSWIPWeldingInspector3_2_1_Result()
                 obj.event = event
                 obj.candidate = candidate
-                # obj.result = self.request.POST['result']
+                obj.exam_title = self.request.POST['examTitle']
                 # obj.explanation = self.request.POST['explanation']
                 # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.exam = exam

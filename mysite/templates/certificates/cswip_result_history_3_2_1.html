@@ -80,7 +80,7 @@ table.GeneratedTable thead {
       <td>{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}</td>
 
               <td>Exam Title</td>
-      <td>{{exam.exam.exam_title}}</td>
+      <td>{{exam.exam_title}}</td>
     </tr>
     <tr>
       <td>Product</td>
@@ -91,7 +91,7 @@ table.GeneratedTable thead {
     </tr>
     <tr>
       <td>Exam Date</td>
-      <td>{{exam.event.start_date|date:'m/d/Y'}}-{{exam.event.end_date|date:'m/d/Y'}}</td>
+      <td>{{exam.exam_date|date:'m/d/Y'}}</td>
       <td>Macro Paper</td>
         <td>{% if exam.macro_paper == 'Failed' %}<span style="color:red;">{{exam.macro_paper }}</span> {%else%}{{exam.macro_paper }}{% endif %}</td>
     </tr>
