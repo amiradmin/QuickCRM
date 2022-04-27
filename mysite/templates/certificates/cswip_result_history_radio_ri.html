@@ -80,7 +80,7 @@ table.GeneratedTable thead {
       <td>{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}</td>
 
               <td>Exam Title</td>
-      <td>{{exam.exam.exam_title}}</td>
+      <td>{{exam.exam_title}}</td>
     </tr>
     <tr>
       <td>Product</td>
@@ -91,23 +91,19 @@ table.GeneratedTable thead {
     </tr>
     <tr>
       <td>Exam Date</td>
-      <td>{{item.exam_date|date:'m/d/Y'}}</td>
-      <td></td>
-        <td></td>
+      <td>{{exam.exam_date|date:'m/d/Y'}}</td>
+    <td>General Theory</td>
+      <td>{% if exam.general_theory == 'Failed'  %}<span style="color:red;">{{exam.general_theory }}</span> {%else%} {{exam.general_theory }}{% endif %}</td>
+
     </tr>
 
     <tr>
-      <td>General Theory</td>
-      <td>{% if exam.general_theory == 'Failed'  %}<span style="color:red;">{{exam.general_theory }}</span> {%else%} {{exam.general_theory }}{% endif %}</td>
-      <td></td>
-      <td></td>
-    </tr>
-
-      <td>Practical</td>
-            <td>{% if exam.practical == 'Failed' %}<span style="color:red;">{{exam.practical }}</span> {%else%}{{exam.practical }}{% endif %}</td>
- <td>Specific Theory</td>
+  <td>Specific Theory</td>
             <td>{% if exam.specific_theory == 'Failed' %}<span style="color:red;">{{exam.specific_theory }}</span> {%else%}{{exam.specific_theory }}{% endif %}</td>
-    </tr>
+     <td>Practical</td>
+            <td>{% if exam.practical == 'Failed' %}<span style="color:red;">{{exam.practical }}</span> {%else%}{{exam.practical }}{% endif %}</td>
+
+
   </tbody>
 </table>
 

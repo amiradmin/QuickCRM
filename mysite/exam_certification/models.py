@@ -258,6 +258,7 @@ class RadiographicInterpretationWeldsRIResult(models.Model):
     customerID = models.CharField(max_length=256, null=True, blank=True)
     scheme = models.CharField(max_length=256, null=True, blank=True)
     exam_date = models.DateTimeField(max_length=256,null=True, blank=True)
+    exam_title = models.CharField(max_length=256, null=True, blank=True)
     general_theory = models.CharField(max_length=256, null=True, blank=True)
     specific_theory = models.CharField(max_length=256, null=True, blank=True)
     practical = models.CharField(max_length=256, null=True, blank=True)

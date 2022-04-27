@@ -80,7 +80,7 @@ table.GeneratedTable thead {
       <td>{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}</td>
 
               <td>Exam Title</td>
-      <td>{{exam.exam.exam_title}}</td>
+      <td>{{exam.exam_title}}</td>
     </tr>
     <tr>
       <td>Product</td>
@@ -91,34 +91,34 @@ table.GeneratedTable thead {
     </tr>
     <tr>
       <td>Exam Date</td>
-      <td>{{exam.event.start_date|date:'m/d/Y'}}-{{exam.event.end_date|date:'m/d/Y'}}</td>
-      <td>General Theory</td>
-        <td>{% if exam.general_theory == 'Failed' %}<span style="color:red;">{{exam.general_theory }}</span> {%else%}{{general_theory.macro_paper }}{% endif %}</td>
+      <td>{{exam.exam_date|date:'m/d/Y'}}</td>
+    <td>Written Instruction</td>
+            <td>{% if exam.written_instruction == 'Failed' %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>
     </tr>
 
     <tr>
       <td>Specific Theory</td>
       <td>{% if exam.specific_theory == 'Failed'  %}<span style="color:red;">{{exam.specific_theory }}</span> {%else%} {{exam.specific_theory }}{% endif %}</td>
-      <td>Sample1 Analysis</td>
-      <td>{% if exam.sample1_analysis == 'Failed'  %}<span style="color:red;">{{exam.sample1_analysis }}</span> {%else%}{{exam.sample1_analysis }}{% endif %}</td>
+      <td>General Theory</td>
+      <td>{% if exam.general_theory == 'Failed'  %}<span style="color:red;">{{exam.general_theory }}</span> {%else%}{{exam.general_theory }}{% endif %}</td>
     </tr>
     <tr>
-      <td>Sample1 Collection</td>
-            <td>{% if exam.sample1_collection == 'Failed' %}<span style="color:red;">{{exam.sample1_collection }}</span> {%else%}{{exam.sample1_collection }}{% endif %}</td>
- <td>Sample2 Analysis</td>
-            <td>{% if exam.sample2_analysis == 'Failed' %}<span style="color:red;">{{exam.sample2_analysis }}</span> {%else%}{{exam.sample2_analysis }}{% endif %}</td>
+      <td>Sample1</td>
+            <td>{% if exam.sample1 == 'Failed' %}<span style="color:red;">{{exam.sample1 }}</span> {%else%}{{exam.sample1 }}{% endif %}</td>
+ <td>Sample2</td>
+            <td>{% if exam.sample2 == 'Failed' %}<span style="color:red;">{{exam.sample2 }}</span> {%else%}{{exam.sample2 }}{% endif %}</td>
     </tr>
     <tr>
-      <td>Sample2 Collection</td>
-            <td>{% if exam.sample2_collection == 'Failed' %}<span style="color:red;">{{exam.sample2_collection }}</span> {%else%}{{exam.sample2_collection }}{% endif %}</td>
- <td>Sample3 Analysis</td>
-            <td>{% if exam.sample3_analysis == 'Failed' %}<span style="color:red;">{{exam.sample3_analysis }}</span> {%else%}{{exam.sample3_analysis }}{% endif %}</td>
+      <td>Data File 1</td>
+            <td>{% if exam.data_file_1 == 'Failed' %}<span style="color:red;">{{exam.data_file_1 }}</span> {%else%}{{exam.data_file_1 }}{% endif %}</td>
+ <td>Data File 2</td>
+            <td>{% if exam.data_file_2 == 'Failed' %}<span style="color:red;">{{exam.data_file_2 }}</span> {%else%}{{exam.data_file_2 }}{% endif %}</td>
     </tr>
     <tr>
-      <td>Sample3 Collection</td>
-            <td>{% if exam.sample3_collection == 'Failed' %}<span style="color:red;">{{exam.sample3_collection }}</span> {%else%}{{exam.sample3_collection }}{% endif %}</td>
- <td>Written Instruction</td>
-            <td>{% if exam.written_instruction == 'Failed' %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>
+      <td>Data File 3</td>
+            <td>{% if exam.data_file_3 == 'Failed' %}<span style="color:red;">{{exam.data_file_3 }}</span> {%else%}{{exam.data_file_3 }}{% endif %}</td>
+ <td>Data File 3</td>
+            <td>{% if exam.data_file_3 == 'Failed' %}<span style="color:red;">{{exam.data_file_3 }}</span> {%else%}{{exam.data_file_3 }}{% endif %}</td>
     </tr>
 
   </tbody>

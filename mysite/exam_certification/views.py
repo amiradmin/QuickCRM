@@ -119,7 +119,7 @@ class ExamResultHistoryTOFDL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
         # user = User.objects.filter(id = self.kwargs['candidate_id']).first()
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
-        results = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
+        results = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
