@@ -197,7 +197,7 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input  value="{{exam.candidate.id}}-{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                    <input  value="{{exam.candidate.id}}-{{exam.candidate.first_name}} {% if exam.candidate.middleName != 'None' %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -267,8 +267,8 @@
 
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Sample 1(Single Vee, 1" or 1/2") (data collection)</label>
- <select class="form-select" name="sample1" >
+                                   <label for="" class="form-label">Basic A1</label>
+ <select class="form-select" name="basic_a1" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -277,8 +277,8 @@
                                                         </div>
 
                      <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Sample 2(Double Vee) (data collection)</label>
- <select class="form-select" name="sample2" >
+                                   <label for="" class="form-label">Basic A2</label>
+ <select class="form-select" name="basic_a2" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -290,8 +290,8 @@
 
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Written Instruction</label>
- <select class="form-select" name="written_instruction" >
+                                   <label for="" class="form-label">Practical TOFD L2</label>
+ <select class="form-select" name="practical_tofd_l2" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -300,9 +300,9 @@
                                                         </div>
 
                      <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Data File# 1 Analysis
+                                   <label for="" class="form-label">Basic B Part 1
 </label>
- <select class="form-select" name="data_file_1" >
+ <select class="form-select" name="basic_b_part_1" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -314,8 +314,8 @@
 
         <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Data File# 2Analysis</label>
- <select class="form-select" name="data_file_2" >
+                                   <label for="" class="form-label">Basic B Part 2</label>
+ <select class="form-select" name="basic_b_part_2" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -324,9 +324,9 @@
                                                         </div>
 
                      <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Data File# 3 Analysis
+                                   <label for="" class="form-label">Basic B Part 3
 </label>
- <select class="form-select" name="data_file_3" >
+ <select class="form-select" name="basic_b_part_3" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -337,9 +337,40 @@
 
 
         <div class="row g-2">
+ <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Basic B Part 4</label>
+ <select class="form-select" name="basic_b_part_4" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+        </div>
+  <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Main C 1</label>
+ <select class="form-select" name="main_c_1" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+   </div>
+
+
+        </div>
+        <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
-                                   <label for="" class="form-label">Data File# 4 Analysis</label>
- <select class="form-select" name="data_file_4" >
+                                   <label for="" class="form-label">Main C 2</label>
+ <select class="form-select" name="main_c_2" >
+  <option selected>Select</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+     <option value="N/A">N/A</option>
+</select>
+                                                               </div>
+  <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Main C 3</label>
+ <select class="form-select" name="main_c_3" >
   <option selected>Select</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -347,14 +378,13 @@
 </select>
                                                         </div>
 
-<div class="mb-3 col-md-6">
+
+        </div>
+
+<div class="mb-3 col-md-12">
       <label class="form-label">Result Card File</label>
 <input  type="file"  name="myFile" class="form-control"  />
  </div>
-
-        </div>
-
-
 
 
 

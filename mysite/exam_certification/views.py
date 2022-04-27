@@ -1530,8 +1530,8 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
         if request.method == 'POST':
             if 'updateInfo' in request.POST:
                 print("updateInfo")
-                print(request.POST['examID'])
-                exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.filter(id=self.request.POST['examID'].split('-')[0]).first()
+                print(request.POST['exam_ID'])
+                exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.filter(id=self.request.POST['exam_ID'].split('-')[0]).first()
                 # print(self.kwargs['id'])
                 candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -1557,9 +1557,9 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 obj.exam = exam
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
-                if not request.POST.get('paut_exam_date', '') == '':
-                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
-                obj.exam_title = self.request.POST['paut_examTitle']
+                if not request.POST.get('exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.exam_title = self.request.POST['examTitle']
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
                 obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
