@@ -203,6 +203,7 @@
 	bottom: 0;
 	color: #555;
 	position: absolute;
+	left:10px;
 	text-align: center;
 	width: 100%;
 
@@ -243,6 +244,7 @@
 	position: absolute;
 	width: 100%;
 	z-index: 10;
+	margin-top:-5px;
 }
 .bar-group {
 	float: left;
@@ -921,8 +923,8 @@ $(document).ready(function() {
 				// Set the height later in displayGraph() to allow for left-to-right sequential display
 				var barObj = {};
 				barObj.label = this[j];
-				barObj.height = Math.floor(barObj.label / chartYMax * 100) ;
-				barObj.bar = $('<div class="bar fig' + j + '"><span>' + barObj.label + '</span></div>')
+				barObj.height = Math.floor(barObj.label / chartYMax * 100) + '%';
+				barObj.bar = $('<div class="bar fig' + j + '"><span style="margin-left:14px;margin-top:15px;color:black;">' + barObj.label + '</span></div>')
 					.appendTo(barGroup);
 				bars.push(barObj);
 			}
