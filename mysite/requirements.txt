@@ -1,4 +1,4 @@
-Django==4.0.4
+Django
 django-braces==1.15.0
 django-cors-headers==3.11.0
 django-import-export==2.8.0
