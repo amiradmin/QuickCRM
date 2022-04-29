@@ -1,14 +1,14 @@
 Django
-django-braces==1.15.0
-django-cors-headers==3.11.0
-django-import-export==2.8.0
-django-sortedm2m==3.1.1
-django-timedeltatemplatefilter==0.1.2
-django-tinymce-4==0.0.27
-djangorestframework==3.13.1
-duplicity==0.8.20
-Pillow==8.1.2
-psycopg2==2.8.6
-python-http-client==3.3.7
-vine==5.0.0
+django-braces
+django-cors-headers
+django-import-export
+django-sortedm2m
+django-timedeltatemplatefilter
+django-tinymce-4
+djangorestframework
+duplicity
+Pillow
+psycopg2
+python-http-client=
+vine
 
