@@ -2,13 +2,8 @@ Django
 django-braces
 django-cors-headers
 django-import-export
-django-sortedm2m
-django-timedeltatemplatefilter
 django-tinymce-4
 djangorestframework
-duplicity
 Pillow
 psycopg2
-python-http-client
-vine
 
