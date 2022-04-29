@@ -643,33 +643,69 @@ class NewTimesheetForm(LoginRequiredMixin,SidebarMixin,TemplateView):
         return render(request, 'forms/general/bgas.html')
 
 
+#
+# class TimesheetExcelView(LoginRequiredMixin,SidebarMixin,TemplateView):
+#     template_name = "timesheet/timesheet_excel_view.html"
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(TimesheetExcelView, self).get_context_data()
+#         staffs = User.objects.filter(
+#             groups__name__in=['Staff', 'admin', 'training_admin', 'management', 'training_operator'])
+#         candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
+#         context['candidate_list'] =candidate_list
+#         return context
+#
+#     def post(self, request, *args, **kwargs):
+#         context = super(TimesheetExcelView, self).get_context_data()
+#         if request.method == 'POST':
+#             print("Submit Update")
+#             q_object = ~Q()
+#             timesheets_task = Timesheet.objects.filter(q_object
+#                                                        ).values('task').annotate(Count('task'), durationTime=Sum(
+#                 F('to_date') - F('from_temp'))).order_by()
+#             context['timesheets_task'] = timesheets_task
+#             print(self.request.POST['userID'])
+#             user = User.objects.filter(id=self.request.POST['userID']).first()
+#             timesheets_task = Timesheet.objects.filter(staff=user)
+#             print(timesheets_task)
+#             context['timesheets_task']=12
+#             return redirect('stafftimesheet:timesheetims_')
 
-class TimesheetExcelView(LoginRequiredMixin,SidebarMixin,TemplateView):
+
+
+class TimesheetExcelView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "timesheet/timesheet_excel_view.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(TimesheetExcelView, self).get_context_data()
-        user = User.objects.filter(id=self.request.user.id).first()
-        context['user'] = user
+        staffs = User.objects.filter(
+            groups__name__in=['Staff', 'admin', 'training_admin', 'management', 'training_operator'])
+        candidate_list = TesCandidate.objects.filter(user__in=staffs).order_by('id')
+        context['candidate_list'] =candidate_list
         return context
 
+
     def post(self, request, *args, **kwargs):
+        context = super(TimesheetExcelView, self).get_context_data()
         if request.method == 'POST':
 
+            print("Submit")
+            print(self.request.POST['userID'])
+            user = User.objects.filter(id=self.request.POST['userID']).first()
+            timesheets_list = Timesheet.objects.filter(staff=user).values('from_temp__date').annotate(count=Count('id')).values('from_temp__date', 'count').order_by('from_temp__date')
+            # timesheets_list = Timesheet.objects.filter(staff=user).values('task').annotate(Count('task'), durationTime=Sum(
+            #                 F('to_date') - F('from_temp'))).order_by()
 
+            monthSelect = request.POST['monthSelect']
+            timesheets_list = Timesheet.objects.filter(Q(staff=user) & Q(from_temp__month = monthSelect)).annotate(Count('task'), durationTime=Sum(
+                            F('to_date') - F('from_temp'))).order_by()
+            print(timesheets_list)
+            context['timesheets_list'] = timesheets_list
 
-                obj = Timesheet()
-                obj.staff =User.objects.filter(id=request.POST['userID']).first()
-                obj.from_date = datetime.strptime(request.POST['from_date'], '%I:%M %p')
-                obj.to_date = datetime.strptime(request.POST['to_date'], '%I:%M %p')
-                obj.description = request.POST['description']
+            return render(request, 'timesheet/timesheet_excel_view.html',context=context)
+            # return redirect('stafftimesheet:timesheetims_')
+        return redirect('stafftimesheet:timesheetims_')
 
-                obj.save()
-
-                return redirect('stafftimesheet:stafftimesheetlist_', id=self.request.user.id)
-
-
-        return render(request, 'forms/general/bgas.html')
 
 
 
