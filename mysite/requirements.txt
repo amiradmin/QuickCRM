@@ -9,6 +9,6 @@ djangorestframework
 duplicity
 Pillow
 psycopg2
-python-http-client=
+python-http-client
 vine
 
