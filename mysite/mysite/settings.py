@@ -132,17 +132,17 @@ if hostName == 'amir-ThinkPad':
         },
 
     }
-elif hostName == 'cloud150123.mywhc.ca':
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tesdb',
-        'USER': 'tes_dbuser',
-        'PASSWORD': "1qaz!QAZ",
-        'HOST': '185.231.59.78',
-        'PORT': '5432',
-    },
-}
+# elif hostName == 'cloud150123.mywhc.ca':
+#     DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'tesdb',
+#         'USER': 'tes_dbuser',
+#         'PASSWORD': "1qaz!QAZ",
+#         'HOST': '185.231.59.78',
+#         'PORT': '5432',
+#     },
+# }
 else:
     DATABASES = {
         'default': {
