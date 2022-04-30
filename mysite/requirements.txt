@@ -6,4 +6,11 @@ django-tinymce-4
 djangorestframework
 Pillow
 psycopg2
+celery
+django_timedeltatemplatefilter
+sendgrid
+APScheduler
+requests
+python-dateutil
+django-sortedm2m
 

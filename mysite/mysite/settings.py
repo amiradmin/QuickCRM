@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-j&9l(b21+5-idll%-+q#dekf)%x11%#s09j$=8@4jtx#bwrk9n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['185.231.59.78','127.0.0.1','erp.tescan.ca','www.erp.tescan.ca','','192.168.1.110']
+ALLOWED_HOSTS = ['185.231.59.78','127.0.0.1','erp.tescan.ca','www.erp.tescan.ca','72.10.172.208','192.168.1.110']
 
 SITE_ID = 1
 # Application definition Test
