@@ -700,7 +700,14 @@ class TimesheetExcelView(SidebarMixin, LoginRequiredMixin, TemplateView):
             timesheets_list = Timesheet.objects.filter(Q(staff=user) & Q(from_temp__month = monthSelect)).annotate(Count('task'), durationTime=Sum(
                             F('to_date') - F('from_temp'))).order_by()
             print(timesheets_list)
+
+            timesheets_day = Timesheet.objects.filter(Q(staff=user) & Q(from_temp__month = monthSelect)
+                                                      ).values('from_temp__day', 'from_temp__year',
+                                                               'from_temp__month').annotate(
+                Count('from_temp__day'), durationTime=Sum(F('to_date') - F('from_temp'))).order_by()
+            print(timesheets_day)
             context['timesheets_list'] = timesheets_list
+            context['timesheets_day'] = timesheets_day
 
             return render(request, 'timesheet/timesheet_excel_view.html',context=context)
             # return redirect('stafftimesheet:timesheetims_')
