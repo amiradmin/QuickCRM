@@ -172,7 +172,7 @@
                                                         <td>
                                                             {{item.tes_candidate_id}}
                                                         </td>                     <td>
-                                                            {{item.contact_number| phone_number}}
+                                                           {% if item.contact_number %} {{item.contact_number| phone_number}}{% endif %}
                                                         </td>
                                                         <td>
                                                             {{item.email}}
@@ -285,7 +285,7 @@
                                                         <td>
                                                             {{item.candidate.tes_candidate_id}}
                                                         </td>                     <td>
-                                                             {{item.candidate.contact_number| phone_number}}
+                                                             {% if item.contact_number %} {{item.candidate.contact_number| phone_number}}{% endif %}
                                                         </td>
                                                         <td>
                                                             {{item.candidate.email}}
@@ -335,7 +335,7 @@
                                                         <td>
                                                             {{item.candidate.tes_candidate_id}}
                                                         </td>                     <td>
-                                                             {{item.candidate.contact_number| phone_number}}
+                                                        {% if item.contact_number %}      {{item.candidate.contact_number| phone_number}}{% endif %}
                                                         </td>
                                                         <td>
                                                             {{item.candidate.email}}

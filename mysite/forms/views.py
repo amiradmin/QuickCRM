@@ -2974,21 +2974,17 @@ class EventSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
         eventConfirm = TwiEnrolmentForm.objects.filter(Q(eventID=eventID) & Q(confirmation=True))
         candidates = TesCandidate.objects.all()[:4]
 
-        print('OK here')
+        print('OK here 00')
         # tag = Category.objects.filter(id=event.formCategory.id).first()
 
         candidateList = event.candidate.all()
-        # submitedList = generalObj.twiEnrolmentForm.all()
+
         list1 = []
         list2 = []
         for item in candidateList:
             print(item.tes_candidate_id)
             list1.append(item.tes_candidate_id)
 
-        # print("====")
-        # for item in submitedList:
-        #     print(item.candidate.tes_candidate_id)
-        #     list2.append(item.candidate.tes_candidate_id)
 
         resultList = list(set(list1).difference(list2))
         unsubmited = TesCandidate.objects.filter(tes_candidate_id__in=resultList)
