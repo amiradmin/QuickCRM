@@ -150,7 +150,7 @@ else:
             'NAME': 'tesdb',
             'USER': 'tes_dbuser',
             'PASSWORD': "1qaz!QAZ",
-            'HOST': '185.231.59.78',
+            'HOST': '127.0.0.1',
             'PORT': '5432',
         },
 
