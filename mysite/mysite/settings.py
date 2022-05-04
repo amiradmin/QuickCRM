@@ -147,9 +147,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'tesdb',
-            'USER': 'postgres',
-            'PASSWORD': "Eddy@747",
+            'NAME': 'testdb',
+            'USER': 'tes_dbuser',
+            'PASSWORD': "1qaz!QAZ",
             'HOST': '127.0.0.1',
             'PORT': '5432',
         },
