@@ -150,7 +150,7 @@ else:
             'NAME': 'tesdb',
             'USER': 'postgres',
             'PASSWORD': "Eddy@747",
-            'HOST': '72.10.172.208',
+            'HOST': '127.0.0.1',
             'PORT': '5432',
         },
 
