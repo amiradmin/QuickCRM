@@ -30,6 +30,7 @@ urlpatterns = [
     path('contacts/', include("contacts.urls",namespace="contacts")),
     path('mailer/', include("mailer.urls",namespace="mailer")),
     path('ticket/', include("ticket.urls",namespace="ticket")),
+    path('financials/', include("financials.urls",namespace="financials")),
     path('stafftimesheet/', include("stafftimesheet.urls",namespace="stafftimesheet_")),
     path('api/', include("api.urls",namespace="api")),
     path('api-auth/', include('rest_framework.urls')),

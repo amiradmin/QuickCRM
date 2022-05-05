@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'scheduler',
     'sendgrid',
     'corsheaders',
+    'financials',
     # 'scheduler.apps.SchedulerConfig'
 
 

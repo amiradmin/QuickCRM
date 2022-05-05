@@ -1193,6 +1193,25 @@ button, input {
                             </div>
                         </li>
 
+                                <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#sidebarPayment" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
+                                <i class="fa fa-usd"></i>
+                                <span> Financial </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="sidebarPayment">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'financials:allpayments_' %}">Payments</a>
+                                    </li>
+
+                                    <li> </li>
+                                    <li> </li>
+
+
+                                </ul>
+                            </div>
+                        </li>
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
                                 <i class="uil-clipboard-alt"></i>
