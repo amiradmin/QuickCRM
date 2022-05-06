@@ -36,8 +36,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('scheduler/', include('scheduler.urls')),
     path('marketing/', include('marketing.urls')),
-    path('exam_certification/', include('exam_certification.urls'))
-    # path('tinymce/', include('tinymce.urls')),
+    path('exam_certification/', include('exam_certification.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

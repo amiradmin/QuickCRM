@@ -25,7 +25,7 @@ class EventCandidatePaymentView(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class NewPayment(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "financials/new_tofd_ultra_l3_cswip_result.html"
+    template_name = "financials/new_payment.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewPayment, self).get_context_data()
