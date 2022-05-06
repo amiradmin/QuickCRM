@@ -16,7 +16,7 @@ from django.db.models import Q
 from contacts.models import Contact
 from mailer.views import sendMail
 from braces.views import GroupRequiredMixin
-from braces.views import GroupRequiredMixin
+from financials.models import EventCandidatePayment
 # Create your views here.
 
 
@@ -733,6 +733,28 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 golbalObj.category = category
                 golbalObj.event = event
                 golbalObj.save()
+
+            payObj = EventCandidatePayment()
+            if not request.POST.get('self', None) == None:
+                print("Self")
+                payObj.sponsor_status= False
+                payObj.candidate = candidate
+                payObj.event = event
+
+            elif not request.POST.get('company', None) == None:
+                print("Company")
+                payObj.sponsor_status = False
+                payObj.candidate = candidate
+                payObj.event = event
+                payObj.company_name = request.POST['companyName']
+                payObj.company_address = request.POST['comAddress']
+                payObj.post_code = request.POST['postCode']
+                payObj.phone = request.POST['phone']
+                payObj.fax = request.POST['fax']
+                payObj.contact_name = request.POST['contactName']
+                payObj.email = request.POST['email']
+
+            payObj.save()
 
 
 
