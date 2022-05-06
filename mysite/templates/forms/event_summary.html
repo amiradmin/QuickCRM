@@ -167,7 +167,7 @@
 
                                                         <td class="table-user">
                                                             <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
-                                                            <a href="javascript:void(0);" class="text-body ">{{item.first_name}} {{item.last_name}}</a>
+                                                            <a href="{% url 'accounting:canprofile_'  id=item.id %}" class="text-body ">{{item.first_name}} {{item.last_name}}</a>
                                                         </td>
                                                         <td>
                                                             {{item.tes_candidate_id}}
@@ -330,7 +330,7 @@
                                       
                                                         <td class="table-user">
                                                             <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
-                                                            <a href="javascript:void(0);" class="text-body ">{{item.firstName}} {{item.lastName}}</a>
+                                                            <a href="" class="text-body ">{{item.firstName}} {{item.lastName}}</a>
                                                         </td>
                                                         <td>
                                                             {{item.candidate.tes_candidate_id}}

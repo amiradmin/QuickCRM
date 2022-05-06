@@ -29,86 +29,99 @@ class NewPayment(SidebarMixin, LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewPayment, self).get_context_data()
-        event = Event.objects.all()
+        events = Event.objects.all()
         candidates = TesCandidate.objects.all()
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
         context['candidate'] = candidate
 
-        context['event'] = exams
+        context['events'] = events
         context['candidates'] = candidates
         return context
 
     def post(self, request, *args, **kwargs):
         context = super(NewPayment, self).get_context_data()
         if request.method == 'POST':
-            if 'updateInfo' in request.POST:
-                print("updateInfo 2")
-                print(request.POST['exam_ID'])
-                exam = ExamMaterialTOFDModel1.objects.filter(id=self.request.POST['exam_ID'].split('-')[0]).first()
-                # print(self.kwargs['id'])
-                print(exam)
+            if 'updateInfo-event' in request.POST:
+                print("updateInfo event")
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event)
+
+                # candidates = TesCandidate.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['event'] = event
+                return render(request, 'financials/new_payment.html', context)
+
+            elif 'updateInfo-candidate' in request.POST:
+                print("updateInfo candidate")
+                print(self.request.POST['candidate'].split('-')[0])
+                candidate_sel = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                event = Event.objects.filter(id=self.request.POST['event_inner_ID'].split('-')[0]).first()
+                print(candidate_sel)
+                # candidates = TesCandidate.objects.all()
+
+                context['candidate_sel'] = candidate_sel
                 candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
 
-                context['exam'] = exam
 
-                return render(request, 'certificates/new_tofd_ultra_l3_cswip_result.html', context)
+                return render(request, 'financials/new_payment.html', context)
             elif 'submit' in request.POST:
                 print("Submit")
-
                 print(self.request.POST['eventID'].split('-')[0])
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
-                print(self.request.POST['exam_ID'])
-                exam = ExamMaterialTOFDModel1.objects.filter(id=self.request.POST['exam_ID']).first()
-                obj = ExamMaterialTOFD_CSWIP()
+
+                obj = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN()
                 obj.event = event
                 obj.candidate = candidate
-                obj.exam = exam
-                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
-                group_name = self.request.user.groups.values_list('name', flat=True).first()
-                context['group_name'] = group_name
-                context['candidate'] = candidate
-
-                if not request.POST.get('exam_date', '') == '':
-                    obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                obj.exam_title = self.request.POST['examTitle']
-                obj.customerID = self.request.POST['customerID']
-                # obj.lecturer = self.request.POST['lecturer']
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+                obj.examTitle = self.request.POST['examTitle']
+                obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
-                obj.specific_theory = self.request.POST['specific_theory']
-                obj.general_theory = self.request.POST['general_theory']
-                obj.sample1 = self.request.POST['sample1']
-                obj.sample2 = self.request.POST['sample2']
-                obj.data_file_1 = self.request.POST['data_file_1']
-                obj.data_file_2 = self.request.POST['data_file_2']
-                obj.data_file_3 = self.request.POST['data_file_3']
-                obj.data_file_4 = self.request.POST['data_file_4']
-                obj.written_instruction = self.request.POST['written_instruction']
+                obj.remark = self.request.POST['remarks']
+                obj.customerID = self.request.POST['customerID']
+                # obj.cswip_pcn = self.request.POST['cswip_pcn']
+                obj.exam_title = self.request.POST['examTitle']
 
-                obj.remark = self.request.POST['paut_remarks']
-                if bool(request.FILES.get('myFile', False)) == True:
-                    obj.file = self.request.FILES['myFile']
+                obj.specific_theory = self.request.POST['specific_theory']
+                sample3 = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
+                obj.sample1_analysis = sample3
+                sample4 = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()
+                obj.sample1_collection = sample4
+                sample5 = Samples.objects.filter(id=self.request.POST['sample2_analysis']).first()
+                obj.sample2_analysis = sample5
+                sample6 = Samples.objects.filter(id=self.request.POST['sample2_collection']).first()
+                obj.sample2_collection = sample6
+                sample7 = Samples.objects.filter(id=self.request.POST['sample3_analysis']).first()
+                obj.sample3_analysis = sample7
+                sample8 = Samples.objects.filter(id=self.request.POST['sample3_collection']).first()
+                obj.sample3_collection = sample8
+                sample9 = Samples.objects.filter(id=self.request.POST['written_instruction']).first()
+                obj.written_instruction = sample9
                 obj.save()
 
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
-                exams = ExamMaterialTOFD_CSWIP.objects.all()
+                exams = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
                 candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
-
+                samples = Samples.objects.all()
+                context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
                 context['exams'] = exams
                 context['candidates'] = candidates
-                # return render(request, 'certificates/exam_result_summary.html',context=context)
+
                 return redirect('exam_certification:examtofdl2cswipresultsummary_')
             return redirect('exam_certification:examtofdl2cswipresultsummary_')
 
