@@ -5360,6 +5360,10 @@ class UpdateLecFeedbackByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         form = TesLecFeedbackFrom.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['form'] = form
         return context
 
@@ -7042,7 +7046,7 @@ class UpdateTWITrainingFeedbackByUserID(SidebarMixin, LoginRequiredMixin, Templa
         id = self.kwargs['id']
         candidate = TesCandidate.objects.filter(id=id).first()
         form = TwiTrainingFeedback.objects.filter(candidate=candidate).first()
-        
+
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
@@ -7794,6 +7798,10 @@ class UpdateTWIExamFeedbackByid(SidebarMixin, LoginRequiredMixin, TemplateView):
             form.event.name = event.name
             form.event.location = event.location
             form.save()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['form'] = form
         return context
 
