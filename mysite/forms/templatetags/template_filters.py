@@ -10,3 +10,12 @@ def phone_number(number):
     third = number[6:10]
     return '(' + first + ')' + ' ' + second + '-' + third
 
+
+
+# @register.filter(name='payment')
+# def payment(id):
+#     """Convert a 10 character string into (xxx) xxx-xxxx."""
+#
+#     return 'paid:' + id
+#
+

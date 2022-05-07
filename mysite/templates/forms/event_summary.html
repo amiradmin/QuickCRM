@@ -2,6 +2,8 @@
 {% load static %}
 {% block content %}
 {% load template_filters %}
+{% load payment_filters %}
+
 <link rel="stylesheet" href="{% static 'css/summary.css' %}">
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.16/css/dataTables.bootstrap4.css'>
@@ -156,7 +158,8 @@
 
                                                         <th>Phone</th>
                                                         <th>Email</th>
-                                                                                                                                                            
+                                                        <th>Payment</th>
+
                                                         <th>Forms</th>
                                                         <th style="width: 75px;">Action</th>
                                                     </tr>
@@ -176,6 +179,11 @@
                                                         </td>
                                                         <td>
                                                             {{item.email}}
+                                                        </td>
+
+
+                                                        <td>
+                                                        {% multiple_args_tag event.id item.id %}
                                                         </td>
                                                         
                                                    
