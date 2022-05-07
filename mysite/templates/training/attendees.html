@@ -300,8 +300,16 @@ document.getElementById("dropped").style.display = 'none';
         $("#company").click(function () {
             if ($(this).is(":checked")) {
                 $("#dropped").show();
-            } else {
+            } else  {
                 $("#dropped").hide();
+            }
+        });
+
+      $("#self").click(function () {
+            if ($(this).is(":checked")) {
+                $("#dropped").hide();
+            } else  {
+                $("#dropped").show();
             }
         });
     });
