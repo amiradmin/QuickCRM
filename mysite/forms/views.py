@@ -2176,6 +2176,10 @@ class UpdatePSL57AFormByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         form = PSL57A.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['form'] = form
         return context
 
@@ -2701,6 +2705,10 @@ class UpdatePSL30LogExperienceByUserID(SidebarMixin, LoginRequiredMixin, Templat
         event=Event.objects.filter(id=self.kwargs['eventID']).first()
         candidate=TesCandidate.objects.filter(id=self.kwargs['id']).first()
         form = PSL30InitialForm.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['form'] = form
 
         return context
@@ -4229,6 +4237,10 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         form = PSL57B.objects.filter(Q(event=event) & Q(candidate=candidate)).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['form'] = form
         return context
 
