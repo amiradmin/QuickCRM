@@ -3284,6 +3284,10 @@ class UpdateNDT15AExpVerViewByUserID(SidebarMixin, LoginRequiredMixin, TemplateV
         context = super(UpdateNDT15AExpVerViewByUserID, self).get_context_data()
         candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         form = NDT15AExperienceVerification.objects.filter(candidate=candidate).last()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['form'] = form
         return context
 
