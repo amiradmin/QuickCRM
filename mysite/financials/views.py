@@ -125,3 +125,57 @@ class NewPayment(SidebarMixin, LoginRequiredMixin, TemplateView):
                 return redirect('exam_certification:examtofdl2cswipresultsummary_')
             return redirect('exam_certification:examtofdl2cswipresultsummary_')
 
+
+
+
+
+class UpdatePayment(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "financials/update_payment.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdatePayment, self).get_context_data()
+        payment = EventCandidatePayment.objects.filter(id=self.kwargs['id']).first()
+        candidates = TesCandidate.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+
+        context['payment'] = payment
+        context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdatePayment, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Update")
+            payObj = EventCandidatePayment.objects.filter(id=self.kwargs['id']).first()
+
+            if not request.POST.get('done', None) == None:
+                print("done")
+                payObj.payment_status= True
+
+            elif not request.POST.get('pending', None) == None:
+                payObj.payment_status = False
+                print("pending")
+
+            payObj.company_name = request.POST['companyName']
+            payObj.company_address = request.POST['comAddress']
+            payObj.post_code = request.POST['postCode']
+            payObj.phone = request.POST['phone']
+            payObj.fax = request.POST['fax']
+            payObj.contact_name = request.POST['contactName']
+            payObj.email = request.POST['email']
+            payObj.save()
+
+
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            payment = EventCandidatePayment.objects.filter(id=self.kwargs['id']).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['payment'] = payment
+            return render(request, 'financials/update_payment.html', context)
+
+

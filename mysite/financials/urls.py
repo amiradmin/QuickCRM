@@ -7,7 +7,7 @@ urlpatterns = [
 
     path('allpayments/', views.EventCandidatePaymentView.as_view(), name='allpayments_'),
     path('newpayment', views.NewPayment.as_view(), name='newpayment_'),
-    # path('messagelist/<int:id>', views.MessageListView.as_view(), name='messagelist_'),
+    path('updatepayment/<int:id>', views.UpdatePayment.as_view(), name='updatepayment_'),
     # path('adminmessagelist', views.AdminMessageListView.as_view(), name='adminmessagelist_'),
     # path('adminoutbox', views.AdminOutboxView.as_view(), name='adminoutbox_'),
     # path('candidateoutbox', views.CandidateOutboxView.as_view(), name='candidateoutbox_'),
