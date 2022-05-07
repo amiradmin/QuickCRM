@@ -656,16 +656,11 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
                 obj.sample1_collection = sample
                 sample = Samples.objects.filter(id=self.request.POST['sample2_collection']).first()
                 obj.sample2_collection = sample
-                sample = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
-                obj.sample1_analysis = sample
-                sample = Samples.objects.filter(id=self.request.POST['sample2_analysis']).first()
-                obj.sample2_analysis = sample
-                sample = Samples.objects.filter(id=self.request.POST['sample3_analysis']).first()
-                obj.sample3_analysis = sample
-                sample = Samples.objects.filter(id=self.request.POST['sample4_analysis']).first()
-                obj.sample4_analysis = sample
-                sample = Samples.objects.filter(id=self.request.POST['sample5_analysis']).first()
-                obj.sample5_analysis = sample
+                obj.sample1_analysis = self.request.POST['sample1_analysis']
+                obj.sample2_analysis = self.request.POST['sample2_analysis']
+                obj.sample3_analysis = self.request.POST['sample3_analysis']
+                obj.sample4_analysis = self.request.POST['sample4_analysis']
+                obj.sample5_analysis = self.request.POST['sample5_analysis']
                 sample = Samples.objects.filter(id=self.request.POST['written_instruction']).first()
                 obj.written_instruction = sample
                 # obj.delivery_method = self.request.POST['paut_delivery_method']
@@ -4805,14 +4800,10 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.sample1 = sample
                 sample = Samples.objects.filter(id=self.request.POST['sample2']).first()
                 obj.sample2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_file_1']).first()
-                obj.data_file_1 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_file_2']).first()
-                obj.data_file_2 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_file_3']).first()
-                obj.data_file_3 = sample
-                sample = Samples.objects.filter(id=self.request.POST['data_file_4']).first()
-                obj.data_file_4 = sample
+                obj.data_file_1 = self.request.POST['data_file_1']
+                obj.data_file_2 = self.request.POST['data_file_2']
+                obj.data_file_3 = self.request.POST['data_file_3']
+                obj.data_file_4 = self.request.POST['data_file_4']
                 # sample = Samples.objects.filter(id=self.request.POST['data_file_5']).first()
                 # obj.data_file_5 = sample
                 sample =Samples.objects.filter(id=self.request.POST['written_instruction']).first()

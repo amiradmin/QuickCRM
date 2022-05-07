@@ -33,13 +33,11 @@ class ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(models.Model):
     sample1_collection = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample1_collection_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
     sample2_collection = models.ForeignKey(Samples, related_name="exam_material_ultera_sample_gsample2_collection_tofd_pcn",
                                            null=True, blank=True, on_delete=models.DO_NOTHING)
-    sample1_analysis = models.ForeignKey(Samples, related_name="exam_material_ultera_sample_sample1_analysis_tofd_pcn",
-                                         null=True, blank=True, on_delete=models.DO_NOTHING)
-    sample2_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample2_analysis_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
-
-    sample3_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample3_analysis_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    sample4_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample4_collection_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    sample5_analysis = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_sample5_collection_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    sample1_analysis = models.CharField(max_length=256, null=True, blank=True)
+    sample2_analysis = models.CharField(max_length=256, null=True, blank=True)
+    sample3_analysis = models.CharField(max_length=256, null=True, blank=True)
+    sample4_analysis = models.CharField(max_length=256, null=True, blank=True)
+    sample5_analysis = models.CharField(max_length=256, null=True, blank=True)
     written_instruction = models.ForeignKey(Samples,related_name="exam_material_ultera_sample_written_tofd_pcn",  null=True, blank=True , on_delete=models.DO_NOTHING)
 
 
@@ -1156,11 +1154,11 @@ class ExamMaterialTOFDModel1(models.Model):
     specific_theory = models.CharField(max_length=256, null=True, blank=True)
     sample1 = models.ForeignKey(Samples,related_name="exam_material_pautl2_sample1",  null=True, blank=True , on_delete=models.DO_NOTHING)
     sample2 = models.ForeignKey(Samples,related_name="exam_material_pautl2_sample2",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    data_file_1 = models.ForeignKey(Samples,related_name="exam_material_pautl2_data1",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    data_file_2 = models.ForeignKey(Samples,related_name="exam_material_pautl2_data2",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    data_file_3 = models.ForeignKey(Samples,related_name="exam_material_pautl2_data3",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    data_file_4 = models.ForeignKey(Samples,related_name="exam_material_pautl2_data4",  null=True, blank=True , on_delete=models.DO_NOTHING)
-    data_file_5 = models.ForeignKey(Samples,related_name="exam_material_pautl2_data5",  null=True, blank=True , on_delete=models.DO_NOTHING)
+    data_file_1 = models.CharField(max_length=256, null=True, blank=True)
+    data_file_2 = models.CharField(max_length=256, null=True, blank=True)
+    data_file_3 = models.CharField(max_length=256, null=True, blank=True)
+    data_file_4 = models.CharField(max_length=256, null=True, blank=True)
+    data_file_5 = models.CharField(max_length=256, null=True, blank=True)
     written_instruction = models.ForeignKey(Samples, related_name="exam_material_written_instruction_l2", null=True,
                                             blank=True, on_delete=models.DO_NOTHING)
 
