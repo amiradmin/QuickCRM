@@ -7042,6 +7042,11 @@ class UpdateTWITrainingFeedbackByUserID(SidebarMixin, LoginRequiredMixin, Templa
         id = self.kwargs['id']
         candidate = TesCandidate.objects.filter(id=id).first()
         form = TwiTrainingFeedback.objects.filter(candidate=candidate).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        payment = EventCandidatePayment.objects.filter(id=self.kwargs['id']).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['form'] = form
         return context
 
