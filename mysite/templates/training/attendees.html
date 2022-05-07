@@ -129,14 +129,14 @@
                                             <br>
 <h5>Sponsorship Status:</h5>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" name="self" value="" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
+  <input class="form-check-input" type="checkbox" name="self" onclick="myChecked()" value="" id="self">
+  <label class="form-check-label" for="self">
     Self-Sponsored
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" name="company" value="" id="compSponsor" >
-  <label class="form-check-label" for="compSponsor">
+  <input class="form-check-input" type="checkbox" name="company" onclick="myPendingChecked()" value="" id="company" >
+  <label class="form-check-label" for="company">
     Company-Sponsored
   </label>
 </div>
@@ -307,4 +307,25 @@ document.getElementById("dropped").style.display = 'none';
     });
 </script>
 
+
+<script>
+function myChecked() {
+  var selfCheck = document.getElementById("self");
+  var companyCheck = document.getElementById("company");
+
+  if (selfCheck.checked == true){
+    companyCheck.checked = false;
+  }
+
+}
+function myPendingChecked() {
+  var selfCheck = document.getElementById("self");
+  var companyCheck = document.getElementById("company");
+
+  if (companyCheck.checked == true){
+    selfCheck.checked = false;
+  }
+
+}
+</script>
                 {% endblock %}

@@ -135,7 +135,7 @@
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" name="pending" value="" id="pending"  {% if payment.payment_status == False %} checked{% endif %}>
+  <input class="form-check-input" type="checkbox" name="pending" onclick="myPendingChecked()" value="" id="pending"  {% if payment.payment_status == False %} checked{% endif %}>
   <label class="form-check-label" for="pending">
     Pending
   </label>
@@ -197,12 +197,21 @@ function myFunction() {
 <script>
 function myChecked() {
   var doneCheck = document.getElementById("done");
-  var text = document.getElementById("text");
-  if (checkBox.checked == true){
-    text.style.display = "block";
-  } else {
-     text.style.display = "none";
+  var pendingCheck = document.getElementById("pending");
+
+  if (doneCheck.checked == true){
+    pendingCheck.checked = false;
   }
+
+}
+function myPendingChecked() {
+  var doneCheck = document.getElementById("done");
+  var pendingCheck = document.getElementById("pending");
+
+  if (pendingCheck.checked == true){
+    doneCheck.checked = false;
+  }
+
 }
 </script>
                 {% endblock %}
