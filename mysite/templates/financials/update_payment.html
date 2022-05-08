@@ -129,17 +129,25 @@
       <hr>
  <h5>Payment Status</h5>
  <div class="form-check">
-  <input class="form-check-input" type="checkbox" onclick="myChecked()" name="done" value="" id="done" {% if payment.payment_status == True %} checked{% endif %} >
+  <input class="form-check-input" type="checkbox" onclick="myChecked()" name="done" value="" id="done" {% if payment.payment_status == 'Done' %} checked{% endif %} >
   <label class="form-check-label" for="done">
     Done
   </label>
 </div>
 <div class="form-check">
-  <input class="form-check-input" type="checkbox" name="pending" onclick="myPendingChecked()" value="" id="pending"  {% if payment.payment_status == False %} checked{% endif %}>
-  <label class="form-check-label" for="pending">
-    Pending
+  <input class="form-check-input" type="checkbox" name="invoiced" onclick="myPendingChecked()" value="" id="invoiced"  {% if payment.payment_status == 'Invoiced' %} checked{% endif %}>
+  <label class="form-check-label" for="invoiced">
+    Invoiced
   </label>
 </div>
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" name="notInvoiced" onclick="NotInvoicedChecked()" value="" id="notInvoiced"  {% if payment.payment_status == 'Not Invoiced' %} checked{% endif %}>
+  <label class="form-check-label" for="notInvoiced">
+    Not Invoiced
+  </label>
+</div>
+
+
 
 
                                                     <br>
@@ -197,19 +205,34 @@ function myFunction() {
 <script>
 function myChecked() {
   var doneCheck = document.getElementById("done");
-  var pendingCheck = document.getElementById("pending");
+  var invoicedCheck = document.getElementById("invoiced");
+  var notInvoicedCheck = document.getElementById("notInvoiced");
 
   if (doneCheck.checked == true){
-    pendingCheck.checked = false;
+    invoicedCheck.checked = false;
+    notInvoicedCheck.checked = false;
   }
 
 }
 function myPendingChecked() {
   var doneCheck = document.getElementById("done");
-  var pendingCheck = document.getElementById("pending");
+  var invoicedCheck = document.getElementById("invoiced");
+  var notInvoicedCheck = document.getElementById("notInvoiced");
 
-  if (pendingCheck.checked == true){
+  if (invoicedCheck.checked == true){
     doneCheck.checked = false;
+    notInvoicedCheck.checked = false;
+  }
+
+}
+function NotInvoicedChecked() {
+  var doneCheck = document.getElementById("done");
+  var invoicedCheck = document.getElementById("invoiced");
+  var notInvoicedCheck = document.getElementById("notInvoiced");
+
+  if (notInvoicedCheck.checked == true){
+    doneCheck.checked = false;
+    invoicedCheck.checked = false;
   }
 
 }

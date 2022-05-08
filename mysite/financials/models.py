@@ -18,7 +18,7 @@ class EventCandidatePayment(models.Model):
     contact_name = models.CharField(max_length=512, null=True, blank=True)
     email = models.CharField(max_length=512, null=True, blank=True)
     sponsor_status = models.BooleanField(default=False, null=True, blank=True)
-    payment_status = models.BooleanField(default=False, null=True, blank=True)
+    payment_status =  models.CharField(max_length=512, null=True, blank=True)
 
 
     remark = models.CharField(max_length=2048, null=True, blank=True)

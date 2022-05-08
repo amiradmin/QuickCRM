@@ -154,11 +154,12 @@ class UpdatePayment(SidebarMixin, LoginRequiredMixin, TemplateView):
 
             if not request.POST.get('done', None) == None:
                 print("done")
-                payObj.payment_status= True
+                payObj.payment_status= 'Done'
 
-            elif not request.POST.get('pending', None) == None:
-                payObj.payment_status = False
-                print("pending")
+            elif not request.POST.get('invoiced', None) == None:
+                payObj.payment_status = 'Invoiced'
+            elif not request.POST.get('notInvoiced', None) == None:
+                payObj.payment_status = 'Not Invoiced'
 
             payObj.company_name = request.POST['companyName']
             payObj.company_address = request.POST['comAddress']
