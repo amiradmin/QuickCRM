@@ -108,9 +108,37 @@
                                                         </div>
   </div>
 
+                  <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Invoice File</label>
+                                    <input  type="file"   id="" name="invoiced_file"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Recipients File</label>
+                                    <input  type="file" id="" name="recipients_file" class="form-control" />
+                                                        </div>
+    <hr>
+
+        </div>
 
 
+                                          <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                         {% if payment.invoiced_file  %}
+                                  <a href="{{payment.invoiced_file.url }}" target="_blank"> Invoice File</a>
+                           {%  endif %}
+                                                        </div>
 
+                     <div class="mb-3 col-md-6">
+
+                         {% if payment.recipients_file  %}
+                                  <a href="{{payment.recipients_file.url }}" target="_blank"> Recipients File</a>
+                           {%  endif %}
+                                                        </div>
+    <hr>
+
+        </div>
 
 
 

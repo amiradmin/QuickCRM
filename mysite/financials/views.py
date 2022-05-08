@@ -168,6 +168,12 @@ class UpdatePayment(SidebarMixin, LoginRequiredMixin, TemplateView):
             payObj.fax = request.POST['fax']
             payObj.contact_name = request.POST['contactName']
             payObj.email = request.POST['email']
+
+            if bool(request.FILES.get('invoiced_file', False)) == True:
+                payObj.invoiced_file = self.request.FILES['invoiced_file']
+
+            if bool(request.FILES.get('recipients_file', False)) == True:
+                payObj.recipients_file = self.request.FILES['recipients_file']
             payObj.save()
 
 
