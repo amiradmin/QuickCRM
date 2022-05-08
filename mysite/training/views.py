@@ -743,7 +743,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
             elif not request.POST.get('company', None) == None:
                 print("Company")
-                payObj.sponsor_status = False
+                payObj.sponsor_status = True
                 payObj.candidate = candidate
                 payObj.event = event
                 payObj.company_name = request.POST['companyName']

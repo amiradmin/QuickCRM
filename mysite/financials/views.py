@@ -1,11 +1,18 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from  financials.models import EventCandidatePayment
 from django.contrib.auth.mixins import LoginRequiredMixin
 from authorization.sidebarmixin import SidebarMixin
 from training.models import TesCandidate
 from django.views.generic import View, TemplateView
 from training.models import TesCandidate,Event
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
 # Create your views here.
+
+
+class PaymentDeleteView(SidebarMixin, LoginRequiredMixin,DeleteView):
+    model = EventCandidatePayment
+    success_url = reverse_lazy('financials:allpayments_')
 
 
 class EventCandidatePaymentView(SidebarMixin, LoginRequiredMixin, TemplateView):
@@ -69,6 +76,8 @@ class NewPayment(SidebarMixin, LoginRequiredMixin, TemplateView):
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
+                context['event'] = event
+                context['candidate_sel'] = candidate_sel
 
 
                 return render(request, 'financials/new_payment.html', context)
@@ -78,52 +87,43 @@ class NewPayment(SidebarMixin, LoginRequiredMixin, TemplateView):
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
 
-                obj = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN()
-                obj.event = event
-                obj.candidate = candidate
-                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                obj.examTitle = self.request.POST['examTitle']
-                obj.lecturer = self.request.POST['lecturer']
-                obj.invigilator = self.request.POST['invigilator']
-                obj.remark = self.request.POST['remarks']
-                obj.customerID = self.request.POST['customerID']
-                # obj.cswip_pcn = self.request.POST['cswip_pcn']
-                obj.exam_title = self.request.POST['examTitle']
+                payObj = EventCandidatePayment()
+                if not request.POST.get('self', None) == None:
+                    print("Self")
+                    payObj.sponsor_status = False
+                    payObj.candidate = candidate
+                    payObj.event = event
 
-                obj.specific_theory = self.request.POST['specific_theory']
-                sample3 = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
-                obj.sample1_analysis = sample3
-                sample4 = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()
-                obj.sample1_collection = sample4
-                sample5 = Samples.objects.filter(id=self.request.POST['sample2_analysis']).first()
-                obj.sample2_analysis = sample5
-                sample6 = Samples.objects.filter(id=self.request.POST['sample2_collection']).first()
-                obj.sample2_collection = sample6
-                sample7 = Samples.objects.filter(id=self.request.POST['sample3_analysis']).first()
-                obj.sample3_analysis = sample7
-                sample8 = Samples.objects.filter(id=self.request.POST['sample3_collection']).first()
-                obj.sample3_collection = sample8
-                sample9 = Samples.objects.filter(id=self.request.POST['written_instruction']).first()
-                obj.written_instruction = sample9
-                obj.save()
+                elif not request.POST.get('company', None) == None:
+                    print("Company")
+                    payObj.sponsor_status = True
+                    payObj.candidate = candidate
+                    payObj.event = event
+                    payObj.company_name = request.POST['companyName']
+                    payObj.company_address = request.POST['comAddress']
+                    payObj.post_code = request.POST['postCode']
+                    payObj.phone = request.POST['phone']
+                    payObj.fax = request.POST['fax']
+                    payObj.contact_name = request.POST['contactName']
+                    payObj.email = request.POST['email']
+
+                payObj.save()
 
                 events = Event.objects.all()
                 candidates = TesCandidate.objects.all()
-                exams = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
+
                 candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
                 context['group_name'] = group_name
                 context['candidate'] = candidate
-                samples = Samples.objects.all()
-                context['samples'] = samples
                 context['events'] = events
                 context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
                 context['event'] = event
-                context['exams'] = exams
+
                 context['candidates'] = candidates
 
-                return redirect('exam_certification:examtofdl2cswipresultsummary_')
-            return redirect('exam_certification:examtofdl2cswipresultsummary_')
+                return redirect('financials:newpayment_')
+            return redirect('financials:newpayment_')
 
 
 
