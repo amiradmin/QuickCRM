@@ -36,12 +36,12 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                    <input  value="{{form.candidate.id}}-{{form.candidate.first_name}} {% if form.candidate.middleName %}{{form.candidate.middleName}}{% endif %} {{form.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Event</label>
-                                    <input  value="{{form.event.id}}-{{form.event.name}}-{{form.event.name}}"  id="" name="eventID" class="form-control" required/>
+                                    <input  value="{{form.event.id}}-{{form.event.name}}-{{form.event.product}}"  id="" name="eventID" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -49,12 +49,12 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Customer ID</label>
-                                    <input  value="{{ candidate.customer_id }}"  id="" name="customerID"  class="form-control" />
+                                    <input  value="{{ form.candidate.customer_id }}"  id="" name="customerID"  class="form-control" />
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Date</label>
-                                    <input  value="{{event.start_exam_date|date:'m/d/Y'}}"  id="" name="exam_date" class="form-control" required/>
+                                    <input  value="{{form.event.start_exam_date|date:'m/d/Y'}}"  id="" name="exam_date" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -70,6 +70,7 @@
                                          <select name="examTitle" class="form-control"  >
 
 
+                                        <option value="{{form.exam_title}}">{{form.exam_title}}</option>
                                         <option value="Initial">Initial</option>
                                         <option value="Retest">Retest</option>
                                         <option value="Renewal">Renewal</option>
@@ -80,7 +81,7 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Invigilator</label>
-                                    <input  value=""  id="productID" name="invigilator" class="form-control" required/>
+                                    <input  value="{{form.invigilator}}"  id="productID" name="invigilator" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -89,7 +90,7 @@
 
                      <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Lecturer</label>
-                                    <input  value="{{event.lecturers}}"  id="" name="lecturer" class="form-control" required/>
+                                    <input  value="{{form.event.lecturers}}"  id="" name="lecturer" class="form-control" required/>
                                                         </div>
 
 
@@ -101,7 +102,7 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Theory S</label>
                             <select name="general_theory_s" onchange="mySelector()"  id="general_theory_s" class="form-control"  >
-                                            <option value="">Select</option>
+                                            <option value="{{form.general_theory_s}}">{{form.general_theory_s}}</option>
 
                                             <option value="Exam 1S">Exam 1S</option>
                                             <option value="Exam 2S">Exam 2S</option>
@@ -112,7 +113,7 @@
                                                                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">NDT S</label>
                             <select name="ndt_s" id="ndt_s" class="form-control"  >
-                                            <option value="">Select</option>
+                                            <option value="{{form.ndt_s}}">{{form.ndt_s}}</option>
                                            <option value="Exam 1S">Exam 1S</option>
                                             <option value="Exam 2S">Exam 2S</option>
                                 <option value="N/A">N/A</option>
@@ -125,7 +126,7 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Symbols S</label>
                             <select name="symbols_s" id="symbols_s" class="form-control"  >
-                                <option value="">Select</option>
+                                <option value="{{form.symbols_s}}">{{form.symbols_s}}</option>
                                            <option value="Exam 1S">Exam 1S</option>
                                             <option value="Exam 2S">Exam 2S</option>
                                 <option value="N/A">N/A</option>
@@ -134,7 +135,7 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Scenario S</label>
                               <select name="scenario_s" id="scenario_s" class="form-control"  >
-                                            <option value="">Select</option>
+                                            <option value="{{form.scenario_s}}">{{form.scenario_s}}</option>
                                            <option value="Exam 1S">Exam 1S</option>
                                             <option value="Exam 2S">Exam 2S</option>
                                   <option value="N/A">N/A</option>
@@ -155,7 +156,7 @@
 
                      <div class="mb-3 col-md-12">
                                    <text for="" class="form-label">Remarks</text>
-                                    <textarea  value=""  id="" name="remarks" class="form-control" ></textarea>
+                                    <textarea  value=""  id="" name="remarks" class="form-control" >{{form.remark}}</textarea>
                                                         </div>
 
 

@@ -3587,84 +3587,43 @@ class UpdateCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView)
     def post(self, request, *args, **kwargs):
         context = super(UpdateCSWIPExamMaterial321, self).get_context_data()
         if request.method == 'POST':
-            if 'updateInfo-candidate' in request.POST:
-                print("updateInfo candidate")
-                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-                events = Event.objects.filter(candidate=candidate_main)
 
 
-                # candidates = TesCandidate.objects.all()
-                samples = Samples.objects.all()
-                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
-                group_name = self.request.user.groups.values_list('name', flat=True).first()
-                context['group_name'] = group_name
-                context['candidate'] = candidate
-                context['samples'] = samples
-                context['events'] = events
-                context['candidate_main'] = candidate_main
-
-                return render(request, 'certificates/new_cswip_3_2_1_material.html', context)
-
-            elif 'updateInfo-event' in request.POST:
-                print("updateInfo event")
-                print(self.request.POST['event'].split('-')[0])
-                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
-                print(event.id)
-                # candidates = TesCandidate.objects.all()
-                samples = Samples.objects.all()
-                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
-                group_name = self.request.user.groups.values_list('name', flat=True).first()
-                context['group_name'] = group_name
-                context['candidate'] = candidate
-                context['samples'] = samples
-                context['candidate'] = TesCandidate.objects.filter(
-                    id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
-                context['event'] = event
-
-                return render(request, 'certificates/new_cswip_3_2_1_material.html', context)
-            elif 'submit' in request.POST:
-                print("Submit")
-                print(self.request.POST['eventID'].split('-')[0])
-                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
-                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
-
-                obj = CSWIPWeldingInspector3_2_1ExamMaterial()
-                obj.event = event
-                obj.candidate = candidate
-                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                obj.customerID = self.request.POST['customerID']
-                obj.lecturer = self.request.POST['lecturer']
-                obj.invigilator = self.request.POST['invigilator']
-                obj.remark = self.request.POST['remarks']
-                obj.customerID = self.request.POST['customerID']
-                # obj.file = self.request.FILEs['file']
-                obj.exam_title = self.request.POST['examTitle']
-                obj.general_theory_s = self.request.POST['general_theory_s']
-                obj.ndt_s = self.request.POST['ndt_s']
-                obj.symbols_s = self.request.POST['symbols_s']
-                obj.scenario_s = self.request.POST['scenario_s']
-
-
-                obj.save()
-
-
-                events = Event.objects.all()
-                candidates = TesCandidate.objects.all()
-                exams = CSWIPWeldingInspector3_2_1ExamMaterial.objects.all()
-                samples = Samples.objects.all()
-                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
-                group_name = self.request.user.groups.values_list('name', flat=True).first()
-                context['group_name'] = group_name
-                context['candidate'] = candidate
-                context['samples'] = samples
-                context['events'] = events
-                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
-                context['event'] = event
-                context['exams'] = exams
-                context['candidates'] = candidates
-
-                return render(request, 'certificates/exam_material_cswip_3_2_1_summary.html',context=context)
-
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = CSWIPWeldingInspector3_2_1ExamMaterial.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.customerID = self.request.POST['customerID']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            obj.remark = self.request.POST['remarks']
+            obj.customerID = self.request.POST['customerID']
+            # obj.file = self.request.FILEs['file']
+            obj.exam_title = self.request.POST['examTitle']
+            obj.general_theory_s = self.request.POST['general_theory_s']
+            obj.ndt_s = self.request.POST['ndt_s']
+            obj.symbols_s = self.request.POST['symbols_s']
+            obj.scenario_s = self.request.POST['scenario_s']
+            obj.save()
+            events = Event.objects.all()
+            candidates = TesCandidate.objects.all()
+            exams = CSWIPWeldingInspector3_2_1ExamMaterial.objects.all()
+            samples = Samples.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['samples'] = samples
+            context['events'] = events
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['event'] = event
+            context['exams'] = exams
+            context['candidates'] = candidates
+            return render(request, 'certificates/exam_material_cswip_3_2_1_summary.html',context=context)
 
 
 
