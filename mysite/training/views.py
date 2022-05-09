@@ -665,8 +665,11 @@ class DeleteCandidateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
             candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
             print(candidate.id)
             event.candidate.remove(candidate)
-            # context['candidate'] = candidate
-            # event.delete()
+            canForms = CandidateForms.objects.filter(Q(candidate=candidate) & Q(event=event))
+            for item in canForms:
+                item.delete()
+            print(canForms)
+
             return redirect('forms:evensummary_', id=event.id)
 
             
