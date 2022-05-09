@@ -3977,7 +3977,7 @@ class UpdateCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
             print(self.request.POST['eventID'].split('-')[0])
             event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
             candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
-            obj = CSWIPWeldingInspector3_1ExamMaterial()
+            obj = CSWIPWeldingInspector3_1ExamMaterial.objects.filter(id=self.kwargs['id']).first()
             obj.event = event
             obj.candidate = candidate
             obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
