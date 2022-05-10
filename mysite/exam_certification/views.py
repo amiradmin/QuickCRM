@@ -3274,7 +3274,7 @@ class NewCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.customerID = self.request.POST['customerID']
                 obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
-                obj.remark = self.request.POST['remarks']
+                obj.remarks = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
                 # obj.file = self.request.FILEs['file']
                 obj.exam_title = self.request.POST['examTitle']
@@ -3304,6 +3304,61 @@ class NewCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView):
 
                 return render(request, 'certificates/exam_material_cswip_3_2_2_summary.html',context=context)
 
+
+
+class UpdateCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_cswip_3_2_2_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateCSWIPExamMaterial322, self).get_context_data()
+        form = CSWIPWeldingInspector3_2_2ExamMaterial.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateCSWIPExamMaterial322, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = CSWIPWeldingInspector3_2_2ExamMaterial.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.customerID = self.request.POST['customerID']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            obj.remarks = self.request.POST['remarks']
+            obj.customerID = self.request.POST['customerID']
+            # obj.file = self.request.FILEs['file']
+            obj.exam_title = self.request.POST['examTitle']
+            obj.general_theory_s = self.request.POST['general_theory_s']
+            obj.ndt_s = self.request.POST['ndt_s']
+            obj.symbols_s = self.request.POST['symbols_s']
+            obj.scenario_s = self.request.POST['scenario_s']
+            obj.save()
+            events = Event.objects.all()
+            candidates = TesCandidate.objects.all()
+            exams = CSWIPWeldingInspector3_2_2ExamMaterial.objects.all()
+            samples = Samples.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+
+
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+
+            context['exams'] = exams
+
+            return render(request, 'certificates/exam_material_cswip_3_2_2_summary.html',context=context)
 
 
 
