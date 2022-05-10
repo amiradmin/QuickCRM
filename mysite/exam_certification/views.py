@@ -2511,6 +2511,68 @@ class NewExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Temp
                 return render(request, 'certificates/exam_material_phaied_array_ultera_pcn_summary.html',context=context)
 
 
+class UpdateExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_pcn_phased_array_ultera_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateExamMaterialPCNPhasedArrayUltera, self).get_context_data()
+        form = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(id=self.kwargs['id']).first()
+        samples = Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['samples'] = samples
+        context['form'] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateExamMaterialPCNPhasedArrayUltera, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.examTitle = self.request.POST['examTitle']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            obj.remark = self.request.POST['remarks']
+            obj.customerID = self.request.POST['customerID']
+            # obj.cswip_pcn = self.request.POST['cswip_pcn']
+            obj.exam_title = self.request.POST['examTitle']
+            obj.specific_theory = self.request.POST['specific_theory']
+            sample3 = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
+            obj.sample1_analysis = sample3
+            sample4 = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()
+            obj.sample1_collection = sample4
+            sample5 = Samples.objects.filter(id=self.request.POST['sample2_analysis']).first()
+            obj.sample2_analysis = sample5
+            sample6 = Samples.objects.filter(id=self.request.POST['sample2_collection']).first()
+            obj.sample2_collection = sample6
+            sample7 = Samples.objects.filter(id=self.request.POST['sample3_analysis']).first()
+            obj.sample3_analysis = sample7
+            sample8 = Samples.objects.filter(id=self.request.POST['sample3_collection']).first()
+            obj.sample3_collection = sample8
+            sample9 = Samples.objects.filter(id=self.request.POST['written_instruction']).first()
+            obj.written_instruction = sample9
+            obj.save()
+            events = Event.objects.all()
+            candidates = TesCandidate.objects.all()
+            exams = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+            return render(request, 'certificates/exam_material_phaied_array_ultera_pcn_summary.html',
+                          context=context)
+
 
 class PCNPhasedArrayUltrasonicMaterialSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_phaied_array_ultera_pcn_summary.html"

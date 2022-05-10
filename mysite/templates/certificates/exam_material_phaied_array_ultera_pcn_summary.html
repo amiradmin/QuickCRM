@@ -191,7 +191,11 @@
                                                         <td>{{item.sample3_collection}}</td>
 
                                                         <td>{{item.written_instruction}}</td>
-                                                        <td><a href="{% url 'exam_certification:pcnphasedarraydelete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
+                                                        <td><a href="{% url 'exam_certification:pcnphasedarraydelete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a>
+                                                        <a href="{% url 'exam_certification:updateexampcnphasedarray_' id=item.id %}"><i style="font-size:20px;" class="fa fa-wpforms" aria-hidden="true"></i></a>
+
+                                                        </td>
+
 
                                                     </tr>
                                                     {%endfor%}
