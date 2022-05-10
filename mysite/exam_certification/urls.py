@@ -72,6 +72,7 @@ urlpatterns = [
     path('exampaintinginspectionsummary/', views.BGAS_CSWIP_PaintingInspectorSummary.as_view(), name='exampaintinginspectionsummary_'),
     # path('newexamrscwip31esultbyid/<int:id>', views.NewBGAS_CSWIP_PaintingInspector.as_view(), name='newexamrscwip31esultbyid_'),
     path('newpaintinginspectionexam/', views.NewBGAS_CSWIP_PaintingInspector.as_view(), name='newpaintinginspectionexam_'),
+    path('updatepaintinginspectionexam/<int:id>', views.UpdateBGAS_CSWIP_PaintingInspector.as_view(), name='updatepaintinginspectionexam_'),
     path('paintinginspectiondelete/<int:pk>/delete/', views.DeletePaintingInspectionMaterial.as_view(), name='paintinginspectiondelete_'),
 
 

@@ -3012,7 +3012,7 @@ class NewBGAS_CSWIP_PaintingInspector(SidebarMixin, LoginRequiredMixin, Template
                 obj.customerID = self.request.POST['customerID']
                 obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
-                obj.remark = self.request.POST['remarks']
+                obj.remarks = self.request.POST['remarks']
                 obj.customerID = self.request.POST['customerID']
                 # obj.file = self.request.FILEs['file']
                 obj.exam_title = self.request.POST['examTitle']
@@ -3040,6 +3040,53 @@ class NewBGAS_CSWIP_PaintingInspector(SidebarMixin, LoginRequiredMixin, Template
                 context['candidates'] = candidates
 
                 return render(request, 'certificates/painting_inspection_summary.html',context=context)
+
+
+class UpdateBGAS_CSWIP_PaintingInspector(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_painting_inspection_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateBGAS_CSWIP_PaintingInspector, self).get_context_data()
+        form = BGAS_CSWIP_PaintingInspectorMaterial.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateBGAS_CSWIP_PaintingInspector, self).get_context_data()
+        if request.method == 'POST':
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = BGAS_CSWIP_PaintingInspectorMaterial.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.customerID = self.request.POST['customerID']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            obj.remarks = self.request.POST['remarks']
+            obj.customerID = self.request.POST['customerID']
+            # obj.file = self.request.FILEs['file']
+            obj.exam_title = self.request.POST['examTitle']
+            obj.general_theory = self.request.POST['general_theory']
+            obj.practical = self.request.POST['practical']
+            obj.save()
+
+            exams = BGAS_CSWIP_PaintingInspectorMaterial.objects.all()
+
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+            return render(request, 'certificates/painting_inspection_summary.html', context=context)
 
 
 
