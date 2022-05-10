@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+              
+                                </div>
+                                <h4 class="page-title">Update Time of Flight Diffraction(TOFD) Level 3 CSWIP Exam Material</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+
+
+
+                           <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Candidate</label>
+                                    <input  value="{{form.candidate.id}}-{{form.candidate.first_name}} {% if form.candidate.middleName %}{{form.candidate.middleName}}{% endif %} {{form.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Event</label>
+                                    <input  value="{{form.event.id}}-{{form.event.name}}-{{form.event.product}}"  id="" name="eventID" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Customer ID</label>
+                                    <input  value="{{ form.candidate.customer_id }}"  id="" name="customerID"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Date</label>
+                                    <input  value="{{form.event.start_exam_date|date:'m/d/Y'}}"  id="" name="exam_date" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+
+
+
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Title</label>
+                                         <select name="examTitle" class="form-control"  >
+
+
+                                        <option value="{{form.exam_title}}">{{form.exam_title}}</option>
+                                        <option value="Initial">Initial</option>
+                                        <option value="Retest">Retest</option>
+                                        <option value="Renewal">Renewal</option>
+
+
+                                    </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Invigilator</label>
+                                    <input  value="{{form.invigilator}}"  id="productID" name="invigilator" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+                     <div class="mb-3 col-md-12">
+                                   <label for="" class="form-label">Practical TOFD L2</label>
+                                    <input  value="{{form.practical_tofd_l2}}"  id="practical_tofd_l2" name="practical_tofd_l2" class="form-control" required/>
+                                                        </div>
+
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">A1(25 questions on materials)</label>
+                               <select name="paut_basic_a1" class="form-control"  >
+                                            <option value="{{form.basic_a1}}">{{form.basic_a1}}</option>
+<option value="BAS_A_TECH_P1_0521<" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220<" >BAS_B_SCHM_P2_0220</option>
+<option value="N/A">N/A</option>
+                            </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">A2(10 questions-Scheme)</label>
+                                 <select name="paut_basic_a2" class="form-control"  >
+                                            <option value="{{form.basic_a2}}">{{form.basic_a2}}</option>
+<option value="BAS_A_TECH_P1_0521<" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220<" >BAS_B_SCHM_P2_0220</option>
+                                     <option value="N/A">N/A</option>
+                            </select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 1 (15 Questions in PT)</label>
+                             <select name="paut_basic_b_part_1" class="form-control"  >
+                                            <option value="{{form.basic_b_part_1}}">{{form.basic_b_part_1}}</option>
+<option value="BAS_A_TECH_P1_0521<" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220<" >BAS_B_SCHM_P2_0220</option>
+                                 <option value="N/A">N/A</option>
+                            </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 2(15 Questions in MT)</label>
+                                   <select name="paut_basic_b_part_2" class="form-control"  >
+                                            <option value="{{form.basic_b_part_2}}">{{form.basic_b_part_2}}</option>
+<option value="BAS_A_TECH_P1_0521<" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220<" >BAS_B_SCHM_P2_0220</option>
+                                       <option value="N/A">N/A</option>
+                            </select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 3(15 Questions in UT)</label>
+                                               <select name="paut_basic_b_part_3" class="form-control"  >
+                                            <option value="{{form.basic_b_part_3}}">{{form.basic_b_part_3}}</option>
+<option value="BAS_A_TECH_P1_0521<" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220<" >BAS_B_SCHM_P2_0220</option>
+                                                   <option value="N/A">N/A</option>
+                            </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">B-part 4(15 Questions in RT)
+</label>
+                                              <select name="paut_basic_b_part_4" class="form-control"  >
+                                                   <option value="{{form.basic_b_part_4}}">{{form.basic_b_part_4}}</option>
+<option value="BAS_A_TECH_P1_0521<" >BAS_A_TECH_P1_0521</option>
+<option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
+<option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
+<option value="BAS_C_PT_P1_0419" >BAS_C_PT_P1_0419</option>
+<option value="BAS_C_RT_P1_0706" >BAS_C_RT_P1_0706</option>
+<option value="BAS_C_RT_P2_0706" >BAS_C_RT_P2_0706</option>
+<option value="BAS_C_UT_P1_1221" >BAS_C_UT_P1_1221</option>
+<option value="BAS_B_SCHM_P1_0220" >BAS_B_SCHM_P1_0220</option>
+<option value="BAS_B_SCHM_P2_0220<" >BAS_B_SCHM_P2_0220</option>
+                                                  <option value="N/A">N/A</option>
+
+                            </select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">C1(30 questions of Level 3 knowledge)</label>
+                            <select name="main_c1" class="form-control"  >
+                                            <option value="{{form.main_c_1}}">{{form.main_c_1}}</option>
+                                            <option value="TOFD3_D_P1_0320">TOFD3_D_P1_0320</option>
+                                <option value="N/A">N/A</option>
+
+                            </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">C2(20 questions- application)
+</label>
+                                                    <select name="main_c2" class="form-control"  >
+                                            <option value="{{form.main_c_2}}">{{form.main_c_2}}</option>
+                                            <option value="TOFD3_E_P1_0320">TOFD3_E_P1_0320</option>
+                                                        <option value="N/A">N/A</option>
+
+                            </select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">C3(NDT procedure)</label>
+                                     <select name="main_c3" class="form-control"  >
+                                            <option value="{{form.main_c_3}}">{{form.main_c_3}}</option>
+                                            <option value="TOFD3_F_P1_0918 - weld">TOFD3_F_P1_0918 - weld</option>
+                                         <option value="N/A">N/A</option>
+
+                            </select>
+                                                        </div>
+                                 <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Lecturer</label>
+                                    <input  value="{{form.event.lecturers}}"  id="" name="lecturer" class="form-control" required/>
+                                                        </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+                     <div class="mb-3 col-md-12">
+                                   <text for="" class="form-label">Remarks</text>
+                                    <textarea  value=""  id="" name="remarks" class="form-control" >{{form.remarks}}</textarea>
+                                                        </div>
+
+
+
+
+
+                                                    <br>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" name="submit" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+
+                                    
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                                        
+
+                                         
+
+                                        </div> <!-- end preview code-->
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+                <script>
+                    $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
+
+
+function myFunction() {
+
+  var issueDate = document.getElementById('issue_date').value;
+  var candidate = document.getElementById('canID').value;
+  console.log(candidate);
+  var cerNumber = document.getElementById('certiﬁcate_number');
+  cerNumber.value=issueDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + issueDate.split('/')[0] + '_' + issueDate.split('/')[1]  ;
+}
+
+
+
+                    </script>
+
+
+                {% endblock %}

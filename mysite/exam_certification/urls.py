@@ -83,10 +83,12 @@ urlpatterns = [
 
     path('examscwipultral3summary/', views.PhasedArrayUltrasonicTesting_PAUT_L3CSWIPSummary.as_view(), name='examscwipultral3summary_'),
     path('newsexamscwipultral3/', views.NewExamMaterialPAUTUltraL3.as_view(), name='newsexamscwipultral3_'),
+    path('updatesexamscwipultral3/<int:id>', views.UpdateExamMaterialPAUTUltraL3PCN.as_view(), name='updatesexamscwipultral3_'),
     path('examscwipultral3delete/<int:pk>/delete/', views.DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.as_view(), name='examscwipultral3delete_'),
 
     path('exampcnl3summary/', views.PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material_Summary.as_view(), name='exampcnl3summary_'),
     path('newexampcnl3/', views.NewExamMaterialPAUTUltraL3PCN.as_view(), name='newexampcnl3_'),
+    path('updateexampcnl3/<int:id>', views.UpdateExamMaterialPAUTUltraL3PCN.as_view(), name='updateexampcnl3_'),
     path('exampcnl3delete/<int:pk>/delete/', views.DeletePhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material.as_view(), name='exampcnl3delete_'),
 
     path('examscwipultral3resultsummary/', views.PhasedArrayUltrasonicTesting_PAUT_L3CSWIP_Result_Summary.as_view(), name='examscwipultral3resultsummary_'),
@@ -134,6 +136,7 @@ urlpatterns = [
 
     path('examcswiptofdl3summary/', views.TimeFlightDiffractionTOFDLevel3_CSWIP_Material_Summary.as_view(), name='examcswiptofdl3summary_'),
     path('newcexamcswiptofdl3material/', views.NewTimeFlightDiffractionTOFDLevel3_CSWIP_Material.as_view(), name='newcexamcswiptofdl3material_'),
+    path('updatecexamcswiptofdl3material/<int:id>', views.UpdateTimeFlightDiffractionTOFDLevel3_CSWIP_Material.as_view(), name='updatecexamcswiptofdl3material_'),
     path('cexamcswiptofdl3delete/<int:pk>/delete/', views.DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Material.as_view(),
          name='cexamcswiptofdl3delete_'),
 
