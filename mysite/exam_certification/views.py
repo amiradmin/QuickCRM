@@ -1209,6 +1209,64 @@ class NewRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMi
             return redirect('exam_certification:examrisummary_')
 
 
+
+
+class UpdateRadiographicInterpretationWeldsRIMaterial(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_ri_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateRadiographicInterpretationWeldsRIMaterial, self).get_context_data()
+        form = RadiographicInterpretationWeldsRIMaterial.objects.filter(id=self.kwargs['id']).first()
+        samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['samples'] = samples
+        context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateRadiographicInterpretationWeldsRIMaterial, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = RadiographicInterpretationWeldsRIMaterial.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.customerID = self.request.POST['customerID']
+            obj.exam_title = self.request.POST['examTitle']
+            if not request.POST.get('exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.general_theory = self.request.POST['general_theory']
+            obj.specific_theory = self.request.POST['specific_theory']
+            obj.practical = self.request.POST['practical']
+            # obj.delivery_method = self.request.POST['paut_delivery_method']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            # obj.venue = self.request.POST['venue']
+            obj.remark = self.request.POST['remarks']
+            obj.save()
+            exams = RadiographicInterpretationWeldsRIMaterial.objects.all()
+            samples = Samples.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['samples'] = samples
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+            # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+            return redirect('exam_certification:examrisummary_')
+        return redirect('exam_certification:examrisummary_')
+
+
+
+
 class RadiographicInterpretationWeldsRIMaterial_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_RI_summary.html"
 
@@ -1467,6 +1525,67 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequire
                 # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
                 return redirect('exam_certification:exampcntofdl3summary_')
             return redirect('exam_certification:exampcntofdl3summary_')
+
+
+
+
+class UpdateTimeFlightDiffractionTOFDLevel3_PCN_Material(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_pcn_tofd_phased_array_ultera_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateTimeFlightDiffractionTOFDLevel3_PCN_Material, self).get_context_data()
+        form = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.filter(id=self.kwargs['id']).first()
+        samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['samples'] = samples
+        context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateTimeFlightDiffractionTOFDLevel3_PCN_Material, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.customerID = self.request.POST['customerID']
+            obj.exam_title = self.request.POST['examTitle']
+            if not request.POST.get('exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.basic_a1 = self.request.POST['paut_basic_a1']
+            obj.basic_a2 = self.request.POST['paut_basic_a2']
+            obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
+            obj.basic_b_part_2 = self.request.POST['paut_basic_b_part_2']
+            obj.basic_b_part_3 = self.request.POST['paut_basic_b_part_3']
+            obj.basic_b_part_4 = self.request.POST['paut_basic_b_part_4']
+            obj.main_d = self.request.POST['main_d']
+            obj.main_e = self.request.POST['main_e']
+            obj.main_f = self.request.POST['main_f']
+            obj.practical_tofd_l2 = self.request.POST['practical_tofd_l2']
+            # obj.delivery_method = self.request.POST['paut_delivery_method']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            # obj.venue = self.request.POST['venue']
+            obj.remark = self.request.POST['remarks']
+            obj.save()
+            exams = TimeFlightDiffractionTOFDLevel3_PCN_Material2.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+            # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+            return redirect('exam_certification:exampcntofdl3summary_')
+        return redirect('exam_certification:exampcntofdl3summary_')
 
 
 class TimeFlightDiffractionTOFDLevel3_PCN_Material_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
