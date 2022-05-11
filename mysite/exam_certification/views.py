@@ -978,6 +978,65 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, Logi
 
 
 
+class UpdateDigitalRadiographicInterpretationDRI_Level2_Material(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_dri_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateDigitalRadiographicInterpretationDRI_Level2_Material, self).get_context_data()
+        form = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.filter(id=self.kwargs['id']).first()
+        samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['samples'] = samples
+        context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateDigitalRadiographicInterpretationDRI_Level2_Material, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.customerID = self.request.POST['customerID']
+            obj.exam_title = self.request.POST['examTitle']
+            if not request.POST.get('exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.general_theory = self.request.POST['general_theory']
+            obj.specific_theory = self.request.POST['specific_theory']
+            obj.general_practical = self.request.POST['general_practical']
+            obj.data_analysis1 = self.request.POST['data_analysis1']
+            obj.data_analysis2 = self.request.POST['data_analysis2']
+            obj.data_analysis3 = self.request.POST['data_analysis3']
+            obj.data_analysis4 = self.request.POST['data_analysis4']
+            obj.data_analysis5 = self.request.POST['data_analysis5']
+            obj.data_analysis6 = self.request.POST['data_analysis6']
+            # obj.delivery_method = self.request.POST['paut_delivery_method']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            # obj.venue = self.request.POST['venue']
+            obj.remark = self.request.POST['remarks']
+            obj.save()
+            exams = DigitalRadiographicInterpretationDRI_Level2_Material3.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+            # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+            return redirect('exam_certification:exammaterialdrisummary_')
+        return redirect('exam_certification:exammaterialdrisummary_')
+
+
+
 class DeleteRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = RadiographicInterpretationWeldsRIResult
     success_url = reverse_lazy('exam_certification:examriresultsummary_')
@@ -5466,6 +5525,67 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['candidates'] = candidates
 
                 return render(request, 'certificates/exam_material_tofd_summary.html',context=context)
+
+
+
+class UpdateExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_tofd_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateExamMaterialTofd, self).get_context_data()
+        form = ExamMaterialTOFDModel1.objects.filter(id=self.kwargs['id']).first()
+        samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['samples'] = samples
+        context['form'] = form
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateExamMaterialTofd, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = ExamMaterialTOFDModel1.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            # obj.exam_revision = self.request.POST['revision']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            obj.remark = self.request.POST['remarks']
+            obj.customerID = self.request.POST['customerID']
+            obj.exam_title = self.request.POST['examTitle']
+            # obj.cswip_pcn = self.request.POST['cswip_pcn']
+            obj.general_theory = self.request.POST['general_theory']
+            obj.specific_theory = self.request.POST['specific_theory']
+            sample = Samples.objects.filter(id=self.request.POST['sample1']).first()
+            obj.sample1 = sample
+            sample = Samples.objects.filter(id=self.request.POST['sample2']).first()
+            obj.sample2 = sample
+            obj.data_file_1 = self.request.POST['data_file_1']
+            obj.data_file_2 = self.request.POST['data_file_2']
+            obj.data_file_3 = self.request.POST['data_file_3']
+            obj.data_file_4 = self.request.POST['data_file_4']
+            # sample = Samples.objects.filter(id=self.request.POST['data_file_5']).first()
+            # obj.data_file_5 = sample
+            sample =Samples.objects.filter(id=self.request.POST['written_instruction']).first()
+            obj.written_instruction = sample
+            obj.save()
+            exams = ExamMaterialTOFDModel1.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+            return render(request, 'certificates/exam_material_tofd_summary.html',context=context)
 
 
 class ExamMaterialTofdSummary(SidebarMixin, LoginRequiredMixin, TemplateView):

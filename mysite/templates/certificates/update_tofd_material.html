@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+                    <!-- Start Content-->
+                    <div class="container-fluid">
+
+                       <!-- start page title -->
+                       <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+              
+                                </div>
+                                <h4 class="page-title">Update Time of Flight Diffraction(TOFD) Level 2 CSWIP Exam Material</h4>
+                            </div>
+                        </div>
+                    </div>     
+                    <!-- end page title --> 
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+
+
+
+
+                           <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Candidate</label>
+<input  value="{{form.candidate.id}}-{{form.candidate.first_name}} {% if form.candidate.middleName %}{{form.candidate.middleName}}{% endif %} {{form.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Event</label>
+                                    <input  value="{{form.event.id}}-{{form.event.name}}-{{form.event.product}}"  id="" name="eventID" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Customer ID</label>
+                                    <input  value="{{ form.candidate.customer_id }}"  id="" name="customerID"  class="form-control" />
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Exam Date</label>
+                                    <input  value="{{form.event.start_exam_date|date:'m/d/Y'}}"  id="" name="exam_date" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+
+
+
+
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label" >Exam Title</label>
+                                    <select name="examTitle" class="form-select" >
+                                        <option value="{{form.exam_title}}">{{form.exam_title}}</option>
+                                        <option value="Initial">Initial</option>
+                                        <option value="Retest">Retest</option>
+                                        <option value="Renewal">Renewal</option>
+                                    </select>
+
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Invigilator</label>
+                                    <input  value="{{form.invigilator}}"  id="productID" name="invigilator" class="form-control" required/>
+                                                        </div>
+        </div>
+
+
+
+         <div class="row g-2">
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Lecturer</label>
+                                    <input  value="{{form.event.lecturers}}"  id="" name="lecturer" class="form-control" required/>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">General Theory</label>
+
+                                <select name="general_theory" class="form-control" required >
+                                            <option value="{{form.general_theory}}">{{form.general_theory}}</option>
+                                            <option value="UT2_G_P4_0219">UT2_G_P4_0219</option>
+                                            <option value="UT2_G_P1_1221">UT2_G_P1_1221</option>
+                                    <option value="N/A">N/A</option>
+
+                            </select>
+                                                        </div>
+        </div>
+
+         <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Specific Theory</label>
+
+                                <select name="specific_theory" class="form-control" required >
+                                            <option value="{{form.specific_theory}}">{{form.specific_theory}}</option>
+                                            <option value="TOFD2_S_P1_ms_1221">TOFD2_S_P1_ms_1221</option>
+                                            <option value="TOFD2_S_P2_ms_1121">TOFD2_S_P2_ms_1121</option>
+                                    <option value="N/A">N/A</option>
+                            </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Sample 1(Single Vee, 1" or 1/2")
+(data collection)</label>
+                               <select name="sample1" class="form-control" required >
+                                            <option value="{{form.sample1.id}}">{{form.sample1}}</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+
+                                    <label for="" class="form-label">Sample 2(Double Vee)
+(data collection)</label>
+                                                <select name="sample2" class="form-control" required >
+                                            <option value="{{form.sample2.id}}">{{form.sample2}}</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
+
+
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Written Instruction</label>
+                               <select name="written_instruction" class="form-control" required >
+                                            <option value="{{form.written_instruction.id}}">{{form.written_instruction}}</option>
+                                        {% for item3 in samples %}
+                                        <option value="{{item3.id}}">{{item3.id}}-{{item3.serial_no}}-{{item3.asset_code}}-{{item3.size}}
+                                        </option>
+                                        {% endfor %}
+                            </select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data File# 1 Analysis</label>
+                                           <select name="data_file_1" class="form-control" required >
+                                            <option value="{{form.data_file_1}}">{{form.data_file_1}}</option>
+
+<option value="TOFD_TWI_S18_T25_DV" >TOFD_TWI_S18_T25_DV</option>
+<option value="TOFD_TWI_S19_T25_SV" >TOFD_TWI_S19_T25_SV</option>
+<option value="TOFD_TWI_S16_T25_DV" >TOFD_TWI_S16_T25_DV</option>
+<option value="TOFD_TWI_S15_T15_SV" >TOFD_TWI_S15_T15_SV</option>
+<option value="TOFD_TWI_S20_T25_DV" >TOFD_TWI_S20_T25_DV</option>
+<option value="TOFD_TWI_S21_T25_DV" >TOFD_TWI_S21_T25_DV</option>
+<option value="TOFD_TWI_S22_T25_SV" >TOFD_TWI_S22_T25_SV</option>
+<option value="TOFD_TWI_S23_T15_SV" >TOFD_TWI_S23_T15_SV</option>
+<option value="TOFD_TWI_S24_T25_DV" >TOFD_TWI_S24_T25_DV</option>
+<option value="TOFD_TWI_S25_T25_DV" >TOFD_TWI_S25_T25_DV</option>
+<option value="TOFD_TWI_S26_T20_SV" >TOFD_TWI_S26_T20_SV</option>
+                            </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data File# 2Analysis</label>
+                                 <select name="data_file_2" class="form-control" required >
+                                            <option value="{{form.data_file_2}}">{{form.data_file_2}}</option>
+<option value="TOFD_TWI_S18_T25_DV" >TOFD_TWI_S18_T25_DV</option>
+<option value="TOFD_TWI_S19_T25_SV" >TOFD_TWI_S19_T25_SV</option>
+<option value="TOFD_TWI_S16_T25_DV" >TOFD_TWI_S16_T25_DV</option>
+<option value="TOFD_TWI_S15_T15_SV" >TOFD_TWI_S15_T15_SV</option>
+<option value="TOFD_TWI_S20_T25_DV" >TOFD_TWI_S20_T25_DV</option>
+<option value="TOFD_TWI_S21_T25_DV" >TOFD_TWI_S21_T25_DV</option>
+<option value="TOFD_TWI_S22_T25_SV" >TOFD_TWI_S22_T25_SV</option>
+<option value="TOFD_TWI_S23_T15_SV" >TOFD_TWI_S23_T15_SV</option>
+<option value="TOFD_TWI_S24_T25_DV" >TOFD_TWI_S24_T25_DV</option>
+<option value="TOFD_TWI_S25_T25_DV" >TOFD_TWI_S25_T25_DV</option>
+<option value="TOFD_TWI_S26_T20_SV" >TOFD_TWI_S26_T20_SV</option>
+                            </select>
+                                                        </div>
+        </div>
+
+
+        <div class="row g-2">
+                                                        <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data File# 3 Analysis</label>
+                               <select name="data_file_3" class="form-control" required >
+                                            <option value="{{form.data_file_3}}">{{form.data_file_3}}</option>
+<option value="TOFD_TWI_S18_T25_DV" >TOFD_TWI_S18_T25_DV</option>
+<option value="TOFD_TWI_S19_T25_SV" >TOFD_TWI_S19_T25_SV</option>
+<option value="TOFD_TWI_S16_T25_DV" >TOFD_TWI_S16_T25_DV</option>
+<option value="TOFD_TWI_S15_T15_SV" >TOFD_TWI_S15_T15_SV</option>
+<option value="TOFD_TWI_S20_T25_DV" >TOFD_TWI_S20_T25_DV</option>
+<option value="TOFD_TWI_S21_T25_DV" >TOFD_TWI_S21_T25_DV</option>
+<option value="TOFD_TWI_S22_T25_SV" >TOFD_TWI_S22_T25_SV</option>
+<option value="TOFD_TWI_S23_T15_SV" >TOFD_TWI_S23_T15_SV</option>
+<option value="TOFD_TWI_S24_T25_DV" >TOFD_TWI_S24_T25_DV</option>
+<option value="TOFD_TWI_S25_T25_DV" >TOFD_TWI_S25_T25_DV</option>
+<option value="TOFD_TWI_S26_T20_SV" >TOFD_TWI_S26_T20_SV</option>
+                            </select>
+                                                        </div>
+
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Data File# 4 Analysis</label>
+                                           <select name="data_file_4" class="form-control" required >
+                                            <option value="{{form.data_file_4}}">{{form.data_file_4}}</option>
+<option value="TOFD_TWI_S18_T25_DV" >TOFD_TWI_S18_T25_DV</option>
+<option value="TOFD_TWI_S19_T25_SV" >TOFD_TWI_S19_T25_SV</option>
+<option value="TOFD_TWI_S16_T25_DV" >TOFD_TWI_S16_T25_DV</option>
+<option value="TOFD_TWI_S15_T15_SV" >TOFD_TWI_S15_T15_SV</option>
+<option value="TOFD_TWI_S20_T25_DV" >TOFD_TWI_S20_T25_DV</option>
+<option value="TOFD_TWI_S21_T25_DV" >TOFD_TWI_S21_T25_DV</option>
+<option value="TOFD_TWI_S22_T25_SV" >TOFD_TWI_S22_T25_SV</option>
+<option value="TOFD_TWI_S23_T15_SV" >TOFD_TWI_S23_T15_SV</option>
+<option value="TOFD_TWI_S24_T25_DV" >TOFD_TWI_S24_T25_DV</option>
+<option value="TOFD_TWI_S25_T25_DV" >TOFD_TWI_S25_T25_DV</option>
+<option value="TOFD_TWI_S26_T20_SV" >TOFD_TWI_S26_T20_SV</option>
+                            </select>
+                                                        </div>
+        </div>
+
+
+
+
+
+
+                     <div class="mb-3 col-md-12">
+                                   <text for="" class="form-label">Remarks</text>
+                                    <textarea  value=""  id="" name="remarks" class="form-control" >{{form.remarks}}</textarea>
+                                                        </div>
+
+
+
+
+
+                                                    <br>
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button class="btn btn-primary" name="submit" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+
+                                    
+
+                                        <div class="tab-pane" id="basic-datatable-code">
+                                        
+
+                                         
+
+                                        </div> <!-- end preview code-->
+                                    </div> <!-- end tab-content-->
+
+                                </div> <!-- end card body-->
+                            </div> <!-- end card -->
+                        </div><!-- end col-->
+                    </div>
+                    <!-- end row-->
+
+
+                    </div>
+                    <!-- end row-->
+
+                    </div>
+                    <!-- container -->
+
+                </div>
+                <!-- content -->
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+                <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
+                <script>
+                    $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});
+
+
+function myFunction() {
+
+  var issueDate = document.getElementById('issue_date').value;
+  var candidate = document.getElementById('canID').value;
+  console.log(candidate);
+  var cerNumber = document.getElementById('certiﬁcate_number');
+  cerNumber.value=issueDate.split('/')[2] + '_' + candidate.split('-')[1].slice(0, 3) + '_' + candidate.split('-')[2].slice(0, 3) + '_' + issueDate.split('/')[0] + '_' + issueDate.split('/')[1]  ;
+}
+
+
+
+                    </script>
+
+
+                {% endblock %}

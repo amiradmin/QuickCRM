@@ -37,6 +37,7 @@ urlpatterns = [
     path('updatebgasexpform/<int:id>', views.UpdateBGASExperienceForm.as_view(), name='updatebgasexpform_'),
     path('allbgasform/', views.AllBGASForm.as_view(), name='allbgasform_'),
     path('deletebgas/<int:pk>/delete/', views.DeleteBGAS.as_view(), name='deletebgas_'),
+    path('bgasexpformbyid/<int:id>/<int:eventID>/<int:formID>', views.UpdateBGASExperienceFormByID.as_view(), name='bgasexpformbyid_'),
 
 
     path('formmap/', views.formMap.as_view(), name='formmap_'),

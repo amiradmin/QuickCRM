@@ -1820,6 +1820,60 @@ class UpdateBGASExperienceForm(SidebarMixin, LoginRequiredMixin, TemplateView):
                 # return redirect('forms:jaegertofdl2_' ,context)
         return render(request, 'forms/general/bgas.html')
 
+
+
+class UpdateBGASExperienceFormByID(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "forms/general/update_bgas.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateBGASExperienceFormByID, self).get_context_data()
+        form = BGAsExperienceForm.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['form'] = form
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST':
+            if 'mainForm' in request.POST:
+                print("Post Here")
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+
+                bgasObj = BGAsExperienceForm.objects.filter(Q(candidate=candidate) & Q(event=event)).last()
+
+
+                # bgasObj.sponsorCcmpany = request.POST['fullName']
+                bgasObj.sponsorCcmpany = request.POST['sponsorCcmpany']
+                bgasObj.sponsorName = request.POST['sponsorName']
+                bgasObj.sponsorAddress = request.POST['sponsorAddress']
+                bgasObj.VerifierName = request.POST['verifierName']
+                bgasObj.VerifierCompany = request.POST['verifierCompany']
+                bgasObj.VerifierPosition = request.POST['verifierPosition']
+                bgasObj.VerifierTelephone = request.POST['verifierTel']
+                bgasObj.VerifierEmail = request.POST['verifiermail']
+                bgasObj.VerifierDate = datetime.datetime.strptime(request.POST['verifierDate'], '%m/%d/%Y')
+                bgasObj.PreCertificationExperience = request.POST['PreCertificationExperience']
+
+                bgasObj.save()
+
+                return redirect('forms:evensummary_',id=event.id)
+
+            if 'uploadFormBack' in request.POST:
+                print('uploadFormBack')
+                event = Event.objects.filter(id=self.kwargs['eventID']).first()
+                obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                obj.file = request.FILES['pdfFile']
+                obj.save()
+                return redirect('forms:evensummary_',id=event.id)
+
+                # return redirect('forms:jaegertofdl2_' ,context)
+        return render(request, 'forms/general/bgas.html')
+
+
+
 class PSL57AFOrmView(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/reg_forms/PSL-57A_Initial_exam_application_S.html"
 

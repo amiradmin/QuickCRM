@@ -29,6 +29,7 @@ urlpatterns = [
     # path('exampiwi/', views.ExamMaterialPiWi.as_view(), name='exampiwi_'),
     path('examtofdsummary/', views.ExamMaterialTofdSummary.as_view(), name='examtofdsummary_'),
     path('newexamtofd/', views.NewExamMaterialTofd.as_view(), name='newexamtofd_'),
+    path('updateexamtofd/<int:id>', views.UpdateExamMaterialTofd.as_view(), name='updateexamtofd_'),
     path('examtofddelete/<int:pk>/delete/', views.DeleteExamTofd.as_view(), name='examtofddelete_'),
 
     path('exampautl2summary/', views.ExamMaterialPAUTL2Summary.as_view(), name='exampautl2summary_'),
@@ -185,6 +186,8 @@ urlpatterns = [
          name='exammaterialdrisummary_'),
     path('newexamdrimaterial/', views.NewDigitalRadiographicInterpretationDRI_Level2_Material.as_view(),
          name='newexamdrimaterial_'),
+    path('updateexamdrimaterial/<int:id>', views.UpdateDigitalRadiographicInterpretationDRI_Level2_Material.as_view(),
+         name='updateexamdrimaterial_'),
     path('exammaterialdril2delete/<int:pk>/delete/',
          views.DeleteDigitalRadiographicInterpretationDRI_Level2_Material.as_view(),
          name='exammaterialdril2delete_'),
