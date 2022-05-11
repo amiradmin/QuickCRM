@@ -203,6 +203,8 @@ urlpatterns = [
          name='exammaterialtofdl2pcnsummary_'),
     path('newmaterialtofdl2pcn/', views.NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.as_view(),
          name='newmaterialtofdl2pcn_'),
+    path('updatematerialtofdl2pcn/<int:id>', views.UpdateExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.as_view(),
+         name='updatematerialtofdl2pcn_'),
     path('exammaterialtofdl2pcndelete/<int:pk>/delete/',
          views.DeleteExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.as_view(),
          name='exammaterialtofdl2pcndelete_'),

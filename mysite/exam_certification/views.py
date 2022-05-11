@@ -691,6 +691,74 @@ class NewExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, L
 
 
 
+class UpdateExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_pautl2_pcn_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN, self).get_context_data()
+        form = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(id=self.kwargs['id']).first()
+        samples =Samples.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['form'] = form
+        context['samples'] = samples
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+            candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            obj = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            obj.candidate = candidate
+            obj.customerID = self.request.POST['customerID']
+            # obj.paut_scheme = self.request.POST['paut_scheme']
+            if not request.POST.get('exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.specific_theory = self.request.POST['specific_theory']
+            sample = Samples.objects.filter(id=self.request.POST['sample1_collection']).first()
+            obj.sample1_collection = sample
+            sample = Samples.objects.filter(id=self.request.POST['sample2_collection']).first()
+            obj.sample2_collection = sample
+            obj.sample1_analysis = self.request.POST['sample1_analysis']
+            obj.sample2_analysis = self.request.POST['sample2_analysis']
+            obj.sample3_analysis = self.request.POST['sample3_analysis']
+            obj.sample4_analysis = self.request.POST['sample4_analysis']
+            obj.sample5_analysis = self.request.POST['sample5_analysis']
+            sample = Samples.objects.filter(id=self.request.POST['written_instruction']).first()
+            obj.written_instruction = sample
+            # obj.delivery_method = self.request.POST['paut_delivery_method']
+            obj.lecturer = self.request.POST['lecturer']
+            obj.invigilator = self.request.POST['invigilator']
+            obj.exam_title = self.request.POST['examTitle']
+            obj.remark = self.request.POST['remarks']
+            obj.save()
+            events = Event.objects.all()
+            candidates = TesCandidate.objects.all()
+            exams = ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
+            samples = Samples.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['samples'] = samples
+            context['events'] = events
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['event'] = event
+            context['exams'] = exams
+            context['candidates'] = candidates
+            # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+            return redirect('exam_certification:exammaterialtofdl2pcnsummary_')
+        return redirect('exam_certification:exammaterialtofdl2pcnsummary_')
+
+
+
 class ExamMaterialPhasedArrayUltrasonicTesting_TOFD_Level2PCNAdmin_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_tofd_pcn_l2_summary.html"
 
