@@ -49,6 +49,7 @@ class ProductSerializer(serializers.Serializer):
     code = serializers.CharField(required=False, allow_blank=True, max_length=512)
     price = serializers.CharField(required=False, allow_blank=True, max_length=512)
     type = serializers.CharField(required=False, allow_blank=True, max_length=512)
+    link = serializers.CharField(required=False, allow_blank=True, max_length=1024)
     description = serializers.CharField(required=False, allow_blank=True, max_length=4096)
     category = serializers.SerializerMethodField()
     image = serializers.SerializerMethodField()

@@ -36,6 +36,7 @@ class Product(models.Model):
     code = models.CharField(max_length=1024, null=True, blank=True )
     price = models.CharField(max_length=1024, null=True, blank=True )
     type = models.CharField(max_length=512,  null=True, blank=True )
+    link = models.CharField(max_length=512,  null=True, blank=True )
     description = TinyMCEModelField()
     pic = models.ImageField(upload_to='products', null=True, blank=True)
     visible = models.BooleanField(default=True, null=True, blank=True)
