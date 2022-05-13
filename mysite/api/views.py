@@ -121,6 +121,7 @@ class GetProductByID(APIView):
         result['code'] = product.code
         result['price'] = product.price
         result['type'] = product.type
+        result['link'] = product.link
         result['categoryID'] = product.category.id
         result['category'] = product.category.title
         result['description'] = product.description
