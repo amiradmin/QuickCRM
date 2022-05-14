@@ -335,7 +335,7 @@ class DeleteExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin,
 
 
 class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/new_tofd_ultra_l3_cswip_result.html"
+    template_name = "certificates/new_tofd_ultra_l2_cswip_result.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExam_Result_ExamMaterialTOFD_CSWIP, self).get_context_data()
