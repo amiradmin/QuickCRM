@@ -2757,7 +2757,7 @@ class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, Te
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 # obj.explanation = self.request.POST['explanation']
                 # obj.cswip_pcn = self.request.POST['cswip_pcn']
-                obj.general_theory = self.request.POST['general_theory']
+                obj.specific_theory = self.request.POST['specific_theory']
                 obj.sample1_analysis = self.request.POST['sample1_analysis']
                 obj.sample1_collection = self.request.POST['sample1_collection']
                 obj.sample2_analysis = self.request.POST['sample2_analysis']

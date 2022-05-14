@@ -624,7 +624,7 @@ class Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN(models.Model):
     customerID = models.CharField(max_length=256, null=True, blank=True)
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
-    general_theory =models.CharField(max_length=128, null=True, blank=True)
+    specific_theory =models.CharField(max_length=128, null=True, blank=True)
     sample1_analysis = models.CharField(max_length=128, null=True, blank=True)
     sample1_collection = models.CharField(max_length=128, null=True, blank=True)
     sample2_analysis = models.CharField(max_length=128, null=True, blank=True)
