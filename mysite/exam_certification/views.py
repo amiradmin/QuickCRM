@@ -366,7 +366,7 @@ class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, Te
 
                 context['exam'] = exam
 
-                return render(request, 'certificates/new_tofd_ultra_l3_cswip_result.html', context)
+                return render(request, 'certificates/new_tofd_ultra_l2_cswip_result.html', context)
             elif 'submit' in request.POST:
                 print("Submit")
 
@@ -386,7 +386,7 @@ class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, Te
 
                 if not request.POST.get('exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
-                obj.exam_title = self.request.POST['examTitle']
+                obj.exam_title = self.request.POST['examTile']
                 obj.customerID = self.request.POST['customerID']
                 # obj.lecturer = self.request.POST['lecturer']
                 obj.invigilator = self.request.POST['invigilator']
@@ -400,7 +400,7 @@ class NewExam_Result_ExamMaterialTOFD_CSWIP(SidebarMixin, LoginRequiredMixin, Te
                 obj.data_file_4 = self.request.POST['data_file_4']
                 obj.written_instruction = self.request.POST['written_instruction']
 
-                obj.remark = self.request.POST['paut_remarks']
+                obj.remark = self.request.POST['remarks']
                 if bool(request.FILES.get('myFile', False)) == True:
                     obj.file = self.request.FILES['myFile']
                 obj.save()
