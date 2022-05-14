@@ -4110,15 +4110,15 @@ class DeleteCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('exam_certification:examscwip321summary_')
 
 
-def get_context_data(self, **kwargs):
-    """Overriding get_context_data to add additional context."""
-    context = super(DeleteCSWIPExamMaterial321, self).get_context_data(**kwargs)
-    # Provides the base template to extend from
-    candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
-    group_name = self.request.user.groups.values_list('name', flat=True).first()
-    context['group_name'] = group_name
-    context['candidate'] = candidate
-    return context
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteCSWIPExamMaterial321, self).get_context_data(**kwargs)
+        print("Here OK")
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
 
 
 class NewCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView):
