@@ -5888,6 +5888,10 @@ class UpdateTrainingAttendancemByID(SidebarMixin, LoginRequiredMixin, TemplateVi
                 obj.candidate = item
                 obj.save()
                 form.attCandidate.add(obj)
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['form'] = form
         context['event'] = event
         return context
