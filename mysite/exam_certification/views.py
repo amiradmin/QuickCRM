@@ -4041,7 +4041,7 @@ class NewExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.event = event
                 obj.candidate = candidate
                 obj.exam_title = self.request.POST['examTitle']
-                # obj.explanation = self.request.POST['explanation']
+                obj.invigilator = self.request.POST['invigilator']
                 # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.exam = exam
                 obj.general_theory_s = self.request.POST['general_theory_s']
@@ -4082,6 +4082,74 @@ class NewExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 return redirect('exam_certification:examscwip321resultsummary_')
             return redirect('exam_certification:examscwip321resultsummary_')
 
+
+
+
+class UpdateExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_cswip_3_2_1_exam_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateExamResultSwip321, self).get_context_data()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        exam = CSWIPWeldingInspector3_2_1_Result.objects.filter(id=self.kwargs['id']).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['exam'] = exam
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateExamResultSwip321, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print("Here")
+            print(self.request.POST['event_id'])
+            event = Event.objects.filter(id=self.request.POST['event_id']).first()
+            # candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+            # exam = CSWIPWeldingInspector3_2_1ExamMaterial.objects.filter(id=self.request.POST['examID']).first()
+            obj = CSWIPWeldingInspector3_2_1_Result.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            # obj.candidate = candidate
+            obj.exam_title = self.request.POST['examTitle']
+            obj.invigilator = self.request.POST['invigilator']
+            # obj.cswip_pcn = self.request.POST['cswip_pcn']
+            # obj.exam = exam
+            obj.general_theory_s = self.request.POST['general_theory_s']
+            obj.ndt_s = self.request.POST['ndt_s']
+            obj.symbols_s = self.request.POST['symbols_s']
+            obj.scenario_s = self.request.POST['scenario_s']
+            obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.remark = self.request.POST['remarks']
+            if bool(request.FILES.get('myFile', False)) == True:
+                obj.file = self.request.FILES['myFile']
+            obj.save()
+            # if not request.POST.get('previouseID', '') == '':
+            #     print("Exist")
+            #     previousID = self.request.POST['previouseID'].split('-')[0]
+            #     pre_result = CSWIPWeldingInspector3_1Result.objects.filter(id= previousID).first()
+            #     print(pre_result)
+            #
+            #     repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate()
+            #     repeat_obj.candidate = candidate
+            #     repeat_obj.primary = pre_result
+            #     repeat_obj.secondry = obj
+            #     repeat_obj.save()
+            events = Event.objects.all()
+            candidates = TesCandidate.objects.all()
+            exams = CSWIPWeldingInspector3_2_1_Result.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+
+            # return render(request, 'certificates/exam_result_summary.html',context=context)
+            return redirect('exam_certification:examscwip321resultsummary_')
+        return redirect('exam_certification:examscwip321resultsummary_')
 
 
 
