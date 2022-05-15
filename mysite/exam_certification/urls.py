@@ -107,6 +107,7 @@ urlpatterns = [
 
     path('examscwip31resultsummary/', views.CSWIPExamResult31Summary.as_view(), name='examscwip31resultsummary_'),
     path('newcswipexam31result/', views.NewExamResultSwip31.as_view(), name='newcswipexam31result_'),
+    path('updatecswipexam31result/<int:id>', views.UpdateExamResultSwip31.as_view(), name='updatecswipexam31result_'),
     path('examcswip31resultdelete/<int:pk>/delete/', views.DeleteCSWIPExamResult31.as_view(), name='examcswip31resultdelete_'),
 
 

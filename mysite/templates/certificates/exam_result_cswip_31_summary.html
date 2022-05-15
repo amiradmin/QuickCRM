@@ -178,6 +178,7 @@
                                                         <td>{{item.macro_paper}}</td>
 <td><a href="{% url 'exam_certification:examcswip31resultdelete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a>&nbsp;
 <a href="{% url 'exam_certification:examresulthistorycswip31_' candidate_id=item.candidate.id %}"><i style="font-size:20px;" class="fa fa-wpforms" aria-hidden="true"></i></a>
+<a href="{% url 'exam_certification:updatecswipexam31result_' id=item.id %}"><i style="font-size:20px;" class="fa fa-edit" aria-hidden="true"></i></a>
 </td>
 
 
