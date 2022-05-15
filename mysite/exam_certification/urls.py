@@ -129,6 +129,7 @@ urlpatterns = [
 
     path('examscwip322resultsummary/', views.CSWIPExamResult322Summary.as_view(), name='examscwip322resultsummary_'),
     path('newcswipexam322result/', views.NewExamResultSwip322.as_view(), name='newcswipexam322result_'),
+    path('updatecswipexam322result/<int:id>', views.UpdateExamResultSwip322.as_view(), name='updatecswipexam322result_'),
     path('examcswip322resultdelete/<int:pk>/delete/', views.DeleteCSWIPExamResult322.as_view(), name='examcswip322resultdelete_'),
 
     path('exampcnultral3resultsummary/', views.PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result_Summary.as_view(),

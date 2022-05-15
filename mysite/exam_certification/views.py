@@ -3769,6 +3769,71 @@ class NewExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
+class UpdateExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/new_cswip_3_2_2_exam_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateExamResultSwip322, self).get_context_data()
+        exam = CSWIPWeldingInspector3_2_2_Result.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['exam'] = exam
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateExamResultSwip322, self).get_context_data()
+        if request.method == 'POST':
+
+
+            print("Submit")
+            print(self.request.POST['eventID'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['event_id']).first()
+
+            obj = CSWIPWeldingInspector3_2_2_Result.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            # obj.candidate = candidate
+            obj.exam_title = self.request.POST['examTitle']
+            # obj.explanation = self.request.POST['explanation']
+            # obj.cswip_pcn = self.request.POST['cswip_pcn']
+            # obj.exam = exam
+            obj.general_theory_s = self.request.POST['general_theory_s']
+            obj.ndt_s = self.request.POST['ndt_s']
+            obj.symbols_s = self.request.POST['symbols_s']
+            obj.scenario_s = self.request.POST['scenario_s']
+            obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.remarks = self.request.POST['remarks']
+            if bool(request.FILES.get('myFile', False)) == True:
+                obj.file = self.request.FILES['myFile']
+            obj.save()
+            # if not request.POST.get('previouseID', '') == '':
+            #     print("Exist")
+            #     previousID = self.request.POST['previouseID'].split('-')[0]
+            #     pre_result = CSWIPWeldingInspector3_1Result.objects.filter(id= previousID).first()
+            #     print(pre_result)
+            #
+            #     repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate()
+            #     repeat_obj.candidate = candidate
+            #     repeat_obj.primary = pre_result
+            #     repeat_obj.secondry = obj
+            #     repeat_obj.save()
+
+            exams = CSWIPWeldingInspector3_2_2_Result.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+            # return render(request, 'certificates/exam_result_summary.html',context=context)
+            return redirect('exam_certification:examscwip322resultsummary_')
+        return redirect('exam_certification:examscwip322resultsummary_')
+
+
+
+
 class CSWIPExamResult322Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_result_cswip_3_2_2_summary.html"
 
