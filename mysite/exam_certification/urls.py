@@ -119,6 +119,7 @@ urlpatterns = [
 
     path('cswipphasedarrayresultsummary/', views.CSWIPPhasedArrayUltrasonic_Result_Summary.as_view(), name='cswipphasedarrayresultsummary_'),
     path('newcswipphasedarrayresult/', views.NewExamResultCSWIPPhasedArrayUltrasonic.as_view(), name='newcswipphasedarrayresult_'),
+    path('updatecswipphasedarrayresult/<int:id>', views.UpdateExamResultCSWIPPhasedArrayUltrasonic.as_view(), name='updatecswipphasedarrayresult_'),
     path('examcswipphasedarraydelete/<int:pk>/delete/', views.DeletePhasedArrayResultL2.as_view(), name='examcswipphasedarraydelete_'),
 
 
