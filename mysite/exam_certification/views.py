@@ -2806,13 +2806,13 @@ class UpdateExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin,
         context = super(UpdateExamResultPCNPhasedArrayUltrasonic, self).get_context_data()
         if request.method == 'POST':
 
-            print("Submit")
+            print("Submit 2" )
             print(self.request.POST['event_ID'])
             event = Event.objects.filter(id=self.request.POST['event_ID']).first()
             # candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
 
             # exam = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(id=self.request.POST['exam_ID']).first()
-            obj = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN()
+            obj = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(id=self.kwargs['id']).first()
             obj.event = event
             # obj.candidate = candidate
             # obj.exam = exam
@@ -2830,9 +2830,10 @@ class UpdateExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin,
             obj.sample3_collection = self.request.POST['sample3_collection']
             obj.written_instruction = self.request.POST['written_instruction']
             obj.remark = self.request.POST['remarks']
-            obj.invigilator = self.request.POST['invigilator']
+
             if bool(request.FILES.get('myFile', False)) == True:
                 obj.file = self.request.FILES['myFile']
+            obj.invigilator = self.request.POST['invigilator']
             obj.save()
 
             exams = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
