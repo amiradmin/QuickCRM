@@ -3462,6 +3462,70 @@ class NewExamResultPaintingInspection(SidebarMixin, LoginRequiredMixin, Template
 
 
 
+class UpdateExamResultPaintingInspection(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_painting_inspection_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateExamResultPaintingInspection, self).get_context_data()
+        exam = BGAS_CSWIP_PaintingInspectorResult.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['exam'] = exam
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateExamResultPaintingInspection, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['event_ID'])
+            event = Event.objects.filter(id=self.request.POST['event_ID']).first()
+            # candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+            obj = BGAS_CSWIP_PaintingInspectorResult.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+            # obj.candidate = candidate
+            # obj.result = self.request.POST['result']
+            # obj.explanation = self.request.POST['explanation']
+            obj.exam_title = self.request.POST['examTitle']
+            if not request.POST.get('paut_exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+            # obj.exam = exam
+            obj.general_theory = self.request.POST['general_theory']
+            obj.practical = self.request.POST['practical']
+            obj.invigilator = self.request.POST['invigilator']
+            obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.remark = self.request.POST['remarks']
+            if bool(request.FILES.get('myFile', False)) == True:
+                obj.file = self.request.FILES['myFile']
+            obj.save()
+            # if not request.POST.get('previouseID', '') == '':
+            #     print("Exist")
+            #     previousID = self.request.POST['previouseID'].split('-')[0]
+            #     pre_result = CSWIPWeldingInspector3_1Result.objects.filter(id= previousID).first()
+            #     print(pre_result)
+            #
+            #     repeat_obj = CSWIPWeldingInspector3_1ResultIntermadiate()
+            #     repeat_obj.candidate = candidate
+            #     repeat_obj.primary = pre_result
+            #     repeat_obj.secondry = obj
+            #     repeat_obj.save()
+            exams = BGAS_CSWIP_PaintingInspectorResult.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+
+            # return render(request, 'certificates/exam_result_summary.html',context=context)
+            return redirect('exam_certification:paintinginspectionresultsummary_')
+        return redirect('exam_certification:paintinginspectionresultsummary_')
+
+
 
 class PaintingInspectionSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/painting_inspection_result_summary.html"

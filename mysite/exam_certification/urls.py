@@ -124,6 +124,7 @@ urlpatterns = [
 
     path('paintinginspectionresultsummary/', views.PaintingInspectionSummary.as_view(), name='paintinginspectionresultsummary_'),
     path('newcpaintinginspectionresult/', views.NewExamResultPaintingInspection.as_view(), name='newcpaintinginspectionresult_'),
+    path('updatecpaintinginspectionresult/<int:id>', views.UpdateExamResultPaintingInspection.as_view(), name='updatecpaintinginspectionresult_'),
     path('paintinginspectionresultdelete/<int:pk>/delete/', views.DeletePaintingInspectionResult2.as_view(), name='paintinginspectionresultdelete_'),
 
 
