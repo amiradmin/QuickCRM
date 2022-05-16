@@ -2788,11 +2788,73 @@ class NewExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, Te
 
 
 
+class UpdateExamResultPCNPhasedArrayUltrasonic(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_phased_array_l2_exam_pcn_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateExamResultPCNPhasedArrayUltrasonic, self).get_context_data()
+        exam = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['exam'] = exam
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateExamResultPCNPhasedArrayUltrasonic, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['event_ID'])
+            event = Event.objects.filter(id=self.request.POST['event_ID']).first()
+            # candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+            # exam = ExamMaterialPhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(id=self.request.POST['exam_ID']).first()
+            obj = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN()
+            obj.event = event
+            # obj.candidate = candidate
+            # obj.exam = exam
+            obj.exam_title = self.request.POST['examTitle']
+            if not request.POST.get('exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            # obj.explanation = self.request.POST['explanation']
+            # obj.cswip_pcn = self.request.POST['cswip_pcn']
+            obj.specific_theory = self.request.POST['specific_theory']
+            obj.sample1_analysis = self.request.POST['sample1_analysis']
+            obj.sample1_collection = self.request.POST['sample1_collection']
+            obj.sample2_analysis = self.request.POST['sample2_analysis']
+            obj.sample2_collection = self.request.POST['sample2_collection']
+            obj.sample3_analysis = self.request.POST['sample3_analysis']
+            obj.sample3_collection = self.request.POST['sample3_collection']
+            obj.written_instruction = self.request.POST['written_instruction']
+            obj.remark = self.request.POST['remarks']
+            obj.invigilator = self.request.POST['invigilator']
+            if bool(request.FILES.get('myFile', False)) == True:
+                obj.file = self.request.FILES['myFile']
+            obj.save()
+
+            exams = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            # context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+            context['exams'] = exams
+
+            # return render(request, 'certificates/exam_result_summary.html',context=context)
+            return redirect('exam_certification:exampcnphasedarrayresultsummary_')
+        return redirect('exam_certification:exampcnphasedarrayresultsummary_')
+
+
+
 class PCNPhasedArrayUltrasonicResultSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_result_phaied_array_ultera_pcn_summary.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(PCNPhasedArrayUltrasonicResultSummary, self).get_context_data()
+        print('OK')
         events = Event.objects.all()
         exams = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
         examCount = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.count()

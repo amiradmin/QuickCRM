@@ -103,6 +103,7 @@ urlpatterns = [
 
     path('exampcnphasedarrayresultsummary/', views.PCNPhasedArrayUltrasonicResultSummary.as_view(), name='exampcnphasedarrayresultsummary_'),
     path('newexampcnphasedarraypcn/', views.NewExamResultPCNPhasedArrayUltrasonic.as_view(), name='newexampcnphasedarraypcn_'),
+    path('updateexampcnphasedarraypcn/<int:id>', views.UpdateExamResultPCNPhasedArrayUltrasonic.as_view(), name='updateexampcnphasedarraypcn_'),
     path('pcnphasedarrayresultdelete/<int:pk>/delete/', views.DeletePhasedArrayPCNResult.as_view(), name='pcnphasedarrayresultdelete_'),
 
     path('examscwip31resultsummary/', views.CSWIPExamResult31Summary.as_view(), name='examscwip31resultsummary_'),
