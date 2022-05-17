@@ -59,7 +59,7 @@ class LoginView(TemplateView):
                 return HttpResponseRedirect(reverse_lazy('accounting:staffprofile_', id=self.request.user.id))
 
             elif group_name == 'candidates':
-                print('can')
+                print('can here 1')
                 redirect_to = request.META.get('HTTP_REFERER')
                 print(redirect_to)
                 if 'next' in redirect_to:
@@ -102,14 +102,16 @@ class LoginView(TemplateView):
                     return redirect('accounting:staffprofile_',id=request.user.id)
                 elif group_name == 'candidates':
 
-                    print('can')
+
                     redirect_to = request.META.get('HTTP_REFERER')
                     print(redirect_to)
                     if 'next' in redirect_to:
                         print("exist")
                         return redirect(redirect_to.replace('?next=/',''))
                     else:
-                        candidate = TesCandidate.objects.filter(user=user).first()
+                        print("Here main")
+                        print(request.user)
+                        candidate = TesCandidate.objects.filter(user=request.user).first()
                         response = redirect('accounting:canprofile_' , id=candidate.id)
                         return response
                     # response.set_cookie('tesUser', candidate.id, max_age=1000)
@@ -151,8 +153,9 @@ class CandidateLoginView(TemplateView):
                     return redirect('accounting:staffprofile_', id=request.user.id)
                 elif group_name == 'candidates':
 
-                    print('can')
+                    print('can Here')
                     candidate = TesCandidate.objects.filter(user=user).first()
+                    print(candidate.id)
                     return redirect('accounting:canprofile_', id=candidate.id)
 
             else:

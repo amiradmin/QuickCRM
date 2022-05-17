@@ -378,19 +378,19 @@
 
                     <ul class="social-list list-inline mt-3 mb-0">
                         <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-primary text-primary"><i
+                            <a href="{% if candidate.facebook %}{{candidate.facebook}}{% endif %}" class="social-list-item border-primary text-primary"><i
                                     class="mdi mdi-facebook"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-danger text-danger"><i
+                            <a href="{% if candidate.email %}mailto:{{candidate.email}}{% endif %}" class="social-list-item border-danger text-danger"><i
                                     class="mdi mdi-google"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-info text-info"><i
+                            <a href="{% if candidate.twitter %}{{candidate.twitter}}{% endif %}" class="social-list-item border-info text-info"><i
                                     class="mdi mdi-twitter"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="social-list-item border-secondary text-secondary"><i
+                            <a href="{% if candidate.twitter %}{{candidate.twitter}}{% endif %}" class="social-list-item border-secondary text-secondary"><i
                                     class="mdi mdi-github"></i></a>
                         </li>
                     </ul>
@@ -415,21 +415,30 @@
                     <h4 class="header-title mb-3">Last News</h4>
 
                     <div class="inbox-widget">
-                        {% for item in lecturer.certificates.all %}
+<!--                        {% for item in lecturer.certificates.all %}-->
+<!--                        <div class="inbox-item">-->
+<!--                            <div class="inbox-item-img"><img src="{% static 'assets/images/users/cer.png'%}"-->
+<!--                                                             class="rounded-circle" alt=""></div>-->
+<!--                            <p style="max-width:180px;" class="inbox-item-author">{{item.name}}</p>-->
+<!--                            <p class="inbox-item-text">{{item.institute}}</p>-->
+<!--                            <p class="inbox-item-date">-->
+<!--                                <a href="#" class="btn btn-sm btn-link text-info font-13"> {{item.expiryDate|-->
+<!--                                    date}} </a>-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                        <hr>-->
+<!--                        {% endfor %}-->
+
                         <div class="inbox-item">
                             <div class="inbox-item-img"><img src="{% static 'assets/images/users/cer.png'%}"
                                                              class="rounded-circle" alt=""></div>
-                            <p style="max-width:180px;" class="inbox-item-author">{{item.name}}</p>
+                            <p style="max-width:180px;" class="inbox-item-author">Comming Soon!</p>
                             <p class="inbox-item-text">{{item.institute}}</p>
                             <p class="inbox-item-date">
-                                <a href="#" class="btn btn-sm btn-link text-info font-13"> {{item.expiryDate|
-                                    date}} </a>
+<!--                                <a href="#" class="btn btn-sm btn-link text-info font-13"> {{item.expiryDate|-->
+<!--                                    date}} </a>-->
                             </p>
                         </div>
-                        <hr>
-                        {% endfor %}
-
-
                     </div> <!-- end inbox-widget -->
                 </div> <!-- end card-body-->
             </div> <!-- end card-->
@@ -510,7 +519,7 @@
                             <div class="text-start mt-3">
                                 <h4 class="font-13 text-uppercase">About Me :</h4>
                                 <p class="text-muted font-13 mb-3" style="text-align:justify">
-                                    {{candidate.aboutMe}}
+                                    {% if candidate.aboutMe %}{{candidate.aboutMe}}{% else %} Please fill about section in setting {% endif %}
                                 </p>
                             </div>
 
@@ -526,8 +535,9 @@
                                                 Certificates</h5>
                                             <h3 class="mt-3 mb-3">{{canCount}}</h3>
                                             <p class="mb-0 text-muted">
-                                                <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> 5.27%</span>
-                                                <span class="text-nowrap">Since last month</span>
+                                                <span class="text-nowrap">Count:</span>
+                                                <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> {{result_list|length }}</span>
+
                                             </p>
                                         </div> <!-- end card-body-->
                                     </div> <!-- end card-->
@@ -537,13 +547,14 @@
                                     <div class="card widget-flat">
                                         <div class="card-body">
                                             <div class="float-end">
-                                                <i class="mdi mdi-clock-time-eight-outline widget-icon bg-danger-lighten text-danger"></i>
+                                                <i class="mdi mdi-calendar-clock widget-icon bg-alert-lighten text-alert"></i>
                                             </div>
                                             <h5 class="text-muted fw-normal mt-0" title="Number of Orders">Events</h5>
                                             <h3 class="mt-3 mb-3">{{eventCount}}</h3>
                                             <p class="mb-0 text-muted">
-                                                <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 1.08%</span>
-                                                <span class="text-nowrap">Since last month</span>
+                                                <span class="text-nowrap">Count:</span>
+                                                <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i> {{events|length }}</span>
+
                                             </p>
                                         </div> <!-- end card-body-->
                                     </div> <!-- end card-->
@@ -553,13 +564,14 @@
                                     <div class="card widget-flat">
                                         <div class="card-body">
                                             <div class="float-end">
-                                                <i class="mdi mdi-currency-usd widget-icon bg-danger-lighten text-danger"></i>
+                                                <i class="mdi mdi-currency-usd widget-icon bg-warning-lighten text-warning"></i>
                                             </div>
                                             <h5 class="text-muted fw-normal mt-0" title="Number of Orders">Finance</h5>
                                             <h3 class="mt-3 mb-3">{{eventCount}}</h3>
                                             <p class="mb-0 text-muted">
-                                                <span class="text-danger me-2"><i class="mdi mdi-arrow-down-bold"></i> 1.08%</span>
-                                                <span class="text-nowrap">Since last month</span>
+                                                <span class="text-nowrap">Amount:</span>
+                                                <span class="text-success me-2"><i class="mdi mdi-arrow-up-bold"></i></span>
+
                                             </p>
                                         </div> <!-- end card-body-->
                                     </div> <!-- end card-->

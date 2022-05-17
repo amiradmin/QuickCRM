@@ -13,6 +13,14 @@ from forms.models import CandidateForms
 
 class NewContactView(LoginRequiredMixin,TemplateView):
     template_name = "contact/new_contact.html"
+    def get_context_data(self, *args, **kwargs):
+        context = super(NewContactView, self).get_context_data()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        context['candidate'] =candidate
+
+        return context
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
@@ -24,12 +32,12 @@ class NewContactView(LoginRequiredMixin,TemplateView):
             obj.type = 'Candidate'
             obj.messageType = 'Message'
             group_name = self.request.user.groups.values_list('name', flat=True).first()
-            context['group_name'] = group_name
             obj.department = request.POST['department']
             obj.message = request.POST['message']
             obj.save()
             sendMail("amirbehvandi747@gmail.com")
-
+            context['group_name'] = group_name
+            context['candidate'] = candidate
             return redirect('accounting:canprofile_',id=candidate.id)
 
 
