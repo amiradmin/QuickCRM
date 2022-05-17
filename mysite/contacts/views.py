@@ -23,6 +23,7 @@ class NewContactView(LoginRequiredMixin,TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
+        context = super(NewContactView, self).get_context_data()
         if request.method == 'POST':
             candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
             obj = Contact()
@@ -31,11 +32,12 @@ class NewContactView(LoginRequiredMixin,TemplateView):
             obj.candidate = candidate
             obj.type = 'Candidate'
             obj.messageType = 'Message'
+            obj.formName = candidate.email
             group_name = self.request.user.groups.values_list('name', flat=True).first()
             obj.department = request.POST['department']
             obj.message = request.POST['message']
             obj.save()
-            sendMail("amirbehvandi747@gmail.com")
+            # sendMail("amirbehvandi747@gmail.com")
             context['group_name'] = group_name
             context['candidate'] = candidate
             return redirect('accounting:canprofile_',id=candidate.id)
@@ -60,7 +62,7 @@ class AdminNewContactView(LoginRequiredMixin,TemplateView):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             obj = Contact()
-            candidate = TesCandidate.objects.filter(id=request.POST['candidateID']).first()
+            candidate = TesCandidate.objects.filter(id=request.POST['candidateID'].split('-')[0]).first()
             obj.candidate = candidate
             obj.type = 'Admin'
             obj.messageType = 'Message'

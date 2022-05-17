@@ -152,16 +152,18 @@ class CandidateAllTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self,id):
         context = super(CandidateAllTicketView, self).get_context_data()
         candidate=TesCandidate.objects.filter(id=self.kwargs['id']).first()
-        tickets = Ticket.objects.filter(candidate=candidate).order_by('-id')
-        contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+        # tickets = Ticket.objects.filter(candidate=candidate).order_by('-id')
+        contacts = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
-        if contact.count() > 0:
-            context['newMessage'] = True
-        else:
-            context['newMessage'] = False
-        context['tickets'] = tickets
+        # if contact.count() > 0:
+        #     context['newMessage'] = True
+        # else:
+        #     context['newMessage'] = False
+        # context['tickets'] = tickets
         context['candidate'] = candidate
+        context['contacts'] = contacts
+        context['group_name'] = group_name
 
         return context
 

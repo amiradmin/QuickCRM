@@ -34,6 +34,7 @@
                                                         <th>Row</th>
 
 
+                                                        <th>Department</th>
                                                         <th>Message</th>
 
                                                         <th>Created At</th>
@@ -49,8 +50,8 @@
                                                     {% for item in message_list %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
-
-                                                        <th>{{item.message}} <a href="{{item.url}}"> {{item.url}}</a></th>
+                                                        <td>{{item.department}}</td>
+                                                        <th>{{item.message}} </th>
 
                                                         <td>{{item.created_at|date:'m/d/Y'}}</td>
 

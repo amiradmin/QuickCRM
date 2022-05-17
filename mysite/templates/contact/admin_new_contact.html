@@ -30,16 +30,23 @@
                                         </div> <!-- end preview-->
  <form method="post">{% csrf_token %}
     {% csrf_token %}
-          <select name="candidateID" class="form-select mb-3">
-                  <option selected>Candidate</option>
-              {% for item in candidates %}
-    <option value="{{item.id}}">{{item.first_name}} {{item.last_name}} {{item.id}}</option>
-{% endfor %}
-</select>
+           <div class="mb-3 col-md-12">
+<label for="floatingTextarea">Candidate</label>
+      <input list="candiList" value=""  id="canID" name="candidateID" placeholder="type here..." class="form-control" />
 
+                                        <datalist id="candiList"  >
 
+                                        {% for item in candidates %}
+                                        <option value="{{item.id}}- {{item.email}}">{{item.first_name}} {% if item.middleName %}{{item.middleName}}{% endif %}
+                                             {{item.last_name}}- {{item.email}}
+                                        </option>
+                                        {% endfor %}
+
+                                    </datalist>
+    </div>
+<label for="floatingTextarea">Department</label>
      <select name="department" class="form-select mb-3">
-    <option selected>Please choose a departement</option>
+    <option selected>Please choose a department</option>
     <option value="Training">Training</option>
     <option value="Certificates">Certificates</option>
     <option value="Administration">Administration</option>
