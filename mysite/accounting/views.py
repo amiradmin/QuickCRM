@@ -276,131 +276,145 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         result7={}
         result8={}
         result9={}
-        resul10={}
-        resul11={}
-        resul12={}
-        resul13={}
-        resul14={}
-        resul15={}
-        resul16={}
-        resul17={}
+        result10={}
+        result11={}
+        result12={}
+        result13={}
+        result14={}
+        result15={}
+        result16={}
+        result17={}
 
         cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
-        for item in cswip31_result:
-            result1['id'] = item.id
-            result1['event'] = item.event
-            result1['exam_date'] = item.exam.exam_date
-            result1['exam_title'] = item.exam.exam_title
-            result_list.append(result1)
+        if cswip31_result.count() >0:
+            for item in cswip31_result:
+                result1['id'] = item.id
+                result1['event'] = item.event
+                result1['exam_date'] = item.exam_date
+                result1['exam_title'] = item.exam_title
+                result_list.append(result1)
 
         cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
-        for item in cswip321_result:
-            result2['id'] = item.id
-            result2['event'] = item.event
-            result2['exam_date'] = item.exam.exam_date
-            result2['exam_title'] = item.exam.exam_title
-            result_list.append(result2)
+        if cswip321_result.count() > 0:
+            for item in cswip321_result:
+                result2['id'] = item.id
+                result2['event'] = item.event
+                result2['exam_date'] = item.exam_date
+                result2['exam_title'] = item.exam_title
+                result_list.append(result2)
 
 
         cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=candidate)
-        for item in cswip322_result:
-            result3['id'] = item.id
-            result3['event'] = item.event
-            result3['exam_date'] = item.exam.exam_date
-            result3['exam_title'] = item.exam.exam_title
-            result_list.append(result3)
+        if cswip322_result.count() > 0:
+            for item in cswip322_result:
+                result3['id'] = item.id
+                result3['event'] = item.event
+                result3['exam_date'] = item.exam_date
+                result3['exam_title'] = item.exam_title
+                result_list.append(result3)
 
         painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
-        for item in painting_cswip_result:
-            result4['id'] = item.id
-            result4['event'] = item.event
-            result4['exam_date'] = item.exam.exam_date
-            result4['exam_title'] = item.exam.exam_title
-            result_list.append(result4)
+        if painting_cswip_result.count() > 0:
+            for item in painting_cswip_result:
+                result4['id'] = item.id
+                result4['event'] = item.event
+                result4['exam_date'] = item.exam_date
+                result4['exam_title'] = item.exam_title
+                result_list.append(result4)
 
         paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
-        for item in paut_l2_cswip_result:
-            result5['id'] = item.id
-            result5['event'] = item.event
-            # result5['exam_date'] = item.exam.exam_date
-            # result5['exam_title'] = item.exam.exam_title
-            result_list.append(result5)
+        if paut_l2_cswip_result.count() > 0:
+            for item in paut_l2_cswip_result:
+                result5['id'] = item.id
+                result5['event'] = item.event
+                # result5['exam_date'] = item.exam.exam_date
+                # result5['exam_title'] = item.exam.exam_title
+                result_list.append(result5)
 
         paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(candidate=candidate)
-        for item in paut_l2_pcn_result:
-            result6['id'] = item.id
-            result6['event'] = item.event
-            result6['exam_date'] = item.exam.exam_date
-            result6['exam_title'] = item.exam.exam_title
-            result_list.append(result6)
+        if paut_l2_pcn_result.count() > 0:
+            for item in paut_l2_pcn_result:
+                result6['id'] = item.id
+                result6['event'] = item.event
+                result6['exam_date'] = item.exam_date
+                result6['exam_title'] = item.exam_title
+                result_list.append(result6)
 
         paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(candidate=candidate)
-        for item in paut_l3_cswip_result:
-            result7['id'] = item.id
-            result7['event'] = item.event
-            result7['exam_date'] = item.exam.exam_date
-            result7['exam_title'] = item.exam.exam_title
-            result_list.append(result7)
+        if paut_l3_cswip_result.count() > 0:
+            for item in paut_l3_cswip_result:
+                result7['id'] = item.id
+                result7['event'] = item.event
+                result7['exam_date'] = item.exam_date
+                result7['exam_title'] = item.exam_title
+                result_list.append(result7)
 
 
         paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate)
-        for item in paut_l3_pcn_result:
-            result8['id'] = item.id
-            result8['event'] = item.event
-            # result8['exam_date'] = item.exam.exam_date
-            # result8['exam_title'] = item.exam.exam_title
-            result_list.append(result8)
+        if paut_l3_pcn_result.count() > 0:
+            for item in paut_l3_pcn_result:
+                result8['id'] = item.id
+                result8['event'] = item.event
+                # result8['exam_date'] = item.exam.exam_date
+                # result8['exam_title'] = item.exam.exam_title
+                result_list.append(result8)
 
         tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(candidate=candidate)
-        for item in tofd_l2_pcn_result:
-            result9['id'] = item.id
-            result9['event'] = item.event
-            result9['exam_date'] = item.exam.exam_date
-            result9['exam_title'] = item.exam.exam_title
-            result_list.append(result9)
+        if tofd_l2_pcn_result.count() > 0:
+            for item in tofd_l2_pcn_result:
+                result9['id'] = item.id
+                result9['event'] = item.event
+                result9['exam_date'] = item.exam_date
+                result9['exam_title'] = item.exam_title
+                result_list.append(result9)
 
         tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
-        for item in tofd_l2_cswip_result:
-            result10['id'] = item.id
-            result10['event'] = item.event
-            result10['exam_date'] = item.exam.exam_date
-            result10['exam_title'] = item.exam.exam_title
-            result_list.append(result10)
+        if tofd_l2_cswip_result.count() > 0:
+            for item in tofd_l2_cswip_result:
+                result10['id'] = item.id
+                result10['event'] = item.event
+                result10['exam_date'] = item.exam_date
+                result10['exam_title'] = item.exam_title
+                result_list.append(result10)
 
         tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate)
-        for item in tofd_l3_cswip_result:
-            result11['id'] = item.id
-            result11['event'] = item.event
-            result11['exam_date'] = item.exam.exam_date
-            result11['exam_title'] = item.exam.exam_title
-            result_list.append(result11)
+        if tofd_l3_cswip_result.count() > 0:
+            for item in tofd_l3_cswip_result:
+                result11['id'] = item.id
+                result11['event'] = item.event
+                result11['exam_date'] = item.exam_date
+                result11['exam_title'] = item.exam_title
+                result_list.append(result11)
 
 
         tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(candidate=candidate)
-        for item in tofd_l3_pcn_result:
-            result12['id'] = item.id
-            result12['event'] = item.event
-            result12['exam_date'] = item.exam.exam_date
-            result12['exam_title'] = item.exam.exam_title
-            result_list.append(result12)
+        if tofd_l3_pcn_result.count() > 0:
+            for item in tofd_l3_pcn_result:
+                result12['id'] = item.id
+                result12['event'] = item.event
+                result12['exam_date'] = item.exam_date
+                result12['exam_title'] = item.exam_title
+                result_list.append(result12)
 
 
         ri_result = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate)
-        for item in ri_result:
-            result13['id'] = item.id
-            result13['event'] = item.event
-            result13['exam_date'] = item.exam.exam_date
-            result13['exam_title'] = item.exam.exam_title
-            result_list.append(result13)
+        if ri_result.count() > 0:
+            for item in ri_result:
+                result13['id'] = item.id
+                result13['event'] = item.event
+                result13['exam_date'] = item.exam_date
+                result13['exam_title'] = item.exam_title
+                result_list.append(result13)
 
 
         dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate)
-        for item in dri_result:
-            result14['id'] = item.id
-            result14['event'] = item.event
-            result14['exam_date'] = item.exam.exam_date
-            result14['exam_title'] = item.exam.exam_title
-            result_list.append(result14)
+        if dri_result.count() >0:
+            for item in dri_result:
+                result14['id'] = item.id
+                result14['event'] = item.event
+                result14['exam_date'] = item.exam_date
+                result14['exam_title'] = item.exam_title
+                result_list.append(result14)
 
 
         # results = cswip31_materials
