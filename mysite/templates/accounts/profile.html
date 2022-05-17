@@ -728,7 +728,7 @@
                                             <div class="mb-3">
                                                 <label for="userbio" class="form-label">About Me</label>
                                                 <textarea class="form-control" name="aboutMe" id="userbio" rows="4"
-                                                          style="text-align:justify" placeholder="Write something...">{{candidate.aboutMe}} </textarea>
+                                                          style="text-align:justify" placeholder="Write something...">{%  if candidate.aboutMe %}{{candidate.aboutMe}}{% endif %} </textarea>
                                             </div>
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
@@ -767,7 +767,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">Emergenry Contact</label>
                                         <input type="text" name="emergencyContact"
-                                               value="{{candidate.emergencyContact}}" class="form-control"
+                                               value="{%  if candidate.emergencyContact %} {{candidate.emergencyContact}} {% endif %}" class="form-control"
                                                id="validationCustom06" placeholder="Emergenry Contact" required>
                                         <div class="invalid-feedback">
                                             Please provide a valid Emergenry Cantact.
@@ -821,7 +821,7 @@
                                                 <label for="currentCompany" class="form-label">Current Company
                                                     Name</label>
                                                 <input type="text" class="form-control" id="currentCompany"
-                                                       value="{{candidate.currentCompany}}" name="currentCompany"
+                                                       value="{%  if candidate.currentCompany %} {{candidate.currentCompany}}{% endif %}" name="currentCompany"
                                                        placeholder="Enter company name">
                                             </div>
                                         </div>
@@ -829,7 +829,7 @@
                                             <div class="mb-3">
                                                 <label for="cwebsite" class="form-label">Website</label>
                                                 <input type="text" class="form-control" id="cwebsite" name="website"
-                                                       value="{{candidate.website}}" placeholder="Enter website url">
+                                                       value="{%  if candidate.website %} {{candidate.website}}{% endif %}" placeholder="Enter website url">
                                             </div>
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
@@ -844,7 +844,7 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-facebook"></i></span>
                                                     <input type="text" class="form-control" name="facebook"
-                                                           value="{{candidate.facebook}}" id="social-fb"
+                                                           value="{%  if candidate.facebook %}{{candidate.facebook}}{% endif %}" id="social-fb"
                                                            placeholder="Url">
                                                 </div>
                                             </div>
@@ -856,7 +856,7 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-twitter"></i></span>
                                                     <input type="text" class="form-control" name="twitter"
-                                                           value="{{candidate.twitter}}" id="social-tw"
+                                                           value="{%  if candidate.twitter %}{{candidate.twitter}}{% endif %}" id="social-tw"
                                                            placeholder="Username">
                                                 </div>
                                             </div>
@@ -871,7 +871,7 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-instagram"></i></span>
                                                     <input type="text" class="form-control" name="instagram"
-                                                           value="{{candidate.instagram}}" id="social-insta"
+                                                           value="{%  if candidate.instagram %}{{candidate.instagram}}{% endif %}" id="social-insta"
                                                            placeholder="Url">
                                                 </div>
                                             </div>
@@ -883,7 +883,7 @@
                                                     <span class="input-group-text"><i
                                                             class="mdi mdi-linkedin"></i></span>
                                                     <input type="text" class="form-control" name="linkedin"
-                                                           value="{{candidate.linkedin}}" id="social-lin"
+                                                           value="{%  if candidate.linkedin %}{{candidate.linkedin}}{% endif %}" id="social-lin"
                                                            placeholder="Url">
                                                 </div>
                                             </div>
@@ -897,7 +897,7 @@
                                                 <div class="input-group">
                                                     <span class="input-group-text"><i class="mdi mdi-skype"></i></span>
                                                     <input type="text" class="form-control" name="skype"
-                                                           value="{{candidate.skype}}" id="social-sky"
+                                                           value="{%  if candidate.linkedin %}{{candidate.skype}}{% endif %}" id="social-sky"
                                                            placeholder="@username">
                                                 </div>
                                             </div>
