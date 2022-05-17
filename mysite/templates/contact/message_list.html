@@ -51,7 +51,7 @@
                                                     <tr>
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.department}}</td>
-                                                        <th>{{item.message}} </th>
+                                                        <th><a style="margin:0px; padding:0px;  " href="{% url 'contacts:messagedetails_' id=item.id %}">{{item.message}}</a> </th>
 
                                                         <td>{{item.created_at|date:'m/d/Y'}}</td>
 
