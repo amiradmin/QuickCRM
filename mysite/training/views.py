@@ -258,8 +258,8 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,GroupRequiredMixin,Templ
                 
                 return render(request, 'training/errors.html') 
             user = User()
-            group =Group.objects.filter(id=2).first()
-
+            group =Group.objects.filter(id=3).first()
+            print(group)
             user.username = request.POST['email']
             user.password =make_password(request.POST['password'])
             user.first_name = request.POST['first_name']
