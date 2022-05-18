@@ -4547,6 +4547,7 @@ class NewExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.ndt_s = self.request.POST['ndt_s']
                 obj.symbols_s = self.request.POST['symbols_s']
                 obj.scenario_s = self.request.POST['scenario_s']
+                obj.plant_paper = self.request.POST['plant_paper']
                 obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.remark = self.request.POST['remarks']
                 if bool(request.FILES.get('myFile', False)) == True:
@@ -4619,6 +4620,7 @@ class UpdateExamResultSwip321(SidebarMixin, LoginRequiredMixin, TemplateView):
             obj.ndt_s = self.request.POST['ndt_s']
             obj.symbols_s = self.request.POST['symbols_s']
             obj.scenario_s = self.request.POST['scenario_s']
+            obj.plant_paper = self.request.POST['plant_paper']
             obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
             obj.remark = self.request.POST['remarks']
             if bool(request.FILES.get('myFile', False)) == True:
@@ -4764,6 +4766,8 @@ class NewCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.ndt_s = self.request.POST['ndt_s']
                 obj.symbols_s = self.request.POST['symbols_s']
                 obj.scenario_s = self.request.POST['scenario_s']
+                obj.plant_paper = self.request.POST['plant_paper']
+                obj.remark = self.request.POST['remarks']
 
 
                 obj.save()
@@ -4827,6 +4831,7 @@ class UpdateCSWIPExamMaterial321(SidebarMixin, LoginRequiredMixin, TemplateView)
             obj.ndt_s = self.request.POST['ndt_s']
             obj.symbols_s = self.request.POST['symbols_s']
             obj.scenario_s = self.request.POST['scenario_s']
+            obj.plant_paper = self.request.POST['plant_paper']
             obj.save()
             events = Event.objects.all()
             candidates = TesCandidate.objects.all()

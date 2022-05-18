@@ -157,6 +157,7 @@ class DigitalRadiographicInterpretationDRI_Level2_Result(models.Model):
     data_analysis6 = models.CharField(max_length=256, null=True, blank=True)
     general_theory = models.CharField(max_length=256, null=True, blank=True)
     specific_theory = models.CharField(max_length=256, null=True, blank=True)
+    plant_paper = models.CharField(max_length=256, null=True, blank=True)
     delivery_method = models.CharField(max_length=256, null=True, blank=True)
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
@@ -832,6 +833,7 @@ class CSWIPWeldingInspector3_2_1ExamMaterial2(models.Model):
     ndt_s = models.CharField(max_length=256, null=True, blank=True)
     symbols_s = models.CharField(max_length=256, null=True, blank=True)
     scenario_s = models.CharField(max_length=256, null=True, blank=True)
+    plant_paper = models.CharField(max_length=256, null=True, blank=True)
 
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -860,6 +862,7 @@ class CSWIPWeldingInspector3_2_1ExamMaterial(models.Model):
     ndt_s = models.CharField(max_length=256, null=True, blank=True)
     symbols_s = models.CharField(max_length=256, null=True, blank=True)
     scenario_s = models.CharField(max_length=256, null=True, blank=True)
+    plant_paper = models.CharField(max_length=256, null=True, blank=True)
 
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -889,6 +892,7 @@ class CSWIPWeldingInspector3_2_1_Result(models.Model):
     ndt_s = models.CharField(max_length=256, null=True, blank=True)
     symbols_s = models.CharField(max_length=256, null=True, blank=True)
     scenario_s = models.CharField(max_length=256, null=True, blank=True)
+    plant_paper = models.CharField(max_length=256, null=True, blank=True)
     file = models.FileField(upload_to='exam_file', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

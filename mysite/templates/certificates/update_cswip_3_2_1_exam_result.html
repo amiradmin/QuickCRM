@@ -169,7 +169,7 @@ table.GeneratedTable thead {
                                    <label for="" class="form-label">Scenario S</label>
 
   <select class="form-select" name="scenario_s" >
-  <option selected>Select</option>
+
   <option value="{{exam.scenario_s}}">{{exam.scenario_s}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
@@ -181,8 +181,18 @@ table.GeneratedTable thead {
 
 
         <div class="row g-2">
+                     <div class="mb-3 col-md-6">
+                                   <label for="" class="form-label">Plant Paper</label>
 
-                                                        <div class="mb-3 col-md-12">
+  <select class="form-select" name="plant_paper" >
+
+  <option value="{{exam.scenario_s}}">{{exam.plant_paper}}</option>
+  <option value="Passed">Passed</option>
+  <option value="Failed">Failed</option>
+      <option value="N/A">N/A</option>
+</select>
+                                                        </div>
+                                                        <div class="mb-3 col-md-6">
       <label class="form-label">Result Card File</label>
 <input  type="file"  name="myFile" class="form-control"  />
 
