@@ -109,7 +109,12 @@ table.GeneratedTable thead {
             <td>{% if exam.scenario_s == 'Failed' %}<span style="color:red;">{{exam.scenario_s }}</span> {%else%}{{exam.scenario_s }}{% endif %}</td>
     </tr>
 
-
+    <tr>
+      <td>Plant Paper</td>
+      <td>{% if exam.plant_paper == 'Failed'  %}<span style="color:red;">{{exam.plant_paper }}</span> {%else%} {{exam.plant_paper }}{% endif %}</td>
+      <td></td>
+      <td></td>
+    </tr>
   </tbody>
 </table>
 
