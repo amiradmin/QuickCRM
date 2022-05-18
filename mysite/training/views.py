@@ -226,7 +226,7 @@ class RequestSuccessView(SidebarMixin,TemplateView):
         context['candidate'] =candidate
         return context
 
-class NewCandidatelView(SidebarMixin,LoginRequiredMixin,GroupRequiredMixin,TemplateView):
+class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/new_candidate.html"
     group_required = u"admin,training_user,management,training_operator"
 
