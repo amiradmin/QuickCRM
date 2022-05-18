@@ -778,6 +778,11 @@ class CSWIPWeldingInspector3_2_2ExamMaterial(models.Model):
     ndt_s = models.CharField(max_length=256, null=True, blank=True)
     symbols_s = models.CharField(max_length=256, null=True, blank=True)
     scenario_s = models.CharField(max_length=256, null=True, blank=True)
+    plant_paper = models.CharField(max_length=256, null=True, blank=True)
+    inter_group_1 = models.CharField(max_length=256, null=True, blank=True)
+    inter_group_2 = models.CharField(max_length=256, null=True, blank=True)
+    inter_group_3 = models.CharField(max_length=256, null=True, blank=True)
+    inter_group_4 = models.CharField(max_length=256, null=True, blank=True)
 
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -807,6 +812,11 @@ class CSWIPWeldingInspector3_2_2_Result(models.Model):
     ndt_s = models.CharField(max_length=256, null=True, blank=True)
     symbols_s = models.CharField(max_length=256, null=True, blank=True)
     scenario_s = models.CharField(max_length=256, null=True, blank=True)
+    plant_paper = models.CharField(max_length=256, null=True, blank=True)
+    inter_group_1 = models.CharField(max_length=256, null=True, blank=True)
+    inter_group_2 = models.CharField(max_length=256, null=True, blank=True)
+    inter_group_3 = models.CharField(max_length=256, null=True, blank=True)
+    inter_group_4 = models.CharField(max_length=256, null=True, blank=True)
     file = models.FileField(upload_to='exam_file', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

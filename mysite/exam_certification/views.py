@@ -4166,6 +4166,11 @@ class NewExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.ndt_s = self.request.POST['ndt_s']
                 obj.symbols_s = self.request.POST['symbols_s']
                 obj.scenario_s = self.request.POST['scenario_s']
+                obj.plant_paper = self.request.POST['plant_paper']
+                obj.inter_group_1 = self.request.POST['inter_group_1']
+                obj.inter_group_2 = self.request.POST['inter_group_2']
+                obj.inter_group_3 = self.request.POST['inter_group_3']
+                obj.inter_group_4 = self.request.POST['inter_group_4']
                 obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.remark = self.request.POST['remarks']
                 if bool(request.FILES.get('myFile', False)) == True:
@@ -4237,6 +4242,11 @@ class UpdateExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
             obj.ndt_s = self.request.POST['ndt_s']
             obj.symbols_s = self.request.POST['symbols_s']
             obj.scenario_s = self.request.POST['scenario_s']
+            obj.plant_paper = self.request.POST['plant_paper']
+            obj.inter_group_1 = self.request.POST['inter_group_1']
+            obj.inter_group_2 = self.request.POST['inter_group_2']
+            obj.inter_group_3 = self.request.POST['inter_group_3']
+            obj.inter_group_4 = self.request.POST['inter_group_4']
             obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
             obj.remarks = self.request.POST['remarks']
             if bool(request.FILES.get('myFile', False)) == True:
@@ -4378,6 +4388,11 @@ class NewCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.ndt_s = self.request.POST['ndt_s']
                 obj.symbols_s = self.request.POST['symbols_s']
                 obj.scenario_s = self.request.POST['scenario_s']
+                obj.plant_paper = self.request.POST['plant_paper']
+                obj.inter_group_4 = self.request.POST['inter_group_4']
+                obj.inter_group_3 = self.request.POST['inter_group_3']
+                obj.inter_group_2 = self.request.POST['inter_group_2']
+                obj.inter_group_1 = self.request.POST['inter_group_1']
 
 
                 obj.save()
@@ -4439,6 +4454,11 @@ class UpdateCSWIPExamMaterial322(SidebarMixin, LoginRequiredMixin, TemplateView)
             obj.ndt_s = self.request.POST['ndt_s']
             obj.symbols_s = self.request.POST['symbols_s']
             obj.scenario_s = self.request.POST['scenario_s']
+            obj.plant_paper = self.request.POST['plant_paper']
+            obj.inter_group_4 = self.request.POST['inter_group_4']
+            obj.inter_group_3 = self.request.POST['inter_group_3']
+            obj.inter_group_2 = self.request.POST['inter_group_2']
+            obj.inter_group_1 = self.request.POST['inter_group_1']
             obj.save()
             events = Event.objects.all()
             candidates = TesCandidate.objects.all()
