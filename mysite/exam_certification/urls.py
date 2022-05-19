@@ -172,6 +172,8 @@ urlpatterns = [
          name='exampcntofdresultsummary_'),
     path('newpcntofdresultresultultra/', views.NewTimeFlightDiffractionTOFDLevel3_PCN_Result.as_view(),
          name='newpcntofdresultresultultra_'),
+    path('updatepcntofdresultresultultra/<int:id>', views.UpdateTimeFlightDiffractionTOFDLevel3_PCN_Result.as_view(),
+         name='updatepcntofdresultresultultra_'),
     path('pcntofdresultresultdelete/<int:pk>/delete/',
          views.DeleteTimeFlightDiffractionTOFDLevel3_PCN_Result.as_view(), name='pcntofdresultresultdelete_'),
 
