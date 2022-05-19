@@ -1296,6 +1296,7 @@ class NewRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixi
                 # obj.result = self.request.POST['result']
                 # obj.explanation = self.request.POST['explanation']
                 obj.exam_title = self.request.POST['examTitle']
+                obj.invigilator = self.request.POST['invigilator']
                 if not request.POST.get('exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.general_theory = self.request.POST['general_theory']
@@ -1323,6 +1324,57 @@ class NewRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixi
                 # return render(request, 'certificates/exam_result_summary.html',context=context)
                 return redirect('exam_certification:examriresultsummary_')
             return redirect('exam_certification:examriresultsummary_')
+
+
+
+class UpdateRadiographicInterpretationWeldsRIResult(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_ri_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateRadiographicInterpretationWeldsRIResult, self).get_context_data()
+        exam = RadiographicInterpretationWeldsRIResult.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['exam'] = exam
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateRadiographicInterpretationWeldsRIResult, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['event_ID'])
+            event = Event.objects.filter(id=self.request.POST['event_ID']).first()
+
+            obj = RadiographicInterpretationWeldsRIResult.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+
+            # obj.result = self.request.POST['result']
+            # obj.explanation = self.request.POST['explanation']
+            obj.exam_title = self.request.POST['examTitle']
+            obj.invigilator = self.request.POST['invigilator']
+            if not request.POST.get('exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.general_theory = self.request.POST['general_theory']
+            obj.specific_theory = self.request.POST['specific_theory']
+            obj.practical = self.request.POST['practical']
+            obj.remark = self.request.POST['paut_remarks']
+            if bool(request.FILES.get('myFile', False)) == True:
+                obj.file = self.request.FILES['myFile']
+            obj.save()
+
+            exams = RadiographicInterpretationWeldsRIResult.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['exams'] = exams
+            # return render(request, 'certificates/exam_result_summary.html',context=context)
+            return redirect('exam_certification:examriresultsummary_')
+        return redirect('exam_certification:examriresultsummary_')
 
 
 

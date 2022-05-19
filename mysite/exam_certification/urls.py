@@ -191,6 +191,8 @@ urlpatterns = [
          name='examriresultsummary_'),
     path('newexamriresult/', views.NewRadiographicInterpretationWeldsRIResult.as_view(),
          name='newexamriresult_'),
+    path('updateexamriresult/<int:id>', views.UpdateRadiographicInterpretationWeldsRIResult.as_view(),
+         name='updateexamriresult_'),
     path('examriresutdelete/<int:pk>/delete/',
          views.DeleteRadiographicInterpretationWeldsRIResult.as_view(), name='examriresutdelete_'),
 
