@@ -153,6 +153,8 @@ urlpatterns = [
          name='examswiptofdresultsummary_'),
     path('newsexamswiptofdresultresult/', views.TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result.as_view(),
          name='newsexamswiptofdresultresult_'),
+    path('updateexamswiptofdresultresult/<int:id>', views.UpdateTimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result.as_view(),
+         name='updateexamswiptofdresultresult_'),
     path('examswiptofdresultresultdelete/<int:pk>/delete/',
          views.DeleteTimeFlightDiffractionTOFDLevel3_CSWIP_Result.as_view(), name='examswiptofdresultresultdelete_'),
 

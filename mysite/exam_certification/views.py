@@ -1927,6 +1927,7 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 if not request.POST.get('exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.exam_title = self.request.POST['examTitle']
+                obj.invigilator = self.request.POST['invigilator']
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
                 obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
@@ -1959,6 +1960,66 @@ class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginReq
                 return redirect('exam_certification:examswiptofdresultsummary_')
             return redirect('exam_certification:examswiptofdresultsummary_')
 
+
+
+
+class UpdateTimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_tofd_ultra_l3_cswip_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateTimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result, self).get_context_data()
+        exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['exam'] = exam
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateTimeFlightDiffractionTOFDLevel3_CSWIP_Result_Result, self).get_context_data()
+        if request.method == 'POST':
+
+            print("Submit")
+            print(self.request.POST['event_ID'])
+            event = Event.objects.filter(id=self.request.POST['event_ID']).first()
+            # candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+            # exam = TimeFlightDiffractionTOFDLevel3_CSWIP_Material2.objects.filter(id=self.request.POST['exam_ID']).first()
+            obj = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(id=self.kwargs['id']).first()
+            obj.event = event
+
+            # obj.result = self.request.POST['result']
+            # obj.explanation = self.request.POST['explanation']
+            if not request.POST.get('exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.exam_title = self.request.POST['examTitle']
+            obj.invigilator = self.request.POST['invigilator']
+            obj.basic_a1 = self.request.POST['basic_a1']
+            obj.basic_a2 = self.request.POST['basic_a2']
+            obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
+            obj.basic_b_part_2 = self.request.POST['basic_b_part_2']
+            obj.basic_b_part_3 = self.request.POST['basic_b_part_3']
+            obj.basic_b_part_4 = self.request.POST['basic_b_part_4']
+            obj.main_c_1 = self.request.POST['main_c_1']
+            obj.main_c_2 = self.request.POST['main_c_2']
+            obj.main_c_3 = self.request.POST['main_c_3']
+            obj.practical_tofd_l2 = self.request.POST['practical_tofd_l2']
+            obj.remark = self.request.POST['paut_remarks']
+            if bool(request.FILES.get('myFile', False)) == True:
+                obj.file = self.request.FILES['myFile']
+            obj.save()
+
+            exams = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['exams'] = exams
+            # return render(request, 'certificates/exam_result_summary.html',context=context)
+            return redirect('exam_certification:examswiptofdresultsummary_')
+        return redirect('exam_certification:examswiptofdresultsummary_')
 
 
 class TimeFlightDiffractionTOFDLevel3_CSWIP_Result_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):

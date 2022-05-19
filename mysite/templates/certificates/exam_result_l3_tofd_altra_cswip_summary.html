@@ -168,6 +168,7 @@
                                                         <td>{{item.exam_date|date:'m/d/Y'}}</td>
 <td><a href="{% url 'exam_certification:examswiptofdresultresultdelete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a>&nbsp;
 <a href="{% url 'exam_certification:examresulthistorytofdl3cswip_' candidate_id=item.candidate.id %}"><i style="font-size:20px;" class="fa fa-wpforms" aria-hidden="true"></i></a>
+<a href="{% url 'exam_certification:updateexamswiptofdresultresult_' id=item.id %}"><i style="font-size:20px;" class="fa fa-edit" aria-hidden="true"></i></a>
 </td>
 
 
