@@ -210,6 +210,8 @@ urlpatterns = [
          name='examdriresultsummary_'),
     path('newexamdrirl2esult/', views.NewDigitalRadiographicInterpretationDRI_Level2_Result.as_view(),
          name='newexamdrirl2esult_'),
+    path('updateexamdrirl2esult/<int:id>', views.UpdateDigitalRadiographicInterpretationDRI_Level2_Result.as_view(),
+         name='updateexamdrirl2esult_'),
     path('examdriresultdelete/<int:pk>/delete/',
          views.DeleteDigitalRadiographicInterpretationDRI_Level2_Result.as_view(), name='examdriresultdelete_'),
 

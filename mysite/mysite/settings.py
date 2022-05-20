@@ -115,7 +115,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-
+AUTHENTICATION_BACKENDS = ('accounting.backends.CaseInsensitiveModelBackend', )
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 

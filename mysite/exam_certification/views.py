@@ -1007,6 +1007,64 @@ class NewDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginR
 
 
 
+
+class UpdateDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_dri_result.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateDigitalRadiographicInterpretationDRI_Level2_Result, self).get_context_data()
+        exam = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(id=self.kwargs['id']).filter()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['exam'] = exam
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateDigitalRadiographicInterpretationDRI_Level2_Result, self).get_context_data()
+        if request.method == 'POST':
+
+
+            print("Submit")
+            print(self.request.POST['event_ID'])
+            event = Event.objects.filter(id=self.request.POST['event_ID']).first()
+            obj = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(id=self.kwargs['id']).filter()
+            obj.event = event
+
+            # obj.result = self.request.POST['result']
+            # obj.explanation = self.request.POST['explanation']
+            obj.exam_title = self.request.POST['examTitle']
+            if not request.POST.get('exam_date', '') == '':
+                obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
+            obj.general_theory = self.request.POST['general_theory']
+            obj.specific_theory = self.request.POST['specific_theory']
+            obj.general_practical = self.request.POST['general_practical']
+            obj.data_analysis1 = self.request.POST['data_analysis1']
+            obj.data_analysis2 = self.request.POST['data_analysis2']
+            obj.data_analysis3 = self.request.POST['data_analysis3']
+            obj.data_analysis3 = self.request.POST['data_analysis3']
+            obj.data_analysis4 = self.request.POST['data_analysis4']
+            obj.data_analysis5 = self.request.POST['data_analysis5']
+            obj.data_analysis6 = self.request.POST['data_analysis6']
+            obj.remark = self.request.POST['paut_remarks']
+            if bool(request.FILES.get('myFile', False)) == True:
+                obj.file = self.request.FILES['myFile']
+            obj.save()
+
+            exams = DigitalRadiographicInterpretationDRI_Level2_Result.objects.all()
+            candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+            context['exams'] = exams
+            # return render(request, 'certificates/exam_result_summary.html',context=context)
+            return redirect('exam_certification:examdriresultsummary_')
+        return redirect('exam_certification:examdriresultsummary_')
+
+
+
 class DigitalRadiographicInterpretationDRI_Level2_Result_Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/dri_result_summary.html"
 
