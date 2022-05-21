@@ -808,6 +808,7 @@
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CV/Resume</label>
                                             <input class="form-control" name='doc_2' type="file" id="inputGroupFile05">
+                                                {% if candidate.document_2 %}<a target="_blank" href="{{candidate.document_2.url}}" style="margin-top:10px;" ><i class='fa fa-address-card-o'></i></a>{% endif %}
                                         </div>
                                     </div>
 
