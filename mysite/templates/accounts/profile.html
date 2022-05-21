@@ -793,6 +793,7 @@
                                     <div class="mb-3 col-md-12">
                                         <label class="form-label">Photo</label>
                                         <input class="form-control" name="photo" type="file" id="inputGroupFile04">
+
                                     </div>
 
                                     <br>
@@ -801,7 +802,8 @@
                                     <div class="row g-2">
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">ID Card Photo</label>
-                                            <input class="form-control" name="doc_1" type="file" id="inputGroupFile04">
+                                            <input class="form-control" name="doc_1" type="file" id="inputGroupFile044">
+                                            {% if candidate.document_1 %}<a target="_blank" href="{{candidate.document_1.url}}" style="margin-top:10px;" ><i class='fa fa-address-card-o'></i></a>{% endif %}
                                         </div>
                                         <div class="mb-3 col-md-6">
                                             <label class="form-label">CV/Resume</label>
