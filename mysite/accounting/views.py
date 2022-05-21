@@ -44,19 +44,25 @@ class LoginView(TemplateView):
         context = super(LoginView, self).get_context_data()
         if self.request.user.is_authenticated:
             print("Logged in")
+            candidate = TesCandidate.objects.filter(user=self.request.user).first()
             group_name = request.user.groups.values_list('name', flat=True).first()
             print(group_name)
+
             if group_name == 'management':
                 return HttpResponseRedirect(reverse_lazy('training:trainpanel_'))
             elif group_name == 'training_admin':
                 return HttpResponseRedirect(reverse_lazy('training:trainpanel_'))
             elif group_name == 'Staff':
-                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+
                 # return redirect('accounting:staffprofile_', id=self.request.user.id)
-                return HttpResponseRedirect(reverse_lazy('training:trainpanel_',id=self.request.user.id))
+                # return HttpResponseRedirect(reverse_lazy('training:trainpanel_',id=candidate.id))
+                return redirect('training:trainpanel_', id=candidate.id)
             elif group_name == 'training_operator':
-                candidate = TesCandidate.objects.filter(user=self.request.user).first()
-                return HttpResponseRedirect(reverse_lazy('accounting:staffprofile_', id=self.request.user.id))
+                # candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                print("Here now today zanjan 33")
+                # print(candidate.id)
+                # return HttpResponseRedirect(reverse_lazy('accounting:staffprofile_', id=candidate.id))
+                return redirect('accounting:staffprofile_', id=candidate.id)
 
             elif group_name == 'candidates':
                 print('can here 1')
@@ -88,6 +94,7 @@ class LoginView(TemplateView):
                     request.session.set_expiry(0)
                 group_name = request.user.groups.values_list('name', flat=True).first()
                 print(group_name)
+                print("Here now today zanjan 1")
                 if group_name == 'management' :
 
                     return redirect('training:trainpanel_')
@@ -144,6 +151,7 @@ class CandidateLoginView(TemplateView):
                 login(request, user)
                 group_name = request.user.groups.values_list('name', flat=True).first()
                 print(group_name)
+                print("Here now today zanjan 2")
                 if group_name == 'super_admin':
 
                     return redirect('adminpanel:adpanel_')
@@ -185,13 +193,13 @@ class LecturerProfileView(TemplateView):
 
 
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             aboutMe =  request.POST['aboutMe']
             print(aboutMe)
             lecturer = Lecturer.objects.filter(id = self.kwargs['id']).first()
             lecturer.aboutMe = aboutMe
-            lecturer.save()  
+            lecturer.save()
             return render(request, "accounts/profile.html",context = {'lecturer':lecturer})
 
         return render(request, "index.html")
@@ -253,7 +261,7 @@ class StaffProfileView(LoginRequiredMixin, TemplateView):
             profileData.save()
             return render(request, "accounts/staff_profile.html", context={'candidate': profileData})
         return render(request, "index.html")
-    
+
 class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
     template_name = "accounts/profile.html"
@@ -449,7 +457,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
 
     def post(self, request, *args, **kwargs):
-       
+
         if request.method == 'POST':
             print("Here")
             aboutMe =  request.POST['aboutMe']
