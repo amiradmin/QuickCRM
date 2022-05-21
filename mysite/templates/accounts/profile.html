@@ -678,7 +678,7 @@
                                             class="mdi mdi-office-building me-1"></i>Personal Info</h5>
                                     <label class="form-label" for="validationCustom01">First Name</label>
                                     <input type="text" name="first_name" class="form-control"
-                                           value="{{candidate.first_name}}" placeholder="First name" required>
+                                           value="{{candidate.first_name}}" placeholder="First name" >
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -696,7 +696,7 @@
                                     <label class="form-label" for="validationCustom02">Last name</label>
                                     <input type="text" name="last_name" class="form-control"
                                            value="{{candidate.last_name}}" id="validationCustom02"
-                                           placeholder="Last name" required>
+                                           placeholder="Last name" >
                                     <div class="valid-feedback">
                                         Looks good!
                                     </div>
@@ -717,7 +717,7 @@
                                             <input type="email" name="email" value="{{candidate.email}}"
                                                    class="form-control" id="validationCustomUsername"
                                                    placeholder="Email"
-                                                   aria-describedby="inputGroupPrepend" required>
+                                                   aria-describedby="inputGroupPrepend" >
                                             <div class="invalid-feedback">
                                                 Please choose a email.
                                             </div>
@@ -768,7 +768,7 @@
                                         <label class="form-label">Emergenry Contact</label>
                                         <input type="text" name="emergencyContact"
                                                value="{%  if candidate.emergencyContact %} {{candidate.emergencyContact}} {% endif %}" class="form-control"
-                                               id="validationCustom06" placeholder="Emergenry Contact" required>
+                                               id="validationCustom06" placeholder="Emergenry Contact" >
                                         <div class="invalid-feedback">
                                             Please provide a valid Emergenry Cantact.
                                         </div>
