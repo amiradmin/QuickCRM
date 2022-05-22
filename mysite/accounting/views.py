@@ -110,6 +110,7 @@ class LoginView(TemplateView):
                 elif group_name == 'candidates':
 
 
+
                     redirect_to = request.META.get('HTTP_REFERER')
                     print(redirect_to)
                     if 'next' in redirect_to:
