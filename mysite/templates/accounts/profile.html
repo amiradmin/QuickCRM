@@ -115,8 +115,8 @@
                     {% elif item.objID and item.formName == 'PSL57A' %}{% url 'forms:messageupdatepsl57A' id=item.objID msgID=item.id %}
                     {% elif item.objID and item.formName == 'NDTCovid19' %}{% url 'forms:msgupdatecovid19_' id=item.objID msgID=item.id %}
 
-                    {% else %}
-                    {% url 'contacts:messagelist_' id=item.id %}
+<!--                    {% else %}-->
+<!--                    {% url 'contacts:messagelist_' id=item.id %}-->
                     {% endif%}"
                        class="dropdown-item notify-item">
                         <div class="notify-icon bg-primary">
