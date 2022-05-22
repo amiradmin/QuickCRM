@@ -115,7 +115,8 @@
                     {% elif item.objID and item.formName == 'PSL57A' %}{% url 'forms:messageupdatepsl57A' id=item.objID msgID=item.id %}
                     {% elif item.objID and item.formName == 'NDTCovid19' %}{% url 'forms:msgupdatecovid19_' id=item.objID msgID=item.id %}
 
-
+                    {% else %}
+                    {% url 'contacts:messagelist_' id=item.id %}
                     {% endif%}"
                        class="dropdown-item notify-item">
                         <div class="notify-icon bg-primary">
@@ -144,7 +145,7 @@
                 </div>
 
                 <!-- All-->
-                <a href="{% url 'contacts:messagelist_' id=candidate.id %}"
+                <a href=""
                    class="dropdown-item text-center text-primary notify-item notify-all">
                     View All
                 </a>
