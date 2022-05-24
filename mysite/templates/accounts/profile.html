@@ -8,6 +8,10 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/css/intlTelInput.css'>
 
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
  <style>
      // bootstrap gray variants
 $white:    #fff !default;
@@ -915,7 +919,7 @@ $spacer: 20px;
                         </div>
                         <div class="tab-pane " id="settings">
 
-                            <form method="POST" enctype="multipart/form-data">
+                            <form method="POST" enctype="multipart/form-data" onsubmit="myFunction()">
                                 {% csrf_token %}
                                 <div class="mb-3">
 
@@ -1000,18 +1004,26 @@ $spacer: 20px;
                                                 Please choose a password.
                                             </div>
                                         </div>
-                                    </div>
 
-  <div class="input-group">
-       <label class="form-label" for="phone1">Contact Number</label>
-    <input type="tel"  id="phone1" class="form-control" name="contact_number" value="{{candidate.contact_number}}">
+                                    </div>
+                                    <div class="row g-2">
+<div class="mb-3 col-md-6">
+
+       <label class="form-label" for="phone_number" style="display: block;">Contact Number</label>
+      <input type="tel" class="form-control mb-12 col-md-12" name="contact_number" id="phone_number" value="{{candidate.contact_number}}" />
+<!--    <input type="tel"  id="phone1" class="form-control" name="contact_number" value="{{candidate.contact_number}}">-->
+
 
   </div>
+
   <br>
-  <div class="input-group">
-      <label class="form-label">Emergenry Contact</label>
-    <input type="tel" id="phone2"  class="form-control" name="emergencyContact"
-                                               value="{%  if candidate.emergencyContact %} {{candidate.emergencyContact}} {% endif %}">
+<div class="mb-3 col-md-6">
+      <label class="form-label" style="display: block;">Emergency Contact</label>
+
+     <input type="tel" class="form-control mb-12 col-md-12" name="emergencyContact" id="phone_number1" value="{%  if candidate.emergencyContact %}{{candidate.emergencyContact}}{% endif %}" />
+  </div>
+
+
 
   </div>
 
@@ -1199,13 +1211,46 @@ $spacer: 20px;
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.7/js/intlTelInput.js'></script>
 <script>
-  $("#phone1").intlTelInput({
-  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
+
+
+var phone_number = window.intlTelInput(document.querySelector("#phone_number"), {
+  separateDialCode: true,
+  preferredCountries:["us"],
+  hiddenInput: "full",
+  utilsScript: "//cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
 });
 
-  $("#phone2").intlTelInput({
-  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"
+$("form").submit(function() {
+  var full_number = phone_number.getNumber(intlTelInputUtils.numberFormat.E164);
+$("input[name='contact_number[full]'").val(full_number);
+<!--  alert(full_number)-->
+document.getElementById("phone_number").value = full_number;
+
+
 });
+
+
+
+var phone_number1 = window.intlTelInput(document.querySelector("#phone_number1"), {
+  separateDialCode: true,
+  preferredCountries:["us"],
+  hiddenInput: "full",
+  utilsScript: "//cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
+});
+
+$("form").submit(function() {
+  var full_number1 = phone_number1.getNumber(intlTelInputUtils.numberFormat.E164);
+$("input[name='emergencyContact[full]'").val(full_number1);
+<!--  alert(full_number1)-->
+document.getElementById("phone_number1").value = full_number1;
+
+
+});
+
+
+<!--  $("#phone2").intlTelInput({-->
+<!--  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js"-->
+<!--});-->
 </script>
 
 
