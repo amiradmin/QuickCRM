@@ -115,7 +115,7 @@ class Category(models.Model):
     
 class TesCandidate(models.Model):
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True )
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING, null=True, blank=True )
     name = models.CharField(max_length=256, null=True, blank=True )
     customer_id = models.CharField(max_length=1024, null=True, blank=True )
     first_name = models.CharField(max_length=1024, null=True, blank=True )
@@ -284,7 +284,7 @@ class Event(models.Model):
 
 
 class CandidateProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     customer_id = models.CharField(max_length=1024, null=True, blank=True )
     first_name = models.CharField(max_length=1024, null=True, blank=True )
     last_name = models.CharField(max_length=1024, null=True, blank=True )
