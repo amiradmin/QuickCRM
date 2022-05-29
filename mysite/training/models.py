@@ -259,6 +259,7 @@ class Lecturer(models.Model):
 class Event(models.Model):
     ANNOUNCMENT_CHOICES = (('S', 'SMS'), ('E', 'Email'))
     name = models.CharField(max_length=256, null=True, blank=True )
+    deliveryMethod = models.CharField(max_length=256, null=True, blank=True )
     product = models.ForeignKey(Product,related_name="product_event",  null=True, blank=True , on_delete=models.CASCADE)
     country = models.ForeignKey(Country,related_name="country_event",  null=True, blank=True , on_delete=models.CASCADE)
     location = models.ForeignKey(Location,related_name="location_event",  null=True, blank=True , on_delete=models.CASCADE)
