@@ -443,14 +443,19 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
 
         cetrificates = CertificateAttendance.objects.all()
-        print(cetrificates)
+
+
+        # upcoming_event = Event.objects.filter( start_date__gte > datetime.now()).order_by('start_date')[:5]
+        upcoming_event = Event.objects.filter( start_date__gte=datetime.datetime.now()).order_by('start_date')[:5]
         # results = cswip31_materials
         context['cetrificates'] = cetrificates
+        context['upcoming_event'] = upcoming_event
         context['result_list'] = result_list
         context['group_name'] = group_name
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
+
 
         context['contact'] = contact
         if contact.count() > 0:
@@ -482,6 +487,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
             if not request.POST.get('birthDate', '') == '':
                 profileData.birth_date = datetime.datetime.strptime(self.request.POST['birthDate'], '%m/%d/%Y')
             profileData.currentCompany = request.POST['currentCompany']
+            profileData.currentPosition = request.POST['currentPosition']
             profileData.website = request.POST['website']
             profileData.facebook = request.POST['facebook']
             profileData.twitter = request.POST['twitter']
