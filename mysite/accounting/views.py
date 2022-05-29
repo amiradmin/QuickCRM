@@ -442,12 +442,16 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result_list.append(result14)
 
 
+        cetrificates = CertificateAttendance.objects.all()
+        print(cetrificates)
         # results = cswip31_materials
+        context['cetrificates'] = cetrificates
         context['result_list'] = result_list
         context['group_name'] = group_name
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
+
         context['contact'] = contact
         if contact.count() > 0:
             context['newMessage'] = True
