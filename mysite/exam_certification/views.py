@@ -307,22 +307,22 @@ class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
 
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
-        results = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate).first()
+        results = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
 
-        # overall_porpose = results.first()
-        # print(overall_porpose)
-        if results.general_paper == str('Passed') and results.technology_paper == 'Passed' and results.plate_paper == 'Passed' and results.pipe_paper == 'Passed' and results.macro_paper == 'Passed':
-        # if results.general_paper == 'Passed' and  results.technology_paper == 'Passed':
+        overall_porpose = results.last()
+        print(overall_porpose)
+        # if overall_porpose.general_paper == str('Passed') & overall_porpose.technology_paper == 'Passed' & overall_porpose.plate_paper == 'Passed' & overall_porpose.pipe_paper == 'Passed' & overall_porpose.macro_paper == 'Passed':
+        if overall_porpose.general_paper == 'Passed' :
             print('Here')
-            results.overall = 'Passed'
+            overall_porpose.overall = 'Passed'
         else :
-            results.overall = 'Failed'
+            overall_porpose.overall = 'Failed'
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
         context['candidate'] = candidate
-        context['exam'] = results
+        context['results'] = results
         # context['examCount'] = examCount
         return context
 
