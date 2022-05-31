@@ -79,6 +79,7 @@ class SendFormByID(SidebarMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['canID']).first()
         obj = Contact()
         obj.candidate = candidate
+        obj.event = event
         obj.type = 'Admin'
         obj.messageType = 'Message'
         obj.department = 'Training'

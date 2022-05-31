@@ -840,7 +840,7 @@ $spacer: 20px;
                                         <th>Delivery Method</th>
                                         <th>Location</th>
                                         <th>Start Date</th>
-                                        <th></th>
+                                        <th>Forms</th>
 
 
                                     </tr>
@@ -856,10 +856,12 @@ $spacer: 20px;
                                         <td>{{item.deliveryMethod}}</td>
                                         <td>{{item.location}}</td>
                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
-                                        <td>{% if item.start_date|utc < now|utc %}<i class="fa fa-hourglass-end"
-                                                                                     aria-hidden="true"></i>{% else %}
-                                            <i style="color:orange" class="fa fa-hourglass-start"
-                                               aria-hidden="true"></i> {% endif %}
+
+                                        <td>
+                                            {% for item in contact_forms %}
+                                            <a href="">{{item.id}}</a>
+                                            {% endfor %}
+
                                         </td>
 
 

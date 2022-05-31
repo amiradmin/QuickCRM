@@ -447,8 +447,12 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
         # upcoming_event = Event.objects.filter( start_date__gte > datetime.now()).order_by('start_date')[:5]
         upcoming_event = Event.objects.filter( start_date__gte=datetime.datetime.now()).order_by('start_date')[:5]
+
+        contact_forms = Contact.objects.filter(Q(type = 'Admin') & Q(candidate = candidate) )
+
         # results = cswip31_materials
         context['cetrificates'] = cetrificates
+        context['contact_forms'] = contact_forms
         context['comp_count'] = cetrificates.count()
         context['upcoming_event'] = upcoming_event
         context['result_list'] = result_list
