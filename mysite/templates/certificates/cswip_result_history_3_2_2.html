@@ -125,8 +125,8 @@ table.GeneratedTable thead {
       <tr>
       <td>Inter Group 4</td>
       <td>{% if exam.inter_group_4 == 'Failed'  %}<span style="color:red;">{{exam.inter_group_4 }}</span> {%else%} {{exam.inter_group_4 }}{% endif %}</td>
-      <td></td>
-      <td></td>
+      <td>Overall</td>
+      <td>{{exam.overall}}</td>
     </tr>
 
   </tbody>
