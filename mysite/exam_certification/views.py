@@ -313,9 +313,9 @@ class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
         print(overall_porpose)
         # if overall_porpose.general_paper == str('Passed') & overall_porpose.technology_paper == 'Passed' & overall_porpose.plate_paper == 'Passed' & overall_porpose.pipe_paper == 'Passed' & overall_porpose.macro_paper == 'Passed':
         if overall_porpose.general_paper == 'Passed' :
-            overall_porpose.overall = 'Passed'
+            overall.overall = 'Passed'
         else :
-            overall_porpose.overall = 'Failed'
+            overall.overall = 'Failed'
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
