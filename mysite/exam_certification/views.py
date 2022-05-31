@@ -287,6 +287,16 @@ class ExamResultHistoryCSWIP321(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
+        overall_porpose = results.last()
+        print(overall_porpose)
+        if overall_porpose.general_theory_s == 'Passed' and overall_porpose.ndt_s == 'Passed' and overall_porpose.symbols_s == 'Passed' and overall_porpose.scenario_s == 'Passed' and overall_porpose.plant_paper == 'Passed':
+            # if overall_porpose.general_paper == 'Passed' :
+            print('Here')
+            overall_porpose.overall = 'Passed'
+        else:
+            overall_porpose.overall = 'Failed'
+        overall_porpose.save()
+
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name

@@ -112,8 +112,8 @@ table.GeneratedTable thead {
     <tr>
       <td>Plant Paper</td>
       <td>{% if exam.plant_paper == 'Failed'  %}<span style="color:red;">{{exam.plant_paper }}</span> {%else%} {{exam.plant_paper }}{% endif %}</td>
-      <td></td>
-      <td></td>
+      <td>Overall</td>
+      <td>{{exam.overall}}</td>
     </tr>
   </tbody>
 </table>

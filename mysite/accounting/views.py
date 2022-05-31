@@ -316,6 +316,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result2['exam_date'] = item.exam_date
                 result2['exam_title'] = item.exam_title
                 result2['file'] = item.file
+                result2['overall'] = item.overall
                 result_list.append(result2)
 
 
