@@ -897,6 +897,7 @@ class CSWIPWeldingInspector3_2_1_Result(models.Model):
     customerID = models.CharField(max_length=256, null=True, blank=True)
     lecturer = models.CharField(max_length=256, null=True, blank=True)
     invigilator = models.CharField(max_length=256, null=True, blank=True)
+    overall = models.CharField(max_length=256, null=True, blank=True)
     remarks = models.CharField(max_length=4096, null=True, blank=True)
     file = models.FileField(upload_to='exam_result_file', null=True, blank=True)
     general_theory_s = models.CharField(max_length=256, null=True, blank=True)
