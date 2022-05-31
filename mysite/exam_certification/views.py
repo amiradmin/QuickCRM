@@ -303,10 +303,20 @@ class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryCSWIP31, self).get_context_data()
         print(self.kwargs['candidate_id'])
-        # user = User.objects.filter(id = self.kwargs['candidate_id']).first()
+        print('Today is a good day')
+
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
+
+        overall_porpose = results.last()
+        print(overall_porpose)
+        # if overall_porpose.general_paper == str('Passed') & overall_porpose.technology_paper == 'Passed' & overall_porpose.plate_paper == 'Passed' & overall_porpose.pipe_paper == 'Passed' & overall_porpose.macro_paper == 'Passed':
+        if overall_porpose.general_paper == 'Passed' :
+            overall_porpose.overall = 'Passed'
+        else :
+            overall_porpose.overall = 'Failed'
+
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name

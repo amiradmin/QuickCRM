@@ -1132,6 +1132,7 @@ class CSWIPWeldingInspector3_1Result(models.Model):
     plate_paper = models.CharField(max_length=128, null=True, blank=True)
     pipe_paper = models.CharField(max_length=128, null=True, blank=True)
     macro_paper = models.CharField(max_length=128, null=True, blank=True)
+    overall = models.CharField(max_length=128, null=True, blank=True)
     exam_date = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
