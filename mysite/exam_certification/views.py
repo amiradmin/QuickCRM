@@ -250,6 +250,16 @@ class ExamResultHistoryPaintingInspection(SidebarMixin, LoginRequiredMixin, Temp
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
+        overall_porpose = results.last()
+        print(overall_porpose)
+        if overall_porpose.practical == 'Passed' and overall_porpose.general_theory == 'Passed' :
+            # if overall_porpose.general_paper == 'Passed' :
+            print('Here')
+            overall_porpose.overall = 'Passed'
+        else:
+            overall_porpose.overall = 'Failed'
+        overall_porpose.save()
+
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
