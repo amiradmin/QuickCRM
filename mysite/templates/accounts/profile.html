@@ -858,8 +858,11 @@ $spacer: 20px;
                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
 
                                         <td>
-                                            {% for item in contact_forms %}
-                                            <a href="">{{item.id}}</a>
+                                            {% for item2 in contact_forms %}
+<!--                                            {{item}}-->
+                                            {% if item == item2.event %}
+                                            <a  href="{{item2.url}}"><span style="max-width: 100px;">{{item2.form_name}}</span></a>
+                                            {% endif %}
                                             {% endfor %}
 
                                         </td>

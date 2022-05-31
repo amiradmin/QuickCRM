@@ -80,6 +80,7 @@ class SendFormByID(SidebarMixin, TemplateView):
         obj = Contact()
         obj.candidate = candidate
         obj.event = event
+        obj.formName = canFormObj.form_name
         obj.type = 'Admin'
         obj.messageType = 'Message'
         obj.department = 'Training'
