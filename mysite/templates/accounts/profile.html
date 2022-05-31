@@ -831,7 +831,7 @@ $spacer: 20px;
                             <div class="text-start mt-3">
                                 <h4 class="font-13 text-uppercase">Events:</h4>
 
-                                <table id="basic-datatable" class="table dt-responsive  w-100">
+                                <table id="basic-datatable" class="table dt-responsive  w-100" style="overflow-y: auto;">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -857,11 +857,11 @@ $spacer: 20px;
                                         <td>{{item.location}}</td>
                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
 
-                                        <td>
+                                        <td style="width:200px">
                                             {% for item2 in contact_forms %}
 <!--                                            {{item}}-->
                                             {% if item == item2.event %}
-                                            <a  href="{{item2.url}}"><span style="max-width: 100px;">{{item2.form_name}}</span></a>
+                                            <a  href="{{item2.url}}"><span class="badge badge-primary-lighten" style="max-width: 200px;">{{item2.formName}}</span></a>
                                             {% endif %}
                                             {% endfor %}
 
