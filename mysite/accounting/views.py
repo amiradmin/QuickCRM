@@ -449,6 +449,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         upcoming_event = Event.objects.filter( start_date__gte=datetime.datetime.now()).order_by('start_date')[:5]
         # results = cswip31_materials
         context['cetrificates'] = cetrificates
+        context['comp_count'] = cetrificates.count()
         context['upcoming_event'] = upcoming_event
         context['result_list'] = result_list
         context['group_name'] = group_name
