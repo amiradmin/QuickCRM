@@ -311,8 +311,8 @@ class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
 
         # overall_porpose = results.first()
         # print(overall_porpose)
-        # if overall_porpose.general_paper == str('Passed') & overall_porpose.technology_paper == 'Passed' & overall_porpose.plate_paper == 'Passed' & overall_porpose.pipe_paper == 'Passed' & overall_porpose.macro_paper == 'Passed':
-        if results.general_paper == 'Passed' & results.technology_paper == 'Passed':
+        if results.general_paper == str('Passed') and results.technology_paper == 'Passed' and results.plate_paper == 'Passed' and results.pipe_paper == 'Passed' and results.macro_paper == 'Passed':
+        # if results.general_paper == 'Passed' and  results.technology_paper == 'Passed':
             print('Here')
             results.overall = 'Passed'
         else :
