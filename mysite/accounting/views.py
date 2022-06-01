@@ -328,6 +328,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result3['exam_date'] = item.exam_date
                 result3['exam_title'] = item.exam_title
                 result3['file'] = item.file
+                result3['overall'] = item.overall
                 result_list.append(result3)
 
         painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
@@ -338,6 +339,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result4['exam_date'] = item.exam_date
                 result4['exam_title'] = item.exam_title
                 result4['file'] = item.file
+                result4['overall'] = item.overall
                 result_list.append(result4)
 
         paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
