@@ -640,7 +640,7 @@ button, input {
                  <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarContact" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                                 <i class="uil-store"></i>
-                                <span> Requests</span>&nbsp; {% if requestCouner > 0 %}<span class="badge badge-success-lighten">New</span>{% endif %}
+                                <span> Inquiry</span>&nbsp; {% if requestCouner > 0 %}<span class="badge badge-success-lighten">New</span>{% endif %}
                                 <span class="menu-arrow"></span>
                             </a>
                             <div class="collapse" id="sidebarContact">
@@ -729,7 +729,7 @@ button, input {
                          <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#examMaterial" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                                 <i class="fa fa-language"></i>
-                                <span> Result & Examination </span>
+                                <span> Training & Examination </span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <div class="collapse" id="examMaterial">
@@ -939,6 +939,178 @@ button, input {
                             </div>
                                     </li>
                         </li>
+
+
+                      <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#regis" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-comments-alt"></i>
+                                <span> Registration </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="regis">
+                                <ul class="side-nav-second-level">
+    <li class="side-nav-item">
+                                        <a data-bs-toggle="collapse" href="#generalForm" aria-expanded="false" aria-controls="sidebarSecondLevel">
+                                            <span> General Forms</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="generalForm">
+                                            <ul class="side-nav-third-level">
+                                              <li>
+                                                    <a href="{% url 'forms:allndtcovid19_' %}">All Covid 19 Form</a>
+                                                </li>                                                <li>
+                                                    <a href="{% url 'forms:ndtcovid_' %}">Covid 19 Form</a>
+                                                </li>
+
+                                          <li>
+                                                    <a href="{% url 'forms:alltrainingatt_' %}">All Training Attendance form</a>
+                                                </li>                                                <li>
+                                                    <a href="{% url 'forms:newtrainingatt_' %}">Training Attendance form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:alltwitrainingfeed_' %}">All Training Feedback form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:newtwitrainingfeed_' %}">Training Feedback form</a>
+                                                </li>
+                                               <li>
+                                                    <a href="{% url 'forms:allisiontest_' %}">All Vision Tests</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:newvisiontest_' %}">Vision Tests</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="{% url 'forms:alltesfrmexamattend_' %}">All Exam Attendance form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:tesfrmexamattend_' %}">Exam Attendance form</a>
+                                                </li>
+                                             <li>
+                                                    <a href="{% url 'forms:alltwiexamfeed_' %}">All Exam Feedback form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:newtwiexamfeed_' %}">Exam Feedback form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:alllecfedform_' %}">All Lecturer Feedback form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:newlecfedform_' %}">Lecturer Feedback form</a>
+                                                </li>
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+   <li class="side-nav-item">
+                                        <a data-bs-toggle="collapse" href="#andt" aria-expanded="false" aria-controls="sidebarSecondLevel">
+                                            <span>CSWIP ANDT</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="andt">
+                                            <ul class="side-nav-third-level">
+                                 <li>
+
+                                                <li>
+                                                      <a href="{% url 'forms:allenrolmentform_' %}">All Enrolment Forms</a>
+                                                 </li>
+                                                <li>
+                                                    <a href="{% url 'forms:jaegertofdl2_' %}">TWI Enrolment Form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:allndt15expver_' %}">All NDT 15A</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:ndt15expver_' %}">NDT 15A</a>
+                                                </li>
+
+
+
+
+                     </li>
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+     <li class="side-nav-item">
+                                        <a data-bs-toggle="collapse" href="#pcn" aria-expanded="false" aria-controls="sidebarSecondLevel">
+                                            <span>PCN ANDT</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="pcn">
+                                            <ul class="side-nav-third-level">
+                                 <li>
+
+                                                <li>
+                                                      <a href="{% url 'forms:allenrolmentform_' %}">All Enrolment Forms</a>
+                                                 </li>
+                                                <li>
+                                                    <a href="{% url 'forms:jaegertofdl2_' %}">TWI Enrolment Form</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="{% url 'forms:allpsl57A_' %}">All PSL-57A(Initial)</a>
+                                                </li>
+                                                 <li>
+                                                    <a href="{% url 'forms:newpsl57A_' %}">PSL-57A(Initial)</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:allpsl57b_' %}">All PSL-57B(Retest)</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:psl57b_' %}">PSL-57B(Retest)</a>
+                                                </li>
+                                               <li>
+                                                    <a href="{% url 'forms:allpslform_' %}">All PSL-30</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:psl30log_' %}">PSL-30</a>
+                                                </li>
+
+
+
+
+                     </li>
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+   <li class="side-nav-item">
+                                        <a data-bs-toggle="collapse" href="#welding" aria-expanded="false" aria-controls="sidebarSecondLevel">
+                                            <span>Welding Inspection</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="welding">
+                                            <ul class="side-nav-third-level">
+                                 <li>
+
+                                                <li>
+                                                      <a href="{% url 'forms:allenrolmentform_' %}">All Enrolment Forms</a>
+                                                 </li>
+                                                <li>
+                                                    <a href="{% url 'forms:jaegertofdl2_' %}">TWI Enrolment Form</a>
+                                                </li>
+
+
+
+
+                     </li>
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                                    </li>
                                 </ul>
                             </div>
 
@@ -1207,11 +1379,11 @@ button, input {
                             </div>
                         </li>
  <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarMultiLevel" aria-expanded="false" aria-controls="sidebarMultiLevel" class="side-nav-link">
-                                <i class="uil-folder-plus"></i>
-                                <span> Registration</span>
-                                <span class="menu-arrow"></span>
-                            </a>
+<!--                            <a data-bs-toggle="collapse" href="#sidebarMultiLevel" aria-expanded="false" aria-controls="sidebarMultiLevel" class="side-nav-link">-->
+<!--                                <i class="uil-folder-plus"></i>-->
+<!--                                <span> Registration</span>-->
+<!--                                <span class="menu-arrow"></span>-->
+<!--                            </a>-->
                             <div class="collapse" id="sidebarMultiLevel">
                                 <ul class="side-nav-second-level">
                                                 <li>
