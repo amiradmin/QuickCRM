@@ -103,7 +103,12 @@ table.GeneratedTable thead {
      <td>Practical</td>
             <td>{% if exam.practical == 'Failed' %}<span style="color:red;">{{exam.practical }}</span> {%else%}{{exam.practical }}{% endif %}</td>
 
-
+<tr>
+        <td>Overall</td>
+        <td>{{exam.overall}}</td>
+        <td></td>
+        <td></td>
+    </tr>
   </tbody>
 </table>
 

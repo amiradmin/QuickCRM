@@ -120,7 +120,13 @@ table.GeneratedTable thead {
  <td>Data File 3</td>
             <td>{% if exam.data_file_3 == 'Failed' %}<span style="color:red;">{{exam.data_file_3 }}</span> {%else%}{{exam.data_file_3 }}{% endif %}</td>
     </tr>
+<tr>
+    <td>Overall</td>
+    <td>{{exam.overall}}</td>
+    <td></td>
+    <td></td>
 
+</tr>
   </tbody>
 </table>
 

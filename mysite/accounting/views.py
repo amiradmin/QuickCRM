@@ -350,6 +350,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 # result5['exam_date'] = item.exam.exam_date
                 # result5['exam_title'] = item.exam.exam_title
                 result5['file'] = item.file
+                result5['overall'] = item.overall
                 result_list.append(result5)
 
         paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(candidate=candidate)
@@ -360,6 +361,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result6['exam_date'] = item.exam_date
                 result6['exam_title'] = item.exam_title
                 result6['file'] = item.file
+                result6['overall'] = item.overall
                 result_list.append(result6)
 
         paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(candidate=candidate)
@@ -370,6 +372,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result7['exam_date'] = item.exam_date
                 result7['exam_title'] = item.exam_title
                 result7['file'] = item.file
+                result7['overall'] = item.overall
                 result_list.append(result7)
 
 
@@ -380,6 +383,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result8['event'] = item.event
                 # result8['exam_date'] = item.exam.exam_date
                 # result8['exam_title'] = item.exam.exam_title
+                result8['overall'] = item.overall
                 result_list.append(result8)
 
         tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(candidate=candidate)
@@ -390,6 +394,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result9['exam_date'] = item.exam_date
                 result9['exam_title'] = item.exam_title
                 result9['file'] = item.file
+                result9['overall'] = item.overall
                 result_list.append(result9)
 
         tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
@@ -400,6 +405,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result10['exam_date'] = item.exam_date
                 result10['exam_title'] = item.exam_title
                 result10['file'] = item.file
+                result10['overall'] = item.overall
                 result_list.append(result10)
 
         tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate)
@@ -410,6 +416,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result11['exam_date'] = item.exam_date
                 result11['exam_title'] = item.exam_title
                 result11['file'] = item.file
+                result11['overall'] = item.overall
                 result_list.append(result11)
 
 
@@ -421,6 +428,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result12['exam_date'] = item.exam_date
                 result12['exam_title'] = item.exam_title
                 result12['file'] = item.file
+                result12['overall'] = item.overall
                 result_list.append(result12)
 
 
@@ -432,6 +440,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result13['exam_date'] = item.exam_date
                 result13['exam_title'] = item.exam_title
                 result13['file'] = item.file
+                result13['overall'] = item.overall
                 result_list.append(result13)
 
 
@@ -443,6 +452,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result14['exam_date'] = item.exam_date
                 result14['exam_title'] = item.exam_title
                 result14['file'] = item.file
+                result14['overall'] = item.overall
                 result_list.append(result14)
 
 

@@ -99,6 +99,8 @@ table.GeneratedTable thead {
     <tr>
  <td>Written Instruction</td>
             <td>{% if exam.written_instruction == 'Failed' %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>
+   <td>Specific Theory</td>
+    <td>{% if exam.specific_theory == 'Failed' %}<span style="color:red;">{{exam.specific_theory }}</span> {%else%}{{exam.specific_theory }}{% endif %}</td>
     </tr>
     <tr>
       <td>Sample1 Collection</td>
@@ -113,11 +115,14 @@ table.GeneratedTable thead {
             <td>{% if exam.sample3_analysis == 'Failed' %}<span style="color:red;">{{exam.sample3_analysis }}</span> {%else%}{{exam.sample3_analysis }}{% endif %}</td>
     </tr>
     <tr>
-      <td>Sample3 Analysis</td>
+      <td>Sample2 Collection</td>
+            <td>{% if exam.sample2_collection == 'Failed' %}<span style="color:red;">{{exam.sample2_collection }}</span> {%else%}{{exam.sample2_collection }}{% endif %}</td>
+ <td>Sample3 Analysis</td>
             <td>{% if exam.sample3_analysis == 'Failed' %}<span style="color:red;">{{exam.sample3_analysis }}</span> {%else%}{{exam.sample3_analysis }}{% endif %}</td>
- <td>Sample4 Analysis</td>
-            <td>{% if exam.sample4_analysis == 'Failed' %}<span style="color:red;">{{exam.sample4_analysis }}</span> {%else%}{{exam.sample4_analysis }}{% endif %}</td>
     </tr>
+    <tr>
+      <td>Overall</td>
+      <td>{{exam.overall}}</td>
 
 
   </tbody>

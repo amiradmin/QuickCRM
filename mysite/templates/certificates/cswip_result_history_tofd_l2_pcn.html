@@ -127,6 +127,14 @@ table.GeneratedTable thead {
  <td>Written Instruction</td>
             <td>{% if exam.written_instruction == 'Failed' %}<span style="color:red;">{{exam.written_instruction }}</span> {%else%}{{exam.written_instruction }}{% endif %}</td>
     </tr>
+
+  <tr>
+    <td>Overall</td>
+    <td>{{exam.overall}}</td>
+    <td></td>
+    <td></td>
+
+</tr>
   </tbody>
 </table>
 
