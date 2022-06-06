@@ -271,7 +271,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         context = super(CandidateProfileView, self).get_context_data()
         print(self.kwargs['id'])
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
-        events = Event.objects.filter(candidate = candidate)
+        events = Event.objects.filter(candidate = candidate).order_by('start_date')
         contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
         contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
         print("Good Day")
@@ -455,7 +455,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result14['overall'] = item.overall
                 result_list.append(result14)
 
-
+        result_list = sorted(result_list, key=lambda x: x['exam_date'])
         cetrificates = CertificateAttendance.objects.all()
 
 

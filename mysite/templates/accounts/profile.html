@@ -895,7 +895,7 @@ $spacer: 20px;
 
                                         <th>Location</th>
                                         <th>Lecturer</th>
-                                        <th>Result Card</th>
+                                    
                                         <th>Exam Date</th>
                                         <th>Result</th>
 
@@ -914,9 +914,8 @@ $spacer: 20px;
 
                                         <td>{{item.event.location}}</td>
                                         <td>{{item.event.lecturers.first_name}} {{item.event.lecturers.last_name}}</td>
-                                        <td>{% if item.file %} <a target="_blank" href="{{item.file.url}}"><i style="font-size:20px;" class="fa fa-camera" aria-hidden="true"></i></a> {% endif %}</td>
                                         <td>{{item.exam_date|date:'m/d/Y'}}</td>
-                                        <td>{{item.overall}}</td>
+                                        <td><a target="_blank" href="{{item.file.url}}">{{item.overall}}</a></td>
 
 
 
