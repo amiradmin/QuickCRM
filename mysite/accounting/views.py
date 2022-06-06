@@ -513,6 +513,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
             profileData.skype = request.POST['skype']
             profileData.linkedin = request.POST['linkedin']
             profileData.instagram = request.POST['instagram']
+            profileData.postal_code = request.POST['postal_code']
             profileData.aboutMe = aboutMe
             if request.FILES.get('photo', False):
                 profileData.photo = request.FILES['photo']
