@@ -264,8 +264,45 @@ class StaffProfileView(LoginRequiredMixin, TemplateView):
             return render(request, "accounts/staff_profile.html", context={'candidate': profileData})
         return render(request, "index.html")
 
-class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
+
+
+class DeleteCertificate(LoginRequiredMixin,TemplateView):
+    template_name = "accounts/candidate_certificate_delete.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(DeleteCertificate, self).get_context_data()
+        cer_id=self.kwargs['id']
+        print(cer_id)
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['cer_id'] = cer_id
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(DeleteCertificate, self).get_context_data()
+        if request.method == 'POST':
+
+            cer_id=self.request.POST['id']
+            print(cer_id)
+            obj = Certificate.objects.filter(id=cer_id).first()
+            obj.delete()
+            candidate = TesCandidate.objects.filter(user=self.request.user).first()
+            selected_candidate = TesCandidate.objects.filter(user=self.kwargs['candidate_id']).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = selected_candidate
+            context['cer_id'] = cer_id
+            return redirect('accounting:canprofile_', id=request.user.tescandidate.id)
+
+
+
+
+
+
+class CandidateProfileView(LoginRequiredMixin,TemplateView):
     template_name = "accounts/profile.html"
 
     def get_context_data(self, *args, **kwargs):
@@ -542,6 +579,9 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         return render(request, "index.html")
 
 
+
+
+
 class RegisterView(TemplateView):
     template_name = "accounts/registration.html"
 
@@ -662,7 +702,7 @@ class LitteRegisterView(TemplateView):
             user.tescandidate.middleName = request.POST['middleName']
             user.tescandidate.last_name = request.POST['last_name']
             user.tescandidate.email = request.POST['email']
-            # user.tescandidate.tes_candidate_id = tempID
+            # user.tescandidate.tes_candidareturn redirect('accounting:canprofile_',id=user.tescandidate.id)te_id = tempID
             user.tescandidate.contact_number = request.POST['contactNumber']
             user.save()
 

@@ -1237,7 +1237,7 @@ $spacer: 20px;
 
 
 <!--                  <input class="form-control" name="cerName[]" type="text" value="{{item2.name}}" id="">-->
-                  {% if item2.file %}<a target="_blank" class="badge badge-primary-lighten" href="{{item2.file.url}}" style="margin-top:10px;" ><i class='fa fa-address-card-o' style="padding: 2px;"></i><span >{{item2.name}}</span></a>{% endif %}
+                  {% if item2.file %}<span class="badge badge-primary-lighten" style="height: 30px; padding-top: 8px;"><a target="_blank"  href="{{item2.file.url}}" style="margin-top:10px;" ><i class='fa fa-address-card-o' style="padding: 2px;"></i><span >{{item2.name}}</span></a><form method="post" ><a href="{% url 'accounting:deletecer_' id=item2.id candidate_id=candidate.id %}" style="margin-left:3px" ><i class="fa fa-times-circle" style="font-size:16px;color:red;" aria-hidden="true"></i></a></form>  </span>{% endif %}
                 {% endfor %}
             </div>
 
