@@ -334,6 +334,7 @@ class Certificate(models.Model):
     institute = models.CharField(max_length=256, null=True, blank=True )
     expiryDate = models.DateTimeField(null=True, blank=True)
     issueDate = models.DateTimeField(null=True, blank=True)
+    file = models.FileField(upload_to='candidate_document', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

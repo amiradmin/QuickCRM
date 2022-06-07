@@ -8,10 +8,11 @@
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/css/intlTelInput.css'>
 
 
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">-->
  <style>
      // bootstrap gray variants
 $white:    #fff !default;
@@ -895,7 +896,7 @@ $spacer: 20px;
 
                                         <th>Location</th>
                                         <th>Lecturer</th>
-                                    
+
                                         <th>Exam Date</th>
                                         <th>Result</th>
 
@@ -1098,7 +1099,7 @@ $spacer: 20px;
 
 
                                     <div class="mb-3">
-                                        <label class="form-label">Address(Included Postal Code)</label>
+                                        <label class="form-label">Address</label>
 
                                         <div class="form-floating">
                                             <textarea name="address" class="form-control"
@@ -1169,6 +1170,92 @@ $spacer: 20px;
                                             </div>
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
+
+         <h5 class="mb-3 text-uppercase bg-light p-2"><i
+                                            class="mdi mdi-office-building me-1"></i> Certificates</h5>
+<!--dynamic fields-->
+
+
+   <div class="input-group control-group after-add-more">
+
+                                    <div class="row col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="currentCompany" class="form-label">Certificate name</label>
+                                                <input type="text" class="form-control" id="addmore[]"
+                                                       value="" name="cerName"
+                                                       placeholder="Enter certificate name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="cerFile" class="form-label">File</label>
+                                                <input type="file" class="form-control" id="cerFile[]" name="cerFile"
+                                                        >
+                                            </div>
+                                        </div> <!-- end col -->
+
+                                    </div> <!-- end row -->
+        <div class="input-group-btn" style="margin-top: 35px; margin-left: 4px;">
+          <a class="add-more"  style="margin-top:20px;"><i class="fa fa-plus-square" aria-hidden="true" style="font-size: 23px; color: green;"></i> </a>
+        </div>
+      </div>
+
+    <div class="copy-fields d-none">
+      <div class="control-group input-group" style="margin-top:10px">
+
+                                          <div class="row col-md-12" >
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="currentCompany" class="form-label">Certificate name</label>
+                                                <input type="text" class="form-control" id="cerName[]"
+                                                       value="" name="cerName"
+                                                       placeholder="Enter certificate name">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="cerFile" class="form-label">File</label>
+                                                <input type="file" class="form-control" id="cerFile" name="cerFile"
+                                                        >
+                                            </div>
+                                        </div> <!-- end col -->
+
+                                    </div> <!-- end row -->
+        <div class="input-group-btn" style="margin-top: 35px; margin-left: 4px;">
+          <a class="remove" type="button"><i class="fa fa-minus-square" style="font-size: 23px; color: red;"></i> </a>
+        </div>
+      </div>
+      </div>
+
+
+
+
+            <div class="mb-3 col-md-6">
+<!--                 <label class="form-label">ID Card Photo</label>-->
+                {% for item2 in candidate.certificates.all %}
+
+
+<!--                  <input class="form-control" name="cerName[]" type="text" value="{{item2.name}}" id="">-->
+                  {% if item2.file %}<a target="_blank" class="badge badge-primary-lighten" href="{{item2.file.url}}" style="margin-top:10px;" ><i class='fa fa-address-card-o' style="padding: 2px;"></i><span >{{item2.name}}</span></a>{% endif %}
+                {% endfor %}
+            </div>
+
+
+
+
+
+
+
+
+
+
+<!--End dynamic fields                                    -->
+
+
+
+
+
 
                                     <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-earth me-1"></i>
                                         Social</h5>
@@ -1352,6 +1439,24 @@ document.getElementById("phone_number1").value = full_number1;
 
 
 </script>
+
+  <script  >
+
+    $(document).ready(function() {
+  //here first get the contents of the div with name class copy-fields and add it to after "after-add-more" div class.
+  $(".add-more").click(function() {
+    var html = $(".copy-fields").html();
+    $(".after-add-more").after(html);
+  });
+  //here it will remove the current value of the remove button which has been pressed
+  $("body").on("click", ".remove", function() {
+    $(this)
+      .parents(".control-group")
+      .remove();
+  });
+});
+
+  </script>
 <!-- bundle -->
 <script src="{% static 'assets/js/vendor.min.js'%}"></script>
 <script src="{% static 'assets/js/app.min.js'%}"></script>

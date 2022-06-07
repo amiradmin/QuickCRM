@@ -11,11 +11,12 @@ from django.contrib.auth.hashers import make_password
 from django.core.mail import EmailMessage
 from django.contrib.auth.mixins import LoginRequiredMixin
 from contacts.models import Contact
-from training.models import TesCandidate,StaffProfile,CourseRequest
+from training.models import TesCandidate,StaffProfile,CourseRequest,Certificate
 from django.urls import reverse_lazy
 from django.db.models import Q
 import datetime
 from mailer.views import sendMail
+import itertools
 from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
                                        PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
                                        CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3,
@@ -521,6 +522,21 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 profileData.document_1 = request.FILES['doc_1']
             if request.FILES.get('doc_2', False):
                 profileData.document_2 = request.FILES['doc_2']
+
+            cer_list = request.POST.getlist("cerName")
+            file_list = request.FILES.getlist("cerFile")
+
+
+            for (i, j) in zip( cer_list, file_list):
+                print(i, j)
+                obj = Certificate()
+                obj.name = i
+                obj.file=j
+                obj.save()
+                profileData.certificates.add(obj)
+
+            # for item in cer_list:
+            #     print(item)
             profileData.save()
             return render(request, "accounts/profile.html",context = {'candidate':profileData})
         return render(request, "index.html")
