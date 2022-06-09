@@ -1233,12 +1233,15 @@ $spacer: 20px;
 
             <div class="mb-3 col-md-6">
 <!--                 <label class="form-label">ID Card Photo</label>-->
+        
                 {% for item2 in candidate.certificates.all %}
 
 
-<!--                  <input class="form-control" name="cerName[]" type="text" value="{{item2.name}}" id="">-->
-                  {% if item2.file %}<span class="badge badge-primary-lighten" style="height: 30px; padding-top: 8px;"><a target="_blank"  href="{{item2.file.url}}" style="margin-top:10px;" ><i class='fa fa-address-card-o' style="padding: 2px;"></i><span >{{item2.name}}</span></a><form method="post" ><a href="{% url 'accounting:deletecer_' id=item2.id candidate_id=candidate.id %}" style="margin-left:3px" ><i class="fa fa-times-circle" style="font-size:16px;color:red;" aria-hidden="true"></i></a></form>  </span>{% endif %}
+
+                  <div>{% if item2.file %}<span class="badge badge-primary-lighten" style="height: 30px; width: 100px; padding: 3px;"><a target="_blank"  href="{{item2.file.url}}" style="margin-top:10px;" ><i class='fa fa-address-card-o' style="padding: 3px; font-size: 16px; margin-left: -7px; margin-right: 4px;"></i><span style="margin-left: -2px;" >{{item2.name}}</span></a><form method="post" ><a href="{% url 'accounting:deletecer_' id=item2.id candidate_id=candidate.id %}" style="margin-right: -5px; margin-left: 21px;" ><i class="fa fa-times-circle" style="font-size:16px;color:red;" aria-hidden="true"></i></a></form>  </span>{% endif %}</div>
+
                 {% endfor %}
+
             </div>
 
 
