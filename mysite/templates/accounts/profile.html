@@ -859,13 +859,30 @@ $spacer: 20px;
                                         <td>{{item.start_date|date:'m/d/Y'}}</td>
 
                                         <td style="width:200px">
-                                            {% for item2 in contact_forms %}
-<!--                                            {{item}}-->
-                                            {% if item == item2.event %}
-                                            <a  href="{{item2.url}}"><span class="badge badge-primary-lighten" style="max-width: 200px;">{{item2.formName}}</span></a>
-                                            {% endif %}
-                                            {% endfor %}
 
+
+                                                            {% for candi in item.candidate.all  %}
+{% if candidate.id == candi.id %}
+
+
+     {% for item2 in candi.candidate_forms.all  %}
+
+                                                            {% if item2.event.id == item.id %}
+
+           {% if item2.form_name != 'Training Attendance Form'  %}
+           {% if item2.form_name != 'Exam Attendance Form'  %}
+           {% if item2.file %} <a target="_blank" href="{{ item2.file.url }}" ><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
+            <a href="{{ showURL }}/forms/{{item2.internal_link}}/{{candidate.id}}/{{item.id}}/{{item2.id}}">{% if item2.sent %}<span class="badge badge-primary-lighten">{{item2.form_name}}</span>{% else %} <span class="badge badge-warning-lighten">{{item2.form_name}}</span>{% endif %}</a><br>
+
+
+                        {% endif %}
+
+                        {% endif %}
+                        {% endif %}
+   {% endfor %}
+                        {% endif %}
+
+ {% endfor %}
                                         </td>
 
 

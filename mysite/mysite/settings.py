@@ -125,7 +125,7 @@ if hostName == 'amir-ThinkPad':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'testdb',
+            'NAME': 'testdb-development',
             'USER': 'tes_dbuser',
             'PASSWORD': "1qaz!QAZ",
             'HOST': '72.10.172.208',
