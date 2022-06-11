@@ -872,7 +872,7 @@ $spacer: 20px;
            {% if item2.form_name != 'Training Attendance Form'  %}
            {% if item2.form_name != 'Exam Attendance Form'  %}
            {% if item2.file %} <a target="_blank" href="{{ item2.file.url }}" ><i class="fa fa-camera" aria-hidden="true"></i></a>{% endif %}
-            <a href="{{ showURL }}/forms/{{item2.internal_link}}/{{candidate.id}}/{{item.id}}/{{item2.id}}">{% if item2.sent %}<span class="badge badge-primary-lighten">{{item2.form_name}}</span>{% else %} <span class="badge badge-warning-lighten">{{item2.form_name}}</span>{% endif %}</a><br>
+            <a href="{{ showURL }}/forms/{{item2.internal_link}}/{{candidate.id}}/{{item.id}}/{{item2.id}}">{% if item2.sent %}<span class="badge badge-primary-lighten">{{item2.form_name}}</span>{% else %} <span class="badge badge-warning-lighten">{{item2.form_name}} <span style="font-size:8px;color:#3f5feb;"> {% if item2.candidate_confirmation %}(Submitted) {% endif %}</span><span style="font-size:8px;color:#0e8050;"> {% if item2.confirmation %}-(Completed) {% endif %}</span></span>{% endif %}</a><br>
 
 
                         {% endif %}

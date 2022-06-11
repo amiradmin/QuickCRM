@@ -13,7 +13,8 @@ class CandidateForms(models.Model):
     internal_link = models.CharField(max_length=256, null=True, blank=True)
     generated = models.BooleanField(default=False,null=True, blank=True )
     sent = models.BooleanField(default=False,null=True, blank=True )
-    submitted = models.BooleanField(default=False,null=True, blank=True )
+    confirmation = models.BooleanField(null=True, blank=True)
+    candidate_confirmation = models.BooleanField(null=True, blank=True)
     confirmed = models.BooleanField(default=False,null=True, blank=True )
     file = models.FileField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -371,6 +372,7 @@ class NDTCovid19(models.Model):
     afterEventDate = models.DateField(null=True, blank=True)
     file = models.FileField(null=True, blank=True)
     confirmation = models.BooleanField(null=True, blank=True)
+    candidate_confirmation = models.BooleanField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -3735,13 +3735,17 @@ class UpdateNDTCovid19ByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(UpdateNDTCovid19ByUserID, self).get_context_data()
         print("here")
         candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        print(self.kwargs['formID'])
+        conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
         form = NDTCovid19.objects.filter(candidate=candidate).first()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
         context['form'] = form
+        context['conf_obj'] = conf_obj
         return context
 
     def post(self, request, id, *args, **kwargs):
+        context = super(UpdateNDTCovid19ByUserID, self).get_context_data()
         if request.method == 'POST':
             candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
             if 'mainForm' in request.POST:
@@ -3807,24 +3811,59 @@ class UpdateNDTCovid19ByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 if not request.POST.get('medicalTravelCase4No', None) == None:
                     obj.medicalTravelCase4 = False
 
+
                 if not request.POST.get('afterEventDate', '') == '':
                     obj.afterEventDate = datetime.datetime.strptime(request.POST['afterEventDate'], '%m/%d/%Y')
 
                 obj.save()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                print(conf_obj.id)
+                if group_name == 'candidates':
+                    print('Good Day')
+                    if not request.POST.get('candidate_confirmation', None) == None:
+                        conf_obj.candidate_confirmation = True
+                    else:
+                        conf_obj.candidate_confirmation = False
+                else:
+                    if not request.POST.get('confirmation', None) == None:
+                        conf_obj.confirmation = True
+                    else:
+                        conf_obj.confirmation = False
+                conf_obj.save()
+                # return redirect('forms:evensummary_', id=event.id)
 
-                return redirect('forms:evensummary_', id=event.id)
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                form = NDTCovid19.objects.filter(candidate=candidate).first()
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['form'] = form
+                context['conf_obj'] = conf_obj
+            # return context
+                return render(request, 'forms/ndt/covid_19_update.html', context)
 
+            #
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
                 event = Event.objects.filter(id=self.kwargs['eventID']).first()
                 obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
                 obj.file = request.FILES['pdfFile']
                 obj.save()
-                return redirect('forms:evensummary_', id=event.id)
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                form = NDTCovid19.objects.filter(candidate=candidate).first()
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                context['candidate'] = candidate
+                context['form'] = form
+                return render(request, 'forms/ndt/covid_19_update.html', context)
+
+                # return redirect('forms:evensummary_', id=event.id)
 
                 # return render(request, 'forms/ndt/covid_19_S.html', context)
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/ndt/covid_19.html', context)
+            # return render(request, 'forms/ndt/covid_19.html', context)
+            # return context
 
 
 
