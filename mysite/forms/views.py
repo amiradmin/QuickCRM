@@ -4723,11 +4723,14 @@ class updateVisionTestByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         form = VisionTest.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+        context['conf_obj'] = conf_obj
         context['candidate'] =candidate
         context['form'] = form
         return context
 
     def post(self, request, id, *args, **kwargs):
+        context = super(updateVisionTestByUserID, self).get_context_data()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         if request.method == 'POST':
 
@@ -4778,8 +4781,29 @@ class updateVisionTestByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                     visionObj.recognisedDate = None
 
                 visionObj.save()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                print(conf_obj.id)
+                if group_name == 'candidates':
+                    print('Good Day')
+                    if not request.POST.get('candidate_confirmation', None) == None:
+                        conf_obj.candidate_confirmation = True
+                    else:
+                        conf_obj.candidate_confirmation = False
+                else:
+                    if not request.POST.get('confirmation', None) == None:
+                        conf_obj.confirmation = True
+                    else:
+                        conf_obj.confirmation = False
+                conf_obj.save()
 
-                return redirect('forms:evensummary_', id=event.id)
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['conf_obj'] = conf_obj
+
+                return render(request, 'forms/vision_test_update.html', context)
 
 
             if 'uploadFormBack' in request.POST:
