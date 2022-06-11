@@ -16,7 +16,7 @@
                                 <div class="page-title-right">
               
                                 </div>
-                                <h4 class="page-title">Exam Result Phased Array Ultrasonic Testing(PAUT) Level 2 CSWIP Summary</h4>
+                                <h4 class="page-title">Exam Result Phased Array Ultrasonic Testing(PAUT) Level 2 CSWIP Summary </h4>
                             </div>
                         </div>
                     </div>     
@@ -146,7 +146,7 @@
                                               <table id="basic-datatable" class="table dt-responsive  w-100">
                                                 <thead>
                                                     <tr>
-                                                        <th></th>
+                                                          <th></th>
                                                         <th>Name</th>
                                                         <th>Product</th>
                                                         <th>Email</th>
@@ -154,12 +154,14 @@
                                                         <th>Action</th>
 
 
+
+
                                                     </tr>
                                                 </thead>
 
 
                                                 <tbody>
-                                                    {% for item in exams %}
+                {% for item in exams %}
                                                     <tr>
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.candidate.first_name}} {% if item.candidate.middleName != 'None' %}{{item.candidate.middleName}}{%endif%} {{item.candidate.last_name}}</td>
@@ -168,8 +170,8 @@
                                                         <td>{{item.candidate.email}}</td>
 
 <td><a href="{% url 'exam_certification:examcswipphasedarraydelete_' pk=item.id %}"><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a>&nbsp;
-<td><a href="{% url 'exam_certification:examresulthistorypautl2cswip_' candidate_id=item.candidate.id %}"><i style="font-size:20px;" class="fa fa-id-card" aria-hidden="true"></i></a>
-<td><a href="{% url 'exam_certification:updatecswipphasedarrayresult_' id=item.id %}"><i style="font-size:20px;" class="fa fa-edit" aria-hidden="true"></i></a>
+<a href="{% url 'exam_certification:examresulthistorypautl2cswip_' candidate_id=item.candidate.id %}"><i style="font-size:20px;" class="fa fa-id-card" aria-hidden="true"></i></a>
+<a href="{% url 'exam_certification:updatecswipphasedarrayresult_' id=item.id %}"><i style="font-size:20px;" class="fa fa-edit" aria-hidden="true"></i></a>
 
 
 
