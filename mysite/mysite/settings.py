@@ -71,7 +71,7 @@ INSTALLED_APPS = [
     'sendgrid',
     'corsheaders',
     'financials',
-    # 'scheduler.apps.SchedulerConfig'
+    'pytest'
 
 
 
@@ -125,11 +125,14 @@ if hostName == 'amir-ThinkPad':
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'testdb-development',
+            'NAME': 'testdb_development',
             'USER': 'tes_dbuser',
             'PASSWORD': "1qaz!QAZ",
-            'HOST': '72.10.172.208',
+            'HOST': '127.0.0.1',
             'PORT': '5432',
+            'TEST': {
+                'NAME': 'test_db_6',
+            },
         },
 
     }
