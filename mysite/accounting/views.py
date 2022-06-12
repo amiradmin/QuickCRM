@@ -340,8 +340,8 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
             for item in cswip31_result:
                 result1['id'] = item.id
                 result1['event'] = item.event
-                result1['exam_date'] = item.exam_date
-                result1['exam_title'] = item.exam_title
+                result1['exam_date'] = item.exam.exam_date
+                result1['exam_title'] = item.exam.exam_title
                 result1['file'] = item.file
                 result1['overall'] = item.overall
                 result_list.append(result1)
@@ -383,10 +383,11 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
         if paut_l2_cswip_result.count() > 0:
             for item in paut_l2_cswip_result:
+                print("Here now")
                 result5['id'] = item.id
                 result5['event'] = item.event
-                # result5['exam_date'] = item.exam.exam_date
-                # result5['exam_title'] = item.exam.exam_title
+                result5['exam_date'] = item.exam_date
+                result5['exam_title'] = item.exam_title
                 result5['file'] = item.file
                 result5['overall'] = item.overall
                 result_list.append(result5)
@@ -419,8 +420,9 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
             for item in paut_l3_pcn_result:
                 result8['id'] = item.id
                 result8['event'] = item.event
-                # result8['exam_date'] = item.exam.exam_date
-                # result8['exam_title'] = item.exam.exam_title
+                result8['exam_date'] = item.exam_date
+                result8['exam_title'] = item.exam_title
+                result8['file'] = item.file
                 result8['overall'] = item.overall
                 result_list.append(result8)
 
