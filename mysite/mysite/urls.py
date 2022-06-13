@@ -40,8 +40,8 @@ urlpatterns = [
     path('exam_certification/', include('exam_certification.urls')),
 
     path('accounts/', include('django.contrib.auth.urls')),
-    path('reset_password/',auth_views.PasswordResetView.as_view(),name='password_reset'),
-
+    # path('reset_password/',auth_views.PasswordResetView.as_view(),name='password_reset'),
+    path('accounts/password-reset/', auth_views.PasswordResetView.as_view(html_email_template_name='registration/password_reset_email.html'), name='password_reset'),
     path('password_reset/done/',
          auth_views.PasswordResetDoneView.as_view(),name='password_reset_done'),
     path('reset/<uidb64>/<token>/',
