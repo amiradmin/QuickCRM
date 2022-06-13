@@ -71,7 +71,8 @@ INSTALLED_APPS = [
     'sendgrid',
     'corsheaders',
     'financials',
-    'pytest'
+    'pytest',
+    'crispy_forms',
 
 
 
@@ -225,13 +226,20 @@ LOGOUT_REDIRECT_URL = '/'
 # EMAIL_HOST_PASSWORD = 'A^f[Xoi+)ngh'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp-mail.outlook.com'
-EMAIL_HOST_USER = 'amir.behvandi@tescan.ca'
-EMAIL_HOST_PASSWORD = 'Daj21372'
+EMAIL_HOST_USER = 'erp@tescan.ca'
+EMAIL_HOST_PASSWORD = 'Wuh28931'
 EMAIL_PORT = 25
+# DEFAULT_FROM_EMAIL = 'erp@tescan.ca'
+# #
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'amirbehvandi747@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Tempo@747??Edward&&Sahar3'
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
