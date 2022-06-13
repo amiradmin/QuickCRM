@@ -18,6 +18,8 @@ urlpatterns = [
     path('register/', views.RegisterView.as_view(), name='register_'),
     path('literegister/', views.LitteRegisterView.as_view(), name='literegister_'),
     path('suceess/', views.RegSuccessView.as_view(), name='suceess_'),
+    # path('reset/', views.UserPasswordResetView.as_view(), name='reset_'),
+    path("reset/", views.password_reset_request, name="reset_")
 
 
 

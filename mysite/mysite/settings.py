@@ -224,21 +224,21 @@ LOGOUT_REDIRECT_URL = '/'
 # EMAIL_USE_TLS = False
 # EMAIL_USE_SSL: False
 # EMAIL_HOST_PASSWORD = 'A^f[Xoi+)ngh'
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp-mail.outlook.com'
-# EMAIL_HOST_USER = 'erp@tescan.ca'
-# EMAIL_HOST_PASSWORD = 'Wuh28931'
-# EMAIL_PORT = 25
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp-mail.outlook.com'
+EMAIL_HOST_USER = 'erp@tescan.ca'
+EMAIL_HOST_PASSWORD = 'Wuh28931'
+EMAIL_PORT = 25
 # DEFAULT_FROM_EMAIL = 'erp@tescan.ca'
 # #
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER ='amirbehvandi747@gmail.com'
-EMAIL_HOST_PASSWORD = 'Tempo@747??Edward&&Sahar3'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = "smtp.gmail.com"
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+# EMAIL_HOST_USER ='amirbehvandi747@gmail.com'
+# EMAIL_HOST_PASSWORD = 'Tempo@747??Edward&&Sahar3'
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
