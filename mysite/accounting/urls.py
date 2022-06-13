@@ -20,4 +20,5 @@ urlpatterns = [
     path('suceess/', views.RegSuccessView.as_view(), name='suceess_'),
 
 
+
 ]
