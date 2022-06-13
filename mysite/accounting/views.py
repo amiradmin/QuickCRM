@@ -780,7 +780,6 @@ from django.utils.encoding import force_bytes
 
 
 
-
 def password_reset_request(request):
 	if request.method == "POST":
 		password_reset_form = PasswordResetForm(request.POST)
@@ -807,4 +806,4 @@ def password_reset_request(request):
 						return HttpResponse('Invalid header found.')
 					return redirect ("/password_reset/done/")
 	password_reset_form = PasswordResetForm()
-	return render(request=request, template_name="registration/password_reset_form.html", context={"password_reset_form":password_reset_form})
+	return render(request=request, template_name="registration/password_reset.html", context={"password_reset_form":password_reset_form})
