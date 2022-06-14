@@ -42,15 +42,14 @@ class ExamResultHistoryRadioDRI(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if  overall_porpose.general_practical == 'Passed' and overall_porpose.data_analysis1 == 'Passed' and overall_porpose.data_analysis2 == 'Passed' and overall_porpose.data_analysis3 == 'Passed' and overall_porpose.data_analysis4 == 'Passed' and overall_porpose.data_analysis5 == 'Passed' and overall_porpose.data_analysis6 == 'Passed' and overall_porpose.general_theory == 'Passed'   and overall_porpose.specific_theory == 'Passed' :
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if  item.general_practical == 'Failed' or item.data_analysis1 == 'Failed' or item.data_analysis2 == 'Failed' or item.data_analysis3 == 'Failed' or item.data_analysis4 == 'Failed' or item.data_analysis5 == 'Failed' or item.data_analysis6 == 'Failed' or item.general_theory == 'Failed'   or item.specific_theory == 'Failed' :
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -72,15 +71,14 @@ class ExamResultHistoryRadioRI(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if overall_porpose.general_theory == 'Passed' and overall_porpose.specific_theory == 'Passed' and overall_porpose.practical == 'Passed' :
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if item.general_theory == 'Failed' or item.specific_theory == 'Failed' or item.practical == 'Passed' :
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -102,15 +100,14 @@ class ExamResultHistoryTOFDL3PCN(SidebarMixin, LoginRequiredMixin, TemplateView)
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if overall_porpose.basic_a1 == 'Passed' and overall_porpose.basic_a2 == 'Passed' and overall_porpose.basic_b_part_1 == 'Passed' and overall_porpose.basic_b_part_2 == 'Passed' and overall_porpose.basic_b_part_3 == 'Passed' and overall_porpose.basic_b_part_4 == 'Passed' and overall_porpose.main_d == 'Passed' and overall_porpose.main_e == 'Passed'  and overall_porpose.main_f == 'Passed' and overall_porpose.practical_tofd_l2 == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if item.basic_a1 == 'Failed' or item.basic_a2 == 'Failed' or item.basic_b_part_1 == 'Failed' or item.basic_b_part_2 == 'Failed' or item.basic_b_part_3 == 'Failed' or item.basic_b_part_4 == 'Failed' or item.main_d == 'Failed' or item.main_e == 'Failed'  or item.main_f == 'Failed' or item.practical_tofd_l2 == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Failed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -131,15 +128,14 @@ class ExamResultHistoryTOFDL3CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if overall_porpose.basic_a1 == 'Passed' and overall_porpose.basic_a2 == 'Passed' and overall_porpose.basic_b_part_1 == 'Passed' and overall_porpose.basic_b_part_2 == 'Passed' and overall_porpose.basic_b_part_3 == 'Passed' and overall_porpose.basic_b_part_4 == 'Passed' and overall_porpose.main_c_1 == 'Passed' and overall_porpose.main_c_2 == 'Passed' and overall_porpose.main_c_3 == 'Passed' and overall_porpose.practical_tofd_l2 == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if item.basic_a1 == 'Failed' or item.basic_a2 == 'Failed' or item.basic_b_part_1 == 'Failed' or item.basic_b_part_2 == 'Failed' or item.basic_b_part_3 == 'Failed' or item.basic_b_part_4 == 'Failed' or item.main_c_1 == 'Failed' or item.main_c_2 == 'Failed' or item.main_c_3 == 'Failed' or item.practical_tofd_l2 == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -160,15 +156,14 @@ class ExamResultHistoryTOFDL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if  overall_porpose.general_theory == 'Passed' and overall_porpose.specific_theory == 'Passed' and overall_porpose.sample1 == 'Passed' and overall_porpose.sample2 == 'Passed' and overall_porpose.data_file_1 == 'Passed' and overall_porpose.data_file_2 == 'Passed' and overall_porpose.data_file_3 == 'Passed' and overall_porpose.data_file_4 == 'Passed' and overall_porpose.data_file_5 == 'Passed' and overall_porpose.written_instruction == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if  item.general_theory == 'Failed' or item.specific_theory == 'Failed' or item.sample1 == 'Failed' or item.sample2 == 'Failed' or item.data_file_1 == 'Failed' or item.data_file_2 == 'Failed' or item.data_file_3 == 'Failed' or item.data_file_4 == 'Failed' or item.data_file_5 == 'Failed' or item.written_instruction == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -189,15 +184,14 @@ class ExamResultHistoryTOFDL2PCN(SidebarMixin, LoginRequiredMixin, TemplateView)
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if   overall_porpose.specific_theory == 'Passed' and overall_porpose.sample1_collection == 'Passed' and overall_porpose.sample2_collection == 'Passed' and overall_porpose.sample1_analysis == 'Passed'  and overall_porpose.sample2_analysis == 'Passed' and overall_porpose.sample3_analysis == 'Passed'  and overall_porpose.sample4_analysis == 'Passed' and overall_porpose.sample5_analysis == 'Passed'  and overall_porpose.written_instruction == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if   item.specific_theory == 'Failed' or item.sample1_collection == 'Failed' or item.sample2_collection == 'Failed' or item.sample1_analysis == 'Failed'  or item.sample2_analysis == 'Failed' or item.sample3_analysis == 'Failed'  or item.sample4_analysis == 'Failed' or item.sample5_analysis == 'Failed'  or item.written_instruction == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -217,15 +211,14 @@ class ExamResultHistoryPAUTL3PCN(SidebarMixin, LoginRequiredMixin, TemplateView)
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if  overall_porpose.basic_a1 == 'Passed' and overall_porpose.basic_a2 == 'Passed' and overall_porpose.basic_b_part_1 == 'Passed' and overall_porpose.basic_b_part_2 == 'Passed' and overall_porpose.basic_b_part_3 == 'Passed' and overall_porpose.basic_b_part_4 == 'Passed' and overall_porpose.main_d == 'Passed' and overall_porpose.main_e == 'Passed' and overall_porpose.main_f == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if  item.basic_a1 == 'Failed' or item.basic_a2 == 'Failed' or item.basic_b_part_1 == 'Failed' or item.basic_b_part_2 == 'Failed' or item.basic_b_part_3 == 'Failed' or item.basic_b_part_4 == 'Failed' or item.main_d == 'Failed' or item.main_e == 'Failed' or item.main_f == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -245,15 +238,14 @@ class ExamResultHistoryPAUTL3CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if  overall_porpose.basic_a1 == 'Passed' and overall_porpose.basic_a2 == 'Passed' and overall_porpose.basic_b_part_1 == 'Passed' and overall_porpose.basic_b_part_2 == 'Passed' and overall_porpose.basic_b_part_3 == 'Passed' and overall_porpose.basic_b_part_4 == 'Passed'  and overall_porpose.main_c_1 == 'Passed' and overall_porpose.main_c_2 == 'Passed'  and overall_porpose.main_c_3 == 'Passed' and overall_porpose.practical_paut_l2 == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if  item.basic_a1 == 'Failed' or item.basic_a2 == 'Failed' or item.basic_b_part_1 == 'Failed' or item.basic_b_part_2 == 'Failed' or item.basic_b_part_3 == 'Failed' or item.basic_b_part_4 == 'Failed'  or item.main_c_1 == 'Failed' or item.main_c_2 == 'Failed'  or item.main_c_3 == 'Failed' or item.practical_paut_l2 == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -274,15 +266,14 @@ class ExamResultHistoryPAUTL2PCN(SidebarMixin, LoginRequiredMixin, TemplateView)
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if  overall_porpose.specific_theory == 'Passed' and overall_porpose.sample1_analysis == 'Passed' and overall_porpose.sample1_collection == 'Passed' and overall_porpose.sample2_analysis == 'Passed' and overall_porpose.sample2_collection == 'Passed' and overall_porpose.sample2_analysis == 'Passed' and overall_porpose.sample3_collection == 'Passed' and overall_porpose.sample3_analysis == 'Passed' and overall_porpose.written_instruction == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if  item.specific_theory == 'Failed' or item.sample1_analysis == 'Failed' or item.sample1_collection == 'Failed' or item.sample2_analysis == 'Failed' or item.sample2_collection == 'Failed' or item.sample2_analysis == 'Failed' and item.sample3_collection == 'Failed' or item.sample3_analysis == 'Failed' or item.written_instruction == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -303,15 +294,14 @@ class ExamResultHistoryPAUTL2CSWIP(SidebarMixin, LoginRequiredMixin, TemplateVie
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if  overall_porpose.general_theory == 'Passed' and overall_porpose.specific_theory == 'Passed' and overall_porpose.sample1_analysis == 'Passed' and overall_porpose.sample1_collection == 'Passed' and overall_porpose.sample2_analysis == 'Passed' and overall_porpose.sample2_collection == 'Passed' and overall_porpose.sample3_analysis == 'Passed' and overall_porpose.sample3_collection == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if  item.general_theory == 'Failed' or item.specific_theory == 'Failed' or item.sample1_analysis == 'Failed' or item.sample1_collection == 'Failed' or item.sample2_analysis == 'Failed' or item.sample2_collection == 'Failed' or item.sample3_analysis == 'Failed' or item.sample3_collection == 'Failed' or item.written_instruction == 'Failed':
+                print('Failed')
+                item.overall = 'Failed'
+            else:
+                print('Passed')
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -350,15 +340,14 @@ class ExamResultHistoryPaintingInspection(SidebarMixin, LoginRequiredMixin, Temp
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if overall_porpose.practical == 'Passed' and overall_porpose.general_theory == 'Passed' :
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if item.practical == 'Failed' or item.general_theory == 'Failed' :
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -379,15 +368,14 @@ class ExamResultHistoryCSWIP322(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if overall_porpose.general_theory_s == 'Passed' and overall_porpose.ndt_s == 'Passed' and overall_porpose.symbols_s == 'Passed' and overall_porpose.scenario_s == 'Passed' and overall_porpose.plant_paper == 'Passed' and overall_porpose.inter_group_1 == 'Passed' and overall_porpose.inter_group_2 == 'Passed' and overall_porpose.inter_group_3 == 'Passed' and overall_porpose.inter_group_4 == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if item.general_theory_s == 'Failed' or item.ndt_s == 'Failed' or item.symbols_s == 'Failed' or item.scenario_s == 'Failed' or item.plant_paper == 'Failed' or item.inter_group_1 == 'Failed' or item.inter_group_2 == 'Failed' or item.inter_group_3 == 'Failed' or item.inter_group_4 == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -407,15 +395,16 @@ class ExamResultHistoryCSWIP321(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if overall_porpose.general_theory_s == 'Passed' and overall_porpose.ndt_s == 'Passed' and overall_porpose.symbols_s == 'Passed' and overall_porpose.scenario_s == 'Passed' and overall_porpose.plant_paper == 'Passed':
-            # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else:
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        print('Here66')
+        for item in results:
+            if item.general_theory_s == 'Failed' or item.ndt_s == 'Failed' or item.symbols_s == 'Failed' or item.scenario_s == 'Failed' or item.plant_paper == 'Failed':
+                # if overall_porpose.general_paper == 'Passed' :
+                print('Failed')
+                item.overall = 'Failed'
+            else:
+                item.overall = 'Passed'
+                print('Passed')
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -438,16 +427,14 @@ class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
         print(candidate)
         results = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
-
-        overall_porpose = results.last()
-        print(overall_porpose)
-        if overall_porpose.general_paper == str('Passed') and overall_porpose.technology_paper == 'Passed' and overall_porpose.plate_paper == 'Passed' and overall_porpose.pipe_paper == 'Passed' and overall_porpose.macro_paper == 'Passed':
-        # if overall_porpose.general_paper == 'Passed' :
-            print('Here')
-            overall_porpose.overall = 'Passed'
-        else :
-            overall_porpose.overall = 'Failed'
-        overall_porpose.save()
+        for item in results:
+            if item.general_paper == str('Failed') or item.technology_paper == 'Failed' or item.plate_paper == 'Failed' or item.pipe_paper == 'Failed' or item.macro_paper == 'Failed':
+            # if overall_porpose.general_paper == 'Passed' :
+                print('Here')
+                item.overall = 'Failed'
+            else :
+                item.overall = 'Passed'
+            item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
