@@ -54,6 +54,31 @@
 	.ft118{font-size:13px;line-height:17px;font-family:BCDEEE+Verdana;color:#000000;}
 	.ft119{font-size:12px;line-height:15px;font-family:BCDEEE+Verdana;color:#000000;}
 -->
+#canConfirmation{
+border: solid 1px black;
+    padding: 7px;
+}
+
+#canConfirmation:after{
+border: solid 1px black;
+    padding: 7px;
+    font-size: 22px;
+    margin-top: -3px;
+    margin-left: -5px;
+
+}
+#Confirmation{
+border: solid 1px black;
+    padding: 7px;
+}
+#Confirmation:after{
+    padding: 7px;
+    font-size: 22px;
+    margin-top: -3px;
+    margin-left: -5px;
+
+}
+
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
     margin: 0px 0;
 
@@ -244,6 +269,7 @@ input[type = checkbox]:checked {
     transform: scale(0.9,0.9);
 
   }
+
 </style><div class="container-fluid">
 
     <!-- start page title -->
@@ -628,8 +654,13 @@ input[type = checkbox]:checked {
                 <div class="card-body">
                     <div class="tab-content text-center">
                         <div class="tab-content text-left">
-         <label for="confirmation" >Confirmed:</label>
-         <input type="checkbox" name="confirmation"       id="confirmation"        />
+         <label for="confirmation" >Admin Confirmation:</label>
+         <input type="checkbox" name="confirmation"   {% if conf_obj.confirmation  %} checked {% endif %}    id="Confirmation"        />
+&nbsp;&nbsp;&nbsp;
+         <label for="canConfirmation" >Candidate Confirmation:</label>
+         <input type="checkbox" name="candidate_confirmation" class="canConf"  {% if conf_obj.candidate_confirmation %} checked {% endif %}    id="canConfirmation"        />
+
+
                             <hr>
 <h5>Scanned Form:</h5><a href="{% if form.file %}{{form.file.url}}{% endif %}" target="_blank">{{form.file}}</a>
                             </div><hr><br><button  class="btn btn-outline-primary" type="button" id="create-user">Upload files</button>

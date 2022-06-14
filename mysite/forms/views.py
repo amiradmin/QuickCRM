@@ -836,6 +836,8 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
 
             form.save()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+        context['conf_obj'] = conf_obj
         context['candidate'] =candidate
         context['form'] = form
         context['event'] = event
@@ -843,6 +845,7 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
         return context
 
     def post(self, request, id, *args, **kwargs):
+        context = super(UpdateTwiEnrolmentByUserID, self).get_context_data()
         candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         if request.method == 'POST':
@@ -853,15 +856,16 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                 obj.twiCandidateID = request.POST['twiCandidateID']
                 obj.eventName = request.POST['eventName']
                 # obj.eventDate = datetime.datetime.strptime(request.POST['form3_1'], '%m/%d/%Y')
-                obj.firstName = request.POST['firstName']
-                obj.middleName = request.POST['middleName']
-                obj.lastName = request.POST['lastName']
-                day = request.POST['day']
-                month = request.POST['month']
-                year = request.POST['year']
-                if year:
-                    birdDay = month + '/' + day + '/' + year
-                    obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
+                # obj.firstName = request.POST['firstName']
+                # obj.middleName = request.POST['middleName']
+                # obj.lastName = request.POST['lastName']
+                print('Here 1')
+                # day = request.POST['day']
+                # month = request.POST['month']
+                # year = request.POST['year']
+                # if year:
+                #     birdDay = month + '/' + day + '/' + year
+                #     obj.birthOfDate = datetime.datetime.strptime(birdDay, '%m/%d/%Y')
                 obj.permanentPrivateAddress = request.POST['permanentPrivateAddress']
                 obj.Postcode = request.POST['Postcode']
                 obj.CarRegNo = request.POST['CarRegNo']
@@ -887,7 +891,8 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                 # obj.experienceRequirements = request.POST['experienceRequirements']
                 obj.otherExaminationsTitle = request.POST['otherExaminationsTitle']
                 obj.bookingRef = request.POST['bookingRef']
-                obj.VerifierDate = datetime.datetime.strptime(request.POST['VerifierDate'], '%m/%d/%Y')
+                if request.POST['VerifierDate'] is not '':
+                    obj.VerifierDate = datetime.datetime.strptime(request.POST['VerifierDate'], '%m/%d/%Y')
 
                 # obj.GDPRstatement = request.POST['form37_1']
 
@@ -1166,11 +1171,32 @@ class UpdateTwiEnrolmentByUserID(SidebarMixin, LoginRequiredMixin, TemplateView)
                     obj.otherExaminationsTitleRequired = 'Offshore visual Inspector'
                 if not request.POST.get('BGAS', None) == None:
                     obj.otherExaminationsTitleRequired = 'BGAS'
-
-
                 obj.save()
 
-                return redirect('forms:evensummary_', id=event.id)
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                print(conf_obj.id)
+                if group_name == 'candidates':
+                    print('Good Day')
+                    if not request.POST.get('candidate_confirmation', None) == None:
+                        conf_obj.candidate_confirmation = True
+                    else:
+                        conf_obj.candidate_confirmation = False
+                else:
+                    if not request.POST.get('confirmation', None) == None:
+                        conf_obj.confirmation = True
+                    else:
+                        conf_obj.confirmation = False
+                conf_obj.save()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                # form = NDTCovid19.objects.filter(candidate=candidate).first()
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['form'] = obj
+                context['conf_obj'] = conf_obj
+                return render(request, 'forms/reg_forms/update_twi_enrolment.html', context)
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack now')
@@ -7189,16 +7215,22 @@ class UpdateTWITrainingFeedbackByUserID(SidebarMixin, LoginRequiredMixin, Templa
         candidate = TesCandidate.objects.filter(id=id).first()
         form = TwiTrainingFeedback.objects.filter(candidate=candidate).first()
 
-        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        form = NDTCovid19.objects.filter(candidate=candidate).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
         context['group_name'] = group_name
         context['candidate'] = candidate
+        context['form'] = form
+        context['conf_obj'] = conf_obj
 
         context['form'] = form
         return context
 
     def post(self, request, id, *args, **kwargs):
         if request.method == 'POST':
+            context = super(UpdateTWITrainingFeedbackByUserID, self).get_context_data()
             if 'mainForm' in request.POST:
                 event = Event.objects.filter(id=self.kwargs['eventID']).first()
                 # if not  request.POST.get('contactMe', None) == None:
@@ -7661,7 +7693,33 @@ class UpdateTWITrainingFeedbackByUserID(SidebarMixin, LoginRequiredMixin, Templa
 
                 trainingObj.save()
 
-                return redirect('forms:evensummary_', id=event.id)
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                print(conf_obj.id)
+                if group_name == 'candidates':
+                    print('Good Day')
+                    if not request.POST.get('candidate_confirmation', None) == None:
+                        conf_obj.candidate_confirmation = True
+                    else:
+                        conf_obj.candidate_confirmation = False
+                else:
+                    if not request.POST.get('confirmation', None) == None:
+                        conf_obj.confirmation = True
+                    else:
+                        conf_obj.confirmation = False
+                conf_obj.save()
+
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                # form = NDTCovid19.objects.filter(candidate=candidate).first()
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['form'] = trainingObj
+                context['conf_obj'] = conf_obj
+
+                return render(request, 'forms/ndt/covid_19_update.html', context)
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
@@ -7817,7 +7875,7 @@ class NewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
                 context['guideline'] = guideline
 
             # return redirect('forms:jaegertofdl2_' ,context)
-            return render(request, 'forms/twi_exam_Feedback_S.html', context)
+            return render(request, 'forms/update_twi_Training_Feedback.html', context)
 
 class AllTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/all_twi_exam_feedback.html"
@@ -7940,14 +7998,20 @@ class UpdateTWIExamFeedbackByid(SidebarMixin, LoginRequiredMixin, TemplateView):
             form.event.name = event.name
             form.event.location = event.location
             form.save()
-        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        form = NDTCovid19.objects.filter(candidate=candidate).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
         context['group_name'] = group_name
         context['candidate'] = candidate
         context['form'] = form
+        context['conf_obj'] = conf_obj
         return context
 
     def post(self, request, id, *args, **kwargs):
+        context = super(UpdateTWIExamFeedbackByid, self).get_context_data()
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 print("POST")
@@ -8020,8 +8084,36 @@ class UpdateTWIExamFeedbackByid(SidebarMixin, LoginRequiredMixin, TemplateView):
                         examObj.catering = str(idx + 1)
 
                 examObj.save()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
 
-                return redirect('forms:evensummary_', id=event.id)
+
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                print(conf_obj.id)
+                if group_name == 'candidates':
+                    print('Good Day')
+                    if not request.POST.get('candidate_confirmation', None) == None:
+                        conf_obj.candidate_confirmation = True
+                    else:
+                        conf_obj.candidate_confirmation = False
+                else:
+                    if not request.POST.get('confirmation', None) == None:
+                        conf_obj.confirmation = True
+                    else:
+                        conf_obj.confirmation = False
+                conf_obj.save()
+
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                form = NDTCovid19.objects.filter(candidate=candidate).first()
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['form'] = form
+                context['conf_obj'] = conf_obj
+
+
+                return render(request, 'forms/ndt/covid_19_update.html', context)
 
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
@@ -8031,7 +8123,7 @@ class UpdateTWIExamFeedbackByid(SidebarMixin, LoginRequiredMixin, TemplateView):
                 obj.save()
                 return redirect('forms:evensummary_', id=event.id)
 
-            return render(request, 'forms/vision_test.html', context)
+            return render(request,  "forms/update_twi_exam_Feedback.html", context)
 
 class ViewTWIExamFeedback(SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "forms/view_twi_exam_Feedback.html"

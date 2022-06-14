@@ -2143,8 +2143,13 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
                 <div class="card-body">
                     <div class="tab-content text-center">
                         <div class="tab-content text-left">
-         <label for="confirmation" >Confirmed:</label>
-         <input type="checkbox" name="confirmation"       id="confirmation"        />
+         <label for="confirmation" >Admin Confirmation:</label>
+         <input type="checkbox" name="confirmation" style="border:solid 1px black"   {% if conf_obj.confirmation  %} checked {% endif %}    id="Confirmation"        />
+&nbsp;&nbsp;&nbsp;
+         <label for="canConfirmation" >Candidate Confirmation:</label>
+         <input type="checkbox" name="candidate_confirmation" class="canConf" style="border:solid 1px black" {% if conf_obj.candidate_confirmation %} checked {% endif %}    id="canConfirmation"        />
+
+
                             <hr>
 <h5>Scanned Form:</h5><a href="{% if form.file %}{{form.file.url}}{% endif %}" target="_blank">{{form.file}}</a>
                             </div>
