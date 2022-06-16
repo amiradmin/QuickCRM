@@ -1,39 +1,35 @@
-from django.test import TestCase
-from django.contrib.auth.models import User
-from training.models import Product
-import pytest
-from nplusone.core.profiler import Profiler
-from django.db import connection
-
-@pytest.fixture()
-def make_data():
-    for i in range(10):
-        Product.objects.create( name=f"Song {i + 1}")
-
-@pytest.mark.django_db()
-def test_print_product(make_data):
-    print(len(connection.queries))
+from locust import HttpLocust, TaskSet, task
+import json
 
 
-@pytest.mark.django_db()
-def test_users_query_performances():
-    User.objects.all()
+class UserBehavior(TaskSet):
+    def __init__(self, parent):
+        super(UserBehavior, self).__init__(parent)
+        self.token = ""
+        self.headers = {}
 
 
-@pytest.mark.django_db()
-def test_products_query_performances():
-    Product.objects.all()
+def on_start(self):
+    self.token = self.login()
+    self.headers = {'Authorization': 'Token ' + self.token}
+
+
+def login(self):
+    response = self.client.post("/", data={'username': 'amiradmin', 'password': 'Eddy@747', 'Login': 'Login'})
+    return json.loads(response._content)['key']
+
+
+@task(2)
+def index(self):
+    self.client.get("/admin/", headers=self.headers)
 
 #
-# @pytest.fixture(autouse=True)
-# def record_query_count(request):
-#     from django.test.utils import CaptureQueriesContext
-#     from django.db import connection
+# @task(1)
+# def profile(self):
+#     self.client.get("/profile/", headers=self.headers)
 #
-#     with CaptureQueriesContext(connection) as context:
-#         yield
-#     num_performed = len(context)
-#
-#     if not hasattr(request.config, "query_counts"):
-#         request.config.query_counts = dict()
-#     request.config.query_counts[request.node.nodeid] = num_performed
+
+class WebsiteUser(HttpLocust):
+    task_set = UserBehavior
+    min_wait = 5000
+    max_wait = 9000

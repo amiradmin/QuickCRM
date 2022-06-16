@@ -867,7 +867,7 @@ $spacer: 20px;
 
      {% for item2 in candi.candidate_forms.all  %}
 
-                                                            {% if item2.event.id == item.id %}
+                                                            {% if item2.event.id == item.id and item2.sent == True %}
 
            {% if item2.form_name != 'Training Attendance Form'  %}
            {% if item2.form_name != 'Exam Attendance Form'  %}
