@@ -422,17 +422,15 @@ class ExamResultHistoryCSWIP31(SidebarMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultHistoryCSWIP31, self).get_context_data()
         print(self.kwargs['candidate_id'])
-        print('Today is a good day')
-
         candidate = TesCandidate.objects.filter(id=self.kwargs['candidate_id']).first()
-        print(candidate)
         results = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
         for item in results:
-            if item.general_paper == str('Failed') or item.technology_paper == 'Failed' or item.plate_paper == 'Failed' or item.pipe_paper == 'Failed' or item.macro_paper == 'Failed':
-            # if overall_porpose.general_paper == 'Passed' :
+            if item.general_paper == 'Failed' or item.technology_paper == 'Failed' or item.plate_paper == 'Failed' or \
+            item.pipe_paper == 'Failed' or item.macro_paper == 'Failed':
+                
                 print('Here')
                 item.overall = 'Failed'
-            else :
+            else:
                 item.overall = 'Passed'
             item.save()
 
