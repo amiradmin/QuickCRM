@@ -228,6 +228,26 @@
     margin: 0px 0;
 
 }
+#canConfirmation{
+margin-top: -8px;
+border:solid 1px black;
+padding: 3px;
+}
+#Confirmation{
+margin-top: -8px;
+border:solid 1px black;
+padding: 3px;
+}
+
+#canConfirmation:after{
+margin-top: -8px;
+font-size: 13px; margin-top: 8px; margin-left: 2px;
+}
+#Confirmation:after{
+margin-top: -8px;
+font-size: 13px; margin-top: 8px; margin-left: 2px;
+}
+
 .drop-zone {
   max-width: 100%%;
   height: 300px;
@@ -873,6 +893,8 @@ input[type = checkbox]:checked {
     top:-140px;
     left:25px;
   }
+
+
 }
 </style>
 <script>
@@ -1057,8 +1079,13 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
                 <div class="card-body">
                     <div class="tab-content text-center">
                         <div class="tab-content text-left">
-         <label for="confirmation" >Confirmed:</label>
-         <input type="checkbox" name="confirmation"       id="confirmation"        />
+         <label for="confirmation" >Admin Confirmation:</label>
+         <input type="checkbox" name="confirmation"   {% if conf_obj.confirmation  %} checked {% endif %}    id="Confirmation"        />
+&nbsp;&nbsp;&nbsp;
+         <label for="canConfirmation" >Candidate Confirmation:</label>
+         <input type="checkbox" name="candidate_confirmation" class="canConf"  {% if conf_obj.candidate_confirmation %} checked {% endif %}    id="canConfirmation"        />
+
+
                             <hr>
 <h5>Scanned Form:</h5><a href="{% if form.file %}{{form.file.url}}{% endif %}" target="_blank">{{form.file}}</a>
                             </div><hr><br><button  class="btn btn-outline-primary" type="button" id="create-user">Upload files</button>

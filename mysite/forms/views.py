@@ -5532,6 +5532,7 @@ class UpdateLecFeedbackByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
     def post(self, request, id, *args, **kwargs):
+        context = super(UpdateLecFeedbackByUserID, self).get_context_data()
         if request.method == 'POST':
             if 'mainForm' in request.POST:
                 candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
@@ -5675,12 +5676,36 @@ class UpdateLecFeedbackByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 lecObj.ControllingTheClassComment = request.POST['comment9']
                 lecObj.punctualityComment = request.POST['comment10']
                 lecObj.generalBehaviourComment = request.POST['comment11']
-
                 lecObj.anyComments = request.POST['comment']
-
                 lecObj.save()
 
-                return redirect('forms:evensummary_', id=event.id)
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                print(conf_obj.id)
+                if group_name == 'candidates':
+                    print('Good Day')
+                    if not request.POST.get('candidate_confirmation', None) == None:
+                        conf_obj.candidate_confirmation = True
+                    else:
+                        conf_obj.candidate_confirmation = False
+                else:
+                    if not request.POST.get('confirmation', None) == None:
+                        conf_obj.confirmation = True
+                    else:
+                        conf_obj.confirmation = False
+                conf_obj.save()
+
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                form = TesLecFeedbackFrom.objects.filter(candidate=candidate).first()
+                candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                conf_obj = CandidateForms.objects.filter(id=self.kwargs['formID']).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['form'] = form
+                context['conf_obj'] = conf_obj
+
+                return render(request, 'forms/update_lect_feedback_form.html', context)
             if 'uploadFormBack' in request.POST:
                 print('uploadFormBack')
                 candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
