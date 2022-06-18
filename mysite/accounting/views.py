@@ -318,27 +318,13 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         group_name = self.request.user.groups.values_list('name', flat=True).first()
 
         result_list=[]
-        result1={}
-        result2={}
-        result3={}
-        result4={}
-        result5={}
-        result6={}
-        result7={}
-        result8={}
-        result9={}
-        result10={}
-        result11={}
-        result12={}
-        result13={}
-        result14={}
-        result15={}
-        result16={}
-        result17={}
+
+
 
         cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
         if cswip31_result.count() >0:
             for item in cswip31_result:
+                result1 = {}
                 result1['id'] = item.id
                 result1['event'] = item.event
                 result1['exam_date'] = item.exam.exam_date
@@ -350,6 +336,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
         if cswip321_result.count() > 0:
             for item in cswip321_result:
+                result2 = {}
                 result2['id'] = item.id
                 result2['event'] = item.event
                 result2['exam_date'] = item.exam_date
@@ -362,6 +349,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=candidate)
         if cswip322_result.count() > 0:
             for item in cswip322_result:
+                result3 = {}
                 result3['id'] = item.id
                 result3['event'] = item.event
                 result3['exam_date'] = item.exam_date
@@ -373,6 +361,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
         if painting_cswip_result.count() > 0:
             for item in painting_cswip_result:
+                result4 = {}
                 result4['id'] = item.id
                 result4['event'] = item.event
                 result4['exam_date'] = item.exam_date
@@ -384,7 +373,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(candidate=candidate)
         if paut_l2_cswip_result.count() > 0:
             for item in paut_l2_cswip_result:
-                print("Here now")
+                result5 = {}
                 result5['id'] = item.id
                 result5['event'] = item.event
                 result5['exam_date'] = item.exam_date
@@ -396,6 +385,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(candidate=candidate)
         if paut_l2_pcn_result.count() > 0:
             for item in paut_l2_pcn_result:
+                result6 = {}
                 result6['id'] = item.id
                 result6['event'] = item.event
                 result6['exam_date'] = item.exam_date
@@ -407,6 +397,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(candidate=candidate)
         if paut_l3_cswip_result.count() > 0:
             for item in paut_l3_cswip_result:
+                result7 = {}
                 result7['id'] = item.id
                 result7['event'] = item.event
                 result7['exam_date'] = item.exam_date
@@ -419,6 +410,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate)
         if paut_l3_pcn_result.count() > 0:
             for item in paut_l3_pcn_result:
+                result8 = {}
                 result8['id'] = item.id
                 result8['event'] = item.event
                 result8['exam_date'] = item.exam_date
@@ -430,6 +422,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(candidate=candidate)
         if tofd_l2_pcn_result.count() > 0:
             for item in tofd_l2_pcn_result:
+                result9 = {}
                 result9['id'] = item.id
                 result9['event'] = item.event
                 result9['exam_date'] = item.exam_date
@@ -441,6 +434,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
         if tofd_l2_cswip_result.count() > 0:
             for item in tofd_l2_cswip_result:
+                result10 = {}
                 result10['id'] = item.id
                 result10['event'] = item.event
                 result10['exam_date'] = item.exam_date
@@ -452,6 +446,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate)
         if tofd_l3_cswip_result.count() > 0:
             for item in tofd_l3_cswip_result:
+                result11 = {}
                 result11['id'] = item.id
                 result11['event'] = item.event
                 result11['exam_date'] = item.exam_date
@@ -464,6 +459,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(candidate=candidate)
         if tofd_l3_pcn_result.count() > 0:
             for item in tofd_l3_pcn_result:
+                result12 = {}
                 result12['id'] = item.id
                 result12['event'] = item.event
                 result12['exam_date'] = item.exam_date
@@ -476,6 +472,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         ri_result = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate)
         if ri_result.count() > 0:
             for item in ri_result:
+                result13 = {}
                 result13['id'] = item.id
                 result13['event'] = item.event
                 result13['exam_date'] = item.exam_date
@@ -488,6 +485,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate)
         if dri_result.count() >0:
             for item in dri_result:
+                result14 = {}
                 result14['id'] = item.id
                 result14['event'] = item.event
                 result14['exam_date'] = item.exam_date
