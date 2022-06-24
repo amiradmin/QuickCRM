@@ -1778,7 +1778,7 @@ class RadiographicInterpretationWeldsRIMaterial_Summary(SidebarMixin, LoginRequi
 
 class DeleteTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = TimeFlightDiffractionTOFDLevel3_PCN_Result3
-    success_url = reverse_lazy('exam_certification:newpcntofdresultresult_')
+    success_url = reverse_lazy('exam_certification:exampcntofdresultsummary_')
 
     def get_context_data(self, **kwargs):
         """Overriding get_context_data to add additional context."""

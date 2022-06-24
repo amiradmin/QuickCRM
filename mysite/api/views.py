@@ -118,6 +118,8 @@ class GetProductByID(APIView):
         product = Product.objects.filter(id=id).first()
         result['id'] = product.id
         result['name'] = product.name
+        result['title'] = product.title
+        result['description'] = product.description
         result['code'] = product.code
         result['price'] = product.price
         result['type'] = product.type
