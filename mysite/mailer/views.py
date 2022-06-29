@@ -38,7 +38,7 @@ class GirdSender( LoginRequiredMixin, TemplateView):
         #
         message = Mail(
             from_email='amir.behvandi@tescan.ca',
-            to_emails='amirbehavndi747@gmail.com',
+            to_emails='amirbehvandi747@gmail.com',
             subject='Sending from python with sendgrid',
             html_content='<strong>and easy to do anywhere, even with Python</strong>')
         try:
