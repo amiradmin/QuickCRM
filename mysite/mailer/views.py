@@ -2,8 +2,74 @@ from django.shortcuts import render
 from email.message import EmailMessage
 from email.utils import make_msgid
 import smtplib
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+from django.contrib.auth.mixins import LoginRequiredMixin
+from authorization.sidebarmixin import SidebarMixin
+from django.views.generic import View, TemplateView
+from training.models import TesCandidate
+from sendgrid.helpers.mail import *
 # Create your views here.
 
+import sendgrid
+import os
+from sendgrid.helpers.mail import Mail, Email, To, Content
+
+class GirdSender( LoginRequiredMixin, TemplateView):
+    template_name = "mailer/send_mail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(GirdSender, self).get_context_data()
+        # sg = sendgrid.SendGridAPIClient(api_key='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')
+        # from_email = Email("amir.behvandi@tescan.ca")  # Change to your verified sender
+        # to_email = To("amirbehavndi747@gmail.com")  # Change to your recipient
+        # subject = "Sending with SendGrid is Fun"
+        # content = Content("text/plain", "and easy to do anywhere, even with Python")
+        # mail = Mail(from_email, to_email, subject, content)
+        #
+        # # Get a JSON-ready representation of the Mail object
+        # mail_json = mail.get()
+        #
+        # # Send an HTTP POST request to /mail/send
+        # response = sg.client.mail.send.post(request_body=mail_json)
+        # print(response.status_code)
+        # print(response.headers)
+        #
+        message = Mail(
+            from_email='amir.behvandi@tescan.ca',
+            to_emails='amirbehavndi747@gmail.com',
+            subject='Sending from python with sendgrid',
+            html_content='<strong>and easy to do anywhere, even with Python</strong>')
+        try:
+            sg = SendGridAPIClient('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')
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.message)
+            print("Error")
+
+        return context
+
+
+
+def gridSender():
+    message = Mail(
+        from_email='amirbehvandi747@gmail.com',
+        to_emails='amirbehvandi747@gmail.com',
+        subject='Sending with Twilio SendGrid is Fun',
+        html_content='<strong>and easy to do anywhere, even with Python</strong>')
+
+    try:
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e.message)
 
 
 def sendMail(targetEmail,fullname=None,message=None):
