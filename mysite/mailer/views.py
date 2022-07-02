@@ -10,46 +10,38 @@ from authorization.sidebarmixin import SidebarMixin
 from django.views.generic import View, TemplateView
 from training.models import TesCandidate
 from sendgrid.helpers.mail import *
-# Create your views here.
-
+from dotenv import load_dotenv
 import sendgrid
 import os
 from sendgrid.helpers.mail import Mail, Email, To, Content
+
+
+
 
 class GirdSender( LoginRequiredMixin, TemplateView):
     template_name = "mailer/send_mail.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(GirdSender, self).get_context_data()
-        # sg = sendgrid.SendGridAPIClient(api_key='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')
-        # from_email = Email("amir.behvandi@tescan.ca")  # Change to your verified sender
-        # to_email = To("amirbehavndi747@gmail.com")  # Change to your recipient
-        # subject = "Sending with SendGrid is Fun"
-        # content = Content("text/plain", "and easy to do anywhere, even with Python")
-        # mail = Mail(from_email, to_email, subject, content)
-        #
-        # # Get a JSON-ready representation of the Mail object
-        # mail_json = mail.get()
-        #
-        # # Send an HTTP POST request to /mail/send
-        # response = sg.client.mail.send.post(request_body=mail_json)
-        # print(response.status_code)
-        # print(response.headers)
-        #
+        project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        load_dotenv(os.path.join(project_folder, '.env'))
+        print(os.environ.get('SENDGRID_API_KEY'))
+
+
         message = Mail(
-            from_email='amir.behvandi@tescan.ca',
+            from_email='erp@tescan.ca',
+            # to_emails='farshid.alizadeh@tescan.ca',
             to_emails='amirbehvandi747@gmail.com',
-            subject='Sending from python with sendgrid',
+            subject='Amir:This is a test from Tescan app with python via Sendgred',
             html_content='<strong>and easy to do anywhere, even with Python</strong>')
         try:
-            sg = SendGridAPIClient('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')
+            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(message)
             print(response.status_code)
             print(response.body)
             print(response.headers)
         except Exception as e:
             print(e.message)
-            print("Error")
 
         return context
 
