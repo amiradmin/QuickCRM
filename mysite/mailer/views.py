@@ -25,24 +25,49 @@ class GirdSender( LoginRequiredMixin, TemplateView):
         context = super(GirdSender, self).get_context_data()
         project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         load_dotenv(os.path.join(project_folder, '.env'))
-        print(os.environ.get('SENDGRID_API_KEY'))
 
+        FROM_EMAIL = 'erp@tescan.ca'
+        TEMPLATE_ID = '5599f005-2b5b-4b27-b3a6-aa0d3cf8e120'
+        TO_EMAILS = [('amirbehvandi747@gmail.com', 'Amir Behvandi'),
+                     # update email and name
+                     ('farshid.alizadeh@tescan.ca', 'Farshid Alizadeh')]
+
+        # message = Mail(
+        #     from_email='erp@tescan.ca',
+        #     # to_emails='farshid.alizadeh@tescan.ca',
+        #     to_emails='amirbehvandi747@gmail.com',
+        #     subject='Amir:This is a test from Tescan app with python via Sendgred',
+        #     html_content='<strong>and easy to do anywhere, even with Python</strong>')
+        # try:
+        #     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        #     response = sg.send(message)
+        #     print(response.status_code)
+        #     print(response.body)
+        #     print(response.headers)
+        # except Exception as e:
+        #     print(e.message)
 
         message = Mail(
-            from_email='erp@tescan.ca',
-            # to_emails='farshid.alizadeh@tescan.ca',
-            to_emails='amirbehvandi747@gmail.com',
-            subject='Amir:This is a test from Tescan app with python via Sendgred',
-            html_content='<strong>and easy to do anywhere, even with Python</strong>')
+            from_email=FROM_EMAIL,
+            to_emails=TO_EMAILS)
+        # pass custom values for our HTML placeholders
+        message.dynamic_template_data = {
+            'subject': 'Tescan ERP',
+            'place': 'Canada',
+            'event': 'Twilio Signal'
+        }
+        message.template_id = TEMPLATE_ID
+        # create our sendgrid client object, pass it our key, then send and return our response objects
         try:
             sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
             response = sg.send(message)
-            print(response.status_code)
-            print(response.body)
-            print(response.headers)
+            code, body, headers = response.status_code, response.body, response.headers
+            print(f"Response code: {code}")
+            print(f"Response headers: {headers}")
+            print(f"Response body: {body}")
+            print("Dynamic Messages Sent!")
         except Exception as e:
-            print(e.message)
-
+            print("Error: {0}".format(e))
         return context
 
 
