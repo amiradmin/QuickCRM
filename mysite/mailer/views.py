@@ -38,6 +38,7 @@ class GirdSender( LoginRequiredMixin, TemplateView):
         #     to_emails='amirbehvandi747@gmail.com',
         #     subject='Amir:This is a test from Tescan app with python via Sendgred',
         #     html_content='<strong>and easy to do anywhere, even with Python</strong>')
+        # # message.template_id = '5599f005-2b5b-4b27-b3a6-aa0d3cf8e120'
         # try:
         #     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
         #     response = sg.send(message)
@@ -51,11 +52,11 @@ class GirdSender( LoginRequiredMixin, TemplateView):
             from_email=FROM_EMAIL,
             to_emails=TO_EMAILS)
         # pass custom values for our HTML placeholders
-        message.dynamic_template_data = {
-            'subject': 'Tescan ERP',
-            'place': 'Canada',
-            'event': 'Twilio Signal'
-        }
+        # message.dynamic_template_data = {
+        #     'subject': 'Tescan ERP',
+        #     'place': 'Canada',
+        #     'event': 'Twilio Signal'
+        # }
         message.template_id = TEMPLATE_ID
         # create our sendgrid client object, pass it our key, then send and return our response objects
         try:

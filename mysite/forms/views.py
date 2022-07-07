@@ -1855,7 +1855,8 @@ class UpdateBGASExperienceFormByID(SidebarMixin, LoginRequiredMixin, TemplateVie
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateBGASExperienceFormByID, self).get_context_data()
-        form = BGAsExperienceForm.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+        form = BGAsExperienceForm.objects.filter(candidate=candidate).first()
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
