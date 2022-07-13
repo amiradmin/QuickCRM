@@ -19,6 +19,48 @@ from mailchimp import Mailchimp
 
 
 
+
+class SingleMailSender( LoginRequiredMixin, TemplateView):
+    template_name = "mailer/send_mail.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SingleMailSender, self).get_context_data()
+        project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        load_dotenv(os.path.join(project_folder, '.env'))
+        print('Single mail')
+        MAILCHIMP_API_KEY = 'u43GgXUpxDRoAykDrj2kcw'
+
+        message = {
+            "from_email": "erp@tescan.ca",
+            "subject": "Amir python Test email with template",
+            "text": "Welcome to Mailchimp Transactional!",
+            "to": [
+                {
+                    "email": "farshid.alizadeh@tescan.ca",
+                    "type": "to"
+                }
+            ]
+        }
+
+        # try:
+        #     mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
+        #     response = mailchimp.messages.send({"message": message})
+        #     print('API called successfully: {}'.format(response))
+        # except ApiClientError as error:
+        #     print('An exception occurred: {}'.format(error.text))
+        try:
+            mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
+            response = mailchimp.messages.send_template(
+                {"template_name": "test", "template_content": [{}], "message": message})
+            print(response)
+        except ApiClientError as error:
+            print("An exception occurred: {}".format(error.text))
+
+
+        return context
+
+
+
 class GirdSender( LoginRequiredMixin, TemplateView):
     template_name = "mailer/send_mail.html"
 

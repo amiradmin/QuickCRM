@@ -6,6 +6,7 @@ urlpatterns = [
 
 
     path('sendmail', views.GirdSender.as_view(), name='sendmail'),
+    path('singlemail', views.SingleMailSender.as_view(), name='singlemail_'),
     # path('adminnewcontact', views.AdminNewContactView.as_view(), name='adminnewcontact_'),
     # path('messagelist/<int:id>', views.MessageListView.as_view(), name='messagelist_'),
     # path('adminmessagelist', views.AdminMessageListView.as_view(), name='adminmessagelist_'),
