@@ -13,8 +13,9 @@ from sendgrid.helpers.mail import *
 from dotenv import load_dotenv
 import sendgrid
 import os
-from sendgrid.helpers.mail import Mail, Email, To, Content
-
+import mailchimp_transactional as MailchimpTransactional
+from mailchimp_transactional.api_client import ApiClientError
+from mailchimp import Mailchimp
 
 
 
@@ -26,49 +27,22 @@ class GirdSender( LoginRequiredMixin, TemplateView):
         project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         load_dotenv(os.path.join(project_folder, '.env'))
 
-        FROM_EMAIL = 'erp@tescan.ca'
-        TEMPLATE_ID = '5599f005-2b5b-4b27-b3a6-aa0d3cf8e120'
-        TO_EMAILS = [('amirbehvandi747@gmail.com', 'Amir Behvandi'),
-                     # update email and name
-                     ('farshid.alizadeh@tescan.ca', 'Farshid Alizadeh')]
 
-        # message = Mail(
-        #     from_email='erp@tescan.ca',
-        #     # to_emails='farshid.alizadeh@tescan.ca',
-        #     to_emails='amirbehvandi747@gmail.com',
-        #     subject='Amir:This is a test from Tescan app with python via Sendgred',
-        #     html_content='<strong>and easy to do anywhere, even with Python</strong>')
-        # # message.template_id = '5599f005-2b5b-4b27-b3a6-aa0d3cf8e120'
-        # try:
-        #     sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-        #     response = sg.send(message)
-        #     print(response.status_code)
-        #     print(response.body)
-        #     print(response.headers)
-        # except Exception as e:
-        #     print(e.message)
 
-        message = Mail(
-            from_email=FROM_EMAIL,
-            to_emails=TO_EMAILS)
-        # pass custom values for our HTML placeholders
-        # message.dynamic_template_data = {
-        #     'subject': 'Tescan ERP',
-        #     'place': 'Canada',
-        #     'event': 'Twilio Signal'
+        # message = {
+        #     "from_email": "erp@tescan.ca",
+        #     "subject": "Hello world",
+        #     "text": "Welcome to Mailchimp Transactional!",
+        #     "to": [
+        #         {
+        #             "email": "amirbehvandi747@gmail.com",
+        #             "type": "to"
+        #         }
+        #     ]
         # }
-        message.template_id = TEMPLATE_ID
-        # create our sendgrid client object, pass it our key, then send and return our response objects
-        try:
-            sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-            response = sg.send(message)
-            code, body, headers = response.status_code, response.body, response.headers
-            print(f"Response code: {code}")
-            print(f"Response headers: {headers}")
-            print(f"Response body: {body}")
-            print("Dynamic Messages Sent!")
-        except Exception as e:
-            print("Error: {0}".format(e))
+
+        mailchimp = Mailchimp('4701860b6ec832bbd40ddb1650a841f0-us9')
+        mailchimp.campaigns.send('d337a91349')
         return context
 
 
