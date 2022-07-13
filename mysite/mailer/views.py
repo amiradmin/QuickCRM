@@ -49,6 +49,7 @@ class SingleMailSender( LoginRequiredMixin, TemplateView):
         # except ApiClientError as error:
         #     print('An exception occurred: {}'.format(error.text))
         try:
+            print("Here")
             mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
             response = mailchimp.messages.send_template(
                 {"template_name": "test", "template_content": [{}], "message": message})
