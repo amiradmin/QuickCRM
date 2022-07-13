@@ -28,7 +28,7 @@ class SingleMailSender( LoginRequiredMixin, TemplateView):
         project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         load_dotenv(os.path.join(project_folder, '.env'))
         print('Single mail')
-        MAILCHIMP_API_KEY = ''
+        MAILCHIMP_API_KEY = os.getenv('MAILCHIMP_API_KEY')
 
         message = {
             "from_email": "erp@tescan.ca",
@@ -36,7 +36,7 @@ class SingleMailSender( LoginRequiredMixin, TemplateView):
             "text": "Welcome to Mailchimp Transactional!",
             "to": [
                 {
-                    "email": "farshid.alizadeh@tescan.ca",
+                    "email": "amir.behvandi@tescan.ca",
                     "type": "to"
                 }
             ]
