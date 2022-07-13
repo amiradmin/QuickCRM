@@ -41,7 +41,7 @@ class GirdSender( LoginRequiredMixin, TemplateView):
         #     ]
         # }
 
-        mailchimp = Mailchimp('4701860b6ec832bbd40ddb1650a841f0-us9')
+        mailchimp = Mailchimp('')
         mailchimp.campaigns.send('d337a91349')
         return context
 
