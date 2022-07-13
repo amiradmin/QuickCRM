@@ -6,6 +6,7 @@ urlpatterns = [
 
 
     path('mailer/', views.MailerView.as_view(), name='mailer_'),
+    path('newmail/', views.NewMailchipEmail.as_view(), name='newmail_'),
 
 
 

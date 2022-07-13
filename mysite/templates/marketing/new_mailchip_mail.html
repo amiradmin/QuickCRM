@@ -1,7 +1,42 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<style>
+    /* Style inputs with type="text", select elements and textareas */
+input[type=text], select, textarea {
+  width: 100%; /* Full width */
+  padding: 12px; /* Some padding */
+  border: 1px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+  margin-top: 6px; /* Add a top margin */
+  margin-bottom: 16px; /* Bottom margin */
+  resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+}
 
+/* Style the submit button with a specific background color etc */
+input[type=submit] {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* When moving the mouse over the submit button, add a darker green color */
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+/* Add a background color and some padding around the form */
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+</style>
                     <!-- Start Content-->
                     <div class="container-fluid">
 
@@ -12,7 +47,7 @@
                                 <div class="page-title-right">
 
                                 </div>
-                                <h4 class="page-title">Marketing Emails</h4>
+                                <h4 class="page-title">New Email</h4>
                             </div>
                         </div>
                     </div>
@@ -27,53 +62,25 @@
 
 
                                     <div class="tab-content">
-                                        <br>
+
+<form method="post">
+    {% csrf_token %}
+    <label for="email">Email</label>
+    <input type="text" id="email" name="email" placeholder="Target email .." required>
+
+    <label for="subject">Subject</label>
+    <input type="text" id="subject" name="subject" placeholder="Type here ... ">
 
 
 
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
-                                               <label for="inputState" class="form-label">Candidates:</label>
-                                            <table id="basic-datatable" class="table dt-responsive  w-100">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Phone</th>
-
-                                                </thead>
-
-
-                                                <tbody>
-                                                    {% for item in candidate_list %}
-                                                    <tr>
-                                                         <td><input type="checkbox" name="approvedFlag" value="{{item.id}}" {% if item.approved %} checked {% endif %} /></td>
-                                                        <td>{{item.id}}</td>
-                                                        <td>{{item.first_name}} {% if item.middleName %}{{item.middleName}}{% endif %} {{item.last_name}}</td>
-                                                        <td>{{item.email}}</td>
-                                                        <td>{{item.contact_number}}</td>
-
-
-                                                    </tr>
-                                                    {%endfor%}
-                                                </tbody>
-                                            </table>
-                                        </div> <!-- end preview-->
-                                        <br>
-                                        <br>
-                                        <br>
+    <label for="subject">Message</label>
+    <textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
 
                      <div class="mb-3 col-md-12 text-center">
-                                    <button onclick="myFunctionButtom()" class="btn btn-primary" name="send" type="submit">Send</button>
+                                    <button  class="btn btn-primary mx-2" name="send" type="submit">Send</button>
                      </div>
 
-                                        <div class="tab-pane" id="basic-datatable-code">
-
-
-
-
-                                        </div> <!-- end preview code-->
+  </form>
                                     </div> <!-- end tab-content-->
 
                                 </div> <!-- end card body-->
