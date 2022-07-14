@@ -817,7 +817,7 @@ def password_reset_request(request):
                     message = {
                         "from_email": "erp@tescan.ca",
                         "subject": 'Password Reset Requested',
-                        "text": 'http://127.0.0.1:8000/accounts/reset/'+ uid+'/'+ token +'/' ,
+                        "text": 'http://erp.tescan.ca/accounts/reset/'+ uid+'/'+ token +'/' ,
 
                         "to": [
                             {
@@ -833,7 +833,7 @@ def password_reset_request(request):
                     except ApiClientError as error:
                         print('An exception occurred: {}'.format(error.text))
 
-                    return redirect("/accounts/reset/done/")
+                    return redirect("password_reset/done/")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="registration/password_reset.html",
                   context={"password_reset_form": password_reset_form})
