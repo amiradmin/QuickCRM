@@ -775,6 +775,10 @@ from django.db.models.query_utils import Q
 from django.utils.http import urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
+import mailchimp_transactional as MailchimpTransactional
+from mailchimp_transactional.api_client import ApiClientError
+import os
+from dotenv import load_dotenv
 
 
 def password_reset_request(request):
@@ -785,6 +789,7 @@ def password_reset_request(request):
             print("Inside2")
             data = password_reset_form.cleaned_data['email']
             associated_users = User.objects.filter(Q(email=data))
+
             if associated_users.exists():
                 print("Inside3")
                 for user in associated_users:
@@ -798,15 +803,37 @@ def password_reset_request(request):
                         "user": user,
                         'token': default_token_generator.make_token(user),
                         'protocol': 'http',
+                        "from_email": "erp@tescan.ca",
+                        "subject": 'Password Reset Requested',
+                        "text": 'message',
+
                     }
-                    email = render_to_string(email_template_name, c)
+                    project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+                    load_dotenv(os.path.join(project_folder, '.env'))
+
+                    MAILCHIMP_API_KEY = os.getenv('MAILCHIMP_API_KEY')
+                    uid = urlsafe_base64_encode(force_bytes(user.pk))
+                    token = default_token_generator.make_token(user)
+                    message = {
+                        "from_email": "erp@tescan.ca",
+                        "subject": 'Password Reset Requested',
+                        "text": 'http://127.0.0.1:8000/accounts/reset/'+ uid+'/'+ token +'/' ,
+
+                        "to": [
+                            {
+                                "email": user.email,
+                                "type": "to"
+                            }
+                        ]
+                    }
                     try:
-                        print("Inside4")
-                        send_mail(subject, email, 'erp@tescan.ca', [user.email], fail_silently=False)
-                        print("Inside5")
-                    except BadHeaderError:
-                        return HttpResponse('Invalid header found.')
-                    return redirect("/password_reset/done/")
+                        mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
+                        response = mailchimp.messages.send({"message": message})
+                        print('API called successfully: {}'.format(response))
+                    except ApiClientError as error:
+                        print('An exception occurred: {}'.format(error.text))
+
+                    return redirect("/accounts/reset/done/")
     password_reset_form = PasswordResetForm()
     return render(request=request, template_name="registration/password_reset.html",
                   context={"password_reset_form": password_reset_form})
