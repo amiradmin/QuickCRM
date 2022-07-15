@@ -21,6 +21,7 @@ from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from contacts.models import Contact
 from django.contrib.sites.models import Site
+from financials.models import EventCandidatePayment
 
 
 # Create your views here.
@@ -2259,11 +2260,15 @@ class UpdatePSL57AFormByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         event = Event.objects.filter(id=self.kwargs['eventID']).first()
         form = PSL57A.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
+
+        from financials.models import EventCandidatePayment
+        sponsor = EventCandidatePayment.objects.filter(Q(event=event) & Q(candidate=candidate)).first()
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
         context['candidate'] = candidate
         context['form'] = form
+        context['sponsor'] = sponsor
         return context
 
     def post(self, request, *args, **kwargs):
@@ -4361,9 +4366,14 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
         form = PSL57B.objects.filter(Q(event=event) & Q(candidate=candidate)).first()
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        print('HERE Here')
+        sponsor = EventCandidatePayment.objects.filter(Q(event=event) & Q(candidate=form.candidate)).first()
+        print(sponsor)
+        print('HERE Here')
         context['group_name'] = group_name
         context['candidate'] = candidate
         context['form'] = form
+        context['sponsor'] = sponsor
         return context
 
     def post(self, request, id, *args, **kwargs):
