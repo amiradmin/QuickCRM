@@ -483,7 +483,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
 
         dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate)
-        if dri_result.count() >0:
+        if dri_result.count() > 0:
             for item in dri_result:
                 result14 = {}
                 result14['id'] = item.id
@@ -494,7 +494,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result14['overall'] = item.overall
                 result_list.append(result14)
 
-        result_list = sorted(result_list, key=lambda x: x['exam_date'])
+            result_list = sorted(result_list, key=lambda x: x['exam_date'])
         cetrificates = CertificateAttendance.objects.all()
 
 

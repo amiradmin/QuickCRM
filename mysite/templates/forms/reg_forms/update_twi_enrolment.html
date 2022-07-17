@@ -2172,9 +2172,14 @@ function underChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("underwater");
 
-    for (var i = 0; i < cbs.length; i++) {
-        cbs[i].checked = false;
-    }
+if(obj.checked == false){
+   obj.checked = false;
+}else if (obj.checked == true) {
+   for (var i = 0; i < cbs.length; i++) {
+   cbs[i].checked = false;
+}
+   obj.checked = true;
+}
 
     var secondSection = document.getElementsByClassName("WeldingInsp");
     for (var i = 0; i < secondSection.length; i++) {
@@ -2187,7 +2192,7 @@ function underChange(obj) {
     }
 
 
-    obj.checked = true;
+
 }
 
 function expChange(obj) {
@@ -2195,28 +2200,45 @@ function expChange(obj) {
     var cbs = document.getElementsByClassName("experience");
     var textArea = document.getElementById("currentCSWIPQualifications");
 
-    for (var i = 0; i < cbs.length; i++) {
-        cbs[i].checked = false;
-    }
-    obj.checked = true;
+if(obj.checked == false){
+   obj.checked = false;
+}else if (obj.checked == true) {
+   for (var i = 0; i < cbs.length; i++) {
+   cbs[i].checked = false;
+}
+   obj.checked = true;
+}
+
+<!--    obj.checked = true;-->
 <!--    alert("OK");-->
     textArea.style.backgroundColor = "yellow";
     textArea.style.opacity = "0.5";
     textArea.attributes["required"] = "";
 }
+
+
 function weldingChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("WeldingInsp");
 
-    for (var i = 0; i < cbs.length; i++) {
-        cbs[i].checked = false;
-    }
+<!--    for (var i = 0; i < cbs.length; i++) {-->
+<!--        cbs[i].checked = false;-->
+<!--    }-->
+
+if(obj.checked == false){
+   obj.checked = false;
+}else if (obj.checked == true) {
+   for (var i = 0; i < cbs.length; i++) {
+   cbs[i].checked = false;
+}
+   obj.checked = true;
+}
 
     var secondSection = document.getElementsByClassName("underwater");
     for (var i = 0; i < secondSection.length; i++) {
         secondSection[i].checked = false;
     }
-    obj.checked = true;
+<!--    obj.checked = true;-->
 
 }
 
@@ -2224,11 +2246,14 @@ function weldingChange(obj) {
 function bodyChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("examBody");
-
-    for (var i = 0; i < cbs.length; i++) {
+    if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
 }
 
 
@@ -2239,18 +2264,27 @@ function typeChange(obj) {
     for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+
+    if(obj.checked = true) {
+        obj.checked = false;
+    }else{
+          obj.checked = true;
+          }
+
 }
 
 
 function typeChange(obj) {
-<!--    alert("Here");-->
-    var cbs = document.getElementsByClassName("examType");
 
-    for (var i = 0; i < cbs.length; i++) {
+    var cbs = document.getElementsByClassName("examType");
+    if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
 }
 
 function ndtChange(obj) {
