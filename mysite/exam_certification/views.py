@@ -1842,7 +1842,7 @@ class NewTimeFlightDiffractionTOFDLevel3_PCN_Result(SidebarMixin, LoginRequiredM
                 if not request.POST.get('exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['exam_date'], '%m/%d/%Y')
                 obj.exam_title = self.request.POST['examTitle']
-                obj.invigilator = self.request.POST['invigilator']
+                # obj.invigilator = self.request.POST['invigilator']
                 obj.basic_a1 = self.request.POST['basic_a1']
                 obj.basic_a2 = self.request.POST['basic_a2']
                 obj.basic_b_part_1 = self.request.POST['basic_b_part_1']
