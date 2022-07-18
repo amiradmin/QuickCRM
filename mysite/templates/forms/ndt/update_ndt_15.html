@@ -981,8 +981,8 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 
     <div >
     <div style="position:absolute;top: 222px;left: 246px; z-index: 1;"> <input id="topInfo1" type="text" value="{{form.candidate.first_name}} {% if form.candidate.middleName  != 'None' %}{{form.candidate.middleName}}{% endif%} {{form.candidate.last_name}}"  name="" value=""  style="width: 526px;height: 25px;font-size: 15px;"/></div>
-    <div style="position:absolute;top: 261px;left: 246px; z-index: 1;"> <input  id="topInfo1"type="text" name="birthDay" value="{{form.candidate.birth_date|date:'m/d/Y'}}"  style="width: 155px;height: 25px;font-size: 15px;"/></div>
-    <div style="position:absolute;top: 261px; left: 576px; z-index: 1;"> <input id="topInfo3" type="text" name="cancanID" value="{% if form.candidateID  %}{{form.candidateID}}{% endif %}"  style="width: 155px;height: 25px;font-size: 15px;"/></div>
+    <div style="position:absolute;top: 261px;left: 246px; z-index: 1;"> <input  id="topInfo1"type="text" name="birthDay" value="{{form.candidate.birth_date|date:'d/m/Y'}}"  style="width: 155px;height: 25px;font-size: 15px;"/></div>
+    <div style="position:absolute;top: 261px; left: 576px; z-index: 1;"> <input id="topInfo3" type="text" name="cancanID" value="{% if form.candidate.customer_id  %}{{form.candidate.customer_id}}{% endif %}"  style="width: 155px;height: 25px;font-size: 15px;"/></div>
 
 <div style="position:absolute;top: 374px; left: 113px; z-index: 1;">
 {% for item in form.currentFormerCertification.all %}
