@@ -34,18 +34,9 @@
                                         <br>
                                         <br>
                                         <br>
-                                        
-                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                     <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                                     {% csrf_token %}
-
-
-
-
-
-
-
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-md-6">
+                                                        <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Candidate</label>
                                     <input list="candiList" value="{{candidate.id}}"  id="canID" name="candidate" placeholder="type here..." class="form-control" required/>
 
@@ -59,9 +50,26 @@
 
                                     </datalist>
                                                         </div>
-                                                        <div class="mb-3 col-md-6">
+
+                                                    <div class="mb-3 col-md-12 text-center">
+                                                        <button name="find-candidate" class="btn btn-primary" type="submit">Update</button>
+                                                    </div>
+                     </form>
+                                        <hr>
+
+                                        <br>
+                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
+                                                    {% csrf_token %}
+
+
+
+
+
+
+<input type="text" name="candidate" value="{{candidate_main.id}}" />
+                                                        <div class="mb-3 col-md-12">
                                                             <label class="form-label">Event</label>
-                                                       <input list="eventList" value="{{event.id}}" onchange="myFunction()"   id="event_id" name="event" placeholder="type here..." class="form-control" required />
+                                                       <input list="eventList" value="{{events.id}}" onchange="myFunction()"   id="event_id" name="event" placeholder="type here..." class="form-control" required />
                                         <datalist id="eventList"  >
 
                                         {% for item in events %}

@@ -6951,42 +6951,44 @@ class NewCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-
+        context = super(NewCertificateAttendance, self).get_context_data()
         if request.method == 'POST':
+            if 'find-candidate' in request.POST:
+                print('Find Candidate')
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+                print(events)
+                print('Here')
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['events'] = events
+                context['candidate_main'] = candidate_main
+                return render(request, 'certificates/new_attendance.html', context)
+            
+            else:
+                print("Form was sent!")
+                print(self.request.POST['candidate'].split('-')[0])
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                obj = CertificateAttendance()
+                obj.candidate = candidate
+                obj.event = event
+                obj.name = candidate.first_name + " " + candidate.last_name
+                obj.authorized_signatory = "Tahir Rizwan"
+                if not request.POST.get('course_duration', '') == '':
+                    obj.course_duration = self.request.POST['course_duration']
+                obj.cer_number = self.request.POST['certiﬁcate_number']
+                # if not request.FILES.get('file', None) == None:
+                # if request.FILES.get('myFile', True):
+                if bool(request.FILES.get('myFile', False)) == True:
+                    obj.file = self.request.FILES['myFile']
+                if not request.POST.get('issue_date', '') == '':
+                    obj.issue_date = datetime.datetime.strptime(self.request.POST['issue_date'], '%m/%d/%Y')
+                obj.save()
 
-            print("Form was sent!")
-            print(self.request.POST['candidate'].split('-')[0])
-            candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
-
-            event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
-            # if CertificateAttendance.objects.filter(Q(candidate=candidate) & Q(event=event)).count() > 0:
-            #     obj = CertificateAttendance.objects.filter(Q(candidate=candidate) & Q(event=event)).first()
-            #     obj.candidate = candidate
-            #     obj.event = event
-            #     obj.name = candidate.first_name + " " + candidate.last_name
-            #     obj.authorized_signatory = self.request.POST['authorized_signatory']
-            #     obj.course_duration = self.request.POST['course_duration']
-            #     obj.cer_number = self.request.POST['certiﬁcate_number']
-            #     obj.issue_date = datetime.datetime.strptime(self.request.POST['issue_date'], '%m/%d/%Y')
-            #     obj.save()
-            # else:
-            obj = CertificateAttendance()
-            obj.candidate = candidate
-            obj.event = event
-            obj.name = candidate.first_name + " " + candidate.last_name
-            obj.authorized_signatory = "Tahir Rizwan"
-            if not request.POST.get('course_duration', '') == '':
-                obj.course_duration = self.request.POST['course_duration']
-            obj.cer_number = self.request.POST['certiﬁcate_number']
-            # if not request.FILES.get('file', None) == None:
-            # if request.FILES.get('myFile', True):
-            if bool(request.FILES.get('myFile', False)) == True:
-                obj.file = self.request.FILES['myFile']
-            if not request.POST.get('issue_date', '') == '':
-                obj.issue_date = datetime.datetime.strptime(self.request.POST['issue_date'], '%m/%d/%Y')
-            obj.save()
-
-        return redirect('exam_certification:cersummary_')
+            return redirect('exam_certification:cersummary_')
 
 
 class DeleteCertificateAttendance(SidebarMixin, LoginRequiredMixin, DeleteView):

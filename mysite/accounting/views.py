@@ -495,9 +495,9 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result_list.append(result14)
 
             result_list = sorted(result_list, key=lambda x: x['exam_date'])
-        cetrificates = CertificateAttendance.objects.all()
+        cetrificates = CertificateAttendance.objects.filter(candidate=candidate)
 
-
+        print(cetrificates)
         # upcoming_event = Event.objects.filter( start_date__gte > datetime.now()).order_by('start_date')[:5]
         upcoming_event = Event.objects.filter( start_date__gte=datetime.datetime.now()).order_by('start_date')[:5]
 
