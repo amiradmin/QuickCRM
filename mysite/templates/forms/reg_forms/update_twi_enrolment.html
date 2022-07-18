@@ -405,7 +405,7 @@
 .h23{height:21.870000px;}
 .h11{height:22.595625px;}
 .h3e{height:30.770000px;}
-.h3d{height:68.860000px;}
+.h3d{height:30.860000px;}
 .h12{height:70.670000px;}
 .h21{height:23.760000px;}
 .h42{height:24.120000px;}
@@ -2069,7 +2069,8 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="{% static 'js/regex.js' %}" type="text/javascript"></script>
 <script>
-
+ var dialog = document.getElementById('dialog-form');
+ dialog.style.display = "none";
 
 $(function() {
   $(document).ready(function(){
@@ -2290,9 +2291,15 @@ function typeChange(obj) {
 function ndtChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("ndtExp");
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
+        obj.checked = true;
+    }
+
 
     var secondSection = document.getElementsByClassName("plantInsp");
     for (var i = 0; i < secondSection.length; i++) {
@@ -2307,44 +2314,61 @@ function ndtChange(obj) {
     for (var i = 0; i < thirdSection.length; i++) {
         thirdSection[i].checked = false;
     }
-    obj.checked = true;
+
 }
 
 function levelChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("level");
-
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
+
 }
 
 function inductoryChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("inductorySec");
-
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
+
 }
 
 function utCatChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("utCat");
-
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
+
 }
 
 function plantInspChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("plantInsp");
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
+    }
+        obj.checked = true;
     }
 
 
@@ -2360,7 +2384,7 @@ function plantInspChange(obj) {
     for (var i = 0; i < forthSection.length; i++) {
         forthSection[i].checked = false;
     }
-    obj.checked = true;
+
 <!--    alert("Test");-->
 <!--    var textArea1 = document.getElementById("plantInspectionRequirements");-->
     var textArea1 = document.getElementById("plantInspectionRequirements");
@@ -2374,29 +2398,39 @@ function plantInspLevel1Change(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("plantInspLevel1");
 
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
 }
 
 function plantInspLevel2Change(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("plantInspLevel2");
-
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
 }
 function otherExamChange(obj) {
 <!--    alert("Here");-->
     var cbs = document.getElementsByClassName("otherExam");
-
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
 }
 
 // A function to format text to look like a phone number
