@@ -707,26 +707,6 @@ button, input {
                             </div>
                         </li>
 
-<!--                        <li class="side-nav-item">-->
-<!--                            <a data-bs-toggle="collapse" href="#sidebarsupport" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">-->
-<!--                                <i class="uil-store"></i>-->
-<!--                                <span> Support </span>-->
-<!--                                <span class="menu-arrow"></span>-->
-<!--                            </a>-->
-<!--                            <div class="collapse" id="sidebarsupport">-->
-<!--                                <ul class="side-nav-second-level">-->
-<!--                                    <li>-->
-<!--                                        <a href="{% url 'ticket:allticket_' %}">Ticket List</a>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <a href="{% url 'ticket:archivedtickets_' %}">Archived Ticket </a>-->
-<!--                                    </li>-->
-
-
-
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </li>-->
 
 
                          <li class="side-nav-item">
@@ -1783,6 +1763,7 @@ button, input {
 Test
 
             {% elif  group_name == 'training_operator' %}
+<!--                        AmirRequest-->
                     <ul class="side-nav">
 
                         <li class="side-nav-title side-nav-item">Navigation </li>
@@ -1867,37 +1848,191 @@ Test
                             </div>
                         </li>
 
-<!--                        <li class="side-nav-item">-->
-<!--                            <a data-bs-toggle="collapse" href="#sidebarsupport" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">-->
-<!--                                <i class="uil-store"></i>-->
-<!--                                <span> Support </span>-->
-<!--                                <span class="menu-arrow"></span>-->
-<!--                            </a>-->
-<!--                            <div class="collapse" id="sidebarsupport">-->
-<!--                                <ul class="side-nav-second-level">-->
-<!--                                    <li>-->
-<!--                                        <a href="{% url 'ticket:allticket_' %}">Ticket List</a>-->
+
+
+<!--    Alireza-->
+
+                         <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#examMaterial" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="fa fa-language"></i>
+                                <span> Training & Examination </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="examMaterial">
+                                <ul class="side-nav-second-level">
+
+                       <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#exam" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="dripicons-bookmarks"></i>
+                                <span> Examination </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="exam">
+                                <ul class="side-nav-second-level">
+         <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#res" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span> Results </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="res">
+                                <ul class="side-nav-second-level">
+<!--                                      <li>-->
+<!--                                        <a href="{% url 'exam_certification:examresultsummary_' %}">All Results</a>-->
 <!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <a href="{% url 'ticket:archivedtickets_' %}">Archived Ticket </a>-->
-<!--                                    </li>-->
+                                <li>
+                                        <a href="{% url 'exam_certification:examscwip31resultsummary_' %}">CSWIP 3.1 New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examscwip321resultsummary_' %}">CSWIP Senior Welding Inspector(3.2.1) New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examscwip322resultsummary_' %}">CSWIP Senior Welding Inspector(3.2.2) New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:paintinginspectionresultsummary_' %}">BGAS-CSWIP Painting Inspector - Grade 2 New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:cswipphasedarrayresultsummary_' %}">Phased Array Ultrasonic Testing(PAUT) Level 2 CSWIP New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampcnphasedarrayresultsummary_' %}">Phased Array Ultrasonic Testing(PAUT) Level 2 PCN New Result</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'exam_certification:examscwipultral3resultsummary_' %}">Phased Array Ultrasonic Testing(PAUT) Level 3 CSWIP New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampcnultral3resultsummary_' %}">Phased Array Ultrasonic Testing(PAUT) Level 3 PCN New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examresulttofdl2pcnsummary_' %}">Time of Flight Diffraction(TOFD) Level 2 PCN New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examtofdl2cswipresultsummary_' %}">Time of Flight Diffraction(TOFD) Level 2 CSWIP New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examswiptofdresultsummary_' %}">Time of Flight Diffraction(TOFD) Level 3 CSWIP New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampcntofdresultsummary_' %}">Time of Flight Diffraction(TOFD) Level 3 PCN New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examriresultsummary_' %}">Radiographic Interpretation of Welds(RI) New Result</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examdriresultsummary_' %}"> Digital Radiographic Interpretation(DRI) Level 2 New Result</a>
+                                    </li>
+
+                                 <li>
+                                </ul>
+                            </div>
+                                    </li>
 
 
-
-<!--                                </ul>-->
-<!--                            </div>-->
-<!--                        </li>-->
+                                 <li>
 
 
+                                                           <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#examMat" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-store"></i>
+                                <span> Exam Materials </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="examMat">
+                                <ul class="side-nav-second-level">
+                                <li>
+                                        <a href="{% url 'exam_certification:examscwip31summary_' %}">CSWIP Welding Inspector(3.1)</a>
+                                    </li>
+                                   <li>
+                                        <a href="{% url 'exam_certification:examscwip321summary_' %}">CSWIP Senior Welding Inspector(3.2.1)</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examscwip322summary_' %}">CSWIP Senior Welding Inspector(3.2.2)</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampaintinginspectionsummary_' %}">BGAS-CSWIP Painting Inspector - Grade 2</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examscwipphasedarraysummary_' %}"> Phased Array Ultrasonic Testing(PAUT) Level 2 CSWIP</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampcnphasedarraysummary_' %}"> Phased Array Ultrasonic Testing(PAUT) Level 2 PCN</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examscwipultral3summary_' %}"> Phased Array Ultrasonic Testing(PAUT) Level 3 CSWIP</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampcnl3summary_' %}"> Phased Array Ultrasonic Testing(PAUT) Level 3 PCN</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examcswiptofdl3summary_' %}"> Time of Flight Diffraction(TOFD) Level 3 CSWIP</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampcntofdl3summary_' %}"> Time of Flight Diffraction(TOFD) Level 3 PCN</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examrisummary_' %}"> Radiographic Interpretation of Welds(RI)</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exammaterialdrisummary_' %}"> Digital Radiographic Interpretation(DRI) Level 2</a>
+                                    </li>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examtofdsummary_' %}">Exam Material Time of Flight Diffraction(TOFD) Level 2 CSWIP</a>
+                                    </li>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:exammaterialtofdl2pcnsummary_' %}">Exam Material Time of Flight Diffraction(TOFD) Level 2 PCN</a>
+                                    </li>
+                                 <li>
+                                        <a href="{% url 'exam_certification:exampiwisummary_' %}">Exam Material PI/WI</a>
+
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampautl2summary_' %}">Exam Material PAUT L2</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material PAUTL L3</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="{% url 'exam_certification:examtofdl3summary_' %}">Exam Material TOFD L3</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                                </ul>
+                            </div>
+                                    </li>
+
+                                                                 <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#cert" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-comments-alt"></i>
+                                <span> Certification </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="cert">
+                                <ul class="side-nav-second-level">
+  <li>
+                                        <a href="{% url 'exam_certification:cersummary_' %}">Attendance/completing</a>
+                                    </li>                                    </li>                                    <li>
+                                        <a href="{% url 'exam_certification:pcncersummary_' %}">Certificate of Proficiency-PCN</a>
+                                    </li>                                    </li>                                    </li>                                    <li>
+                                        <a href="{% url 'exam_certification:swipcersummary_' %}">Certificate of Proficiency-CSWIP</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                                    </li>
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                            <a data-bs-toggle="collapse" href="#ter" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                                 <i class="fa fa-podcast"></i>
                                 <span> Training </span>
                                 <span class="menu-arrow"></span>
                             </a>
-                            <div class="collapse" id="sidebarEcommerce">
+                            <div class="collapse" id="ter">
                                 <ul class="side-nav-second-level">
-                                    <li>
+       <li>
                                         <a href="{% url 'training:canlist_' %}">Candidate List</a>
                                     </li>
                                     <li>
@@ -1925,25 +2060,221 @@ Test
                                         <a href="{% url 'training:guideline_' %}">Forms Guideline</a>
                                     </li>
 
+                                 <li>
                                 </ul>
                             </div>
+                                    </li>
                         </li>
 
-                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#examMaterial" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
-                                <i class="fa fa-language"></i>
-                                <span> Examination </span>
+
+                      <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#regis" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+                                <i class="uil-comments-alt"></i>
+                                <span> Registration </span>
                                 <span class="menu-arrow"></span>
                             </a>
+                            <div class="collapse" id="regis">
+                                <ul class="side-nav-second-level">
+    <li class="side-nav-item">
+                                        <a data-bs-toggle="collapse" href="#generalForm" aria-expanded="false" aria-controls="sidebarSecondLevel">
+                                            <span> General Forms</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="generalForm">
+                                            <ul class="side-nav-third-level">
+                                              <li>
+                                                    <a href="{% url 'forms:allndtcovid19_' %}">All Covid 19 Form</a>
+                                                </li>                                                <li>
+                                                    <a href="{% url 'forms:ndtcovid_' %}">Covid 19 Form</a>
+                                                </li>
+
+                                          <li>
+                                                    <a href="{% url 'forms:alltrainingatt_' %}">All Training Attendance form</a>
+                                                </li>                                                <li>
+                                                    <a href="{% url 'forms:newtrainingatt_' %}">Training Attendance form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:alltwitrainingfeed_' %}">All Training Feedback form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:newtwitrainingfeed_' %}">Training Feedback form</a>
+                                                </li>
+                                               <li>
+                                                    <a href="{% url 'forms:allisiontest_' %}">All Vision Tests</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:newvisiontest_' %}">Vision Tests</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="{% url 'forms:alltesfrmexamattend_' %}">All Exam Attendance form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:tesfrmexamattend_' %}">Exam Attendance form</a>
+                                                </li>
+                                             <li>
+                                                    <a href="{% url 'forms:alltwiexamfeed_' %}">All Exam Feedback form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:newtwiexamfeed_' %}">Exam Feedback form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:alllecfedform_' %}">All Lecturer Feedback form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:newlecfedform_' %}">Lecturer Feedback form</a>
+                                                </li>
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+   <li class="side-nav-item">
+                                        <a data-bs-toggle="collapse" href="#andt" aria-expanded="false" aria-controls="sidebarSecondLevel">
+                                            <span>CSWIP ANDT</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="andt">
+                                            <ul class="side-nav-third-level">
+                                 <li>
+
+                                                <li>
+                                                      <a href="{% url 'forms:allenrolmentform_' %}">All Enrolment Forms</a>
+                                                 </li>
+                                                <li>
+                                                    <a href="{% url 'forms:jaegertofdl2_' %}">TWI Enrolment Form</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:allndt15expver_' %}">All NDT 15A</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:ndt15expver_' %}">NDT 15A</a>
+                                                </li>
+
+
+
+
+                     </li>
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+     <li class="side-nav-item">
+                                        <a data-bs-toggle="collapse" href="#pcn" aria-expanded="false" aria-controls="sidebarSecondLevel">
+                                            <span>PCN ANDT</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="pcn">
+                                            <ul class="side-nav-third-level">
+                                 <li>
+
+                                                <li>
+                                                      <a href="{% url 'forms:allenrolmentform_' %}">All Enrolment Forms</a>
+                                                 </li>
+                                                <li>
+                                                    <a href="{% url 'forms:jaegertofdl2_' %}">TWI Enrolment Form</a>
+                                                </li>
+
+                                                <li>
+                                                    <a href="{% url 'forms:allpsl57A_' %}">All PSL-57A(Initial)</a>
+                                                </li>
+                                                 <li>
+                                                    <a href="{% url 'forms:newpsl57A_' %}">PSL-57A(Initial)</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:allpsl57b_' %}">All PSL-57B(Retest)</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:psl57b_' %}">PSL-57B(Retest)</a>
+                                                </li>
+                                               <li>
+                                                    <a href="{% url 'forms:allpslform_' %}">All PSL-30</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'forms:psl30log_' %}">PSL-30</a>
+                                                </li>
+
+
+
+
+                     </li>
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+   <li class="side-nav-item">
+                                        <a data-bs-toggle="collapse" href="#welding" aria-expanded="false" aria-controls="sidebarSecondLevel">
+                                            <span>Welding Inspection</span>
+                                            <span class="menu-arrow"></span>
+                                        </a>
+                                        <div class="collapse" id="welding">
+                                            <ul class="side-nav-third-level">
+                                 <li>
+
+                                                <li>
+                                                      <a href="{% url 'forms:allenrolmentform_' %}">All Enrolment Forms</a>
+                                                 </li>
+                                                <li>
+                                                    <a href="{% url 'forms:jaegertofdl2_' %}">TWI Enrolment Form</a>
+                                                </li>
+
+
+
+
+                     </li>
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                         <li class="side-nav-item">
+<!--                            <a data-bs-toggle="collapse" href="#examMaterial" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">-->
+<!--                                <i class="fa fa-language"></i>-->
+<!--                                <span> Examination </span>-->
+<!--                                <span class="menu-arrow"></span>-->
+<!--                            </a>-->
                             <div class="collapse" id="examMaterial">
                                 <ul class="side-nav-second-level">
 
                        <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#examMaterialss0" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
-                                <i class="uil-store"></i>
-                                <span> Results </span>
-                                <span class="menu-arrow"></span>
-                            </a>
+<!--                            <a data-bs-toggle="collapse" href="#examMaterialss0" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">-->
+<!--                                <i class="uil-store"></i>-->
+<!--                                <span> Results </span>-->
+<!--                                <span class="menu-arrow"></span>-->
+<!--                            </a>-->
                             <div class="collapse" id="examMaterialss0">
                                 <ul class="side-nav-second-level">
 <!--                                      <li>-->
@@ -1997,12 +2328,12 @@ Test
                                 </ul>
                             </div>
                                     </li>
-                                                                 <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#examMaterialss" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
-                                <i class="uil-store"></i>
-                                <span> Exam Materials </span>
-                                <span class="menu-arrow"></span>
-                            </a>
+                          <li class="side-nav-item">
+<!--                            <a data-bs-toggle="collapse" href="#examMaterialss" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">-->
+<!--                                <i class="uil-store"></i>-->
+<!--                                <span> Exam Materials </span>-->
+<!--                                <span class="menu-arrow"></span>-->
+<!--                            </a>-->
                             <div class="collapse" id="examMaterialss">
                                 <ul class="side-nav-second-level">
                                 <li>
@@ -2049,19 +2380,19 @@ Test
                                     <li>
                                         <a href="{% url 'exam_certification:exammaterialtofdl2pcnsummary_' %}">Exam Material Time of Flight Diffraction(TOFD) Level 2 PCN</a>
                                     </li>
-<!--                                 <li>-->
-<!--                                        <a href="{% url 'exam_certification:exampiwisummary_' %}">Exam Material PI/WI</a>-->
+                                 <li>
+                                        <a href="{% url 'exam_certification:exampiwisummary_' %}">Exam Material PI/WI</a>
 
-<!--                                    <li>-->
-<!--                                        <a href="{% url 'exam_certification:exampautl2summary_' %}">Exam Material PAUT L2</a>-->
-<!--                                    </li>-->
-<!--                                    <li>-->
-<!--                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material PAUTL L3</a>-->
-<!--                                    </li>-->
+                                    <li>
+                                        <a href="{% url 'exam_certification:exampautl2summary_' %}">Exam Material PAUT L2</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'exam_certification:examl3summary_' %}">Exam Material PAUTL L3</a>
+                                    </li>
 
-<!--                                    <li>-->
-<!--                                        <a href="{% url 'exam_certification:examtofdl3summary_' %}">Exam Material TOFD L3</a>-->
-<!--                                    </li>-->
+                                    <li>
+                                        <a href="{% url 'exam_certification:examtofdl3summary_' %}">Exam Material TOFD L3</a>
+                                    </li>
 
                                 </ul>
                             </div>
@@ -2070,12 +2401,115 @@ Test
                                 </ul>
                             </div>
                         </li>
+
+                         <li class="side-nav-item">
+<!--                            <a data-bs-toggle="collapse" href="#cerType" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">-->
+<!--                                <i class="uil-store"></i>-->
+<!--                                <span> Certifications </span>-->
+<!--                                <span class="menu-arrow"></span>-->
+<!--                            </a>-->
+                            <div class="collapse" id="cerType">
+                                <ul class="side-nav-second-level">
+                                 <li>
+                                        <a href="{% url 'exam_certification:cersummary_' %}">Attendance/completing</a>
+                                    </li>                                    </li>                                    <li>
+                                        <a href="{% url 'exam_certification:pcncersummary_' %}">Certificate of Proficiency-PCN</a>
+                                    </li>                                    </li>                                    </li>                                    <li>
+                                        <a href="{% url 'exam_certification:swipcersummary_' %}">Certificate of Proficiency-CSWIP</a>
+                                    </li>
+
+
+
+
+                                </ul>
+                            </div>
+                        </li>
+
+<!--                        <li class="side-nav-item">-->
+<!--                            <a href="apps-chat.html" class="side-nav-link disabled">-->
+<!--                                <i class=" dripicons-bookmarks"></i>-->
+<!--                                <span> Examination </span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                        <li class="side-nav-item">-->
+<!--                            <a href="apps-chat.html" class="side-nav-link disabled">-->
+<!--                                <i class="uil-comments-alt"></i>-->
+<!--                                <span> Accountancy </span>-->
+<!--                            </a>-->
+<!--                        </li>-->
+
+
                         <li class="side-nav-item">
-                            <a data-bs-toggle="collapse" href="#sidebarMultiLevel" aria-expanded="false" aria-controls="sidebarMultiLevel" class="side-nav-link">
-                                <i class="uil-folder-plus"></i>
-                                <span> Registration</span>
-                                <span class="menu-arrow"></span>
-                            </a>
+<!--                            <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">-->
+<!--                                <i class="fa fa-podcast"></i>-->
+<!--                                <span> Training </span>-->
+<!--                                <span class="menu-arrow"></span>-->
+<!--                            </a>-->
+                            <div class="collapse" id="sidebarEcommerce">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'training:canlist_' %}">Candidate List</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:newcandidate_' %}">New Candidate</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:event_' %}">Events</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:product_' %}">Products</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:country_' %}">Countries</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:location_' %}">Locations</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:lecturer_' %}">Lecturers</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:category_' %}">Forms Category</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'training:guideline_' %}">Forms Guideline</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
+
+
+
+                        <li class="side-nav-item">
+<!--                            <a data-bs-toggle="collapse" href="#sidebarProjects" aria-expanded="false" aria-controls="sidebarProjects" class="side-nav-link disabled">-->
+<!--                                <i class="uil-briefcase"></i>-->
+<!--                                <span> Projects </span>-->
+<!--                                <span class="menu-arrow"></span>-->
+<!--                            </a>-->
+                            <div class="collapse" id="sidebarProjects">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="apps-projects-list.html">List</a>
+                                    </li>
+                                    <li>
+                                        <a href="apps-projects-details.html">Details</a>
+                                    </li>
+                                    <li>
+                                        <a href="apps-projects-gantt.html">Gantt <span class="badge rounded-pill badge-light-lighten text-light font-10 float-end">New</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="apps-projects-add.html">Create Project <span class="badge rounded-pill badge-success-lighten font-10 float-end">New</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+ <li class="side-nav-item">
+<!--                            <a data-bs-toggle="collapse" href="#sidebarMultiLevel" aria-expanded="false" aria-controls="sidebarMultiLevel" class="side-nav-link">-->
+<!--                                <i class="uil-folder-plus"></i>-->
+<!--                                <span> Registration</span>-->
+<!--                                <span class="menu-arrow"></span>-->
+<!--                            </a>-->
                             <div class="collapse" id="sidebarMultiLevel">
                                 <ul class="side-nav-second-level">
                                                 <li>
@@ -2270,6 +2704,29 @@ Test
                                         </div>
                                     </li>
 
+
+
+                   <li class="side-nav-item">
+
+                                        <div class="collapse" id="sidebarSecondLevelBBSV">
+                                            <ul class="side-nav-third-level">
+                                 <li>
+
+
+
+
+                     </li>
+
+
+
+
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </li>
 
 
                    <li class="side-nav-item">

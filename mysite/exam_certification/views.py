@@ -6867,6 +6867,10 @@ class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView
         context = super(NewPcnCertificateAttendance, self).get_context_data()
         candidates = TesCandidate.objects.all()
         products = PcnCertificateProduct.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['candidates'] = candidates
         context['products'] = products
         return context
@@ -6938,6 +6942,10 @@ class NewCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(NewCertificateAttendance, self).get_context_data()
         candidates = TesCandidate.objects.all()
         events = Event.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['candidates'] = candidates
         context['events'] = events
         return context
@@ -6992,6 +7000,10 @@ class CertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
         context = super(CertificateSummayView, self).get_context_data()
         certificateAttendances = CertificateAttendance.objects.all()
         cerCount = CertificateAttendance.objects.count()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
         context['certificateAttendances'] = certificateAttendances
         context['cerCount'] = cerCount
         return context
