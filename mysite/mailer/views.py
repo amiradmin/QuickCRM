@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from email.message import EmailMessage
 from email.utils import make_msgid
 import smtplib
@@ -25,40 +25,55 @@ class SingleMailSender( LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(SingleMailSender, self).get_context_data()
-        project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        load_dotenv(os.path.join(project_folder, '.env'))
-        print('Single mail')
-        MAILCHIMP_API_KEY = os.getenv('MAILCHIMP_API_KEY')
-
-        message = {
-            "from_email": "erp@tescan.ca",
-            "subject": "Amir python Test email with template",
-            "text": "Welcome to Mailchimp Transactional!",
-            "to": [
-                {
-                    "email": "amir.behvandi@tescan.ca",
-                    "type": "to"
-                }
-            ]
-        }
-
-        # try:
-        #     mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
-        #     response = mailchimp.messages.send({"message": message})
-        #     print('API called successfully: {}'.format(response))
-        # except ApiClientError as error:
-        #     print('An exception occurred: {}'.format(error.text))
-        try:
-            print("Here")
-            mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
-            response = mailchimp.messages.send_template(
-                {"template_name": "test", "template_content": [{}], "message": message})
-            print(response)
-        except ApiClientError as error:
-            print("An exception occurred: {}".format(error.text))
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['candidate'] = candidate
+        context['group_name'] = group_name
 
         return context
+
+
+    def post(self, request, *args, **kwargs):
+
+        if request.method == 'POST':
+            print('Single mail')
+            project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            load_dotenv(os.path.join(project_folder, '.env'))
+            MAILCHIMP_API_KEY = os.getenv('MAILCHIMP_API_KEY')
+
+            email = request.POST['email']
+            subject = request.POST['subject']
+            content = request.POST['message']
+
+            message = {
+                "from_email": "erp@tescan.ca",
+                "subject": subject,
+                "text":content,
+                "to": [
+                    {
+                        "email": email,
+                        "type": "to"
+                    }
+                ]
+            }
+
+            try:
+                mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
+                response = mailchimp.messages.send({"message": message})
+                print('API called successfully: {}'.format(response))
+            except ApiClientError as error:
+                print('An exception occurred: {}'.format(error.text))
+            # try:
+            #     print("Here")
+            #     mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
+            #     response = mailchimp.messages.send_template(
+            #         {"template_name": "test", "template_content": [{}], "message": message})
+            #     print(response)
+            except ApiClientError as error:
+                print("An exception occurred: {}".format(error.text))
+
+
+        return redirect('marketing:mailer_')
 
 
 
