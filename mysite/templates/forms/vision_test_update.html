@@ -968,31 +968,40 @@ $(function() {
 function case1Change(obj) {
 
     var cbs = document.getElementsByClassName("case1");
-
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
 }
 
 function case2Change(obj) {
 
     var cbs = document.getElementsByClassName("case2");
-
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
 }
 
 function case3Change(obj) {
 
     var cbs = document.getElementsByClassName("case3");
-
-    for (var i = 0; i < cbs.length; i++) {
+     if(obj.checked == false){
+        obj.checked = false;
+    }else if (obj.checked == true) {
+        for (var i = 0; i < cbs.length; i++) {
         cbs[i].checked = false;
     }
-    obj.checked = true;
+        obj.checked = true;
+    }
 }
 
 
