@@ -1040,7 +1040,7 @@ class ExamMaterialL3(models.Model):
 
 class ExamMaterialPAUTL2(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
-    event = models.ForeignKey(Event, related_name="exam_material_pautl_event", null=True, blank=True, on_delete=models.DO_NOTHING)
+    event = models.ForeignKey(Event, related_name="exam_material_pautl_event", null=True, blank=True, on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate,related_name="exam_material_pautl_candidate",  null=True, blank=True , on_delete=models.DO_NOTHING)
     sample = models.ForeignKey(Samples,related_name="exam_material_pautl_sample",  null=True, blank=True , on_delete=models.DO_NOTHING)
     exam_date = models.DateTimeField(null=True, blank=True)

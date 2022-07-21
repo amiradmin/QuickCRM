@@ -8,7 +8,7 @@ from training.models import Country,Location,TesCandidate,Product,Event
 
 class EventCandidatePayment(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
-    event = models.ForeignKey(Event, related_name="event_payment", null=True, blank=True, on_delete=models.DO_NOTHING)
+    event = models.ForeignKey(Event, related_name="event_payment", null=True, blank=True, on_delete=models.CASCADE)
     candidate = models.ForeignKey(TesCandidate,related_name="candidate_payment",  null=True, blank=True , on_delete=models.DO_NOTHING)
     company_name = models.CharField(max_length=512, null=True, blank=True)
     company_address = models.CharField(max_length=1024, null=True, blank=True)
