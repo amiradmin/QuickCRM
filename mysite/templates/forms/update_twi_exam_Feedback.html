@@ -663,7 +663,7 @@ input[type = checkbox]:checked {
 
                             <hr>
 <h5>Scanned Form:</h5><a href="{% if form.file %}{{form.file.url}}{% endif %}" target="_blank">{{form.file}}</a>
-                            </div><hr><br><button  class="btn btn-outline-primary" type="button" id="create-user">Upload files</button>
+                            </div><hr><br><button  class="btn btn-outline-primary" type="button" id="create-user" >Upload files</button>
                         <button class="btn btn-outline-primary" name="mainForm" type="submit">Update</button>
                         <input type="button" class="btn btn-outline-primary"  onclick="window.print();return false;"  value="Print!" />
                     </div>
@@ -693,61 +693,6 @@ input[type = checkbox]:checked {
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script src="{% static 'js/regex.js' %}" type="text/javascript"></script>
 <script>
-
-
-$(function() {
-  $(document).ready(function(){
-  $('form input').change(function () {
-    $('form p').text(this.files.length + " file(s) selected");
-  });
-});
-  var dialog, form,
-
-      // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-      emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-      name = $( "#name" ),
-      email = $( "#email" ),
-      password = $( "#password" ),
-      allFields = $( [] ).add( name ).add( email ).add( password ),
-      tips = $( ".validateTips" );
-
-    function updateTips( t ) {
-      tips
-        .text( t )
-        .addClass( "ui-state-highlight" );
-      setTimeout(function() {
-        tips.removeClass( "ui-state-highlight", 1500 );
-      }, 500 );
-    }
-
-
-
-
-    dialog = $( "#dialog-form" ).dialog({
-      autoOpen: false,
-      height: 300,
-      width: 350,
-      modal: true,
-      buttons: {
-
-<!--        Cancel: function() {-->
-<!--          dialog.dialog( "close" );-->
-<!--        }-->
-      },
-      close: function() {
-        form[ 0 ].reset();
-        allFields.removeClass( "ui-state-error" );
-      }
-    });
-
-
-
-    $( "#create-user" ).button().on( "click", function() {
-      dialog.dialog( "open" );
-    });
-  });
-
-
 
 
 
@@ -909,6 +854,73 @@ function cateringChange(obj) {
         obj.checked = true;
     }
 }
+
+
 </script>
 
+            <script>
+
+document.getElementById('dialog-form').style.display = 'none';
+
+
+$(function() {
+  $(document).ready(function(){
+  $('form input').change(function () {
+    $('form p').text(this.files.length + " file(s) selected");
+  });
+});
+  var dialog, form,
+
+      // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+      emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+
+
+
+
+    dialog = $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 300,
+      width: 350,
+      modal: true,
+      buttons: {
+
+<!--        Cancel: function() {-->
+<!--          dialog.dialog( "close" );-->
+<!--        }-->
+      },
+      close: function() {
+        form[ 0 ].reset();
+        allFields.removeClass( "ui-state-error" );
+      }
+    });
+
+
+
+    $( "#create-user" ).button().on( "click", function() {
+      dialog.dialog( "open" );
+      var myDIv = document.getElementById('dialog-form');
+       myDIv.style.visibility='visible';
+    });
+  });
+
+
+
+
+
+
+            </script>
 {% endblock %}
