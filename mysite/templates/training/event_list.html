@@ -32,7 +32,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th>Name</th>
+                                                        <th>Type</th>
                                                         <th>Product</th>
                                                         <th>Delivery Method</th>
                                                         <th>Lecturer</th>
@@ -59,7 +59,7 @@
                                                     <tr>
                                                         <td>{{item.id}}</td>
                                                         <td>{{item.name}}</td>
-                                                        <td>{{item.product}}{{item.product.id}}</td>
+                                                        <td>{{item.product}}</td>
                                                         <td>{{item.product.type}}</td>
                                                         <td>{{item.lecturers}}</td>
                                                         <td>{{item.country}}</td>
@@ -96,7 +96,7 @@
                                                         
                                             <div class="row g-2">
                                                 <div class="mb-3 col-md-6">
-                                                    <label for="inputCity" class="form-label">Name</label>
+                                                    <label for="inputCity" class="form-label">Type</label>
                                                     <input type="text" name="name" class="form-control" id="inputCity" required>
                                                 </div>
                                                 <div class="mb-3 col-md-6">
