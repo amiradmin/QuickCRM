@@ -16,6 +16,7 @@ from django.urls import reverse_lazy
 from django.db.models import Q
 import datetime
 from mailer.views import sendMail
+from datetime import timedelta
 import itertools
 from django.contrib.auth import views as auth_views
 from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
@@ -499,7 +500,10 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
         print(cetrificates)
         # upcoming_event = Event.objects.filter( start_date__gte > datetime.now()).order_by('start_date')[:5]
-        upcoming_event = Event.objects.filter( start_date__gte=datetime.datetime.now()).order_by('start_date')[:5]
+        three_month = datetime.datetime.now() + timedelta(3 * 30)
+        print(datetime.datetime.now())
+        print(three_month)
+        upcoming_event = Event.objects.filter( Q(start_date__gte=datetime.datetime.now()) & Q(start_date__lte=three_month) ).order_by('start_date')
 
         contact_forms = Contact.objects.filter(Q(type = 'Admin') & Q(candidate = candidate) )
 
