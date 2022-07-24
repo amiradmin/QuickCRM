@@ -123,40 +123,21 @@
                                             </div>
                                         </div>
                                         <h4 class="header-title mb-3">Upcomming Events</h4>
-
-                                        <div dir="ltr">
-                                           <table id="basic-datatable" class="table dt-responsive nowrap w-100">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Name</th>
-                                                        <th>Product</th>
+                                            <div class="inbox-widget ">
 
 
+                        <div class="inbox-item" style="height:450px; overflow-y: scroll;" >
 
-                                                        <th>Start Date</th>
-
-
-                                                    </tr>
-                                                </thead>
-
-
-                                                <tbody>
-                                                    {% for item in event_list %}
-                                                    <tr>
-                                                        <td>{{item.id}}</td>
-                                                        <td>{{item.name}}</td>
-
-                                                        <td>{{item.location}}</td>
-                                                        <td>{{item.start_date|date:'m/d/Y'}}</td>
-
-
-
-                                                    </tr>
-                                                    {%endfor%}
-                                                </tbody>
-                                            </table>
-                                        </div>
+                            {% for item in upcoming_event %}
+                            <a href="https://www.tescan.ca/Group/{{item.product.category.id}}" style="max-width:90%;" class="inbox-item-author"><i class="fa fa-newspaper-o" aria-hidden="true" style="color:#f7ad00;" > </i> {{item.product.name}}</a><span>Start Date: {{item.start_date|date:'d/m/Y'}}</span>
+                            <hr>
+                            {% endfor %}
+<!--                                <a href="#" class="btn btn-sm btn-link text-info font-13"> {{item.expiryDate|-->
+<!--                                    date}} </a>-->
+                            </p>
+                        </div>
+                    </div> <!-- end inbox-widget -->
+                         
                                             
                                     </div> <!-- end card-body-->
                                 </div> <!-- end card-->

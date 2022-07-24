@@ -1117,9 +1117,9 @@ class DeleteLocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
             loc.delete()
             return redirect('training:location_')
 
-class TrainingPanelView(SidebarMixin,GroupRequiredMixin,LoginRequiredMixin,TemplateView):
+class TrainingPanelView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/layouts-vertical.html"
-    group_required = [u'management', u'admin', u'training_admin']
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self):
         context = super(TrainingPanelView, self).get_context_data()
@@ -1139,7 +1139,12 @@ class TrainingPanelView(SidebarMixin,GroupRequiredMixin,LoginRequiredMixin,Templ
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         requestCouner = CourseRequest.objects.filter(readFlag=False).count()
+        three_month = datetime.datetime.now() + timedelta(3 * 30)
+        print(datetime.datetime.now())
+        print(three_month)
+        upcoming_event = Event.objects.filter( Q(start_date__gte=datetime.datetime.now()) & Q(start_date__lte=three_month) ).order_by('start_date')
         context['requestCouner'] =requestCouner
+        context['upcoming_event'] =upcoming_event
         context['candidate'] =candidate
         context['group_name'] = group_name
         context['event_list'] = event_list
