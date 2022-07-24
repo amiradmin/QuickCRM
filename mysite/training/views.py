@@ -447,9 +447,9 @@ class DeleteProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
     
-class EventView(SidebarMixin,LoginRequiredMixin,TemplateView):
+class EventView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/event_list.html"
-    group_required = u"management,admin,training_admin"
+    group_required = [u'management', u'admin', u'training_admin',u'training_operator']
 
     def get_context_data(self):
         context = super(EventView, self).get_context_data()
@@ -1117,8 +1117,9 @@ class DeleteLocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
             loc.delete()
             return redirect('training:location_')
 
-class TrainingPanelView(SidebarMixin,LoginRequiredMixin,TemplateView):
+class TrainingPanelView(SidebarMixin,GroupRequiredMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/layouts-vertical.html"
+    group_required = [u'management', u'admin', u'training_admin']
 
     def get_context_data(self):
         context = super(TrainingPanelView, self).get_context_data()
