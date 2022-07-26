@@ -9,6 +9,7 @@ from django.db.models import Q
 import datetime
 from mailer.views import sendMail
 from forms.models import CandidateForms
+from braces.views import GroupRequiredMixin
 # Create your views here.
 
 class NewContactView(LoginRequiredMixin,TemplateView):
@@ -45,8 +46,9 @@ class NewContactView(LoginRequiredMixin,TemplateView):
 
 
 
-class AdminNewContactView(LoginRequiredMixin,TemplateView):
+class AdminNewContactView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "contact/admin_new_contact.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self):
         context = super(AdminNewContactView, self).get_context_data()
@@ -101,8 +103,9 @@ class MessageListView(LoginRequiredMixin,TemplateView):
 
         return context
 
-class AdminMessageListView(SidebarMixin,LoginRequiredMixin,TemplateView):
+class AdminMessageListView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "contact/admin_message_list.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self):
         context = super(AdminMessageListView, self).get_context_data()

@@ -7,6 +7,7 @@ from django.views.generic import View, TemplateView
 from training.models import TesCandidate,Event
 from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
+from braces.views import GroupRequiredMixin
 # Create your views here.
 
 
@@ -15,8 +16,9 @@ class PaymentDeleteView(SidebarMixin, LoginRequiredMixin,DeleteView):
     success_url = reverse_lazy('financials:allpayments_')
 
 
-class EventCandidatePaymentView(SidebarMixin, LoginRequiredMixin, TemplateView):
+class EventCandidatePaymentView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "financials/payment_list.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(EventCandidatePaymentView, self).get_context_data()

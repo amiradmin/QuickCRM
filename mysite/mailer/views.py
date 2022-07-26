@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from email.message import EmailMessage
 from email.utils import make_msgid
+from django.contrib.auth.models import User
 import smtplib
 import os
 from sendgrid import SendGridAPIClient
@@ -11,6 +12,8 @@ from django.views.generic import View, TemplateView
 from training.models import TesCandidate
 from sendgrid.helpers.mail import *
 from dotenv import load_dotenv
+from braces.views import GroupRequiredMixin
+from django.db.models import Q
 import sendgrid
 import os
 import mailchimp_transactional as MailchimpTransactional
@@ -20,15 +23,18 @@ from mailchimp import Mailchimp
 
 
 
-class SingleMailSender( LoginRequiredMixin, TemplateView):
+class SingleMailSender(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "mailer/send_mail.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(SingleMailSender, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        candidate_list = TesCandidate.objects.all()
         context['candidate'] = candidate
         context['group_name'] = group_name
+        context['candidate_list'] = candidate_list
 
         return context
 
@@ -40,6 +46,14 @@ class SingleMailSender( LoginRequiredMixin, TemplateView):
             project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             load_dotenv(os.path.join(project_folder, '.env'))
             MAILCHIMP_API_KEY = os.getenv('MAILCHIMP_API_KEY')
+
+            user_list = User.objects.filter(
+                groups__name__in=['Staff', 'training_admin', 'admin', 'training_operator', 'management'])
+
+            email_list = TesCandidate.objects.filter(Q(user__id__in=user_list) & Q(email__isnull=False))
+
+            for item in email_list:
+                print(item.email)
 
             email = request.POST['email']
             subject = request.POST['subject']
@@ -77,9 +91,9 @@ class SingleMailSender( LoginRequiredMixin, TemplateView):
 
 
 
-class GirdSender( LoginRequiredMixin, TemplateView):
+class GirdSender(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "mailer/send_mail.html"
-
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
     def get_context_data(self, *args, **kwargs):
         context = super(GirdSender, self).get_context_data()
         project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

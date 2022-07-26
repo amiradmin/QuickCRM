@@ -4,6 +4,7 @@ from stafftimesheet.models import Timesheet
 from django.contrib.auth.models import User
 from authorization.sidebarmixin import SidebarMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from braces.views import GroupRequiredMixin
 from training.models import TesCandidate
 from datetime import datetime,date, timedelta
 from django.urls import reverse_lazy
@@ -16,7 +17,7 @@ import smtplib
 import json
 # Create your views here.
 
-class TimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
+class TimesheetList(GroupRequiredMixin,LoginRequiredMixin,SidebarMixin,TemplateView):
 
     template_name = "timesheet/timesheet_list.html"
     group_required = u"management"
@@ -329,7 +330,7 @@ class DeleteTimesheet(SidebarMixin, LoginRequiredMixin, DeleteView):
     model = Timesheet
     success_url = reverse_lazy('stafftimesheet:admintimesheetlist_')
 
-class AdminTimesheetList(LoginRequiredMixin,SidebarMixin,TemplateView):
+class AdminTimesheetList(GroupRequiredMixin,LoginRequiredMixin,SidebarMixin,TemplateView):
 
     template_name = "timesheet/admin_apps-calendar.html"
     group_required = u"management"
@@ -449,9 +450,9 @@ class TimesheetAlertView(LoginRequiredMixin, SidebarMixin, TemplateView):
         return context
 
 
-class TimesheetCalendarView(LoginRequiredMixin,SidebarMixin,TemplateView):
-
+class TimesheetCalendarView(GroupRequiredMixin,LoginRequiredMixin,SidebarMixin,TemplateView):
     template_name = "timesheet/apps-calendar.html"
+    group_required = [u'management']
 
     def get_context_data(self, *args, **kwargs):
         context = super(TimesheetCalendarView, self).get_context_data()
@@ -673,8 +674,9 @@ class NewTimesheetForm(LoginRequiredMixin,SidebarMixin,TemplateView):
 
 
 
-class TimesheetExcelView(SidebarMixin, LoginRequiredMixin, TemplateView):
+class TimesheetExcelView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "timesheet/timesheet_excel_view.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(TimesheetExcelView, self).get_context_data()

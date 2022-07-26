@@ -62,8 +62,9 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
 
-class AllRequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
+class AllRequestView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/request_list.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self):
         context = super(AllRequestView, self).get_context_data()
@@ -124,8 +125,9 @@ class ArchivedbyID(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
 
-class ArchivedbyListView(SidebarMixin,LoginRequiredMixin,TemplateView):
+class ArchivedbyListView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/request_list.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self,*args,**kwargs):
         context = super(ArchivedbyListView, self).get_context_data()

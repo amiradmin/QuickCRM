@@ -5,6 +5,7 @@ from django.views.generic import View, TemplateView
 from forms.models import CandidateForms
 from training.models import TesCandidate
 from django.contrib.auth.models import User, Group
+from braces.views import GroupRequiredMixin
 from dotenv import load_dotenv
 import os
 import mailchimp_transactional as MailchimpTransactional
@@ -13,8 +14,9 @@ from mailchimp_transactional.api_client import ApiClientError
 
 
 
-class MailerView(SidebarMixin, LoginRequiredMixin, TemplateView):
+class MailerView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "marketing/new_mail.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self):
         context = super(MailerView, self).get_context_data()
@@ -30,8 +32,9 @@ class MailerView(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-class NewMailchipEmail(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewMailchipEmail(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "marketing/new_mailchip_mail.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self):
         context = super(NewMailchipEmail, self).get_context_data()

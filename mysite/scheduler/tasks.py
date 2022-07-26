@@ -10,6 +10,11 @@ from datetime import datetime,date, timedelta
 import datetime
 import smtplib
 from celery import shared_task
+import os
+import mailchimp_transactional as MailchimpTransactional
+from mailchimp_transactional.api_client import ApiClientError
+from mailchimp import Mailchimp
+
 
 
 @shared_task
@@ -65,7 +70,42 @@ def timesheet_check_interval():
 
         s = smtplib.SMTP('smtp-mail.outlook.com', 25)
         s.starttls()
-        s.login(fromEmail, 'Wuh28931')
-        s.send_message(msg)
-        s.quit()
+        # s.login(fromEmail, 'Wuh28931')
+        # s.send_message(msg)
+        # s.quit()
+
+        project_folder = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        load_dotenv(os.path.join(project_folder, '.env'))
+        MAILCHIMP_API_KEY = os.getenv('MAILCHIMP_API_KEY')
+
+        email = request.POST['email']
+        subject = request.POST['subject']
+        content = request.POST['message']
+
+        message = {
+            "from_email": "erp@tescan.ca",
+            "subject": subject,
+            "text": content,
+            "to": [
+                {
+                    "email": email,
+                    "type": "to"
+                }
+            ]
+        }
+        try:
+            mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
+            response = mailchimp.messages.send({"message": message})
+            print('API called successfully: {}'.format(response))
+        except ApiClientError as error:
+            print('An exception occurred: {}'.format(error.text))
+        # try:
+        #     print("Here")
+        #     mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)
+        #     response = mailchimp.messages.send_template(
+        #         {"template_name": "test", "template_content": [{}], "message": message})
+        #     print(response)
+        except ApiClientError as error:
+            print("An exception occurred: {}".format(error.text))
+
         print("Email was sent!")
