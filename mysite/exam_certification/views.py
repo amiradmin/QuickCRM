@@ -5553,9 +5553,10 @@ class CSWIPExamResult31Summary(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
 
 
 
-class DeleteCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeleteCSWIPExamMaterial31(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPWeldingInspector3_1ExamMaterial
     success_url = reverse_lazy('exam_certification:examscwip31summary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, **kwargs):
         """Overriding get_context_data to add additional context."""
@@ -5568,8 +5569,9 @@ class DeleteCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, DeleteView):
         return context
 
 
-class CSWIPExamMaterial31Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+class CSWIPExamMaterial31Summary(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_cswip_31_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(CSWIPExamMaterial31Summary, self).get_context_data()
@@ -5593,8 +5595,9 @@ class CSWIPExamMaterial31Summary(SidebarMixin, LoginRequiredMixin, TemplateView)
         return context
 
 
-class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewCSWIPExamMaterial31(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_cswip_31_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewCSWIPExamMaterial31, self).get_context_data()
@@ -5694,8 +5697,9 @@ class NewCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class UpdateCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
+class UpdateCSWIPExamMaterial31(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/update_cswip_31_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateCSWIPExamMaterial31, self).get_context_data()
@@ -5751,9 +5755,10 @@ class UpdateCSWIPExamMaterial31(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class DeleteExamTofdL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeleteExamTofdL3Material(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialTofdL3
     success_url = reverse_lazy('exam_certification:examtofdl3summary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, **kwargs):
         """Overriding get_context_data to add additional context."""
@@ -5765,8 +5770,9 @@ class DeleteExamTofdL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
         context['candidate'] = candidate
         return context
 
-class ExamMaterialTofdL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamMaterialTofdL3IMSForm(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/tofd_l3_ims_form.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialTofdL3IMSForm, self).get_context_data()
@@ -5782,8 +5788,9 @@ class ExamMaterialTofdL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class NewExamMaterialTofdL3(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewExamMaterialTofdL3(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_tofd_l3_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamMaterialTofdL3, self).get_context_data()
@@ -5930,8 +5937,9 @@ class NewExamMaterialTofdL3(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class ExamMaterialTofdL3Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamMaterialTofdL3Summary(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_tofd_l3_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialTofdL3Summary, self).get_context_data()
@@ -5950,8 +5958,9 @@ class ExamMaterialTofdL3Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class NewExamResultPautL2(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewExamResultPautL2(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_paut_l2_exam_result.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamResultPautL2, self).get_context_data()
@@ -6027,8 +6036,9 @@ class NewExamResultPautL2(SidebarMixin, LoginRequiredMixin, TemplateView):
             return redirect('exam_certification:examresultsummary_')
 
 
-class ExamResultSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamResultSummary(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_result_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultSummary, self).get_context_data()
@@ -6046,8 +6056,9 @@ class ExamResultSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class ExamResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamResultSummaryByID(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/paut_l2_exam_result_byID.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamResultSummaryByID, self).get_context_data()
@@ -6118,9 +6129,10 @@ class ExamResultSummaryByID(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class DeleteExamL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeleteExamL3Material(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialL3
     success_url = reverse_lazy('exam_certification:examl3summary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, **kwargs):
         """Overriding get_context_data to add additional context."""
@@ -6132,8 +6144,9 @@ class DeleteExamL3Material(SidebarMixin, LoginRequiredMixin, DeleteView):
         context['candidate'] = candidate
         return context
 
-class ExamMaterialL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamMaterialL3IMSForm(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/l3_ims_form.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialL3IMSForm, self).get_context_data()
@@ -6146,8 +6159,9 @@ class ExamMaterialL3IMSForm(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-class NewExamMaterialL3(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewExamMaterialL3(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_l3_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamMaterialL3, self).get_context_data()
@@ -6275,8 +6289,9 @@ class NewExamMaterialL3(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class ExamMaterialL3Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamMaterialL3Summary(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_l3_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialL3Summary, self).get_context_data()
@@ -6297,9 +6312,11 @@ class ExamMaterialL3Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class DeleteExamPAUTL2(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeleteExamPAUTL2(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialPAUTL2
     success_url = reverse_lazy('exam_certification:exampautl2summary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
+
     def get_context_data(self, **kwargs):
         """Overriding get_context_data to add additional context."""
         context = super(DeleteExamPAUTL2, self).get_context_data(**kwargs)
@@ -6310,8 +6327,9 @@ class DeleteExamPAUTL2(SidebarMixin, LoginRequiredMixin, DeleteView):
         context['candidate'] = candidate
         return context
 
-class ExamMaterialPAUTL2Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamMaterialPAUTL2Summary(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_PAUTL2_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialPAUTL2Summary, self).get_context_data()
@@ -6329,8 +6347,9 @@ class ExamMaterialPAUTL2Summary(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class NewExamMaterialPautl2ByID(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewExamMaterialPautl2ByID(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_pautl2_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamMaterialPautl2ByID, self).get_context_data()
@@ -6408,8 +6427,9 @@ class NewExamMaterialPautl2ByID(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewExamMaterialPautl2(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_pautl2_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamMaterialPautl2, self).get_context_data()
@@ -6503,9 +6523,10 @@ class NewExamMaterialPautl2(SidebarMixin, LoginRequiredMixin, TemplateView):
                 return render(request, 'certificates/exam_material_PAUTL2_summary.html',context=context)
 
 
-class DeleteExamTofd(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeleteExamTofd(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialTOFDModel1
     success_url = reverse_lazy('exam_certification:examtofdsummary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, **kwargs):
         """Overriding get_context_data to add additional context."""
@@ -6517,8 +6538,9 @@ class DeleteExamTofd(SidebarMixin, LoginRequiredMixin, DeleteView):
         context['candidate'] = candidate
         return context
 
-class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewExamMaterialTofd(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_tofd_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamMaterialTofd, self).get_context_data()
@@ -6625,8 +6647,9 @@ class NewExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class UpdateExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
+class UpdateExamMaterialTofd(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/update_tofd_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateExamMaterialTofd, self).get_context_data()
@@ -6685,8 +6708,9 @@ class UpdateExamMaterialTofd(SidebarMixin, LoginRequiredMixin, TemplateView):
             return render(request, 'certificates/exam_material_tofd_summary.html',context=context)
 
 
-class ExamMaterialTofdSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamMaterialTofdSummary(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_tofd_result_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialTofdSummary, self).get_context_data()
@@ -6702,8 +6726,9 @@ class ExamMaterialTofdSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['examCount'] = examCount
         return context
 
-class NewExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewExamMaterialPiWi(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_piwi_material.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewExamMaterialPiWi, self).get_context_data()
@@ -6770,9 +6795,10 @@ class NewExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
                 return render(request, 'certificates/exam_material_piwi_summary.html',context=context)
 
 
-class DeleteExamPiWi(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeleteExamPiWi(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = ExamMaterialPiWiModel
     success_url = reverse_lazy('exam_certification:exampiwisummary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, **kwargs):
         """Overriding get_context_data to add additional context."""
@@ -6784,8 +6810,9 @@ class DeleteExamPiWi(SidebarMixin, LoginRequiredMixin, DeleteView):
         context['candidate'] = candidate
         return context
 
-class ExamMaterialPiWiSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamMaterialPiWiSummary(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_material_piwi_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialPiWiSummary, self).get_context_data()
@@ -6801,8 +6828,9 @@ class ExamMaterialPiWiSummary(SidebarMixin, LoginRequiredMixin, TemplateView):
         context['examCount'] = examCount
         return context
 
-class ExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
+class ExamMaterialPiWi(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/exam_pi_wi.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(ExamMaterialPiWi, self).get_context_data()
@@ -6817,8 +6845,9 @@ class ExamMaterialPiWi(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 
-class CSWIPCertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
+class CSWIPCertificateSummayView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cswip_cer_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(CSWIPCertificateSummayView, self).get_context_data()
@@ -6832,8 +6861,9 @@ class CSWIPCertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView)
         context['cerCount'] = cerCount
         return context
 
-class NewCswipCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewCswipCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_cswip_candidate.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewCswipCertificateAttendance, self).get_context_data()
@@ -6866,13 +6896,15 @@ class NewCswipCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateVi
 
         return redirect('exam_certification:swipcersummary_')
 
-class DeleteCswipCertificate(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeleteCswipCertificate(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CSWIPCertificateAttendance
     success_url = reverse_lazy('exam_certification:swipcersummary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
 
-class PCNCertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
+class PCNCertificateSummayView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/pcn_cer_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(PCNCertificateSummayView, self).get_context_data()
@@ -6887,8 +6919,9 @@ class PCNCertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
         return context
 
 
-class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewPcnCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_pcn_candidate.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewPcnCertificateAttendance, self).get_context_data()
@@ -6923,13 +6956,15 @@ class NewPcnCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView
 
 
 
-class DeletePcnCertificate(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeletePcnCertificate(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = PcnCertificateAttendance
     success_url = reverse_lazy('exam_certification:pcncersummary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
 
-class CertificateAttendanceView(SidebarMixin, LoginRequiredMixin, TemplateView):
+class CertificateAttendanceView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cer_attendance.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(CertificateAttendanceView, self).get_context_data()
@@ -6937,8 +6972,9 @@ class CertificateAttendanceView(SidebarMixin, LoginRequiredMixin, TemplateView):
         # context['certificateType'] = certificateType
         return context
 
-class FinalCertificateAttendanceView(SidebarMixin, LoginRequiredMixin, TemplateView):
+class FinalCertificateAttendanceView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/certificate_of_attendance.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(FinalCertificateAttendanceView, self).get_context_data()
@@ -6962,8 +6998,9 @@ class FinalCertificateAttendanceView(SidebarMixin, LoginRequiredMixin, TemplateV
             obj.save()
         return redirect('exam_certification:cersummary_')
 
-class NewCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
+class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/new_attendance.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(NewCertificateAttendance, self).get_context_data()
@@ -7018,12 +7055,14 @@ class NewCertificateAttendance(SidebarMixin, LoginRequiredMixin, TemplateView):
             return redirect('exam_certification:cersummary_')
 
 
-class DeleteCertificateAttendance(SidebarMixin, LoginRequiredMixin, DeleteView):
+class DeleteCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, DeleteView):
     model = CertificateAttendance
     success_url = reverse_lazy('exam_certification:cersummary_')
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
-class CertificateSummayView(SidebarMixin, LoginRequiredMixin, TemplateView):
+class CertificateSummayView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cer_summary.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
     def get_context_data(self, *args, **kwargs):
         context = super(CertificateSummayView, self).get_context_data()

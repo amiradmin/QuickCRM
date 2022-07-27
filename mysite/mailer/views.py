@@ -19,7 +19,9 @@ import os
 import mailchimp_transactional as MailchimpTransactional
 from mailchimp_transactional.api_client import ApiClientError
 from mailchimp import Mailchimp
-
+import pandas as pd
+import json
+from django.utils.html import strip_tags
 
 
 
@@ -51,25 +53,56 @@ class SingleMailSender(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 groups__name__in=['Staff', 'training_admin', 'admin', 'training_operator', 'management'])
 
             email_list = TesCandidate.objects.filter(Q(user__id__in=user_list) & Q(email__isnull=False))
+            #
+            # for item in email_list:
+            #     print(item.email)
 
-            for item in email_list:
-                print(item.email)
-
-            email = request.POST['email']
+            email= None
             subject = request.POST['subject']
             content = request.POST['message']
 
-            message = {
-                "from_email": "erp@tescan.ca",
-                "subject": subject,
-                "text":content,
-                "to": [
-                    {
-                        "email": email,
+            if not request.POST.get('singleEmail', None) == None:
+                email = request.POST['email']
+
+
+            if not request.POST.get('listFile', None) == None:
+                print("Selected")
+                file_loc = request.FILES['file']
+                # file_loc = '/home/amir/Downloads/email_list.xlsx'
+                df = pd.read_excel(file_loc)['Email']
+                message = {
+                    "from_email": "erp@tescan.ca",
+                    "subject": subject,
+                    'html': content,
+                    "to": []
+                }
+                for item in df:
+                    email_item ={
+                        "email": item,
                         "type": "to"
+
                     }
-                ]
-            }
+                    message['to'].append(email_item)
+
+                print(json.dumps(message, indent=3))
+            else:
+                print('Not Selected')
+
+
+
+            # message = {
+            #     "from_email": "erp@tescan.ca",
+            #     "subject": subject,
+            #     "text":content,
+            #     "to": [
+            #         {
+            #             "email": email,
+            #             "type": "to"
+            #         }
+            #     ]
+            # }
+
+
 
             try:
                 mailchimp = MailchimpTransactional.Client(MAILCHIMP_API_KEY)

@@ -64,24 +64,28 @@ input[type=submit]:hover {
 
                                     <div class="tab-content">
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="text-center">
-    <div class="form-check form-check-inline mx-5 ">
+    <div class="form-check form-check-inline mx-4 ">
   <input class="form-check-input " type="radio" name="inlineRadioOptions" onclick="handle1Click(this);" id="inlineRadio1" value="option1">
   <label class="form-check-label" for="inlineRadio1">All Candidate</label>
 </div>
-<div class="form-check form-check-inline mx-5">
+<div class="form-check form-check-inline mx-4">
   <input class="form-check-input " type="radio" name="inlineRadioOptions" onclick="handle2Click(this);" id="inlineRadio2" value="option2">
   <label class="form-check-label" for="inlineRadio2">All Staff</label>
 </div>
-<div class="form-check form-check-inline mx-5 ">
-  <input class="form-check-input" type="radio" name="inlineRadioOptions" onclick="handle3Click(this);" id="inlineRadio3" value="option3" >
+<div class="form-check form-check-inline mx-4 ">
+  <input class="form-check-input" type="radio"  onclick="handle3Click(this);" id="inlineRadio3" name="singleEmail" value="option3" >
   <label class="form-check-label" for="inlineRadio3">Individual Candidate</label>
 </div>
-<div class="form-check form-check-inline mx-5 ">
+<div class="form-check form-check-inline mx-4 ">
   <input class="form-check-input" type="radio" name="inlineRadioOptions" onclick="handle4Click(this);" id="inlineRadio4" value="option4" >
   <label class="form-check-label" for="inlineRadio4">Selection</label>
+</div>
+<div class="form-check form-check-inline mx-4 ">
+  <input class="form-check-input" type="radio" onclick="handle5Click(this);" id="inlineRadio5" name="listFile"  value="option5" >
+  <label class="form-check-label" for="inlineRadio5">Upload Email List</label>
 </div>
 </div>
     <hr>
@@ -112,10 +116,20 @@ input[type=submit]:hover {
                                                     {%endfor%}
                                                 </tbody>
                                             </table>
+            <hr>
         </div>
-    <hr>
+
+        <div id="singleEmail" style="display:none" >
     <label for="email">Email</label>
-    <input type="text" id="email" name="email" placeholder="Target email .." required disabled>
+    <input type="text" id="email" name="email" placeholder="Target email .."  >
+</div>
+
+
+    <div id="emaiList" style="display:none" >
+        <label for="list">File</label>
+        <input type="file" class="form-control" id="list" name="file"   />
+        <br>
+    </div>
 
     <label for="subject">Subject</label>
     <input type="text" id="subject" name="subject" placeholder="Type here ... " required>
@@ -151,7 +165,14 @@ input[type=submit]:hover {
                 <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js'></script>
   <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/tinymce/plugins/code/plugin.min.js"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: "code",
+        toolbar: "code" });
+</script>
 <script  >
 
 
@@ -256,23 +277,28 @@ tinymce.PluginManager.add('stickytoolbar', function(editor, url) {
 
 
 function handle3Click(myRadio) {
-    document.getElementById("email").disabled = false;
+
     document.getElementById("selection").style.display = "none";
+    document.getElementById("singleEmail").style.display = "block";
+    document.getElementById("emaiList").style.display = "none";
 }
 
 function handle1Click(myRadio) {
-    document.getElementById("email").disabled = true;
-    document.getElementById("selection").style.display = "none";
+
 }
 function handle2Click(myRadio) {
-    document.getElementById("email").disabled = true;
-    document.getElementById("selection").style.display = "none";
+
 }
 
 
 function handle4Click(myRadio) {
-    document.getElementById("email").disabled = true;
-    document.getElementById("selection").style.display = "block";
+
+}
+
+function handle5Click(myRadio) {
+    document.getElementById("selection").style.display = "none";
+    document.getElementById("singleEmail").style.display = "none";
+    document.getElementById("emaiList").style.display = "block";
 }
 
                     $(document).ready(function(){"use strict";$("#basic-datatable").DataTable({keys:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});var a=$("#datatable-buttons").DataTable({lengthChange:!1,buttons:["copy","print"],language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}});$("#selection-datatable").DataTable({select:{style:"multi"},language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),a.buttons().container().appendTo("#datatable-buttons_wrapper .col-md-6:eq(0)"),$("#alternative-page-datatable").DataTable({pagingType:"full_numbers",drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-vertical-datatable").DataTable({scrollY:"350px",scrollCollapse:!0,paging:!1,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#scroll-horizontal-datatable").DataTable({scrollX:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$("#complex-header-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},columnDefs:[{visible:!1,targets:-1}]}),$("#row-callback-datatable").DataTable({language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")},createdRow:function(a,e,t){15e4<+e[5].replace(/[\$,]/g,"")&&$("td",a).eq(5).addClass("text-danger")}}),$("#state-saving-datatable").DataTable({stateSave:!0,language:{paginate:{previous:"<i class='mdi mdi-chevron-left'>",next:"<i class='mdi mdi-chevron-right'>"}},drawCallback:function(){$(".dataTables_paginate > .pagination").addClass("pagination-rounded")}}),$(".dataTables_length select").addClass("form-select form-select-sm"),$(".dataTables_length label").addClass("form-label")});

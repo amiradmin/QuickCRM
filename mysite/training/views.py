@@ -37,7 +37,7 @@ class RequestRegister(LoginRequiredMixin, TemplateView):
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         obj = CourseRequest()
         obj.candidate = candidate
-        obj.request = "Please register me for product {} for event {}.\n Location: {} \n Country: {} \n start Date: {}".format(product.name,event.name,event.location,event.country,event.start_date)
+        obj.request = "Please register me for product {} for event {}.\n Location: {} \n Country: {} \n start Date: {} \n Delivery Method: {}".format(product.name,event.name,event.location,event.country,event.start_date,product.type)
         obj.archived=False
         obj.save()
 
