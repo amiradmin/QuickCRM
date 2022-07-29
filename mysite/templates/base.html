@@ -51,7 +51,7 @@ button, input {
 
                 <!-- LOGO -->
 
-                <a style="margin:10px 0;" href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}" class="logo text-center logo-light">
+                <a style="margin:10px 0;" href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id status=False  %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}" class="logo text-center logo-light">
                     <span class="logo-lg">
                         <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="60">
                     </span>
@@ -61,7 +61,7 @@ button, input {
                 </a>
 <br>
                 <!-- LOGO -->
-                <a href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}" class="logo text-center logo-dark">
+                <a href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id status=False  %} {% else %}{% url 'training:trainpanel_' %}{% endif %}" class="logo text-center logo-dark">
                     <span class="logo-lg">
                         <img src="{% static 'images/TES Canada Logo_PNG.png' %}" alt="" height="48">
                     </span>
@@ -1733,7 +1733,7 @@ button, input {
 
 
                         <li class="side-nav-item">
-                            <a  href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}"  aria-controls="sidebarDashboards" class="side-nav-link">
+                            <a  href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id status=False  %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}"  aria-controls="sidebarDashboards" class="side-nav-link">
                                 <i class="uil-home-alt"></i>
 
                                 <span> Dashboard </span>
@@ -1771,7 +1771,7 @@ Test
 
 
                         <li class="side-nav-item">
-                            <a  href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}"  aria-controls="sidebarDashboards" class="side-nav-link">
+                            <a  href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id status=False  %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}"  aria-controls="sidebarDashboards" class="side-nav-link">
                                 <i class="uil-home-alt"></i>
 
                                 <span> Dashboard </span>
@@ -2756,7 +2756,7 @@ Test
 
                         <li class="side-nav-title side-nav-item">Navigation </li>
                                                     <li class="side-nav-item">
-                            <a  href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}"  aria-controls="sidebarDashboards" class="side-nav-link">
+                            <a  href="{% if group_name == 'candidates' %} {% url 'accounting:canprofile_' id=candidate.id status=False  %} {% elif group_name == 'Staff' %}{% url 'accounting:staffprofile_' id=user.id %} {% else %}{% url 'training:trainpanel_' %}{% endif %}"  aria-controls="sidebarDashboards" class="side-nav-link">
                                 <i class="uil-home-alt"></i>
 
                                 <span> Dashboard </span>
@@ -3050,7 +3050,7 @@ Test
                                     </div>
 
                                     <!-- item-->
-                                    <a href="{% if candidate %}{% url 'accounting:canprofile_' id=candidate.id %}{% endif %}" class="dropdown-item notify-item">
+                                    <a href="{% if candidate %}{% url 'accounting:canprofile_' id=candidate.id status=False  %}{% endif %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle me-1"></i>
                                         <span>My Account</span>
                                     </a>

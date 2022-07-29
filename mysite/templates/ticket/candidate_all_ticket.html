@@ -103,7 +103,7 @@
             
 
             <td><p style="margin:0px; padding:0px; ">{{item.TicketNumber}}</p></td>
-            <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a   href="{% url 'accounting:canprofile_' id=item.id %}">{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}</a></p></td>
+            <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a   href="{% url 'accounting:canprofile_' id=item.id status=False  %}">{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}</a></p></td>
 
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{% if item.status == 'Done' %}<span class="badge badge-success-lighten">Done</span> {% elif item.status == 'OnProcess' %} <span class="badge badge-danger-lighten">{{item.status}}</span> {% else %}<span class="badge badge-info-lighten">{{item.status}}</span> {% endif %}</p></td>
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.asignedTo}}</p></td>

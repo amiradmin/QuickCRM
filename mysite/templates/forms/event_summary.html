@@ -170,7 +170,7 @@
 
                                                         <td class="table-user">
                                                             <img src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}"  alt="table-user" class="me-2 rounded-circle">
-                                                            <a href="{% url 'accounting:canprofile_'  id=item.id %}" class="text-body ">{{item.first_name}} {{item.last_name}}</a>
+                                                            <a href="{% url 'accounting:canprofile_'  id=item.id status=False  %}" class="text-body ">{{item.first_name}} {{item.last_name}}</a>
                                                         </td>
                                                         <td>
                                                             {{item.tes_candidate_id}}

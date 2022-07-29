@@ -123,7 +123,7 @@ class NewTicketView(LoginRequiredMixin,TemplateView):
             msg="ticket with number "+ obj.TicketNumber +" has been created!"
             sendMail('registration@tescan.ca',fullname,msg)
 
-            return redirect('accounting:canprofile_',id=candidate.id)
+            return redirect('accounting:canprofile_',id=candidate.id,status=False)
 
 
 class DeleteTicketView(SidebarMixin, LoginRequiredMixin,DeleteView):

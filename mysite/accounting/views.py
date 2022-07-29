@@ -39,6 +39,28 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
 
 # Create your views here.
 
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'registration/change_password.html', {
+        'form': form
+    })
+
+
+
 class LoginView(TemplateView):
 
     template_name = "login.html"
@@ -68,6 +90,7 @@ class LoginView(TemplateView):
                 return redirect('accounting:staffprofile_', id=candidate.id)
 
             elif group_name == 'candidates':
+
                 print('can here 1')
                 redirect_to = request.META.get('HTTP_REFERER')
                 print(redirect_to)
@@ -76,7 +99,7 @@ class LoginView(TemplateView):
                     return redirect(redirect_to.replace('?next=/', ''))
                 else:
                     candidate = TesCandidate.objects.filter(user=self.request.user).first()
-                    response = redirect('accounting:canprofile_', id=candidate.id)
+                    response = redirect('accounting:canprofile_', id=candidate.id,status=False)
                     return response
 
         # return context
@@ -87,6 +110,12 @@ class LoginView(TemplateView):
         username = request.POST['username']
         password = request.POST['password']
         remember_me = request.POST['remember_me']
+        first_status = False
+        last_login = User.objects.get(username=username).last_login
+        if last_login == None:
+            print('first login')
+            first_status = True
+
         user = authenticate(username=username, password=password)
 
 
@@ -96,8 +125,8 @@ class LoginView(TemplateView):
                 if not remember_me:
                     request.session.set_expiry(0)
                 group_name = request.user.groups.values_list('name', flat=True).first()
-                print(group_name)
-                print("Here now today zanjan 1")
+                # print(group_name)
+                # print("Here now today zanjan 1")
                 if group_name == 'management' :
 
                     return redirect('training:trainpanel_')
@@ -115,15 +144,20 @@ class LoginView(TemplateView):
 
 
                     redirect_to = request.META.get('HTTP_REFERER')
-                    print(redirect_to)
+                    # print(redirect_to)
                     if 'next' in redirect_to:
                         print("exist")
                         return redirect(redirect_to.replace('?next=/',''))
                     else:
                         print("Here main")
-                        print(request.user)
+
+
+                        if request.user.last_login == None:
+                            print(request.user.last_login)
+                            print("first login")
+                        print("Here main")
                         candidate = TesCandidate.objects.filter(user=request.user).first()
-                        response = redirect('accounting:canprofile_' , id=candidate.id)
+                        response = redirect('accounting:canprofile_' , id=candidate.id,status=first_status)
                         return response
                     # response.set_cookie('tesUser', candidate.id, max_age=1000)
                     # response.set_cookie('userName', candidate.first_name, max_age=1000)
@@ -168,7 +202,7 @@ class CandidateLoginView(TemplateView):
                     print('can Here')
                     candidate = TesCandidate.objects.filter(user=user).first()
                     print(candidate.id)
-                    return redirect('accounting:canprofile_', id=candidate.id)
+                    return redirect('accounting:canprofile_', id=candidate.id,status=False)
 
             else:
                 return HttpResponse("Inactive user.")
@@ -297,7 +331,7 @@ class DeleteCertificate(LoginRequiredMixin,TemplateView):
             context['group_name'] = group_name
             context['candidate'] = selected_candidate
             context['cer_id'] = cer_id
-            return redirect('accounting:canprofile_', id=request.user.tescandidate.id)
+            return redirect('accounting:canprofile_', id=request.user.tescandidate.id,status=False)
 
 
 
@@ -310,6 +344,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(CandidateProfileView, self).get_context_data()
         print(self.kwargs['id'])
+
         candidate = TesCandidate.objects.filter(id = self.kwargs['id']).first()
         events = Event.objects.filter(candidate = candidate).order_by('start_date')
         contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
@@ -517,6 +552,9 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
+        context['first_status'] = self.kwargs['status']
+        print(self.kwargs['status'])
+        context['first_status'] = 'True'
 
 
         context['contact'] = contact
@@ -529,58 +567,281 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
 
     def post(self, request, *args, **kwargs):
-
+        context = super(CandidateProfileView, self).get_context_data()
         if request.method == 'POST':
-            print("Here")
-            aboutMe =  request.POST['aboutMe']
-            print(aboutMe)
-            profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
-            profileData.first_name = request.POST['first_name']
-            profileData.middleName = request.POST['middleName']
-            profileData.last_name = request.POST['last_name']
-            profileData.emergencyContact = request.POST['emergencyContact']
-            profileData.email = request.POST['email']
-            profileData.address = request.POST['address']
-            profileData.contact_number = request.POST['contact_number']
-            print(request.POST['contact_number'])
-            if not request.POST.get('password', '') == None:
-                profileData.password = request.POST['password']
+            if 'changePassword' in request.POST:
+                print('Change Password')
+                password = request.POST['change_password']
+                user = User.objects.filter(id = request.user.id).first()
+                user.password = make_password(password)
+                user.save()
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                events = Event.objects.filter(candidate=candidate).order_by('start_date')
+                contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
+                contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+                print("Good Day")
+                now = datetime.datetime.now()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
 
-            if not request.POST.get('birthDate', '') == '':
-                profileData.birth_date = datetime.datetime.strptime(self.request.POST['birthDate'], '%m/%d/%Y')
-            profileData.currentCompany = request.POST['currentCompany']
-            profileData.currentPosition = request.POST['currentPosition']
-            profileData.website = request.POST['website']
-            profileData.facebook = request.POST['facebook']
-            profileData.twitter = request.POST['twitter']
-            profileData.skype = request.POST['skype']
-            profileData.linkedin = request.POST['linkedin']
-            profileData.instagram = request.POST['instagram']
-            profileData.postal_code = request.POST['postal_code']
-            profileData.aboutMe = aboutMe
-            if request.FILES.get('photo', False):
-                profileData.photo = request.FILES['photo']
-            if request.FILES.get('doc_1', False):
-                profileData.document_1 = request.FILES['doc_1']
-            if request.FILES.get('doc_2', False):
-                profileData.document_2 = request.FILES['doc_2']
+                result_list = []
 
-            cer_list = request.POST.getlist("cerName")
-            file_list = request.FILES.getlist("cerFile")
+                cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
+                if cswip31_result.count() > 0:
+                    for item in cswip31_result:
+                        result1 = {}
+                        result1['id'] = item.id
+                        result1['event'] = item.event
+                        result1['exam_date'] = item.exam.exam_date
+                        result1['exam_title'] = item.exam.exam_title
+                        result1['file'] = item.file
+                        result1['overall'] = item.overall
+                        result_list.append(result1)
+
+                cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
+                if cswip321_result.count() > 0:
+                    for item in cswip321_result:
+                        result2 = {}
+                        result2['id'] = item.id
+                        result2['event'] = item.event
+                        result2['exam_date'] = item.exam_date
+                        result2['exam_title'] = item.exam_title
+                        result2['file'] = item.file
+                        result2['overall'] = item.overall
+                        result_list.append(result2)
+
+                cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=candidate)
+                if cswip322_result.count() > 0:
+                    for item in cswip322_result:
+                        result3 = {}
+                        result3['id'] = item.id
+                        result3['event'] = item.event
+                        result3['exam_date'] = item.exam_date
+                        result3['exam_title'] = item.exam_title
+                        result3['file'] = item.file
+                        result3['overall'] = item.overall
+                        result_list.append(result3)
+
+                painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
+                if painting_cswip_result.count() > 0:
+                    for item in painting_cswip_result:
+                        result4 = {}
+                        result4['id'] = item.id
+                        result4['event'] = item.event
+                        result4['exam_date'] = item.exam_date
+                        result4['exam_title'] = item.exam_title
+                        result4['file'] = item.file
+                        result4['overall'] = item.overall
+                        result_list.append(result4)
+
+                paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(
+                    candidate=candidate)
+                if paut_l2_cswip_result.count() > 0:
+                    for item in paut_l2_cswip_result:
+                        result5 = {}
+                        result5['id'] = item.id
+                        result5['event'] = item.event
+                        result5['exam_date'] = item.exam_date
+                        result5['exam_title'] = item.exam_title
+                        result5['file'] = item.file
+                        result5['overall'] = item.overall
+                        result_list.append(result5)
+
+                paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(
+                    candidate=candidate)
+                if paut_l2_pcn_result.count() > 0:
+                    for item in paut_l2_pcn_result:
+                        result6 = {}
+                        result6['id'] = item.id
+                        result6['event'] = item.event
+                        result6['exam_date'] = item.exam_date
+                        result6['exam_title'] = item.exam_title
+                        result6['file'] = item.file
+                        result6['overall'] = item.overall
+                        result_list.append(result6)
+
+                paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(
+                    candidate=candidate)
+                if paut_l3_cswip_result.count() > 0:
+                    for item in paut_l3_cswip_result:
+                        result7 = {}
+                        result7['id'] = item.id
+                        result7['event'] = item.event
+                        result7['exam_date'] = item.exam_date
+                        result7['exam_title'] = item.exam_title
+                        result7['file'] = item.file
+                        result7['overall'] = item.overall
+                        result_list.append(result7)
+
+                paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate)
+                if paut_l3_pcn_result.count() > 0:
+                    for item in paut_l3_pcn_result:
+                        result8 = {}
+                        result8['id'] = item.id
+                        result8['event'] = item.event
+                        result8['exam_date'] = item.exam_date
+                        result8['exam_title'] = item.exam_title
+                        result8['file'] = item.file
+                        result8['overall'] = item.overall
+                        result_list.append(result8)
+
+                tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(
+                    candidate=candidate)
+                if tofd_l2_pcn_result.count() > 0:
+                    for item in tofd_l2_pcn_result:
+                        result9 = {}
+                        result9['id'] = item.id
+                        result9['event'] = item.event
+                        result9['exam_date'] = item.exam_date
+                        result9['exam_title'] = item.exam_title
+                        result9['file'] = item.file
+                        result9['overall'] = item.overall
+                        result_list.append(result9)
+
+                tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
+                if tofd_l2_cswip_result.count() > 0:
+                    for item in tofd_l2_cswip_result:
+                        result10 = {}
+                        result10['id'] = item.id
+                        result10['event'] = item.event
+                        result10['exam_date'] = item.exam_date
+                        result10['exam_title'] = item.exam_title
+                        result10['file'] = item.file
+                        result10['overall'] = item.overall
+                        result_list.append(result10)
+
+                tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate)
+                if tofd_l3_cswip_result.count() > 0:
+                    for item in tofd_l3_cswip_result:
+                        result11 = {}
+                        result11['id'] = item.id
+                        result11['event'] = item.event
+                        result11['exam_date'] = item.exam_date
+                        result11['exam_title'] = item.exam_title
+                        result11['file'] = item.file
+                        result11['overall'] = item.overall
+                        result_list.append(result11)
+
+                tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(candidate=candidate)
+                if tofd_l3_pcn_result.count() > 0:
+                    for item in tofd_l3_pcn_result:
+                        result12 = {}
+                        result12['id'] = item.id
+                        result12['event'] = item.event
+                        result12['exam_date'] = item.exam_date
+                        result12['exam_title'] = item.exam_title
+                        result12['file'] = item.file
+                        result12['overall'] = item.overall
+                        result_list.append(result12)
+
+                ri_result = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate)
+                if ri_result.count() > 0:
+                    for item in ri_result:
+                        result13 = {}
+                        result13['id'] = item.id
+                        result13['event'] = item.event
+                        result13['exam_date'] = item.exam_date
+                        result13['exam_title'] = item.exam_title
+                        result13['file'] = item.file
+                        result13['overall'] = item.overall
+                        result_list.append(result13)
+
+                dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate)
+                if dri_result.count() > 0:
+                    for item in dri_result:
+                        result14 = {}
+                        result14['id'] = item.id
+                        result14['event'] = item.event
+                        result14['exam_date'] = item.exam_date
+                        result14['exam_title'] = item.exam_title
+                        result14['file'] = item.file
+                        result14['overall'] = item.overall
+                        result_list.append(result14)
+
+                    result_list = sorted(result_list, key=lambda x: x['exam_date'])
+                cetrificates = CertificateAttendance.objects.filter(candidate=candidate)
+
+                print(cetrificates)
+                # upcoming_event = Event.objects.filter( start_date__gte > datetime.now()).order_by('start_date')[:5]
+                three_month = datetime.datetime.now() + timedelta(3 * 30)
+                print(datetime.datetime.now())
+                print(three_month)
+                upcoming_event = Event.objects.filter(
+                    Q(start_date__gte=datetime.datetime.now()) & Q(start_date__lte=three_month)).order_by('start_date')
+
+                contact_forms = Contact.objects.filter(Q(type='Admin') & Q(candidate=candidate))
+
+                # results = cswip31_materials
+                context['cetrificates'] = cetrificates
+                context['contact_forms'] = contact_forms
+                context['comp_count'] = cetrificates.count()
+                context['upcoming_event'] = upcoming_event
+                context['result_list'] = result_list
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['events'] = events
+                context['now'] = now
+                context['first_status'] = self.kwargs['status']
+                print(self.kwargs['status'])
+                context['first_status'] = 'True'
+
+                context['contact'] = contact
+                if contact.count() > 0:
+                    context['newMessage'] = True
+                else:
+                    context['newMessage'] = False
+                context['contactRead'] = contactRead
+                return render(request, "accounts/profile.html",context = context)
+            else:
+                print("Here")
+                aboutMe =  request.POST['aboutMe']
+                print(aboutMe)
+                profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
+                profileData.first_name = request.POST['first_name']
+                profileData.middleName = request.POST['middleName']
+                profileData.last_name = request.POST['last_name']
+                profileData.emergencyContact = request.POST['emergencyContact']
+                profileData.email = request.POST['email']
+                profileData.address = request.POST['address']
+                profileData.contact_number = request.POST['contact_number']
+                print(request.POST['contact_number'])
+                if not request.POST.get('password', '') == None:
+                    profileData.password = request.POST['password']
+
+                if not request.POST.get('birthDate', '') == '':
+                    profileData.birth_date = datetime.datetime.strptime(self.request.POST['birthDate'], '%m/%d/%Y')
+                profileData.currentCompany = request.POST['currentCompany']
+                profileData.currentPosition = request.POST['currentPosition']
+                profileData.website = request.POST['website']
+                profileData.facebook = request.POST['facebook']
+                profileData.twitter = request.POST['twitter']
+                profileData.skype = request.POST['skype']
+                profileData.linkedin = request.POST['linkedin']
+                profileData.instagram = request.POST['instagram']
+                profileData.postal_code = request.POST['postal_code']
+                profileData.aboutMe = aboutMe
+                if request.FILES.get('photo', False):
+                    profileData.photo = request.FILES['photo']
+                if request.FILES.get('doc_1', False):
+                    profileData.document_1 = request.FILES['doc_1']
+                if request.FILES.get('doc_2', False):
+                    profileData.document_2 = request.FILES['doc_2']
+
+                cer_list = request.POST.getlist("cerName")
+                file_list = request.FILES.getlist("cerFile")
 
 
-            for (i, j) in zip( cer_list, file_list):
-                print(i, j)
-                obj = Certificate()
-                obj.name = i
-                obj.file=j
-                obj.save()
-                profileData.certificates.add(obj)
+                for (i, j) in zip( cer_list, file_list):
+                    print(i, j)
+                    obj = Certificate()
+                    obj.name = i
+                    obj.file=j
+                    obj.save()
+                    profileData.certificates.add(obj)
 
-            # for item in cer_list:
-            #     print(item)
-            profileData.save()
-            return render(request, "accounts/profile.html",context = {'candidate':profileData})
+                # for item in cer_list:
+                #     print(item)
+                profileData.save()
+                return render(request, "accounts/profile.html",context = {'candidate':profileData})
         return render(request, "index.html")
 
 
@@ -664,7 +925,7 @@ class RegisterView(TemplateView):
             sendMail(request.POST['email'],fullName,msg)
             print('Mail Sent')
 
-        return redirect('accounting:canprofile_',id=user.tescandidate.id)
+        return redirect('accounting:canprofile_',id=user.tescandidate.id,status=False)
 
 
 
@@ -730,7 +991,7 @@ class LitteRegisterView(TemplateView):
                 return redirect(redirect_to.replace('literegister/?next=/', ''))
             else:
                 candidate = TesCandidate.objects.filter(user=user).first()
-                response = redirect('accounting:canprofile_', id=candidate.id)
+                response = redirect('accounting:canprofile_', id=candidate.id,status=False)
                 return response
         return redirect('training:resquestsuccess_')
 

@@ -102,7 +102,7 @@
             
             <td  ><img  style="min-width: 50px;" src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="image" class="img-fluid avatar-sm rounded-circle"></td>
            
-            <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a   href="{% url 'accounting:canprofile_' id=item.id %}">{{item.first_name}} {% if item.middleName %}{{item.middleName}}{% endif %} {{item.last_name}}</a></p></td>
+            <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a   href="{% url 'accounting:canprofile_' id=item.id status=False  %}">{{item.first_name}} {% if item.middleName %}{{item.middleName}}{% endif %} {{item.last_name}}</a></p></td>
             <td><p style="margin:0px; padding:0px; ">{{item.tes_candidate_id}}</p></td>
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.email}}</p></td>
             <td><p style="margin:0px; padding:0px; ">{% if item.contact_number %}{{item.contact_number|phone_number}} {% endif %}</p></td>

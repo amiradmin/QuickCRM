@@ -15,6 +15,8 @@ class Invoice(models.Model):
         return self.candidate.user.first_name
 
 
+
+
 class Invoice(models.Model):
     STATUS_CHOICES = (('P', 'Partial Payment'), ('F', 'Fully Payment'))
     # candidate = models.ForeignKey(CandidateProfile,related_name="can_invoice",  null=True, blank=True , on_delete=models.CASCADE)

@@ -169,7 +169,7 @@ class RequestView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.request = request.POST['request']
             obj.save()
 
-            return redirect('accounting:canprofile_',id=request.POST['userID'])
+            return redirect('accounting:canprofile_',id=request.POST['userID'],status=False)
 
 
 class UserFormMonitor(SidebarMixin,LoginRequiredMixin,TemplateView):

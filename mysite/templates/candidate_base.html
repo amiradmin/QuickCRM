@@ -839,7 +839,7 @@ button, input {
                                     </div>
 
                                     <!-- item-->
-                                    <a href="{% if candidate %}{% url 'accounting:canprofile_' id=candidate.id %}{% endif %}" class="dropdown-item notify-item">
+                                    <a href="{% if candidate %}{% url 'accounting:canprofile_' id=candidate.id status=False  %}{% endif %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-account-circle me-1"></i>
                                         <span>My Account</span>
                                     </a>

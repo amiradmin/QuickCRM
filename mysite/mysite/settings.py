@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import platform
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
@@ -33,6 +35,7 @@ SITE_ID = 1
 
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-
+    'django_login_history',
     'students',
     'events',
     'subjects',
@@ -73,6 +76,9 @@ INSTALLED_APPS = [
     'financials',
     'pytest',
     'crispy_forms',
+    'activity_log',
+
+
 
 
 
@@ -89,7 +95,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'activity_log.middleware.ActivityLogMiddleware',
 ]
+MIDDLEWARE_CLASSES = (
+
+    'activity_log.middleware.ActivityLogMiddleware',
+)
+
+
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
@@ -134,6 +147,14 @@ if hostName == 'amir-ThinkPad':
             'TEST': {
                 'NAME': 'test_db_6',
             },
+            'logs': {
+                'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                'NAME': 'testdb',
+                'USER': 'tes_dbuser',
+                'PASSWORD': "1qaz!QAZ",
+                'HOST': '127.0.0.1',
+                'PORT': '5432',
+            },
         },
 
     }
@@ -158,6 +179,15 @@ else:
             'HOST': '127.0.0.1',
             'PORT': '5432',
         },
+        'logs': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'testdb',
+            'USER': 'tes_dbuser',
+            'PASSWORD': "1qaz!QAZ",
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        },
+
 
     }
 
@@ -247,11 +277,7 @@ EMAIL_PORT = 25
 # EMAIL_HOST_USER = 'amirbehvandi747@gmail.com'
 # EMAIL_HOST_PASSWORD = 'Tempo@747??Edward&&Sahar3'
 
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-}
+
 
 CELERY_BROKER_URL = 'amqp://localhost'
 
@@ -259,3 +285,38 @@ CELERY_BROKER_URL = 'amqp://localhost'
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 USE_X_FORWARDED_PORT = True
+
+
+
+# For writing log to another DB
+
+DATABASE_ROUTERS = ['activity_log.router.DatabaseAppsRouter']
+DATABASE_APPS_MAPPING = {'activity_log': 'logs'}
+
+
+# Create DB automatically (for postgres, and may be mysql).
+# We create log database automatically using raw SQL in pre_migrate signal.
+# You must insure, that DB user has permissions for creation databases.
+# Tested only for postgresql
+ACTIVITYLOG_AUTOCREATE_DB = False
+
+# App settings
+
+# Log anonimus actions?
+ACTIVITYLOG_ANONIMOUS = True
+
+# Update last activity datetime in user profile. Needs updates for user model.
+ACTIVITYLOG_LAST_ACTIVITY = True
+
+# Only this methods will be logged
+ACTIVITYLOG_METHODS = ('POST', 'GET')
+
+# List of response statuses, which logged. By default - all logged.
+# Don't use with ACTIVITYLOG_EXCLUDE_STATUSES
+ACTIVITYLOG_STATUSES = (200, )
+
+# List of response statuses, which ignores. Don't use with ACTIVITYLOG_STATUSES
+# ACTIVITYLOG_EXCLUDE_STATUSES = (302, )
+
+# URL substrings, which ignores
+ACTIVITYLOG_EXCLUDE_URLS = ('/admin/activity_log/activitylog', )

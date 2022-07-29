@@ -41,7 +41,7 @@ class NewContactView(LoginRequiredMixin,TemplateView):
             # sendMail("amirbehvandi747@gmail.com")
             context['group_name'] = group_name
             context['candidate'] = candidate
-            return redirect('accounting:canprofile_',id=candidate.id)
+            return redirect('accounting:canprofile_',id=candidate.id,status=False)
 
 
 
