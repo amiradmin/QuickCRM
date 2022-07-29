@@ -554,7 +554,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         context['now'] = now
         context['first_status'] = self.kwargs['status']
         print(self.kwargs['status'])
-        context['first_status'] = 'True'
+        # context['first_status'] = 'True'
 
 
         context['contact'] = contact
