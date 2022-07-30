@@ -34,6 +34,7 @@ urlpatterns = [
     path('ticket/', include("ticket.urls",namespace="ticket")),
     path('financials/', include("financials.urls",namespace="financials")),
     path('stafftimesheet/', include("stafftimesheet.urls",namespace="stafftimesheet_")),
+    path('monitoring/', include("monitoring.urls",namespace="monitoring_")),
     path('api/', include("api.urls",namespace="api")),
     path('api-auth/', include('rest_framework.urls')),
     path('scheduler/', include('scheduler.urls')),

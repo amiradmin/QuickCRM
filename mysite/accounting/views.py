@@ -19,6 +19,7 @@ from mailer.views import sendMail
 from datetime import timedelta
 import itertools
 from django.contrib.auth import views as auth_views
+from monitoring.models import UserMonitor
 from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
                                        PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
                                        CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3,
@@ -91,7 +92,7 @@ class LoginView(TemplateView):
 
             elif group_name == 'candidates':
 
-                print('can here 1')
+                print('can here 1222')
                 redirect_to = request.META.get('HTTP_REFERER')
                 print(redirect_to)
                 if 'next' in redirect_to:
@@ -126,7 +127,8 @@ class LoginView(TemplateView):
                     request.session.set_expiry(0)
                 group_name = request.user.groups.values_list('name', flat=True).first()
                 # print(group_name)
-                # print("Here now today zanjan 1")
+                print("Here now today zanjan 1")
+
                 if group_name == 'management' :
 
                     return redirect('training:trainpanel_')

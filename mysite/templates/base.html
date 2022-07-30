@@ -31,7 +31,7 @@
 
         <link href="{% static 'assets/css/app-creative.min.css' %}" rel="stylesheet" type="text/css" id="light-style" />
         <link href="{% static 'css/upload.css' %}" rel="stylesheet" type="text/css" />
-       <script src="https://cdn.tiny.cloud/1xraugdpkuiaviti0v9vd6e2bitpvv9pmalvozutq4kz8772q/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+  <script src="https://cdn.tiny.cloud/1/xraugdpkuiaviti0v9vd6e2bitpvv9pmalvozutq4kz8772q/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
     a.disabled { 
     pointer-events: none;
@@ -1637,7 +1637,7 @@ button, input {
                         </li>
                                     <li>
 
-                                    </li>
+   </li>
 
 
                                    <li class="side-nav-item">
@@ -1662,7 +1662,26 @@ button, input {
                             </div>
                         </li>
 
+      <li class="side-nav-item">
+                            <a data-bs-toggle="collapse" href="#manage" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
+                                <i class="uil-clipboard-alt"></i>
+                                <span> Statistics </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+                            <div class="collapse" id="manage">
+                                <ul class="side-nav-second-level">
+                                    <li>
+                                        <a href="{% url 'monitoring:userrstatistics_' %}">Users</a>
+                                    </li>
 
+
+
+                                </ul>
+                            </div>
+                        </li>
+                                    <li>
+
+   </li>
 
 
 

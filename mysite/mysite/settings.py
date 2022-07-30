@@ -77,6 +77,8 @@ INSTALLED_APPS = [
     'pytest',
     'crispy_forms',
     'activity_log',
+    'monitoring',
+
 
 
 
@@ -95,12 +97,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'activity_log.middleware.ActivityLogMiddleware',
+     # 'monitoring.middleware.OnlineNowMiddleware',
+    "mysite.custom_middleware.LastActivityMiddleware",  # add custom middleware
 ]
-MIDDLEWARE_CLASSES = (
-
-    'activity_log.middleware.ActivityLogMiddleware',
-)
 
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -320,3 +319,5 @@ ACTIVITYLOG_STATUSES = (200, )
 
 # URL substrings, which ignores
 ACTIVITYLOG_EXCLUDE_URLS = ('/admin/activity_log/activitylog', )
+
+

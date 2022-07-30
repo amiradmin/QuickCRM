@@ -524,7 +524,6 @@
 				<table id="data-table" border="1" cellpadding="10" cellspacing="0" >
 					<thead>
 						<tr>
-
                              {% for task in timesheets_day %}
 							<th scope="col">{{task.from_temp__month}}/{{task.from_temp__day}}/{{task.from_temp__year}}</th>
 
@@ -533,7 +532,6 @@
 					</thead>
 					<tbody>
 						<tr>
-
                             {% for task in timesheets_day %}
 							<td>{{task.durationTime|timedelta:"{hours_total}" }}</td>
                             {% endfor %}
