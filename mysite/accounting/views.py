@@ -19,7 +19,7 @@ from mailer.views import sendMail
 from datetime import timedelta
 import itertools
 from django.contrib.auth import views as auth_views
-from monitoring.models import UserMonitor
+from monitoring.models import LastLogin
 from exam_certification.models import (CertificateAttendance,ExamMaterialL3,ExamMaterialPAUTL2,ExamMaterialTOFDModel1,
                                        PcnCertificateAttendance,CSWIPCertificateAttendance,PcnCertificateProduct,
                                        CswipCertificateProduct,ExamMaterialPiWiModel,ExamResultPautL2,ExamMaterialTofdL3,
@@ -128,7 +128,10 @@ class LoginView(TemplateView):
                 group_name = request.user.groups.values_list('name', flat=True).first()
                 # print(group_name)
                 print("Here now today zanjan 1")
-
+                monitor = LastLogin()
+                monitor.user = user
+                monitor.login = datetime.datetime.now()
+                monitor.save()
                 if group_name == 'management' :
 
                     return redirect('training:trainpanel_')

@@ -324,10 +324,73 @@
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.gauge{
-  width:500px;
+.gaugeOne{
+  width:300px;
   height:400px;
+  text-align: center;
+  margin-left:20%;
 }
+
+
+.gauge {
+    position: relative;
+    border-radius: 50%/100% 100% 0 0;
+    background-color: var(--color, #a22);
+    overflow: hidden;
+ margin-left:17%;
+
+}
+.gauge:before{
+    content: "";
+    display: block;
+    padding-top: 50%;   /* ratio of 2:1*/
+}
+.gauge .chart {
+  overflow: hidden;
+}
+.gauge .mask {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: 0;
+  top: 40%;
+  background-color: #fff;
+  border-radius: 50%/100% 100% 0 0;
+}
+
+.gauge .percentage {
+    position:  absolute;
+    top: -1px;
+    left: -1px;
+    bottom: 0;
+    right: -1px;
+    background-color: var(--background, #aaa);
+    transform:rotate(var(--rotation));
+    transform-origin: bottom center;
+    transition-duration: 600;
+}
+.gauge:hover {
+  --rotation: 100deg;
+}
+.gauge .value {
+  position:absolute; bottom:0%; left:0;
+  width:100%;
+  text-align: center;
+}
+.gauge .valueTwo {
+  position:absolute; bottom:0%; left:0;
+  width:100%;
+  text-align: center;
+
+}
+.gauge .min {
+  position:absolute;
+  bottom:0; left:5%;
+}
+.gauge .max {
+  position:absolute;
+  bottom:0; right:5%;
+ }
 </style>
 
 
@@ -347,99 +410,7 @@
                     </div>
                     <!-- end page title -->
 
-      <form method="post" onsubmit="submitForm(event)">
-    {% csrf_token %}
-                        <div class="row">
-                            <div class="col-12">
 
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                <div class="mb-3 col-md-6">
-                                    <label for="inputState" class="form-label">Staff</label>
-                                    <select name="userID" id="userID" class="form-select">
-                                    <option value="000" >All</option>
-                                        {% for item in candidate_list %}
-                                        <option value="{{item.user.id}}">{{item.user.id}}-{{item.first_name}} {{item.last_name}}
-
-                                        </option>
-                                        {% endfor %}
-
-                                    </select>
-                                    <div><span id="mainCanIDError" class="text-danger"></span></div>
-                                </div>
-
-
-
-    <div class="col-sm-6 col-sm-offset-4">
-<label for="inputState1" class="form-label">Date</label>
-         <div class="input-group">
-<input id="datepicker" name="daily" class="form-control" />
-    </div>
-    </div>
-                                </div>
-                                                                                    <div class="row g-2">
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="inputCity" class="form-label">Task</label>
- <select class="form-select" name="task" id="event-category"  >
-    <option value="All" >All</option>
-    <option value="Administration" >Administration</option>
-    <option value="Financial" >Financial</option>
-    <option value="Marketing-Engineering" >Marketing-Engineering</option>
-    <option value="Marketing-Training & Exam" >Marketing-Training & Exam</option>
-    <option value="Sales-Engineering" >Sales-Engineering</option>
-    <option value="Sales-Training & Exam" >Sales-Training & Exam</option>
-    <option value="Training Services" >Training & Examination Services</option>
-    <option value="Engineering Services" >Engineering Services</option>
-    <option value="IT" >IT</option>
-    <option value="Human Resources" >Human Resources</option>
-    <option value="QHSE" >QHSE</option>
-    <option value="Other" >Other</option>
-    <option value="Other" >Standby</option>
-
-</select>
-                                                </div>
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="months" class="form-label">Month</label>
-                                                    <select  id="months" name="monthSelect" class="form-select">
-
-    <option  value=''>Choose</option>
-    <option  value='1'>Janaury</option>
-    <option value='2'>February</option>
-    <option value='3'>March</option>
-    <option value='4'>April</option>
-    <option value='5'>May</option>
-    <option value='6'>June</option>
-    <option value='7'>July</option>
-    <option value='8'>August</option>
-    <option value='9'>September</option>
-    <option value='10'>October</option>
-    <option value='11'>November</option>
-    <option value='12'>December</option>
-
-                                                    </select>
-                                                </div>
-
-                                            </div>
-
-                                                <div class="mb-3 col-md-6">
-                                                    <label for="week" class="form-label">Week</label>
-      <div class="input-group week-select">
-          <input type="text" class="form-control" name="week" id="week">
-          <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-      </div>
-                                                </div>
-
-                                            </div>
-                           </div>
-                                                           </div>
-                                                </div>
-                     <div class="mb-3 col-md-12 text-center">
-                                    <button  class="btn btn-primary" name="userSelection" type="submit">Update</button>
-                     </div>
-                     </div>
-                 </div>
-                                  </form>
 
 
  <form method="post">
@@ -463,15 +434,61 @@
 
       <div class="container tabs" >
 
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css'>
-<div class="gauge col-xs-3">
-<canvas id="chart3" class=""></canvas>
+<div class="row g-2 " style="height:250px;">
+<div class="mb-3 col-md-6" style="height:300px;">
+ <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.css'>
+<div class="gaugeOne mt-1">
+<canvas id="chart3" class="ml-5"></canvas>
+    <br>
+    <span class="value">Online Users</span>
 </div>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.bundle.min.js'></script>
+</div>
+
+<div class="mb-3 col-md-6 text-center " style="height:300px;">
+   <div class="gauge" style="width: 284px; margin-top: 10px; --rotation:83deg; --color:#5c92b8; --background:#e9ecef;">
+      <div class="percentage"></div>
+      <div class="mask"></div>
+      <span class="value">{{total_candidate}}</span>
+
+</div>
+    <br>
+
+    <span class="valueTwo" >Users</span>
+</div>
+
+</div>
+
+
 
     </div>
     </div>
+   <hr>
+    <h5>Monthly</h5>
+<div id="wrapper" style="height:430px;">
+			<div class="chart">
+
+				<table id="data-table" border="1" cellpadding="10" cellspacing="0" >
+					<thead>
+						<tr>
+                             {% for item in last_user_list %}
+							<th scope="col">{{item}}</th>
+
+                              {% endfor %}
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+                            {% for task in login_number %}
+							<td>{{task.number}}</td>
+                            {% endfor %}
+
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 
 
 
@@ -501,32 +518,7 @@
 
 
                    <hr>
-<div class="tabs-content active" id="content-select-1">
-    <h5>Monthly</h5>
-<div id="wrapper">
-			<div class="chart">
 
-				<table id="data-table" border="1" cellpadding="10" cellspacing="0" >
-					<thead>
-						<tr>
-                             {% for task in last_login %}
-							<th scope="col">{{task.user}}</th>
-
-                              {% endfor %}
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-                            {% for task in last_login %}
-							<td>5</td>
-                            {% endfor %}
-
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-</div>
 
 
 <div class="tabs-content" id="content-select-2">

@@ -13,3 +13,13 @@ class UserMonitor(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class LastLogin(models.Model):
+    user = models.ForeignKey(User, related_name="last_login_user", null=True, blank=True, on_delete=models.DO_NOTHING)
+    login = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.user.username

@@ -10,26 +10,27 @@ class LastActivityMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request):
-        print("custom middleware before next middleware/view")
+        # print("custom middleware before next middleware/view")
         # Code to be executed for each request before
         # the view (and later middleware) are called.
 
         response = self.get_response(request)
-        print(request.user.username)
-        activeuser= UserMonitor.objects.filter(user = request.user)
-        if activeuser.count() > 0 :
-            activeuser=activeuser.first()
-            activeuser.login_date = datetime.now()
-            activeuser.save()
-        else:
-            activeuser = UserMonitor()
-            activeuser.user = request.user
-            activeuser.login_date = datetime.now()
-            activeuser.save()
+        # print(request.user.username)
+        if request.user.is_authenticated:
+            activeuser= UserMonitor.objects.filter(user = request.user)
+            if activeuser.count() > 0 :
+                activeuser=activeuser.first()
+                activeuser.login_date = datetime.now()
+                activeuser.save()
+            else:
+                activeuser = UserMonitor()
+                activeuser.user = request.user
+                activeuser.login_date = datetime.now()
+                activeuser.save()
 
         # Code to be executed for each response after the view is called
         #
-        print("custom middleware after response or previous middleware")
+        # print("custom middleware after response or previous middleware")
 
         return response
 
