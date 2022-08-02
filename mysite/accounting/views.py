@@ -112,10 +112,13 @@ class LoginView(TemplateView):
         password = request.POST['password']
         remember_me = request.POST['remember_me']
         first_status = False
-        last_login = User.objects.get(username=username).last_login
-        if last_login == None:
-            print('first login')
-            first_status = True
+
+        user = User.objects.filter(username=username)
+        print('here')
+        if user.count() > 0:
+            if user.first().last_login == None:
+                print('first login')
+                first_status = True
 
         user = authenticate(username=username, password=password)
 
