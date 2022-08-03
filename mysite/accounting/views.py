@@ -801,7 +801,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 context['contactRead'] = contactRead
                 return render(request, "accounts/profile.html",context = context)
             else:
-                print("Here")
+                print("Update Here")
                 aboutMe =  request.POST['aboutMe']
                 print(aboutMe)
                 profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
@@ -813,8 +813,11 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 profileData.address = request.POST['address']
                 profileData.contact_number = request.POST['contact_number']
                 print(request.POST['contact_number'])
-                if not request.POST.get('password', '') == None:
-                    profileData.password = request.POST['password']
+                if not request.POST.get('password', '') == '':
+                    print(request.POST['password'])
+                    user = User.objects.filter(id=request.user.id).first()
+                    user.password = make_password(request.POST['password'])
+                    user.save()
 
                 if not request.POST.get('birthDate', '') == '':
                     profileData.birth_date = datetime.datetime.strptime(self.request.POST['birthDate'], '%m/%d/%Y')
