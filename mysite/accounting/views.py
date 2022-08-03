@@ -561,7 +561,9 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         context['events'] = events
         context['now'] = now
         context['first_status'] = self.kwargs['status']
+        print('here')
         print(self.kwargs['status'])
+        print('here')
         # context['first_status'] = 'True'
 
 
@@ -587,7 +589,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 events = Event.objects.filter(candidate=candidate).order_by('start_date')
                 contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
                 contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
-                print("Good Day")
+                print("Good Day 1")
                 now = datetime.datetime.now()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
 
@@ -788,9 +790,8 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 context['candidate'] = candidate
                 context['events'] = events
                 context['now'] = now
-                context['first_status'] = self.kwargs['status']
+                context['first_status'] = False
                 print(self.kwargs['status'])
-                context['first_status'] = 'True'
 
                 context['contact'] = contact
                 if contact.count() > 0:
