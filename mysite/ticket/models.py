@@ -21,8 +21,8 @@ class TicketAnswer(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return self.title
 
 
 class Ticket(models.Model):
@@ -40,7 +40,7 @@ class Ticket(models.Model):
     archived = models.BooleanField(default=False,null=True, blank=True)
     fileOne = models.FileField(default=False,null=True, blank=True)
     fileTwo = models.FileField(default=False,null=True, blank=True)
-    closeDate = models.DateField(auto_now_add=True)
+    closeDate = models.DateTimeField(auto_now_add=True)
     answer = models.ManyToManyField(TicketAnswer,  null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)

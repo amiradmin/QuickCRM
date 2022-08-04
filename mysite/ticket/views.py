@@ -105,7 +105,6 @@ class NewTicketView(LoginRequiredMixin,TemplateView):
             obj.candidate = candidate
             obj.title = request.POST['title']
             obj.TicketNumber ="TESTIK-"+ str(ticketNumber)
-            obj.department = request.POST['department']
             obj.message = request.POST['message']
             if request.FILES.get('file1', False):
                 obj.fileOne = request.FILES['file1']
@@ -113,15 +112,7 @@ class NewTicketView(LoginRequiredMixin,TemplateView):
                 obj.fileTwo = request.FILES['file2']
             obj.status='new'
             obj.save()
-            if candidate.email:
-                print(candidate.email)
-                fullname=candidate.first_name + " " + candidate.last_name
-                msg="Your ticket with number "+ obj.TicketNumber +" has been created!"
-                sendMail(candidate.email,fullname,msg)
 
-            fullname=candidate.first_name + " " + candidate.last_name
-            msg="ticket with number "+ obj.TicketNumber +" has been created!"
-            sendMail('registration@tescan.ca',fullname,msg)
 
             return redirect('accounting:canprofile_',id=candidate.id,status=False)
 
@@ -145,6 +136,24 @@ class TicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
         # context['candidate'] = tickets
 
         return context
+
+
+class CandidateAllTicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
+    template_name = "ticket/all_candidate_ticket.html"
+
+    def get_context_data(self):
+        context = super(CandidateAllTicketListView, self).get_context_data()
+
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        tickets = Ticket.objects.filter(candidate=candidate).order_by('-id')
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] =candidate
+        context['tickets'] = tickets
+        # context['candidate'] = tickets
+
+        return context
+
 
 class CandidateAllTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "ticket/candidate_all_ticket.html"
@@ -173,22 +182,44 @@ class HistoryTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self,id):
         context = super(HistoryTicketView, self).get_context_data()
         ticket = Ticket.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
+        context['candidate'] =candidate
         context['ticket'] = ticket
-
         return context
-
-
-class AnswerTicketView(LoginRequiredMixin,TemplateView):
-    template_name = "ticket/ticket_answer.html"
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             obj = TicketAnswer()
-            obj.title = request.POST['title']
+            obj.message = request.POST['answer_message']
+            obj.status='new'
+            obj.save()
+
+            ticketObj = Ticket.objects.filter(id=self.kwargs['id']).first()
+            ticketObj.answer.add(obj)
+            # ticketObj.save()
+
+
+            return redirect('ticket:candidateallticket_')
+class AnswerTicketView(LoginRequiredMixin,TemplateView):
+    template_name = "ticket/ticket_answer.html"
+    def get_context_data(self,id):
+        context = super(AnswerTicketView, self).get_context_data()
+        ticket = Ticket.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] =candidate
+        context['ticket'] = ticket
+        return context
+    def post(self, request, *args, **kwargs):
+        context = super(AnswerTicketView, self).get_context_data()
+        print('here now')
+        if request.method == 'POST':
+            obj = TicketAnswer()
             obj.message = request.POST['message']
-            obj.asignedTo = request.POST['asignedTo']
+
             obj.status='new'
             if request.FILES.get('file1', False):
                 obj.fileOne = request.FILES['file1']
@@ -198,11 +229,13 @@ class AnswerTicketView(LoginRequiredMixin,TemplateView):
 
             ticketObj = Ticket.objects.filter(id=self.kwargs['id']).first()
             ticketObj.answer.add(obj)
-            ticketObj.asignedTo = request.POST['asignedTo']
             ticketObj.save()
             # sendMail("amirbehvandi747@gmail.com")
-
-            return redirect('ticket:allticket_')
+            candidate = TesCandidate.objects.filter(user=self.request.user).first()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            context['group_name'] = group_name
+            context['candidate'] = candidate
+        return redirect('ticket:allticket_')
 
 class ArchivedTicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "ticket/all_ticket.html"
