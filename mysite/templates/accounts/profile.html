@@ -1215,48 +1215,54 @@ $spacer: 20px;
                                 <div class="mb-3">
 
 
-                                    <label class="form-label" for="validationCustom01">First Name</label>
-                                    <input type="text" name="first_name" class="form-control"
-                                           value="{{candidate.first_name}}" placeholder="First name" >
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                    <label class="form-label" for="firstName" >First Name</label>
+
+                                    <div class="input-group">
+                                    <span class="input-group-text" onclick="editFirstName()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
+                                    <input type="text" name="first_name" class="form-control" id="firstName"
+                                           value="{{candidate.first_name}}" placeholder="First name" disabled >
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="validationCustom01">Middle Name</label>
+                                    <label class="form-label" for="middleName">Middle Name</label>
+                                    <div class="input-group">
+                                    <span class="input-group-text" onclick="editMiddleName()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
                                     <input type="text" title="Write your middle name if you have one!"
                                            value="{% if candidate.middleName != 'None' %}{{candidate.middleName}}{% endif %}" name="middleName" class="form-control"
-                                           id="validationCustom01" placeholder="Middle Name">
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                           id="middleName" placeholder="Middle Name" disabled >
+
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="validationCustom02">Last name</label>
+                                    <label class="form-label" for="lastName">Last name</label>
+                                      <div class="input-group">
+                                    <span class="input-group-text" onclick="editLastName()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
                                     <input type="text" name="last_name" class="form-control"
-                                           value="{{candidate.last_name}}" id="validationCustom02"
-                                           placeholder="Last name" >
-                                    <div class="valid-feedback">
-                                        Looks good!
+                                           value="{{candidate.last_name}}"
+                                           placeholder="Last name"  id="lastName" disabled >
+
                                     </div>
                                 </div>
                                 <div class="mb-3 col-md-12">
 
                                     <div class="mb-3 position-relative" id="datepicker4">
                                         <label class="form-label">Birth Date</label>
+                                          <div class="input-group">
+                                            <span class="input-group-text" onclick="editBirthDate()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
                                         <input type="text" autocomplete="off" name="birthDate"
                                                value="{{candidate.birth_date|date:'m/d/Y'}}" class="form-control"
                                                data-provide="datepicker" data-date-autoclose="true"
-                                               data-date-container="#datepicker4" >
+                                               data-date-container="#datepicker4"  disabled id="birthDate">
+                                    </div>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label" for="validationCustomUsername">Email</label>
+                                        <label class="form-label" for="email">Email</label>
                                         <div class="input-group">
-                                            <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                            <span class="input-group-text" onclick="editEmail()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
                                             <input type="email" name="email" value="{{candidate.email}}"
-                                                   class="form-control" id="validationCustomUsername"
+                                                   class="form-control" id="email"
                                                    placeholder="Email"
-                                                   aria-describedby="inputGroupPrepend" >
+                                                   aria-describedby="inputGroupPrepend" disabled >
                                             <div class="invalid-feedback">
                                                 Please choose a email.
                                             </div>
@@ -1348,8 +1354,12 @@ $spacer: 20px;
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label class="form-label">Postal Code</label>
-                                        <input class="form-control" name="postal_code" value="{% if candidate.postal_code %}{{candidate.postal_code}}{% endif %}" type="text" id="postalCode" required>
+                                         <div class="input-group">
+                                            <span class="input-group-text" onclick="editPostalCode()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
 
+                                        <input class="form-control" name="postal_code" value="{% if candidate.postal_code %}{{candidate.postal_code}}{% endif %}" type="text" id="postalCode" disabled required>
+
+                                    </div>
                                     </div>
                                     <br>
 
@@ -1386,23 +1396,32 @@ $spacer: 20px;
                                             <div class="mb-3">
                                                 <label for="currentCompany" class="form-label">Current Company
                                                     Name</label>
+                                           <div class="input-group">
+                                            <span class="input-group-text" onclick="editCompanyName()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
                                                 <input type="text" class="form-control" id="currentCompany"
-                                                       value="{%  if candidate.currentCompany %} {{candidate.currentCompany}}{% endif %}" name="currentCompany"
-                                                       placeholder="Enter company name">
+                                                       value="{% if candidate.currentCompany %}{{candidate.currentCompany}}{% endif %}" name="currentCompany"
+                                                       placeholder="Enter company name" disabled>
+                                            </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="cwebsite" class="form-label">Website</label>
-                                                <input type="text" class="form-control" id="cwebsite" name="website"
-                                                       value="{%  if candidate.website %} {{candidate.website}}{% endif %}" placeholder="Enter website url">
+                                                <label for="website" class="form-label">Website</label>
+                                                                                           <div class="input-group">
+                                            <span class="input-group-text" onclick="editWebsiteName()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
+                                                <input type="text" class="form-control" id="website" name="website"
+                                                       value="{%  if candidate.website %}{{candidate.website}}{% endif %}" placeholder="Enter website url" disabled>
+                                            </div>
                                             </div>
                                         </div> <!-- end col -->
                                         <div class="col-md-12">
                                             <div class="mb-6">
-                                                <label for="cwebsite" class="form-label">Current Position</label>
-                                                <input type="text" class="form-control" id="" name="currentPosition"
-                                                       value="{%  if candidate.currentPosition %} {{candidate.currentPosition}}{% endif %}" placeholder="Enter current position">
+                                                <label for="currentPosition" class="form-label">Current Position</label>
+                                    <div class="input-group">
+                                            <span class="input-group-text" onclick="editPositionName()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
+                                                <input type="text" class="form-control" id="currentPosition" name="currentPosition"
+                                                       value="{%  if candidate.currentPosition %} {{candidate.currentPosition}}{% endif %}" placeholder="Enter current position" disabled>
+                                            </div>
                                             </div>
                                         </div> <!-- end col -->
                                     </div> <!-- end row -->
@@ -1885,6 +1904,37 @@ function passCheck(){
 
 }
 
+
+function editFirstName(){
+    document.getElementById("firstName").disabled = false;
+}
+
+function editMiddleName(){
+    document.getElementById("middleName").disabled = false;
+}
+function editLastName(){
+    document.getElementById("lastName").disabled = false;
+}
+
+function editEmail(){
+    document.getElementById("email").disabled = false;
+}
+function editBirthDate(){
+    document.getElementById("birthDate").disabled = false;
+}
+
+function editPostalCode(){
+    document.getElementById("postalCode").disabled = false;
+}
+function editCompanyName(){
+    document.getElementById("currentCompany").disabled = false;
+}
+function editWebsiteName(){
+    document.getElementById("website").disabled = false;
+}
+function editPositionName(){
+    document.getElementById("currentPosition").disabled = false;
+}
 </script>
 <!-- bundle -->
 <script src="{% static 'assets/js/vendor.min.js'%}"></script>
