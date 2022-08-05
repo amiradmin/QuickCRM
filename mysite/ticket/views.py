@@ -184,6 +184,9 @@ class HistoryTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
         ticket = Ticket.objects.filter(id=self.kwargs['id']).first()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        if group_name is not 'candidates':
+            ticket.status= 'OnProcess'
+            ticket.save()
         context['group_name'] = group_name
         context['candidate'] =candidate
         context['ticket'] = ticket
@@ -199,9 +202,13 @@ class HistoryTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
             ticketObj = Ticket.objects.filter(id=self.kwargs['id']).first()
             ticketObj.answer.add(obj)
             # ticketObj.save()
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            if group_name == 'candidates':
+                return redirect('ticket:candidateallticket_')
+            else:
+                return redirect('ticket:allticket_')
 
 
-            return redirect('ticket:candidateallticket_')
 class AnswerTicketView(LoginRequiredMixin,TemplateView):
     template_name = "ticket/ticket_answer.html"
     def get_context_data(self,id):
@@ -235,6 +242,8 @@ class AnswerTicketView(LoginRequiredMixin,TemplateView):
             group_name = self.request.user.groups.values_list('name', flat=True).first()
             context['group_name'] = group_name
             context['candidate'] = candidate
+            print(group_name)
+
         return redirect('ticket:allticket_')
 
 class ArchivedTicketListView(SidebarMixin,LoginRequiredMixin,TemplateView):

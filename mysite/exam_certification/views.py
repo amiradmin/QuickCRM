@@ -7060,6 +7060,65 @@ class DeleteCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequired
     success_url = reverse_lazy('exam_certification:cersummary_')
     group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
+
+class UpdateCertificateAttendance(GroupRequiredMixin, SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_attendance.html"
+    group_required = [u'management', u'admin', u'training_admin', u'training_operator']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateCertificateAttendance, self).get_context_data()
+        cer = CertificateAttendance.objects.filter(id=self.kwargs['id']).first()
+        candidates = TesCandidate.objects.all()
+        events = Event.objects.all()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        context['candidates'] = candidates
+        context['events'] = events
+        context['cer'] = cer
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(UpdateCertificateAttendance, self).get_context_data()
+        if request.method == 'POST':
+            if 'find-candidate' in request.POST:
+                print('Find Candidate')
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+                print(events)
+                print('Here')
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['events'] = events
+                context['candidate_main'] = candidate_main
+                return render(request, 'certificates/new_attendance.html', context)
+
+            else:
+                print("Form was sent!")
+                print(self.request.POST['id'])
+                # candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                obj = CertificateAttendance.objects.filter(id=self.request.POST['id']).first()
+                # obj.candidate = candidate
+                obj.event = event
+                # obj.name = candidate.first_name + " " + candidate.last_name
+                obj.authorized_signatory = "Tahir Rizwan"
+                if not request.POST.get('course_duration', '') == '':
+                    obj.course_duration = self.request.POST['course_duration']
+                obj.cer_number = self.request.POST['certiﬁcate_number']
+                # if not request.FILES.get('file', None) == None:
+                # if request.FILES.get('myFile', True):
+                if bool(request.FILES.get('myFile', False)) == True:
+                    obj.file = self.request.FILES['myFile']
+                if not request.POST.get('issue_date', '') == '':
+                    obj.issue_date = datetime.datetime.strptime(self.request.POST['issue_date'], '%m/%d/%Y')
+                obj.save()
+
+            return redirect('exam_certification:cersummary_')
+        
 class CertificateSummayView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cer_summary.html"
     group_required = [u'management', u'admin', u'training_admin', u'training_operator']

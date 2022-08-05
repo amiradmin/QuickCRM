@@ -59,7 +59,8 @@
 
       <br>
                                                 <div class="timeline-alt pb-0">
-                                                    {% for item in ticket.answer.all|order_by:"id" %}
+
+                                                        {% for item in ticket.answer.all|order_by:"id" %}
                                                     <div class="timeline-item">
                                                         <i class="mdi mdi-circle bg-info-lighten text-primary timeline-icon"></i>
                                                         <div class="timeline-item-info">
@@ -70,10 +71,12 @@
             {% if item.fileTwo %}<a style="margin:0px; padding:4px; font-size:14px;" target="_blank" href="{{item.fileTwo.url}}"><span class="badge badge-primary-lighten border border-primary" style="margin:0px; padding:4px; font-size:14px; ">{{ticket.fileTwo.name}}</span></a>{% endif %}
 
                                                         </div>
+
                                                     </div>
+                                                    {% endfor %}
                                                     <br>
                                                     <br>
-{% endfor %}
+
 
 
                                                 </div>
@@ -93,6 +96,10 @@
 </div>
 
 
+
+      <div class="mb-3 col-md-12 text-center">
+     <button style="margin:0px; padding:4px; font-size:14px; border:none;background:none; " type="submit" name="closeBtn" ><span class="badge badge-warning-lighten border border-warning" style="margin:0px; padding:4px; font-size:14px; ">Close</span></button>
+    </div>
 
                                         </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->

@@ -85,6 +85,7 @@
 
             
             <th >Tcket Number</th>
+            <th  >Title</th>
             <th  >Status</th>
             <th>Created At</th>
             <th></th>
@@ -102,6 +103,7 @@
             <td><p style="margin:0px; padding:0px; ">{{item.TicketNumber}}</p></td>
 
 
+            <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.title}} </p></td>
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{% if item.status == 'Done' %}<span class="badge badge-success-lighten">Done</span> {% elif item.status == 'OnProcess' %} <span class="badge badge-danger-lighten">{{item.status}}</span> {% else %}<span class="badge badge-info-lighten">{{item.status}}</span> {% endif %}</p></td>
             <td><p style="margin:0px; padding:0px; "><a style="color:{{item2.colorCode}}"  href="{% url 'forms:formbyid_' id=item.id %}">{{item.closeDate|date:'m/d/Y H:i'}}</a></p></td>
 

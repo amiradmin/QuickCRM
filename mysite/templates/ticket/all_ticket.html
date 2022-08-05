@@ -87,7 +87,6 @@
             <th >Tcket Number</th>
             <th  >Candidate </th>
             <th  >Status</th>
-            <th>Assigned To</th>
             <th>Phone</th>
             <th>Created At</th>
             <th></th>
@@ -102,13 +101,12 @@
         <tr>
             
 
-            <td><p style="margin:0px; padding:0px; ">{{item.TicketNumber}}</p></td>
+            <td><a style="margin:0px; padding:0px;  " href="{% url 'ticket:tickethistory_' id=item.id %}">{{item.TicketNumber}}</a></td>
             <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a   href="{% url 'accounting:canprofile_' id=item.id status=False  %}">{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}</a></p></td>
 
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{% if item.status == 'Done' %}<span class="badge badge-success-lighten">Done</span> {% elif item.status == 'OnProcess' %} <span class="badge badge-danger-lighten">{{item.status}}</span> {% else %}<span class="badge badge-info-lighten">{{item.status}}</span> {% endif %}</p></td>
-            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'ticket:assignupdate_' id=item.id %}"><span class="badge badge-primary-lighten">{% if item.asignedTo  %}{{item.asignedTo.first_name}} {{item.asignedTo.last_name}}({{item.asignedTo.section}}){% else%} - {% endif %}</span></a></td>
-            <td><p style="margin:0px; padding:0px; ">{% if item.candidate.contact_number %}{{item.candidate.contact_number|phone_number}} {% endif %}</p></td>
-            <td><p style="margin:0px; padding:0px; "><a style="color:{{item2.colorCode}}"  href="{% url 'forms:formbyid_' id=item.id %}">{{item.closeDate|date:'m/d/Y'}}</a></p></td>
+            <td><p style="margin:0px; padding:0px; ">{% if item.candidate.contact_number %}{{item.candidate.contact_number}} {% endif %}</p></td>
+            <td><p style="margin:0px; padding:0px; "><a style="color:{{item2.colorCode}}"  href="{% url 'forms:formbyid_' id=item.id %}">{{item.closeDate|date:'m/d/Y H:i' }}</a></p></td>
 
           
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'ticket:tickethistory_' id=item.id %}"><span class="badge badge-warning-lighten">History</span></a></td>

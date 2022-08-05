@@ -13,6 +13,7 @@ urlpatterns = [
     path('newcerattendance', views.NewCertificateAttendance.as_view(), name='newcerattendance_'),
     path('finalcertificate/<int:id>/<int:canID>/<int:eventID>', views.FinalCertificateAttendanceView.as_view(), name='finalcertificate_'),
     path('deletecerattendance/<int:pk>/delete/', views.DeleteCertificateAttendance.as_view(), name='deletecerattendance_'),
+    path('updatecerattendance/<int:id>/', views.UpdateCertificateAttendance.as_view(), name='updatecerattendance_'),
     path('cersummary', views.CertificateSummayView.as_view(), name='cersummary_'),
     path('swipcersummary', views.CSWIPCertificateSummayView.as_view(), name='swipcersummary_'),
     path('pcncersummary', views.PCNCertificateSummayView.as_view(), name='pcncersummary_'),

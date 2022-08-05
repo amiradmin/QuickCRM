@@ -185,7 +185,7 @@
 
                                                        {% if item.file %}<a href="{{item.file.url}}" class="action-icon"> <i class="fa fa-camera" style="color:#0a64f5"></i></a>{% endif %}
                                                             <a href="{% url 'exam_certification:finalcertificate_' id=item.id canID=item.candidate.id eventID=item.event.id %}" class="action-icon"> <i class="mdi mdi-certificate"></i></a>
-                                                            <a href="javascript:void(0);" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                                                            <a href="{% url 'exam_certification:updatecerattendance_' id=item.id %}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
 
                                                             <a href="{% url 'exam_certification:deletecerattendance_' pk=item.id %}" class="action-icon"> <i class="mdi mdi-delete"></i></a>
                                                         </td>
