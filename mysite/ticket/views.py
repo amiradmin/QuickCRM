@@ -18,23 +18,36 @@ import datetime
 # Create your views here.
 
 
-class ArticleUpdateView(UpdateView):
-    model = Ticket
+class ArticleUpdateView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = 'ticket/update_ticket.html'
-    success_message = 'Ticket has archived successfully'
-    fields = ()
 
-    def get_success_url(self):
-        return reverse('ticket:archivedtickets_')
+    def get_context_data(self, *args, **kwargs):
+        context = super(ArticleUpdateView, self).get_context_data()
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(ArticleUpdateView, self).get_context_data()
+        obj = Ticket.objects.filter(id=self.kwargs['id']).first()
+        if obj.archived :
+            obj.archived = False
+            obj.status = 'On Process'
+        else:
+            obj.archived = True
+            obj.status = 'Done'
 
 
-    def get_object(self, queryset=None):
-        obj = super(ArticleUpdateView, self).get_object(queryset)
-        obj.archived = True
         obj.save()
 
-        return obj
-
+        candidate = TesCandidate.objects.filter(user=self.request.user).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        # return context
+        return redirect('ticket:allticket_')
 
 
 

@@ -110,7 +110,7 @@
 
           
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'ticket:tickethistory_' id=item.id %}"><span class="badge badge-warning-lighten">History</span></a></td>
-            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'ticket:achivedupdate_' pk=item.id %}"><span class="badge badge-primary-lighten">Archive</span></a></td>
+            <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'ticket:achivedupdate_' id=item.id %}"><span class="badge badge-primary-lighten">{% if item.archived %} Restore {% else %}Archive{% endif %}</span></a></td>
 
             <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'ticket:delticket_' pk=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
             

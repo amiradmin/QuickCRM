@@ -1200,7 +1200,7 @@ $spacer: 20px;
                         </div>
                         <div class="tab-pane " id="settings">
 
-                            <form method="POST" enctype="multipart/form-data" onsubmit="myFunction()">
+                            <form method="POST" enctype="multipart/form-data" onsubmit="submitForm()">
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <h5 class="mb-3 text-uppercase bg-light p-2"><i
@@ -1635,6 +1635,11 @@ $spacer: 20px;
 <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.7/js/intlTelInput.js'></script>
 <script>
 
+function submitForm(){
+
+    document.getElementById("firstName").disabled = false;
+
+}
 
 document.getElementById("userbio").value = "{{candidate.aboutMe}}";
 $(document).ready(function() {

@@ -39,7 +39,7 @@ from exam_certification.models import (CertificateAttendance,ExamMaterialL3,Exam
                                        Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN,ExamMaterialTOFD_CSWIP )
 
 # Create your views here.
-
+from ticket.models import Ticket
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -360,6 +360,10 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         print("Good Day")
         now = datetime.datetime.now()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+        new_ticket = Ticket.objects.filter(Q(candidate = candidate) and Q(status='new')).count()
+        new_status = False
+        if new_ticket > 0 :
+            new_status=True
 
         result_list=[]
 
@@ -560,6 +564,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         context['candidate'] = candidate
         context['events'] = events
         context['now'] = now
+        context['new_status'] = new_status
         context['first_status'] = self.kwargs['status']
         print('here')
         print(self.kwargs['status'])
@@ -779,8 +784,13 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                     Q(start_date__gte=datetime.datetime.now()) & Q(start_date__lte=three_month)).order_by('start_date')
 
                 contact_forms = Contact.objects.filter(Q(type='Admin') & Q(candidate=candidate))
+                new_ticket = Ticket.objects.filter(Q(candidate=candidate) and Q(status='new')).count()
+                new_status = False
+                if new_ticket > 0:
+                    new_status = True
 
                 # results = cswip31_materials
+                context['new_ticket'] = new_ticket
                 context['cetrificates'] = cetrificates
                 context['contact_forms'] = contact_forms
                 context['comp_count'] = cetrificates.count()
@@ -806,7 +816,8 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 print(aboutMe)
                 profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
                 profileData.first_name = request.POST['first_name']
-                profileData.middleName = request.POST['middleName']
+                if  request.POST['middleName'] :
+                    profileData.middleName = request.POST['middleName']
                 profileData.last_name = request.POST['last_name']
                 profileData.emergencyContact = request.POST['emergencyContact']
                 profileData.email = request.POST['email']
