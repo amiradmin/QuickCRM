@@ -43,6 +43,7 @@ from ticket.models import Ticket
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+import pdb;
 
 def change_password(request):
     if request.method == 'POST':
@@ -812,9 +813,11 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 return render(request, "accounts/profile.html",context = context)
             else:
                 print("Update Here")
+                # pdb.set_trace()
+
                 aboutMe =  request.POST['aboutMe']
-                print(aboutMe)
                 profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
+                # breakpoint()
                 profileData.first_name = request.POST['first_name']
                 if  request.POST['middleName'] :
                     profileData.middleName = request.POST['middleName']
@@ -865,7 +868,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 #     print(item)
                 profileData.save()
                 return render(request, "accounts/profile.html",context = {'candidate':profileData})
-        return render(request, "index.html")
+        # return render(request, "index.html")
 
 
 

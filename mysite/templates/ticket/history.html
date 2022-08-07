@@ -55,7 +55,19 @@
     </div> <!-- end card-body -->
 </div> <!-- end card-->
 
-
+<div id="answerform"  style="display:none;">
+<form method="post">
+    {% csrf_token %}
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Message</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" name="answer_message" rows="3"></textarea>
+  </div>
+    <div class="mb-3 col-md-12 text-center">
+        <br>
+     <button style="margin:0px; padding:4px; font-size:14px; border:none;background:none; " type="submit" name="submitAnswer" ><span class="badge badge-warning-lighten border border-warning" style="margin:0px; padding:4px; font-size:14px; ">Submit</span></button>
+    </div>
+</form>
+</div>
 
       <br>
                                                 <div class="timeline-alt pb-0">
@@ -81,25 +93,13 @@
 
                                                 </div>
 </form>
-<div id="answerform"  style="display:none;">
-<form method="post">
-    {% csrf_token %}
-  <div class="form-group">
-    <label for="exampleFormControlTextarea1">Message</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" name="answer_message" rows="3"></textarea>
-  </div>
-    <div class="mb-3 col-md-12 text-center">
-        <br>
-     <button style="margin:0px; padding:4px; font-size:14px; border:none;background:none; " type="submit" name="submitAnswer" ><span class="badge badge-warning-lighten border border-warning" style="margin:0px; padding:4px; font-size:14px; ">Submit</span></button>
-    </div>
-</form>
-</div>
 
 
 
-      <div class="mb-3 col-md-12 text-center">
-     <button style="margin:0px; padding:4px; font-size:14px; border:none;background:none; " type="submit" name="closeBtn" ><span class="badge badge-warning-lighten border border-warning" style="margin:0px; padding:4px; font-size:14px; ">Close</span></button>
-    </div>
+
+<!--      <div class="mb-3 col-md-12 text-center">-->
+<!--     <button style="margin:0px; padding:4px; font-size:14px; border:none;background:none; " type="submit" name="closeBtn" ><span class="badge badge-warning-lighten border border-warning" style="margin:0px; padding:4px; font-size:14px; ">Close</span></button>-->
+<!--    </div>-->
 
                                         </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->

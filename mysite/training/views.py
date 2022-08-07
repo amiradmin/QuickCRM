@@ -17,6 +17,7 @@ from contacts.models import Contact
 from mailer.views import sendMail
 from braces.views import GroupRequiredMixin
 from financials.models import EventCandidatePayment
+from ticket.models import Ticket
 # Create your views here.
 
 
@@ -1143,7 +1144,10 @@ class TrainingPanelView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,Templ
         requestCouner = CourseRequest.objects.filter(readFlag=False).count()
         three_month = datetime.datetime.now() + timedelta(3 * 30)
         print(datetime.datetime.now())
-        print(three_month)
+        new_ticket = Ticket.objects.filter(Q(candidate=candidate) and Q(status='new')).count()
+        new_status = False
+        if new_ticket > 0:
+            new_status = True
         upcoming_event = Event.objects.filter( Q(start_date__gte=datetime.datetime.now()) & Q(start_date__lte=three_month) ).order_by('start_date')
         context['requestCouner'] =requestCouner
         context['upcoming_event'] =upcoming_event
@@ -1161,6 +1165,7 @@ class TrainingPanelView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,Templ
         context['lecturerPerMonth'] = round( (lecturerPerMonth/lecCount) * 100,2)
         context['product'] = product
         context['proCount'] = product.count()
+        context['new_status'] = new_status
         return context
 
 

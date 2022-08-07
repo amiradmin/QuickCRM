@@ -685,7 +685,7 @@ button, input {
   <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarContact3" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                                 <i class="fa fa-life-ring"></i>
-                                <span> Support 11</span>
+                                <span> Support {% if new_status %}<span class="badge badge-success-lighten" style="margin-top:-2px;">New</span>{% endif %}</span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <div class="collapse" id="sidebarContact3">
@@ -2806,7 +2806,7 @@ Test
 
                                     </li>
                                     <li>
-                                        <a href="{% url 'ticket:candidateallticket_' %}" >All Message</a>
+                                        <a href="{% url 'ticket:candidateallticket_' %}" >Tickets</a>
                                     </li>
                                     <li>
                                         <a href="{% url 'ticket:newticket_' id=candidate.id  %}" >New</a>

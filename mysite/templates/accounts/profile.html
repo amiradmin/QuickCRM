@@ -1200,7 +1200,7 @@ $spacer: 20px;
                         </div>
                         <div class="tab-pane " id="settings">
 
-                            <form method="POST" enctype="multipart/form-data" onsubmit="submitForm()">
+                            <form method="POST" enctype="multipart/form-data" onsubmit="myFunction()">
                                 {% csrf_token %}
                                 <div class="mb-3">
                                     <h5 class="mb-3 text-uppercase bg-light p-2"><i
@@ -1228,7 +1228,7 @@ $spacer: 20px;
                                     <div class="input-group">
                                     <span class="input-group-text" onclick="editMiddleName()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
                                     <input type="text" title="Write your middle name if you have one!"
-                                           value="{% if candidate.middleName != 'None' %}{{candidate.middleName}}{% endif %}" name="middleName" class="form-control"
+                                           value="{% if candidate.middleName  %}{{candidate.middleName}}{% endif %}" name="middleName" class="form-control"
                                            id="middleName" placeholder="Middle Name" disabled >
 
                                     </div>
@@ -1347,7 +1347,7 @@ $spacer: 20px;
                                             <textarea name="address" class="form-control"
                                                       title="Address should be included with postal code!"
                                                       placeholder=" Address here" id="floatingTextarea"
-                                                      style="height: 100px;">{{candidate.address}}</textarea>
+                                                      style="height: 100px;">{% if candidate.address %}{{candidate.address}}{% endif %}</textarea>
                                             <span class="tooltiptext">Tooltip text</span>
                                         </div>
 
@@ -1634,14 +1634,33 @@ $spacer: 20px;
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.7/js/intlTelInput.js'></script>
 <script>
-
-function submitForm(){
+function myFunction() {
 
     document.getElementById("firstName").disabled = false;
+    document.getElementById("middleName").disabled = false;
+    document.getElementById("lastName").disabled = false;
+    document.getElementById("birthDate").disabled = false;
+    document.getElementById("email").disabled = false;
+    document.getElementById("postalCode").disabled = false;
+    document.getElementById("currentCompany").disabled = false;
+    document.getElementById("website").disabled = false;
+    document.getElementById("currentPosition").disabled = false;
+}
+</script>
 
+
+<script>
+
+
+const aboutMe = "{{candidate.aboutMe}}";
+
+if (aboutMe != "None") {
+document.getElementById("userbio").value = aboutMe;
+} else{
+    document.getElementById("userbio").value ='';
 }
 
-document.getElementById("userbio").value = "{{candidate.aboutMe}}";
+
 $(document).ready(function() {
         $('#email').blur(function() {
             var email = $('#email').val();

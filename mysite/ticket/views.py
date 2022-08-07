@@ -207,14 +207,20 @@ class HistoryTicketView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
+            print("add Answer")
             obj = TicketAnswer()
-            obj.message = request.POST['answer_message']
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            if group_name == 'candidates':
+                obj.message = self.request.user.first_name+': ' + request.POST['answer_message']
+            else:
+                obj.message = 'Admin: ' + request.POST['answer_message']
             obj.status='new'
             obj.save()
 
             ticketObj = Ticket.objects.filter(id=self.kwargs['id']).first()
             ticketObj.answer.add(obj)
-            # ticketObj.save()
+            ticketObj.new_message = True
+            ticketObj.save()
             group_name = self.request.user.groups.values_list('name', flat=True).first()
             if group_name == 'candidates':
                 return redirect('ticket:candidateallticket_')

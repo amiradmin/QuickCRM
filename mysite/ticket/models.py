@@ -38,6 +38,7 @@ class Ticket(models.Model):
     status = models.CharField(choices=TYPE_STATUS,max_length=10, null=True, blank=True)
     readFlag = models.BooleanField(default=False,null=True, blank=True)
     archived = models.BooleanField(default=False,null=True, blank=True)
+    new_message = models.BooleanField(default=False,null=True, blank=True)
     fileOne = models.FileField(default=False,null=True, blank=True)
     fileTwo = models.FileField(default=False,null=True, blank=True)
     closeDate = models.DateTimeField(auto_now_add=True)
