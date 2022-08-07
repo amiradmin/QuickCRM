@@ -29,8 +29,8 @@ class Ticket(models.Model):
     TYPE_STATUS = (('Done', 'Done'), ('OnProcess', 'OnProcess'), ('new', 'new'))
 
     TicketNumber = models.CharField(default='TESTIK-0',max_length=256, null=True, blank=True)
-    candidate = models.ForeignKey(TesCandidate, related_name="ticke_can", on_delete=models.CASCADE)
-    asignedTo = models.ForeignKey(Staff, related_name="ticket_asignedTO", on_delete=models.CASCADE, null=True, blank=True)
+    candidate = models.ForeignKey(TesCandidate, related_name="ticke_can", on_delete=models.DO_NOTHING)
+    asignedTo = models.ForeignKey(Staff, related_name="ticket_asignedTO", on_delete=models.DO_NOTHING, null=True, blank=True)
     # asignedTo = models.CharField(max_length=256, null=True, blank=True)
     title = models.CharField(max_length=256, null=True, blank=True)
     department = models.CharField(max_length=256, null=True, blank=True)
