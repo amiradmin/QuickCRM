@@ -810,7 +810,8 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 else:
                     context['newMessage'] = False
                 context['contactRead'] = contactRead
-                return render(request, "accounts/profile.html",context = context)
+                # return render(request, "accounts/profile.html",context = context)
+                return redirect("https://erp.tescan.ca/")
             else:
                 print("Update Here")
                 # pdb.set_trace()
