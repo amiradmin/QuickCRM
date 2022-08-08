@@ -771,10 +771,10 @@ $spacer: 20px;
 <div class="form-popup-bg">
   <div class="form-container">
     <button id="btnCloseForm" class="close-button">X</button>
-    <h1>Change Password</h1>
+    <h1 id="comp1">Change Password</h1>
     <form  method="post">
         {% csrf_token %}
-      <div class="form-group" style="text-align:left;">
+      <div id="comp2" class="form-group" style="text-align:left;">
                             <div class="col-md-12">
                                 <input id="password" name="change_password" type="password" placeholder="" class="form-control input-md" data-placement="bottom" data-toggle="popover" data-container="body" type="button" data-html="true">
                                 <div id="popover-password">
@@ -792,16 +792,21 @@ $spacer: 20px;
                                 </div>
                             </div>
       </div>
-      <div class="form-group mt-2" style="text-align:left;">
+      <div id="comp3" class="form-group mt-2" style="text-align:left;">
         <label for="">Re-Type Password</label>
         <input class="form-control" type="password" id="password2" required />
       </div>
 
 
-     <button type="submit" onclick="passCheck()" class="btn btn-success mt-3" name="changePassword"><i
+
+     <button  id="comp4" type="submit" onclick="passSubmit();" class="btn btn-success mt-3" name="changePassword"><i
                                                 class="mdi mdi-content-save"></i> Save
                                         </button>
     </form>
+
+      <div id="redirectDiv" style="display:none">
+          <h3>You will be redirected to login page!</h3>
+      </div>
   </div>
 </div>
                     <script>
@@ -1911,6 +1916,17 @@ $(document).ready(function($) {
 
   });
 
+function passSubmit(){
+
+<!--    event.preventDefault()-->
+document.getElementById("comp1").style.display = "none";
+document.getElementById("comp2").style.display = "none";
+document.getElementById("comp3").style.display = "none";
+document.getElementById("comp4").style.display = "none";
+
+document.getElementById("redirectDiv").style.display = "block";
+window.location.replace("https://erp.tescan.ca/");
+}
 
 function passCheck(){
     const password1 = document.getElementById("password1").value;
