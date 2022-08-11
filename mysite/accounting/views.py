@@ -592,12 +592,13 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 user.password = make_password(password)
                 user.save()
                 candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
                 events = Event.objects.filter(candidate=candidate).order_by('start_date')
                 contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
                 contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
                 print("Good Day 1")
                 now = datetime.datetime.now()
-                group_name = self.request.user.groups.values_list('name', flat=True).first()
+
 
                 result_list = []
 
@@ -816,6 +817,13 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 print("Update Here")
                 # pdb.set_trace()
 
+                candidate = TesCandidate.objects.filter(id=self.kwargs['id']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                events = Event.objects.filter(candidate=candidate).order_by('start_date')
+                contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
+                contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
+                now = datetime.datetime.now()
+                
                 aboutMe =  request.POST['aboutMe']
                 profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
                 # breakpoint()
@@ -825,8 +833,10 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 profileData.last_name = request.POST['last_name']
                 profileData.emergencyContact = request.POST['emergencyContact']
                 profileData.email = request.POST['email']
-                profileData.altOneEmail = request.POST['altOneEmail']
-                profileData.altTwoEmail = request.POST['altTwoEmail']
+                if not request.POST.get('altOneEmail', '') == '':
+                    profileData.altOneEmail = request.POST['altOneEmail']
+                if not request.POST.get('altTwoEmail', '') == '':
+                    profileData.altTwoEmail = request.POST['altTwoEmail']
                 profileData.address = request.POST['address']
                 profileData.contact_number = request.POST['contact_number']
                 print(request.POST['contact_number'])
@@ -870,7 +880,218 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 # for item in cer_list:
                 #     print(item)
                 profileData.save()
-                return render(request, "accounts/profile.html",context = {'candidate':profileData})
+                result_list = []
+
+                cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
+                if cswip31_result.count() > 0:
+                    for item in cswip31_result:
+                        result1 = {}
+                        result1['id'] = item.id
+                        result1['event'] = item.event
+                        result1['exam_date'] = item.exam.exam_date
+                        result1['exam_title'] = item.exam.exam_title
+                        result1['file'] = item.file
+                        result1['overall'] = item.overall
+                        result_list.append(result1)
+
+                cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
+                if cswip321_result.count() > 0:
+                    for item in cswip321_result:
+                        result2 = {}
+                        result2['id'] = item.id
+                        result2['event'] = item.event
+                        result2['exam_date'] = item.exam_date
+                        result2['exam_title'] = item.exam_title
+                        result2['file'] = item.file
+                        result2['overall'] = item.overall
+                        result_list.append(result2)
+
+                cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=candidate)
+                if cswip322_result.count() > 0:
+                    for item in cswip322_result:
+                        result3 = {}
+                        result3['id'] = item.id
+                        result3['event'] = item.event
+                        result3['exam_date'] = item.exam_date
+                        result3['exam_title'] = item.exam_title
+                        result3['file'] = item.file
+                        result3['overall'] = item.overall
+                        result_list.append(result3)
+
+                painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate)
+                if painting_cswip_result.count() > 0:
+                    for item in painting_cswip_result:
+                        result4 = {}
+                        result4['id'] = item.id
+                        result4['event'] = item.event
+                        result4['exam_date'] = item.exam_date
+                        result4['exam_title'] = item.exam_title
+                        result4['file'] = item.file
+                        result4['overall'] = item.overall
+                        result_list.append(result4)
+
+                paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(
+                    candidate=candidate)
+                if paut_l2_cswip_result.count() > 0:
+                    for item in paut_l2_cswip_result:
+                        result5 = {}
+                        result5['id'] = item.id
+                        result5['event'] = item.event
+                        result5['exam_date'] = item.exam_date
+                        result5['exam_title'] = item.exam_title
+                        result5['file'] = item.file
+                        result5['overall'] = item.overall
+                        result_list.append(result5)
+
+                paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(
+                    candidate=candidate)
+                if paut_l2_pcn_result.count() > 0:
+                    for item in paut_l2_pcn_result:
+                        result6 = {}
+                        result6['id'] = item.id
+                        result6['event'] = item.event
+                        result6['exam_date'] = item.exam_date
+                        result6['exam_title'] = item.exam_title
+                        result6['file'] = item.file
+                        result6['overall'] = item.overall
+                        result_list.append(result6)
+
+                paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(
+                    candidate=candidate)
+                if paut_l3_cswip_result.count() > 0:
+                    for item in paut_l3_cswip_result:
+                        result7 = {}
+                        result7['id'] = item.id
+                        result7['event'] = item.event
+                        result7['exam_date'] = item.exam_date
+                        result7['exam_title'] = item.exam_title
+                        result7['file'] = item.file
+                        result7['overall'] = item.overall
+                        result_list.append(result7)
+
+                paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate)
+                if paut_l3_pcn_result.count() > 0:
+                    for item in paut_l3_pcn_result:
+                        result8 = {}
+                        result8['id'] = item.id
+                        result8['event'] = item.event
+                        result8['exam_date'] = item.exam_date
+                        result8['exam_title'] = item.exam_title
+                        result8['file'] = item.file
+                        result8['overall'] = item.overall
+                        result_list.append(result8)
+
+                tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(
+                    candidate=candidate)
+                if tofd_l2_pcn_result.count() > 0:
+                    for item in tofd_l2_pcn_result:
+                        result9 = {}
+                        result9['id'] = item.id
+                        result9['event'] = item.event
+                        result9['exam_date'] = item.exam_date
+                        result9['exam_title'] = item.exam_title
+                        result9['file'] = item.file
+                        result9['overall'] = item.overall
+                        result_list.append(result9)
+
+                tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate)
+                if tofd_l2_cswip_result.count() > 0:
+                    for item in tofd_l2_cswip_result:
+                        result10 = {}
+                        result10['id'] = item.id
+                        result10['event'] = item.event
+                        result10['exam_date'] = item.exam_date
+                        result10['exam_title'] = item.exam_title
+                        result10['file'] = item.file
+                        result10['overall'] = item.overall
+                        result_list.append(result10)
+
+                tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate)
+                if tofd_l3_cswip_result.count() > 0:
+                    for item in tofd_l3_cswip_result:
+                        result11 = {}
+                        result11['id'] = item.id
+                        result11['event'] = item.event
+                        result11['exam_date'] = item.exam_date
+                        result11['exam_title'] = item.exam_title
+                        result11['file'] = item.file
+                        result11['overall'] = item.overall
+                        result_list.append(result11)
+
+                tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(candidate=candidate)
+                if tofd_l3_pcn_result.count() > 0:
+                    for item in tofd_l3_pcn_result:
+                        result12 = {}
+                        result12['id'] = item.id
+                        result12['event'] = item.event
+                        result12['exam_date'] = item.exam_date
+                        result12['exam_title'] = item.exam_title
+                        result12['file'] = item.file
+                        result12['overall'] = item.overall
+                        result_list.append(result12)
+
+                ri_result = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate)
+                if ri_result.count() > 0:
+                    for item in ri_result:
+                        result13 = {}
+                        result13['id'] = item.id
+                        result13['event'] = item.event
+                        result13['exam_date'] = item.exam_date
+                        result13['exam_title'] = item.exam_title
+                        result13['file'] = item.file
+                        result13['overall'] = item.overall
+                        result_list.append(result13)
+
+                dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate)
+                if dri_result.count() > 0:
+                    for item in dri_result:
+                        result14 = {}
+                        result14['id'] = item.id
+                        result14['event'] = item.event
+                        result14['exam_date'] = item.exam_date
+                        result14['exam_title'] = item.exam_title
+                        result14['file'] = item.file
+                        result14['overall'] = item.overall
+                        result_list.append(result14)
+
+                    result_list = sorted(result_list, key=lambda x: x['exam_date'])
+                cetrificates = CertificateAttendance.objects.filter(candidate=candidate)
+
+                print(cetrificates)
+                # upcoming_event = Event.objects.filter( start_date__gte > datetime.now()).order_by('start_date')[:5]
+                three_month = datetime.datetime.now() + timedelta(3 * 30)
+                print(datetime.datetime.now())
+                print(three_month)
+                upcoming_event = Event.objects.filter(
+                    Q(start_date__gte=datetime.datetime.now()) & Q(start_date__lte=three_month)).order_by('start_date')
+
+                contact_forms = Contact.objects.filter(Q(type='Admin') & Q(candidate=candidate))
+                new_ticket = Ticket.objects.filter(Q(candidate=candidate) and Q(status='new')).count()
+                new_status = False
+                if new_ticket > 0:
+                    new_status = True
+
+                # results = cswip31_materials
+                context['new_ticket'] = new_ticket
+                context['cetrificates'] = cetrificates
+                context['contact_forms'] = contact_forms
+                context['comp_count'] = cetrificates.count()
+                context['upcoming_event'] = upcoming_event
+                context['result_list'] = result_list
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['events'] = events
+                context['now'] = now
+                context['first_status'] = False
+                print(self.kwargs['status'])
+
+                context['contact'] = contact
+                if contact.count() > 0:
+                    context['newMessage'] = True
+                else:
+                    context['newMessage'] = False
+                context['contactRead'] = contactRead
+                return render(request, "accounts/profile.html",context = context)
         # return render(request, "index.html")
 
 
