@@ -1267,6 +1267,32 @@ $spacer: 20px;
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="email">Alternative Email</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" onclick="editOneEmail()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
+                                            <input type="email" name="altOneEmail" value="{% if  candidate.altOneEmail %}{{candidate.altOneEmail}}{% endif %}"
+                                                   class="form-control" id="altOneEmail"
+                                                   placeholder="Email"
+                                                   aria-describedby="inputGroupPrepend" disabled >
+                                            <div class="invalid-feedback">
+                                                Please choose a email.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="email">Other Alternative Email</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text" onclick="editTwoEmail()" ><i class="mdi mdi-lead-pencil me-1"></i></span>
+                                            <input type="email" name="altTwoEmail" value="{% if  candidate.altTwoEmail %}{{candidate.altTwoEmail}}{% endif %}"
+                                                   class="form-control" id="altTwoEmail"
+                                                   placeholder="Email"
+                                                   aria-describedby="inputGroupPrepend" disabled >
+                                            <div class="invalid-feedback">
+                                                Please choose a email.
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-3">
@@ -1953,6 +1979,15 @@ function editLastName(){
 function editEmail(){
     document.getElementById("email").disabled = false;
 }
+
+function editOneEmail(){
+    document.getElementById("altOneEmail").disabled = false;
+}
+
+function editTwoEmail(){
+    document.getElementById("altTwoEmail").disabled = false;
+}
+
 function editBirthDate(){
     document.getElementById("birthDate").disabled = false;
 }

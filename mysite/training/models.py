@@ -127,6 +127,8 @@ class TesCandidate(models.Model):
     emergencyContact = models.CharField(max_length=1024, null=True, blank=True )
     location = models.CharField(max_length=1024, null=True, blank=True )
     email = models.EmailField( null=True, blank=True )
+    altOneEmail = models.EmailField( null=True, blank=True )
+    altTwoEmail = models.EmailField( null=True, blank=True )
     address = models.CharField(max_length=1024,  null=True, blank=True  )
     postal_code = models.CharField(max_length=128,  null=True, blank=True  )
     contact_number = models.CharField(max_length=1024,  null=True, blank=True  )

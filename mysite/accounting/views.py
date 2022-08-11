@@ -825,6 +825,8 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 profileData.last_name = request.POST['last_name']
                 profileData.emergencyContact = request.POST['emergencyContact']
                 profileData.email = request.POST['email']
+                profileData.altOneEmail = request.POST['altOneEmail']
+                profileData.altTwoEmail = request.POST['altTwoEmail']
                 profileData.address = request.POST['address']
                 profileData.contact_number = request.POST['contact_number']
                 print(request.POST['contact_number'])
