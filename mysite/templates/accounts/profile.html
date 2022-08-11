@@ -770,7 +770,7 @@ $spacer: 20px;
 
 <div class="form-popup-bg">
   <div class="form-container">
-    <button id="btnCloseForm" class="close-button">X</button>
+
     <h1 id="comp1">Change Password</h1>
     <form  method="post">
         {% csrf_token %}
@@ -1908,7 +1908,7 @@ $(document).ready(function($) {
   $('.form-popup-bg').on('click', function(event) {
     if ($(event.target).is('.form-popup-bg') || $(event.target).is('#btnCloseForm')) {
       event.preventDefault();
-      $(this).removeClass('is-visible');
+     
     }
   });
 

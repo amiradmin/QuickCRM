@@ -570,7 +570,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         print('here')
         print(self.kwargs['status'])
         print('here')
-        # context['first_status'] = 'True'
+        context['first_status'] = 'True'
 
 
         context['contact'] = contact
