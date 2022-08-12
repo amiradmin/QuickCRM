@@ -1211,6 +1211,8 @@ class LitteRegisterView(TemplateView):
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
             user.save()
+
+
             group = Group.objects.filter(id=3).first()
             user.groups.add(group)
             # user.tes_candidate_id = request.POST['tesCanID']
@@ -1220,6 +1222,8 @@ class LitteRegisterView(TemplateView):
             user.tescandidate.email = request.POST['email']
             # user.tescandidate.tes_candidareturn redirect('accounting:canprofile_',id=user.tescandidate.id)te_id = tempID
             user.tescandidate.contact_number = request.POST['contactNumber']
+            if not request.POST.get('agreement', None) == None:
+                user.tescandidate.notification = True
             user.save()
 
             requestObj = CourseRequest()

@@ -449,19 +449,21 @@
                                                         <th>Phone</th>
                                                         <th>Certificate</th>
                                                         <th>Expired Date</th>
+                                                        <th>Notification Permission</th>
                                                     </tr>
                                                 </thead>
 
 
                                                 <tbody>
                                                     {% for item in result_list %}
-                                                    <tr>
-                                                        <td><input type="checkbox" name="ids[]" value="{{item.candidate.email}}"/> </td>
+                                                    <tr {% if not item.candidate.notification  %} style="background-color:color:#ccc;opacity:0.4;"{% endif %}  >
+  <td><input type="checkbox" name="ids[]" value="{{item.candidate.email}}" {% if not item.candidate.notification  %} disabled  {% endif %} /> </td>
                                                         <td>{{item.candidate.first_name}} {% if item.candidate.middleName %}{{item.candidate.middleName}}{% endif %} {{item.candidate.last_name}}</td>
                                                         <td>{{item.candidate.email}}</td>
                                                         <td>{{item.candidate.contact_number}}</td>
                                                         <td>{{item.cer_number}}</td>
                                                         <td>{{item.expired_date|date:'d-m-Y'}} </td>
+                                                        <td>{{item.candidate.notification}} </td>
 
 
                                                     </tr>
