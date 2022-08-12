@@ -161,6 +161,7 @@ class TesCandidate(models.Model):
     document_9 = models.FileField(upload_to='candidate_document',null=True,blank=True)
     document_10 = models.FileField(upload_to='candidate_document',null=True,blank=True)
     disable_timesheet = models.BooleanField(default=False,null=True,blank=True)
+    notification = models.BooleanField(default=False,null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -823,7 +823,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 contact = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False)).order_by("-id")
                 contactRead = Contact.objects.filter(Q(candidate=candidate) & Q(readFlag=False))
                 now = datetime.datetime.now()
-                
+
                 aboutMe =  request.POST['aboutMe']
                 profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
                 # breakpoint()

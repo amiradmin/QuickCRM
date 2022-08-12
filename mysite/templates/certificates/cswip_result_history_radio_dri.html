@@ -118,15 +118,19 @@ table.GeneratedTable thead {
     <tr>
       <td>General Theory</td>
             <td>{% if exam.general_theory == 'Failed' %}<span style="color:red;">{{exam.general_theory }}</span> {%else%}{{exam.general_theory }}{% endif %}</td>
- <td>Specific Theory</td>
-            <td>{% if exam.specific_theory == 'Failed' %}<span style="color:red;">{{exam.specific_theory }}</span> {%else%}{{exam.specific_theory }}{% endif %}</td>
+  <td>Data Analysis6</td>
+            <td>{% if exam.data_analysis6 == 'Failed' %}<span style="color:red;">{{exam.data_analysis6 }}</span> {%else%}{{exam.data_analysis6 }}{% endif %}</td>
+
+
+
+
     </tr>
 
   <tr>
       <td>Overall</td>
       <td>{{exam.overall}}</td>
-      <td></td>
-      <td></td>
+<td>Specific Theory</td>
+            <td>{% if exam.specific_theory == 'Failed' %}<span style="color:red;">{{exam.specific_theory }}</span> {%else%}{{exam.specific_theory }}{% endif %}</td>
   </tr>
   </tbody>
 </table>

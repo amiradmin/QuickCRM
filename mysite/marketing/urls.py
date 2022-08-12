@@ -7,6 +7,7 @@ urlpatterns = [
 
     path('mailer/', views.MailerView.as_view(), name='mailer_'),
     path('newmail/', views.NewMailchipEmail.as_view(), name='newmail_'),
+    path('notificationlist/', views.NotificationView.as_view(), name='notificationlist_'),
 
 
 
