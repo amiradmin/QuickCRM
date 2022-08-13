@@ -51,6 +51,8 @@ urlpatterns = [
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'), name='password_reset_complete'),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+from mysite.settings import development,common
+print(development.DEBUG)
+if development.DEBUG:
+    urlpatterns += static(common.STATIC_URL, document_root=common.STATIC_ROOT)
+    urlpatterns += static(common.MEDIA_URL, document_root=common.MEDIA_ROOT)

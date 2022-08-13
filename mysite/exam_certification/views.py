@@ -7041,6 +7041,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                 obj.event = event
                 obj.name = candidate.first_name + " " + candidate.last_name
                 obj.authorized_signatory = "Tahir Rizwan"
+
                 if not request.POST.get('course_duration', '') == '':
                     obj.course_duration = self.request.POST['course_duration']
                 obj.cer_number = self.request.POST['certiﬁcate_number']
