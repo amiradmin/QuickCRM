@@ -7021,14 +7021,204 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                 print('Find Candidate')
                 candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
                 events = Event.objects.filter(candidate=candidate_main)
-                print(events)
-                print('Here')
                 candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
                 group_name = self.request.user.groups.values_list('name', flat=True).first()
+
+                result_list = []
+
+                cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate_main)
+                if cswip31_result.count() > 0:
+                    for item in cswip31_result:
+                        result1 = {}
+                        result1['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result1['event'] = item.event
+                        result1['exam_date'] = item.exam.exam_date
+                        result1['exam_title'] = item.exam.exam_title
+                        result1['file'] = item.file
+                        result1['overall'] = item.overall
+                        result_list.append(result1)
+
+                cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate_main)
+                if cswip321_result.count() > 0:
+                    for item in cswip321_result:
+                        result2 = {}
+                        result2['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result2['event'] = item.event
+                        result2['exam_date'] = item.exam_date
+                        result2['exam_title'] = item.exam_title
+                        result2['file'] = item.file
+                        result2['overall'] = item.overall
+                        result_list.append(result2)
+
+                cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=candidate_main)
+                if cswip322_result.count() > 0:
+                    for item in cswip322_result:
+                        result3 = {}
+                        result3['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result3['event'] = item.event
+                        result3['exam_date'] = item.exam_date
+                        result3['exam_title'] = item.exam_title
+                        result3['file'] = item.file
+                        result3['overall'] = item.overall
+                        result_list.append(result3)
+
+                painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(candidate=candidate_main)
+                if painting_cswip_result.count() > 0:
+                    for item in painting_cswip_result:
+                        result4 = {}
+                        result4['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result4['event'] = item.event
+                        result4['exam_date'] = item.exam_date
+                        result4['exam_title'] = item.exam_title
+                        result4['file'] = item.file
+                        result4['overall'] = item.overall
+                        result_list.append(result4)
+
+                paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(
+                    candidate=candidate_main)
+                if paut_l2_cswip_result.count() > 0:
+                    for item in paut_l2_cswip_result:
+                        result5 = {}
+                        result5['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result5['event'] = item.event
+                        result5['exam_date'] = item.exam_date
+                        result5['exam_title'] = item.exam_title
+                        result5['file'] = item.file
+                        result5['overall'] = item.overall
+                        result_list.append(result5)
+
+                paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(
+                    candidate=candidate_main)
+                if paut_l2_pcn_result.count() > 0:
+                    for item in paut_l2_pcn_result:
+                        result6 = {}
+                        result6['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result6['event'] = item.event
+                        result6['exam_date'] = item.exam_date
+                        result6['exam_title'] = item.exam_title
+                        result6['file'] = item.file
+                        result6['overall'] = item.overall
+                        result_list.append(result6)
+
+                paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(
+                    candidate=candidate_main)
+                if paut_l3_cswip_result.count() > 0:
+                    for item in paut_l3_cswip_result:
+                        result7 = {}
+                        result7['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result7['event'] = item.event
+                        result7['exam_date'] = item.exam_date
+                        result7['exam_title'] = item.exam_title
+                        result7['file'] = item.file
+                        result7['overall'] = item.overall
+                        result_list.append(result7)
+
+                paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate_main)
+                if paut_l3_pcn_result.count() > 0:
+                    for item in paut_l3_pcn_result:
+                        result8 = {}
+                        result8['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result8['event'] = item.event
+                        result8['exam_date'] = item.exam_date
+                        result8['exam_title'] = item.exam_title
+                        result8['file'] = item.file
+                        result8['overall'] = item.overall
+                        result_list.append(result8)
+
+                tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(
+                    candidate=candidate_main)
+                if tofd_l2_pcn_result.count() > 0:
+                    for item in tofd_l2_pcn_result:
+                        result9 = {}
+                        result9['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result9['event'] = item.event
+                        result9['exam_date'] = item.exam_date
+                        result9['exam_title'] = item.exam_title
+                        result9['file'] = item.file
+                        result9['overall'] = item.overall
+                        result_list.append(result9)
+
+                tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(candidate=candidate_main)
+                if tofd_l2_cswip_result.count() > 0:
+                    for item in tofd_l2_cswip_result:
+                        result10 = {}
+                        result10['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result10['event'] = item.event
+                        result10['exam_date'] = item.exam_date
+                        result10['exam_title'] = item.exam_title
+                        result10['file'] = item.file
+                        result10['overall'] = item.overall
+                        result_list.append(result10)
+
+                tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate_main)
+                if tofd_l3_cswip_result.count() > 0:
+                    for item in tofd_l3_cswip_result:
+                        result11 = {}
+                        result11['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result11['event'] = item.event
+                        result11['exam_date'] = item.exam_date
+                        result11['exam_title'] = item.exam_title
+                        result11['file'] = item.file
+                        result11['overall'] = item.overall
+                        result_list.append(result11)
+
+                tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(candidate=candidate_main)
+                if tofd_l3_pcn_result.count() > 0:
+                    for item in tofd_l3_pcn_result:
+                        result12 = {}
+                        result12['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result12['event'] = item.event
+                        result12['exam_date'] = item.exam_date
+                        result12['exam_title'] = item.exam_title
+                        result12['file'] = item.file
+                        result12['overall'] = item.overall
+                        result_list.append(result12)
+
+                ri_result = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate_main)
+                if ri_result.count() > 0:
+                    for item in ri_result:
+                        result13 = {}
+                        result13['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result13['event'] = item.event
+                        result13['exam_date'] = item.exam_date
+                        result13['exam_title'] = item.exam_title
+                        result13['file'] = item.file
+                        result13['overall'] = item.overall
+                        result_list.append(result13)
+
+                dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(candidate=candidate_main)
+                if dri_result.count() > 0:
+                    for item in dri_result:
+                        result14 = {}
+                        result14['id'] = item.id
+                        result1['class'] = item.__class__.__name__
+                        result14['event'] = item.event
+                        result14['exam_date'] = item.exam_date
+                        result14['exam_title'] = item.exam_title
+                        result14['file'] = item.file
+                        result14['overall'] = item.overall
+                        result_list.append(result14)
+
+                result_list = sorted(result_list, key=lambda x: x['exam_date'])
+                    
                 context['group_name'] = group_name
                 context['candidate'] = candidate
                 context['events'] = events
                 context['candidate_main'] = candidate_main
+                context['result_list'] = result_list
                 return render(request, 'certificates/new_attendance.html', context)
             
             else:
@@ -7036,9 +7226,13 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                 print(self.request.POST['candidate'].split('-')[0])
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
                 event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(self.request.POST['result'].split('-')[0])
+                exam_title = self.request.POST['result'].split('-')[0]
+
                 obj = CertificateAttendance()
                 obj.candidate = candidate
                 obj.event = event
+                obj.exam_title = self.request.POST['result'].split('-')[0]
                 obj.name = candidate.first_name + " " + candidate.last_name
                 obj.authorized_signatory = "Tahir Rizwan"
 

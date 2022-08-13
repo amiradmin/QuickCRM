@@ -368,8 +368,6 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
 
         result_list=[]
 
-
-
         cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(candidate=candidate)
         if cswip31_result.count() >0:
             for item in cswip31_result:

@@ -33,6 +33,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
             result1['id'] = item.id
             result1['cer_number'] = item.cer_number
             result1['candidate'] = item.candidate
+            result1['exam_title'] = item.exam_title
             result1['expired_date'] = item.issue_date + relativedelta(months = 54)
             result_list.append(result1)
 
