@@ -243,8 +243,9 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
             if tempID < 1000:
                 tempID = 'TESN-0' + str(tempID)
             else:
-                tempID = 'TESN-'+str(tempID)
+                tempID = 'TESN-'+ str(tempID)
             print(tempID)
+            
             context['tesId'] = tempID
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
