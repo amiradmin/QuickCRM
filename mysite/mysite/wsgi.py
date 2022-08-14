@@ -8,11 +8,9 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 """
 
 import os
-from mysite.settings import development
+
 from django.core.wsgi import get_wsgi_application
 
-print(development.ROOT_URLCONF)
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', development)
-# os.environ["DJANGO_SETTINGS_MODULE"] = 'mysite.settings.development'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings.development')
 
 application = get_wsgi_application()
