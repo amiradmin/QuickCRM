@@ -240,7 +240,10 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         print(lastCan.tes_candidate_id)
         if lastCan.tes_candidate_id is not None:
             tempID = int(lastCan.tes_candidate_id.split('-')[1])+1
-            tempID = 'TESN-'+str(tempID)
+            if tempID < 1000:
+                tempID = 'TESN-0' + str(tempID)
+            else:
+                tempID = 'TESN-'+str(tempID)
             print(tempID)
             context['tesId'] = tempID
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
