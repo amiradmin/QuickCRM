@@ -11,7 +11,7 @@ import os
 from mysite.settings import development
 from django.core.wsgi import get_wsgi_application
 
-
+print(development.ROOT_URLCONF)
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', development)
 # os.environ["DJANGO_SETTINGS_MODULE"] = 'mysite.settings.development'
 
