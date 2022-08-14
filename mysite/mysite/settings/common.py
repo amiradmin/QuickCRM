@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import platform
-
+from django.conf import settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
@@ -110,8 +110,10 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
 ]
 
+settings.configure(ROOT_URLCONF=__name__)
 
-ROOT_URLCONF = 'mysite.urls'
+
+# ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
