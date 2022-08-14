@@ -236,11 +236,11 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(NewCandidatelView, self).get_context_data()
         lastCan = TesCandidate.objects.filter(tes_candidate_id__isnull=False).last()
-        if lastCan.tes_candidate_id.split('-')[1] :
-            tempID = int(lastCan.tes_candidate_id.split('-')[1])+1
-            tempID = 'TESN-'+str(tempID)
-            print(tempID)
-            context['tesId'] = tempID
+        # if lastCan.tes_candidate_id.split('-')[1] :
+        #     tempID = int(lastCan.tes_candidate_id.split('-')[1])+1
+        #     tempID = 'TESN-'+str(tempID)
+        #     print(tempID)
+        #     context['tesId'] = tempID
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
         return context
