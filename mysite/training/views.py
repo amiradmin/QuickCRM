@@ -245,7 +245,7 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
             else:
                 tempID = 'TESN-'+ str(tempID)
             print(tempID)
-            
+
             context['tesId'] = tempID
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
@@ -724,6 +724,21 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
             catID = request.POST['catID']
             category = Category.objects.filter(id=catID).first()
             candidate = TesCandidate.objects.filter(id = request.POST['candidate']).first()
+
+            lastCan = TesCandidate.objects.filter(tes_candidate_id__isnull=False).last()
+            print(lastCan)
+            print(lastCan.tes_candidate_id)
+            if lastCan.tes_candidate_id is not None:
+                tempID = int(lastCan.tes_candidate_id.split('-')[1]) + 1
+                if tempID < 1000:
+                    tempID = 'TESN-0' + str(tempID)
+                else:
+                    tempID = 'TESN-' + str(tempID)
+                print(tempID)
+
+            candidate.tes_candidate_id = tempID
+            candidate.save()
+            
             candidate.form_category.add(category)
             event.candidate.add(candidate)
 
