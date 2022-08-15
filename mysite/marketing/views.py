@@ -45,7 +45,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
 
         result_list = []
 
-        cswip31_result = CSWIPWeldingInspector3_1Result.objects.all()
+        cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(exam_title='Retest')
         if cswip31_result.count() > 0:
             for item in cswip31_result:
                 result1 = {}
@@ -59,7 +59,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result1['overall'] = item.overall
                 result_list.append(result1)
 
-        cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.all()
+        cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.filter(exam_title='Retest')
         if cswip321_result.count() > 0:
             for item in cswip321_result:
                 result2 = {}
@@ -73,7 +73,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result2['overall'] = item.overall
                 result_list.append(result2)
 
-        cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.all()
+        cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(exam_title='Retest')
         if cswip322_result.count() > 0:
             for item in cswip322_result:
                 result3 = {}
@@ -87,7 +87,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result3['overall'] = item.overall
                 result_list.append(result3)
 
-        painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.all()
+        painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(exam_title='Retest')
         if painting_cswip_result.count() > 0:
             for item in painting_cswip_result:
                 result4 = {}
@@ -101,7 +101,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result4['overall'] = item.overall
                 result_list.append(result4)
 
-        paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.all()
+        paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(exam_title='Retest')
         if paut_l2_cswip_result.count() > 0:
             for item in paut_l2_cswip_result:
                 result5 = {}
@@ -115,7 +115,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result5['overall'] = item.overall
                 result_list.append(result5)
 
-        paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all()
+        paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(exam_title='Retest')
         if paut_l2_pcn_result.count() > 0:
             for item in paut_l2_pcn_result:
                 result6 = {}
@@ -129,7 +129,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result6['overall'] = item.overall
                 result_list.append(result6)
 
-        paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.all()
+        paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(exam_title='Retest')
         if paut_l3_cswip_result.count() > 0:
             for item in paut_l3_cswip_result:
                 result7 = {}
@@ -143,7 +143,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result7['overall'] = item.overall
                 result_list.append(result7)
 
-        paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.all()
+        paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(exam_title='Retest')
         if paut_l3_pcn_result.count() > 0:
             for item in paut_l3_pcn_result:
                 result8 = {}
@@ -157,7 +157,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result8['overall'] = item.overall
                 result_list.append(result8)
 
-        tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all()
+        tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(exam_title='Retest')
         if tofd_l2_pcn_result.count() > 0:
             for item in tofd_l2_pcn_result:
                 result9 = {}
@@ -171,7 +171,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result9['overall'] = item.overall
                 result_list.append(result9)
 
-        tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.all()
+        tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(exam_title='Retest')
         if tofd_l2_cswip_result.count() > 0:
             for item in tofd_l2_cswip_result:
                 result10 = {}
@@ -199,7 +199,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result11['overall'] = item.overall
                 result_list.append(result11)
 
-        tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.all()
+        tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(exam_title='Retest')
         if tofd_l3_pcn_result.count() > 0:
             for item in tofd_l3_pcn_result:
                 result12 = {}
@@ -213,7 +213,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result12['overall'] = item.overall
                 result_list.append(result12)
 
-        ri_result = RadiographicInterpretationWeldsRIResult.objects.all()
+        ri_result = RadiographicInterpretationWeldsRIResult.objects.filter(exam_title='Retest')
         if ri_result.count() > 0:
             for item in ri_result:
                 result13 = {}
@@ -227,7 +227,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                 result13['overall'] = item.overall
                 result_list.append(result13)
 
-        dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.all()
+        dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(exam_title='Retest')
         if dri_result.count() > 0:
             for item in dri_result:
                 result14 = {}

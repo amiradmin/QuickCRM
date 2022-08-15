@@ -738,7 +738,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
             candidate.tes_candidate_id = tempID
             candidate.save()
-            
+
             candidate.form_category.add(category)
             event.candidate.add(candidate)
 
