@@ -1,5 +1,5 @@
 .env
 wsgi.py
 asgi.py
-manage.py
+manage
 celery.py
