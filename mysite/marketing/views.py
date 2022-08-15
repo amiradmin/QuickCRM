@@ -45,201 +45,215 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
 
         result_list = []
 
-        cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(overall='Retest')
+        cswip31_result = CSWIPWeldingInspector3_1Result.objects.all().distinct('candidate')
         if cswip31_result.count() > 0:
             for item in cswip31_result:
-                result1 = {}
-                result1['id'] = item.id
-                result1['class'] = item.__class__.__name__
-                result1['event'] = item.event
-                result1['candidate'] = item.candidate
-                result1['exam_date'] = item.exam.exam_date
-                result1['exam_title'] = item.exam.exam_title
-                result1['file'] = item.file
-                result1['overall'] = item.overall
-                result_list.append(result1)
+                if item.overall == 'Failed':
+                    result1 = {}
+                    result1['id'] = item.id
+                    result1['class'] = item.__class__.__name__
+                    result1['event'] = item.event
+                    result1['candidate'] = item.candidate
+                    result1['exam_date'] = item.exam.exam_date
+                    result1['exam_title'] = item.exam.exam_title
+                    result1['file'] = item.file
+                    result1['overall'] = item.overall
+                    result_list.append(result1)
 
-        cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.filter(exam_title='Retest')
+        cswip321_result = CSWIPWeldingInspector3_2_1_Result.objects.all().distinct('candidate')
         if cswip321_result.count() > 0:
             for item in cswip321_result:
-                result2 = {}
-                result2['id'] = item.id
-                result2['class'] = item.__class__.__name__
-                result2['event'] = item.event
-                result2['candidate'] = item.candidate
-                result2['exam_date'] = item.exam_date
-                result2['exam_title'] = item.exam_title
-                result2['file'] = item.file
-                result2['overall'] = item.overall
-                result_list.append(result2)
+                if item.overall == 'Failed':
+                    result2 = {}
+                    result2['id'] = item.id
+                    result2['class'] = item.__class__.__name__
+                    result2['event'] = item.event
+                    result2['candidate'] = item.candidate
+                    result2['exam_date'] = item.exam_date
+                    result2['exam_title'] = item.exam_title
+                    result2['file'] = item.file
+                    result2['overall'] = item.overall
+                    result_list.append(result2)
 
-        cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(exam_title='Retest')
+        cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.all().distinct('candidate')
         if cswip322_result.count() > 0:
             for item in cswip322_result:
-                result3 = {}
-                result3['id'] = item.id
-                result3['class'] = item.__class__.__name__
-                result3['event'] = item.event
-                result3['candidate'] = item.candidate
-                result3['exam_date'] = item.exam_date
-                result3['exam_title'] = item.exam_title
-                result3['file'] = item.file
-                result3['overall'] = item.overall
-                result_list.append(result3)
+                if item.overall == 'Failed':
+                    result3 = {}
+                    result3['id'] = item.id
+                    result3['class'] = item.__class__.__name__
+                    result3['event'] = item.event
+                    result3['candidate'] = item.candidate
+                    result3['exam_date'] = item.exam_date
+                    result3['exam_title'] = item.exam_title
+                    result3['file'] = item.file
+                    result3['overall'] = item.overall
+                    result_list.append(result3)
 
-        painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.filter(exam_title='Retest')
+        painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.all().distinct('candidate')
         if painting_cswip_result.count() > 0:
             for item in painting_cswip_result:
-                result4 = {}
-                result4['id'] = item.id
-                result4['class'] = item.__class__.__name__
-                result4['event'] = item.event
-                result4['candidate'] = item.candidate
-                result4['exam_date'] = item.exam_date
-                result4['exam_title'] = item.exam_title
-                result4['file'] = item.file
-                result4['overall'] = item.overall
-                result_list.append(result4)
+                if item.overall == 'Failed':
+                    result4 = {}
+                    result4['id'] = item.id
+                    result4['class'] = item.__class__.__name__
+                    result4['event'] = item.event
+                    result4['candidate'] = item.candidate
+                    result4['exam_date'] = item.exam_date
+                    result4['exam_title'] = item.exam_title
+                    result4['file'] = item.file
+                    result4['overall'] = item.overall
+                    result_list.append(result4)
 
-        paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.filter(exam_title='Retest')
+        paut_l2_cswip_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2CSWIP.objects.all().distinct('candidate')
         if paut_l2_cswip_result.count() > 0:
             for item in paut_l2_cswip_result:
-                result5 = {}
-                result5['id'] = item.id
-                result5['class'] = item.__class__.__name__
-                result5['event'] = item.event
-                result5['candidate'] = item.candidate
-                result5['exam_date'] = item.exam_date
-                result5['exam_title'] = item.exam_title
-                result5['file'] = item.file
-                result5['overall'] = item.overall
-                result_list.append(result5)
+                if item.overall == 'Failed':
+                    result5 = {}
+                    result5['id'] = item.id
+                    result5['class'] = item.__class__.__name__
+                    result5['event'] = item.event
+                    result5['candidate'] = item.candidate
+                    result5['exam_date'] = item.exam_date
+                    result5['exam_title'] = item.exam_title
+                    result5['file'] = item.file
+                    result5['overall'] = item.overall
+                    result_list.append(result5)
 
-        paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.filter(exam_title='Retest')
+        paut_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_PAUT_Level2PCN.objects.all().distinct('candidate')
         if paut_l2_pcn_result.count() > 0:
             for item in paut_l2_pcn_result:
-                result6 = {}
-                result6['id'] = item.id
-                result6['class'] = item.__class__.__name__
-                result6['event'] = item.event
-                result6['candidate'] = item.candidate
-                result6['exam_date'] = item.exam_date
-                result6['exam_title'] = item.exam_title
-                result6['file'] = item.file
-                result6['overall'] = item.overall
-                result_list.append(result6)
+                if item.overall == 'Failed':
+                    result6 = {}
+                    result6['id'] = item.id
+                    result6['class'] = item.__class__.__name__
+                    result6['event'] = item.event
+                    result6['candidate'] = item.candidate
+                    result6['exam_date'] = item.exam_date
+                    result6['exam_title'] = item.exam_title
+                    result6['file'] = item.file
+                    result6['overall'] = item.overall
+                    result_list.append(result6)
 
-        paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.filter(exam_title='Retest')
+        paut_l3_cswip_result = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPResult.objects.all().distinct('candidate')
         if paut_l3_cswip_result.count() > 0:
             for item in paut_l3_cswip_result:
-                result7 = {}
-                result7['id'] = item.id
-                result7['class'] = item.__class__.__name__
-                result7['event'] = item.event
-                result7['candidate'] = item.candidate
-                result7['exam_date'] = item.exam_date
-                result7['exam_title'] = item.exam_title
-                result7['file'] = item.file
-                result7['overall'] = item.overall
-                result_list.append(result7)
+                if item.overall == 'Failed':
+                    result7 = {}
+                    result7['id'] = item.id
+                    result7['class'] = item.__class__.__name__
+                    result7['event'] = item.event
+                    result7['candidate'] = item.candidate
+                    result7['exam_date'] = item.exam_date
+                    result7['exam_title'] = item.exam_title
+                    result7['file'] = item.file
+                    result7['overall'] = item.overall
+                    result_list.append(result7)
 
-        paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(exam_title='Retest')
+        paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.all().distinct('candidate')
         if paut_l3_pcn_result.count() > 0:
             for item in paut_l3_pcn_result:
-                result8 = {}
-                result8['id'] = item.id
-                result8['class'] = item.__class__.__name__
-                result8['event'] = item.event
-                result8['candidate'] = item.candidate
-                result8['exam_date'] = item.exam_date
-                result8['exam_title'] = item.exam_title
-                result8['file'] = item.file
-                result8['overall'] = item.overall
-                result_list.append(result8)
+                if item.overall == 'Failed':
+                    result8 = {}
+                    result8['id'] = item.id
+                    result8['class'] = item.__class__.__name__
+                    result8['event'] = item.event
+                    result8['candidate'] = item.candidate
+                    result8['exam_date'] = item.exam_date
+                    result8['exam_title'] = item.exam_title
+                    result8['file'] = item.file
+                    result8['overall'] = item.overall
+                    result_list.append(result8)
 
-        tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.filter(exam_title='Retest')
+        tofd_l2_pcn_result = Exam_Result_PhasedArrayUltrasonicTesting_TOFD_Level2PCN.objects.all().distinct('candidate')
         if tofd_l2_pcn_result.count() > 0:
             for item in tofd_l2_pcn_result:
-                result9 = {}
-                result9['id'] = item.id
-                result9['class'] = item.__class__.__name__
-                result9['event'] = item.event
-                result9['candidate'] = item.candidate
-                result9['exam_date'] = item.exam_date
-                result9['exam_title'] = item.exam_title
-                result9['file'] = item.file
-                result9['overall'] = item.overall
-                result_list.append(result9)
+                if item.overall == 'Failed':
+                    result9 = {}
+                    result9['id'] = item.id
+                    result9['class'] = item.__class__.__name__
+                    result9['event'] = item.event
+                    result9['candidate'] = item.candidate
+                    result9['exam_date'] = item.exam_date
+                    result9['exam_title'] = item.exam_title
+                    result9['file'] = item.file
+                    result9['overall'] = item.overall
+                    result_list.append(result9)
 
-        tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.filter(exam_title='Retest')
+        tofd_l2_cswip_result = ExamMaterialTOFD_CSWIP.objects.all().distinct('candidate')
         if tofd_l2_cswip_result.count() > 0:
             for item in tofd_l2_cswip_result:
-                result10 = {}
-                result10['id'] = item.id
-                result10['class'] = item.__class__.__name__
-                result10['event'] = item.event
-                result10['candidate'] = item.candidate
-                result10['exam_date'] = item.exam_date
-                result10['exam_title'] = item.exam_title
-                result10['file'] = item.file
-                result10['overall'] = item.overall
-                result_list.append(result10)
+                if item.overall == 'Failed':
+                    result10 = {}
+                    result10['id'] = item.id
+                    result10['class'] = item.__class__.__name__
+                    result10['event'] = item.event
+                    result10['candidate'] = item.candidate
+                    result10['exam_date'] = item.exam_date
+                    result10['exam_title'] = item.exam_title
+                    result10['file'] = item.file
+                    result10['overall'] = item.overall
+                    result_list.append(result10)
 
-        tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.all()
+        tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.all().distinct('candidate')
         if tofd_l3_cswip_result.count() > 0:
             for item in tofd_l3_cswip_result:
-                result11 = {}
-                result11['id'] = item.id
-                result11['class'] = item.__class__.__name__
-                result11['event'] = item.event
-                result11['candidate'] = item.candidate
-                result11['exam_date'] = item.exam_date
-                result11['exam_title'] = item.exam_title
-                result11['file'] = item.file
-                result11['overall'] = item.overall
-                result_list.append(result11)
+                if item.overall == 'Failed':
+                    result11 = {}
+                    result11['id'] = item.id
+                    result11['class'] = item.__class__.__name__
+                    result11['event'] = item.event
+                    result11['candidate'] = item.candidate
+                    result11['exam_date'] = item.exam_date
+                    result11['exam_title'] = item.exam_title
+                    result11['file'] = item.file
+                    result11['overall'] = item.overall
+                    result_list.append(result11)
 
-        tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(exam_title='Retest')
+        tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.all().distinct('candidate')
         if tofd_l3_pcn_result.count() > 0:
             for item in tofd_l3_pcn_result:
-                result12 = {}
-                result12['id'] = item.id
-                result12['class'] = item.__class__.__name__
-                result12['event'] = item.event
-                result12['candidate'] = item.candidate
-                result12['exam_date'] = item.exam_date
-                result12['exam_title'] = item.exam_title
-                result12['file'] = item.file
-                result12['overall'] = item.overall
-                result_list.append(result12)
+                if item.overall == 'Failed':
+                    result12 = {}
+                    result12['id'] = item.id
+                    result12['class'] = item.__class__.__name__
+                    result12['event'] = item.event
+                    result12['candidate'] = item.candidate
+                    result12['exam_date'] = item.exam_date
+                    result12['exam_title'] = item.exam_title
+                    result12['file'] = item.file
+                    result12['overall'] = item.overall
+                    result_list.append(result12)
 
-        ri_result = RadiographicInterpretationWeldsRIResult.objects.filter(exam_title='Retest')
+        ri_result = RadiographicInterpretationWeldsRIResult.objects.all().distinct('candidate')
         if ri_result.count() > 0:
             for item in ri_result:
-                result13 = {}
-                result13['id'] = item.id
-                result13['class'] = item.__class__.__name__
-                result13['event'] = item.event
-                result13['candidate'] = item.candidate
-                result13['exam_date'] = item.exam_date
-                result13['exam_title'] = item.exam_title
-                result13['file'] = item.file
-                result13['overall'] = item.overall
-                result_list.append(result13)
+                if item.overall == 'Failed':
+                    result13 = {}
+                    result13['id'] = item.id
+                    result13['class'] = item.__class__.__name__
+                    result13['event'] = item.event
+                    result13['candidate'] = item.candidate
+                    result13['exam_date'] = item.exam_date
+                    result13['exam_title'] = item.exam_title
+                    result13['file'] = item.file
+                    result13['overall'] = item.overall
+                    result_list.append(result13)
 
-        dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(exam_title='Retest')
+        dri_result = DigitalRadiographicInterpretationDRI_Level2_Result.objects.all().distinct('candidate')
         if dri_result.count() > 0:
             for item in dri_result:
-                result14 = {}
-                result14['id'] = item.id
-                result14['class'] = item.__class__.__name__
-                result14['event'] = item.event
-                result14['candidate'] = item.candidate
-                result14['exam_date'] = item.exam_date
-                result14['exam_title'] = item.exam_title
-                result14['file'] = item.file
-                result14['overall'] = item.overall
-                result_list.append(result14)
+                if item.overall == 'Failed':
+                    result14 = {}
+                    result14['id'] = item.id
+                    result14['class'] = item.__class__.__name__
+                    result14['event'] = item.event
+                    result14['candidate'] = item.candidate
+                    result14['exam_date'] = item.exam_date
+                    result14['exam_title'] = item.exam_title
+                    result14['file'] = item.file
+                    result14['overall'] = item.overall
+                    result_list.append(result14)
 
         # pcn_certifications = PcnCertificateProduct.objects.all()
         # for item in pcn_certifications:
