@@ -45,7 +45,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
 
         result_list = []
 
-        cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(exam_title='Retest')
+        cswip31_result = CSWIPWeldingInspector3_1Result.objects.filter(overall='Retest')
         if cswip31_result.count() > 0:
             for item in cswip31_result:
                 result1 = {}
