@@ -1,5 +1,1 @@
-.env
-wsgi.py
-asgi.py
-manage
-celery.py
+.envmanage.py
