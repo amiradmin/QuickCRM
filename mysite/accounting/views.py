@@ -549,7 +549,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
         three_month = datetime.datetime.now() + timedelta(3 * 30)
         print(datetime.datetime.now())
         print(three_month)
-        upcoming_event = Event.objects.filter( Q(start_date__gte=datetime.datetime.now()) & Q(start_date__lte=three_month) ).order_by('start_date')
+        upcoming_event = Event.objects.filter( Q(start_date__gte=datetime.datetime.now()) & Q(start_date__lte=three_month) & Q(visible = True)).order_by('start_date')
 
         contact_forms = Contact.objects.filter(Q(type = 'Admin') & Q(candidate = candidate) )
 
