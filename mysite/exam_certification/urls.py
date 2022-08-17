@@ -85,7 +85,7 @@ urlpatterns = [
 
     path('examscwipultral3summary/', views.PhasedArrayUltrasonicTesting_PAUT_L3CSWIPSummary.as_view(), name='examscwipultral3summary_'),
     path('newsexamscwipultral3/', views.NewExamMaterialPAUTUltraL3.as_view(), name='newsexamscwipultral3_'),
-    path('updatesexamscwipultral3/<int:id>', views.UpdateExamMaterialPAUTUltraL3PCN.as_view(), name='updatesexamscwipultral3_'),
+    path('updatesexamscwipultral3/<int:id>', views.UpdateExamMaterialPAUTUltraL3.as_view(), name='updatesexamscwipultral3_'),
     path('examscwipultral3delete/<int:pk>/delete/', views.DeletePhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.as_view(), name='examscwipultral3delete_'),
 
     path('exampcnl3summary/', views.PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Material_Summary.as_view(), name='exampcnl3summary_'),

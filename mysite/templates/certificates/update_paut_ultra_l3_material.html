@@ -111,78 +111,78 @@
                     <!-- end page title --> 
 
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title"> </h4>
+<!--                    <div class="row">-->
+<!--                        <div class="col-12">-->
+<!--                            <div class="card">-->
+<!--                                <div class="card-body">-->
+<!--                                    <h4 class="header-title"> </h4>-->
 
 
-                                    <div class="tab-content">
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
+<!--                                    <div class="tab-content">-->
+<!--                                        <div class="tab-pane show active" id="basic-datatable-preview">-->
 
 
-                                        </div> <!-- end preview-->
-                                        <br>
+<!--                                        </div> &lt;!&ndash; end preview&ndash;&gt;-->
+<!--                                        <br>-->
 
                                         
 
-                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
-                                                    {% csrf_token %}
+<!--                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >-->
+<!--                                                    {% csrf_token %}-->
 
-                                                    <div class="row g-2">
-                                                        <div class="mb-3 col-md-11">
-                                   <label for="" class="form-label">Candidate</label>
-                                    <input list="candiList" value="{{candidate.id}}"  id="canID" name="candidate" placeholder="type here..." class="form-control" required/>
+<!--                                                    <div class="row g-2">-->
+<!--                                                        <div class="mb-3 col-md-11">-->
+<!--                                   <label for="" class="form-label">Candidate</label>-->
+<!--                                    <input list="candiList" value="{{candidate.id}}"  id="canID" name="candidate" placeholder="type here..." class="form-control" required/>-->
 
-                                        <datalist id="candiList"  >
+<!--                                        <datalist id="candiList"  >-->
 
-                                        {% for item in candidates %}
-                                        <option value="{{item.id}}-{{item.first_name}}-{{item.last_name}}">{{item.first_name}}{% if item.middleName %} {{item.middleName}}{% endif %}
-                                            {{item.last_name}}
-                                        </option>
-                                        {% endfor %}
+<!--                                        {% for item in candidates %}-->
+<!--                                        <option value="{{item.id}}-{{item.first_name}}-{{item.last_name}}">{{item.first_name}}{% if item.middleName %} {{item.middleName}}{% endif %}-->
+<!--                                            {{item.last_name}}-->
+<!--                                        </option>-->
+<!--                                        {% endfor %}-->
 
-                                    </datalist>
+<!--                                    </datalist>-->
 
-                                                        </div>
-                              <div class="mb-3 col-md-1">
-                                  <br>
+<!--                                                        </div>-->
+<!--                              <div class="mb-3 col-md-1">-->
+<!--                                  <br>-->
 
-<!--                                                    <div class="mb-3 col-md-12 text-center">-->
-                                                        <button class="btn btn-primary" style="margin-top:8px;" name="updateInfo-candidate" type="submit">Update</button>
-                                                    </div>
-                       </div>
-                                                </form>
+<!--&lt;!&ndash;                                                    <div class="mb-3 col-md-12 text-center">&ndash;&gt;-->
+<!--                                                        <button class="btn btn-primary" style="margin-top:8px;" name="updateInfo-candidate" type="submit">Update</button>-->
+<!--                                                    </div>-->
+<!--                       </div>-->
+<!--                                                </form>-->
 
- <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
-                                 {% csrf_token %}
-     <input type="hidden" name="candidate_inner_ID" value="{{candidate_main.id}}-{{candidate_main.first_name}}-{{candidate_main.last_name}}" />
- <div class="row g-2">
-                     <div class="mb-3 col-md-11">
-                                   <label for="" class="form-label">Event</label>
-                                    <input list="productList" value=""  id="" name="event" placeholder="type here..." class="form-control" required/>
+<!-- <form class="needs-validation"  method="POST" enctype="multipart/form-data" >-->
+<!--                                 {% csrf_token %}-->
+<!--     <input type="hidden" name="candidate_inner_ID" value="{{candidate_main.id}}-{{candidate_main.first_name}}-{{candidate_main.last_name}}" />-->
+<!-- <div class="row g-2">-->
+<!--                     <div class="mb-3 col-md-11">-->
+<!--                                   <label for="" class="form-label">Event</label>-->
+<!--                                    <input list="productList" value=""  id="" name="event" placeholder="type here..." class="form-control" required/>-->
 
-                                        <datalist id="productList"  >
+<!--                                        <datalist id="productList"  >-->
 
-                                        {% for item2 in events %}
-<option  value="{{item2.id}}-{{item2.product.name}}">{{item2.name}}-{{item2.start_exam_date|date:'m/d/Y'}}
-                                        </option>
-                                        {% endfor %}
+<!--                                        {% for item2 in events %}-->
+<!--<option  value="{{item2.id}}-{{item2.product.name}}">{{item2.name}}-{{item2.start_exam_date|date:'m/d/Y'}}-->
+<!--                                        </option>-->
+<!--                                        {% endfor %}-->
 
-                                    </datalist>
+<!--                                    </datalist>-->
 
 
-                             </div>
-                        <br>
-                         <div class="mb-3 col-md-1">
-                                                        <button class="btn btn-primary" style="margin-top:29px;"  name="updateInfo-event" type="submit">Update</button>
-                                                    </div>
+<!--                             </div>-->
+<!--                        <br>-->
+<!--                         <div class="mb-3 col-md-1">-->
+<!--                                                        <button class="btn btn-primary" style="margin-top:29px;"  name="updateInfo-event" type="submit">Update</button>-->
+<!--                                                    </div>-->
 
-</div>
-          </form>
-</div>
-                                    </div></div></div>
+<!--</div>-->
+<!--          </form>-->
+<!--</div>-->
+<!--                                    </div></div></div>-->
 
 
 
@@ -216,12 +216,12 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                    <input  value="{{exam.candidate.id}}-{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Event</label>
-                                    <input  value="{{event.id}}-{{event.name}}"  id="" name="eventID" class="form-control" required/>
+                                    <input  value="{{exam.event.id}}-{{exam.event.name}}"  id="" name="eventID" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -229,12 +229,12 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Customer ID</label>
-                                    <input  value="{{ candidate.customer_id }}"  id="" name="customerID"  class="form-control" />
+                                    <input  value="{{ exam.candidate.customer_id }}"  id="" name="customerID"  class="form-control" />
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Date</label>
-                                    <input  value="{{event.start_exam_date|date:'m/d/Y'}}"  id="" name="paut_exam_date" class="form-control" required/>
+                                    <input  value="{{exam.event.start_exam_date|date:'m/d/Y'}}"  id="" name="paut_exam_date" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -247,12 +247,19 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Exam Title</label>
-                                    <input  value="{{event.product.name}}"  id="" name="paut_examTitle"  class="form-control" required/>
+
+                                             <select name="paut_examTitle" class="form-control"  >
+                                        <option value="{{exam.exam_title}}">{{exam.exam_title}}</option>
+                                        <option value="Initial">Initial</option>
+                                        <option value="Retest">Retest</option>
+                                        <option value="Renewal">Renewal</option>
+                                    </select>
+
                                                         </div>
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Invigilator</label>
-                                    <input  value=""  id="" name="paut_invigilator" class="form-control" required/>
+                                    <input  value="{{exam.invigilator}}"  id="" name="paut_invigilator" class="form-control" required/>
                                                         </div>
         </div>
 
@@ -261,7 +268,7 @@
 
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Lecturer</label>
-                                    <input  value="{{event.lecturers}}"  id="" name="paut_lecturer" class="form-control" required/>
+                                    <input  value="{{event.lecturer}}"  id="" name="paut_lecturer" class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -274,8 +281,8 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">A1(25 questions on materials)</label>
                                <select name="paut_basic_a1" class="form-control"  >
-                                            <option value="">Select</option>
 
+<option value="{{exam.basic_a1}}" >{{exam.basic_a1}}</option>
 <option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
 <option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
 <option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
@@ -293,7 +300,7 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">A2(10 questions-Scheme)</label>
                                  <select name="paut_basic_a2" class="form-control"  >
-                                            <option value="">Select</option>
+<option value="{{exam.basic_a2}}" >{{exam.basic_a2}}</option>
 <option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
 <option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
 <option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
@@ -314,7 +321,7 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">B-part 1 (15 Questions in PT)</label>
                              <select name="paut_basic_b_part_1" class="form-control"  >
-                                            <option value="">Select</option>
+ <option value="{{exam.basic_b_part_1}}" >{{exam.basic_b_part_1}}</option>
 <option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
 <option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
 <option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
@@ -332,7 +339,7 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">B-part 2(15 Questions in MT)</label>
                                    <select name="paut_basic_b_part_2" class="form-control"  >
-                                            <option value="">Select</option>
+ <option value="{{exam.basic_b_part_2}}" >{{exam.basic_b_part_2}}</option>
 <option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
 <option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
 <option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
@@ -353,7 +360,7 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">B-part 3(15 Questions in UT)</label>
                                                <select name="paut_basic_b_part_3" class="form-control"  >
-                                            <option value="">Select</option>
+<option value="{{exam.basic_b_part_3}}" >{{exam.basic_b_part_3}}</option>
 <option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
 <option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
 <option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
@@ -372,6 +379,7 @@
                                    <label for="" class="form-label">B-part 4(15 Questions in RT)
 </label>
                                               <select name="paut_basic_b_part_4" class="form-control"  >
+  <option value="{{exam.basic_b_part_4}}" >{{exam.basic_b_part_4}}</option>
 <option value="BAS_A_TECH_P1_0521" >BAS_A_TECH_P1_0521</option>
 <option value="BAS_A_TECH_P2_0521" >BAS_A_TECH_P2_0521</option>
 <option value="BAS_C_MT_P1_0216" >BAS_C_MT_P1_0216</option>
@@ -393,7 +401,8 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">C1(30 questions of Level 3 knowledge)</label>
                             <select name="paut_main_c_1" class="form-control"  >
-                                            <option value="">Select</option>
+                                <option value="{{exam.main_c_1}}" >{{exam.main_c_1}}</option>
+
                                             <option value="PA3_D_P1_0316">PA3_D_P1_0316</option>
                                 <option value="N/A">N/A</option>
 
@@ -404,7 +413,7 @@
                                    <label for="" class="form-label">C2(20 questions- application)
 </label>
                                                     <select name="paut_main_c_2" class="form-control"  >
-                                            <option value="">Select</option>
+                                         <option value="{{exam.main_c_2}}" >{{exam.main_c_2}}</option>
                                             <option value="PA3_E_P2_0316">PA3_E_P2_0316</option>
                                             <option value="PA3_E_P1_0316">PA3_E_P1_0316</option>
                                                         <option value="N/A">N/A</option>
@@ -417,7 +426,7 @@
                                                         <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">C3(NDT procedure)</label>
                                      <select name="paut_main_c_3" class="form-control"  >
-                                            <option value="">Select</option>
+                                        <option value="{{exam.main_c_3}}" >{{exam.main_c_3}}</option>
                                             <option value="PA3_F_P2_0419 – weld">PA3_F_P2_0419 – weld</option>
                                             <option value="PA3_F_P1_0319 - weld">PA3_F_P1_0319 - weld</option>
                                          <option value="N/A">N/A</option>

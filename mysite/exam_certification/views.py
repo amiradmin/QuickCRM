@@ -3264,6 +3264,117 @@ class NewExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView)
                 if not request.POST.get('paut_exam_date', '') == '':
                     obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
 
+                obj.exam_title = self.request.POST['paut_examTitle']
+                obj.basic_a1 = self.request.POST['paut_basic_a1']
+                obj.basic_a2 = self.request.POST['paut_basic_a2']
+                obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
+                obj.basic_b_part_2 = self.request.POST['paut_basic_b_part_2']
+                obj.basic_b_part_3 = self.request.POST['paut_basic_b_part_3']
+                obj.basic_b_part_4 = self.request.POST['paut_basic_b_part_4']
+                obj.main_c_1 = self.request.POST['paut_main_c_1']
+                obj.main_c_2 = self.request.POST['paut_main_c_2']
+                obj.main_c_3 = self.request.POST['paut_main_c_3']
+                obj.practical_paut_l2 = self.request.POST['practical_paut_l2']
+                # obj.delivery_method = self.request.POST['paut_delivery_method']
+                obj.lecturer = self.request.POST['paut_lecturer']
+                obj.invigilator = self.request.POST['paut_invigilator']
+                # obj.venue = self.request.POST['paut_venue']
+                obj.remark = self.request.POST['paut_remarks']
+                obj.save()
+                events = Event.objects.all()
+                candidates = TesCandidate.objects.all()
+                exams = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.objects.all()
+                samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate'] = TesCandidate.objects.filter(user=request.user).first()
+                context['event'] = event
+                context['exams'] = exams
+                context['candidates'] = candidates
+                # return render(request, 'certificates/exam_material_l3_summary.html', context=context)
+                return redirect('exam_certification:examscwipultral3summary_')
+
+
+        # return render(request, 'certificates/exam_material_l3_summary.html',context=context)
+
+
+
+
+
+class UpdateExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateView):
+    template_name = "certificates/update_paut_ultra_l3_material.html"
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(UpdateExamMaterialPAUTUltraL3, self).get_context_data()
+        exam = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.objects.filter(id=self.kwargs['id']).first()
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        samples =Samples.objects.all()
+        context['samples'] = samples
+        context['exam'] = exam
+        # context['events'] = events
+        # context['candidates'] = candidates
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = super(NewExamMaterialPAUTUltraL3, self).get_context_data()
+        if request.method == 'POST':
+            if 'updateInfo-candidate' in request.POST:
+                print("updateInfo candidate")
+                candidate_main = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
+                events = Event.objects.filter(candidate=candidate_main)
+
+
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['samples'] = samples
+                context['events'] = events
+                context['candidate_main'] = candidate_main
+
+                return render(request, 'certificates/new_paut_ultra_l3_material.html', context)
+
+            elif 'updateInfo-event' in request.POST:
+                print("updateInfo event")
+                print(self.request.POST['event'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
+                print(event.id)
+                # candidates = TesCandidate.objects.all()
+                samples = Samples.objects.all()
+                candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                context['group_name'] = group_name
+                context['candidate'] = candidate
+                context['samples'] = samples
+                context['candidate'] = TesCandidate.objects.filter(
+                    id=self.request.POST['candidate_inner_ID'].split('-')[0]).first()
+                context['event'] = event
+
+                return render(request, 'certificates/new_paut_ultra_l3_material.html', context)
+            elif 'submit_paut' in request.POST:
+                print("Submit")
+                print(self.request.POST['eventID'].split('-')[0])
+                event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
+                candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
+
+                obj = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial()
+                obj.event = event
+                obj.candidate = candidate
+                obj.customerID = self.request.POST['customerID']
+                # obj.paut_scheme = self.request.POST['paut_scheme']
+                if not request.POST.get('paut_exam_date', '') == '':
+                    obj.exam_date = datetime.datetime.strptime(self.request.POST['paut_exam_date'], '%m/%d/%Y')
+
+                obj.exam_title = self.request.POST['paut_examTitle']
                 obj.basic_a1 = self.request.POST['paut_basic_a1']
                 obj.basic_a2 = self.request.POST['paut_basic_a2']
                 obj.basic_b_part_1 = self.request.POST['paut_basic_b_part_1']
