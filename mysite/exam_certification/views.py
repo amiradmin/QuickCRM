@@ -3323,7 +3323,7 @@ class UpdateExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateVi
         return context
 
     def post(self, request, *args, **kwargs):
-        context = super(NewExamMaterialPAUTUltraL3, self).get_context_data()
+        context = super(UpdateExamMaterialPAUTUltraL3, self).get_context_data()
         if request.method == 'POST':
             if 'updateInfo-candidate' in request.POST:
                 print("updateInfo candidate")
@@ -3366,7 +3366,7 @@ class UpdateExamMaterialPAUTUltraL3(SidebarMixin, LoginRequiredMixin, TemplateVi
                 event = Event.objects.filter(id=self.request.POST['eventID'].split('-')[0]).first()
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidateID'].split('-')[0]).first()
 
-                obj = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial()
+                obj = PhasedArrayUltrasonicTesting_PAUT_L3CSWIPMaterial.objects.filter(id=self.kwargs['id']).first()
                 obj.event = event
                 obj.candidate = candidate
                 obj.customerID = self.request.POST['customerID']
