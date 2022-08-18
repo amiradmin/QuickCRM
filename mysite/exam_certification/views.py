@@ -75,7 +75,7 @@ class ExamResultHistoryRadioRI(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
         print(candidate)
         results = RadiographicInterpretationWeldsRIResult.objects.filter(candidate=candidate)
         for item in results:
-            if item.general_theory == 'Failed' or item.specific_theory == 'Failed' or item.practical == 'Passed' :
+            if item.general_theory == 'Failed' or item.specific_theory == 'Failed' or item.practical == 'Failed' :
                 # if overall_porpose.general_paper == 'Passed' :
                 print('Here')
                 item.overall = 'Failed'
@@ -410,14 +410,16 @@ class ExamResultHistoryCSWIP321(GroupRequiredMixin,SidebarMixin, LoginRequiredMi
         print(candidate)
         results = CSWIPWeldingInspector3_2_1_Result.objects.filter(candidate=candidate)
         print('Here66')
+        print(results.count())
         for item in results:
+            print(item.general_theory_s)
             if item.general_theory_s == 'Failed' or item.ndt_s == 'Failed' or item.symbols_s == 'Failed' or item.scenario_s == 'Failed' or item.plant_paper == 'Failed':
                 # if overall_porpose.general_paper == 'Passed' :
-                print('Failed')
+                # print('Failed')
                 item.overall = 'Failed'
             else:
                 item.overall = 'Passed'
-                print('Passed')
+                # print('Passed')
             item.save()
 
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
@@ -7155,7 +7157,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in cswip321_result:
                         result2 = {}
                         result2['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result2['class'] = item.__class__.__name__
                         result2['event'] = item.event
                         result2['exam_date'] = item.exam_date
                         result2['exam_title'] = item.exam_title
@@ -7168,7 +7170,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in cswip322_result:
                         result3 = {}
                         result3['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result3['class'] = item.__class__.__name__
                         result3['event'] = item.event
                         result3['exam_date'] = item.exam_date
                         result3['exam_title'] = item.exam_title
@@ -7181,7 +7183,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in painting_cswip_result:
                         result4 = {}
                         result4['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result4['class'] = item.__class__.__name__
                         result4['event'] = item.event
                         result4['exam_date'] = item.exam_date
                         result4['exam_title'] = item.exam_title
@@ -7195,7 +7197,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in paut_l2_cswip_result:
                         result5 = {}
                         result5['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result5['class'] = item.__class__.__name__
                         result5['event'] = item.event
                         result5['exam_date'] = item.exam_date
                         result5['exam_title'] = item.exam_title
@@ -7209,7 +7211,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in paut_l2_pcn_result:
                         result6 = {}
                         result6['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result6['class'] = item.__class__.__name__
                         result6['event'] = item.event
                         result6['exam_date'] = item.exam_date
                         result6['exam_title'] = item.exam_title
@@ -7223,7 +7225,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in paut_l3_cswip_result:
                         result7 = {}
                         result7['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result7['class'] = item.__class__.__name__
                         result7['event'] = item.event
                         result7['exam_date'] = item.exam_date
                         result7['exam_title'] = item.exam_title
@@ -7231,12 +7233,13 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                         result7['overall'] = item.overall
                         result_list.append(result7)
 
-                paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(candidate=candidate_main)
+                paut_l3_pcn_result = PhasedArrayUltrasonicTesting_PAUT_L3_PCN_Result.objects.filter(
+                    candidate=candidate_main)
                 if paut_l3_pcn_result.count() > 0:
                     for item in paut_l3_pcn_result:
                         result8 = {}
                         result8['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result8['class'] = item.__class__.__name__
                         result8['event'] = item.event
                         result8['exam_date'] = item.exam_date
                         result8['exam_title'] = item.exam_title
@@ -7250,7 +7253,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in tofd_l2_pcn_result:
                         result9 = {}
                         result9['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result9['class'] = item.__class__.__name__
                         result9['event'] = item.event
                         result9['exam_date'] = item.exam_date
                         result9['exam_title'] = item.exam_title
@@ -7263,7 +7266,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in tofd_l2_cswip_result:
                         result10 = {}
                         result10['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result10['class'] = item.__class__.__name__
                         result10['event'] = item.event
                         result10['exam_date'] = item.exam_date
                         result10['exam_title'] = item.exam_title
@@ -7271,12 +7274,13 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                         result10['overall'] = item.overall
                         result_list.append(result10)
 
-                tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(candidate=candidate_main)
+                tofd_l3_cswip_result = TimeFlightDiffractionTOFDLevel3_CSWIP_Result.objects.filter(
+                    candidate=candidate_main)
                 if tofd_l3_cswip_result.count() > 0:
                     for item in tofd_l3_cswip_result:
                         result11 = {}
                         result11['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result11['class'] = item.__class__.__name__
                         result11['event'] = item.event
                         result11['exam_date'] = item.exam_date
                         result11['exam_title'] = item.exam_title
@@ -7284,12 +7288,13 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                         result11['overall'] = item.overall
                         result_list.append(result11)
 
-                tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(candidate=candidate_main)
+                tofd_l3_pcn_result = TimeFlightDiffractionTOFDLevel3_PCN_Result3.objects.filter(
+                    candidate=candidate_main)
                 if tofd_l3_pcn_result.count() > 0:
                     for item in tofd_l3_pcn_result:
                         result12 = {}
                         result12['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result12['class'] = item.__class__.__name__
                         result12['event'] = item.event
                         result12['exam_date'] = item.exam_date
                         result12['exam_title'] = item.exam_title
@@ -7302,7 +7307,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in ri_result:
                         result13 = {}
                         result13['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result13['class'] = item.__class__.__name__
                         result13['event'] = item.event
                         result13['exam_date'] = item.exam_date
                         result13['exam_title'] = item.exam_title
@@ -7315,7 +7320,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                     for item in dri_result:
                         result14 = {}
                         result14['id'] = item.id
-                        result1['class'] = item.__class__.__name__
+                        result14['class'] = item.__class__.__name__
                         result14['event'] = item.event
                         result14['exam_date'] = item.exam_date
                         result14['exam_title'] = item.exam_title
@@ -7323,8 +7328,9 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                         result14['overall'] = item.overall
                         result_list.append(result14)
 
+
                 result_list = sorted(result_list, key=lambda x: x['exam_date'])
-                    
+
                 context['group_name'] = group_name
                 context['candidate'] = candidate
                 context['events'] = events
@@ -7333,17 +7339,19 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                 return render(request, 'certificates/new_attendance.html', context)
             
             else:
+
+
                 print("Form was sent!")
                 print(self.request.POST['candidate'].split('-')[0])
                 candidate = TesCandidate.objects.filter(id=self.request.POST['candidate'].split('-')[0]).first()
                 event = Event.objects.filter(id=self.request.POST['event'].split('-')[0]).first()
-                print(self.request.POST['result'].split('-')[0])
-                exam_title = self.request.POST['result'].split('-')[0]
+                # print(self.request.POST['result'].split('-')[0])
+                # exam_title = self.request.POST['result'].split('-')[0]
 
                 obj = CertificateAttendance()
                 obj.candidate = candidate
                 obj.event = event
-                obj.exam_title = self.request.POST['result'].split('-')[0]
+                # obj.exam_title = self.request.POST['result'].split('-')[0]
                 obj.name = candidate.first_name + " " + candidate.last_name
                 obj.authorized_signatory = "Tahir Rizwan"
 

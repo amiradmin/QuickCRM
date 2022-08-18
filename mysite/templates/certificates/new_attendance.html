@@ -67,19 +67,7 @@
 
 
 <input type="hidden" name="candidate" value="{{candidate_main.id}}" />
-         <div class="mb-3 col-md-12">
-                                                            <label class="form-label">Exam Result</label>
-          <input list="resultList" value="{{events.id}}" onchange="myFunction()"   id="result_id" name="result" placeholder="type here..." class="form-control" required />
-                                        <datalist id="resultList"  >
 
-                                        {% for item in result_list %}
-                                        <option value="{{item.exam_title}}-{{item.event.product}}">{{item.event.product}}
-
-                                        </option>
-                                        {% endfor %}
-
-                                    </datalist>
-                                                        </div>
 
 
                                                         <div class="mb-3 col-md-12">

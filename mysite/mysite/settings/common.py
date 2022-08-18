@@ -16,11 +16,9 @@ import platform
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-PROJECT_PATH = os.path.abspath(os.path.dirname(__name__))
-TEMPLATE_DIR = os.path.join(PROJECT_PATH,'templates')
+BASE_DIR = Path(__file__).resolve().parent.parent
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 
-print(TEMPLATE_DIR)
-# TEMPLATE_DIR = '/home/amir/Documents/BackUp/Documents/Tescan/QuickCRM/mysite/templates'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -87,7 +85,7 @@ INSTALLED_APPS = [
 
 
 
-    
+
 ]
 
 SITE_ID = 2
@@ -124,6 +122,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -229,16 +228,17 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(PROJECT_PATH, 'static/')]
-STATIC_ROOT = os.path.join(PROJECT_PATH, "staticfiles")
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 #
 #
-MEDIA_URL = '/media/'
-MEDIA_ROOT = '/home/amir/media/'
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 print(MEDIA_ROOT)
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
+
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
