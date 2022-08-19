@@ -18,7 +18,7 @@ import platform
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
-print(TEMPLATE_DIR)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -135,7 +135,7 @@ AUTHENTICATION_BACKENDS = ('accounting.backends.CaseInsensitiveModelBackend', )
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 hostName = platform.node()
-print(hostName)
+# print(hostName)
 if hostName == 'amir-ThinkPad':
     DATABASES = {
         'default': {
@@ -234,9 +234,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 #
 #
 MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR.parent.parent, 'media/')
+print('here')
 print(MEDIA_ROOT)
-
+print('here')
 
 
 

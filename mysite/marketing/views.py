@@ -42,7 +42,7 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
         context = super(NotificationView, self).get_context_data()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
-
+        candidates_list = TesCandidate.objects.all()
         result_list = []
 
         cswip31_result = CSWIPWeldingInspector3_1Result.objects.all().distinct('candidate')
@@ -75,20 +75,39 @@ class NotificationView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, Temp
                     result2['overall'] = item.overall
                     result_list.append(result2)
 
-        cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.all().distinct('candidate')
-        if cswip322_result.count() > 0:
-            for item in cswip322_result:
-                if item.overall == 'Failed':
+        # cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.distinct('candidate')
+        #
+        # if cswip322_result.count() > 0:
+        #     for item in cswip322_result:
+        #         if item.overall == 'Failed':
+        #             result3 = {}
+        #             result3['id'] = item.id
+        #             result3['class'] = item.__class__.__name__
+        #             result3['event'] = item.event
+        #             result3['candidate'] = item.candidate
+        #             result3['exam_date'] = item.exam_date
+        #             result3['exam_title'] = item.exam_title
+        #             result3['file'] = item.file
+        #             result3['overall'] = item.overall
+        #             result_list.append(result3)
+
+
+        for item in candidates_list:
+            result_count = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=item).count()
+            if result_count > 0:
+                cswip322_result = CSWIPWeldingInspector3_2_2_Result.objects.filter(candidate=item).last()
+                if cswip322_result.overall == 'Failed':
                     result3 = {}
-                    result3['id'] = item.id
-                    result3['class'] = item.__class__.__name__
-                    result3['event'] = item.event
-                    result3['candidate'] = item.candidate
-                    result3['exam_date'] = item.exam_date
-                    result3['exam_title'] = item.exam_title
-                    result3['file'] = item.file
-                    result3['overall'] = item.overall
+                    result3['id'] = cswip322_result.id
+                    result3['class'] = cswip322_result.__class__.__name__
+                    result3['event'] = cswip322_result.event
+                    result3['candidate'] = cswip322_result.candidate
+                    result3['exam_date'] = cswip322_result.exam_date
+                    result3['exam_title'] = cswip322_result.exam_title
+                    result3['file'] = cswip322_result.file
+                    result3['overall'] = cswip322_result.overall
                     result_list.append(result3)
+
 
         painting_cswip_result = BGAS_CSWIP_PaintingInspectorResult.objects.all().distinct('candidate')
         if painting_cswip_result.count() > 0:
