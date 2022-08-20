@@ -1,5 +1,5 @@
 from mysite.settings.common import *
 
-DEBUG = True
+DEBUG = False
 
 ROOT_URLCONF = 'mysite.urls'

@@ -555,7 +555,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 result14['overall'] = item.overall
                 result_list.append(result14)
 
-            # result_list = sorted(result_list, key=lambda x: x['exam_date'])
+            result_list = sorted(result_list, key=lambda x: x['exam_date'])
         cetrificates = CertificateAttendance.objects.filter(candidate=candidate)
 
         print(cetrificates)
