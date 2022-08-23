@@ -4484,7 +4484,7 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                     objPSL57.dateOfSign = datetime.datetime.strptime(request.POST['date'], '%m/%d/%Y')
                 objPSL57.sponsorName = request.POST['sponsorName']
                 objPSL57.sponsorCompany = request.POST['sponsorCompany']
-                objPSL57.sponsorPhone = request.POST['sponsorPhone']
+                objPSL57.sponsorPhone = request.POST['sponsorEmail']
 
                 if not request.POST.get('testCenterExamDate', '') == '':
                     objPSL57.testCenterExamDate = datetime.datetime.strptime(request.POST['testCenterExamDate'], '%m/%d/%Y')

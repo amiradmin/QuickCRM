@@ -515,6 +515,7 @@ class PSL57B(models.Model):
     dateOfSign = models.DateField(null=True, blank=True)
     sponsorName = models.CharField(max_length=256, null=True, blank=True)
     sponsorCompany = models.CharField(max_length=256, null=True, blank=True)
+    sponsorEmail = models.CharField(max_length=256, null=True, blank=True)
     sponsorPhone = models.CharField(max_length=256, null=True, blank=True)
     sponsorSign = models.CharField(max_length=256, null=True, blank=True)
     testCenterExamDate = models.DateField(null=True, blank=True)
