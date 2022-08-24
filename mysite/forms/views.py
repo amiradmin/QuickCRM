@@ -4510,6 +4510,13 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                         historyObj.contactNamePhone = request.POST['contactNamePhone' + str(idx )]
                         historyObj.save()
 
+                if request.POST['organisation']:
+                    historyObj = empHistory()
+                    historyObj.organisation = request.POST['organisation']
+                    historyObj.period = request.POST['period' ]
+                    historyObj.contactNamePhone = request.POST['contactNamePhone']
+                    historyObj.save()
+                    objPSL57.emphistory.add(historyObj)
 
 
 
