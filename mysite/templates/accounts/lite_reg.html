@@ -239,7 +239,7 @@ li{
                                                     </div>
 
                                                     <div class="mb-3">
-            <input type="checkbox" name="agreement" id="agreement2"  style="margin-right:4px;" /><span >I have reviewed and agree to TES Canada's <a href=""> Privacy Policy</a>.</span>
+            <input type="checkbox" name="agreement" id="agreement2" onclick="checkAgree()"  style="margin-right:4px;" /><span >I have reviewed and agree to TES Canada's <a href=""> Privacy Policy</a>.</span>
                                                     </div>
 
                                                     <br>
@@ -288,8 +288,27 @@ li{
 
 <script src='https://code.jquery.com/ui/1.12.0/jquery-ui.min.js'></script>
 
-
 <script>
+
+document.getElementById("submitButtom").disabled = true;
+
+
+function checkAgree() {
+  var checkBox = document.getElementById("agreement2");
+
+  if (checkBox.checked == true){
+<!--    text.style.display = "block";-->
+    document.getElementById("submitButtom").disabled = false;
+  } else {
+<!--     text.style.display = "none";-->
+     document.getElementById("submitButtom").disabled = true;
+  }
+}
+</script>
+<script>
+
+
+
 
 $('#password, #rePassword').on('keyup', function () {
   if ($('#password').val() == $('#rePassword').val()) {
