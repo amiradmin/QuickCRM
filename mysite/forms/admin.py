@@ -2,13 +2,18 @@ from django.contrib import admin
 from forms.models import (Forms,Field,TwiEnrolmentForm,General,PSL30LogExp,NdtTechnique,FormList,
                           PSL30InitialForm,NDT15AExperienceVerification,NDTCovid19,PSL57B,PSL57A,VisionTest,TesFrmCandidate,
                           TesFrmExaminationAttendance,TesLecFeedbackFrom,TesAttCandidate,TrainingAttendance,
-                          TwiTrainingFeedback,TwiExamFeedback,BGAsExperienceForm,CandidateForms,CurrentFormerCertification)
+                          TwiTrainingFeedback,TwiExamFeedback,BGAsExperienceForm,CandidateForms,CurrentFormerCertification,empHistory)
 
 # Register your models here.
 class CurrentFormerCertificationAdmin(admin.ModelAdmin):
     list_display = ['id', 'created_at', 'updated_at']
     list_filter =['id','created_at', 'updated_at']
 admin.site.register(CurrentFormerCertification, CurrentFormerCertificationAdmin)
+
+class empHistoryAdmin(admin.ModelAdmin):
+    list_display = ['id','organisation', 'created_at', 'updated_at']
+    list_filter =['id','organisation','created_at', 'updated_at']
+admin.site.register(empHistory, empHistoryAdmin)
 
 class CandidateFormsAdmin(admin.ModelAdmin):
     list_display = ['id', 'candidate', 'event','category','internal_link','sent', 'created_at', 'updated_at']
