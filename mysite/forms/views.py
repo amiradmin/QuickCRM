@@ -4393,7 +4393,7 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 objPSL57.phone = request.POST['phone']
                 objPSL57.email = request.POST['email']
                 if not request.POST.get('birthDay', '') == '':
-                    objPSL57.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%m/%d/%Y')
+                    objPSL57.birthDay = datetime.datetime.strptime(request.POST['birthDay'], '%d/%m/%Y')
                 objPSL57.currentEmploymentDetails = request.POST['currentEmploymentDetails']
                 objPSL57.candidatePosition = request.POST['currentEmploymentPosition']
                 objPSL57.employmentStatus = request.POST['currentEmploymentStatus']
@@ -4501,13 +4501,13 @@ class UpdatePSL57BByUserID(SidebarMixin, LoginRequiredMixin, TemplateView):
                 for idx, item in enumerate(range(1, 4)):
                     # print(idx + 1)
                     # if not request.POST.get("organisation" + str(idx + 1), None) == None:
-                    if not request.POST.get('organisation'+ str(idx), None) == None:
+                    if not request.POST.get('organisation-'+ str(idx), None) == None:
                         print("Here")
                         # print('organisation'+ str(idx ))
-                        historyObj = empHistory.objects.filter(id=request.POST["idIdex" + str(idx )]).first()
-                        historyObj.organisation = request.POST['organisation' + str(idx )]
-                        historyObj.period = request.POST['period' + str(idx)]
-                        historyObj.contactNamePhone = request.POST['contactNamePhone' + str(idx )]
+                        historyObj = empHistory.objects.filter(id=request.POST["idIdex-" + str(idx )]).first()
+                        historyObj.organisation = request.POST['organisation-' + str(idx )]
+                        historyObj.period = request.POST['period-' + str(idx)]
+                        historyObj.contactNamePhone = request.POST['contactNamePhone-' + str(idx )]
                         historyObj.save()
 
                 if request.POST['organisation']:

@@ -2254,16 +2254,17 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
 {% for item in form.emphistory.all %}
 
   <div class="row" style="margin-bottom:25px;">
+      <input type="hidden" name="idIdex-{{ forloop.counter }}" value="{{item.id}}" />
     <div class="col" >
-      <input class="form-control " type="text" name="organisation-{{ forloop.counter }}" style="border:solid 1px black;height:50px;width:250px;margin-top:-10px;margin-left: 4px;margin-right:3px;"  value="{{item.organisation}}" />
+      <input class="form-control " type="text" name="organisation-{{ forloop.counter }}" style="border:none;height:50px;width:250px;margin-top:-10px;margin-left: 4px;margin-right:3px;"  value="{{item.organisation}}" />
 
     </div>
 
     <div class="col" >
-      <input class="form-control" type="text" name="period-{{ forloop.counter }}" style="border:solid 1px black;width:150px;height:50px;margin-top:-10px;margin-left: -28px;" value="{{item.period}}"/>
+      <input class="form-control" type="text" name="period-{{ forloop.counter }}" style="border:none;width:150px;height:50px;margin-top:-10px;margin-left: -28px;" value="{{item.period}}"/>
     </div>
     <div class="col">
-      <input class="form-control" type="text" name="contactNamePhone-{{ forloop.counter }}" style="border:solid 1px black;width:250px;height:50px;margin-top:-10px; margin-left: -147px;"  value="{{item.contactNamePhone}}" />
+      <input class="form-control" type="text" name="contactNamePhone-{{ forloop.counter }}" style="border:none;width:250px;height:50px;margin-top:-10px; margin-left: -147px;"  value="{{item.contactNamePhone}}" />
     </div>
   </div>
 
@@ -2271,13 +2272,13 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     <div >
   <div class="row" style="">
     <div class="col">
-      <input class="form-control " type="text" name="organisation" style="z-index:-1;border:solid 1px black;height:50px;width:250px;margin-top:-10px;margin-left: 4px;margin-right:3px;"  value="" />
+      <input class="form-control " type="text" name="organisation" style="z-index:-1;border:none;height:50px;width:250px;margin-top:-10px;margin-left: 4px;margin-right:3px;"  value="" />
     </div>
     <div class="col">
-      <input class="form-control" type="text" name="period" style="border:solid 1px black;width:150px;height:50px;margin-top:-10px;margin-left: -28px;" />
+      <input class="form-control" type="text" name="period" style="border:none;width:150px;height:50px;margin-top:-10px;margin-left: -28px;" />
     </div>
     <div class="col">
-      <input class="form-control" type="text" name="contactNamePhone" style="border:solid 1px black;width:250px;height:50px;margin-top:-10px; margin-left: -147px;" />
+      <input class="form-control" type="text" name="contactNamePhone" style="border:none;width:250px;height:50px;margin-top:-10px; margin-left: -147px;" />
     </div>
   </div>
 </div>
