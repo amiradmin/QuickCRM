@@ -2551,11 +2551,10 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
   <button class="btn btn-outline-primary" name="uploadFormBack" type="submit">Upload</button>
 </form>
 </div>
-<script>
-
-
-
-                                  $(function() {
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script src="{% static 'js/regex.js' %}" type="text/javascript"></script>
+              <script>
+      $(function() {
   $(document).ready(function(){
   $('form input').change(function () {
     $('form p').text(this.files.length + " file(s) selected");
@@ -2607,6 +2606,11 @@ pdf2htmlEX.defaultViewer = new pdf2htmlEX.Viewer({});
     });
   });
 
+                        </script>
+
+
+
+<script>
 
 
 
@@ -2700,6 +2704,12 @@ function chequeChange(obj) {
         obj.checked = true;
     }
 }
+
+
+
+
+
+
 </script>
 
 
