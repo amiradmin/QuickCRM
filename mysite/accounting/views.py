@@ -1258,6 +1258,7 @@ class LitteRegisterView(TemplateView):
             else:
                 candidate = TesCandidate.objects.filter(user=user).first()
                 response = redirect('accounting:canprofile_', id=candidate.id,status=False)
+                print("hello Amir")
                 return response
         return redirect('training:resquestsuccess_')
 
