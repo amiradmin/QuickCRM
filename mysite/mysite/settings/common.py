@@ -175,8 +175,8 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'testdb',
-            'USER': 'main_user',
-            'PASSWORD': "Eddy_747_Today_2022",
+            'USER': 'tes_dbuser',
+            'PASSWORD': "Eddy747today2022",
             'HOST': '127.0.0.1',
             'PORT': '5432',
         },
