@@ -174,19 +174,19 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'testdb',
-            'USER': 'tes_dbuser',
-            'PASSWORD': "Eddy747today2022",
+            'USER': 'main_user',
+            'PASSWORD': "Eddy_747_Today_2022",
             'HOST': '127.0.0.1',
             'PORT': '5432',
         },
-        'logs': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'testdb',
-            'USER': 'tes_dbuser',
-            'PASSWORD': "Eddy747today2022",
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        },
+        # 'logs': {
+        #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #     'NAME': 'testdb',
+        #     'USER': 'main_user',
+        #     'PASSWORD': "Eddy_747_Today_2022",
+        #     'HOST': '127.0.0.1',
+        #     'PORT': '5432',
+        # },
 
 
     }
