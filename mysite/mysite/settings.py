@@ -147,14 +147,14 @@ if hostName == 'amir-ThinkPad':
             'TEST': {
                 'NAME': 'test_db_6',
             },
-            'logs': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'testdb',
-                'USER': 'tes_dbuser',
-                'PASSWORD': "Eddy747today2022",
-                'HOST': '127.0.0.1',
-                'PORT': '5432',
-            },
+            # 'logs': {
+            #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            #     'NAME': 'testdb',
+            #     'USER': 'tes_dbuser',
+            #     'PASSWORD': "Eddy747today2022",
+            #     'HOST': '127.0.0.1',
+            #     'PORT': '5432',
+            # },
         },
 
     }
