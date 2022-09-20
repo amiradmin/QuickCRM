@@ -37,8 +37,8 @@ async def full_document_backup( dir_name):
     for root, dirs, files in os.walk(os.path.abspath("/home/amir/media/")):
         for folder in dirs:
             # print(folder)
-            # if folder != 'admin':
-            if folder == 'exam_result_file':
+            if folder != 'admin':
+            # if folder == 'exam_result_file':
                 sharepoint_path = f'Shared Documents/{dir_name}/{folder}'
                 target_folder = ctx.web.get_folder_by_server_relative_url(sharepoint_path)
                 result = ctx.web.folders.add(sharepoint_path).execute_query()
