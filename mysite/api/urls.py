@@ -13,6 +13,7 @@ urlpatterns = [
     path('GetEventListByproductID/<int:id>', views.GetEventListByproductID.as_view(), name='geteventlist_'),
     path('geteventbyid/<int:id>', views.GetEventByID.as_view(), name='geteventbyid_'),
     path('getproductbyID/<int:id>', views.GetProductByID.as_view(), name='getproductbyID_'),
+    path('getproductbyname/', views.GetProductByName.as_view(), name='getproductbyname_'),
     path('getproductbycatid/<int:id>', views.GetCategoryProductList.as_view(), name='getproductbycatid_'),
     path('getexams/', views.GetExamList.as_view(), name='getexams_'),
     path('contact', views.NewContact.as_view(), name='contact_'),

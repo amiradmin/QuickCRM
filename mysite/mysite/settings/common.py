@@ -141,8 +141,8 @@ if hostName == 'amir-ThinkPad':
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': 'testdb_development',
-            'USER': 'main_user',
-            'PASSWORD': "Eddy_747_Today_2022",
+            'USER': 'tes_dbuser',
+            'PASSWORD': "1qaz!QAZ",
             'HOST': '127.0.0.1',
             'PORT': '5432',
             'TEST': {

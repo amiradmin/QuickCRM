@@ -134,6 +134,32 @@ class GetProductByID(APIView):
         return Response(result, status=status.HTTP_200_OK)
 
 
+class GetProductByName(APIView):
+    pagination_class = CustomPagination
+
+
+    def get(self, request, *args,**kwargs):
+        result = {}
+        name = self.request.query_params.get('name')
+        print(name)
+        product = Product.objects.filter(name=name).first()
+        result['id'] = product.id
+        result['name'] = product.name
+        result['title'] = product.title
+        result['description'] = product.description
+        result['code'] = product.code
+        result['price'] = product.price
+        result['type'] = product.type
+        result['link'] = product.link
+        result['categoryID'] = product.category.id
+        result['category'] = product.category.title
+        result['description'] = product.description
+        if product.pic:
+            result['image'] = 'http://erp.tescan.ca' + product.pic.url
+        else:
+            result['image'] = None
+        return Response(result, status=status.HTTP_200_OK)
+
 
 class GetEventByID(APIView):
     pagination_class = CustomPagination
