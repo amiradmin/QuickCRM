@@ -18,7 +18,7 @@ async def full_document_backup( dir_name):
     upload Django Media files
     """
     now = datetime.datetime.now()
-    now_str = str(now.strftime("%Y-%m-%d"))
+    now_str = now.strftime("%Y-%m-%d")
     sharepoint_url = 'https://tescan2.sharepoint.com/sites/TESCanadaInc/'
         # # Initialize the client credentials
     user_credentials = UserCredential("amir.behvandi@tescan.ca", "Eddy@747")
@@ -27,14 +27,15 @@ async def full_document_backup( dir_name):
     if dir_name:
         dir_name = dir_name + '-' + now_str
         print(dir_name)
-        result = ctx.web.folders.add(f'Shared Documents/{dir_name}').execute_query()
+        result = ctx.web.folders.add(f'Shared Documents/ERP_Backup').execute_query()
+        result = ctx.web.folders.add(f'Shared Documents/ERP_Backup/{dir_name}').execute_query()
 
 
 
 
     list_title = "Documents"
     # target_folder = ctx.web.lists.get_by_title(list_title).root_folder
-    target_folder = ctx.web.get_folder_by_server_relative_url(f'Shared Documents/{dir_name}')
+    target_folder = ctx.web.get_folder_by_server_relative_url(f'Shared Documents/ERP_Backup/{dir_name}')
 
 
     # Working Code
@@ -43,15 +44,18 @@ async def full_document_backup( dir_name):
             # print(folder)
             if folder != 'admin':
             # if folder == 'exam_result_file':
-                sharepoint_path = f'Shared Documents/{dir_name}/{folder}'
+                sharepoint_path = f'Shared Documents/ERP_Backup/{dir_name}/{folder}'
                 target_folder = ctx.web.get_folder_by_server_relative_url(sharepoint_path)
                 result = ctx.web.folders.add(sharepoint_path).execute_query()
-                # print(sharepoint_path)
+
+
+
+
                 local_folder = os.path.join(root, folder)
                 print(local_folder)
                 # for root, dirs, files in os.walk(os.path.abspath(local_folder)):
                 file_list = []
-                #
+                
                 for file in listdir(local_folder) :
                     print(os.path.join(local_folder, file))
                     file_list.append(os.path.join(local_folder, file))
@@ -84,7 +88,10 @@ async def db_backup(delay):
         # # Initialize the client credentials
     user_credentials = UserCredential("amir.behvandi@tescan.ca", "Eddy@747")
     ctx = ClientContext(sharepoint_url).with_credentials(user_credentials)
-    sharepoint_path = f'Shared Documents/ERP_DB_Backup/'
+    now = datetime.datetime.now()
+    now_str = now.strftime("%Y-%m-%d")
+    dir_name = 'ERP_DB_Backup' + '-' + now_str
+    sharepoint_path = f'Shared Documents/ERP_Backup/{dir_name}'
     target_folder = ctx.web.get_folder_by_server_relative_url(sharepoint_path)
     result = ctx.web.folders.add(sharepoint_path).execute_query()
     folder = 'db_backup'
