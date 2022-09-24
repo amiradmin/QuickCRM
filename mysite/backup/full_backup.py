@@ -8,6 +8,7 @@ import schedule
 import asyncio
 from datetime import date
 import time
+import datetime
 
 
 
@@ -16,13 +17,16 @@ async def full_document_backup( dir_name):
     """
     upload Django Media files
     """
-
+    now = datetime.datetime.now()
+    now_str = str(now.strftime("%Y-%m-%d"))
     sharepoint_url = 'https://tescan2.sharepoint.com/sites/TESCanadaInc/'
         # # Initialize the client credentials
     user_credentials = UserCredential("amir.behvandi@tescan.ca", "Eddy@747")
     ctx = ClientContext(sharepoint_url).with_credentials(user_credentials)
 
     if dir_name:
+        dir_name = dir_name + '-' + now_str
+        print(dir_name)
         result = ctx.web.folders.add(f'Shared Documents/{dir_name}').execute_query()
 
 

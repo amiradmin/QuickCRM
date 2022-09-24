@@ -102,8 +102,8 @@ class FormsList(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name   
-    
+        return self.name
+
 class Category(models.Model):
     name = models.CharField(max_length=256, null=True, blank=True )
     colorCode = models.CharField(max_length=256, null=True, blank=True )
@@ -113,8 +113,8 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-    
-    
+
+
 class TesCandidate(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING, null=True, blank=True )
@@ -228,7 +228,7 @@ class Location(models.Model):
         return self.name
 
 class Lecturer(models.Model):
-  
+
     first_name = models.CharField(max_length=256, null=True, blank=True )
     last_name = models.CharField(max_length=256, null=True, blank=True )
     passport_id = models.CharField(max_length=256, null=True, blank=True )
@@ -334,7 +334,7 @@ class CandidateProfile(models.Model):
 
 
 class Certificate(models.Model):
-    
+
     name = models.CharField(max_length=256, null=True, blank=True )
     institute = models.CharField(max_length=256, null=True, blank=True )
     expiryDate = models.DateTimeField(null=True, blank=True)

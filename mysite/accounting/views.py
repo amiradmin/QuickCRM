@@ -1250,11 +1250,13 @@ class LitteRegisterView(TemplateView):
             # print('Mail Sent')
 
             redirect_to = request.META.get('HTTP_REFERER')
+            print("exist0000")
             print(redirect_to)
             if 'next' in redirect_to:
-                print("exist")
-                login(request, user)
-                return redirect(redirect_to.replace('literegister/?next=/', ''))
+                print("exist1111")
+                # login(request, user)
+                # return redirect(redirect_to.replace('literegister/?next=/', ''))
+                return redirect('accounting:candidatelogin_')
             else:
                 candidate = TesCandidate.objects.filter(user=user).first()
                 response = redirect('accounting:canprofile_', id=candidate.id,status=False)
@@ -1349,7 +1351,7 @@ def password_reset_request(request):
                     message = {
                         "from_email": "erp@tescan.ca",
                         "subject": 'Password Reset Requested',
-                        "text": 'http://erp.tescan.ca/accounts/reset/'+ uid+'/'+ token +'/' ,
+                        "text": 'https://erp.tescan.ca/accounts/reset/'+ uid+'/'+ token +'/' ,
 
                         "to": [
                             {

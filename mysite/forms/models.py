@@ -98,7 +98,7 @@ class TwiEnrolmentForm(models.Model):
     bookingRef= models.CharField(max_length=1024, null=True, blank=True )
     examinationType= models.CharField(max_length=1024, null=True, blank=True )
     examinationBody= models.CharField(max_length=1024, null=True, blank=True )
-    
+
     PCN_BGASApprovalNumber = models.CharField(max_length=1024, null=True, blank=True )
     currentCSWIPQualifications = models.CharField(max_length=1024, null=True, blank=True )
     CSWIPWeldingexamination = models.CharField(max_length=1024, null=True, blank=True )
@@ -125,12 +125,12 @@ class TwiEnrolmentForm(models.Model):
     VerifierDate = models.DateField( null=True, blank=True )
     confirmation = models.BooleanField( null=True, blank=True )
     confirmation = models.BooleanField(null=True, blank=True)
-    
+
     uploadedForm = models.FileField(upload_to='uploadedForm',null=True,blank=True)
     uploadedSign = models.FileField(upload_to='uploadedForm',null=True,blank=True)
     uploadedVerifierSign = models.FileField(upload_to='uploadedForm',null=True,blank=True)
-    
-    
+
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -174,7 +174,7 @@ class MainForm(models.Model):
     ("TOFD", "TOFD"),
     ("CSWIP", "CSWIP"),
     ("LRUT", "LRUT"),
-   
+
 )
     name = models.CharField(max_length=256, null=True, blank=True )
     colorCode = models.CharField(max_length=256, null=True, blank=True )
@@ -193,7 +193,7 @@ class General(models.Model):
     formCategory = models.ForeignKey(Category,related_name="form_category_training", on_delete=models.CASCADE)
     twiEnrolmentForm = models.ManyToManyField('TwiEnrolmentForm',  null=True, blank=True)
     bgasExperienceForm =models.ManyToManyField('BGAsExperienceForm',  null=True, blank=True)
-    
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -530,8 +530,8 @@ class PSL57B(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.candidate.last_name
+    # def __str__(self):
+    #     return self.candidate.last_name
 
 
 

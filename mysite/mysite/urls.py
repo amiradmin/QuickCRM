@@ -56,4 +56,3 @@ urlpatterns = [
 if development.DEBUG:
     urlpatterns += static(common.STATIC_URL, document_root=common.STATIC_ROOT)
     urlpatterns += static(common.MEDIA_URL, document_root=common.MEDIA_ROOT)
-
