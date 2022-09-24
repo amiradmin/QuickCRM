@@ -2,6 +2,7 @@ import os
 from office365.runtime.auth.user_credential import UserCredential
 from office365.sharepoint.client_context import ClientContext
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from office365.sharepoint.folders.folder import Folder
 from tqdm import tqdm
 from os import listdir
 import schedule
@@ -9,6 +10,26 @@ import asyncio
 from datetime import date
 import time
 import datetime
+
+
+def remove_first_files_folder(parent_folder):
+    """
+    :type parent_folder: Folder
+    :type action: (Folder)-> None
+    """
+    parent_folder.expand(["Folders"]).get().execute_query()
+    folder_date = []
+    folder_name = []
+    max_date = None
+    for folder in parent_folder.folders:
+        if folder.name.startswith('ERP Files Backup-'):
+            print(folder.name)
+            folder_date.append(folder.time_created)
+            folder_name.append(folder.name)
+
+    max_date = max(folder_date)
+    print(max_date)
+
 
 
 
@@ -26,7 +47,7 @@ async def full_document_backup( dir_name):
 
     if dir_name:
         dir_name = dir_name + '-' + now_str
-        print(dir_name)
+        # print(dir_name)
         result = ctx.web.folders.add(f'Shared Documents/ERP_Backup').execute_query()
         result = ctx.web.folders.add(f'Shared Documents/ERP_Backup/{dir_name}').execute_query()
 
@@ -36,7 +57,9 @@ async def full_document_backup( dir_name):
     list_title = "Documents"
     # target_folder = ctx.web.lists.get_by_title(list_title).root_folder
     target_folder = ctx.web.get_folder_by_server_relative_url(f'Shared Documents/ERP_Backup/{dir_name}')
+    parent_target_folder = ctx.web.get_folder_by_server_relative_url(f'Shared Documents/ERP_Backup/')
 
+    remove_first_files_folder(parent_target_folder)
 
     # Working Code
     for root, dirs, files in os.walk(os.path.abspath("/home/amir/media/")):
@@ -52,10 +75,10 @@ async def full_document_backup( dir_name):
 
 
                 local_folder = os.path.join(root, folder)
-                print(local_folder)
+                # print(local_folder)
                 # for root, dirs, files in os.walk(os.path.abspath(local_folder)):
                 file_list = []
-                
+
                 for file in listdir(local_folder) :
                     print(os.path.join(local_folder, file))
                     file_list.append(os.path.join(local_folder, file))
