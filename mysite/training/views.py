@@ -247,14 +247,16 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
             print(tempID)
 
             context['tesId'] = tempID
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
+        context['group_name'] =group_name
         return context
 
-    
+
 
     def post(self, request, *args, **kwargs):
-    
+        context = super(NewCandidatelView, self).get_context_data()
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
             print(request.POST['tes_id'])
@@ -265,8 +267,8 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 print('exist')
                 response = JsonResponse({"error": "there was an error"})
                 response.status_code = 403 # To announce that the user isn't allowed to publish
-                
-                return render(request, 'training/errors.html') 
+
+                return render(request, 'training/errors.html')
             user = User()
             group =Group.objects.filter(id=3).first()
             print(group)
@@ -311,8 +313,19 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 user.tescandidate.document_9 = request.FILES['doc_9']
             if request.FILES.get('doc_10', False):
                 user.tescandidate.document_10= request.FILES['doc_10']
-            user.save() 
-        return redirect('training:canlist_')
+            user.save()
+
+            group_name = self.request.user.groups.values_list('name', flat=True).first()
+            candidate = TesCandidate.objects.filter(user=self.request.user).first()
+            context['candidate'] =candidate
+            context['group_name'] =group_name
+            can_list = TesCandidate.objects.all()
+
+            context['can_list'] = can_list
+
+            print("Context is here!")
+        # return redirect('training:canlist_')
+        return render(request, 'training/candidate_table.html', context)
 
 
 class UpdateCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
@@ -330,7 +343,7 @@ class UpdateCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
             print('OK')
-            
+
             user = TesCandidate.objects.filter(id = self.kwargs['id']).first()
             user.first_name = request.POST['first_name']
             user.last_name = request.POST['last_name']
@@ -364,7 +377,7 @@ class UpdateCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 user.document_8 = request.FILES['doc_8']
             if request.FILES.get('doc_9', False):
                 user.document_9 = request.FILES['doc_9']
-            user.save() 
+            user.save()
         return redirect('training:canlist_')
 
 
@@ -379,7 +392,7 @@ class DeleteCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-    
+
         # form = MedicineForm(self.request.POST)
         if request.method == 'GET':
             print('Del Here')
@@ -387,8 +400,8 @@ class DeleteCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
             print(can.first_name)
             can.delete()
             return redirect('training:canlist_')
-    
-    
+
+
 class ProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/product_list.html"
     group_required = u"management,admin,training_admin"
@@ -403,7 +416,7 @@ class ProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             obj = Product()
             obj.name = request.POST['name']
@@ -415,7 +428,7 @@ class ProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return redirect('training:product_')
 
 
-    
+
 class UpdateProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/update_product.html"
 
@@ -428,7 +441,7 @@ class UpdateProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             obj = Product.objects.filter(id = self.kwargs['id']).first()
             obj.name = request.POST['name']
@@ -446,7 +459,7 @@ class DeleteProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
     def get(self, request, *args, **kwargs):
-    
+
         # form = MedicineForm(self.request.POST)
         if request.method == 'GET':
             print('Del Here')
@@ -456,7 +469,7 @@ class DeleteProductView(SidebarMixin,LoginRequiredMixin,TemplateView):
             return redirect('training:product_')
 
 
-    
+
 class EventView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/event_list.html"
     group_required = [u'management', u'admin', u'training_admin',u'training_operator']
@@ -481,7 +494,7 @@ class EventView(GroupRequiredMixin,SidebarMixin,LoginRequiredMixin,TemplateView)
         context['categoryList'] = categoryList
 
         return context
-    
+
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             # country = Country.objects.get(id = request.POST['country'])
@@ -587,10 +600,10 @@ class UpdateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['categoryList'] = categoryList
 
         return context
-    
+
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
-           
+
             print("Hello Radin")
             product = Product.objects.get(id = request.POST['product'])
             lecturers = Lecturer.objects.get(id = request.POST['lecturer'])
@@ -642,7 +655,7 @@ class DeleteEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-    
+
         # form = MedicineForm(self.request.POST)
         if request.method == 'GET':
             print('Del Here')
@@ -682,7 +695,7 @@ class DeleteCandidateEventView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
             return redirect('forms:evensummary_', id=event.id)
 
-            
+
 class LecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
     template_name = "training/lecturer_list.html"
     group_required = u"management,admin,training_admin"
@@ -716,7 +729,7 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['category_list'] = category_list
 
         return context
-    
+
     def post(self, request, *args, **kwargs):
         from django.apps import apps
         if request.method == 'POST':
@@ -805,21 +818,21 @@ class NewEventLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
         print(lecturer)
         for item in lecturer.events.all():
             selLec =selLec + '"'+ str(selCounter)+'":"'+ str(item.id)+' - '+ str(item.name)+'",'
-            selCounter = selCounter + 1 
+            selCounter = selCounter + 1
         selLec = selLec + '"10000000000":" "}'
-        
-        
+
+
         counter = 0
         events='{'
         for item in eventList:
             events =events + '"'+ str(counter)+'":"'+ str(item.id)+' - '+ str(item.name)+'--",'
-            counter = counter + 1 
+            counter = counter + 1
         events = events + '"10000000000":" "}'
         # context['selectedList'] = selCan
 
         myDict = json.loads(events)
         values = []
-        
+
         for item in lecturer.events.all():
             print(item.name)
             for index,value in myDict.items():
@@ -834,18 +847,18 @@ class NewEventLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['selectedList'] = values
 
         return context
-    
+
     def post(self, request, *args, **kwargs):
         print('Here')
         if request.method == 'POST':
             # print( request.POST.get('page_contents[]', None))
-            
+
             lecturer = Lecturer.objects.filter(id=self.kwargs['id']).first()
             lecturer.events.clear()
             eventList =request.POST['temp']
             print(eventList)
-            
-           
+
+
             if eventList :
                 for item in eventList.split('--'):
                     event_id =item.split(' ')[0]
@@ -853,13 +866,13 @@ class NewEventLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
                         print('--> '+event_id)
                         event = Event.objects.filter(id = event_id).first()
                         print('here')
-                        if event: 
+                        if event:
                             print('Exist')
                             lecturer.events.add(event)
-                        
-                    
-                
-            
+
+
+
+
         return redirect('training:lecturer_')
 
 class NewLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
@@ -878,24 +891,24 @@ class NewLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
         # form = MedicineForm(self.request.POST)
         if request.method == 'POST':
             print('OK')
-            
+
             lecturer = Lecturer()
             lecturer.first_name = request.POST['first_name']
             lecturer.last_name = request.POST['last_name']
             lecturer.email = request.POST['email']
             if request.POST.get('city', False):
                 lecturer.city = request.POST['city']
-                
+
             if request.POST.get('country', False):
                 lecturer.country = request.POST['country']
-                
+
             if request.POST.get('address', False):
                 lecturer.address = request.POST['address']
 
             if request.POST.get('phone', False):
                 lecturer.contact_number = request.POST['phone']
                 print(request.POST['phone'])
-                
+
             if request.POST.get('note', False):
                 lecturer.note = request.POST['note']
             # lecturer.tes_candidate_id = request.POST['tes_id']
@@ -926,7 +939,7 @@ class NewLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 lecturer.document_8 = request.FILES['doc_8']
             if request.FILES.get('doc_9', False):
                 lecturer.document_9 = request.FILES['doc_9']
-            lecturer.save() 
+            lecturer.save()
         return redirect('training:lecturer_')
 
 
@@ -939,7 +952,7 @@ class DeleteLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
     def get(self, request, *args, **kwargs):
-    
+
         # form = MedicineForm(self.request.POST)
         if request.method == 'GET':
             print('Del Here')
@@ -961,7 +974,7 @@ class UpdateLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
         context['lecturer'] = lecturer
 
         return context
-    
+
     def post(self, request, *args, **kwargs):
         if request.method == 'POST':
             # country = Country.objects.get(id = request.POST['country'])
@@ -969,23 +982,23 @@ class UpdateLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.first_name = request.POST['first_name']
             obj.last_name = request.POST['last_name']
             obj.email = request.POST['email']
-            
+
             if request.POST.get('city', False):
                 obj.city = request.POST['city']
-                
+
             if request.POST.get('country', False):
                 obj.country = request.POST['country']
-                
+
             if request.POST.get('address', False):
                 obj.address = request.POST['address']
 
             if request.POST.get('phone', False):
                 obj.contact_number = request.POST['phone']
                 print(request.POST['phone'])
-                
+
             if request.POST.get('note', False):
                 obj.note = request.POST['note']
-                
+
             if request.FILES.get('photo', False):
                 obj.photo = request.FILES['photo']
             if request.FILES.get('doc_1', False):
@@ -1008,7 +1021,7 @@ class UpdateLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
                 obj.document_9 = request.FILES['doc_9']
             if request.FILES.get('doc_10', False):
                 obj.document_10 = request.FILES['doc_10']
-            obj.save()     
+            obj.save()
 
         return redirect('training:lecturer_')
 
@@ -1029,7 +1042,7 @@ class CountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             obj = Country()
             obj.name = request.POST['name']
@@ -1042,7 +1055,7 @@ class DeleteCountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
 
     def get(self, request, *args, **kwargs):
-    
+
         # form = MedicineForm(self.request.POST)
         if request.method == 'GET':
             print('Del Here')
@@ -1063,7 +1076,7 @@ class UpdateCountryView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             obj = Country.objects.filter(id = self.kwargs['id']).first()
             obj.name = request.POST['name']
@@ -1097,7 +1110,7 @@ class LocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
             obj.lat = request.POST['latitude']
             obj.city = request.POST['city']
             obj.country = country
-            obj.save()     
+            obj.save()
 
         return redirect('training:location_')
 
@@ -1116,7 +1129,7 @@ class UpdateLocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        
+
         if request.method == 'POST':
             obj = Location.objects.filter(id = self.kwargs['id']).first()
             obj.name = request.POST['name']
@@ -1138,7 +1151,7 @@ class DeleteLocationView(SidebarMixin,LoginRequiredMixin,TemplateView):
         if request.method == 'GET':
             print('Del Here')
             loc = Location.objects.filter(id = self.kwargs['id']).first()
-            
+
             loc.delete()
             return redirect('training:location_')
 
@@ -1401,5 +1414,3 @@ class AddFormToCategoryView(SidebarMixin, LoginRequiredMixin, TemplateView):
                     # event.save()
 
         return redirect('training:category_')
-
-
