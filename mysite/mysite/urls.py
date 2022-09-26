@@ -40,6 +40,7 @@ urlpatterns = [
     path('scheduler/', include('scheduler.urls')),
     path('marketing/', include('marketing.urls')),
     path('exam_certification/', include('exam_certification.urls')),
+    path('settings/', include('settings.urls')),
     # path('admin_tools_stats/', include('admin_tools_stats.urls')),
 
     path('accounts/', include('django.contrib.auth.urls')),

@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'activity_log',
     'monitoring',
+    'settings'
 
 
 

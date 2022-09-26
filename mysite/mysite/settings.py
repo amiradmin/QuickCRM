@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'activity_log',
     'monitoring',
+    'settings',
 
 
 
@@ -85,7 +86,7 @@ INSTALLED_APPS = [
 
 
 
-    
+
 ]
 
 SITE_ID = 2

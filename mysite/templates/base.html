@@ -6,7 +6,7 @@
         <meta charset="utf-8" />
         <title>Tescan | </title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />
         <!-- App favicon -->
@@ -33,7 +33,7 @@
         <link href="{% static 'css/upload.css' %}" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tiny.cloud/1/xraugdpkuiaviti0v9vd6e2bitpvv9pmalvozutq4kz8772q/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
-    a.disabled { 
+    a.disabled {
     pointer-events: none;
     color: rgba(0,0,128,0.5);
 }
@@ -70,14 +70,14 @@ button, input {
                         <img width="50" height="22" src="{% static 'images/small_logo.png' %}" alt="" height="48">
                     </span>
                 </a>
-    
+
                 <div class="h-100" id="leftside-menu-container" data-simplebar>
 
                     <!--- Sidemenu -->
                     <ul class="side-nav">
                     {% if managerStatus %}
                         <li class="side-nav-title side-nav-item">Navigation </li>
-    
+
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="{% url 'training:trainpanel_' %}" aria-expanded="false" aria-controls="sidebarDashboards" class="side-nav-link">
                                 <i class="uil-home-alt"></i>
@@ -101,9 +101,11 @@ button, input {
                                 </ul>
                             </div>
                         </li>
-    
+
                         <li class="side-nav-title side-nav-item">Apps</li>
-    
+
+
+
 <!--                        <li class="side-nav-item">-->
 <!--                            <a href="{% url 'tescalender:calendar_' %}" class="side-nav-link">-->
 <!--                                <i class="uil-calender"></i>-->
@@ -255,9 +257,9 @@ button, input {
                                 <i class="uil-comments-alt"></i>
                                 <span> Accountancy </span>
                             </a>
-                        </li>                      
+                        </li>
 
-    
+
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                                 <i class="fa fa-podcast"></i>
@@ -293,11 +295,11 @@ button, input {
                                     <li>
                                         <a href="{% url 'training:guideline_' %}">Forms Guideline</a>
                                     </li>
-                                    
+
                                 </ul>
                             </div>
                         </li>
-    
+
 
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarProjects" aria-expanded="false" aria-controls="sidebarProjects" class="side-nav-link disabled">
@@ -437,7 +439,7 @@ button, input {
 
 
                      </li>
-                                                                           
+
                                             </ul>
                                         </div>
                                     </li>
@@ -569,7 +571,7 @@ button, input {
                                 </ul>
                             </div>
                         </li>
-    
+
 <!--                        <li class="side-nav-item">-->
 <!--                            <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">-->
 <!--                                <i class="uil-clipboard-alt"></i>-->
@@ -589,7 +591,7 @@ button, input {
 <!--                                </ul>-->
 <!--                            </div>-->
 <!--                        </li>-->
-    
+
                         <li class="side-nav-item">
                             <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
 
@@ -633,6 +635,7 @@ button, input {
                         </li>
 
                         <li class="side-nav-title side-nav-item">Apps</li>
+                        {% include "sidebar.html" %}
 
 <!--                        <li class="side-nav-item">-->
 <!--                            <a href="{% url 'tescalender:calendar_' %}" class="side-nav-link">-->
@@ -2852,7 +2855,7 @@ Test
 <!--                        </li>-->
 
                     {% endif %}
-    
+
 
                     <!-- end Help Box -->
                     <!-- End Sidebar -->
@@ -3018,7 +3021,7 @@ Test
                                                     <span>G Suite</span>
                                                 </a>
                                             </div>
-            
+
                                         </div>
                                     </div>
 
@@ -3032,7 +3035,7 @@ Test
                             <li class="dropdown notification-list">
                                 <a class="nav-link dropdown-toggle nav-user arrow-none me-0" data-bs-toggle="dropdown" href="" role="button" aria-haspopup="false"
                                     aria-expanded="false">
-                                    <span class="account-user-avatar"> 
+                                    <span class="account-user-avatar">
                                         <img src="{% if candidate.photo %}{{candidate.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="user-image" class="rounded-circle">
                                     </span>
                                     <span>
@@ -3074,7 +3077,7 @@ Test
                                     </a>
 
                                     <!-- item-->
-                                   
+
                                     <a href="{% url 'accounting:logout_' %}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-logout me-1"></i>
                                         <span>Logout</span>
@@ -3156,7 +3159,7 @@ Test
                         </div>
                     </div>
                     <!-- end Topbar -->
-                    
+
     {% block content %}
 
 
@@ -3179,50 +3182,50 @@ Test
                         </div>
                     </footer>
                     <!-- end Footer -->
-    
+
                 </div>
-    
+
                 <!-- ============================================================== -->
                 <!-- End Page content -->
                 <!-- ============================================================== -->
-    
-    
+
+
             </div>
             <!-- END wrapper -->
-    
+
             <!-- Right Sidebar -->
             <div class="end-bar">
-    
+
                 <div class="rightbar-title">
                     <a href="javascript:void(0);" class="end-bar-toggle float-end">
                         <i class="dripicons-cross noti-icon"></i>
                     </a>
                     <h5 class="m-0">Settings</h5>
                 </div>
-    
+
                 <div class="rightbar-content h-100" data-simplebar>
-    
+
                     <div class="p-3">
                         <div class="alert alert-warning" role="alert">
                             <strong>Customize </strong> the overall color scheme, layout width, etc.
                         </div>
-    
+
                         <!-- Settings -->
                         <h5 class="mt-3">Color Scheme</h5>
                         <hr class="mt-1" />
-    
+
                         <div class="form-check form-switch mb-1">
                             <input type="checkbox" class="form-check-input" name="color-scheme-mode" value="light"
                                 id="light-mode-check" checked />
                             <label class="form-check-label" for="light-mode-check">Light Mode</label>
                         </div>
-    
+
                         <div class="form-check form-switch mb-1">
                             <input type="checkbox" class="form-check-input" name="color-scheme-mode" value="dark"
                                 id="dark-mode-check" />
                             <label class="form-check-label" for="dark-mode-check">Dark Mode</label>
                         </div>
-    
+
                         <!-- Width -->
                         <h5 class="mt-4">Width</h5>
                         <hr class="mt-1" />
@@ -3234,31 +3237,31 @@ Test
                             <input type="checkbox" class="form-check-input" name="width" value="boxed" id="boxed-check" />
                             <label class="form-check-label" for="boxed-check">Boxed</label>
                         </div>
-    
-    
+
+
                         <div class="d-grid mt-4">
                             <button class="btn btn-primary" id="resetBtn">Reset to Default</button>
-    
+
 
                         </div>
                     </div> <!-- end padding-->
-    
+
                 </div>
             </div>
-    
+
             <div class="rightbar-overlay"></div>
             <!-- /End-bar -->
-    
+
             <!-- bundle -->
             <script src="{% static 'assets/js/vendor.min.js'%}"></script>
             <script src="{% static 'assets/js/app.min.js'%}"></script>
-    
+
             <!-- third party js -->
             <script src="{% static 'assets/js/vendor/apexcharts.min.js'%}"></script>
             <script src="{% static 'assets/js/vendor/jquery-jvectormap-1.2.2.min.js'%}"></script>
             <script src="{% static 'assets/js/vendor/jquery-jvectormap-world-mill-en.js'%}"></script>
             <!-- third party js ends -->
-    
+
 
 
         <!-- third party js -->
