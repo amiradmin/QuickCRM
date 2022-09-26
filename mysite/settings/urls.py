@@ -9,7 +9,8 @@ urlpatterns = [
 
 
 
-    path('sidebar/', views.SidebarView.as_view(), name='sidebar_'),
+    # path('sidebar/', views.SidebarView.as_view(), name='sidebar_'),
+    # path('sidebar/', views.top_nav, name='sidebar_'),
 
 
 ]
