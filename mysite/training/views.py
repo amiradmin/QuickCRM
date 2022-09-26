@@ -235,18 +235,28 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
 
     def get_context_data(self):
         context = super(NewCandidatelView, self).get_context_data()
-        lastCan = TesCandidate.objects.filter(tes_candidate_id__isnull=False).last()
-        print(lastCan)
-        print(lastCan.tes_candidate_id)
-        if lastCan.tes_candidate_id is not None:
-            tempID = int(lastCan.tes_candidate_id.split('-')[1])+1
-            if tempID < 1000:
-                tempID = 'TESN-0' + str(tempID)
-            else:
-                tempID = 'TESN-'+ str(tempID)
-            print(tempID)
+        numbers = TesCandidate.objects.filter(Q(tes_candidate_id__isnull=False) & ~Q(tes_candidate_id = ''))
 
-            context['tesId'] = tempID
+        counter_list =[]
+        for item in numbers:
+            temp_num = int(item.tes_candidate_id.split('-')[1])
+            counter_list.append(temp_num)
+
+        max_number = max(counter_list)
+        print(max_number)
+        # if lastCan.tes_candidate_id is not None:
+        #     tempID = int(lastCan.tes_candidate_id.split('-')[1])+1
+        #     print("After Add" + str(tempID))
+        max_number += 1
+        if max_number < 1000:
+            tempID = 'TESN-0' + str(max_number)
+        else:
+            tempID = 'TESN-'+ str(max_number)
+        context['tesId'] = tempID
+
+        # print(tempID)
+
+
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
