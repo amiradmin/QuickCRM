@@ -282,7 +282,8 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
             user.tescandidate.first_name = request.POST['first_name']
             user.tescandidate.middleName = request.POST['middleName']
             user.tescandidate.last_name = request.POST['last_name']
-            user.tescandidate.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
+            if request.POST['birthDate']:
+                user.tescandidate.birth_date = datetime.datetime.strptime(request.POST['birthDate'], '%m/%d/%Y')
             user.tescandidate.tes_candidate_id = request.POST['tes_id']
             user.tescandidate.customer_id = request.POST['customer_id']
             user.tescandidate.address = request.POST['address']
