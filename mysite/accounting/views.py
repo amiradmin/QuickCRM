@@ -840,7 +840,7 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                 profileData = TesCandidate.objects.filter(id = self.kwargs['id']).first()
                 # breakpoint()
                 profileData.first_name = request.POST['first_name']
-                if  request.POST['middleName'] :
+                if  request.POST['middleName'] or profileData.middleName :
                     profileData.middleName = request.POST['middleName']
                 profileData.last_name = request.POST['last_name']
                 profileData.emergencyContact = request.POST['emergencyContact']
@@ -858,7 +858,10 @@ class CandidateProfileView(LoginRequiredMixin,TemplateView):
                     user.password = make_password(request.POST['password'])
                     user.save()
 
-                if not request.POST.get('birthDate', '') == '':
+                # if not request.POST.get('birthDate', '') == '':
+                #     profileData.birth_date = datetime.datetime.strptime(self.request.POST['birthDate'], '%m/%d/%Y')
+
+                if request.POST['birthDate']:
                     profileData.birth_date = datetime.datetime.strptime(self.request.POST['birthDate'], '%m/%d/%Y')
                 profileData.currentCompany = request.POST['currentCompany']
                 profileData.currentPosition = request.POST['currentPosition']

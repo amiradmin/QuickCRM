@@ -14,12 +14,12 @@
                        <div class="row">
                         <div class="col-12">
                             <div class="page-title-box">
-                    
+
                                 <h4 class="page-title">Candidate List</h4>
                             </div>
                         </div>
-                    </div>     
-                    <!-- end page title --> 
+                    </div>
+                    <!-- end page title -->
 <!-- view modal -->
 
 
@@ -45,7 +45,7 @@
         </h1>
       </div>
       <!-- header -->
-      
+
       <!-- body -->
       <div class="modal-body">
         <h2>Are you sure?</h2>
@@ -59,11 +59,11 @@
                 data-dismiss="modal">
           No
         </button>
-    
+
         <button class="btn btn-primary">
           Yes
         </button>
-   
+
       </div>
       <!-- footer -->
 
@@ -83,12 +83,12 @@
     <thead>
         <tr>
             <th  ></th>
-            
+
             <th >Name</th>
             <th  >Tes  ID</th>
             <th  >Email</th>
-            <th>Phone</th> 
-            <th>Submited Forms</th> 
+            <th>Phone</th>
+            <th>Submited Forms</th>
             <th></th>
             <th></th>
             <th></th>
@@ -99,26 +99,26 @@
     <tbody>
         {% for item in can_list %}
         <tr>
-            
+
             <td  ><img  style="min-width: 50px;" src="{% if item.photo %}{{item.photo.url}}{% else %}{% static 'images/avatar.jpg'%}{% endif %}" alt="image" class="img-fluid avatar-sm rounded-circle"></td>
-           
+
             <td><p style="margin:0px; padding:0px; min-width: 50px;" ><a   href="{% url 'accounting:canprofile_' id=item.id status=False  %}">{{item.first_name}} {% if item.middleName %}{{item.middleName}}{% endif %} {{item.last_name}}</a></p></td>
             <td><p style="margin:0px; padding:0px; ">{{item.tes_candidate_id}}</p></td>
             <td  ><p style="margin:0px; padding:0px;min-width: 50px;" >{{item.email}}</p></td>
-            <td><p style="margin:0px; padding:0px; ">{% if item.contact_number %}{{item.contact_number|phone_number}} {% endif %}</p></td>
+            <td><p style="margin:0px; padding:0px; ">{% if item.contact_number %}{{item.contact_number}} {% endif %}</p></td>
             <td><p style="margin:0px; padding:0px; ">
             {% for item2 in  item.forms.all %}
              <a style="color:{{item2.colorCode}}"  href="{% url 'forms:formbyid_' id=item.id %}">{{item2.name}}</a>
             {% endfor %}
             </p></td>
-          
-          
+
+
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:usermonitor_' id=item.id %}"><i class="fa fa-desktop" aria-hidden="true" style="font-size:20px;"></i></a></td>
             <td style="width:25px;"><a style="margin:0px; padding:0px;  " href="{% url 'training:updatecan_' id=item.id %}"><i  class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:20px;"></i></a></td>
             <td style="width:25px;"><a style="margin:0px; padding:0px; " href="{% url 'training:delcan_' id=item.id %}"    ><i style="color:#660a0a;font-size:20px;" class="fa fa-times" aria-hidden="true"></i></a></td>
-            
-            
-           
+
+
+
         </tr>
         {%endfor%}
     </tbody>
@@ -129,10 +129,10 @@
 </div>
 </div>
 </div>
-        
 
 
-                             
+
+
                                     </div> <!-- end tab-content-->
 
                                 </div> <!-- end card body-->
