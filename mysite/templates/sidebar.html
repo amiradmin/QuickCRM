@@ -18,12 +18,12 @@
 
                  {% if submenu1.submenu.all.count > 0  %}
                  <li class="side-nav-item">
-                                      <a data-bs-toggle="collapse" href="#manage" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
+                                      <a data-bs-toggle="collapse" href="#{{submenu1.title}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
                                           <i class="uil-clipboard-alt"></i>
                                           <span> {{ submenu1.title }} </span>
                                           <span class="menu-arrow"></span>
                                       </a>
-                                      <div class="collapse" id="manage">
+                                      <div class="collapse" id="{{submenu1.title}}">
                                           <ul class="side-nav-second-level">
 
                                             {% for submenu2 in submenu1.submenu.all %}
@@ -36,7 +36,7 @@
                                           </ul>
                                       </div>
                                   </li>
-                                              <li>
+                    <li>
 
                  {% elif submenu1.submenu.all.count == 0 %}
 
