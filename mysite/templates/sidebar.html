@@ -5,26 +5,26 @@
 
 {% for item in sidebars %}
 <li class="side-nav-item">
-           <a data-bs-toggle="collapse" href="#sidebarContact" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+           <a data-bs-toggle="collapse" href="#{{ item.title }}" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                <i class="uil-store"></i>
                <span> {{ item.title }}</span>
                <span class="menu-arrow"></span>
            </a>
-           <!-- <div class="collapse" id="sidebarContact">
+           <div class="collapse" id="{{ item.title }}">
                <ul class="side-nav-second-level">
 
+                 {% for submenu1 in item.submenu.all %}
                    <li>
-                       <a href="{% url 'training:requestlist_' %}">All Requests</a>
+                       <a href="{{ submenu1.url }}">{{ submenu1.title }}</a>
                    </li>
-                   <li>
-                       <a href="{% url 'training:archivelist_' %}">Archived</a>
-                   </li>
+                    {% endfor %}
+
 
 
 
 
                </ul>
-           </div> -->
+           </div>
        </li>
 {% endfor %}
 
