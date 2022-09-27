@@ -27,9 +27,43 @@
                                           <ul class="side-nav-second-level">
 
                                             {% for submenu2 in submenu1.submenu.all %}
-                                              <li>
-                                                  <a href="{{submenu2.url}}">{{submenu2.title}}</a>
-                                              </li>
+
+
+
+                                              {% if submenu2.submenu.all.count > 0  %}
+                                              <li class="side-nav-item">
+                                                                   <a data-bs-toggle="collapse" href="#{{submenu2.title}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
+                                                                       <i class="uil-clipboard-alt"></i>
+                                                                       <span> {{ submenu2.title }} </span>
+                                                                       <span class="menu-arrow"></span>
+                                                                   </a>
+                                                                   <div class="collapse" id="{{submenu2.title}}">
+                                                                       <ul class="side-nav-second-level">
+
+                                                                         {% for submenu3 in submenu2.submenu.all %}
+
+
+                                                                           <li>
+                                                                               <a href="{{submenu3.url}}">{{submenu3.title}}</a>
+                                                                           </li>
+                                                          
+                                                                       {% endfor %}
+
+
+                                                                       </ul>
+                                                                   </div>
+                                                               </li>
+                                                 <li>
+
+                                              {% elif submenu2.submenu.all.count == 0 %}
+
+
+                                                <li>
+                                                    <a href="{{ submenu2.url }}">{{ submenu2.title }}</a>
+                                                </li>
+
+
+                                              {% endif %}
                                           {% endfor %}
 
 
