@@ -452,14 +452,15 @@ class TimesheetAlertView(LoginRequiredMixin, SidebarMixin, TemplateView):
 
 class TimesheetCalendarView(GroupRequiredMixin,LoginRequiredMixin,SidebarMixin,TemplateView):
     template_name = "timesheet/apps-calendar.html"
-    group_required = [u'management']
+    group_required = [u'management,training_operator,Staff']
 
     def get_context_data(self, *args, **kwargs):
+        print("Here Zanjan motor baragh")
         context = super(TimesheetCalendarView, self).get_context_data()
         timesheets = Timesheet.objects.filter(staff=self.request.user)
         candidate = TesCandidate.objects.filter(user = self.request.user).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
-        print("Here Zanjan")
+
         context['group_name'] = group_name
         context['timesheets'] = timesheets
         context['candidate'] = candidate

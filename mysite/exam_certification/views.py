@@ -444,7 +444,7 @@ class ExamResultHistoryCSWIP31(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
         for item in results:
             if item.general_paper == 'Failed' or item.technology_paper == 'Failed' or item.plate_paper == 'Failed' or \
             item.pipe_paper == 'Failed' or item.macro_paper == 'Failed':
-                
+
                 print('Here')
                 item.overall = 'Failed'
             else:
@@ -3703,7 +3703,7 @@ class NewExamMaterialPCNPhasedArrayUltera(SidebarMixin, LoginRequiredMixin, Temp
                 obj.customerID = self.request.POST['customerID']
                 # obj.cswip_pcn = self.request.POST['cswip_pcn']
                 obj.exam_title = self.request.POST['examTitle']
-              
+
                 obj.specific_theory = self.request.POST['specific_theory']
                 sample3 = Samples.objects.filter(id=self.request.POST['sample1_analysis']).first()
                 obj.sample1_analysis = sample3
@@ -4703,10 +4703,11 @@ class NewExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
 class UpdateExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
-    template_name = "certificates/new_cswip_3_2_2_exam_result.html"
+    template_name = "certificates/update_cswip_3_2_2_exam_result.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateExamResultSwip322, self).get_context_data()
+        print("Here here here")
         exam = CSWIPWeldingInspector3_2_2_Result.objects.filter(id=self.kwargs['id']).first()
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
@@ -4722,8 +4723,8 @@ class UpdateExamResultSwip322(SidebarMixin, LoginRequiredMixin, TemplateView):
 
 
             print("Submit")
-            print(self.request.POST['eventID'].split('-')[0])
-            event = Event.objects.filter(id=self.request.POST['event_id']).first()
+            print(self.request.POST['eventIDD'].split('-')[0])
+            event = Event.objects.filter(id=self.request.POST['eventIDD'].split('-')[0]).first()
 
             obj = CSWIPWeldingInspector3_2_2_Result.objects.filter(id=self.kwargs['id']).first()
             obj.event = event
@@ -7337,7 +7338,7 @@ class NewCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequiredMix
                 context['candidate_main'] = candidate_main
                 context['result_list'] = result_list
                 return render(request, 'certificates/new_attendance.html', context)
-            
+
             else:
 
 
@@ -7432,7 +7433,7 @@ class UpdateCertificateAttendance(GroupRequiredMixin, SidebarMixin, LoginRequire
                 obj.save()
 
             return redirect('exam_certification:cersummary_')
-        
+
 class CertificateSummayView(GroupRequiredMixin,SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/cer_summary.html"
     group_required = [u'management', u'admin', u'training_admin', u'training_operator']

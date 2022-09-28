@@ -266,9 +266,7 @@ class StaffProfileView(LoginRequiredMixin, TemplateView):
         # events = Event.objects.filter(candidate=candidate)
         group_name = self.request.user.groups.values_list('name', flat=True).first()
         context['group_name'] = group_name
-        print('Staff Profile')
-        print(candidate.first_name)
-        print('Staff Profile')
+
 
         now = datetime.datetime.now()
         context['user'] = user

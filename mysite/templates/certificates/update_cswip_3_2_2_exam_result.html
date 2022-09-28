@@ -34,54 +34,13 @@ table.GeneratedTable thead {
                                 <div class="page-title-right">
 
                                 </div>
-                                <h4 class="page-title">New Result for CSWIP Senior Welding Inspector(3.2.2)</h4>
+                                <h4 class="page-title">Update Result for CSWIP Senior Welding Inspector(3.2.2)</h4>
                             </div>
                         </div>
                     </div>
                     <!-- end page title -->
                     <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="header-title"> </h4>
 
-
-                                    <div class="tab-content">
-                                        <div class="tab-pane show active" id="basic-datatable-preview">
-
-
-                                        </div> <!-- end preview-->
-                                        <br>
-
-
-                    <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
-                                                    {% csrf_token %}
-
-
-                     <div class="mb-3 col-md-12">
-                                   <label for="" class="form-label">Examination</label>
-                                    <input list="examList" value=""  id="" name="examID" placeholder="type here..." class="form-control" required/>
-
-                                        <datalist id="examList"  >
-
-                                        {% for item2 in exams %}
-            <option value="{{item2.id}}-{{item2.event.name}}-{{item2.event.product.name}}-{{item2.candidate.first_name}}-{{item2.candidate.last_name}}">{{item2.event.product.name}}
-                                        </option>
-                                        {% endfor %}
-
-                                    </datalist>
-
-
-                                                    </div>
-
-
-                        <br>
-                                                    <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" name="updateInfo" type="submit">Update</button>
-                                                    </div>
-                                                </form>
-</div>
-                                    </div></div></div>
 
 
                     <div class="row">
@@ -122,7 +81,7 @@ table.GeneratedTable thead {
                                                         </div>
                                                         <div class="mb-3 col-md-6">
                                                             <label class="form-label">Event</label>
-                                                       <input  value="{{exam.event.id}}-{{exam.event.name}}"   id="" name="eventID" class="form-control" required />
+                                                       <input  value="{{exam.event.id}}-{{exam.event.name}}"   id="" name="eventIDD" class="form-control" required />
 
                                                         </div>
                                                     </div>
