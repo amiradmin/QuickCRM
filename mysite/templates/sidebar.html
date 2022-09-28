@@ -1,16 +1,16 @@
 <h3>Partial Sidebar</h3>
 
-
+{% load href_maker %}
 
 
 {% for item in sidebars %}
 <li class="side-nav-item">
-           <a data-bs-toggle="collapse" href="#{{ item.title }}" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
+           <a data-bs-toggle="collapse" href="{{ item.href }}" aria-expanded="false" aria-controls="sidebarEcommerce" class="side-nav-link">
                <i class="uil-store"></i>
                <span> {{ item.title }}</span>
                <span class="menu-arrow"></span>
            </a>
-           <div class="collapse" id="{{ item.title }}">
+           <div class="collapse" id="{{ item.href|href }}">
                <ul class="side-nav-second-level">
 
                  {% for submenu1 in item.submenu.all %}
@@ -18,12 +18,12 @@
 
                  {% if submenu1.submenu.all.count > 0  %}
                  <li class="side-nav-item">
-                                      <a data-bs-toggle="collapse" href="#{{submenu1.title}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
+                                      <a data-bs-toggle="collapse" href="{{submenu1.href}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
                                           <i class="uil-clipboard-alt"></i>
                                           <span> {{ submenu1.title }} </span>
                                           <span class="menu-arrow"></span>
                                       </a>
-                                      <div class="collapse" id="{{submenu1.title}}">
+                                      <div class="collapse" id="{{submenu1.href|href}}">
                                           <ul class="side-nav-second-level">
 
                                             {% for submenu2 in submenu1.submenu.all %}
@@ -32,12 +32,12 @@
 
                                               {% if submenu2.submenu.all.count > 0  %}
                                               <li class="side-nav-item">
-                                                                   <a data-bs-toggle="collapse" href="#{{submenu2.title}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
+                                                                   <a data-bs-toggle="collapse" href="{{submenu2.href}}" aria-expanded="false" aria-controls="sidebarTasks" class="side-nav-link ">
                                                                        <i class="uil-clipboard-alt"></i>
                                                                        <span> {{ submenu2.title }} </span>
                                                                        <span class="menu-arrow"></span>
                                                                    </a>
-                                                                   <div class="collapse" id="{{submenu2.title}}">
+                                                                   <div class="collapse" id="{{submenu2.href|href}}">
                                                                        <ul class="side-nav-second-level">
 
                                                                          {% for submenu3 in submenu2.submenu.all %}
@@ -46,7 +46,7 @@
                                                                            <li>
                                                                                <a href="{{submenu3.url}}">{{submenu3.title}}</a>
                                                                            </li>
-                                                          
+
                                                                        {% endfor %}
 
 

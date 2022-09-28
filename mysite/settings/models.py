@@ -7,7 +7,7 @@ class SubMenuLevelThree(models.Model):
     title = models.CharField(max_length=512, null=True, blank=True )
     code = models.CharField(max_length=512, null=True, blank=True )
     url = models.CharField(max_length=512, null=True, blank=True )
-
+    href = models.CharField(max_length=512, null=True, blank=True )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -22,7 +22,7 @@ class SubMenuLevelTwo(models.Model):
     title = models.CharField(max_length=512, null=True, blank=True )
     code = models.CharField(max_length=512, null=True, blank=True )
     url = models.CharField(max_length=512, null=True, blank=True )
-
+    href = models.CharField(max_length=512, null=True, blank=True )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -36,7 +36,7 @@ class SubMenuLevelOne(models.Model):
     title = models.CharField(max_length=512, null=True, blank=True )
     code = models.CharField(max_length=512, null=True, blank=True )
     url = models.CharField(max_length=512, null=True, blank=True )
-
+    href = models.CharField(max_length=512, null=True, blank=True )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
