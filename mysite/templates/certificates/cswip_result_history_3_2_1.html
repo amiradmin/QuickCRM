@@ -33,13 +33,13 @@ table.GeneratedTable thead {
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
-              
+
                                 </div>
                                 <h4 class="page-title">Exam Result History</h4>
                             </div>
                         </div>
-                    </div>     
-                    <!-- end page title --> 
+                    </div>
+                    <!-- end page title -->
 
 
                     <div class="row">
@@ -56,7 +56,7 @@ table.GeneratedTable thead {
                                         </div> <!-- end preview-->
                                         <br>
 
-                                        
+
                     <form class="needs-validation"  method="POST" enctype="multipart/form-data" >
                                                     {% csrf_token %}
 
@@ -110,7 +110,7 @@ table.GeneratedTable thead {
     </tr>
 
     <tr>
-      <td>Plant Paper</td>
+      <td>Plate Paper</td>
       <td>{% if exam.plant_paper == 'Failed'  %}<span style="color:red;">{{exam.plant_paper }}</span> {%else%} {{exam.plant_paper }}{% endif %}</td>
       <td>Overall</td>
       <td>{{exam.overall}}</td>
@@ -135,12 +135,12 @@ table.GeneratedTable thead {
 
                                                 </form>
 
-                                    
+
 
                                         <div class="tab-pane" id="basic-datatable-code">
-                                        
 
-                                         
+
+
 
                                         </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->

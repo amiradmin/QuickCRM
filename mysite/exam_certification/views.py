@@ -1168,9 +1168,10 @@ class UpdateDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, Log
 
     def get_context_data(self, *args, **kwargs):
         context = super(UpdateDigitalRadiographicInterpretationDRI_Level2_Result, self).get_context_data()
-        exam = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(id=self.kwargs['id']).filter()
+        exam = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(id=self.kwargs['id']).first()
         candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
         group_name = self.request.user.groups.values_list('name', flat=True).first()
+
         context['group_name'] = group_name
         context['candidate'] = candidate
         context['exam'] = exam
@@ -1183,9 +1184,9 @@ class UpdateDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, Log
 
 
             print("Submit")
-            print(self.request.POST['event_ID'])
-            event = Event.objects.filter(id=self.request.POST['event_ID']).first()
-            obj = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(id=self.kwargs['id']).filter()
+            print(self.request.POST['eventID'])
+            event = Event.objects.filter(id=self.request.POST['eventID'].split("-")[0]).first()
+            obj = DigitalRadiographicInterpretationDRI_Level2_Result.objects.filter(id=self.kwargs['id']).first()
             obj.event = event
 
             # obj.result = self.request.POST['result']
@@ -1204,8 +1205,10 @@ class UpdateDigitalRadiographicInterpretationDRI_Level2_Result(SidebarMixin, Log
             obj.data_analysis5 = self.request.POST['data_analysis5']
             obj.data_analysis6 = self.request.POST['data_analysis6']
             obj.remark = self.request.POST['paut_remarks']
-            if bool(request.FILES.get('myFile', False)) == True:
-                obj.file = self.request.FILES['myFile']
+            # if bool(request.FILES.get('myFile', False)) == True:
+            #     obj.file = self.request.FILES['myFile']
+
+            print(obj)
             obj.save()
 
             exams = DigitalRadiographicInterpretationDRI_Level2_Result.objects.all()

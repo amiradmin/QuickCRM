@@ -102,13 +102,13 @@
                         <div class="col-12">
                             <div class="page-title-box">
                                 <div class="page-title-right">
-              
+
                                 </div>
-                                <h4 class="page-title">Update Digital Radiographic Interpretation(DRI) Level 2 Result</h4>
+                                <h4 class="page-title">Update Digital Radiographic Interpretation(DRI) Level 2 Result </h4>
                             </div>
                         </div>
-                    </div>     
-                    <!-- end page title --> 
+                    </div>
+                    <!-- end page title -->
 
 
                     <div class="row">
@@ -144,9 +144,10 @@
                                                     {% csrf_token %}
           <br>
          <div class="row g-2">
+
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input  value="{{exam.candidate.id}}-{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                    <input  value="{{exam.id}}-{{exam.candidate.first_name}} {% if exam.candidate.middleName %}{{exam.candidate.middleName}}{% endif %} {{exam.candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -195,7 +196,7 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Theory</label>
  <select class="form-select" name="general_theory" >
-  <option selected>Select</option>
+  <option value="{{exam.general_theory}}" selected>{{exam.general_theory}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -205,7 +206,7 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Specific Theory</label>
  <select class="form-select" name="specific_theory" >
-  <option selected>Select</option>
+  <option value="{{exam.specific_theory}}" selected>{{exam.specific_theory}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -217,7 +218,7 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">General Practical</label>
  <select class="form-select" name="general_practical" >
-  <option selected>Select</option>
+  <option value="{{exam.general_practical}}" selected>{{exam.general_practical}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -227,7 +228,7 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 1</label>
  <select class="form-select" name="data_analysis1" >
-  <option selected>Select</option>
+  <option value="{{exam.data_analysis1}}" selected>{{exam.data_analysis1}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -240,7 +241,7 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 2</label>
  <select class="form-select" name="data_analysis2" >
-  <option selected>Select</option>
+  <option value="{{exam.data_analysis2}}" selected>{{exam.data_analysis2}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -250,7 +251,7 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 3</label>
  <select class="form-select" name="data_analysis3" >
-  <option selected>Select</option>
+  <option value="{{exam.data_analysis3}}" selected>{{exam.data_analysis3}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -263,7 +264,7 @@
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 4</label>
  <select class="form-select" name="data_analysis4" >
-  <option selected>Select</option>
+  <option value="{{exam.data_analysis4}}" selected>{{exam.data_analysis4}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -273,7 +274,7 @@
                      <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Data Analysis 5</label>
  <select class="form-select" name="data_analysis5" >
-  <option selected>Select</option>
+  <option value="{{exam.data_analysis5}}" selected>{{exam.data_analysis5}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -284,7 +285,7 @@
                                                         <div class="mb-3 col-md-12">
                                    <label for="" class="form-label">Data Analysis 6</label>
  <select class="form-select" name="data_analysis6" >
-  <option selected>Select</option>
+  <option value="{{exam.data_analysis6}}" selected>{{exam.data_analysis6}}</option>
   <option value="Passed">Passed</option>
   <option value="Failed">Failed</option>
      <option value="N/A">N/A</option>
@@ -304,9 +305,11 @@
                                    <text for="" class="form-label">Remarks</text>
                                     <textarea  value=""  id="" name="paut_remarks" class="form-control" ></textarea>
                                                         </div>
+
 <input  type="text" value="{{exam.id}}"  name="exam_ID" class="form-control"  />
+<br/>
                                                     <div class="mb-3 col-md-12 text-center">
-                                                        <button class="btn btn-primary" name="submit" type="submit">Submit</button>
+                                                        <button class="btn btn-primary" name="submit" type="submit">Update</button>
                                                     </div>
                                                 </form>
 
@@ -325,7 +328,7 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                    <input  value="{{exam.candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -483,6 +486,7 @@
                                    <text for="" class="form-label">Remarks</text>
                                     <textarea  value=""  id="" name="pcn_paut_l3_remark" class="form-control" ></textarea>
                                                         </div>
+                                                            <br/>
                                                     <div class="mb-3 col-md-12 text-center">
                                                         <button  class="btn btn-primary" name="submit_pcn_paut" type="submit">Submit</button>
                                                     </div>
@@ -496,7 +500,7 @@
          <div class="row g-2">
                                                         <div class="mb-3 col-md-6">
                                    <label for="" class="form-label">Candidate</label>
-                                    <input  value="{{candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
+                                    <input  value="111{{exam.candidate.id}}-{{candidate.first_name}} {% if candidate.middleName %}{{candidate.middleName}}{% endif %} {{candidate.last_name}}"  id="" name="candidateID"  class="form-control" required/>
                                                         </div>
 
                      <div class="mb-3 col-md-6">
@@ -658,8 +662,9 @@
                                    <text for="" class="form-label">Remarks</text>
                                     <textarea  value=""  id="" name="pcn_tofd_l3_remark" class="form-control" ></textarea>
                                                         </div>
+                                                            <br/>
                                                    <div class="mb-3 col-md-12 text-center">
-                                                        <button  class="btn btn-primary" name="submit_pcn_tofd" type="submit">Submit</button>
+                                                        <button  class="btn btn-primary" name="submit_pcn_tofd" type="submit">Update</button>
                                                     </div>
                               </form>
       </div>
@@ -676,12 +681,12 @@
                                                     <br>
 
 
-                                    
+
 
                                         <div class="tab-pane" id="basic-datatable-code">
-                                        
 
-                                         
+
+
 
                                         </div> <!-- end preview code-->
                                     </div> <!-- end tab-content-->
