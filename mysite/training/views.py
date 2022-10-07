@@ -53,8 +53,9 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def get_context_data(self):
         context = super(CandidatelListView, self).get_context_data()
         # can_list = TesCandidate.objects.filter(user__groups__name__in=['candidates',] )
-        print("Here AMir!")
-        can_list = TesCandidate.objects.all()
+        # print("Here AMir!")
+        # can_list = TesCandidate.objects.all()
+        can_list = TesCandidate.objects.select_related('user').filter(user__groups__name='candidates') 
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
         context['can_list'] = can_list
@@ -238,21 +239,21 @@ class NewCandidatelView(SidebarMixin,LoginRequiredMixin,TemplateView):
         numbers = TesCandidate.objects.filter(Q(tes_candidate_id__isnull=False) & ~Q(tes_candidate_id = ''))
 
         counter_list =[]
-        for item in numbers:
-            temp_num = int(item.tes_candidate_id.split('-')[1])
-            counter_list.append(temp_num)
-
-        max_number = max(counter_list)
-        print(max_number)
-        # if lastCan.tes_candidate_id is not None:
-        #     tempID = int(lastCan.tes_candidate_id.split('-')[1])+1
-        #     print("After Add" + str(tempID))
-        max_number += 1
-        if max_number < 1000:
-            tempID = 'TESN-0' + str(max_number)
-        else:
-            tempID = 'TESN-'+ str(max_number)
-        context['tesId'] = tempID
+        # for item in numbers:
+        #     temp_num = int(item.tes_candidate_id.split('-')[1])
+        #     counter_list.append(temp_num)
+        #
+        # max_number = max(counter_list)
+        # print(max_number)
+        # # if lastCan.tes_candidate_id is not None:
+        # #     tempID = int(lastCan.tes_candidate_id.split('-')[1])+1
+        # #     print("After Add" + str(tempID))
+        # max_number += 1
+        # if max_number < 1000:
+        #     tempID = 'TESN-0' + str(max_number)
+        # else:
+        #     tempID = 'TESN-'+ str(max_number)
+        # context['tesId'] = tempID
 
         # print(tempID)
 
