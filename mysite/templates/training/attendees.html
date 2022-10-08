@@ -4,7 +4,7 @@
 <style>
       input[type=text] {
     background-color: transparent !important;
-    border:none !important
+
 }
 .drop-zone {
   max-width: 100%;
@@ -115,7 +115,7 @@
 
                                             <div class="mb-3 col-md-6">
                                                     <label for="inputCity2" class="form-label">Category</label>
-                                                           <select name="catID" id="inputStat2e" class="form-select" required>
+                                                           <select name="catID" id="inputStat2e" class="form-select" >
                                                         <option value="">Choose</option>
                                                 {% for item in category_list %}
 
@@ -126,7 +126,27 @@
                                                 </div>
 
                                             </div>
+
+                                            <div class="mb-3 col-md-12 text-center">
+
+                                                <button type="submit" name="update" class="btn btn-primary">Update</button>
+                                            </div>
+
                                             <br>
+
+                                  <form   method="POST" >
+
+                                            <div class="mb-3 col-md-12">
+                                                <label class="form-label" for="validationCustom05">Tes Candidate ID</label>
+                                                <input type="text"  name="tes_idd" value="{{candidate.tes_candidate_id}}"  class="form-control" id="validationCustom05" placeholder="TES Candidate ID" >
+
+                                            </div>
+
+<input type="hidden"  name="catIDD" value="{{category.id}}"  class="form-control" id="" >
+<input type="hidden"  name="canIDD" value="{{candidate.id}}"  class="form-control" id="" >
+
+
+
 <h5>Sponsorship Status:</h5>
 <div class="form-check">
   <input class="form-check-input" type="checkbox" name="self" onclick="myChecked()" value="" id="self">
@@ -194,7 +214,7 @@
                                             <br>
                                             <div class="mb-3 col-md-12 text-center">
 
-                                                <button type="submit" class="btn btn-primary">Add</button>
+                                                <button type="submit" name="submit" class="btn btn-primary">Add</button>
                                                 <button type="submit" onclick="location.href = 'http://erp.tescan.ca/training/event';"class="btn btn-primary">Finish</button>
                                             </div>
 

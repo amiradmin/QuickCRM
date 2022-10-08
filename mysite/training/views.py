@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 from training.models import Event,Country,Location,Product,Lecturer,TesCandidate,Category,FormsList as Guideline,CourseRequest
 from django.contrib.auth.models import User,Group
 from django.contrib.auth.hashers import make_password
@@ -55,7 +55,7 @@ class CandidatelListView(SidebarMixin,LoginRequiredMixin,TemplateView):
         # can_list = TesCandidate.objects.filter(user__groups__name__in=['candidates',] )
         # print("Here AMir!")
         # can_list = TesCandidate.objects.all()
-        can_list = TesCandidate.objects.select_related('user').filter(user__groups__name='candidates') 
+        can_list = TesCandidate.objects.select_related('user').filter(user__groups__name='candidates')
         candidate = TesCandidate.objects.filter(user=self.request.user).first()
         context['candidate'] =candidate
         context['can_list'] = can_list
@@ -745,75 +745,93 @@ class NewAttendeesView(SidebarMixin,LoginRequiredMixin,TemplateView):
     def post(self, request, *args, **kwargs):
         from django.apps import apps
         if request.method == 'POST':
-            event = Event.objects.filter(id=self.kwargs['id'] ).first()
-            catID = request.POST['catID']
-            category = Category.objects.filter(id=catID).first()
-            candidate = TesCandidate.objects.filter(id = request.POST['candidate']).first()
+            if 'update' in request.POST:
+                context = super(NewAttendeesView, self).get_context_data()
+                print("update")
+                event = Event.objects.filter(id=self.kwargs['id'] ).first()
+                catID = request.POST['catID']
+                category = Category.objects.filter(id=catID).first()
+                candidate = TesCandidate.objects.filter(id = request.POST['candidate']).first()
+                group_name = self.request.user.groups.values_list('name', flat=True).first()
+                # candidate = TesCandidate.objects.filter(user=self.request.user).first()
+                context['category'] = category
+                context['candidate'] = candidate
+                context['event'] = event
+                context['group_name'] = group_name
+                # return redirect('training:att_', {'context': context})
+                # redirect(reverse('training:att_', kwargs={ 'context': context }))
+                return render(request, 'training/attendees.html', {'context': context,'group_name':group_name,'candidate':candidate,'category':category})
 
-            lastCan = TesCandidate.objects.filter(tes_candidate_id__isnull=False).last()
-            print(lastCan)
-            print(lastCan.tes_candidate_id)
-            if lastCan.tes_candidate_id is not None:
-                tempID = int(lastCan.tes_candidate_id.split('-')[1]) + 1
-                if tempID < 1000:
-                    tempID = 'TESN-0' + str(tempID)
-                else:
-                    tempID = 'TESN-' + str(tempID)
-                print(tempID)
+            if 'submit' in request.POST:
+                event = Event.objects.filter(id=self.kwargs['id'] ).first()
+                catID = request.POST['catIDD']
+                category = Category.objects.filter(id=catID).first()
+                candidate = TesCandidate.objects.filter(id = request.POST['canIDD']).first()
 
-            candidate.tes_candidate_id = tempID
-            candidate.save()
+                # lastCan = TesCandidate.objects.filter(tes_candidate_id__isnull=False).last()
+                # print(lastCan)
+                # print(lastCan.tes_candidate_id)
+                # if lastCan.tes_candidate_id is not None:
+                #     tempID = int(lastCan.tes_candidate_id.split('-')[1]) + 1
+                #     if tempID < 1000:
+                #         tempID = 'TESN-0' + str(tempID)
+                #     else:
+                #         tempID = 'TESN-' + str(tempID)
+                #         print(tempID)
 
-            candidate.form_category.add(category)
-            event.candidate.add(candidate)
+                candidate.tes_candidate_id = request.POST['tes_idd']
+                candidate.save()
+
+                candidate.form_category.add(category)
+                event.candidate.add(candidate)
 
             # CandidateForms
-            print("for lists: ")
-            for form in category.form.all():
+                print("for lists: ")
+                for form in category.form.all():
                 # print(form.name)
-                formObj = CandidateForms()
-                formObj.form_name = form.name
-                formObj.candidate = candidate
-                formObj.event = event
-                formObj.internal_link = form.internal_link_name
-                formObj.category = category
-                formObj.save()
-                candidate.candidate_forms.add(formObj)
+                    formObj = CandidateForms()
+                    formObj.form_name = form.name
+                    formObj.candidate = candidate
+                    formObj.event = event
+                    formObj.internal_link = form.internal_link_name
+                    formObj.category = category
+                    formObj.save()
+                    candidate.candidate_forms.add(formObj)
 
-                model = apps.get_model('forms', form.class_name)
-                golbalObj = model()
-                golbalObj.candidate = candidate
-                golbalObj.category = category
-                golbalObj.event = event
-                golbalObj.save()
+                    model = apps.get_model('forms', form.class_name)
+                    golbalObj = model()
+                    golbalObj.candidate = candidate
+                    golbalObj.category = category
+                    golbalObj.event = event
+                    golbalObj.save()
 
-            payObj = EventCandidatePayment()
-            if not request.POST.get('self', None) == None:
-                print("Self")
-                payObj.sponsor_status= False
-                payObj.candidate = candidate
-                payObj.event = event
+                payObj = EventCandidatePayment()
+                if not request.POST.get('self', None) == None:
+                    print("Self")
+                    payObj.sponsor_status= False
+                    payObj.candidate = candidate
+                    payObj.event = event
 
-            elif not request.POST.get('company', None) == None:
-                print("Company")
-                payObj.sponsor_status = True
-                payObj.candidate = candidate
-                payObj.event = event
-                payObj.company_name = request.POST['companyName']
-                payObj.company_address = request.POST['comAddress']
-                payObj.post_code = request.POST['postCode']
-                payObj.phone = request.POST['phone']
-                payObj.fax = request.POST['fax']
-                payObj.contact_name = request.POST['contactName']
-                payObj.email = request.POST['email']
+                elif not request.POST.get('company', None) == None:
+                    print("Company")
+                    payObj.sponsor_status = True
+                    payObj.candidate = candidate
+                    payObj.event = event
+                    payObj.company_name = request.POST['companyName']
+                    payObj.company_address = request.POST['comAddress']
+                    payObj.post_code = request.POST['postCode']
+                    payObj.phone = request.POST['phone']
+                    payObj.fax = request.POST['fax']
+                    payObj.contact_name = request.POST['contactName']
+                    payObj.email = request.POST['email']
 
-            payObj.save()
-
-
+                payObj.save()
 
 
 
-        return redirect('training:att_', id=event.id)
+
+
+                return redirect('training:att_', id=event.id)
 
 
 class NewEventLecturerView(SidebarMixin,LoginRequiredMixin,TemplateView):
