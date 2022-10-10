@@ -7378,6 +7378,17 @@ class DeleteCertificateAttendance(GroupRequiredMixin,SidebarMixin, LoginRequired
     success_url = reverse_lazy('exam_certification:cersummary_')
     group_required = [u'management', u'admin', u'training_admin', u'training_operator']
 
+    def get_context_data(self, **kwargs):
+        """Overriding get_context_data to add additional context."""
+        context = super(DeleteCertificateAttendance, self).get_context_data(**kwargs)
+        # Provides the base template to extend from
+        candidate = TesCandidate.objects.filter(id=self.request.user.id).first()
+        group_name = self.request.user.groups.values_list('name', flat=True).first()
+        context['group_name'] = group_name
+        context['candidate'] = candidate
+        return context
+
+
 
 class UpdateCertificateAttendance(GroupRequiredMixin, SidebarMixin, LoginRequiredMixin, TemplateView):
     template_name = "certificates/update_attendance.html"
